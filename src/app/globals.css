@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* =========================================
+   ClaudeAI Academy — Charte graphique
+   Source : Desktop/SITE WEB/styles.css (prototype 2026-05)
+   ========================================= */
+
+@theme {
+  /* Couleurs */
+  --color-cream: #F5F1EB;
+  --color-cream-soft: #FAF7F2;
+  --color-cream-dark: #EDE6D9;
+  --color-coral: #D97757;
+  --color-coral-dark: #C2664A;
+  --color-coral-soft: #F2D5C7;
+  --color-ink: #1F1F1E;
+  --color-ink-soft: #3D3929;
+  --color-muted: #6B6557;
+  --color-line: #E5DED0;
+  --color-white: #FFFFFF;
+  --color-green: #2A9D8F;
+  --color-green-soft: #E8F5E9;
+
+  /* Typographies */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-default: 14px;
+  --radius-lg: 22px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 2px rgba(31, 31, 30, 0.04), 0 8px 24px rgba(31, 31, 30, 0.06);
+  --shadow-elevated: 0 4px 8px rgba(31, 31, 30, 0.05), 0 24px 48px rgba(31, 31, 30, 0.10);
+}
+
+/* Background + foreground par défaut */
+:root {
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utilitaire : titres en serif */
+.font-serif {
+  font-family: var(--font-serif);
+}

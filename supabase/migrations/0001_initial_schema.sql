@@ -1,6 +1,9 @@
 -- =========================================
 -- ClaudeAI Academy — Schema initial
 -- Migration : 0001_initial_schema
+-- Modèle économique : achats one-shot via Stripe Checkout
+--   Pass Starter (47 €)  → tier 'starter'
+--   Pass Mastery (497 €) → tier 'mastery' (superset, donne accès à 'starter')
 -- =========================================
 
 -- Extensions nécessaires
@@ -82,43 +85,53 @@ create table public.lessons (
 );
 
 comment on table public.lessons is 'Leçons individuelles d''un parcours';
-comment on column public.lessons.is_free_preview is 'Si true, la leçon est accessible sans abonnement (aperçu gratuit)';
+comment on column public.lessons.is_free_preview is 'Si true, la leçon est lisible par tous (aperçu gratuit) même sans achat';
 
 create index lessons_course_id_idx on public.lessons (course_id, display_order);
 
 -- =========================================
--- 4. SUBSCRIPTIONS (état Stripe miroir)
+-- 4. PURCHASES (achats one-shot via Stripe Checkout)
 -- =========================================
-create type subscription_status as enum (
-  'active',
-  'trialing',
-  'past_due',
-  'canceled',
-  'incomplete',
-  'incomplete_expired',
-  'unpaid',
-  'paused'
+create type purchase_status as enum (
+  'pending',     -- Session Checkout créée, paiement non encore confirmé
+  'paid',        -- Webhook checkout.session.completed reçu, paiement validé
+  'refunded',    -- Remboursé (garantie 14 j ou refund manuel)
+  'failed'       -- Paiement échoué (carte refusée, etc.)
 );
 
-create table public.subscriptions (
+create table public.purchases (
   id uuid primary key default uuid_generate_v4(),
   user_id uuid not null references auth.users(id) on delete cascade,
+
+  -- Tier acheté ('starter' ou 'mastery' uniquement — 'free' n'est pas un produit)
+  tier course_tier not null check (tier in ('starter', 'mastery')),
+
+  -- Identifiants Stripe
   stripe_customer_id text not null,
-  stripe_subscription_id text unique,
-  tier course_tier not null,
-  status subscription_status not null,
-  current_period_start timestamptz,
-  current_period_end timestamptz,
-  cancel_at_period_end boolean not null default false,
-  canceled_at timestamptz,
+  stripe_session_id text unique not null,
+  stripe_payment_intent_id text,
+
+  -- Montant (en cents) et devise
+  amount_total int not null,
+  currency text not null default 'eur',
+
+  -- État
+  status purchase_status not null default 'pending',
+
+  -- Horodatages métier
+  paid_at timestamptz,
+  refunded_at timestamptz,
+
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-comment on table public.subscriptions is 'Miroir local de l''état des abonnements Stripe';
+comment on table public.purchases is 'Achats one-shot via Stripe Checkout (Pass Starter 47 €, Pass Mastery 497 €)';
+comment on column public.purchases.stripe_session_id is 'ID unique de la session Checkout — sert à l''idempotence des webhooks';
 
-create index subscriptions_user_id_idx on public.subscriptions (user_id);
-create index subscriptions_stripe_customer_idx on public.subscriptions (stripe_customer_id);
+create index purchases_user_id_idx on public.purchases (user_id);
+create index purchases_status_idx on public.purchases (status);
+create index purchases_stripe_customer_idx on public.purchases (stripe_customer_id);
 
 -- =========================================
 -- 5. LESSON_PROGRESS (progression des apprenants)
@@ -147,7 +160,7 @@ create table public.admin_users (
 
 comment on table public.admin_users is 'Liste blanche des comptes ayant accès au dashboard admin';
 
--- Helper : vérifier si l'utilisateur courant est admin
+-- Helper : l'utilisateur courant est-il admin ?
 create or replace function public.is_admin()
 returns boolean
 language sql
@@ -160,12 +173,43 @@ as $$
 $$;
 
 -- =========================================
+-- 7. HELPER : l'utilisateur a-t-il accès au tier requis ?
+--    Mastery contient Starter (hiérarchie d'accès).
+-- =========================================
+create or replace function public.user_has_tier(required course_tier)
+returns boolean
+language sql
+security definer
+stable
+as $$
+  select case
+    when required = 'free' then true
+    when required = 'starter' then exists (
+      select 1 from public.purchases
+      where user_id = auth.uid()
+        and status = 'paid'
+        and tier in ('starter', 'mastery')
+    )
+    when required = 'mastery' then exists (
+      select 1 from public.purchases
+      where user_id = auth.uid()
+        and status = 'paid'
+        and tier = 'mastery'
+    )
+    else false
+  end;
+$$;
+
+comment on function public.user_has_tier is
+  'Retourne true si l''utilisateur courant possède le tier requis (Mastery > Starter > Free).';
+
+-- =========================================
 -- RLS — Row Level Security
 -- =========================================
 alter table public.profiles enable row level security;
 alter table public.courses enable row level security;
 alter table public.lessons enable row level security;
-alter table public.subscriptions enable row level security;
+alter table public.purchases enable row level security;
 alter table public.lesson_progress enable row level security;
 alter table public.admin_users enable row level security;
 
@@ -178,7 +222,7 @@ create policy "users_update_own_profile"
   on public.profiles for update
   using (auth.uid() = id);
 
--- COURSES : tout le monde peut lire (catalogue public). Seul admin écrit.
+-- COURSES : catalogue public en lecture. Seul admin écrit.
 create policy "anyone_read_courses"
   on public.courses for select
   using (true);
@@ -188,10 +232,8 @@ create policy "admin_write_courses"
   using (public.is_admin())
   with check (public.is_admin());
 
--- LESSONS : la liste des leçons est publique (titres, durée).
--- Le contenu (content_md) est filtré applicativement selon abonnement.
--- Note : pour les previews gratuits, content_md est lisible par tous.
--- Pour les autres, l'app ne renvoie content_md que si user a accès.
+-- LESSONS : la liste des leçons (titre, durée) est publique.
+-- Le contenu (content_md) est filtré applicativement via user_has_tier().
 create policy "anyone_read_lesson_meta"
   on public.lessons for select
   using (true);
@@ -201,13 +243,13 @@ create policy "admin_write_lessons"
   using (public.is_admin())
   with check (public.is_admin());
 
--- SUBSCRIPTIONS : user lit son propre abonnement. Service role uniquement écrit (via webhook Stripe).
-create policy "users_read_own_subscription"
-  on public.subscriptions for select
+-- PURCHASES : user lit ses propres achats. Seul service_role écrit (via webhook Stripe).
+create policy "users_read_own_purchases"
+  on public.purchases for select
   using (auth.uid() = user_id or public.is_admin());
 
--- (pas de policy insert/update/delete pour rôles authentifiés
---  → seul service_role, qui contourne RLS, peut écrire)
+-- (pas de policy insert/update/delete pour role authenticated
+--  → seul service_role contourne RLS et écrit via le webhook Stripe)
 
 -- LESSON_PROGRESS : user lit/écrit sa propre progression.
 create policy "users_read_own_progress"
@@ -252,5 +294,5 @@ create trigger courses_updated_at before update on public.courses
   for each row execute procedure public.set_updated_at();
 create trigger lessons_updated_at before update on public.lessons
   for each row execute procedure public.set_updated_at();
-create trigger subscriptions_updated_at before update on public.subscriptions
+create trigger purchases_updated_at before update on public.purchases
   for each row execute procedure public.set_updated_at();

@@ -8,14 +8,14 @@ Site e-learning francophone dédié à la maîtrise de Claude AI (prompt enginee
 - **Backend** : Supabase (Postgres + Auth + Storage + RLS)
 - **Paiement** : Stripe Checkout + Customer Portal + Stripe Tax
 - **Email transactionnel** : Resend
-- **Hébergement** : Vercel (frontend) + Supabase Cloud (backend) + Cloudflare (DNS/CDN)
-- **Domaine** : claudeai-academy.com
+- **Hébergement** : Vercel (frontend) + Supabase Cloud (backend)
+- **Domaine** : claudeai-academy.com (registrar OVH, DNS géré chez OVH)
 
 ## Pré-requis
 
 - Node.js >= 20
 - Compte Supabase, Stripe, Resend, Vercel, GitHub
-- Domaine `claudeai-academy.com` (déjà acheté chez OVH, à pointer vers Cloudflare)
+- Domaine `claudeai-academy.com` (déjà acheté chez OVH, DNS pointé vers Vercel directement)
 
 ## Setup local
 
@@ -55,7 +55,7 @@ src/
 
 supabase/
 └── migrations/
-    └── 0001_initial_schema.sql   # Schema initial (profiles, courses, lessons, subscriptions, …)
+    └── 0001_initial_schema.sql   # Schema initial (profiles, courses, lessons, purchases, lesson_progress, admin_users)
 
 public/                     # Assets statiques
 ```

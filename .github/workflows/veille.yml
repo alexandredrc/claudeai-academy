@@ -1,0 +1,57 @@
+name: Veille ClaudeAI Academy
+
+# Surveille les sources fiables (cf. SOURCES.md) et ouvre une GitHub Issue
+# UNIQUEMENT quand quelque chose d'actionnable a changé. Semaines calmes : silence.
+#
+# État (.state.json) persisté via le cache Actions. Si le cache est purgé,
+# le script re-pose simplement les baselines (aucun faux positif).
+
+on:
+  schedule:
+    # Tous les lundis 07:00 UTC (~09:00 Paris). Cron en UTC.
+    - cron: "0 7 * * 1"
+  workflow_dispatch: {} # déclenchement manuel possible depuis l'onglet Actions
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: veille
+  cancel-in-progress: false
+
+jobs:
+  veille:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Restaure le dernier état connu. La clé est unique par run (donc jamais
+      # de hit exact → toujours un nouveau cache sauvegardé en post-step),
+      # restore-keys récupère le cache le plus récent par préfixe.
+      - name: Restore veille state
+        uses: actions/cache@v4
+        with:
+          path: scripts/veille/.state.json
+          key: veille-state-${{ github.run_id }}
+          restore-keys: |
+            veille-state-
+
+      - name: Run veille
+        id: veille
+        run: node scripts/veille/run.mjs
+
+      - name: Open issue if something changed
+        if: steps.veille.outputs.actionable != '0' || steps.veille.outputs.errors != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Veille — ${{ steps.veille.outputs.report_date }} (changements détectés)" \
+            --body-file "${{ steps.veille.outputs.report_path }}"

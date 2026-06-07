@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /* =========================================
-   ClaudeAI Academy — Charte graphique
-   Source : Desktop/SITE WEB/styles.css (prototype 2026-05)
+   ClaudeAI Academy — Design tokens
+   Source : DESIGN.md (vitrine) + charte prototype (app)
    ========================================= */
 
 @theme {
@@ -33,23 +33,248 @@
   /* Shadows */
   --shadow-card: 0 1px 2px rgba(31, 31, 30, 0.04), 0 8px 24px rgba(31, 31, 30, 0.06);
   --shadow-elevated: 0 4px 8px rgba(31, 31, 30, 0.05), 0 24px 48px rgba(31, 31, 30, 0.10);
+
+  /* Easing — ease-out-quart, jamais bounce */
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 1.4s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
 }
 
-/* Background + foreground par défaut */
 :root {
   --background: var(--color-cream);
   --foreground: var(--color-ink);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  font-feature-settings: 'cv11', 'ss01';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Utilitaire : titres en serif */
+/* Utilitaire : titres et accents en serif */
 .font-serif {
   font-family: var(--font-serif);
+}
+
+/* Accent éditorial : un mot serif italique coral dans un titre sans */
+.accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-coral);
+}
+
+/* Eyebrow : sur-titre coral en majuscules tracking étendu */
+.eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-coral);
+}
+
+/* Reveal-on-scroll friendly default */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms var(--ease-out-quart), transform 700ms var(--ease-out-quart);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   Motion ambient (app : hero / mentor)
+   ========================================= */
+
+@keyframes float-ambient {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.float-ambient {
+  animation: float-ambient 6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform;
+}
+
+/* =========================================
+   FAQ — chevron rotation sur <details open>
+   (Tailwind v4 n'expose pas group-open natif)
+   ========================================= */
+
+details[open] > summary .chevron {
+  transform: rotate(180deg);
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* =========================================
+   Prose : rendu Markdown des leçons
+   ========================================= */
+
+.prose-lesson {
+  color: var(--color-ink-soft);
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 65ch;
+}
+.prose-lesson > * + * {
+  margin-top: 1.25em;
+}
+.prose-lesson h2 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.65rem;
+  line-height: 1.2;
+  color: var(--color-ink);
+  margin-top: 2.5em;
+  margin-bottom: 0.6em;
+  letter-spacing: -0.01em;
+}
+.prose-lesson h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--color-ink);
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+.prose-lesson p {
+  margin-top: 1.1em;
+  margin-bottom: 1.1em;
+}
+.prose-lesson a {
+  color: var(--color-coral);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.prose-lesson a:hover {
+  color: var(--color-coral-dark);
+}
+.prose-lesson strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.prose-lesson ul,
+.prose-lesson ol {
+  margin: 1.1em 0;
+  padding-left: 1.5em;
+}
+.prose-lesson ul {
+  list-style-type: disc;
+}
+.prose-lesson ol {
+  list-style-type: decimal;
+}
+.prose-lesson li {
+  margin: 0.4em 0;
+}
+.prose-lesson li > p {
+  margin: 0.2em 0;
+}
+.prose-lesson blockquote {
+  border-left: 2px solid var(--color-coral);
+  padding: 0.2em 0 0.2em 1.25em;
+  margin: 1.5em 0;
+  color: var(--color-ink);
+  font-style: italic;
+}
+.prose-lesson code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.92em;
+  background: var(--color-cream-dark);
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+  color: var(--color-ink);
+}
+.prose-lesson pre {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  padding: 1.25em 1.5em;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-size: 0.92em;
+  line-height: 1.6;
+  margin: 1.5em 0;
+}
+.prose-lesson pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border-radius: 0;
+}
+.prose-lesson hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin: 2.5em 0;
+}
+.prose-lesson table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.95em;
+}
+.prose-lesson th,
+.prose-lesson td {
+  border: 1px solid var(--color-line);
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+.prose-lesson th {
+  background: var(--color-cream-soft);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* =========================================
+   Accessibilité
+   ========================================= */
+
+/* Respecter les préférences utilisateur */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .float-ambient { animation: none; }
+}
+
+/* Focus visible global accessible */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-coral-soft), 0 0 0 5px var(--color-coral);
+  border-radius: 6px;
 }

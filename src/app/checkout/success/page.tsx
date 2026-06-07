@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { stripe } from "@/lib/stripe/server";
+import { getStripe } from "@/lib/stripe/server";
 import { createClient } from "@/lib/supabase/server";
 
 type SearchParams = Promise<{ session_id?: string }>;
@@ -18,7 +18,7 @@ export default async function CheckoutSuccessPage({
   let tierName = "Pass";
   let amountFormatted = "";
   try {
-    const session = await stripe.checkout.sessions.retrieve(session_id);
+    const session = await getStripe().checkout.sessions.retrieve(session_id);
     const tier = session.metadata?.tier;
     tierName =
       tier === "mastery"

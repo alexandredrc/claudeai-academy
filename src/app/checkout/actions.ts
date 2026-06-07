@@ -3,7 +3,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { stripe } from "@/lib/stripe/server";
+import { getStripe } from "@/lib/stripe/server";
 import { getPlan, isValidTier } from "@/lib/stripe/plans";
 
 /**
@@ -30,7 +30,7 @@ export async function startCheckoutAction(formData: FormData) {
   const origin =
     process.env.NEXT_PUBLIC_APP_URL ?? (await getOriginFromHeaders());
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     mode: "payment",
     line_items: [{ price: plan.priceId, quantity: 1 }],
     customer_email: user.email,

@@ -1,0 +1,178 @@
+[
+  {
+    "slug": "data-generation-sql-depuis-schema",
+    "category": "data",
+    "title": "Générer une requête SQL fiable à partir de ton schéma",
+    "useCase": "Obtenir une requête SQL correcte adaptée à ton schéma sans deviner les noms de tables ou de colonnes.",
+    "tier": "free",
+    "prompt": "Tu es un expert SQL ([DIALECTE : PostgreSQL / MySQL / BigQuery / SQL Server]). Voici mon schéma exact :\n\n[COLLE TON SCHÉMA : CREATE TABLE, ou liste des tables/colonnes/types et clés étrangères]\n\nQuestion métier à laquelle je veux répondre :\n[DÉCRIS LA QUESTION EN LANGAGE NATUREL, ex. chiffre d'affaires par mois et par pays sur 2025]\n\nÉcris UNE requête SQL qui répond précisément à cette question. Contraintes :\n1. Utilise UNIQUEMENT les tables et colonnes présentes dans mon schéma ; si une information manque, dis-le au lieu d'inventer.\n2. Explique en 2-3 lignes la logique de la requête (jointures, agrégations, filtres).\n3. Liste les hypothèses que tu as faites (ex. fuseau horaire, gestion des NULL, doublons).\n4. Indique une requête de vérification rapide (COUNT, échantillon) pour valider le résultat avant de me fier au chiffre.\n5. Signale tout risque de performance (table volumineuse, absence d'index).\n\nNe me donne pas de chiffres inventés : je l'exécuterai moi-même."
+  },
+  {
+    "slug": "data-optimisation-requete-lente",
+    "category": "data",
+    "title": "Optimiser une requête SQL lente",
+    "useCase": "Accélérer une requête trop lente en identifiant les goulots d'étranglement et les index manquants.",
+    "tier": "free",
+    "prompt": "Tu es un expert en optimisation de bases de données ([DIALECTE]). Voici une requête lente que je veux accélérer :\n\n[COLLE LA REQUÊTE SQL]\n\nContexte :\n- Volumétrie approximative des tables : [EX. commandes 50M lignes, clients 2M]\n- Index existants : [LISTE OU \"je ne sais pas\"]\n- Plan d'exécution (EXPLAIN / EXPLAIN ANALYZE) : [COLLE-LE SI DISPONIBLE]\n\nAnalyse :\n1. Identifie les opérations coûteuses (full scan, tri, jointure mal ordonnée, fonction sur colonne indexée).\n2. Propose une version réécrite, fonctionnellement IDENTIQUE, et explique chaque changement.\n3. Suggère les index à créer (avec la commande CREATE INDEX exacte) et précise leur coût en écriture/stockage.\n4. Donne-moi une façon de MESURER le gain (comparer les deux plans, chronométrer).\n5. Avertis-moi si une optimisation peut changer le résultat (ordre, doublons, NULL).\n\nNe garantis pas un gain chiffré sans plan d'exécution : reste prudent et explicite tes incertitudes."
+  },
+  {
+    "slug": "data-exploration-premiere-prise-dataset",
+    "category": "data",
+    "title": "Plan d'analyse exploratoire d'un nouveau jeu de données",
+    "useCase": "Cadrer une première exploration structurée d'un dataset inconnu avant toute analyse poussée.",
+    "tier": "free",
+    "prompt": "Tu es analyste de données senior. Je découvre un nouveau jeu de données et je veux un plan d'exploration rigoureux.\n\nDescription du dataset :\n[COLLE LA LISTE DES COLONNES + TYPES, ou un échantillon de 10 lignes]\nObjectif métier : [EX. comprendre le comportement d'achat des clients]\nOutil : [pandas / SQL / Excel]\n\nProduis un plan d'analyse exploratoire en étapes ordonnées :\n1. Contrôles d'intégrité d'abord : nombre de lignes, doublons, valeurs manquantes par colonne, plages de dates, valeurs aberrantes.\n2. Statistiques descriptives pertinentes pour chaque type de colonne (numérique, catégorielle, date).\n3. Relations à explorer (corrélations, distributions par segment) en lien avec l'objectif.\n4. Pour chaque étape, donne le code prêt à exécuter ([pandas/SQL]) ET la question à laquelle elle répond.\n5. Liste 5 pièges classiques à vérifier (encodage, fuseaux, unités, valeurs sentinelles type -1 ou 9999).\n\nRappelle-moi de valider chaque résultat surprenant avant d'en tirer une conclusion."
+  },
+  {
+    "slug": "data-debug-requete-resultats-faux",
+    "category": "data",
+    "title": "Déboguer une requête qui renvoie de mauvais résultats",
+    "useCase": "Trouver pourquoi une requête tourne mais renvoie des chiffres faux (doublons, lignes manquantes, totaux gonflés).",
+    "tier": "mastery",
+    "prompt": "Tu es expert SQL et tu m'aides à déboguer une requête qui s'exécute mais renvoie des résultats FAUX.\n\nRequête :\n[COLLE LA REQUÊTE]\n\nSchéma concerné :\n[COLLE LES TABLES, CLÉS PRIMAIRES ET ÉTRANGÈRES]\n\nSymptôme observé :\n[EX. le total est 3x trop élevé / des clients manquent / des montants en double]\n\nProcède ainsi :\n1. Formule 3 hypothèses sur la cause la plus probable (jointure qui multiplie les lignes, GROUP BY incomplet, filtre dans le WHERE au lieu du ON pour un LEFT JOIN, doublons en amont, NULL mal gérés).\n2. Pour CHAQUE hypothèse, donne une mini-requête de diagnostic qui la confirme ou l'infirme (ex. COUNT vs COUNT DISTINCT, vérifier la cardinalité d'une jointure).\n3. Une fois la cause la plus probable identifiée, propose la requête corrigée.\n4. Explique comment je peux PROUVER que le nouveau résultat est correct (réconciliation avec une source connue, total de contrôle).\n\nNe conclus pas avant d'avoir suggéré comment vérifier chaque hypothèse."
+  },
+  {
+    "slug": "data-detection-anomalies-serie-temporelle",
+    "category": "data",
+    "title": "Détecter des anomalies dans une série temporelle",
+    "useCase": "Repérer pics, creux et ruptures suspects dans des données chronologiques (ventes, trafic, logs).",
+    "tier": "mastery",
+    "prompt": "Tu es data scientist spécialisé en détection d'anomalies sur séries temporelles. Je veux repérer les valeurs anormales dans mes données.\n\nDonnées :\n[DÉCRIS : granularité (jour/heure), période, métrique, ex. visites quotidiennes 2024-2025]\nÉchantillon ou statistiques : [COLLE QUELQUES LIGNES OU min/max/moyenne]\nOutil : [pandas / SQL]\n\nMission :\n1. Propose 2 à 3 méthodes adaptées à mon cas (écart à la moyenne mobile, z-score robuste / MAD, IQR, décomposition saisonnière) et explique quand chacune est pertinente.\n2. Donne le code complet et commenté pour la méthode la plus adaptée.\n3. Distingue explicitement anomalie statistique et anomalie métier : un pic peut être un vrai événement (promo, panne) — propose comment je l'investigue.\n4. Préviens-moi des faux positifs liés à la saisonnalité, aux jours fériés et aux changements de comportement légitimes.\n5. Termine par une checklist de vérification : ai-je confondu une rupture de collecte (données manquantes) avec une vraie anomalie ?\n\nNe qualifie jamais un point d'anomalie sans rappeler de vérifier le contexte métier."
+  },
+  {
+    "slug": "data-nettoyage-donnees-sales",
+    "category": "data",
+    "title": "Plan de nettoyage de données sales",
+    "useCase": "Nettoyer un dataset bruité (formats incohérents, doublons, valeurs manquantes) de façon traçable.",
+    "tier": "mastery",
+    "prompt": "Tu es expert en qualité et nettoyage de données. Aide-moi à nettoyer un jeu de données bruité.\n\nÉchantillon représentatif (avec les problèmes visibles) :\n[COLLE 15-20 LIGNES OU LA LISTE DES COLONNES + EXEMPLES DE VALEURS SALES]\nOutil : [pandas / SQL / Excel]\nUsage final des données : [EX. reporting financier mensuel]\n\nProduis un plan de nettoyage étape par étape :\n1. Inventaire des problèmes détectés par colonne (formats de date hétérogènes, casse, espaces, doublons, valeurs manquantes, encodage, unités mélangées, valeurs sentinelles).\n2. Pour chaque problème : la transformation proposée, le code prêt à l'emploi, et le RISQUE de perte d'information.\n3. Insiste sur la réversibilité : ne pas écraser la donnée brute, travailler sur une copie, journaliser les lignes modifiées/supprimées.\n4. Définis des règles de validation post-nettoyage (totaux conservés, plages plausibles, nombre de lignes avant/après).\n5. Liste les décisions qui exigent un arbitrage métier (que faire des valeurs manquantes : imputer, exclure, signaler ?).\n\nRappelle-moi de comparer un échantillon avant/après pour valider chaque transformation."
+  },
+  {
+    "slug": "data-modelisation-schema-relationnel",
+    "category": "data",
+    "title": "Concevoir un schéma de base de données relationnel",
+    "useCase": "Modéliser proprement un domaine métier en tables normalisées avec clés et contraintes.",
+    "tier": "mastery",
+    "prompt": "Tu es architecte de données. Aide-moi à concevoir un schéma relationnel propre pour le domaine suivant.\n\nDomaine métier : [DÉCRIS : ex. plateforme de réservation de cours, e-commerce, gestion RH]\nEntités et règles connues : [LISTE LES OBJETS ET RÈGLES, ex. un client a plusieurs commandes, une commande a plusieurs lignes]\nSGBD cible : [PostgreSQL / MySQL / ...]\nVolumétrie et usages attendus : [EX. 100k clients, beaucoup de lectures, peu d'écritures]\n\nLivre :\n1. Un modèle en 3e forme normale : tables, colonnes, types, clés primaires et étrangères, contraintes (NOT NULL, UNIQUE, CHECK).\n2. Les instructions CREATE TABLE complètes pour le SGBD cible.\n3. Les choix de modélisation expliqués (pourquoi cette table, cette relation, cette dénormalisation éventuelle).\n4. Les index recommandés selon les usages décrits.\n5. Les compromis et alternatives (normalisé vs dénormalisé, héritage, tables d'historique/SCD).\n6. Les questions ouvertes que tu me poses car la réponse change la modélisation.\n\nNe sur-modélise pas : reste aligné sur la volumétrie et les usages réels."
+  },
+  {
+    "slug": "data-explication-requete-complexe",
+    "category": "data",
+    "title": "Expliquer une requête SQL complexe ligne par ligne",
+    "useCase": "Comprendre une requête héritée (CTE, fenêtres, sous-requêtes) avant de la modifier en confiance.",
+    "tier": "mastery",
+    "prompt": "Tu es un expert SQL pédagogue. Explique-moi cette requête complexe que je dois comprendre avant de la modifier.\n\nRequête :\n[COLLE LA REQUÊTE]\n\nSchéma (si disponible) :\n[COLLE LE SCHÉMA OU \"non disponible\"]\n\nFais ceci :\n1. Résume en 2 phrases ce que la requête produit (le résultat final, en langage métier).\n2. Décompose-la par bloc logique (chaque CTE, sous-requête, fonction fenêtre, jointure) et explique le rôle de chacun.\n3. Détaille les parties subtiles : fonctions de fenêtrage (PARTITION BY / ORDER BY), gestion des NULL, dédoublonnage, filtres conditionnels.\n4. Signale les comportements à risque ou non évidents (cartésien potentiel, dépendance à l'ordre, arrondis).\n5. Propose un jeu de données minimal (quelques lignes fictives) qui illustre le comportement, pour que je puisse le tester mentalement.\n6. Liste ce que je dois vérifier si je veux modifier la requête sans casser le résultat.\n\nSi un point reste ambigu sans le schéma ou les données, dis-le clairement plutôt que de supposer."
+  },
+  {
+    "slug": "data-pandas-transformation-dataframe",
+    "category": "data",
+    "title": "Transformer un DataFrame pandas proprement",
+    "useCase": "Écrire un pipeline pandas lisible et correct pour transformer, agréger ou pivoter des données.",
+    "tier": "mastery",
+    "prompt": "Tu es expert Python/pandas. Aide-moi à écrire une transformation propre et correcte.\n\nStructure du DataFrame `df` :\n[COLLE df.dtypes OU LA LISTE DES COLONNES + TYPES + 5 LIGNES D'EXEMPLE]\nTransformation voulue :\n[DÉCRIS : ex. agréger le CA par client et par mois, pivoter, calculer un taux de rétention]\n\nLivre :\n1. Un code pandas complet, lisible, idéalement chaîné (méthode .pipe / assign) avec commentaires.\n2. La gestion explicite des cas limites : NaN, doublons, types de dates, groupes vides, division par zéro.\n3. Une alternative plus performante si le DataFrame est volumineux (vectorisation, éviter apply ligne à ligne).\n4. Pour chaque étape sensible, une assertion ou un contrôle (shape attendue, somme conservée, pas de doublon sur la clé).\n5. Un extrait de sortie attendu (quelques lignes) pour que je vérifie que le résultat correspond.\n\nÉvite les pièges classiques : SettingWithCopyWarning, modification d'une vue, index non réinitialisé. Rappelle-moi de comparer un total avant/après pour valider l'agrégation."
+  },
+  {
+    "slug": "data-verification-resultat-analyse",
+    "category": "data",
+    "title": "Vérifier un résultat d'analyse avant de le diffuser",
+    "useCase": "Contrôler un chiffre clé (généré par toi ou par l'IA) avant de le présenter à un décideur.",
+    "tier": "mastery",
+    "prompt": "Tu es un relecteur critique de résultats data. Je m'apprête à diffuser un chiffre important et je veux le challenger AVANT.\n\nLe résultat : [EX. \"le churn mensuel est de 4,2 %\"]\nComment il a été obtenu : [COLLE LA REQUÊTE / LE CODE / LA MÉTHODE]\nSource des données : [DÉCRIS LA TABLE / LE FICHIER]\n\nJoue l'avocat du diable :\n1. Liste les façons dont ce chiffre pourrait être FAUX (mauvais dénominateur, période mal bornée, doublons, filtres oubliés, NULL, fuseau horaire, définition métier ambiguë).\n2. Propose 3 contrôles de cohérence indépendants pour le valider (calcul par une autre méthode, ordre de grandeur attendu, réconciliation avec un total connu).\n3. Vérifie la définition de la métrique : est-elle alignée sur ce que comprendra le décideur ? (ex. churn en clients ou en revenu ?)\n4. Identifie les biais possibles (survivants, échantillon non représentatif, données récentes incomplètes).\n5. Conclus par : peut-on diffuser ce chiffre en l'état, ou faut-il une vérification supplémentaire et laquelle ?\n\nNe valide rien sans avoir proposé au moins un recalcul par une voie différente."
+  },
+  {
+    "slug": "data-storytelling-decideurs",
+    "category": "data",
+    "title": "Transformer une analyse en récit pour décideurs",
+    "useCase": "Présenter des résultats data de manière claire et orientée décision pour un comité de direction.",
+    "tier": "mastery",
+    "prompt": "Tu es expert en data storytelling pour dirigeants. Transforme mon analyse en un récit clair orienté décision.\n\nRésultats bruts de l'analyse :\n[COLLE LES CHIFFRES CLÉS, TABLEAUX OU CONSTATS]\nAudience : [EX. CODIR, non technique]\nDécision attendue : [EX. faut-il investir dans la rétention ?]\nTemps de présentation : [EX. 5 minutes]\n\nProduis :\n1. Un message principal en UNE phrase (le \"so what\" : ce que le dirigeant doit retenir et faire).\n2. Une structure narrative : situation → complication → résultat clé → recommandation.\n3. Pour chaque chiffre, sa traduction en impact business (euros, risque, opportunité), pas juste la statistique.\n4. Les 2-3 visuels à montrer et ce qu'ils doivent prouver (un message par graphique).\n5. Les limites et incertitudes à mentionner honnêtement (sans noyer le message), et les questions probables du CODIR avec des réponses préparées.\n6. Ce qu'il faut ÉVITER : jargon, trop de chiffres, corrélation présentée comme causalité.\n\nReste honnête : ne survends pas une tendance fragile comme une certitude."
+  },
+  {
+    "slug": "data-requete-analytique-fenetrage",
+    "category": "data",
+    "title": "Écrire une requête analytique avec fonctions de fenêtrage",
+    "useCase": "Calculer classements, cumuls, écarts période/période ou top-N par groupe avec des window functions.",
+    "tier": "mastery",
+    "prompt": "Tu es expert SQL analytique ([DIALECTE]). J'ai besoin d'une requête utilisant des fonctions de fenêtrage.\n\nSchéma :\n[COLLE LES TABLES ET COLONNES PERTINENTES]\nBesoin analytique :\n[DÉCRIS : ex. top 3 produits par catégorie, CA cumulé par mois, variation vs mois précédent, médiane glissante]\n\nLivre :\n1. La requête complète utilisant les window functions adaptées (ROW_NUMBER, RANK, LAG/LEAD, SUM OVER, NTILE...).\n2. Une explication du PARTITION BY et de l'ORDER BY choisis, et pourquoi ils changent le résultat.\n3. Le traitement des cas limites : ex-aequo (RANK vs DENSE_RANK vs ROW_NUMBER), premières/dernières lignes sans précédent (LAG renvoie NULL), bornes du cadre (ROWS vs RANGE).\n4. Une variante si mon dialecte ne supporte pas une fonction.\n5. Une requête de contrôle pour vérifier le résultat sur un petit échantillon manuel.\n\nExplicite toujours le risque le plus courant : un ORDER BY non déterministe rend le classement instable. Propose comment le fiabiliser."
+  },
+  {
+    "slug": "data-dashboard-conception-kpi",
+    "category": "data",
+    "title": "Concevoir un dashboard de KPI utile",
+    "useCase": "Définir les bons indicateurs et la structure d'un tableau de bord avant de le construire.",
+    "tier": "mastery",
+    "prompt": "Tu es expert en conception de tableaux de bord (BI). Aide-moi à concevoir un dashboard utile, pas un mur de graphiques.\n\nContexte : [EX. dashboard hebdo pour l'équipe acquisition]\nUtilisateurs et décisions : [QUI le regarde, QUELLES décisions ils prennent avec]\nDonnées disponibles : [LISTE LES TABLES / MÉTRIQUES ACCESSIBLES]\nOutil : [Looker / Metabase / Power BI / HTML custom]\n\nLivre :\n1. Les 5 à 8 KPI essentiels, avec pour chacun : sa définition précise, sa formule, son unité, et la décision qu'il informe.\n2. La hiérarchie visuelle : ce qu'on voit en premier (vue d'ensemble), puis le détail / drill-down.\n3. Le type de graphique recommandé par KPI et pourquoi (éviter le camembert pour comparer, etc.).\n4. Les filtres et segmentations indispensables (période, canal, segment).\n5. Les pièges : métriques vanity, ratios sans contexte, absence de comparaison (vs période précédente / objectif), fraîcheur des données non affichée.\n6. Une checklist de validation : chaque chiffre du dashboard est-il réconcilié avec la source ?\n\nPrivilégie l'actionnabilité : si un KPI ne change aucune décision, propose de le retirer."
+  },
+  {
+    "slug": "data-conversion-question-metier-en-sql",
+    "category": "data",
+    "title": "Traduire une question métier floue en requête SQL",
+    "useCase": "Clarifier une demande métier ambiguë et la convertir en une requête précise et défendable.",
+    "tier": "mastery",
+    "prompt": "Tu es analyste data qui fait le pont entre le métier et le SQL. On me pose une question floue et je dois livrer un chiffre fiable.\n\nQuestion posée par le métier :\n[EX. \"combien on a de clients actifs ?\"]\nSchéma disponible :\n[COLLE LES TABLES ET COLONNES]\nDialecte : [DIALECTE]\n\nAvant d'écrire le SQL :\n1. Identifie toutes les AMBIGUÏTÉS de la question (ex. \"actif\" = a commandé récemment ? a un compte non résilié ? sur quelle période ? compte par client ou par foyer ?).\n2. Propose une définition par défaut RAISONNABLE pour chaque ambiguïté, en la justifiant, et signale qu'il faudra la confirmer avec le demandeur.\n3. Écris la requête correspondant à cette définition, avec les filtres rendus explicites et paramétrables.\n4. Donne une ou deux définitions ALTERNATIVES avec la requête associée, pour montrer comment le chiffre varie selon la définition.\n5. Ajoute une requête de contrôle (ordre de grandeur, échantillon).\n\nNe livre jamais un chiffre unique sans avoir explicité la définition métier qui le sous-tend."
+  },
+  {
+    "slug": "data-test-qualite-donnees-automatise",
+    "category": "data",
+    "title": "Définir des tests de qualité de données automatisés",
+    "useCase": "Mettre en place des contrôles automatiques (fraîcheur, unicité, plages, complétude) sur des tables critiques.",
+    "tier": "mastery",
+    "prompt": "Tu es ingénieur data qualité. Aide-moi à définir des tests automatisés sur mes tables critiques.\n\nTables et rôle :\n[COLLE LE SCHÉMA + DÉCRIS CE QUE REPRÉSENTE CHAQUE TABLE]\nFréquence de mise à jour attendue : [EX. table commandes rafraîchie chaque nuit]\nOutil : [SQL pur / dbt tests / Great Expectations]\n\nLivre :\n1. La liste des tests pertinents par table et colonne, classés par catégorie : unicité (clés), complétude (NOT NULL), validité (plages, formats, valeurs autorisées), cohérence référentielle (FK), fraîcheur (max date), volumétrie (variation anormale du nombre de lignes).\n2. Pour chaque test, l'implémentation prête à l'emploi dans l'outil choisi et le seuil d'alerte.\n3. La priorisation : quels tests bloquent un pipeline (critiques) vs lesquels alertent seulement.\n4. Comment éviter le bruit : seuils réalistes, tolérance pour les week-ends/jours fériés.\n5. Un test de \"non-régression\" : comparer les totaux clés d'un run à l'autre.\n\nRappelle qu'un test qui ne casse jamais ne protège de rien : propose comment vérifier que les tests détectent réellement les pannes."
+  },
+  {
+    "slug": "data-migration-sql-entre-dialectes",
+    "category": "data",
+    "title": "Migrer une requête SQL entre dialectes",
+    "useCase": "Porter une requête d'un SGBD à un autre en gérant les différences de syntaxe et de comportement.",
+    "tier": "mastery",
+    "prompt": "Tu es expert multi-dialectes SQL. Je dois porter une requête d'un SGBD à un autre sans changer le résultat.\n\nRequête source ([DIALECTE SOURCE, ex. MySQL]) :\n[COLLE LA REQUÊTE]\n\nDialecte cible : [EX. PostgreSQL / BigQuery / SQL Server]\n\nFais ceci :\n1. Réécris la requête pour le dialecte cible.\n2. Liste précisément chaque DIFFÉRENCE traitée : fonctions de dates, concaténation, LIMIT vs TOP vs FETCH, gestion des chaînes, fonctions d'agrégation, cast de types, sensibilité à la casse, comportement des NULL.\n3. Signale les pièges de comportement, pas seulement de syntaxe : division entière, tri des NULL, collation, fuseaux horaires, arrondis.\n4. Indique les parties où le résultat POURRAIT différer subtilement et comment le vérifier.\n5. Propose une requête de comparaison : exécuter les deux versions sur le même échantillon et confronter les sorties.\n\nNe suppose pas que la traduction est parfaite : surligne explicitement les points à tester sur des données réelles."
+  },
+  {
+    "slug": "data-analyse-cohorte-retention",
+    "category": "data",
+    "title": "Construire une analyse de cohortes (rétention)",
+    "useCase": "Mesurer la rétention d'utilisateurs par cohorte d'acquisition sur plusieurs périodes.",
+    "tier": "mastery",
+    "prompt": "Tu es analyste produit spécialiste des analyses de cohortes. Aide-moi à mesurer la rétention par cohorte.\n\nSchéma des données :\n[COLLE : table users (id, date_inscription), table events/orders (user_id, date, type)]\nDéfinition de \"rétention active\" : [EX. a passé une commande dans le mois]\nGranularité des cohortes : [mensuelle / hebdomadaire]\nOutil : [SQL / pandas]\n\nLivre :\n1. La logique de l'analyse expliquée : cohorte = groupe d'utilisateurs acquis sur la même période ; on suit leur activité aux périodes suivantes.\n2. La requête / le code produisant la matrice de rétention (cohorte en ligne, période relative en colonne, % d'utilisateurs actifs en valeur).\n3. Le traitement des cas limites : utilisateurs du mois en cours (cohorte incomplète), définition du \"mois 0\", utilisateurs sans aucune activité.\n4. Comment lire la matrice et repérer un problème d'onboarding (chute mois 1) vs un problème de long terme.\n5. Les pièges : cohortes récentes trop petites, données du dernier mois incomplètes (à exclure ou signaler), confondre rétention et réactivation.\n\nRappelle-moi de vérifier que la somme des cohortes correspond bien au total d'utilisateurs acquis."
+  },
+  {
+    "slug": "data-statistiques-significativite-ab-test",
+    "category": "data",
+    "title": "Analyser la significativité d'un test A/B",
+    "useCase": "Déterminer si la différence entre deux variantes est statistiquement solide ou due au hasard.",
+    "tier": "mastery",
+    "prompt": "Tu es data scientist rigoureux sur les tests A/B. Aide-moi à conclure honnêtement sur mon expérience.\n\nDonnées de l'expérience :\n- Variante A : [N_A visiteurs, X_A conversions]\n- Variante B : [N_B visiteurs, X_B conversions]\n- Métrique : [taux de conversion / revenu moyen / ...]\n- Durée et contexte : [EX. 2 semaines, pas de promo en cours]\n\nAnalyse :\n1. Calcule les taux observés et la différence (absolue et relative).\n2. Applique le test statistique adapté (proportions : test z / chi2 ; moyennes : test t) et donne la p-value et un intervalle de confiance à 95 %.\n3. Indique clairement : la différence est-elle statistiquement significative ? L'effet est-il assez GRAND pour avoir un intérêt métier ?\n4. Vérifie les pièges : la taille d'échantillon était-elle suffisante (puissance) ? Le test a-t-il été arrêté trop tôt (peeking) ? Effets de saisonnalité ? Pollution entre groupes ?\n5. Donne le code Python pour reproduire le calcul.\n6. Conclus prudemment : significatif ne veut pas dire causal ni durable.\n\nNe déclare jamais un gagnant sans mentionner l'intervalle de confiance et les limites. Indique tes hypothèses (indépendance, randomisation correcte)."
+  },
+  {
+    "slug": "data-pipeline-etl-conception",
+    "category": "data",
+    "title": "Concevoir un pipeline ETL/ELT robuste",
+    "useCase": "Structurer l'ingestion, la transformation et le chargement de données de façon fiable et idempotente.",
+    "tier": "mastery",
+    "prompt": "Tu es ingénieur data. Aide-moi à concevoir un pipeline ETL/ELT fiable.\n\nSource(s) : [EX. API REST, fichiers CSV quotidiens, base de prod]\nDestination : [EX. entrepôt BigQuery / Postgres / Snowflake]\nFréquence : [EX. quotidienne à 2h]\nVolume : [EX. ~2M lignes/jour]\nTransformations clés : [DÉCRIS]\n\nLivre :\n1. L'architecture en étapes (extraction, staging, transformation, chargement) avec le rôle de chaque couche.\n2. Les principes de robustesse : idempotence (rejouer sans doublon), gestion des chargements incrémentaux (clé de delta, watermark), reprise après échec, ordre des dépendances.\n3. La gestion des erreurs et des données rejetées (quarantaine, alertes) sans bloquer tout le flux.\n4. Les contrôles de qualité à insérer entre les étapes (volumétrie, fraîcheur, schéma).\n5. La traçabilité : comment je retrouve l'origine d'une ligne et le run qui l'a produite.\n6. Les pièges fréquents : fuseaux horaires, fichiers partiels, changements de schéma source, doublons sur rejeu.\n\nPropose un schéma de réconciliation pour prouver que le nombre de lignes en sortie correspond à l'entrée."
+  },
+  {
+    "slug": "data-feature-engineering-ml",
+    "category": "data",
+    "title": "Concevoir des features pour un modèle de machine learning",
+    "useCase": "Créer des variables prédictives pertinentes à partir de données brutes en évitant la fuite de données.",
+    "tier": "mastery",
+    "prompt": "Tu es data scientist expert en feature engineering. Aide-moi à concevoir des variables pour un modèle prédictif.\n\nObjectif de prédiction : [EX. prédire le churn dans les 30 jours / le montant d'une commande]\nDonnées disponibles :\n[COLLE LES TABLES ET COLONNES, ex. transactions, navigation, support]\nOutil : [pandas / SQL]\n\nLivre :\n1. Une liste de features pertinentes regroupées par famille (récence/fréquence/montant, tendances, agrégats temporels, ratios, encodage des catégorielles, variables de comportement).\n2. Pour chaque feature : son intuition métier, et le code de calcul.\n3. ALERTE FUITE DE DONNÉES (data leakage) : identifie les features qui utiliseraient une information du futur ou postérieure à la cible, et explique comment les éviter (fenêtre temporelle stricte, point de coupe).\n4. Le traitement des valeurs manquantes et des catégories rares.\n5. Comment vérifier la pertinence d'une feature avant de l'inclure (corrélation avec la cible, stabilité dans le temps) sans tomber dans le sur-apprentissage.\n6. Un rappel sur la cohérence train/inférence : la feature sera-t-elle calculable en production au moment de la prédiction ?\n\nInsiste sur la prévention de la fuite : c'est l'erreur la plus coûteuse et la plus fréquente."
+  },
+  {
+    "slug": "data-reconciliation-deux-sources",
+    "category": "data",
+    "title": "Réconcilier deux sources de données divergentes",
+    "useCase": "Comprendre pourquoi deux systèmes affichent des totaux différents pour la même métrique.",
+    "tier": "mastery",
+    "prompt": "Tu es analyste data spécialiste de la réconciliation. Deux sources donnent des chiffres différents pour la même métrique et je dois expliquer l'écart.\n\nSource A : [EX. base de prod, table commandes] — chiffre : [VALEUR]\nSource B : [EX. entrepôt BI / outil marketing] — chiffre : [VALEUR]\nMétrique comparée : [EX. CA du mois]\nSchémas / définitions connus : [COLLE CE QUE TU SAIS]\n\nMéthode :\n1. Liste les causes d'écart classiques : périmètre différent (filtres, statuts, annulations), bornage temporel (fuseau, date de commande vs paiement), définition de la métrique (TTC/HT, devise), déduplication, latence de synchronisation, lignes en double ou manquantes.\n2. Propose une démarche de réconciliation descendante : du total global vers le détail, en isolant l'écart segment par segment (par jour, par statut, par catégorie).\n3. Donne les requêtes de diagnostic pour chaque hypothèse (ex. comparer les comptes par jour entre les deux sources).\n4. Aide-moi à présenter l'écart résiduel acceptable vs l'écart anormal à corriger.\n5. Conclus par : quelle source fait référence pour quel usage, et pourquoi.\n\nNe conclus pas \"l'une est fausse\" sans avoir décomposé l'écart par dimension."
+  },
+  {
+    "slug": "data-requete-dates-fuseaux-horaires",
+    "category": "data",
+    "title": "Maîtriser les dates et fuseaux horaires en SQL",
+    "useCase": "Écrire des requêtes temporelles correctes en gérant fuseaux, bornes de période et changements d'heure.",
+    "tier": "mastery",
+    "prompt": "Tu es expert SQL sur les manipulations de dates et fuseaux horaires ([DIALECTE]). Aide-moi à écrire une requête temporelle correcte.\n\nSchéma et colonnes de date :\n[COLLE : ex. orders.created_at de type TIMESTAMP, stocké en UTC ?]\nBesoin :\n[DÉCRIS : ex. CA par jour en heure de Paris, sessions par semaine, comparatif d'une période à l'autre]\nFuseau de référence pour le reporting : [EX. Europe/Paris]\n\nLivre :\n1. La requête correcte, avec conversion explicite de fuseau si nécessaire (UTC -> fuseau local) avant le regroupement par jour/semaine/mois.\n2. La gestion rigoureuse des BORNES : intervalles semi-ouverts [début, fin) pour éviter d'inclure ou d'exclure un jour par erreur ; jamais de BETWEEN sur des timestamps sans réflexion.\n3. Les pièges : changement d'heure été/hiver, jours de 23 ou 25 heures, début de semaine (lundi vs dimanche), troncature vs arrondi, comparaison de périodes de longueurs différentes.\n4. Une requête de contrôle pour vérifier qu'aucune ligne n'est comptée deux fois ou oubliée aux frontières de période.\n\nExplique chaque conversion de fuseau : c'est la source d'erreur la plus silencieuse et la plus fréquente."
+  }
+]

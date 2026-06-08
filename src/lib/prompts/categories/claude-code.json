@@ -1,0 +1,178 @@
+[
+  {
+    "slug": "claude-code-explorer-codebase",
+    "category": "claude-code",
+    "title": "Explorer une codebase inconnue",
+    "useCase": "Comprendre rapidement l'architecture d'un projet qu'on découvre.",
+    "prompt": "Tu es un ingénieur senior qui prend en main une codebase inconnue. Sans rien modifier, explore le projet et produis une cartographie claire.\n\nContexte : [DÉCRIS LE PROJET EN 1-2 PHRASES, ex. API Node + front React]. Stack supposée : [STACK].\n\nAnalyse :\n1. Le point d'entrée principal et le flux d'exécution global.\n2. L'arborescence des dossiers clés et leur responsabilité (1 ligne chacun).\n3. Les dépendances majeures et leur rôle.\n4. Les conventions de code observées (nommage, structure, gestion d'erreurs).\n5. Les zones à risque : dette technique, TODO, code mort, tests manquants.\n\nContraintes : appuie chaque affirmation sur des chemins de fichiers réels que tu as lus. N'invente rien ; si tu n'es pas sûr, dis-le.\n\nFormat de sortie : un résumé en markdown avec les 5 sections ci-dessus, puis une liste « 3 questions à poser à l'équipe avant de coder ». Termine par les 3 fichiers à lire en priorité pour un nouvel arrivant.",
+    "tier": "free"
+  },
+  {
+    "slug": "claude-code-debug-methodique",
+    "category": "claude-code",
+    "title": "Débugger une erreur de façon méthodique",
+    "useCase": "Trouver et corriger la cause racine d'un bug sans patcher à l'aveugle.",
+    "prompt": "Tu es un expert en débogage. On ne corrige pas avant d'avoir compris la cause racine.\n\nBug observé : [DÉCRIS LE COMPORTEMENT ATTENDU VS RÉEL].\nMessage/stack trace : [COLLE L'ERREUR].\nComment reproduire : [ÉTAPES].\nFichiers probablement concernés : [CHEMINS, ou « à toi de trouver »].\n\nDémarche imposée :\n1. Reformule le problème en une phrase pour confirmer ta compréhension.\n2. Formule 2 à 3 hypothèses de cause racine, classées par probabilité.\n3. Pour chaque hypothèse, indique comment la vérifier (fichier à lire, log à ajouter, test à lancer) — vérifie-les réellement.\n4. Identifie la cause racine confirmée, en citant le code fautif.\n5. Propose le correctif minimal, et explique pourquoi il règle la cause et pas juste le symptôme.\n\nContraintes : ne modifie aucun fichier tant que je n'ai pas validé l'hypothèse retenue. Pas de refactor opportuniste.\n\nSortie : hypothèses → preuves → cause racine → diff proposé → comment vérifier la non-régression.",
+    "tier": "free"
+  },
+  {
+    "slug": "claude-code-ecrire-claude-md",
+    "category": "claude-code",
+    "title": "Rédiger un fichier CLAUDE.md de qualité",
+    "useCase": "Générer un CLAUDE.md qui rend Claude Code efficace sur le projet.",
+    "prompt": "Tu vas rédiger le fichier CLAUDE.md de ce projet : le mémo permanent que Claude Code lira à chaque session.\n\nAvant d'écrire, inspecte le dépôt (package.json/pyproject, scripts, structure, README, config CI) pour ne documenter que des faits vérifiés.\n\nLe CLAUDE.md doit contenir, en sections courtes et scannables :\n1. Pitch du projet en 2 lignes.\n2. Commandes essentielles : install, dev, build, test, lint (les vraies, depuis les scripts).\n3. Architecture : dossiers clés et leur rôle.\n4. Conventions à respecter : style, nommage, gestion d'état/erreurs, patterns imposés.\n5. Pièges connus et choses à NE PAS faire.\n6. Definition of Done : tests/lint à passer avant un commit.\n\nContraintes : impératif et concis, pas de blabla. Privilégie les instructions actionnables (« utilise X, jamais Y ») aux descriptions vagues. Maximum 1 page.\n\nSortie : le contenu markdown final prêt à enregistrer comme CLAUDE.md, puis 3 questions dont la réponse améliorerait encore le fichier.",
+    "tier": "free"
+  },
+  {
+    "slug": "claude-code-refactor-securise",
+    "category": "claude-code",
+    "title": "Refactoriser sans casser le comportement",
+    "useCase": "Améliorer la lisibilité/structure d'un module en garantissant l'iso-comportement.",
+    "prompt": "Tu es chargé d'un refactor à comportement strictement identique (aucun changement fonctionnel).\n\nCible : [CHEMIN DU FICHIER/MODULE].\nObjectif du refactor : [ex. extraire des fonctions, supprimer la duplication, réduire la complexité cyclomatique].\nContraintes du projet : [conventions, langage, framework].\n\nProcédure :\n1. Lis le code et résume son comportement observable (entrées, sorties, effets de bord).\n2. Vérifie la couverture de tests existante. S'il manque des tests caractérisant le comportement actuel, écris-les D'ABORD et fais-les passer sur le code non modifié.\n3. Applique le refactor par petites étapes, en gardant les tests verts à chaque étape.\n4. Ne change ni l'API publique, ni les signatures, ni les messages d'erreur, sauf demande explicite.\n\nContraintes : pas de nouvelle dépendance sans me prévenir. Pas d'optimisation prématurée.\n\nSortie : liste des changements (avant/après par bloc), confirmation que les tests passent, et note les améliorations volontairement laissées de côté.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-tests-unitaires-couverture",
+    "category": "claude-code",
+    "title": "Écrire des tests unitaires pertinents",
+    "useCase": "Couvrir une fonction/module avec des tests utiles, pas du remplissage.",
+    "prompt": "Tu écris des tests unitaires de qualité pour le code suivant.\n\nCode à tester : [COLLE LE CODE ou CHEMIN].\nFramework de test du projet : [ex. Vitest, Jest, pytest] — respecte ses conventions et celles déjà présentes dans le dépôt.\n\nMéthode :\n1. Identifie le contrat de la fonction : entrées valides, cas limites, erreurs attendues.\n2. Liste les cas à tester AVANT de coder : cas nominal, bornes, valeurs nulles/vides, erreurs, et effets de bord éventuels.\n3. Écris des tests lisibles (Arrange-Act-Assert), un comportement par test, des noms explicites.\n4. Évite les tests fragiles (pas d'assertion sur des détails d'implémentation non garantis).\n5. Mocke uniquement les dépendances externes réelles (réseau, horloge, fs).\n\nContraintes : ne teste pas pour gonfler la couverture ; chaque test doit pouvoir échouer pour une vraie raison. Lance la suite et corrige jusqu'au vert.\n\nSortie : le fichier de test complet, la liste des cas couverts, et les cas volontairement non couverts avec justification.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-revue-de-code",
+    "category": "claude-code",
+    "title": "Revue de code exigeante d'un diff",
+    "useCase": "Obtenir une revue de PR rigoureuse avant de merger.",
+    "prompt": "Tu es un relecteur senior exigeant mais constructif. Fais la revue du diff suivant.\n\nDiff / branche à relire : [COLLE LE DIFF ou « la branche courante vs main »].\nContexte de la PR : [QUE FAIT CE CHANGEMENT ET POURQUOI].\n\nPasse en revue, par ordre de priorité :\n1. Correction : bugs, cas limites non gérés, conditions de course, fuites de ressources.\n2. Sécurité : entrées non validées, injections, secrets en clair, autorisations.\n3. Design : cohérence avec l'architecture existante, duplication, couplage.\n4. Tests : sont-ils présents, pertinents, et couvrent-ils le risque ?\n5. Lisibilité et conventions du projet.\n\nContraintes : classe chaque remarque en [Bloquant] / [À améliorer] / [Nit]. Cite le fichier et la ligne. Propose une correction concrète, pas juste une critique. Ne signale pas de faux positifs : si un point est correct, ne le mentionne pas.\n\nSortie : liste priorisée des remarques, puis un verdict final (mergeable / à corriger) avec les 3 points bloquants s'il y en a.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-migration-dependance",
+    "category": "claude-code",
+    "title": "Migrer une dépendance ou une version majeure",
+    "useCase": "Planifier et exécuter une montée de version risquée par étapes sûres.",
+    "prompt": "Tu pilotes la migration d'une dépendance vers une version majeure.\n\nMigration : passer [BIBLIOTHÈQUE] de [VERSION ACTUELLE] à [VERSION CIBLE].\nProjet : [STACK / GESTIONNAIRE DE PAQUETS].\n\nÉtapes :\n1. Récupère et résume les breaking changes pertinents pour notre usage (consulte le changelog/guide de migration officiel).\n2. Recense dans le code TOUS les points d'usage impactés (imports, API renommées, comportements modifiés) avec leurs chemins.\n3. Propose un plan de migration incrémental, ordonné, chaque étape devant laisser le projet compilable et testable.\n4. Applique la migration étape par étape ; après chaque étape, lance build + tests et rapporte le résultat.\n5. Signale les usages dépréciés sans équivalent direct et propose une alternative.\n\nContraintes : ne mets à jour aucune autre dépendance en même temps. Aucun changement fonctionnel non lié à la migration.\n\nSortie : tableau des breaking changes → impacts dans notre code → plan d'étapes → état des tests après migration.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-creer-slash-command",
+    "category": "claude-code",
+    "title": "Créer une slash command réutilisable",
+    "useCase": "Industrialiser une tâche répétitive en commande personnalisée Claude Code.",
+    "prompt": "Tu vas créer une slash command Claude Code (fichier markdown dans .claude/commands/) pour automatiser une tâche récurrente.\n\nTâche à automatiser : [DÉCRIS LA TÂCHE, ex. « préparer une PR : résumer le diff, vérifier les tests, rédiger la description »].\nArguments attendus : [ex. numéro de ticket, nom de feature] — utilise la syntaxe $ARGUMENTS / $1, $2.\n\nLa commande doit :\n1. Avoir un nom de fichier clair en kebab-case (= nom de la commande).\n2. Inclure un front-matter avec une description courte et, si utile, les outils autorisés (allowed-tools).\n3. Définir un rôle, le contexte, les étapes précises à suivre, et le format de sortie attendu.\n4. Être robuste : prévoir le cas où un argument manque.\n\nContraintes : le prompt interne doit être déterministe et actionnable, pas vague. Évite de coder en dur des chemins propres à une seule machine.\n\nSortie : le contenu complet du fichier .md (avec le chemin proposé), un exemple d'invocation, et une phrase expliquant quand l'utiliser.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-creer-skill",
+    "category": "claude-code",
+    "title": "Concevoir une Skill (compétence) Claude Code",
+    "useCase": "Packager une expertise réutilisable avec un déclenchement fiable.",
+    "prompt": "Tu vas concevoir une Skill Claude Code : un dossier avec un SKILL.md (front-matter + instructions) et d'éventuels fichiers de référence.\n\nExpertise à packager : [DÉCRIS LE DOMAINE / WORKFLOW, ex. « auditer un schéma SQL », « générer un changelog »].\nQuand doit-elle se déclencher : [SITUATIONS / MOTS-CLÉS DÉCLENCHEURS].\n\nProduis :\n1. Un front-matter avec un name en kebab-case et surtout une description optimisée pour le déclenchement : liste explicitement les situations et formulations, directes ET indirectes, qui doivent activer la skill.\n2. Le corps du SKILL.md : rôle, méthode étape par étape, contraintes, format de sortie.\n3. La liste des fichiers de référence utiles (templates, checklists) et leur contenu si pertinent.\n4. Des exemples d'entrées qui DOIVENT déclencher la skill, et d'autres qui ne doivent PAS.\n\nContraintes : la description doit être précise (le sous-déclenchement et le sur-déclenchement sont les deux échecs à éviter). Garde le SKILL.md focalisé : une compétence = un but.\n\nSortie : arborescence proposée + contenu de chaque fichier.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-config-mcp-serveur",
+    "category": "claude-code",
+    "title": "Configurer et utiliser un serveur MCP",
+    "useCase": "Brancher un serveur MCP au projet et l'exploiter en toute sécurité.",
+    "prompt": "Tu m'aides à configurer un serveur MCP (Model Context Protocol) pour Claude Code et à l'utiliser.\n\nServeur MCP visé : [NOM/OUTIL, ex. base de données Postgres, GitHub, navigateur].\nObjectif : [CE QUE JE VEUX FAIRE GRÂCE À CE SERVEUR].\nEnvironnement : [OS, gestionnaire de paquets, où sont stockés les secrets].\n\nAttendu :\n1. Explique ce que ce serveur expose (outils/ressources) et ses limites.\n2. Donne la configuration exacte à ajouter (fichier .mcp.json ou commande `claude mcp add`), avec la portée appropriée (local/projet/utilisateur).\n3. Gère les secrets proprement : variables d'environnement, jamais de clé en clair commitée. Indique précisément où les placer.\n4. Donne la procédure pour vérifier que le serveur est bien connecté.\n5. Liste les précautions de sécurité (permissions minimales, données sensibles, serveurs tiers).\n\nContraintes : ne commite aucun secret ; signale tout risque. Préfère la portée la plus restreinte possible.\n\nSortie : config prête à coller + étapes de vérification + checklist sécurité.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-hook-automatisation",
+    "category": "claude-code",
+    "title": "Automatiser une action via un hook",
+    "useCase": "Déclencher automatiquement lint/format/tests autour des actions de Claude Code.",
+    "prompt": "Tu vas configurer un hook Claude Code (dans settings.json) pour automatiser une action déterministe.\n\nComportement souhaité : [ex. « après chaque édition de fichier, lancer le formateur », « avant un commit, lancer les tests », « bloquer l'écriture dans /secrets »].\nProjet : [STACK + COMMANDES RÉELLES de lint/format/test].\n\nAttendu :\n1. Choisis le bon événement de hook (ex. PostToolUse, PreToolUse, Stop) et explique pourquoi.\n2. Donne le matcher approprié (sur quel outil / quel pattern de fichier il se déclenche).\n3. Fournis le bloc JSON exact à ajouter dans settings.json, avec la commande shell.\n4. La commande doit être idempotente, rapide, et échouer proprement (code de sortie clair) ; explique l'effet d'un code de sortie non nul.\n5. Précise les implications de sécurité (le hook s'exécute automatiquement avec mes droits).\n\nContraintes : portable autant que possible ; pas de chemin absolu spécifique à une machine. Rien de destructif sans confirmation.\n\nSortie : config JSON commentée + comment la tester + comment la désactiver.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-generer-documentation",
+    "category": "claude-code",
+    "title": "Générer la documentation d'un module",
+    "useCase": "Produire une doc technique fidèle au code, sans inventer.",
+    "prompt": "Tu rédiges la documentation technique du module suivant, destinée à un développeur qui doit l'utiliser sans lire tout le code source.\n\nModule à documenter : [CHEMIN ou COLLE LE CODE].\nPublic cible : [ex. dev backend de l'équipe / consommateur externe de l'API].\nFormat voulu : [README, docstrings, doc d'API].\n\nMéthode :\n1. Lis le code et déduis le rôle réel du module (pas ce qu'il devrait faire, ce qu'il fait).\n2. Documente : but, installation/import, API publique (fonctions, paramètres, types, valeurs de retour, erreurs levées).\n3. Ajoute au moins un exemple d'usage exécutable et réaliste.\n4. Mentionne les limites, prérequis et effets de bord.\n\nContraintes : n'invente aucune fonction ni paramètre inexistant ; tout doit correspondre au code. Si une partie est ambiguë, signale-le au lieu de combler. Ton clair et concis.\n\nSortie : la documentation finale dans le format demandé, suivie d'une liste « zones du code mal nommées ou ambiguës qui mériteraient d'être clarifiées ».",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-optimisation-performance",
+    "category": "claude-code",
+    "title": "Diagnostiquer et optimiser les performances",
+    "useCase": "Trouver le vrai goulot d'étranglement avant d'optimiser quoi que ce soit.",
+    "prompt": "Tu es un expert performance. On mesure avant d'optimiser ; pas de micro-optimisation à l'aveugle.\n\nProblème : [DÉCRIS LA LENTEUR : quoi, quand, quels chiffres si dispo].\nContexte : [STACK, volume de données, environnement].\nCode/zone suspectée : [CHEMINS, ou « à investiguer »].\n\nDémarche :\n1. Reformule l'objectif chiffré (ex. passer de X ms à < Y ms, ou réduire la mémoire).\n2. Identifie les goulots probables par lecture du code (complexité algorithmique, requêtes N+1, I/O synchrones, allocations, absence de cache).\n3. Propose comment MESURER chaque hypothèse (profiling, logs de timing, EXPLAIN sur les requêtes).\n4. Classe les optimisations par rapport gain/risque.\n5. Implémente seulement celles validées, et vérifie le gain réel.\n\nContraintes : ne sacrifie ni la lisibilité ni la correction pour un gain négligeable. Garde le comportement identique. Mentionne les compromis.\n\nSortie : hypothèses → mesures → optimisations priorisées → diff appliqué → gain mesuré avant/après.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-plan-avant-code",
+    "category": "claude-code",
+    "title": "Faire planifier avant d'implémenter",
+    "useCase": "Obtenir un plan validé avant que Claude touche au code d'une feature.",
+    "prompt": "Avant d'écrire la moindre ligne, tu vas produire un PLAN d'implémentation que je validerai. N'écris aucun code à cette étape.\n\nFonctionnalité à implémenter : [DÉCRIS LE BESOIN ET LE COMPORTEMENT ATTENDU].\nContraintes : [PERF, COMPATIBILITÉ, DÉLAIS, EXISTANT À RESPECTER].\n\nLe plan doit contenir :\n1. Ta compréhension du besoin reformulée, + questions ouvertes si ambiguïté.\n2. Les fichiers à créer/modifier, avec pour chacun ce qui change (lis le code existant pour t'ancrer dans la réalité).\n3. L'approche technique retenue + 1 alternative écartée et pourquoi.\n4. Les impacts : API, base de données, migrations, effets de bord, rétrocompatibilité.\n5. La stratégie de test.\n6. Les risques et les points de décision où tu attendras mon feu vert.\n\nContraintes : reste réaliste et ancré dans le code réel, pas de plan générique. Découpe en étapes livrables indépendamment.\n\nSortie : le plan structuré ci-dessus. Termine par « En attente de validation avant implémentation. » et ne code pas avant mon accord.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-message-commit-pr",
+    "category": "claude-code",
+    "title": "Rédiger commits et description de PR",
+    "useCase": "Transformer un diff en messages de commit propres et une PR claire.",
+    "prompt": "Tu vas transformer mes changements en historique git propre et en description de PR.\n\nChangements : [COLLE LE DIFF ou « la branche courante vs main »].\nConvention de commit du projet : [ex. Conventional Commits, ou « à déduire de l'historique »].\nTicket lié : [ID/URL si dispo].\n\nAttendu :\n1. Analyse le diff et regroupe les changements en commits logiques atomiques (un commit = une intention).\n2. Pour chaque commit : un titre impératif et concis (< 72 caractères) + un corps expliquant le POURQUOI quand ce n'est pas évident.\n3. Une description de PR : résumé, motivation, ce qui change, comment tester, et points d'attention pour le relecteur.\n4. Signale tout changement non couvert par les tests.\n\nContraintes : respecte la convention détectée. Pas de message vague type « fix », « update ». N'invente pas d'intentions : si le pourquoi n'est pas déductible du diff, marque-le [À COMPLÉTER].\n\nSortie : liste ordonnée des commits (titre + corps) puis le markdown complet de la description de PR.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-securite-audit",
+    "category": "claude-code",
+    "title": "Audit de sécurité d'un changement",
+    "useCase": "Repérer les vulnérabilités introduites avant la mise en production.",
+    "prompt": "Tu es un ingénieur sécurité applicative. Audite le code suivant à la recherche de vulnérabilités réelles.\n\nPérimètre : [COLLE LE CODE / CHEMINS / DIFF].\nContexte : [type d'appli, données manipulées, surface exposée].\n\nVérifie en priorité :\n1. Validation et assainissement des entrées (injection SQL/commande, XSS, path traversal, désérialisation).\n2. Authentification et autorisation (contrôles d'accès manquants, IDOR, élévation de privilèges).\n3. Secrets : clés/credentials en dur, logs qui fuient des données sensibles.\n4. Dépendances et configurations risquées.\n5. Gestion des erreurs révélant trop d'informations.\n\nPour chaque finding : gravité (Critique/Haute/Moyenne/Basse), fichier:ligne, scénario d'exploitation concret, et correctif recommandé.\n\nContraintes : pas de faux positifs ni d'alarmisme générique ; chaque finding doit être exploitable et ancré dans le code lu. Si une protection existe déjà, ne la signale pas.\n\nSortie : tableau des vulnérabilités priorisées par gravité, puis les 3 corrections les plus urgentes à appliquer en premier.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-traduire-langage",
+    "category": "claude-code",
+    "title": "Porter du code vers un autre langage",
+    "useCase": "Réécrire un module dans un autre langage en préservant le comportement.",
+    "prompt": "Tu portes le code suivant d'un langage vers un autre, à comportement équivalent.\n\nSource : [LANGAGE SOURCE] — [COLLE LE CODE ou CHEMIN].\nCible : [LANGAGE/FRAMEWORK CIBLE] — respecte ses idiomes et conventions, pas une traduction littérale.\nContexte : [où ce code sera intégré].\n\nMéthode :\n1. Résume le comportement et le contrat du code source (entrées, sorties, effets de bord, erreurs).\n2. Réécris-le de façon idiomatique dans le langage cible (structures, gestion d'erreurs, conventions de nommage natives).\n3. Reproduis fidèlement la logique métier ; signale toute différence inévitable (types, précision numérique, concurrence, bibliothèques sans équivalent).\n4. Fournis des tests dans le langage cible qui vérifient l'équivalence sur les cas clés.\n\nContraintes : ne traduis pas mot à mot un idiome qui n'a pas de sens dans la cible. Pas de dépendance lourde si la standard library suffit. Préviens-moi des hypothèses prises.\n\nSortie : le code porté + tests + liste des écarts de comportement potentiels à valider.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-ajouter-tests-legacy",
+    "category": "claude-code",
+    "title": "Sécuriser du code legacy avec des tests",
+    "useCase": "Poser un filet de tests sur du code ancien et non testé avant d'y toucher.",
+    "prompt": "Tu interviens sur du code legacy sans tests, que je dois bientôt modifier. Objectif : créer un filet de sécurité AVANT toute modification.\n\nCode legacy : [CHEMIN ou COLLE LE CODE].\nCe que je devrai changer ensuite : [INTENTION FUTURE].\nFramework de test : [ex. Jest, pytest].\n\nDémarche :\n1. Lis le code et reconstitue son comportement réel actuel, y compris les bizarreries — on documente l'existant, on ne le \"corrige\" pas ici.\n2. Identifie les coutures (seams) permettant d'injecter ou d'isoler les dépendances pour rendre le code testable, avec le minimum de modification.\n3. Écris des tests de caractérisation qui figent le comportement observé actuel (même s'il semble imparfait).\n4. Lance-les et assure-toi qu'ils passent sur le code inchangé.\n\nContraintes : ne change pas la logique métier à ce stade. Si le code est trop couplé pour être testé, propose le plus petit refactor sûr qui débloque la testabilité, et demande-moi avant.\n\nSortie : tests de caractérisation + zones non couvrables actuellement + suggestion de coutures à introduire.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-resoudre-tests-flaky",
+    "category": "claude-code",
+    "title": "Stabiliser des tests instables (flaky)",
+    "useCase": "Identifier et corriger la cause d'un test qui passe puis échoue aléatoirement.",
+    "prompt": "Tu dois rendre déterministe un test instable (flaky).\n\nTest concerné : [NOM / CHEMIN].\nSymptôme : [passe parfois, échoue parfois ; message d'échec si dispo].\nFramework + environnement : [DÉTAILS, CI ou local].\n\nDémarche :\n1. Reproduis ou explique comment provoquer l'instabilité (exécutions répétées, ordre des tests, parallélisme).\n2. Identifie la cause racine parmi les classiques : dépendance au temps/horloge, aléatoire non maîtrisé, ordre d'exécution, état partagé entre tests, asynchrone mal attendu, dépendance réseau/IO, timeouts trop courts.\n3. Cite précisément la ligne fautive et explique le mécanisme de l'instabilité.\n4. Corrige à la racine (injecter l'horloge, fixer la seed, isoler l'état, attendre correctement) — pas de retry/sleep arbitraire pour masquer le problème.\n5. Vérifie en relançant le test en boucle.\n\nContraintes : ne désactive pas le test et n'ajoute pas de tolérance qui cacherait un vrai bug. Si l'instabilité révèle un bug du code testé, signale-le.\n\nSortie : cause racine → correctif → preuve de stabilité après N exécutions.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-decoupe-tache-complexe",
+    "category": "claude-code",
+    "title": "Découper une tâche trop grosse",
+    "useCase": "Transformer une grosse demande floue en sous-tâches livrables et ordonnées.",
+    "prompt": "Tu vas découper une tâche trop grosse en sous-tâches claires, ordonnées et livrables indépendamment. N'implémente rien pour l'instant.\n\nTâche globale : [DÉCRIS L'OBJECTIF FINAL].\nContexte projet : [STACK, contraintes, existant].\nÉchéance / priorités : [SI PERTINENT].\n\nProduis :\n1. Une clarification du résultat final attendu + les questions à lever avant de commencer.\n2. Un découpage en sous-tâches : chacune avec un objectif, les fichiers probablement touchés, une definition of done, et une estimation de taille (S/M/L).\n3. Les dépendances entre sous-tâches et l'ordre d'exécution recommandé.\n4. Le plus petit incrément livrable de bout en bout (le premier truc à faire qui apporte de la valeur ou réduit le risque).\n5. Les risques principaux et où ils se concentrent.\n\nContraintes : chaque sous-tâche doit pouvoir être revue et mergée seule. Ancre-toi dans le code réel si le dépôt est accessible. Pas de sous-tâche fourre-tout.\n\nSortie : liste ordonnée des sous-tâches + graphe de dépendances simple + suggestion de point de départ.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-nettoyer-code-mort",
+    "category": "claude-code",
+    "title": "Détecter et supprimer le code mort",
+    "useCase": "Nettoyer en toute sécurité le code, imports et dépendances inutilisés.",
+    "prompt": "Tu vas identifier le code mort du projet et proposer un nettoyage sûr.\n\nPérimètre : [DOSSIER/MODULE, ou tout le projet].\nStack : [LANGAGE/FRAMEWORK, outils dispo comme un linter / tree-shaking].\n\nDémarche :\n1. Repère les candidats : fonctions/variables/exports jamais référencés, imports inutilisés, branches inatteignables, fichiers orphelins, dépendances déclarées mais jamais importées, flags/feature toggles obsolètes.\n2. Pour chaque candidat, VÉRIFIE qu'il est réellement inutilisé : cherche les usages dynamiques (réflexion, chaînes, exports publics consommés ailleurs, points d'entrée, tests, configuration). Classe en [Sûr à supprimer] / [À confirmer].\n3. Ne supprime que la catégorie [Sûr à supprimer], par petits lots, en gardant build et tests verts.\n\nContraintes : prudence sur les API publiques et les usages indirects — en cas de doute, classe en [À confirmer] et ne touche pas. Aucune suppression qui casse la compilation ou les tests.\n\nSortie : tableau des éléments morts (chemin, type, preuve d'inutilisation, classement), diff de suppression appliqué pour les cas sûrs, et liste des cas à confirmer avec moi.",
+    "tier": "mastery"
+  },
+  {
+    "slug": "claude-code-gerer-contexte-session",
+    "category": "claude-code",
+    "title": "Garder Claude Code efficace sur une longue session",
+    "useCase": "Structurer une session longue pour éviter la perte de contexte et les dérives.",
+    "prompt": "Tu vas m'aider à mener une session de travail longue avec Claude Code sans perte de contexte ni dérive d'objectif.\n\nObjectif de la session : [LE BUT GLOBAL].\nÉtat actuel : [CE QUI EST DÉJÀ FAIT / EN COURS].\nContraintes : [CE QU'IL NE FAUT PAS CASSER].\n\nAttendu :\n1. Crée un fichier de suivi (ex. NOTES.md ou une todo) listant l'objectif, les décisions prises, ce qui reste à faire, et les points en attente de ma validation — et tiens-le à jour au fil de la session.\n2. Avant chaque étape, rappelle en une ligne où on en est et ce que tu vas faire ensuite.\n3. À chaque jalon, propose un point de sauvegarde (commit atomique avec message clair) avant de continuer.\n4. Si le contexte devient trop chargé, résume l'état essentiel de façon à pouvoir repartir d'un contexte propre sans rien perdre d'important.\n\nContraintes : ne pars jamais dans une tâche non prévue sans me prévenir. Reste focalisé sur l'objectif déclaré. Préfère plusieurs petits commits à un gros.\n\nSortie : le fichier de suivi initialisé + la première étape proposée, en attente de mon feu vert.",
+    "tier": "mastery"
+  }
+]

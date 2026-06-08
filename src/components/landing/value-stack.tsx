@@ -1,6 +1,7 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { CheckoutButton } from "@/components/site/checkout-button";
+import { PROMPT_COUNT } from "@/lib/prompts/library";
 
 const rows = [
   { label: "💬 Parcours Prompt Engineering", value: "197 €" },
@@ -8,7 +9,7 @@ const rows = [
   { label: "📊 Parcours IA & Business", value: "147 €" },
   { label: "🚀 Parcours IA & Marketing", value: "147 €" },
   { label: "📈 Parcours Data & IA", value: "147 €" },
-  { label: "📚 Bibliothèque de 120+ prompts", value: "97 €" },
+  { label: `📚 Bibliothèque de ${PROMPT_COUNT} prompts`, value: "97 €" },
   { label: "🛠️ Templates et cheat sheets", value: "67 €" },
   { label: "🤖 Mentor IA Claude 24/7", value: "Inclus", muted: true },
   { label: "♾️ Mises à jour à vie", value: "Inclus", muted: true },

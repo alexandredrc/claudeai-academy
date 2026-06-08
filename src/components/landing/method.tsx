@@ -1,11 +1,12 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
+import { PROMPT_COUNT } from "@/lib/prompts/library";
 
 const items = [
   "Une méthodologie claire pour structurer vos prompts",
   "Des dizaines d'exemples concrets et de cas d'usage",
-  "Une bibliothèque de 120+ prompts opérationnels",
+  `Une bibliothèque de ${PROMPT_COUNT} prompts opérationnels`,
   "Un mentor IA Claude pour vos questions, 24/7",
   "Des mises à jour à chaque évolution majeure",
 ];

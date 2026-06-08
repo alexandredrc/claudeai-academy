@@ -1,0 +1,178 @@
+[
+  {
+    "slug": "marketing-page-de-vente-longue",
+    "category": "marketing",
+    "title": "Page de vente longue (long-form)",
+    "useCase": "Rédiger une page de vente complète et structurée pour un produit ou une offre.",
+    "tier": "mastery",
+    "prompt": "Tu es copywriter senior spécialisé en pages de vente francophones à forte conversion. Rédige une page de vente longue pour [NOM_DU_PRODUIT], une offre de [TYPE_OFFRE] vendue [PRIX] à [AUDIENCE_CIBLE]. Promesse principale : [PROMESSE]. Problème douloureux résolu : [PROBLEME]. Preuves disponibles : [PREUVES_RESULTATS_TEMOIGNAGES]. Structure attendue : (1) accroche qui nomme le problème, (2) agitation du problème sans exagération, (3) présentation de la solution et du mécanisme unique, (4) bénéfices concrets reliés à des fonctionnalités, (5) preuve sociale, (6) détail de l'offre et ce qui est inclus, (7) gestion des 3 objections les plus probables, (8) garantie, (9) appel à l'action clair répété. Ton : [TON]. Évite les promesses irréalistes et le jargon gourou. Écris en français, phrases courtes, niveau de lecture accessible. Termine par 3 variantes de bouton d'appel à l'action."
+  },
+  {
+    "slug": "marketing-email-bienvenue",
+    "category": "marketing",
+    "title": "Email de bienvenue (free)",
+    "useCase": "Écrire le premier email reçu après une inscription à une liste ou un lead magnet.",
+    "tier": "free",
+    "prompt": "Tu es expert en email marketing. Rédige un email de bienvenue pour une personne qui vient de s'inscrire à [NOM_LISTE_OU_LEAD_MAGNET] proposé par [MARQUE]. Objectif : confirmer la livraison de [RESSOURCE_PROMISE], poser le ton de la relation et inciter à un premier petit pas. Audience : [AUDIENCE]. Ton : [TON], chaleureux et humain. Contraintes : objet de 6 mots maximum (propose 3 variantes), première phrase qui crée une connexion sans flatterie creuse, lien clair vers la ressource, une seule action principale, signature au prénom. Longueur : 120 à 160 mots. Évite les formules robotiques type 'Nous sommes ravis de vous compter parmi nous'. Écris en français. Termine en annonçant brièvement ce que la personne recevra dans le prochain email."
+  },
+  {
+    "slug": "marketing-sequence-email-lancement",
+    "category": "marketing",
+    "title": "Séquence email de lancement (5 emails)",
+    "useCase": "Construire une séquence d'emails pour le lancement d'un produit sur une fenêtre limitée.",
+    "tier": "mastery",
+    "prompt": "Tu es stratège en lancement de produits par email. Conçois une séquence de 5 emails pour le lancement de [PRODUIT] auprès de [AUDIENCE], avec une fenêtre d'achat ouverte [DUREE_OUVERTURE] et fermée à [DATE_FERMETURE]. Promesse : [PROMESSE]. Prix et garantie : [PRIX_GARANTIE]. Pour chaque email donne : objectif, angle, objet (2 variantes), corps complet, et appel à l'action. Trame recommandée : email 1 ouverture et histoire, email 2 bénéfices et mécanisme, email 3 preuve sociale et étude de cas, email 4 traitement des objections, email 5 dernière chance et urgence réelle. L'urgence doit être authentique, jamais fabriquée. Ton : [TON]. Écris en français, emails de 150 à 220 mots. Adapte le niveau de pression à la maturité de la relation. Ajoute pour chaque email une note sur le moment d'envoi idéal."
+  },
+  {
+    "slug": "marketing-charte-voix-de-marque",
+    "category": "marketing",
+    "title": "Charte de voix de marque",
+    "useCase": "Définir une charte de voix et de ton réutilisable pour toute la production de contenu.",
+    "tier": "mastery",
+    "prompt": "Tu es stratège de marque. À partir des informations suivantes, rédige une charte de voix de marque complète et opérationnelle pour [MARQUE]. Mission : [MISSION]. Valeurs : [VALEURS]. Audience principale : [AUDIENCE]. Personnalité souhaitée en 3 adjectifs : [ADJECTIFS]. Concurrents dont on veut se démarquer : [CONCURRENTS]. La charte doit contenir : (1) un résumé de la voix en une phrase, (2) 4 piliers de ton avec pour chacun une explication et une règle 'on dit / on ne dit pas', (3) le vocabulaire à privilégier et à bannir, (4) les règles de tutoiement/vouvoiement et de ponctuation, (5) 3 exemples de réécriture d'une même phrase neutre dans la voix de la marque, (6) une checklist de relecture en 6 points. Écris en français, format clair avec titres. Reste concret et actionnable, évite les généralités abstraites."
+  },
+  {
+    "slug": "marketing-calendrier-editorial-mensuel",
+    "category": "marketing",
+    "title": "Calendrier éditorial mensuel",
+    "useCase": "Planifier un mois de contenu cohérent réparti sur plusieurs canaux.",
+    "tier": "mastery",
+    "prompt": "Tu es responsable contenu. Construis un calendrier éditorial sur [NOMBRE_SEMAINES] semaines pour [MARQUE], dont l'objectif marketing du mois est [OBJECTIF]. Canaux : [CANAUX]. Audience : [AUDIENCE]. Piliers de contenu : [PILIERS_THEMATIQUES]. Cadence souhaitée : [FREQUENCE_PAR_CANAL]. Pour chaque publication fournis : date relative, canal, pilier, format, angle, titre ou accroche, appel à l'action et objectif (notoriété, engagement, conversion). Équilibre les contenus selon une règle approximative 70% valeur / 20% engagement / 10% promotion. Identifie 2 contenus piliers à décliner. Présente le tout sous forme de tableau lisible. Écris en français. Termine par 3 idées de contenus de réserve réutilisables si un créneau se libère, et une recommandation sur le meilleur jour de publication par canal."
+  },
+  {
+    "slug": "marketing-posts-linkedin-thought-leadership",
+    "category": "marketing",
+    "title": "Posts LinkedIn thought leadership",
+    "useCase": "Produire des posts LinkedIn personnels qui construisent l'autorité sans vendre frontalement.",
+    "tier": "mastery",
+    "prompt": "Tu es ghostwriter LinkedIn pour fondateurs et experts. Rédige [NOMBRE] posts LinkedIn pour [PRENOM], qui est [POSITIONNEMENT] et s'adresse à [AUDIENCE]. Sujet du jour ou conviction à défendre : [SUJET_OU_OPINION]. Chaque post doit : ouvrir par une accroche d'une ligne qui arrête le scroll, développer une idée unique avec une anecdote ou un exemple concret, aérer le texte (phrases courtes, sauts de ligne), et finir par une question ou une invitation à réagir. Pas de hashtags génériques, maximum 3 hashtags pertinents en fin. Évite le format 'liste de conseils creux' et les histoires inventées. Ton : [TON], première personne, vulnérable et précis. Longueur : 120 à 200 mots par post. Écris en français. Pour chaque post, propose en plus une variante d'accroche alternative."
+  },
+  {
+    "slug": "marketing-script-vsl",
+    "category": "marketing",
+    "title": "Script VSL (vidéo de vente)",
+    "useCase": "Écrire le script d'une vidéo de vente pour une page d'offre.",
+    "tier": "mastery",
+    "prompt": "Tu es scénariste de VSL (video sales letter) à forte conversion. Écris un script de VSL d'environ [DUREE_MINUTES] minutes pour vendre [PRODUIT] à [AUDIENCE]. Grande promesse : [PROMESSE]. Mécanisme unique : [MECANISME]. Prix et offre : [PRIX_OFFRE]. Structure : (1) accroche pattern interrupt dans les 10 premières secondes, (2) identification au problème et empathie, (3) échec des solutions classiques, (4) révélation du mécanisme unique, (5) preuve et crédibilité, (6) présentation de l'offre et de sa valeur, (7) inversion du risque par garantie, (8) appel à l'action avec raison d'agir maintenant. Écris pour l'oreille : phrases parlées, rythme, respirations. Indique entre crochets les intentions de jeu et les visuels à l'écran. Ton : [TON]. Évite l'emphase mensongère. Écris en français. Termine par une accroche d'ouverture alternative à tester."
+  },
+  {
+    "slug": "marketing-persona-acheteur",
+    "category": "marketing",
+    "title": "Persona acheteur détaillé",
+    "useCase": "Construire un persona marketing riche pour orienter messages et offres.",
+    "tier": "free",
+    "prompt": "Tu es chercheur en insights clients. À partir de ces éléments, construis un persona acheteur détaillé pour [PRODUIT_OU_MARQUE]. Marché : [MARCHE]. Ce que je sais déjà de mes clients : [DONNEES_CLIENTS]. Prix de l'offre : [PRIX]. Le persona doit inclure : prénom et situation, contexte de vie et professionnel, objectif principal, frustrations et points de douleur, déclencheur d'achat, objections probables, où il s'informe et qui il écoute, le langage exact qu'il emploie pour décrire son problème, et les critères qui le feront choisir une solution. Ajoute une 'journée type' en 4 lignes et une citation représentative entre guillemets. Reste réaliste et nuancé, évite les caricatures. Écris en français, format structuré avec titres. Termine par 3 angles de message qui résonneraient particulièrement avec ce persona."
+  },
+  {
+    "slug": "marketing-repurposing-multicanal",
+    "category": "marketing",
+    "title": "Repurposing de contenu multicanal",
+    "useCase": "Décliner un contenu source unique en plusieurs formats adaptés à chaque canal.",
+    "tier": "mastery",
+    "prompt": "Tu es expert en recyclage de contenu (content repurposing). À partir du contenu source suivant, produis un plan de déclinaison multicanal. Contenu source : [COLLER_CONTENU_OU_RESUME]. Type de source : [TYPE_SOURCE]. Canaux cibles : [CANAUX]. Audience : [AUDIENCE]. Objectif : [OBJECTIF]. Pour chaque canal, génère le contenu adapté au format natif (et non un simple copier-coller) : par exemple 1 post LinkedIn, 3 idées de posts courts, 1 fil structuré, 1 script de vidéo courte de 30 à 60 secondes, 1 idée de newsletter, 1 carrousel en 5 slides avec le texte de chaque slide. Conserve le message clé et la voix d'origine tout en respectant les codes de chaque plateforme. Évite la redondance littérale entre formats. Écris en français. Termine par un calendrier de diffusion étalé sur 2 semaines pour ne pas saturer l'audience."
+  },
+  {
+    "slug": "marketing-cluster-seo-piliers",
+    "category": "marketing",
+    "title": "Cluster SEO et page pilier",
+    "useCase": "Concevoir une architecture de contenu SEO autour d'une thématique pilier.",
+    "tier": "mastery",
+    "prompt": "Tu es stratège SEO de contenu. Conçois un cluster sémantique (topic cluster) autour de la thématique [THEMATIQUE_PILIER] pour le site [SITE], qui s'adresse à [AUDIENCE] et cherche à se positionner sur [INTENTION_PRINCIPALE]. Fournis : (1) le sujet de la page pilier avec son angle et l'intention de recherche, (2) une liste de 10 à 14 articles satellites avec pour chacun le mot-clé cible, l'intention (informationnelle, comparative, transactionnelle), un titre optimisé et une méta-description de 150 caractères maximum, (3) la logique de maillage interne entre pilier et satellites. Priorise les sujets selon le potentiel et la difficulté estimée. N'invente pas de volumes de recherche chiffrés ; raisonne par logique d'intention. Écris en français. Termine par 3 idées de contenu à fort potentiel de citation par les moteurs de réponse IA."
+  },
+  {
+    "slug": "marketing-angles-accroches-headlines",
+    "category": "marketing",
+    "title": "Générateur d'angles et d'accroches",
+    "useCase": "Produire un éventail d'angles marketing et d'accroches pour un même produit.",
+    "tier": "mastery",
+    "prompt": "Tu es directeur de création publicitaire. Pour [PRODUIT] destiné à [AUDIENCE], dont le bénéfice central est [BENEFICE] et le problème résolu [PROBLEME], génère un éventail d'angles marketing distincts. Produis au moins 8 angles relevant de leviers différents : peur de manquer, désir d'appartenance, gain de temps, statut, économie, transformation identitaire, preuve par les pairs, contre-intuition. Pour chaque angle, donne : le levier psychologique, une phrase d'explication, et 3 accroches courtes prêtes à tester (titres ou premières lignes de pub). Les accroches doivent être spécifiques et crédibles, sans superlatifs vides ni promesses interdites. Marque d'une étoile les 3 angles que tu testerais en priorité et explique pourquoi en une ligne. Écris en français. Varie les structures d'accroche (question, statistique, contradiction, scène concrète)."
+  },
+  {
+    "slug": "marketing-ads-meta-facebook-instagram",
+    "category": "marketing",
+    "title": "Publicités Meta (Facebook/Instagram)",
+    "useCase": "Rédiger plusieurs variantes de publicités payantes pour le feed Meta.",
+    "tier": "mastery",
+    "prompt": "Tu es media buyer et copywriter publicitaire. Rédige [NOMBRE] variantes de publicités Meta (Facebook/Instagram) pour promouvoir [PRODUIT] auprès de [AUDIENCE_CIBLAGE]. Objectif de campagne : [OBJECTIF]. Offre ou promesse : [OFFRE]. Page de destination : [DESTINATION]. Pour chaque variante fournis : texte principal (primary text, 90 à 150 mots avec accroche forte dès la première ligne avant le 'voir plus'), titre (headline, 5 mots max), description, et bouton d'appel à l'action recommandé. Chaque variante doit explorer un angle différent (problème, bénéfice, preuve, objection). Respecte les règles publicitaires : pas de promesses de résultats garantis, pas d'attaque de l'estime de soi du lecteur. Écris en français, ton conversationnel. Termine par 3 idées de visuel ou de hook vidéo pour accompagner ces textes."
+  },
+  {
+    "slug": "marketing-google-ads-search",
+    "category": "marketing",
+    "title": "Annonces Google Ads (réseau de recherche)",
+    "useCase": "Créer des annonces responsives optimisées pour le réseau de recherche Google.",
+    "tier": "mastery",
+    "prompt": "Tu es expert Google Ads. Crée le contenu d'une annonce responsive sur le réseau de recherche pour [PRODUIT_OU_SERVICE], ciblant des internautes qui recherchent [INTENTION_OU_MOTS_CLES]. Proposition de valeur : [PROPOSITION_VALEUR]. Avantages différenciants : [AVANTAGES]. Fournis : 15 titres de 30 caractères maximum (en variant promesses, mots-clés, appels à l'action, preuve), 4 descriptions de 90 caractères maximum, et une suggestion de chemin d'affichage (URL path). Intègre naturellement les mots-clés cibles dans plusieurs titres. Respecte strictement les limites de caractères et indique le décompte entre parenthèses pour chaque ligne. Évite la duplication et la ponctuation interdite. Écris en français. Termine par 4 suggestions d'extensions (liens annexes ou accroches) cohérentes avec l'offre."
+  },
+  {
+    "slug": "marketing-newsletter-valeur",
+    "category": "marketing",
+    "title": "Newsletter de valeur récurrente",
+    "useCase": "Rédiger une édition de newsletter qui apporte de la valeur tout en entretenant la relation.",
+    "tier": "mastery",
+    "prompt": "Tu es rédacteur de newsletter à forte fidélité. Rédige une édition de la newsletter [NOM_NEWSLETTER] de [MARQUE_OU_AUTEUR], adressée à [AUDIENCE]. Sujet central de l'édition : [SUJET]. Idée ou enseignement à transmettre : [INSIGHT]. Format souhaité : [FORMAT]. L'édition doit contenir : un objet accrocheur (3 variantes), une ouverture personnelle qui crée du lien, un corps qui développe un seul enseignement actionnable avec un exemple concret, une transition douce vers [APPEL_A_ACTION] sans casser la confiance, et une signature humaine. Privilégie la générosité avant la promotion (ratio valeur/vente élevé). Longueur : 250 à 400 mots. Ton : [TON], comme une lettre d'un ami compétent. Évite le remplissage et les listes interminables. Écris en français. Termine par un PS qui ajoute une dernière valeur ou une touche personnelle."
+  },
+  {
+    "slug": "marketing-analyse-funnel-conversion",
+    "category": "marketing",
+    "title": "Analyse de funnel de conversion",
+    "useCase": "Diagnostiquer un tunnel de conversion et identifier les fuites prioritaires.",
+    "tier": "mastery",
+    "prompt": "Tu es consultant en optimisation de conversion (CRO). Analyse mon tunnel de conversion et propose un plan d'action priorisé. Étapes du funnel et chiffres : [DECRIRE_ETAPES_ET_TAUX]. Trafic et sources : [SOURCES_TRAFIC]. Offre et prix : [OFFRE_PRIX]. Objectif : [OBJECTIF]. Pour chaque étape, calcule ou estime le taux de passage, identifie les points de fuite probables et leurs causes plausibles (friction, manque de clarté, objection non levée, décalage message/audience). Hiérarchise ensuite 5 hypothèses d'amélioration par impact estimé et effort, sous forme de tableau. Pour les 3 hypothèses prioritaires, propose un test concret (ce qu'on change, métrique de succès, durée). Reste rigoureux : distingue ce que les données montrent de ce qui est supposé. Écris en français. Termine par la question clé à laquelle je devrais répondre avant d'investir davantage."
+  },
+  {
+    "slug": "marketing-script-video-courte",
+    "category": "marketing",
+    "title": "Script vidéo courte (Reels/TikTok/Shorts)",
+    "useCase": "Écrire des scripts de vidéos courtes verticales pour les réseaux sociaux.",
+    "tier": "free",
+    "prompt": "Tu es scénariste de vidéos courtes virales (Reels, TikTok, Shorts). Écris [NOMBRE] scripts de vidéos de 20 à 45 secondes pour [MARQUE_OU_CREATEUR] sur le sujet [SUJET], à destination de [AUDIENCE]. Objectif : [OBJECTIF]. Chaque script doit contenir : un hook visuel et verbal dans les 2 premières secondes, un développement clair en 3 à 5 points parlés, une révélation ou un retournement, et une phrase de clôture avec appel à l'action. Indique pour chaque ligne ce qui est dit à l'oral et ce qui s'affiche à l'écran (texte incrusté, plan, action). Le hook ne doit pas être trompeur. Ton : [TON], dynamique et naturel. Écris pour l'oral, phrases courtes. Écris en français. Pour chaque vidéo, propose une légende de publication et 3 hashtags pertinents."
+  },
+  {
+    "slug": "marketing-page-capture-lead-magnet",
+    "category": "marketing",
+    "title": "Page de capture pour lead magnet",
+    "useCase": "Rédiger une landing page de capture d'emails autour d'un aimant à prospects.",
+    "tier": "mastery",
+    "prompt": "Tu es copywriter spécialisé en pages de capture. Rédige une landing page de capture d'emails pour le lead magnet [NOM_LEAD_MAGNET], qui aide [AUDIENCE] à [RESULTAT_PROMIS]. Format du lead magnet : [FORMAT]. Contexte de la marque : [MARQUE]. La page doit contenir : un titre orienté bénéfice clair, un sous-titre qui précise pour qui et pourquoi, 3 à 5 puces de bénéfices concrets de ce que la personne va obtenir, une mini-preuve de crédibilité, le texte du formulaire (label de champ, texte de bouton), et une phrase rassurante anti-spam. La promesse doit être atteignable par le lead magnet seul. Garde la page focalisée sur une seule action, sans distraction. Ton : [TON]. Écris en français, copy concis et scannable. Termine par 2 variantes de titre alternatives à tester en A/B."
+  },
+  {
+    "slug": "marketing-storytelling-marque-origine",
+    "category": "marketing",
+    "title": "Histoire de marque (origin story)",
+    "useCase": "Écrire le récit fondateur d'une marque pour une page À propos ou un pitch.",
+    "tier": "mastery",
+    "prompt": "Tu es spécialiste du storytelling de marque. Écris l'histoire fondatrice de [MARQUE] à partir de ces éléments. Fondateur(s) : [FONDATEUR]. Déclic à l'origine du projet : [DECLIC]. Problème personnel ou observé : [PROBLEME]. Tournants et obstacles : [OBSTACLES]. Mission aujourd'hui : [MISSION]. Audience qui doit s'y reconnaître : [AUDIENCE]. Construis un récit selon une trame narrative : situation de départ, élément déclencheur, lutte et apprentissage, transformation, et pont vers la mission qui sert le lecteur. Le héros implicite de l'histoire doit rester le client, pas seulement le fondateur. Reste authentique : n'invente aucun fait, signale entre crochets les zones où il manque une information. Ton : [TON], sincère et incarné. Longueur : 250 à 350 mots. Écris en français. Termine par une version condensée de 3 phrases utilisable en bio ou en pitch."
+  },
+  {
+    "slug": "marketing-objections-faq-vente",
+    "category": "marketing",
+    "title": "Traitement des objections et FAQ de vente",
+    "useCase": "Anticiper et désamorcer les objections d'achat dans une FAQ persuasive.",
+    "tier": "mastery",
+    "prompt": "Tu es expert en psychologie de la vente. Pour l'offre [PRODUIT] vendue [PRIX] à [AUDIENCE], identifie les objections d'achat les plus probables puis rédige une FAQ de vente qui les désamorce. Contexte : promesse [PROMESSE], garantie [GARANTIE], freins connus [FREINS_CONNUS]. Liste d'abord les 8 objections classées par fréquence et par poids (prix, temps, confiance, pertinence pour soi, peur de l'échec, comparaison, timing, mécanisme). Pour chacune, écris une réponse de FAQ honnête qui reconnaît la préoccupation, apporte une preuve ou un cadre de pensée, et renverse l'objection sans manipulation. Les réponses ne doivent jamais mentir ni culpabiliser. Ton : [TON], rassurant et direct. Écris en français. Termine par la formulation de l'objection la plus dangereuse pour la vente et la meilleure façon de l'adresser dès le début de la page."
+  },
+  {
+    "slug": "marketing-brief-creatif-campagne",
+    "category": "marketing",
+    "title": "Brief créatif de campagne",
+    "useCase": "Rédiger un brief clair pour aligner une équipe ou un prestataire sur une campagne.",
+    "tier": "mastery",
+    "prompt": "Tu es directeur marketing. Rédige un brief créatif complet pour la campagne [NOM_CAMPAGNE] de [MARQUE]. Objectif business : [OBJECTIF]. Audience cible : [AUDIENCE]. Insight consommateur clé : [INSIGHT]. Message principal à faire passer (single-minded) : [MESSAGE]. Preuves à l'appui : [PREUVES]. Canaux et formats : [CANAUX]. Budget et calendrier : [BUDGET_CALENDRIER]. Le brief doit contenir : contexte et enjeu, objectif mesurable, description de l'audience, problème à résoudre pour elle, message unique, ton et registre, livrables attendus par canal, contraintes de marque, critères de réussite (KPI), et ce qu'il faut absolument éviter. Sois précis et concis : un bon brief tient sur une page et ne laisse pas d'ambiguïté. Écris en français, format structuré avec titres. Termine par une phrase résumant la campagne qui pourrait servir de boussole créative à toute l'équipe."
+  },
+  {
+    "slug": "marketing-audit-page-de-vente",
+    "category": "marketing",
+    "title": "Audit critique d'une page de vente",
+    "useCase": "Faire analyser une page de vente existante et recevoir des recommandations concrètes.",
+    "tier": "mastery",
+    "prompt": "Tu es copywriter senior et auditeur en conversion. Analyse de façon critique et constructive la page de vente suivante. Page : [COLLER_LE_TEXTE_DE_LA_PAGE]. Produit : [PRODUIT]. Audience visée : [AUDIENCE]. Objectif : [OBJECTIF]. Évalue la page sur 7 dimensions : clarté de la promesse, force de l'accroche, structure et lisibilité, traitement des objections, preuve et crédibilité, force de l'appel à l'action, et adéquation message/audience. Pour chaque dimension, donne une note sur 5, ce qui fonctionne, ce qui bloque, et une recommandation concrète avec un exemple de réécriture. Sois honnête et exigeant sans être méprisant. Hiérarchise ensuite les 3 changements à fort impact à effectuer en priorité. Écris en français. Termine par une réécriture complète de l'accroche d'ouverture proposant une version nettement plus forte."
+  },
+  {
+    "slug": "marketing-plan-go-to-market-produit",
+    "category": "marketing",
+    "title": "Plan go-to-market pour un nouveau produit",
+    "useCase": "Bâtir un plan de mise sur le marché structuré pour le lancement d'un produit.",
+    "tier": "mastery",
+    "prompt": "Tu es stratège go-to-market. Élabore un plan de mise sur le marché pour [PRODUIT], destiné à [AUDIENCE_CIBLE], lancé le [DATE_LANCEMENT]. Proposition de valeur : [PROPOSITION_VALEUR]. Positionnement face aux alternatives : [CONCURRENTS_ET_DIFFERENCE]. Modèle de prix : [PRIX]. Budget et ressources : [RESSOURCES]. Le plan doit couvrir : (1) le positionnement et le message central, (2) les segments prioritaires et leur ordre d'attaque, (3) les canaux d'acquisition recommandés avec justification, (4) la séquence de lancement en phases (pré-lancement, lancement, post-lancement), (5) les actifs marketing à produire, (6) les indicateurs de succès par phase, (7) les risques principaux et leurs parades. Priorise selon l'impact et les ressources réelles, sans saupoudrage. Écris en français, format structuré avec titres et tableaux quand c'est utile. Termine par les 3 actions à lancer dès cette semaine."
+  }
+]

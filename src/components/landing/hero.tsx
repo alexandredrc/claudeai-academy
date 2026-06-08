@@ -2,6 +2,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { getCatalogStats } from "@/lib/courses/stats";
+import { PROMPT_COUNT } from "@/lib/prompts/library";
 
 export async function Hero() {
   const stats = await getCatalogStats();
@@ -47,7 +48,7 @@ export async function Hero() {
             <dl className="mt-14 pt-8 border-t border-line flex flex-wrap gap-x-12 gap-y-5">
               <TrustItem value={String(stats.courseCount)} label="Parcours métiers" />
               <TrustItem value={String(stats.lessonCount)} label="Leçons structurées" />
-              <TrustItem value="120+" label="Prompts opérationnels" />
+              <TrustItem value={String(PROMPT_COUNT)} label="Prompts opérationnels" />
             </dl>
           </div>
 

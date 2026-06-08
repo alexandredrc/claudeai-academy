@@ -1,0 +1,162 @@
+[
+  {
+    "slug": "design-critique-ui-screenshot",
+    "category": "design",
+    "title": "Critique d'écran UI à partir d'une capture",
+    "useCase": "Obtenir une critique UX/UI structurée et actionnable d'un écran existant.",
+    "tier": "free",
+    "prompt": "Tu es un designer produit senior spécialisé en UX/UI. Je te partage une capture d'écran (ou sa description) de [NOM_DE_L_ÉCRAN] dans [NOM_DU_PRODUIT], destiné à [PERSONA_CIBLE] qui veut [OBJECTIF_UTILISATEUR]. Contexte d'usage : [DESKTOP/MOBILE/LES_DEUX]. Réalise une critique structurée en 5 sections : 1) Hiérarchie visuelle et lisibilité, 2) Clarté de l'action principale et des CTA, 3) Cohérence (typographie, espacements, couleurs), 4) Charge cognitive et friction, 5) Accessibilité de surface (contraste, taille des cibles). Pour chaque point, indique la sévérité (critique/moyenne/mineure), explique l'impact sur l'utilisateur, puis propose une correction concrète. Termine par un top 3 des priorités à corriger en premier, classées par rapport impact/effort. Sois précis et évite les généralités : appuie chaque remarque sur un principe de design reconnu (loi de Fitts, loi de Hick, principe de proximité, etc.). Pose-moi une question si une information de contexte te manque."
+  },
+  {
+    "slug": "design-microcopy-ux-writing",
+    "category": "design",
+    "title": "Rédaction de micro-copy UX",
+    "useCase": "Écrire la micro-copy d'un élément d'interface dans un ton cohérent.",
+    "tier": "free",
+    "prompt": "Tu es un UX writer expérimenté. Rédige la micro-copy pour [ÉLÉMENT_UI : bouton, message d'erreur, état vide, tooltip, confirmation] dans [NOM_DU_PRODUIT], une [TYPE_DE_PRODUIT] pour [PERSONA_CIBLE]. Ton de marque : [TON : amical, professionnel, sobre, ludique]. Objectif de l'utilisateur à ce moment : [OBJECTIF]. Contrainte d'espace : [NOMBRE_DE_CARACTÈRES_OU_LIGNES]. Propose 3 variantes distinctes, de la plus concise à la plus chaleureuse. Pour chacune : le texte exact, une justification d'une phrase, et le risque éventuel (ambiguïté, ton inadapté). Respecte ces règles : voix active, verbe d'action clair, pas de jargon, pas de double négation, formulation orientée utilisateur (« vous ») plutôt que système. Pour un message d'erreur, indique systématiquement la cause probable et l'action de résolution. Termine par une recommandation argumentée sur la variante à retenir et précise les éléments à tester en A/B si pertinent."
+  },
+  {
+    "slug": "design-accessibility-checklist-wcag",
+    "category": "design",
+    "title": "Checklist d'accessibilité WCAG pour une page",
+    "useCase": "Vérifier rapidement la conformité WCAG AA d'une page avant livraison.",
+    "tier": "free",
+    "prompt": "Tu es un expert en accessibilité numérique (WCAG 2.2 niveau AA, RGAA). Je te décris la page [NOM_DE_LA_PAGE] de [NOM_DU_PRODUIT] : [DESCRIPTION_DES_ÉLÉMENTS : titres, formulaires, images, vidéos, composants interactifs, couleurs principales]. Produis une checklist de revue d'accessibilité organisée par principe POUR (Perceptible, Utilisable, Compréhensible, Robuste). Pour chaque critère pertinent : énonce-le simplement, indique comment le vérifier concrètement, et donne le statut attendu. Couvre au minimum : contraste de couleur (ratios cibles), alternatives textuelles, structure des titres, navigation clavier et focus visible, taille des cibles tactiles, labels de formulaire et messages d'erreur, gestion du mouvement et de l'auto-play, compatibilité lecteur d'écran. Signale les pièges fréquents pour ce type de page. Termine par les 5 vérifications prioritaires à ne jamais omettre et les outils gratuits recommandés pour tester (contraste, ARIA, navigation clavier)."
+  },
+  {
+    "slug": "design-system-tokens-generation",
+    "category": "design",
+    "title": "Génération de design tokens",
+    "useCase": "Créer un jeu de design tokens cohérent et nommé sémantiquement.",
+    "tier": "mastery",
+    "prompt": "Tu es un design system engineer. Génère un jeu complet de design tokens pour [NOM_DU_PRODUIT], une [TYPE_DE_PRODUIT] avec une identité [STYLE : minimaliste, corporate, ludique, premium]. Couleur de marque principale : [COULEUR_HEX]. Support du mode sombre : [OUI/NON]. Structure les tokens en deux niveaux : tokens primitifs (palette brute, échelle d'espacement, échelle typographique, rayons, ombres, durées d'animation) et tokens sémantiques (background, surface, text-primary, text-muted, border, accent, success, warning, danger, focus-ring). Pour la palette, génère des échelles de 50 à 900 et vérifie que les paires texte/fond respectent un contraste WCAG AA. Fournis le résultat sous deux formats : un objet JSON exploitable et un extrait de variables CSS (:root et [data-theme=dark]). Documente une convention de nommage claire et explique brièvement la logique de l'échelle typographique (ratio choisi). Conclus par les règles d'usage : quand utiliser un token sémantique plutôt qu'un primitif."
+  },
+  {
+    "slug": "design-wireframe-low-fidelity-described",
+    "category": "design",
+    "title": "Wireframe basse fidélité décrit",
+    "useCase": "Décrire textuellement un wireframe d'écran avant maquettage.",
+    "tier": "mastery",
+    "prompt": "Tu es un designer produit. Décris un wireframe basse fidélité pour l'écran [NOM_DE_L_ÉCRAN] de [NOM_DU_PRODUIT], destiné à [PERSONA_CIBLE] dont l'objectif est [OBJECTIF_UTILISATEUR]. Plateforme : [MOBILE/DESKTOP]. Décris la structure de haut en bas, zone par zone, avec pour chacune : son rôle, son contenu (placeholder), sa priorité visuelle et son comportement. Couvre obligatoirement : en-tête/navigation, contenu principal, action principale (et sa position), actions secondaires, états (chargement, vide, erreur). Indique la grille suggérée (nombre de colonnes), la hiérarchie des titres et les regroupements logiques. Justifie le placement de l'action principale par un principe d'UX. Propose ensuite une variante alternative de disposition et explique le compromis. Précise enfin les questions de contenu à clarifier avec les parties prenantes avant de passer en maquette haute fidélité. Reste en basse fidélité : pas de couleurs ni de style décoratif, uniquement structure et intention."
+  },
+  {
+    "slug": "design-component-spec-button",
+    "category": "design",
+    "title": "Spécification complète d'un composant",
+    "useCase": "Documenter les variantes, états et props d'un composant d'interface.",
+    "tier": "mastery",
+    "prompt": "Tu es un design system engineer rédigeant une spec de composant pour les développeurs. Documente le composant [NOM_DU_COMPOSANT : bouton, champ de saisie, modale, menu déroulant...] de [NOM_DU_PRODUIT]. Produis une spécification exhaustive structurée ainsi : 1) Anatomie (parties qui composent l'élément), 2) Variantes (par exemple primaire/secondaire/ghost, ou par taille), 3) États interactifs (default, hover, focus, active, disabled, loading, error), 4) Props/API recommandée avec types et valeurs par défaut, 5) Tokens utilisés (couleurs, espacements, rayons, typographie via tokens sémantiques), 6) Comportement responsive, 7) Accessibilité (rôle ARIA, gestion du focus, navigation clavier, label), 8) Règles d'usage (à faire / à éviter) avec exemples. Indique les cas limites (texte long, contenu manquant, RTL). Termine par une checklist de validation avant intégration. Sois assez précis pour qu'un développeur implémente le composant sans question complémentaire."
+  },
+  {
+    "slug": "design-user-journey-map",
+    "category": "design",
+    "title": "Carte de parcours utilisateur",
+    "useCase": "Modéliser un parcours utilisateur étape par étape avec émotions et points de friction.",
+    "tier": "mastery",
+    "prompt": "Tu es un UX researcher. Construis une carte de parcours utilisateur (journey map) pour [PERSONA_CIBLE] cherchant à [OBJECTIF] avec [NOM_DU_PRODUIT]. Scénario déclencheur : [SITUATION_DE_DÉPART]. Découpe le parcours en phases (par exemple : prise de conscience, considération, première utilisation, usage récurrent, rétention) — adapte les phases au contexte. Pour chaque phase, détaille : les actions de l'utilisateur, ses pensées, ses émotions (positives/négatives), les points de contact (touchpoints), les points de friction et les opportunités d'amélioration. Présente le résultat sous forme de tableau lisible, une ligne par phase. Identifie ensuite le « moment de vérité » le plus critique et le « point de douleur » prioritaire. Conclus par 3 recommandations d'amélioration concrètes priorisées par impact, en précisant la métrique qui permettrait de mesurer le progrès. Signale les hypothèses à valider par de la recherche utilisateur."
+  },
+  {
+    "slug": "design-ab-test-ideas-cta",
+    "category": "design",
+    "title": "Idées d'A/B test pour optimiser la conversion",
+    "useCase": "Générer des hypothèses d'A/B test priorisées pour un écran clé.",
+    "tier": "mastery",
+    "prompt": "Tu es un spécialiste de l'optimisation de conversion (CRO). Pour l'écran [NOM_DE_L_ÉCRAN] de [NOM_DU_PRODUIT], dont l'objectif business est [OBJECTIF : inscription, achat, activation...] et la métrique principale [MÉTRIQUE], propose 6 idées d'A/B test. Pour chaque idée, formule une hypothèse rigoureuse au format : « Parce que [observation/problème], nous pensons que [changement] entraînera [effet attendu] mesuré par [métrique] ». Précise pour chacune : l'élément modifié (CTA, titre, preuve sociale, disposition, friction du formulaire...), la variante proposée vs l'existant, le niveau d'effort d'implémentation, le risque, et l'audience concernée. Classe ensuite les 6 idées avec un score ICE (Impact, Confiance, Effort) et recommande par quel test commencer. Rappelle les conditions de validité d'un test (taille d'échantillon, durée, une variable à la fois) et les pièges classiques (peeking, faux positifs). Évite les idées génériques : ancre-les sur le contexte fourni."
+  },
+  {
+    "slug": "design-information-architecture-sitemap",
+    "category": "design",
+    "title": "Arborescence et architecture de l'information",
+    "useCase": "Structurer la navigation et l'arborescence d'un produit ou site.",
+    "tier": "mastery",
+    "prompt": "Tu es un architecte de l'information. Conçois l'arborescence de [NOM_DU_PRODUIT], [TYPE : site, app, dashboard], dont les utilisateurs principaux sont [PERSONAS] et les tâches clés sont [LISTE_DES_TÂCHES]. Contenus/fonctionnalités à organiser : [LISTE]. Produis : 1) une arborescence hiérarchique claire (niveaux indentés) regroupant les éléments par logique mentale utilisateur et non par structure interne de l'entreprise, 2) les libellés de navigation proposés (concis, sans jargon), 3) la justification des regroupements principaux, 4) la stratégie de navigation (barre principale, secondaire, fil d'Ariane, recherche). Indique les éléments susceptibles de poser un problème de catégorisation et propose un protocole de tri de cartes (card sorting) pour les valider. Signale les risques de profondeur excessive (règle des 3 clics nuancée) et les arbitrages effectués. Termine par les libellés alternatifs à tester pour les sections ambiguës."
+  },
+  {
+    "slug": "design-creative-brief",
+    "category": "design",
+    "title": "Brief créatif pour une campagne ou un visuel",
+    "useCase": "Rédiger un brief créatif complet pour cadrer une production visuelle.",
+    "tier": "mastery",
+    "prompt": "Tu es directeur de création. Rédige un brief créatif pour [TYPE_DE_PRODUCTION : campagne, bannière, page d'accueil, identité visuelle, illustration]. Marque/produit : [NOM]. Audience cible : [PERSONA_ET_INSIGHT]. Objectif de communication : [OBJECTIF]. Message clé unique à faire passer : [MESSAGE]. Structure le brief ainsi : 1) Contexte et enjeu business, 2) Audience et insight consommateur, 3) Objectif et indicateurs de succès, 4) Idée maîtresse (single-minded proposition), 5) Ton et personnalité de marque, 6) Contraintes (formats, supports, charte, mentions légales), 7) Références et anti-références (ce qu'on veut éviter), 8) Livrables et formats attendus, 9) Critères de validation. Le brief doit être assez précis pour orienter sans brider la créativité. Termine par une phrase de synthèse du brief tenant en une ligne (« north star ») et 3 questions à poser au commanditaire pour lever toute ambiguïté avant de lancer la production."
+  },
+  {
+    "slug": "design-tailwind-landing-section",
+    "category": "design",
+    "title": "Génération d'une section en HTML + Tailwind",
+    "useCase": "Produire le code d'une section de landing page responsive avec Tailwind CSS.",
+    "tier": "mastery",
+    "prompt": "Tu es développeur front-end expert en HTML sémantique et Tailwind CSS. Génère le code d'une section [TYPE : hero, fonctionnalités, tarifs, témoignages, FAQ, CTA] pour la landing page de [NOM_DU_PRODUIT], qui vend [PROPOSITION_DE_VALEUR] à [PERSONA_CIBLE]. Style visuel souhaité : [STYLE : épuré, premium, coloré]. Couleur d'accent : [COULEUR]. Contraintes : HTML5 sémantique (header, section, nav, etc.), classes Tailwind uniquement (pas de CSS custom sauf nécessité), responsive mobile-first, accessible (contraste suffisant, attributs alt, aria-label si besoin, focus visible), états hover/focus sur les éléments interactifs. Inclus un contenu réaliste en français (pas de lorem ipsum) cohérent avec la proposition de valeur. Commente brièvement les choix de structure. Après le code, fournis : la liste des points d'accessibilité respectés, les variables à personnaliser, et une suggestion d'amélioration (animation discrète, micro-interaction). Ne génère que du code valide et copiable tel quel."
+  },
+  {
+    "slug": "design-accessibility-audit-existing",
+    "category": "design",
+    "title": "Revue d'accessibilité d'un code existant",
+    "useCase": "Auditer du code HTML/CSS existant pour détecter les problèmes d'accessibilité.",
+    "tier": "mastery",
+    "prompt": "Tu es auditeur en accessibilité numérique (WCAG 2.2 AA / RGAA). Je te fournis le code suivant : [COLLER_LE_CODE_HTML_CSS_OU_JSX]. Réalise un audit d'accessibilité détaillé. Pour chaque problème détecté, indique : la ligne ou l'élément concerné, le critère WCAG enfreint (numéro et intitulé), la sévérité (bloquant/majeur/mineur), l'impact concret pour les utilisateurs concernés (déficience visuelle, motrice, cognitive...), et la correction exacte avec un extrait de code corrigé. Vérifie au minimum : structure sémantique et titres, alternatives textuelles, labels et association de formulaire, ordre et visibilité du focus, navigation clavier, rôles et attributs ARIA (pertinence et exactitude), contrastes, gestion des états et messages dynamiques (aria-live), cibles tactiles. Termine par un tableau récapitulatif trié par sévérité et un score qualitatif global. Si le code est trop partiel pour conclure sur un point, signale-le explicitement plutôt que de supposer."
+  },
+  {
+    "slug": "design-naming-product-features",
+    "category": "design",
+    "title": "Naming de produit ou de fonctionnalités",
+    "useCase": "Trouver des noms pertinents pour un produit, une fonctionnalité ou une offre.",
+    "tier": "mastery",
+    "prompt": "Tu es spécialiste du naming et de la stratégie de marque. Je cherche un nom pour [OBJET : produit, fonctionnalité, offre, gamme]. Description : [CE_QUE_C_EST_ET_CE_QUE_ÇA_FAIT]. Public cible : [PERSONA]. Personnalité de marque : [ATTRIBUTS : sérieux, accessible, innovant...]. Langue(s) : [FR/EN/LES_DEUX]. Contraintes : [LONGUEUR, ÉVITER_TEL_TERME, DOMAINE_DISPONIBLE...]. Propose 12 noms répartis en 4 familles d'approche : descriptif, évocateur/métaphorique, inventé (néologisme), et composé. Pour chaque nom : la justification du sens, la prononciation/lisibilité, les connotations possibles et un éventuel risque (proche d'un concurrent, sens négatif dans une autre langue). Vérifie l'absence d'ambiguïté ou de double sens malheureux en français. Classe ensuite ton top 3 selon mémorabilité, pertinence et différenciation. Conclus par les vérifications à mener avant adoption (antériorité de marque, disponibilité du nom de domaine, recherche linguistique multi-marchés)."
+  },
+  {
+    "slug": "design-empty-states-design",
+    "category": "design",
+    "title": "Conception des états vides",
+    "useCase": "Concevoir des états vides utiles qui guident l'utilisateur plutôt que de le bloquer.",
+    "tier": "mastery",
+    "prompt": "Tu es designer produit spécialiste de l'onboarding et des micro-interactions. Conçois l'état vide (empty state) de [ÉCRAN_OU_FONCTIONNALITÉ] dans [NOM_DU_PRODUIT], rencontré par [PERSONA_CIBLE] dans la situation : [PREMIÈRE_UTILISATION / RÉSULTAT_DE_RECHERCHE_VIDE / DONNÉES_SUPPRIMÉES / ERREUR]. Un bon état vide informe, rassure et incite à l'action. Décris : 1) le visuel suggéré (illustration, icône ou rien — et pourquoi), 2) le titre (court, orienté bénéfice), 3) le texte explicatif (1 à 2 phrases : pourquoi c'est vide, que faire), 4) l'action principale proposée (libellé exact du CTA) et une éventuelle action secondaire, 5) le ton employé. Adapte le message au type d'état (un premier usage motive, une recherche vide oriente, une erreur rassure). Propose 2 variantes de copy. Précise les pièges à éviter (culpabiliser l'utilisateur, jargon, cul-de-sac sans issue). Termine par une recommandation et les éléments mesurables (taux de clic sur le CTA)."
+  },
+  {
+    "slug": "design-onboarding-flow",
+    "category": "design",
+    "title": "Conception d'un parcours d'onboarding",
+    "useCase": "Structurer un onboarding qui amène l'utilisateur à sa première réussite (aha moment).",
+    "tier": "mastery",
+    "prompt": "Tu es designer produit expert en activation. Conçois le parcours d'onboarding de [NOM_DU_PRODUIT] pour [PERSONA_CIBLE]. Le « aha moment » (première vraie valeur perçue) est : [MOMENT_DE_VALEUR]. Contexte d'inscription : [SOURCE/INTENTION]. Objectif : amener l'utilisateur à ce moment le plus vite possible, sans friction inutile. Décris le parcours étape par étape : pour chaque étape, son objectif, ce qui est demandé/montré, pourquoi c'est nécessaire à ce moment (ou pourquoi on le reporte), et la copy clé. Distingue ce qui est indispensable de ce qui peut être différé (progressive disclosure). Intègre des principes d'activation : réduction du time-to-value, personnalisation légère, feedback de progression, valeur avant la demande d'effort. Propose une approche pour les utilisateurs qui abandonnent en cours (relance, sauvegarde de progression). Termine par les métriques à suivre (taux de complétion par étape, time-to-value, rétention J7) et 2 points à tester."
+  },
+  {
+    "slug": "design-dark-mode-conversion",
+    "category": "design",
+    "title": "Adaptation d'une interface en mode sombre",
+    "useCase": "Définir les règles pour décliner une interface claire en mode sombre soigné.",
+    "tier": "mastery",
+    "prompt": "Tu es designer UI expert en theming. Je veux décliner l'interface de [NOM_DU_PRODUIT] en mode sombre. Palette claire actuelle : [COULEURS_PRINCIPALES_HEX]. Couleur d'accent : [COULEUR]. Établis les règles de conversion vers le mode sombre, sans simplement inverser les couleurs. Couvre : 1) les surfaces (ne pas utiliser de noir pur ; échelle de gris foncés pour exprimer l'élévation/les niveaux), 2) le texte (éviter le blanc pur, gérer les opacités pour la hiérarchie), 3) la couleur d'accent (la désaturer/éclaircir pour préserver le contraste), 4) les ombres (souvent remplacées par des bordures ou des surfaces plus claires), 5) les états sémantiques (succès, erreur, alerte). Pour chaque rôle, propose une valeur HEX en mode sombre et vérifie le contraste WCAG AA. Fournis le résultat sous forme de tableau (token sémantique → valeur claire → valeur sombre → ratio de contraste) et un extrait de variables CSS [data-theme=dark]. Termine par les pièges fréquents et les éléments à tester en conditions réelles."
+  },
+  {
+    "slug": "design-form-ux-optimization",
+    "category": "design",
+    "title": "Optimisation UX d'un formulaire",
+    "useCase": "Réduire la friction et augmenter le taux de complétion d'un formulaire.",
+    "tier": "mastery",
+    "prompt": "Tu es designer produit spécialiste des formulaires et de la conversion. Optimise le formulaire [NOM_DU_FORMULAIRE : inscription, paiement, contact, configuration] de [NOM_DU_PRODUIT]. Champs actuels : [LISTE_DES_CHAMPS]. Objectif : [OBJECTIF] ; métrique : taux de complétion. Analyse et recommande sur : 1) la réduction du nombre de champs (chaque champ est-il indispensable maintenant ?), 2) l'ordre et le regroupement logique, 3) le découpage en étapes vs page unique (et pourquoi), 4) le type de champ et les valeurs par défaut intelligents, 5) les labels et placeholders (label persistant plutôt que placeholder seul), 6) la validation en temps réel et les messages d'erreur (cause + résolution), 7) l'accessibilité (association label/champ, navigation clavier, focus, autocomplete), 8) le bouton de soumission (libellé orienté action). Pour chaque recommandation, précise l'impact attendu sur la friction. Termine par une version réordonnée et allégée du formulaire, puis 3 hypothèses d'A/B test priorisées."
+  },
+  {
+    "slug": "design-responsive-breakpoints-strategy",
+    "category": "design",
+    "title": "Stratégie de responsive et points de rupture",
+    "useCase": "Définir une stratégie responsive cohérente pour un composant ou une page.",
+    "tier": "mastery",
+    "prompt": "Tu es designer UI/dev front-end expert en responsive design. Définis la stratégie responsive de [ÉLÉMENT : page, grille de cartes, navigation, tableau, formulaire] de [NOM_DU_PRODUIT]. Contenu et contraintes : [DESCRIPTION_DU_CONTENU]. Adopte une approche mobile-first. Décris : 1) les points de rupture recommandés et leur justification (basés sur le contenu, pas seulement sur des tailles d'appareils), 2) le comportement de l'élément à chaque palier (mobile, tablette, desktop, grand écran) : disposition, nombre de colonnes, taille typographique, espacements, repli des éléments, 3) la gestion des composants problématiques en responsive (navigation → menu, tableau → cartes ou scroll, images), 4) les tailles de cibles tactiles sur mobile, 5) la fluidité (unités relatives, clamp() pour la typographie fluide). Fournis un tableau récapitulatif (palier → disposition → ajustements clés) et, si utile, un extrait de media queries ou de classes Tailwind. Termine par les écueils fréquents (point de rupture qui casse à un contenu réel) et les tests à mener sur appareils réels."
+  },
+  {
+    "slug": "design-persona-creation",
+    "category": "design",
+    "title": "Création de personas utilisateurs",
+    "useCase": "Construire des personas exploitables à partir d'éléments de recherche.",
+    "tier": "mastery",
+    "prompt": "Tu es UX researcher. Construis [NOMBRE] persona(s) pour [NOM_DU_PRODUIT], [TYPE_DE_PRODUIT]. Éléments dont je dispose : [DONNÉES_DISPONIBLES : verbatims, statistiques, hypothèses, segments connus]. Pour chaque persona, structure la fiche ainsi : 1) Nom et photo-type (archétype, pas un cliché), 2) Contexte (rôle, situation, niveau de maturité numérique), 3) Objectifs principaux liés au produit, 4) Tâches à accomplir (jobs-to-be-done), 5) Frustrations et points de douleur actuels, 6) Motivations et critères de décision, 7) Citation représentative, 8) Comment le produit l'aide. Distingue clairement ce qui repose sur des données fournies de ce qui est une hypothèse à valider (marque ces dernières « à valider »). Évite les détails démographiques inutiles qui n'influencent pas le design. Termine par : les différences clés entre personas si plusieurs, le persona prioritaire pour cette phase et pourquoi, et la recherche complémentaire recommandée pour solidifier les personas."
+  },
+  {
+    "slug": "design-heuristic-evaluation-nielsen",
+    "category": "design",
+    "title": "Évaluation heuristique (Nielsen)",
+    "useCase": "Auditer une interface selon les 10 heuristiques de Nielsen.",
+    "tier": "mastery",
+    "prompt": "Tu es expert en évaluation d'utilisabilité. Réalise une évaluation heuristique de [ÉCRAN_OU_FLUX] de [NOM_DU_PRODUIT], que je décris ainsi : [DESCRIPTION_DÉTAILLÉE_DE_L_INTERFACE_ET_DU_FLUX]. Évalue l'interface selon les 10 heuristiques de Nielsen : 1) Visibilité de l'état du système, 2) Correspondance système/monde réel, 3) Contrôle et liberté de l'utilisateur, 4) Cohérence et standards, 5) Prévention des erreurs, 6) Reconnaissance plutôt que rappel, 7) Flexibilité et efficacité, 8) Design esthétique et minimaliste, 9) Aide à reconnaître/diagnostiquer/réparer les erreurs, 10) Aide et documentation. Pour chaque heuristique : indique si elle est respectée, décris les problèmes observés avec leur localisation, attribue une sévérité (0 à 4 selon l'échelle de Nielsen : cosmétique à catastrophique) et propose une correction concrète. Ignore les heuristiques non applicables en le précisant. Termine par un tableau des problèmes trié par sévérité décroissante et le top 3 des corrections à prioriser selon le rapport impact/effort."
+  }
+]

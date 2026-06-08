@@ -2,6 +2,7 @@ import { Hero } from "@/components/landing/hero";
 import { Problem } from "@/components/landing/problem";
 import { Method } from "@/components/landing/method";
 import { Programme } from "@/components/landing/programme";
+import { PromptTeaser } from "@/components/landing/prompt-teaser";
 import { Profiles } from "@/components/landing/profiles";
 import { Founder } from "@/components/landing/founder";
 import { Testimonials } from "@/components/landing/testimonials";
@@ -18,6 +19,7 @@ export default function Home() {
       <Problem />
       <Method />
       <Programme />
+      <PromptTeaser />
       <Profiles />
       <Founder />
       <Testimonials />

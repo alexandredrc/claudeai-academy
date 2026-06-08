@@ -7,6 +7,7 @@ import { Button } from "./button";
 
 const navItems = [
   { href: "/courses", label: "Parcours" },
+  { href: "/prompts", label: "Prompts" },
   { href: "/tarifs", label: "Tarifs" },
 ];
 

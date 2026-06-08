@@ -12,6 +12,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { tradingClaudeCode } from "./content/trading-claude-code.mjs";
 import { githubPromptsSecurite } from "./content/github-prompts-securite.mjs";
+import { claudeCodeIaAgentic } from "./content/claude-code.mjs";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -414,109 +415,7 @@ Sur une tâche à enjeu (analyse, rédaction importante) : (1) ajoutez une claus
       },
     ],
   },
-  {
-    slug: "claude-code-ia-agentic",
-    title: "Claude Code et IA agentic",
-    description:
-      "L'outil qui change tout pour qui code. Claude Code, MCP, hooks, sub-agents. Architecturer un workflow agentic qui tient la route.",
-    tier_required: "starter",
-    display_order: 2,
-    estimated_duration_min: 240,
-    lessons: [
-      {
-        slug: "ce-qui-change-vraiment-avec-claude-code",
-        title: "Ce qui change vraiment avec Claude Code",
-        description:
-          "Au-delà de la démo : ce que Claude Code fait bien, ce qu'il fait mal, et où il vous fait gagner du temps en pratique.",
-        duration_min: 14,
-        is_free_preview: true,
-        content_md: `## Le pitch en une phrase
-
-Claude Code n'est pas un autocomplete amélioré. C'est un **agent qui lit votre repo, prend des décisions, et exécute des commandes shell**. La différence avec Copilot/Cursor n'est pas cosmétique, elle est architecturale.
-
-## Ce qu'il fait bien
-
-- **Refactor multi-fichier** où la cohérence importe (rename, extraction, migration)
-- **Bug fix avec investigation** : lire les logs, reproduire, identifier, corriger
-- **Migration / upgrade** de framework ou de dépendances
-- **Tests d'intégration** sur une feature qu'il connaît
-
-## Ce qu'il fait mal
-
-- **Greenfield design** : choisir une architecture from scratch sans cadre. Il choisira le pattern moyen, pas le bon pour vous.
-- **Performance critique** : il optimise rarement spontanément
-- **Sécurité subtile** : signatures de webhook, attaques de timing, gestion de secrets : revue humaine obligatoire
-
-## Le gain réel
-
-Pour un dev qui maîtrise Claude Code, le facteur d'accélération sur du travail **routinier mais cognitivement coûteux** (renames, migrations, tests d'intégration) est de 3 à 5×. Sur du travail créatif, le gain est nul voire négatif.
-
-## La suite
-
-Les prochaines leçons couvrent : les hooks, MCP, les sub-agents, le bon découpage de tâche à donner à un agent, et les patterns de revue qui évitent les régressions.
-
-*(Parcours en cours de production sourcée. Cette leçon est un aperçu.)*`,
-      },
-      {
-        slug: "hooks-mcp-sub-agents",
-        title: "Hooks, MCP et sub-agents",
-        description:
-          "Les trois mécaniques avancées qui transforment Claude Code en plateforme. Quand utiliser quoi.",
-        duration_min: 22,
-        is_free_preview: false,
-        content_md: `## Les trois leviers
-
-Claude Code expose trois mécaniques d'extension. Beaucoup les confondent. Voici le découpage utile.
-
-### Hooks
-
-Des commandes shell exécutées automatiquement à des moments précis (avant un edit, après un commit, etc.). Configurées dans \`.claude/settings.json\`.
-
-Quand les utiliser : pour **forcer un invariant** (lint, format, type-check) sur chaque modification.
-
-### MCP (Model Context Protocol)
-
-Un protocole qui permet à Claude d'appeler des outils externes (API, base de données, services internes) de manière standardisée.
-
-Quand l'utiliser : pour donner à Claude un accès lecture-écriture à **un système réel** (Linear, GitHub, Postgres).
-
-### Sub-agents
-
-Des agents spécialisés que Claude peut invoquer pour des sous-tâches.
-
-Quand les utiliser : pour des tâches longues où **isoler le contexte** d'une sous-tâche améliore la qualité.
-
-## Anti-pattern
-
-Vouloir tout faire avec des sub-agents. Un sub-agent est plus lent et plus coûteux qu'un appel direct. Réserver pour les sous-tâches qui justifient la séparation de contexte.
-
-*(Parcours en cours de production sourcée. Cette leçon est un stub.)*`,
-      },
-      {
-        slug: "architecturer-un-workflow-agentic",
-        title: "Architecturer un workflow agentic",
-        description:
-          "Le pattern à appliquer pour qu'un agent reste prévisible sur des tâches de plus de 30 minutes.",
-        duration_min: 24,
-        is_free_preview: false,
-        content_md: `## Le problème
-
-Sur une tâche de 5 minutes, Claude Code est presque toujours bon. Sur une tâche de 2 heures, il dérive : il oublie une contrainte, prend une mauvaise décision irréversible, ou s'engage dans une refacto non demandée.
-
-## Le pattern Plan → Execute → Review
-
-1. **Plan** : faites lui produire un plan écrit, validé par vous, AVANT toute exécution
-2. **Execute** : exécution stricte du plan, pas d'écart sans demander
-3. **Review** : passe de relecture par un sub-agent ou vous-même
-
-## Les invariants à protéger
-
-Trois choses qui doivent être inscrites dans \`CLAUDE.md\` du repo : les don'ts explicites, les conventions non-évidentes, les pointeurs vers la doc interne.
-
-*(Parcours en cours de production sourcée. Cette leçon est un stub.)*`,
-      },
-    ],
-  },
+  claudeCodeIaAgentic,
   {
     slug: "claude-data-sql",
     title: "Claude pour data et SQL",

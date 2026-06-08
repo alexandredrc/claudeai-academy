@@ -11,6 +11,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { tradingClaudeCode } from "./content/trading-claude-code.mjs";
+import { githubPromptsSecurite } from "./content/github-prompts-securite.mjs";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -681,6 +682,7 @@ Eval & monitoring continu, dérive silencieuse, sécurité (prompt injection, ex
     ],
   },
   tradingClaudeCode,
+  githubPromptsSecurite,
 ];
 
 async function seed() {

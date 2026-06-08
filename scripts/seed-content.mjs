@@ -13,6 +13,9 @@ import { createClient } from "@supabase/supabase-js";
 import { tradingClaudeCode } from "./content/trading-claude-code.mjs";
 import { githubPromptsSecurite } from "./content/github-prompts-securite.mjs";
 import { claudeCodeIaAgentic } from "./content/claude-code.mjs";
+import { strategieConduiteIa } from "./content/strategie-ia.mjs";
+import { contenuEtMarketing } from "./content/marketing-contenu.mjs";
+import { claudeDataSql } from "./content/data-sql.mjs";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -416,170 +419,9 @@ Sur une tâche à enjeu (analyse, rédaction importante) : (1) ajoutez une claus
     ],
   },
   claudeCodeIaAgentic,
-  {
-    slug: "claude-data-sql",
-    title: "Claude pour data et SQL",
-    description:
-      "Gagner un facteur 5 à 10 sur l'analyse, le SQL, la modélisation. Travailler vite sans rater les pièges classiques.",
-    tier_required: "mastery",
-    display_order: 3,
-    estimated_duration_min: 150,
-    lessons: [
-      {
-        slug: "claude-pour-sql-pourquoi-ca-marche",
-        title: "Claude pour SQL : pourquoi ça marche",
-        description:
-          "Le SQL est l'un des cas où Claude excelle. Pourquoi, et comment en tirer parti.",
-        duration_min: 12,
-        is_free_preview: true,
-        content_md: `## Pourquoi Claude est bon en SQL
-
-Trois raisons : le corpus d'entraînement contient massivement du SQL bien écrit ; la logique relationnelle est explicite et vérifiable ; les erreurs sont détectables par le moteur, ce qui raccourcit la boucle de feedback.
-
-Concrètement, sur des requêtes de 50 à 200 lignes, un analyste qui maîtrise le binôme Claude + son warehouse gagne un facteur 5 à 10.
-
-## Les pièges à connaître
-
-- **NULL et logique trois-valeurs** dans les comparaisons
-- **Fenêtres** : confusion PARTITION BY / GROUP BY
-- **Joins** : LEFT vs INNER quand on filtre dans le WHERE
-
-*(Parcours en cours de production sourcée. Cette leçon est un aperçu.)*`,
-      },
-      {
-        slug: "prompts-pour-requetes-analytics",
-        title: "Prompts pour requêtes analytics",
-        description:
-          "Les 4 patterns de prompt qui couvrent 90 % des requêtes analytics qu'on écrit en pratique.",
-        duration_min: 18,
-        is_free_preview: false,
-        content_md: `## Les 4 patterns
-
-Cohort (rétention par cohorte), Funnel (conversion entre étapes), Window comparison (vs N-1), Top-N par groupe.
-
-Chaque pattern utilise une famille SQL distincte (CTE, window functions, ROW_NUMBER).
-
-*(Parcours en cours de production sourcée. Cette leçon est un stub.)*`,
-      },
-      {
-        slug: "verifier-une-requete-claude",
-        title: "Vérifier une requête générée par Claude",
-        description:
-          "Comment éviter d'utiliser en prod une requête syntaxiquement correcte mais sémantiquement fausse.",
-        duration_min: 16,
-        is_free_preview: false,
-        content_md: `## La checklist en 4 points
-
-Compter (cardinalité attendue), pinger les extrêmes (min/max plausibles), recouper (somme des sous-totaux = total), tester sur un sous-ensemble connu.
-
-*(Parcours en cours de production sourcée. Cette leçon est un stub.)*`,
-      },
-    ],
-  },
-  {
-    slug: "contenu-et-marketing",
-    title: "Contenu et marketing avec Claude",
-    description:
-      "Industrialiser sans tomber dans le générique. Briefs réutilisables, voix maison, distribution.",
-    tier_required: "mastery",
-    display_order: 4,
-    estimated_duration_min: 150,
-    lessons: [
-      {
-        slug: "pourquoi-claude-est-souvent-mediocre-en-marketing",
-        title: "Pourquoi Claude est souvent médiocre en marketing",
-        description:
-          "Le piège du « ton marketing » entraîné. Comment l'éviter.",
-        duration_min: 11,
-        is_free_preview: true,
-        content_md: `## Le problème
-
-Claude est entraîné sur une masse de contenu marketing générique. Demandez « écris un post LinkedIn » et vous obtenez le moyennage statistique : punchy, emojis, listes, ouverture inspirante. Exactement la voix dont vous ne voulez pas si vous vendez à des pros.
-
-## La solution en deux mouvements
-
-Sortir Claude de son tropisme par un brief de voix explicite, puis lui donner du matériau (exemples, anti-exemples, garde-fous).
-
-*(Parcours en cours de production sourcée. Cette leçon est un aperçu.)*`,
-      },
-      {
-        slug: "construire-un-brief-de-voix",
-        title: "Construire un brief de voix réutilisable",
-        description:
-          "Le template à coller en début de chaque prompt pour que Claude reste fidèle à votre voix.",
-        duration_min: 18,
-        is_free_preview: false,
-        content_md: `## Le template
-
-Un bloc \`<voice>\` avec register, do, dont, et surtout des exemples GOOD/BAD. Le test : 10 variations, si plus de 3 dérapent, le brief n'est pas assez serré.
-
-*(Parcours en cours de production sourcée. Cette leçon est un stub.)*`,
-      },
-      {
-        slug: "industrialiser-sans-perdre-la-voix",
-        title: "Industrialiser sans perdre la voix",
-        description:
-          "Comment scaler la production tout en gardant un ton humain reconnaissable.",
-        duration_min: 17,
-        is_free_preview: false,
-        content_md: `## Le piège du scale
-
-Plus vous produisez, plus la voix se dilue. Trois mécaniques : editor-in-chief prompt, banque d'exemples vivante, mesure du taux de pièces qui passent sans retouche.
-
-*(Parcours en cours de production sourcée. Cette leçon est un stub.)*`,
-      },
-    ],
-  },
-  {
-    slug: "strategie-conduite-ia",
-    title: "Stratégie et conduite IA en entreprise",
-    description:
-      "Cadre pour identifier les bons cas d'usage, prioriser, et éviter les pièges en entreprise.",
-    tier_required: "mastery",
-    display_order: 5,
-    estimated_duration_min: 120,
-    lessons: [
-      {
-        slug: "identifier-un-bon-cas-d-usage",
-        title: "Identifier un bon cas d'usage IA",
-        description:
-          "La grille à 4 critères qui sépare les vrais cas d'usage des projets vanity.",
-        duration_min: 14,
-        is_free_preview: true,
-        content_md: `## La grille en 4 critères
-
-Un cas d'usage est viable si les 4 cases sont cochées : Volume (ça se répète), Tolérance à l'erreur (coût borné), Mesurabilité (on sait dire si c'est bon), Accès aux données (techniquement et légalement).
-
-*(Parcours en cours de production sourcée. Cette leçon est un aperçu.)*`,
-      },
-      {
-        slug: "prioriser-un-portefeuille",
-        title: "Prioriser un portefeuille de cas d'usage",
-        description:
-          "Matrice impact / faisabilité, et le piège du « pilot land ».",
-        duration_min: 15,
-        is_free_preview: false,
-        content_md: `## La matrice
-
-Impact × faisabilité. Attaquer haute faisabilité × haut impact d'abord. Piège : ne pas lancer le pilote N+1 tant que le N n'est pas en prod ou explicitement tué.
-
-*(Parcours en cours de production sourcée. Cette leçon est un stub.)*`,
-      },
-      {
-        slug: "le-vrai-cout-d-un-projet-ia",
-        title: "Le vrai coût d'un projet IA",
-        description:
-          "Ce qui n'est pas dans le devis : ops, eval, dérive, sécurité, formation.",
-        duration_min: 13,
-        is_free_preview: false,
-        content_md: `## Les coûts cachés
-
-Eval & monitoring continu, dérive silencieuse, sécurité (prompt injection, exfiltration), formation des utilisateurs. Règle : doubler le budget initial pour les 12 premiers mois post-lancement.
-
-*(Parcours en cours de production sourcée. Cette leçon est un stub.)*`,
-      },
-    ],
-  },
+  claudeDataSql,
+  contenuEtMarketing,
+  strategieConduiteIa,
   tradingClaudeCode,
   githubPromptsSecurite,
 ];

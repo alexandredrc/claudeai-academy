@@ -10,6 +10,7 @@
 // =========================================
 
 import { createClient } from "@supabase/supabase-js";
+import { tradingClaudeCode } from "./content/trading-claude-code.mjs";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -679,6 +680,7 @@ Eval & monitoring continu, dérive silencieuse, sécurité (prompt injection, ex
       },
     ],
   },
+  tradingClaudeCode,
 ];
 
 async function seed() {

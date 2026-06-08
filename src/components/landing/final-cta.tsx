@@ -1,5 +1,5 @@
 import { Container } from "@/components/site/container";
-import { Button } from "@/components/site/button";
+import { CheckoutButton } from "@/components/site/checkout-button";
 
 export function FinalCTA() {
   return (
@@ -22,12 +22,12 @@ export function FinalCTA() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button href="/checkout/mastery" variant="primary" size="lg">
+            <CheckoutButton tier="mastery" variant="primary" size="lg">
               Rejoindre Mastery, 497 €
-            </Button>
-            <Button href="/checkout/starter" variant="ghost-light" size="lg">
+            </CheckoutButton>
+            <CheckoutButton tier="starter" variant="ghost-light" size="lg">
               Commencer avec Starter, 47 €
-            </Button>
+            </CheckoutButton>
           </div>
         </div>
       </Container>

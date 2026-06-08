@@ -1,6 +1,6 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
-import { Button } from "@/components/site/button";
+import { CheckoutButton } from "@/components/site/checkout-button";
 
 const rows = [
   { label: "💬 Parcours Prompt Engineering", value: "197 €" },
@@ -56,9 +56,9 @@ export function ValueStack() {
           </table>
 
           <div className="mt-7 text-center">
-            <Button href="/checkout/mastery" variant="primary" size="lg">
+            <CheckoutButton tier="mastery" variant="primary" size="lg">
               Rejoindre Mastery, 497 €
-            </Button>
+            </CheckoutButton>
             <p className="mt-3 text-[13px] text-muted">
               ou 3 × 179 € sans frais · Garantie 14 jours
             </p>

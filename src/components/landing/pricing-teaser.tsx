@@ -1,6 +1,6 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
-import { Button } from "@/components/site/button";
+import { CheckoutButton } from "@/components/site/checkout-button";
 
 export function PricingTeaser() {
   return (
@@ -53,9 +53,9 @@ function StarterCard() {
         Accès permanent, mises à jour incluses
       </p>
 
-      <Button href="/checkout/starter" variant="ghost" size="md" className="mt-7 w-full">
+      <CheckoutButton tier="starter" variant="ghost" size="md" className="mt-7 w-full">
         Choisir Starter
-      </Button>
+      </CheckoutButton>
 
       <ul className="mt-7 pt-7 border-t border-line space-y-3 flex-1">
         {features.map((f) => (
@@ -101,9 +101,9 @@ function MasteryCard() {
         Ou 3 × 179 € sans frais
       </span>
 
-      <Button href="/checkout/mastery" variant="primary" size="md" className="mt-7 w-full">
+      <CheckoutButton tier="mastery" variant="primary" size="md" className="mt-7 w-full">
         Rejoindre Mastery
-      </Button>
+      </CheckoutButton>
 
       <ul className="mt-7 pt-7 border-t border-cream/15 space-y-3 flex-1">
         {features.map((f) => (

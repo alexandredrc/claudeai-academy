@@ -1,0 +1,1842 @@
+{
+  "intro-pourquoi-le-prompt-est-de-l-ingenierie": [
+    {
+      "q": "Selon la doc Anthropic, que faut-il réunir AVANT même de commencer à optimiser un prompt ?",
+      "options": [
+        "Un critère de succès défini, un moyen de tester contre ce critère, et un premier jet de prompt",
+        "Un modèle fine-tuné et un jeu de 10 000 exemples étiquetés",
+        "Une clé API et un budget de tokens élevé",
+        "Un prompt parfait écrit du premier coup"
+      ],
+      "correct": 0,
+      "explanation": "La doc liste exactement ces trois prérequis. Sans critère de succès ni moyen de tester, on tâtonne — on ne fait pas d'ingénierie."
+    },
+    {
+      "q": "En quoi consiste la « règle d'or » d'Anthropic pour juger un prompt ?",
+      "options": [
+        "Compter le nombre de tokens pour rester sous la limite",
+        "Le faire relire par un second modèle d'IA",
+        "Le montrer à un collègue sans contexte : s'il est confus, Claude le sera aussi",
+        "Le tester automatiquement sur un millier d'entrées"
+      ],
+      "correct": 2,
+      "explanation": "« Show your prompt to a colleague with minimal context on the task… If they'd be confused, Claude will be too. » C'est le test le plus rapide et le plus rentable."
+    },
+    {
+      "q": "Quel modèle mental la doc recommande-t-elle d'adopter vis-à-vis de Claude ?",
+      "options": [
+        "Un moteur de recherche qui indexe vos données",
+        "Un collègue brillant mais nouveau, qui n'a aucun contexte sur vos normes et process",
+        "Une base de données qu'il suffit d'interroger",
+        "Un stagiaire incompétent qu'il faut surveiller en continu"
+      ],
+      "correct": 1,
+      "explanation": "Il est compétent mais sans contexte : c'est à vous de fournir explicitement les normes, le contexte et l'objectif."
+    },
+    {
+      "q": "Concernant Claude Opus 4.8, quelle affirmation est exacte ?",
+      "options": [
+        "Le prefill de la réponse assistant reste la méthode recommandée pour forcer un format",
+        "Il devine toujours l'intention, même à partir d'un prompt vague",
+        "Il ignore désormais les balises XML",
+        "Il suit les instructions plus littéralement, et le prefill n'est plus supporté depuis Claude 4.6 (erreur 400)"
+      ],
+      "correct": 3,
+      "explanation": "Deux changements récents : Opus 4.8 interprète plus littéralement (force si on en tient compte, piège sinon), et le prefill de la dernière réponse assistant renvoie une erreur 400 depuis 4.6."
+    }
+  ],
+  "etre-clair-et-direct": [
+    {
+      "q": "D'apres la lecon, dans l'exemple officiel d'Anthropic (le tableau de bord analytique), qu'est-ce qui rend la version « Plus efficace » superieure ?",
+      "options": [
+        "Le prompt est nettement plus long, donc plus complet",
+        "Il specifie le niveau d'ambition attendu, alors que sinon Claude livre le minimum viable",
+        "Il emploie un vocabulaire technique plus precis",
+        "Il decoupe la demande en etapes numerotees"
+      ],
+      "correct": 1,
+      "explanation": "La lecon insiste : « La difference n'est pas la longueur. C'est que le second prompt specifie le niveau d'ambition. » Sans cela, Claude livre le minimum viable, comportement par defaut le plus sur."
+    },
+    {
+      "q": "Selon la citation de la doc reprise dans la lecon, si l'on veut un comportement « above and beyond », que faut-il faire ?",
+      "options": [
+        "Le demander explicitement plutot que de compter sur le modele pour le deduire d'un prompt vague",
+        "Fournir au moins trois exemples du resultat souhaite",
+        "Augmenter la longueur du prompt pour signaler l'importance de la tache",
+        "Repeter la consigne plusieurs fois dans le prompt"
+      ],
+      "correct": 0,
+      "explanation": "La lecon souligne : « si vous voulez un resultat qui depasse le minimum, demandez-le explicitement. » Le modele ne devine pas que vous vouliez le travail complet a partir d'un prompt vague."
+    },
+    {
+      "q": "Comment la lecon decrit-elle le « test du collegue » et ce qu'il revele ?",
+      "options": [
+        "Demander a un collegue de noter le prompt de 1 a 10 avant de l'utiliser",
+        "Faire relire le prompt par un collegue expert de la tache pour qu'il valide la formulation",
+        "Donner le prompt a un collegue qui ignore la tache et l'executer a la lettre ; la ou il pose une question, Claude se trompera silencieusement",
+        "Comparer sa propre execution du prompt a celle d'un collegue pour mesurer l'ecart"
+      ],
+      "correct": 2,
+      "explanation": "La lecon decrit litteralement d'envoyer le prompt a un collegue qui ne connait pas la tache et de lui demander de l'executer a la lettre : « La ou il vous pose une question, Claude se trompera silencieusement. »"
+    },
+    {
+      "q": "D'apres la section anti-pattern, pourquoi empiler les precisions au fil de l'eau (« ah et aussi… ») est-il particulierement risque avec Opus 4.8 ?",
+      "options": [
+        "Opus 4.8 ignore systematiquement toute consigne placee apres la premiere phrase",
+        "Opus 4.8 interprete plus litteralement : une consigne ajoutee en passant et mal situee est appliquee litteralement ou ignoree, pas comprise dans l'esprit",
+        "Opus 4.8 fusionne automatiquement les precisions, ce qui dilue la consigne initiale",
+        "Opus 4.8 generalise trop les consignes ajoutees, debordant du cadre demande"
+      ],
+      "correct": 1,
+      "explanation": "La lecon precise qu'avec Opus 4.8 « qui interprete plus litteralement, une consigne ajoutee en passant et mal situee sera appliquee litteralement ou ignoree, pas comprise dans l'esprit ». Le distracteur « generalise trop » est meme contredit ailleurs : Opus 4.8 ne generalise plus une consigne tout seul."
+    }
+  ],
+  "le-contexte-et-le-pourquoi": [
+    {
+      "q": "Selon la leçon, pourquoi donner la raison (le « pourquoi ») derrière une consigne rend-il la réponse plus fiable ?",
+      "options": [
+        "Parce que le modèle exécute la consigne plus rapidement quand elle est justifiée",
+        "Parce que le modèle généralise à partir de l'explication et gère correctement les cas non explicitement prévus",
+        "Parce que cela force le modèle à demander une confirmation avant d'agir",
+        "Parce que cela réduit le nombre de tokens consommés par la consigne"
+      ],
+      "correct": 1,
+      "explanation": "La leçon cite la doc Anthropic : le modèle « généralise à partir du pourquoi » et gère ainsi les cas que vous n'aviez pas explicitement prévus, plutôt que de seulement exécuter."
+    },
+    {
+      "q": "Dans l'exemple officiel, pourquoi la version « never use ellipses since the text-to-speech engine will not know how to pronounce them » est-elle jugée plus efficace que « NEVER use ellipses » ?",
+      "options": [
+        "Parce qu'elle est plus courte et donc plus simple à interpréter",
+        "Parce qu'elle utilise des majuscules pour insister sur l'interdiction",
+        "Parce que le modèle comprend l'objectif réel (un texte qui se prononce bien) et gère toute la classe de problèmes, pas juste les points de suspension",
+        "Parce qu'elle interdit explicitement tous les glyphes problématiques un par un"
+      ],
+      "correct": 2,
+      "explanation": "La leçon explique qu'avec la version justifiée, Claude saisit l'objectif réel (un texte lu à voix haute) et évite toute la classe de glyphes problématiques, pas seulement le symptôme « … » cité."
+    },
+    {
+      "q": "Que recommande la leçon comme longueur pour la justification d'une contrainte non triviale ?",
+      "options": [
+        "Une demi-phrase de raison, du type « parce que X », pas un paragraphe",
+        "Un paragraphe détaillé décrivant tout le contexte du projet",
+        "Au moins trois phrases pour couvrir tous les cas possibles",
+        "Aucune justification : la consigne doit rester sèche et directe"
+      ],
+      "correct": 0,
+      "explanation": "La règle à retenir précise : ajoutez « une demi-phrase de raison. Pas un paragraphe. Juste “parce que X” » pour que le modèle généralise dans la bonne direction."
+    },
+    {
+      "q": "Comment la leçon distingue-t-elle un « pourquoi utile » d'un « pourquoi décoratif » ?",
+      "options": [
+        "Le pourquoi utile est long et détaillé ; le pourquoi décoratif est court",
+        "Le pourquoi utile insiste sur l'importance de la tâche (« c'est important, fais bien attention ») ; le décoratif décrit une contrainte technique",
+        "Le pourquoi utile décrit la contrainte réelle du monde (où le texte vit, qui le lit, ce qui casse sinon) ; le décoratif ne fait qu'insister sans apporter d'information de généralisation",
+        "Les deux sont équivalents du point de vue du modèle"
+      ],
+      "correct": 2,
+      "explanation": "L'anti-pattern de la leçon : « c'est important, fais bien attention » n'apporte aucune information de généralisation ; le pourquoi utile décrit la contrainte réelle du monde (destination du texte, lecteur, ce qui casse)."
+    }
+  ],
+  "piloter-par-l-exemple-few-shot": [
+    {
+      "q": "Selon la leçon, pour piloter le format, le ton et la structure des sorties, qu'est-ce qui est présenté comme le levier le plus fiable ?",
+      "options": [
+        "Multiplier les consignes détaillées dans les instructions",
+        "Fournir quelques exemples bien conçus (few-shot / multishot)",
+        "Augmenter la longueur du system prompt",
+        "Baisser la température du modèle"
+      ],
+      "correct": 1,
+      "explanation": "La leçon cite la doc officielle : « un exemple vaut trente lignes de consignes » et « Examples are one of the most reliable ways to steer Claude's output format, tone, and structure » (few-shot / multishot)."
+    },
+    {
+      "q": "La leçon liste trois critères officiels d'un bon exemple. Lequel ne fait PAS partie de ces trois propriétés ?",
+      "options": [
+        "Pertinent (colle au vrai cas d'usage)",
+        "Diversifié (couvre les cas limites, évite les motifs involontaires)",
+        "Concis (le plus court possible)",
+        "Structuré (enveloppé dans une balise <example>)"
+      ],
+      "correct": 2,
+      "explanation": "Les trois critères officiels cités par la leçon sont : pertinent, diversifié et structuré. La concision n'est jamais mentionnée comme un critère."
+    },
+    {
+      "q": "Pourquoi la leçon insiste-t-elle sur la diversité des exemples ?",
+      "options": [
+        "Pour réduire le nombre de tokens consommés",
+        "Pour que Claude n'attrape pas un motif involontaire plutôt que la vraie règle",
+        "Parce qu'il faut au moins un exemple par langue cible",
+        "Parce que la diversité augmente automatiquement la température du modèle"
+      ],
+      "correct": 1,
+      "explanation": "La leçon explique que si les exemples se ressemblent trop (ex. tous commençant par « Bonjour »), Claude croit que la ressemblance est une règle ; la diversité l'empêche d'apprendre un faux motif au lieu de la vraie règle."
+    },
+    {
+      "q": "Quelle quantité d'exemples la doc recommande-t-elle selon la leçon, et avec quelle nuance ?",
+      "options": [
+        "1 à 2 exemples ; au-delà, le modèle se perd",
+        "3 à 5 exemples ; en dessous, peu d'effet",
+        "5 à 10 exemples ; il en faut le plus possible",
+        "Un seul exemple parfait suffit toujours, peu importe la tâche"
+      ],
+      "correct": 1,
+      "explanation": "La leçon indique une quantité recommandée de 3 à 5 exemples, en précisant qu'en dessous l'effet est faible. L'anti-pattern montre qu'un bon exemple varié par classe bat des clones, mais la recommandation chiffrée reste 3 à 5."
+    }
+  ],
+  "structurer-avec-xml-et-contexte-long": [
+    {
+      "q": "Selon la leçon, pourquoi utiliser des balises XML comme <instructions>, <context> ou <input> dans un prompt complexe ?",
+      "options": [
+        "Pour réduire le nombre de tokens consommés par le prompt",
+        "Pour que le modèle analyse le prompt sans ambiguïté en séparant les types de contenu",
+        "Pour activer automatiquement le mode contexte long du modèle",
+        "Pour forcer le modèle à répondre au format XML"
+      ],
+      "correct": 1,
+      "explanation": "La leçon cite la doc : « XML tags help Claude parse complex prompts unambiguously. » Envelopper chaque type de contenu dans sa balise réduit la mauvaise interprétation des rôles (instructions, contexte, exemples, données). Ni économie de tokens, ni mode automatique, ni obligation de sortie XML."
+    },
+    {
+      "q": "D'après les 3 règles du contexte long, où placer la question/requête par rapport aux longs documents, et quel gain est annoncé ?",
+      "options": [
+        "La question à la fin, après les données : jusqu'à +30 % de qualité",
+        "La question au début, avant les données : jusqu'à +30 % de qualité",
+        "La question au milieu des documents pour répartir l'attention",
+        "L'ordre n'a aucun effet mesurable sur la qualité"
+      ],
+      "correct": 0,
+      "explanation": "La leçon (citant la doc) place les longues données en haut et la question à la fin : « Queries at the end can improve response quality by up to 30% in tests. » Mettre la question en haut est justement l'anti-pattern décrit."
+    },
+    {
+      "q": "Pour ancrer la réponse sur un long document, quelle séquence la leçon recommande-t-elle ?",
+      "options": [
+        "Demander la réponse finale d'abord, puis justifier avec des citations ensuite",
+        "Résumer tout le document, puis poser la question sur le résumé",
+        "Extraire d'abord les passages pertinents dans <quotes>, puis répondre uniquement à partir de ces citations",
+        "Laisser le modèle citer librement sans balises dédiées"
+      ],
+      "correct": 2,
+      "explanation": "La 3e règle (« Ancrez la réponse dans des citations ») demande à Claude d'extraire d'abord les passages pertinents entre balises <quotes>, puis de répondre à partir de ces citations, ce qui lui fait traverser le bruit. Le gabarit montre bien l'extraction des citations AVANT l'analyse."
+    },
+    {
+      "q": "La leçon recommande de structurer chaque document du contexte long. Quelle imbrication de balises donne-t-elle en exemple ?",
+      "options": [
+        "Un <documents> dont chaque document contient directement <quotes> et <analyse>",
+        "Un <document> contenant <source> et <document_content>",
+        "Un <context> contenant <quotes> et <analyse>",
+        "Un <input> contenant <instructions> et <output>"
+      ],
+      "correct": 1,
+      "explanation": "La 2e règle indique de structurer chaque document avec des balises <document> contenant <source> et <document_content>, ce que confirme le gabarit (<documents> > <document index> > <source> + <document_content>). Les distracteurs réutilisent des balises citées ailleurs dans la leçon (<documents>, <quotes>, <analyse>, <context>, <input>, <instructions>) mais aucun ne correspond à la structure interne d'un document : <quotes> et <analyse> servent à la réponse, pas à envelopper la source du document."
+    }
+  ],
+  "donner-un-role-et-controler-la-sortie": [
+    {
+      "q": "Selon la leçon, où doit être placé le rôle attribué à Claude, et quelle doit être sa qualité ?",
+      "options": [
+        "Dans le message user, formulé de façon générale (ex. « assistant utile ») pour rester flexible",
+        "Dans le system prompt, et formulé de façon précise (ex. « analyste financier senior, SaaS B2B européen »)",
+        "Indifféremment dans le system ou le user, du moment qu'il est répété à chaque tour",
+        "Dans le system prompt, mais le plus court et générique possible pour ne pas brider le modèle"
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise que le rôle va dans `system` (pas dans le message user) et qu'il doit être précis : « analyste financier senior, SaaS B2B européen » oriente, tandis que « assistant utile » n'oriente rien."
+    },
+    {
+      "q": "La « règle d'or du formatage » de la leçon recommande de dire à Claude quoi faire plutôt que quoi ne pas faire. Quelle justification la leçon en donne-t-elle ?",
+      "options": [
+        "Le négatif (« ne fais pas X ») laisse le champ ouvert, alors que le positif (« fais Y ») ferme la cible",
+        "Les consignes négatives sont systématiquement ignorées par le modèle",
+        "Le positif consomme moins de tokens et coûte donc moins cher",
+        "Le négatif déclenche une erreur 400 côté API"
+      ],
+      "correct": 0,
+      "explanation": "La leçon explique que le négatif « ne fais pas X » laisse le champ ouvert tandis que le positif « fais Y » ferme la cible ; c'est pourquoi une seule phrase positive vaut mieux qu'une pile d'interdits."
+    },
+    {
+      "q": "Parmi les trois leviers officiels de format cités, que recommande la leçon si l'on veut peu de markdown en sortie ?",
+      "options": [
+        "Ajouter l'interdiction explicite « Do not use markdown » en fin de prompt",
+        "Activer la feature Structured Outputs pour bloquer le markdown",
+        "Retirer le markdown de son propre prompt, car le style du prompt déteint sur la réponse",
+        "Baisser le paramètre effort pour réduire la mise en forme"
+      ],
+      "correct": 2,
+      "explanation": "Le troisième levier est de faire matcher le style du prompt à la sortie voulue : si l'on veut peu de markdown en sortie, on retire le markdown du prompt, car le style du prompt déteint sur la réponse. L'interdiction « Do not use markdown » est justement l'exemple négatif que la leçon déconseille."
+    },
+    {
+      "q": "Que dit la leçon à propos du prefill (forcer le début de la réponse de l'assistant) et de son remplacement ?",
+      "options": [
+        "Le prefill reste la méthode recommandée pour forcer un JSON depuis Claude 4.6",
+        "Le prefill n'est plus supporté depuis Claude 4.6 (erreur 400) ; pour forcer un schéma on utilise Structured Outputs ou on demande simplement le schéma",
+        "Le prefill n'est plus supporté, et le seul remplacement possible est le paramètre effort en mode max",
+        "Le prefill provoque une erreur 500 et doit être remplacé par une balise XML `<prefill>`"
+      ],
+      "correct": 1,
+      "explanation": "La leçon indique que le prefill n'est plus supporté depuis Claude 4.6 (requête en erreur 400) ; pour forcer un schéma, les remplacements officiels sont Structured Outputs ou demander simplement le schéma, et pour supprimer un préambule, une instruction system explicite."
+    }
+  ],
+  "faire-raisonner-chainer-auto-corriger": [
+    {
+      "q": "Selon la leçon, quel est aujourd'hui le bon levier pour calibrer le raisonnement des modèles récents, et qu'est-il advenu de l'ancien mécanisme ?",
+      "options": [
+        "Le paramètre effort est le bon levier ; budget_tokens (extended thinking) est déprécié.",
+        "Le paramètre budget_tokens reste recommandé ; effort n'est qu'un alias plus récent.",
+        "Il faut combiner budget_tokens et effort en parts égales pour un bon calibrage.",
+        "Le levier principal est désormais la longueur du system prompt, effort étant secondaire."
+      ],
+      "correct": 0,
+      "explanation": "La leçon dit explicitement que l'ancien budget_tokens (extended thinking) est déprécié et que le bon levier aujourd'hui est effort."
+    },
+    {
+      "q": "Face à un problème difficile sur lequel Claude raisonne trop superficiellement, que recommande la leçon de faire en priorité ?",
+      "options": [
+        "Réécrire entièrement le prompt avec un plan étape par étape très détaillé.",
+        "Désactiver le thinking pour forcer une réponse plus directe.",
+        "Monter l'effort avant de bricoler le prompt.",
+        "Baisser l'effort pour réduire la latence et laisser le modèle se concentrer."
+      ],
+      "correct": 2,
+      "explanation": "La leçon conseille : si Claude raisonne trop superficiellement sur un problème dur, montez l'effort avant de bricoler le prompt (et inversement, baissez-le s'il sur-réfléchit sur du simple)."
+    },
+    {
+      "q": "À propos du chaînage explicite (découper en appels API séparés) avec l'adaptive thinking, que dit la leçon ?",
+      "options": [
+        "Il est devenu indispensable car le modèle ne gère plus le multi-étapes en interne.",
+        "Claude gère la plupart du multi-étapes en interne ; le chaînage explicite reste utile pour inspecter l'intermédiaire ou imposer un pipeline.",
+        "Il est déconseillé car il dégrade systématiquement la qualité du raisonnement.",
+        "Il ne sert qu'à réduire le coût en tokens, sans effet sur la qualité."
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise qu'avec l'adaptive thinking Claude gère la plupart du multi-étapes en interne, et que le chaînage explicite reste utile quand on veut inspecter l'intermédiaire ou imposer un pipeline."
+    },
+    {
+      "q": "Pourquoi la leçon recommande-t-elle de faire relire la production de Claude par un second appel (pattern draft → review → refine) ?",
+      "options": [
+        "Parce qu'un second appel utilise toujours un effort plus élevé que le premier.",
+        "Parce que la doc interdit de produire et vérifier dans un même appel.",
+        "Parce que deux appels coûtent moins cher qu'un seul appel long.",
+        "Parce que le modèle est meilleur juge qu'auteur, ce qui rattrape une grande partie des erreurs."
+      ],
+      "correct": 3,
+      "explanation": "La leçon affirme que le modèle est meilleur juge qu'auteur : faire relire sa propre production par un second appel rattrape une grande partie des erreurs sur les rédactions et analyses à enjeu."
+    }
+  ],
+  "ce-qui-change-vraiment-avec-claude-code": [
+    {
+      "q": "Selon la lecon, en quoi Claude Code se distingue-t-il fondamentalement d'un chatbot classique ?",
+      "options": [
+        "Il genere des reponses plus longues et mieux formatees qu'un chatbot",
+        "C'est un agent qui vit dans le terminal : il lit les fichiers, modifie le code, lance des commandes et observe les resultats pour se corriger",
+        "Il fonctionne sans connexion et garde l'historique de toutes vos conversations",
+        "Il remplace entierement le developpeur en prenant seul les decisions d'architecture"
+      ],
+      "correct": 1,
+      "explanation": "La lecon oppose le schema copier/coller du chatbot au fait que Claude Code est un agent qui vit dans votre terminal qui lit, ecrit/modifie, lance des commandes et observe les resultats pour se corriger. Le changement n'est pas cosmetique : on delegue des taches au lieu de transferer des extraits."
+    },
+    {
+      "q": "Quelles sont, dans l'ordre, les quatre etapes de la boucle agentique decrite dans la lecon ?",
+      "options": [
+        "Planifier, coder, tester, deployer",
+        "Rassembler le contexte, agir, observer, corriger",
+        "Lire la documentation, ecrire le code, demander validation, livrer",
+        "Cadrer, deleguer, valider, archiver"
+      ],
+      "correct": 1,
+      "explanation": "La lecon decrit explicitement la boucle : 1) Rassembler le contexte, 2) Agir (editer, lancer une commande), 3) Observer (lire la sortie), 4) Corriger (ajuster, recommencer si besoin)."
+    },
+    {
+      "q": "D'apres la lecon, quel est le role de l'utilisateur dans cette boucle agentique ?",
+      "options": [
+        "Taper lui-meme le code pendant que l'agent relit",
+        "Cadrer l'objectif, fournir le bon contexte et valider, l'agent faisant le reste",
+        "Surveiller en continu chaque commande shell executee",
+        "Rediger les tests pendant que l'agent redige le code de production"
+      ],
+      "correct": 1,
+      "explanation": "La lecon precise : Votre role n'est pas de taper le code : c'est de cadrer l'objectif, de fournir le bon contexte, et de valider. L'agent fait le reste, et boucle jusqu'au resultat."
+    },
+    {
+      "q": "Selon la regle qui ne bouge pas enoncee dans la lecon, comment doit varier la validation humaine ?",
+      "options": [
+        "Plus l'action est irreversible, plus la validation humaine est obligatoire",
+        "La validation humaine n'est requise que pour les taches repetitives comme les tests",
+        "Une fois l'agent configure, c'est lui qui devient responsable de ce qui part en production",
+        "La validation peut etre supprimee des que l'agent maitrise le contexte du projet"
+      ],
+      "correct": 0,
+      "explanation": "La lecon enonce que l'agent propose et execute sous votre controle, que vous restez responsable de ce qui part en production, et que plus l'action est irreversible, plus la validation humaine est obligatoire."
+    }
+  ],
+  "bien-demarrer-claude-md-et-contexte": [
+    {
+      "q": "Selon la leçon, pourquoi le fichier CLAUDE.md est-il décrit comme « le fichier le plus rentable » pour bien démarrer ?",
+      "options": [
+        "Parce qu'il est chargé automatiquement dans le contexte à chaque session, sans qu'on ait à le rappeler",
+        "Parce qu'il remplace entièrement la documentation technique du projet",
+        "Parce qu'il permet à l'agent d'exécuter automatiquement les tests et le build",
+        "Parce qu'il est lu uniquement lorsqu'on l'invoque explicitement avec une commande"
+      ],
+      "correct": 0,
+      "explanation": "La leçon précise que CLAUDE.md, placé à la racine, est « chargé automatiquement dans le contexte à chaque session ». Elle indique aussi qu'il ne doit pas servir de documentation (« du contexte permanent, pas une documentation ») et ne mentionne aucune exécution automatique de tests/build par ce fichier."
+    },
+    {
+      "q": "La leçon recommande de garder CLAUDE.md « court et factuel ». Que propose-t-elle pour éviter d'y recopier de gros volumes d'information ?",
+      "options": [
+        "Découper CLAUDE.md en plusieurs fichiers chargés en parallèle",
+        "Pointer vers d'autres fichiers avec une référence du type @chemin/vers/fichier",
+        "Compacter le fichier avec une commande de type /compact",
+        "Déplacer le contenu volumineux dans un serveur MCP"
+      ],
+      "correct": 1,
+      "explanation": "La leçon dit explicitement : « Vous pouvez pointer vers d'autres fichiers avec une référence du type @chemin/vers/fichier plutôt que tout recopier. » Le /compact concerne l'hygiène de session, pas CLAUDE.md."
+    },
+    {
+      "q": "Dans un dépôt inconnu, quel est le « premier réflexe » conseillé par la leçon ?",
+      "options": [
+        "Lui faire produire immédiatement un CLAUDE.md complet",
+        "Lui demander de coder une première fonctionnalité simple pour tester le terrain",
+        "Lui demander d'abord de lire et de cartographier le projet avant d'y toucher",
+        "Lancer un workflow en parallèle sur plusieurs sous-tâches"
+      ],
+      "correct": 2,
+      "explanation": "La leçon indique : « ne lui demandez pas tout de suite de coder. Demandez-lui d'abord de lire et de cartographier » la structure, les points d'entrée, les conventions et les scripts, pour qu'il comprenne le terrain avant d'agir."
+    },
+    {
+      "q": "D'après la leçon, quelle est la différence entre les commandes /clear et /compact dans l'hygiène de contexte ?",
+      "options": [
+        "/clear compacte l'historique pour en garder l'essentiel, tandis que /compact efface tout",
+        "/clear sert à repartir propre entre deux tâches sans rapport, tandis que /compact garde l'essentiel d'une session longue",
+        "Les deux servent à la même chose : vider entièrement le contexte entre deux sessions",
+        "/clear charge CLAUDE.md et /compact le décharge du contexte"
+      ],
+      "correct": 1,
+      "explanation": "La leçon distingue les deux habitudes : « Repartir propre entre deux tâches sans rapport (commande de type /clear) » et « Compacter une session longue (commande de type /compact) pour garder l'essentiel quand l'historique s'allonge »."
+    }
+  ],
+  "slash-commands-et-skills": [
+    {
+      "q": "Selon la leçon, où la convergence entre slash commands et skills place-t-elle aujourd'hui l'emplacement recommandé d'un skill ?",
+      "options": [
+        ".claude/commands/<nom>.md, l'emplacement historique toujours préconisé",
+        ".claude/skills/<nom>/SKILL.md, le dossier .claude/commands/ restant pris en charge en legacy",
+        "Un fichier unique settings.json versionné pour toute l'équipe",
+        "N'importe quel dossier, l'agent scanne tout le dépôt automatiquement"
+      ],
+      "correct": 1,
+      "explanation": "La leçon dit que slash commands et skills ont convergé : l'emplacement recommandé est désormais .claude/skills/<nom>/SKILL.md, .claude/commands/ restant pris en charge en legacy."
+    },
+    {
+      "q": "D'après la leçon, pourquoi la description dans le frontmatter d'un SKILL.md est-elle qualifiée de « point crucial » ?",
+      "options": [
+        "Parce qu'elle est obligatoire pour que le fichier soit reconnu comme du Markdown valide",
+        "Parce qu'elle définit les arguments positionnels que le skill pourra recevoir",
+        "Parce que c'est ce que l'agent lit pour décider d'activer le skill, donc une description vague = un skill qui ne se déclenche pas au bon moment",
+        "Parce qu'elle remplace le contenu détaillé et évite de créer des fichiers annexes"
+      ],
+      "correct": 2,
+      "explanation": "La leçon insiste : « la description est ce que l'agent lit pour décider » d'activer le skill ; une description vague mène à un skill qui ne se déclenche jamais au bon moment."
+    },
+    {
+      "q": "La leçon recommande de créer un skill plutôt qu'un simple prompt dans quel cas ?",
+      "options": [
+        "Pour un besoin ponctuel, afin de garder une trace écrite",
+        "Pour un workflow récurrent, structuré et stable (revue de code maison, release...)",
+        "Dès qu'un prompt dépasse une certaine longueur, quel que soit son usage",
+        "Uniquement lorsqu'on souhaite partager le prompt publiquement sur GitHub"
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise de créer un skill quand le workflow est « récurrent, structuré et stable », et de s'en abstenir pour un besoin ponctuel où un simple prompt suffit."
+    },
+    {
+      "q": "Quel est le réflexe sécurité que la leçon associe aux commands et skills tout faits récupérés sur GitHub ?",
+      "options": [
+        "Les lire avant de les installer, car ce sont des instructions que votre agent va exécuter, comme du code",
+        "Les exécuter d'abord dans un bac à sable pour observer leur comportement",
+        "Vérifier seulement le nombre d'étoiles du dépôt avant installation",
+        "Faire confiance aux skills populaires, le vetting n'étant utile que pour les hooks"
+      ],
+      "correct": 0,
+      "explanation": "La leçon avertit : « Ce sont des instructions que votre agent va exécuter : lisez-les avant de les installer, exactement comme du code », et un skill non lu est un risque."
+    }
+  ],
+  "hooks-automatiser-les-invariants": [
+    {
+      "q": "Selon la leçon, qu'est-ce qui rend les hooks « déterministes » par rapport au simple fait de demander à l'agent de ne pas oublier une étape ?",
+      "options": [
+        "C'est le modèle lui-même qui s'engage à exécuter la commande à chaque fois",
+        "C'est le harnais, et non le modèle, qui exécute automatiquement la commande à l'événement",
+        "Le modèle reçoit un rappel dans son contexte à chaque tour pour ne pas oublier",
+        "La commande est ajoutée au CLAUDE.md pour que le modèle la relise systématiquement"
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise que les hooks sont des commandes shell exécutées par le harnais (pas le modèle), ce qui garantit leur exécution à chaque fois, contrairement à compter sur la bonne volonté du modèle."
+    },
+    {
+      "q": "D'après la leçon, quelle est la différence entre les événements PreToolUse et PostToolUse ?",
+      "options": [
+        "PreToolUse s'exécute après une action pour la valider, PostToolUse avant pour la préparer",
+        "PreToolUse formate le fichier édité, PostToolUse lance les tests associés",
+        "PreToolUse s'exécute avant une action (et peut la bloquer), PostToolUse après une action",
+        "Les deux s'exécutent avant l'action mais PostToolUse a une priorité plus élevée"
+      ],
+      "correct": 2,
+      "explanation": "La leçon indique que PreToolUse intervient AVANT une action de l'agent et peut la BLOQUER, tandis que PostToolUse intervient APRÈS une action (ex. formater le fichier édité)."
+    },
+    {
+      "q": "Comment, selon la leçon, un hook PreToolUse peut-il bloquer une action de l'agent ?",
+      "options": [
+        "En renvoyant un certain code de sortie (souvent un code d'erreur dédié), dont la sémantique exacte est à vérifier selon la version",
+        "En supprimant le fichier que l'agent voulait modifier",
+        "En demandant systématiquement une confirmation à l'humain avant de continuer",
+        "En modifiant le system prompt de l'agent pour lui interdire l'action"
+      ],
+      "correct": 0,
+      "explanation": "La leçon explique qu'un hook PreToolUse qui renvoie un certain code de sortie (souvent un code d'erreur dédié) bloque l'action, et invite à vérifier la sémantique exacte des codes selon la version."
+    },
+    {
+      "q": "Quel est, selon la leçon, le principal risque des hooks et la précaution associée ?",
+      "options": [
+        "Ils ralentissent l'agent ; il faut donc limiter leur nombre par session",
+        "Ils ne s'exécutent pas toujours ; il faut donc les doubler d'un rappel au modèle",
+        "Ils peuvent diverger du plan ; il faut donc les faire valider par un humain à chaque exécution",
+        "Ils exécutent du code shell arbitraire avec vos droits ; il faut donc relire tout hook avant de l'activer, surtout s'il vient d'un dépôt externe"
+      ],
+      "correct": 3,
+      "explanation": "La leçon souligne qu'un hook lance des commandes shell avec vos droits et recommande de relire tout hook avant activation (surtout d'origine externe) et de privilégier des hooks simples et lisibles."
+    }
+  ],
+  "mcp-connecter-vos-outils": [
+    {
+      "q": "Selon la leçon, pourquoi un serveur MCP représente-t-il un risque de sécurité particulier ?",
+      "options": [
+        "Parce qu'il chiffre vos données et vous empêche d'y accéder sans clé",
+        "Parce qu'il s'exécute sur votre machine avec vos permissions et peut donc lire vos fichiers et vos secrets",
+        "Parce qu'il ralentit l'agent en consommant trop de contexte",
+        "Parce qu'il remplace automatiquement le contenu de votre CLAUDE.md"
+      ],
+      "correct": 1,
+      "explanation": "La leçon insiste sur ce point critique : un serveur MCP est un programme qui s'exécute sur votre machine avec vos permissions ; un serveur malveillant ou mal écrit peut lire vos fichiers et vos secrets et les envoyer ailleurs."
+    },
+    {
+      "q": "La leçon décrit deux voies courantes pour ajouter un serveur MCP. Lesquelles ?",
+      "options": [
+        "Le déclarer dans un fichier de projet (souvent .mcp.json) ou l'ajouter en ligne de commande",
+        "L'inscrire dans CLAUDE.md ou créer un sub-agent dédié",
+        "Le pousser sur GitHub ou l'activer via un hook",
+        "L'importer depuis le terminal système ou via un fichier .env"
+      ],
+      "correct": 0,
+      "explanation": "La leçon présente deux voies : déclarer le serveur dans un fichier de projet (souvent .mcp.json, versionnable et partageable) ou l'ajouter en ligne de commande, puis vérifier les serveurs connectés (claude mcp list ou /mcp)."
+    },
+    {
+      "q": "D'après la leçon, comment faut-il traiter les données rapportées par un outil MCP ?",
+      "options": [
+        "Comme des instructions fiables que l'agent peut exécuter directement",
+        "Comme du contenu déjà validé par le serveur, donc sûr",
+        "Comme du contenu non fiable, à traiter comme des données et jamais comme des ordres",
+        "Comme des secrets à stocker dans le fichier .mcp.json"
+      ],
+      "correct": 2,
+      "explanation": "La leçon précise que les données rapportées par un outil sont du contenu non fiable (pouvant contenir une injection de prompt) et qu'il faut traiter les sorties d'outils comme des données, jamais comme des ordres."
+    },
+    {
+      "q": "Parmi ces règles de base, laquelle correspond au principe de moindre privilège tel que décrit dans la leçon ?",
+      "options": [
+        "Suivre toujours la dernière version du serveur pour bénéficier des correctifs",
+        "Donner au serveur un accès en lecture seule, restreint au strict nécessaire, sans lui passer tous vos secrets",
+        "Installer un maximum de serveurs pour couvrir tous les besoins de l'équipe",
+        "Partager le fichier .mcp.json publiquement pour faciliter la collaboration"
+      ],
+      "correct": 1,
+      "explanation": "La leçon définit le moindre privilège comme un accès en lecture seule et restreint au strict nécessaire, sans passer tous ses secrets au serveur. Elle recommande au contraire d'épingler une version plutôt que de suivre une source qui change."
+    }
+  ],
+  "sub-agents-et-workflow-agentic": [
+    {
+      "q": "Selon la leçon, quel est l'intérêt principal de déléguer une tâche à un sub-agent plutôt que de tout faire dans la session principale ?",
+      "options": [
+        "Isoler le contexte, spécialiser l'agent et permettre de paralléliser des sous-tâches indépendantes",
+        "Supprimer définitivement le besoin d'une validation humaine sur les actions",
+        "Réduire automatiquement le coût en compressant l'historique de la session principale",
+        "Garantir que l'agent terminera la tâche même sans critère de succès défini"
+      ],
+      "correct": 0,
+      "explanation": "La leçon liste trois raisons de déléguer : isoler le contexte (sans le polluer ni être pollué), spécialiser (un agent dédié vaut mieux qu'un généraliste) et paralléliser plusieurs sous-tâches indépendantes."
+    },
+    {
+      "q": "D'après la leçon, comment doit-on doter un sub-agent en outils ?",
+      "options": [
+        "En lui donnant tous les outils disponibles pour qu'il ne soit jamais bloqué",
+        "En lui donnant le minimum d'outils nécessaires, selon le principe de moindre privilège, comme pour un serveur MCP",
+        "En lui interdisant tout outil afin qu'il reste purement consultatif",
+        "En partageant exactement les mêmes outils que la session principale"
+      ],
+      "correct": 1,
+      "explanation": "La leçon recommande de donner à chaque sub-agent le minimum d'outils nécessaires (moindre privilège), en comparant cette discipline à celle d'un serveur MCP."
+    },
+    {
+      "q": "Dans le workflow agentic décrit, à quel moment l'étape « Planifier » intervient-elle par rapport à l'action ?",
+      "options": [
+        "Après l'exécution, pour documenter ce qui a été fait",
+        "En même temps que l'exécution, étape par étape",
+        "Avant d'agir : le plan doit être validé AVANT l'exécution",
+        "Uniquement à la fin, lors de la validation humaine"
+      ],
+      "correct": 2,
+      "explanation": "Le workflow structuré place « Planifier : faire valider le plan AVANT d'agir » à l'étape 2, avant « Exécuter » (étape 3) ; le pattern « Plan puis exécution » sépare la réflexion de l'action."
+    },
+    {
+      "q": "Selon la leçon, pourquoi faut-il définir un critère de succès AVANT de lancer un workflow ?",
+      "options": [
+        "Pour que l'agent puisse choisir seul ses outils en cours de route",
+        "Parce que c'est obligatoire pour créer un sub-agent dans .claude/agents/",
+        "Sinon l'agent « termine » sans que vous sachiez si le résultat est bon",
+        "Pour empêcher tout humain d'intervenir pendant l'exécution"
+      ],
+      "correct": 2,
+      "explanation": "La leçon précise qu'un critère de succès doit être défini avant de lancer, « sinon l'agent termine sans que vous sachiez si c'est bon »."
+    }
+  ],
+  "data-bras-droit-pas-remplacant": [
+    {
+      "q": "Selon la leçon, pourquoi un chiffre faux mais crédible produit par Claude est-il particulièrement dangereux sur la data ?",
+      "options": [
+        "Parce qu'il déclenche systématiquement un message d'erreur ignoré par l'analyste",
+        "Parce qu'il est plus difficile à repérer qu'une erreur évidente et peut donc fuir jusqu'au rapport du COMEX",
+        "Parce que Claude refuse de fournir la requête SQL correspondante",
+        "Parce qu'il ralentit l'exécution de la requête sans changer le résultat"
+      ],
+      "correct": 1,
+      "explanation": "La leçon insiste : Claude produit du texte plausible, pas vérifié ; un chiffre faux mais crédible est plus dangereux qu'une erreur évidente, comme le scénario d'ouverture où une requête comptant deux fois les commandes remboursées finit dans le rapport du COMEX."
+    },
+    {
+      "q": "Que dit précisément la « règle d'or, non négociable » énoncée dans la leçon ?",
+      "options": [
+        "Toute sortie de Claude touchant un chiffre, une requête ou une décision se vérifie de façon indépendante avant d'être utilisée",
+        "Il ne faut jamais utiliser Claude pour écrire du SQL en production",
+        "Seules les requêtes longues de plus de 200 lignes doivent être relues",
+        "Claude doit toujours indiquer lui-même son niveau de confiance avant chaque réponse"
+      ],
+      "correct": 0,
+      "explanation": "La règle d'or est formulée telle quelle : toute sortie touchant un chiffre, une requête ou une décision se vérifie de façon indépendante avant d'être utilisée. C'est présenté comme de la méthode, pas de la méfiance."
+    },
+    {
+      "q": "Parmi les trois familles d'erreurs décrites, laquelle la leçon qualifie-t-elle de « pire cas » ?",
+      "options": [
+        "L'aplomb : Claude formule une réponse fausse avec la même assurance qu'une réponse juste",
+        "Les hypothèses silencieuses : Claude invente un nom de colonne comme order_date au lieu de created_at",
+        "La sémantique SQL piégeuse, où une requête s'exécute sans erreur tout en renvoyant un faux résultat",
+        "Le mauvais choix de dialecte, qui fait échouer la requête à l'exécution"
+      ],
+      "correct": 2,
+      "explanation": "La leçon désigne explicitement la sémantique SQL piégeuse (NULL, jointures qui dupliquent, agrégats sur données dénormalisées) comme « le pire cas » : pas de message d'alerte, juste un chiffre faux, puisque la requête s'exécute sans erreur."
+    },
+    {
+      "q": "Quel modèle mental la leçon recommande-t-elle d'adopter vis-à-vis de Claude sur la data ?",
+      "options": [
+        "Un oracle dont les réponses font autorité et n'ont pas besoin de relecture",
+        "Un outil purement décisionnel auquel on délègue son propre jugement",
+        "Un moteur SQL qui signale toujours spontanément ses incertitudes",
+        "Un analyste junior surdoué et infatigable dont on relit systématiquement le livrable"
+      ],
+      "correct": 3,
+      "explanation": "La leçon propose de traiter Claude comme un analyste junior surdoué et infatigable dont on relit systématiquement le livrable, car il ne connaît pas vos données aussi bien que vous et ne dira jamais spontanément qu'il n'est pas sûr ; on délègue la production, pas le jugement."
+    }
+  ],
+  "data-generer-sql-fiable": [
+    {
+      "q": "Selon la leçon, lorsque Claude produit une requête SQL fausse, quelle en est la cause la plus fréquente ?",
+      "options": [
+        "Une faille de raisonnement logique de Claude sur les agrégats",
+        "Un manque de contexte que Claude comble par une hypothèse plausible mais fausse",
+        "Une limitation du dialecte SQL cible mal supportée par le modèle",
+        "Une mauvaise température de génération du modèle"
+      ],
+      "correct": 1,
+      "explanation": "La leçon affirme que la cause est rarement une faille de raisonnement : c'est presque toujours un manque de contexte, comblé par une hypothèse plausible mais fausse. D'où la discipline de ne laisser aucun trou."
+    },
+    {
+      "q": "Dans l'exemple de DDL de la table orders, pourquoi le commentaire sur amount_cents est-il présenté comme crucial ?",
+      "options": [
+        "Parce que c'est une colonne indexée et qu'il faut le signaler à Claude",
+        "Parce que les montants en centimes sont obligatoires en PostgreSQL",
+        "Parce que la sémantique « en centimes » ne peut pas être devinée et produit sinon un résultat faux d'un facteur 100",
+        "Parce qu'il faut toujours convertir les centimes en euros avant d'agréger"
+      ],
+      "correct": 2,
+      "explanation": "La leçon souligne que les commentaires comptent autant que les colonnes : amount_cents en centimes est exactement ce que Claude ne peut pas deviner et qui, sinon, produit un résultat faux d'un facteur 100."
+    },
+    {
+      "q": "Face à une jointure entre orders et order_items (relation un-vers-plusieurs) suivie d'un SUM(amount_cents), que dit la leçon ?",
+      "options": [
+        "La requête lèvera une erreur qui signalera le problème de duplication",
+        "La requête s'exécute parfaitement mais le total est gonflé car chaque commande apparaît plusieurs fois",
+        "Le SUM ignore automatiquement les lignes dupliquées de order_items",
+        "Il faut toujours utiliser COUNT(*) au lieu de SUM pour éviter le problème"
+      ],
+      "correct": 1,
+      "explanation": "La leçon décrit ce piège « qui ne lève aucune erreur » : une commande de 3 lignes apparaît 3 fois, le total est gonflé, la requête s'exécute parfaitement et le chiffre est faux. La parade est d'agréger avant de joindre ou de joindre sur une clé unique."
+    },
+    {
+      "q": "D'après la leçon, quel comportement des NULL en SQL est correctement décrit ?",
+      "options": [
+        "COUNT(colonne) compte les NULL alors que COUNT(*) les ignore",
+        "amount = NULL est vrai dès que la colonne est vide",
+        "Une condition WHERE remboursement <> 'oui' exclut silencieusement les lignes où remboursement est NULL",
+        "NULL se comporte comme zéro dans toutes les comparaisons numériques"
+      ],
+      "correct": 2,
+      "explanation": "La leçon explique que NULL signifie « inconnu » et se propage en logique ternaire : WHERE remboursement <> 'oui' exclut silencieusement les lignes NULL. Elle précise aussi que COUNT(colonne) ignore les NULL alors que COUNT(*) les compte (l'option 0 inverse donc volontairement cette règle), et qu'il faut amount IS NULL plutôt que amount = NULL."
+    }
+  ],
+  "data-debugger-optimiser": [
+    {
+      "q": "Une requête utilise WHERE id NOT IN (SELECT customer_id FROM ...) et renvoie zéro ligne alors que vous en attendiez. Selon la leçon, quelle est la cause la plus probable et la parade recommandée ?",
+      "options": [
+        "Un index manque sur la colonne id ; il faut ajouter EXPLAIN ANALYZE pour le confirmer",
+        "Au moins un customer_id de la sous-requête est NULL, ce qui rend la condition jamais vraie ; utiliser NOT EXISTS (ou filtrer les NULL dans la sous-requête)",
+        "La jointure duplique les lignes avant l'agrégat ; comparer COUNT(*) avant et après",
+        "Le cadre de fenêtrage par défaut est RANGE au lieu de ROWS ; préciser ROWS explicitement"
+      ],
+      "correct": 1,
+      "explanation": "La leçon explique que x NOT IN (..., NULL) s'évalue à 'inconnu', jamais à 'vrai', donc le WHERE rejette tout dès qu'un customer_id est NULL ; la parade est NOT EXISTS (insensible aux NULL) ou WHERE customer_id IS NOT NULL."
+    },
+    {
+      "q": "Pourquoi la leçon recommande-t-elle d'écrire explicitement ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW dans un OVER(ORDER BY ...) pour un total courant ?",
+      "options": [
+        "Parce que ROWS est la seule syntaxe acceptée par PostgreSQL pour les fonctions de fenêtre",
+        "Parce que le cadre par défaut est ROWS et qu'il faut le remplacer par RANGE pour avancer ligne par ligne",
+        "Parce que sans précision le défaut est RANGE, qui donne le même cumul à toutes les lignes partageant la même valeur d'ORDER BY (ex. même date), figeant le total sur les doublons",
+        "Parce que ROWS désactive l'agrégation et accélère uniquement l'affichage"
+      ],
+      "correct": 2,
+      "explanation": "La leçon précise que le cadre par défaut est RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW : avec RANGE, les lignes de même valeur d'ORDER BY reçoivent le même cumul, ce qui fige le total courant sur les doublons de date. ROWS corrige cela (et c'est aussi plus rapide)."
+    },
+    {
+      "q": "D'après la leçon, à quoi sert précisément le mot-clé ANALYZE dans EXPLAIN (ANALYZE, BUFFERS) ?",
+      "options": [
+        "Il exécute réellement la requête et fournit les temps mesurés ; sans lui, on n'a que des estimations",
+        "Il met à jour les statistiques périmées de la table avant d'afficher le plan",
+        "Il crée automatiquement les index manquants détectés dans le plan",
+        "Il compare l'ancienne et la nouvelle requête pour vérifier l'équivalence des résultats"
+      ],
+      "correct": 0,
+      "explanation": "La leçon indique qu'ANALYZE exécute réellement la requête et donne les temps mesurés ; sans lui on n'a que des estimations. (Mettre à jour les statistiques relève de la commande ANALYZE sur la table, un autre usage cité comme remède aux écarts estimé/réel.)"
+    },
+    {
+      "q": "Vous avez un index composite (a, b). Selon la leçon, pour quelles requêtes cet index est-il utile ?",
+      "options": [
+        "Pour les filtres sur b seul, mais pas sur a seul",
+        "Pour n'importe quel filtre sur a ou b indifféremment, car l'ordre des colonnes n'a pas d'importance",
+        "Pour les filtres sur a seul ou sur a et b, mais pas sur b seul",
+        "Uniquement pour les filtres combinant a et b ensemble"
+      ],
+      "correct": 2,
+      "explanation": "La leçon précise qu'un index composite (a, b) sert les requêtes filtrant sur a seul ou sur a et b, mais pas sur b seul : l'ordre des colonnes compte."
+    }
+  ],
+  "data-exploration-anomalies": [
+    {
+      "q": "Selon la leçon, pourquoi préfère-t-on la médiane et la MAD à la moyenne et à l'écart-type pour décrire des données réelles et détecter des anomalies ?",
+      "options": [
+        "Parce que la médiane et la MAD sont plus rapides à calculer en SQL que la moyenne et l'écart-type",
+        "Parce que la moyenne et l'écart-type sont non robustes : une seule valeur extrême les déplace fortement, alors que les statistiques robustes y résistent",
+        "Parce que la moyenne et l'écart-type ne fonctionnent que sur des colonnes catégorielles",
+        "Parce que la médiane et la MAD donnent toujours exactement la même valeur que la moyenne et l'écart-type"
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise que la moyenne et l'écart-type sont non robustes (une valeur extrême les déplace fortement), tandis que les statistiques robustes comme la médiane et la MAD résistent aux extrêmes, presque toujours présents sur des données réelles."
+    },
+    {
+      "q": "Dans le calcul du z-score robuste z = 0.6745 * (x - médiane) / MAD, à quoi sert la constante 0.6745 d'après la leçon ?",
+      "options": [
+        "À fixer automatiquement le seuil à partir duquel un point est déclaré outlier",
+        "À corriger les valeurs manquantes (NULL) avant le calcul de la MAD",
+        "À rendre la MAD comparable à un écart-type sous une loi normale (c'est l'inverse de 1.4826)",
+        "À éviter la division par zéro lorsque la MAD vaut zéro"
+      ],
+      "correct": 2,
+      "explanation": "La leçon indique que le 0.6745 rend la MAD comparable à un écart-type sous une loi normale, car c'est l'inverse de la constante 1.4826 (1 / 1.4826 ≈ 0.6745)."
+    },
+    {
+      "q": "La leçon décrit le cas dégénéré « MAD = 0 ». Quand survient-il et quelle parade propose-t-elle ?",
+      "options": [
+        "Il survient quand plus de la moitié des valeurs sont identiques ; parade : se rabattre sur l'écart interquartile ou traiter ce cas à part",
+        "Il survient quand l'échantillon dépasse un million de lignes ; parade : échantillonner aléatoirement les données",
+        "Il survient quand la colonne contient des NULL ; parade : remplacer les NULL par la moyenne",
+        "Il survient quand la médiane est négative ; parade : prendre la valeur absolue de la médiane"
+      ],
+      "correct": 0,
+      "explanation": "La leçon explique que si plus de la moitié des valeurs sont identiques, la MAD vaut zéro et le z-robuste explose (division par zéro), et propose de se rabattre sur l'écart interquartile ou de traiter ce cas à part."
+    },
+    {
+      "q": "D'après la section sur les corrélations, pourquoi la leçon recommande-t-elle de découper par segment avant de conclure « le CA baisse » ?",
+      "options": [
+        "Parce qu'une corrélation ne peut être calculée que segment par segment en SQL",
+        "Parce que les agrégats cachent les sous-populations (paradoxe de Simpson) : une tendance globale peut s'inverser dans chaque segment, seul le mix changeant",
+        "Parce que le découpage par segment supprime automatiquement les outliers détectés par la MAD",
+        "Parce qu'un agrégat global est toujours un faux positif tant qu'on n'a pas isolé un facteur tiers"
+      ],
+      "correct": 1,
+      "explanation": "La leçon évoque le paradoxe de Simpson : les agrégats cachent les sous-populations, une tendance globale peut s'inverser dans chaque segment, et il se peut que chaque segment monte alors que seul le mix change."
+    }
+  ],
+  "data-verifier-travail-ia": [
+    {
+      "q": "Selon la leçon, pourquoi relire attentivement la requête produite par Claude ne suffit-il pas à la vérifier ?",
+      "options": [
+        "Parce que la relecture prend plus de temps qu'un second calcul automatisé",
+        "Parce que relire la requête avec les mêmes yeux reproduit les mêmes biais et ne révèle pas une hypothèse fausse de départ",
+        "Parce que Claude refuse de relire ses propres requêtes dans une même conversation",
+        "Parce qu'une relecture ne détecte que les fautes de syntaxe, jamais les erreurs de jointure"
+      ],
+      "correct": 1,
+      "explanation": "La leçon insiste : « relire la requête de Claude avec les yeux de Claude reproduit ses biais ». Si l'erreur vient d'une hypothèse fausse (montant en centimes, jointure qui duplique), il faut un second calcul qui ne partage pas cette hypothèse — d'où l'exigence de vérification indépendante, pas d'une simple relecture."
+    },
+    {
+      "q": "Dans la technique du recompute par un autre chemin, comment la leçon recommande-t-elle de faire générer le second calcul par Claude ?",
+      "options": [
+        "En lui demandant de réécrire exactement la même requête pour confirmer qu'elle est stable",
+        "Dans une conversation séparée, en reformulant la demande autrement pour qu'il ne réécrive pas simplement sa première requête",
+        "En lui fournissant son premier résultat afin qu'il le contrôle ligne par ligne",
+        "En augmentant la taille de l'échantillon dans la même conversation"
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise de faire générer le recompute « dans une conversation séparée, en reformulant la demande autrement, pour qu'il ne se contente pas de réécrire sa première requête » : le but est un chemin réellement différent qui ne partage pas les hypothèses initiales."
+    },
+    {
+      "q": "Concernant les requêtes de contrôle (sanity checks), quel partage des rôles la leçon décrit-elle entre l'analyste et Claude ?",
+      "options": [
+        "Claude propose les tests et fixe lui-même les seuils d'alerte, l'analyste se contente de les exécuter",
+        "L'analyste écrit les tests à la main et Claude se contente de les commenter",
+        "Claude propose les tests, mais c'est l'analyste qui décide ce qu'est un résultat « normal » et fixe les seuils d'alerte",
+        "Les seuils d'alerte sont déterminés automatiquement par la requête, sans intervention humaine"
+      ],
+      "correct": 2,
+      "explanation": "La leçon est explicite : on demande à Claude de générer une dizaine de contrôles adaptés au schéma, « mais c'est vous qui décidez ce qu'est un résultat normal : Claude propose les tests, vous fixez les seuils d'alerte »."
+    },
+    {
+      "q": "D'après la leçon, que faut-il faire d'un écart entre votre résultat et une source de vérité (par exemple 1,28 M€ contre 1,19 M€ en compta) ?",
+      "options": [
+        "Le considérer comme une piste à investiguer : remboursements, TVA, période décalée, etc.",
+        "Le négliger tant qu'il reste sous 10 % du total, car c'est dans la marge d'erreur normale",
+        "Refaire la requête jusqu'à obtenir le chiffre de la compta, qui fait foi",
+        "Retenir la moyenne des deux chiffres comme estimation défendable"
+      ],
+      "correct": 0,
+      "explanation": "La leçon décrit l'écart de 90 k€ comme « une piste, pas un détail » : il faut le chercher (remboursements ? TVA incluse ou non ? période décalée d'un jour ?). C'est cette réconciliation qui transforme un chiffre isolé en chiffre défendable, et non son lissage ou son rejet."
+    }
+  ],
+  "data-synthese-dashboards": [
+    {
+      "q": "Selon la leçon, à quel moment du parcours la synthèse exécutive doit-elle intervenir par rapport à la vérification des chiffres ?",
+      "options": [
+        "Avant toute vérification, pour cadrer le récit dès le départ",
+        "Après la vérification (la leçon 5), jamais avant",
+        "En parallèle de la vérification, les deux pouvant se faire simultanément",
+        "Peu importe l'ordre, tant que le chiffre final est juste"
+      ],
+      "correct": 1,
+      "explanation": "La leçon insiste : il ne faut jamais laisser Claude rédiger sur des chiffres non vérifiés, et « la synthèse vient après la leçon 5, jamais avant »."
+    },
+    {
+      "q": "D'après la structure de la « pyramide inversée » présentée, par quoi un analyste senior commence-t-il sa synthèse ?",
+      "options": [
+        "Par le récit chronologique de sa démarche",
+        "Par les dix chiffres clés qui soutiennent l'analyse",
+        "Par la réponse / le message principal en une phrase",
+        "Par le détail de la méthode pour établir sa crédibilité"
+      ],
+      "correct": 2,
+      "explanation": "La leçon oppose le débutant (récit chronologique) au senior qui commence par la réponse : message principal en une phrase, puis trois chiffres seulement, puis l'implication, et la méthode reléguée en annexe."
+    },
+    {
+      "q": "La leçon énonce une « règle d'or » pour qu'un graphe soit bien construit. Laquelle ?",
+      "options": [
+        "Si l'on ne peut pas titrer le graphe par la conclusion qu'il porte, c'est qu'il en dit trop ou pas assez",
+        "Un graphe doit toujours partir d'un axe Y tronqué pour révéler les variations",
+        "Un bon graphe combine plusieurs messages pour maximiser l'information",
+        "Le camembert est recommandé dès qu'il y a plus de cinq parts"
+      ],
+      "correct": 0,
+      "explanation": "La règle d'or est « un graphe = un message » : si on ne peut pas le titrer par sa conclusion, c'est qu'il en dit trop ou pas assez. La leçon déconseille au contraire l'axe tronqué, le cumul de messages et le camembert au-delà de 4-5 parts."
+    },
+    {
+      "q": "Selon la leçon, comment se définit une visualisation « honnête » ?",
+      "options": [
+        "Elle utilise des couleurs vives pour guider le lecteur vers la bonne conclusion",
+        "Elle emploie un double axe Y pour mettre en évidence les corrélations",
+        "Elle commence l'axe des barres juste en dessous de la première valeur pour gagner en lisibilité",
+        "Elle laisse le lecteur tirer sa propre conclusion sans la forcer par un artifice graphique"
+      ],
+      "correct": 3,
+      "explanation": "La leçon précise qu'une visualisation honnête « laisse le lecteur tirer sa propre conclusion — elle ne la lui force pas par un artifice graphique ». Le double axe Y, les couleurs orientées et l'axe tronqué (les barres partent de zéro, sans exception) sont justement cités comme des pièges."
+    }
+  ],
+  "marketing-pourquoi-claude-est-mediocre": [
+    {
+      "q": "Selon la leçon, pourquoi Claude produit-il par défaut un texte marketing générique et oubliable ?",
+      "options": [
+        "Parce que le modèle est techniquement incapable d'écrire du contenu marketing de qualité",
+        "Parce qu'il s'agit de la réponse statistiquement la plus sûre à une demande sous-spécifiée, le modèle régressant vers le centre de gravité saturé de contenu médiocre",
+        "Parce que Claude est volontairement bridé pour éviter les contenus publicitaires trompeurs",
+        "Parce que le marketing exige une créativité qu'aucun modèle de langage ne possède"
+      ],
+      "correct": 1,
+      "explanation": "La leçon insiste : ce n'est pas un défaut du modèle mais la réponse la plus sûre à une demande sous-spécifiée. Sans contrainte forte, Claude régresse vers la moyenne d'un corpus marketing médiocre. « Le générique n'est pas une erreur, c'est l'absence d'instruction. »"
+    },
+    {
+      "q": "Parmi les quatre symptômes décrits, lequel la leçon qualifie-t-elle de « le plus dangereux » ?",
+      "options": [
+        "L'invention : Claude comble les trous en fabriquant un pourcentage, un témoignage ou une étude, plausible mais faux et juridiquement risqué",
+        "Le lisse : un texte sans aspérité qui pourrait décrire n'importe quel produit du secteur",
+        "La hype : des adjectifs comme « game-changer » qui affirment la valeur au lieu de la démontrer",
+        "L'abstraction : des formules vagues sans image mentale ni chiffre concret"
+      ],
+      "correct": 0,
+      "explanation": "La leçon nomme explicitement l'invention « le plus dangereux » : Claude comble les trous avec des données fabriquées, plausibles mais fausses et juridiquement risquées. Les trois autres symptômes nuisent à la qualité mais ne sont pas désignés comme les plus dangereux."
+    },
+    {
+      "q": "La leçon désigne une ligne de prompt comme « la plus importante du parcours ». Laquelle, et que fait-elle ?",
+      "options": [
+        "L'interdiction des verbes mous comme « révolutionner » ou « transformer », qui supprime la hype",
+        "La définition d'un destinataire réel et précis, qui force la spécificité du texte",
+        "La consigne « si une donnée te manque, écris [À COMPLÉTER] au lieu de l'inventer », qui transforme l'hallucination en TODO visible",
+        "La demande de trois angles radicalement différents avant toute rédaction"
+      ],
+      "correct": 2,
+      "explanation": "La leçon dit que la dernière ligne de la liste noire — écrire [À COMPLÉTER] quand une donnée manque — est « la plus importante du parcours » car elle transforme l'hallucination en TODO visible. Les autres leviers sont utiles mais ne reçoivent pas ce statut."
+    },
+    {
+      "q": "Comment la leçon recommande-t-elle d'aborder la toute première sortie de Claude en marketing ?",
+      "options": [
+        "La conserver telle quelle si elle est grammaticalement correcte, puis l'enrichir de chiffres",
+        "La traiter comme un brouillon de négociation : une base à critiquer, en lui renvoyant les contraintes manquantes, et idéalement en demandant d'abord trois angles différents",
+        "La supprimer systématiquement et recommencer le prompt depuis zéro avec un sujet plus large",
+        "La valider directement car le premier réflexe statistique du modèle est généralement le plus pertinent"
+      ],
+      "correct": 1,
+      "explanation": "La leçon présente la première sortie comme un « brouillon de négociation » : on la critique et on renvoie les contraintes manquantes. Elle recommande aussi de faire produire trois angles radicalement différents avant de rédiger, pour éviter le premier réflexe statistique, « toujours le plus banal »."
+    }
+  ],
+  "marketing-brief-voix-de-marque": [
+    {
+      "q": "Selon la leçon, quelle section constitue « le cœur du brief », celle qui fait la différence entre un brief tiède et un brief qui fonctionne ?",
+      "options": [
+        "Les trois adjectifs de ton et leurs contraires",
+        "La liste noire lexicale",
+        "Les exemples annotés (extraits à imiter et contre-exemples)",
+        "Le positionnement en une phrase"
+      ],
+      "correct": 2,
+      "explanation": "La leçon désigne explicitement les exemples annotés comme « le cœur du brief » : un modèle apprend une voix infiniment mieux par l'exemple que par l'adjectif. C'est la section qui distingue un brief tiède d'un brief efficace."
+    },
+    {
+      "q": "Pour la section « ton », pourquoi la leçon recommande-t-elle d'ajouter un anti-ton (ex. « direct, pas brutal ») plutôt que trois adjectifs seuls ?",
+      "options": [
+        "Parce que les contraires cadrent mieux la voix que les seules qualités",
+        "Parce que trois adjectifs sont juridiquement insuffisants",
+        "Parce que Claude ne comprend pas les adjectifs isolés",
+        "Parce que cela permet de réduire la longueur du brief"
+      ],
+      "correct": 0,
+      "explanation": "La leçon explique que « direct, chaleureux, précis » ne suffit pas car tout le monde le dit ; ajouter l'anti-ton aide parce que « les contraires cadrent mieux que les qualités »."
+    },
+    {
+      "q": "D'après la leçon, comment doit-on réagir si une sortie de Claude échoue à un des tests de validation (test du concurrent, mot de la liste noire, donnée non autorisée) ?",
+      "options": [
+        "On réécrit le texte produit, puis on relance la tâche",
+        "On corrige le brief, pas la sortie, et on itère sur le document",
+        "On supprime la section concernée du brief",
+        "On demande à Claude de s'auto-corriger sans toucher au brief"
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise : « si un test échoue, ce n'est pas la sortie qu'on corrige : c'est le brief ». On itère sur le document, pas sur chaque texte."
+    },
+    {
+      "q": "Quelle est la règle absolue que la leçon inscrit dans la section « Faits et chiffres autorisés » ?",
+      "options": [
+        "Toujours citer la source exacte de chaque chiffre dans le texte final",
+        "Privilégier des chiffres arrondis pour rester lisible",
+        "Tout ce qui n'est pas dans la liste est interdit ; à défaut, écrire [À COMPLÉTER]",
+        "Anonymiser systématiquement tous les cas clients"
+      ],
+      "correct": 2,
+      "explanation": "La leçon pose comme règle absolue de cette section : « tout ce qui n'est pas dans cette liste est interdit ; à défaut, écrire [À COMPLÉTER] » — jamais inventer. (L'anonymisation n'est mentionnée que « si besoin », pas systématiquement.)"
+    }
+  ],
+  "marketing-industrialiser-sans-perdre-la-voix": [
+    {
+      "q": "Selon la leçon, quelle est la règle de fond avant d'industrialiser une étape de production ?",
+      "options": [
+        "On peut industrialiser n'importe quelle étape, car l'automatisation corrige d'elle-même les défauts à l'échelle",
+        "On n'industrialise jamais une étape qu'on ne maîtrise pas déjà à la main",
+        "On industrialise d'abord les étapes les plus difficiles, pour gagner le plus de temps possible",
+        "On industrialise uniquement les étapes que Claude exécute mieux qu'un humain"
+      ],
+      "correct": 1,
+      "explanation": "La leçon pose explicitement : « on n'industrialise jamais une étape qu'on ne maîtrise pas à la main ». Si l'on ne sait pas produire un bon article à l'unité, automatiser ne fait que multiplier les défauts."
+    },
+    {
+      "q": "Dans le workflow en quatre étapes, pourquoi l'étape de l'angle est-elle présentée comme « celle qui tue le générique » ?",
+      "options": [
+        "Parce que c'est la seule étape où Claude relit avec la liste noire",
+        "Parce que le premier angle d'un modèle est toujours le plus banal, et le bon angle est souvent le troisième",
+        "Parce qu'elle permet de rédiger l'article entier en un seul méga-prompt",
+        "Parce qu'elle remplace la validation humaine sur les faits chiffrés"
+      ],
+      "correct": 1,
+      "explanation": "L'étape 1 (Angle) consiste à faire produire 3 à 5 angles distincts puis à trancher, car « le premier angle d'un modèle est toujours le plus banal, le bon angle est souvent le troisième »."
+    },
+    {
+      "q": "À propos du prompt de relecture (la checklist de sortie), que recommande la leçon ?",
+      "options": [
+        "Demander à Claude de réécrire directement le texte en supprimant les défauts détectés",
+        "Demander à Claude de signaler les problèmes sans réécrire, car séparer le diagnostic de la réécriture donne de meilleurs résultats",
+        "Confier la relecture uniquement à un humain, car Claude ne peut pas repérer ses propres défauts",
+        "Fusionner le diagnostic et la réécriture en une seule passe pour gagner du temps"
+      ],
+      "correct": 1,
+      "explanation": "La leçon donne le prompt « Ne réécris pas, signale » et précise que « séparer le diagnostic de la réécriture donne de bien meilleurs résultats »."
+    },
+    {
+      "q": "Selon la leçon, qu'advient-il de la relecture humaine quand on industrialise la production ?",
+      "options": [
+        "Elle est supprimée, puisque Claude fait sa propre passe critique",
+        "Elle est appliquée de façon identique à chaque phrase pour garder la qualité",
+        "Elle n'est pas supprimée mais déplacée vers les points de levier : angle, faits chiffrés et noms propres, risques juridiques",
+        "Elle est entièrement déléguée à un outil de mots-clés externe"
+      ],
+      "correct": 2,
+      "explanation": "La leçon indique que l'industrialisation « ne supprime pas la relecture humaine : elle la déplace vers les points de levier » — on valide impérativement l'angle, les faits chiffrés et noms propres, et tout ce qui engage juridiquement la marque."
+    }
+  ],
+  "marketing-seo-geo-resumes-ia": [
+    {
+      "q": "Selon la leçon, comment situer le GEO (Generative Engine Optimization) par rapport au SEO classique ?",
+      "options": [
+        "C'est une discipline parallèle qui invalide les anciennes pratiques SEO",
+        "C'est essentiellement du bon SEO poussé un cran plus loin, car les surfaces génératives s'appuient sur les mêmes systèmes de classement et de qualité",
+        "C'est une technique qui ne dépend que de la quantité de mots-clés insérés dans la page",
+        "C'est une approche réservée aux pages qui ne cherchent pas à être classées dans la recherche classique"
+      ],
+      "correct": 1,
+      "explanation": "La leçon, citant Google, indique que les surfaces génératives reposent sur les mêmes systèmes de classement et de qualité que la recherche classique : le GEO est pour l'essentiel du bon SEO poussé un cran plus loin, pas une discipline parallèle."
+    },
+    {
+      "q": "D'après la leçon, quel ajustement de titres est présenté comme ayant l'un des meilleurs rapports effort/résultat pour être cité par l'IA ?",
+      "options": [
+        "Allonger les titres pour y caser un maximum de mots-clés",
+        "Formuler les titres sous forme de questions, comme « Qu'est-ce que le GEO ? » plutôt que « Aperçu du GEO »",
+        "Numéroter tous les titres pour faciliter le balisage",
+        "Mettre les titres en majuscules pour attirer l'attention du moteur"
+      ],
+      "correct": 1,
+      "explanation": "La leçon souligne que des titres formulés en questions (« Qu'est-ce que le GEO ? ») se font citer plus volontiers que « Aperçu du GEO », et présente cet ajustement comme l'un des meilleurs rapports effort/résultat."
+    },
+    {
+      "q": "Quelle est la limite de Claude explicitement signalée pour la cartographie d'un cluster thématique ?",
+      "options": [
+        "Il ne sait pas regrouper les sous-questions par intention",
+        "Il ne dispose pas de données de volume de recherche fiables et à jour, qu'il faut valider avec un outil de mots-clés réel",
+        "Il invente systématiquement la structure du cluster sans tenir compte de l'audience",
+        "Il ne peut traiter qu'une seule page satellite à la fois"
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise que Claude est excellent pour générer angles et structure d'un cluster, mais qu'il n'a pas de données de volume de recherche fiables et à jour : la validation des volumes passe par un outil de mots-clés réel."
+    },
+    {
+      "q": "Selon la leçon, pourquoi l'honnêteté factuelle constitue-t-elle un avantage en GEO plutôt qu'un frein ?",
+      "options": [
+        "Parce que les moteurs génératifs ignorent les chiffres et ne regardent que la longueur du texte",
+        "Parce qu'empiler des statistiques, même inventées, est le moyen le plus sûr de paraître citable",
+        "Parce que la fiabilité est précisément ce que les moteurs génératifs récompensent, alors qu'une donnée inventée détectée détruit l'autorité",
+        "Parce que les sources doivent rester cachées pour ne pas distraire l'IA"
+      ],
+      "correct": 2,
+      "explanation": "La leçon affirme qu'optimiser pour l'IA et garder l'honnêteté ne s'opposent pas : la fiabilité est ce que les moteurs génératifs récompensent, et une donnée inventée détectée détruit l'autorité que le SEO cherche à bâtir (règle des faits vrais sourcés, [À COMPLÉTER] sinon)."
+    }
+  ],
+  "marketing-email-copywriting-convertit": [
+    {
+      "q": "Selon la leçon, sur quoi repose la conversion défendue par ce parcours ?",
+      "options": [
+        "Sur la pression et un sentiment d'urgence bien dosé",
+        "Sur la clarté et la preuve, pas sur la pression",
+        "Sur l'accumulation d'emojis et d'objets accrocheurs",
+        "Sur la fréquence d'envoi des emails"
+      ],
+      "correct": 1,
+      "explanation": "La leçon pose comme position : « on convertit par la clarté et la preuve, pas par la pression », car la manipulation (fausses urgences, etc.) brûle la confiance, seul actif qui compose dans le temps."
+    },
+    {
+      "q": "D'après la leçon, comment doit-on faire la démonstration d'un bénéfice dans une copy ?",
+      "options": [
+        "Par un adjectif fort comme « ultra-simple »",
+        "Par une statistique impressionnante, même non sourcée",
+        "Par un fait vérifiable comme « exporte vos devis en un clic »",
+        "Par un témoignage générique de client satisfait"
+      ],
+      "correct": 2,
+      "explanation": "La leçon précise qu'un bénéfice « se démontre par un fait (« exporte vos devis en un clic »), jamais par un adjectif (« ultra-simple ») »."
+    },
+    {
+      "q": "Que recommande la leçon concernant l'objectif et l'appel à l'action de chaque email d'une séquence ?",
+      "options": [
+        "Un seul objectif et un seul appel à l'action par email",
+        "Trois appels à l'action pour maximiser les chances de clic",
+        "Un objectif unique mais plusieurs CTA selon les profils",
+        "Autant d'objectifs que d'arguments disponibles"
+      ],
+      "correct": 0,
+      "explanation": "La leçon insiste : chaque email a « un seul objectif » et « un seul appel à l'action », car « un email qui demande trois choses n'en obtient aucune »."
+    },
+    {
+      "q": "Selon le garde-fou anti-hype de la leçon, que faire si l'on ne dispose pas d'un témoignage client réel pour une séquence ?",
+      "options": [
+        "Rédiger un témoignage plausible inspiré de clients typiques",
+        "Reprendre un avis générique trouvé en ligne pour combler le vide",
+        "Demander à Claude d'en générer un crédible à partir du produit",
+        "Écrire la séquence sans, et marquer [À COMPLÉTER — témoignage client réel]"
+      ],
+      "correct": 3,
+      "explanation": "La leçon interdit tout témoignage inventé (mensonge, voire infraction) et demande d'écrire la séquence sans, en marquant « [À COMPLÉTER — témoignage client réel] »."
+    }
+  ],
+  "marketing-mesurer-iterer-ne-pas-halluciner": [
+    {
+      "q": "Selon la leçon, quel est le rôle de Claude vis-à-vis de vos données de performance (taux d'ouverture, trafic, conversion) ?",
+      "options": [
+        "Il interprète les données que vous lui fournissez, mais ne les produit pas",
+        "Il peut estimer vos chiffres de façon fiable à partir de votre secteur d'activité",
+        "Il a accès à vos statistiques et peut donc les mesurer directement",
+        "Il produit les données puis les interprète dans la foulée"
+      ],
+      "correct": 0,
+      "explanation": "La leçon insiste : « Claude n'a pas accès à vos données de performance. » Tout chiffre qu'il avancerait spontanément est une hallucination ; son rôle est d'interpréter les données que vous lui fournissez, pas de les produire."
+    },
+    {
+      "q": "D'après la leçon, pourquoi le trafic seul est-il devenu une métrique trompeuse pour la notoriété/SEO ?",
+      "options": [
+        "Parce que les outils d'analyse de trafic sont devenus payants",
+        "Parce qu'on est à l'ère du zéro-clic, où la part de citations dans les réponses IA compte désormais",
+        "Parce que le trafic est toujours corrélé à la saisonnalité",
+        "Parce que les protections de confidentialité pré-chargent les pages"
+      ],
+      "correct": 1,
+      "explanation": "La leçon indique que pour la notoriété/SEO il faut suivre impressions, position moyenne et « désormais part de citations dans les réponses IA », car « le trafic seul devient trompeur à l'ère du zéro-clic »."
+    },
+    {
+      "q": "La leçon décrit plusieurs conditions pour un A/B test correct. Laquelle correspond à ce qu'elle recommande ?",
+      "options": [
+        "Tester plusieurs variables ensemble pour gagner du temps",
+        "Déclarer un gagnant dès qu'un écart apparaît, même sur 40 envois",
+        "Ne changer qu'une seule variable à la fois et fixer le critère de décision d'avance",
+        "Laisser Claude mesurer lui-même le résultat du test"
+      ],
+      "correct": 2,
+      "explanation": "La leçon exige « une seule variable à la fois » et « un critère de décision fixé d'avance », met en garde contre déclarer un gagnant sur 40 envois (bruit), et rappelle que Claude aide à concevoir/interpréter mais ne mesure pas."
+    },
+    {
+      "q": "Selon la leçon, que signifie « zéro occurrence de [À COMPLÉTER] » lors de la recherche dans le document avant publication ?",
+      "options": [
+        "Que le contenu est trop court et qu'il faut l'enrichir",
+        "Que chaque affirmation est étayée par un fait vrai",
+        "Que Claude a rempli automatiquement tous les chiffres manquants",
+        "Que le document n'a pas encore été relu"
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise : « Zéro occurrence restante = chaque affirmation est étayée par un fait vrai. » Une occurrence signifie soit trouver la vraie donnée, soit reformuler sans elle."
+    }
+  ],
+  "strategie-identifier-bon-cas-usage": [
+    {
+      "q": "Selon la leçon, quelle situation rend une tâche INADAPTÉE à un cas d'usage IA, malgré tout son intérêt apparent ?",
+      "options": [
+        "Trier 5 000 e-mails chaque jour",
+        "Rédiger une seule fois par an le rapport annuel",
+        "Une tâche pénible à fort volume cumulé mais à faible enjeu unitaire",
+        "Une tâche répétée dont le gain est chiffrable en heures économisées"
+      ],
+      "correct": 1,
+      "explanation": "Le critère « fréquence et volume suffisants » précise que rédiger une fois par an le rapport annuel ne justifie pas l'IA : le coût de mise en place dépasse le gain. Les autres options sont, au contraire, présentées comme de bons candidats (les 5 000 e-mails, la tâche à fort volume cumulé, le gain chiffrable)."
+    },
+    {
+      "q": "D'après le « test du contrefactuel », sur quelle question doit-on s'appuyer pour juger la force d'un cas d'usage ?",
+      "options": [
+        "La solution est-elle techniquement élégante ?",
+        "Que se passe-t-il si on ne fait rien ?",
+        "Le projet impressionnera-t-il en réunion ?",
+        "Dispose-t-on déjà d'une licence à rentabiliser ?"
+      ],
+      "correct": 1,
+      "explanation": "La leçon demande de poser systématiquement « que se passe-t-il si on ne fait rien ? ». Si la réponse est « rien de grave », le cas est faible, quelle que soit l'élégance de la solution."
+    },
+    {
+      "q": "Pourquoi la leçon affirme-t-elle qu'un « assistant qui répond à tout » est rarement un vrai cas d'usage ?",
+      "options": [
+        "Parce qu'il coûte trop cher en appels au modèle",
+        "Parce que sans périmètre, il devient impossible de mesurer, de tester et de sécuriser",
+        "Parce que la technologie des chatbots n'est pas encore mûre",
+        "Parce que les utilisateurs préfèrent des outils spécialisés"
+      ],
+      "correct": 1,
+      "explanation": "Le « chatbot tout-terrain » est cité comme un faux ami : sans périmètre, c'est l'absence de cas d'usage, car on ne peut ni mesurer, ni tester, ni sécuriser."
+    },
+    {
+      "q": "La « règle des trois questions » de la leçon impose une réponse écrite. À quoi reconnaît-on, selon le texte, qu'un cas d'usage n'est pas mûr ?",
+      "options": [
+        "Quand les trois réponses ne tiennent pas en une demi-page claire",
+        "Quand le sponsor au COMEX n'est pas convaincu",
+        "Quand le retour sur investissement n'est pas atteint en trois mois",
+        "Quand l'équipe technique juge le projet trop ambitieux"
+      ],
+      "correct": 0,
+      "explanation": "La leçon conclut que si les réponses à « Qui ? », « Combien ? » et « Comment saura-t-on que ça a marché ? » ne tiennent pas en une demi-page claire, le cas d'usage n'est pas mûr — mieux vaut le découvrir maintenant."
+    }
+  ],
+  "strategie-prioriser-portefeuille": [
+    {
+      "q": "Selon la leçon, quelle est la véritable valeur d'une grille de scoring partagée pour prioriser les cas d'usage ?",
+      "options": [
+        "Le score final, qui tranche objectivement entre les projets sans débat",
+        "Le désaccord qu'elle rend visible et la discussion argumentée qu'elle déclenche",
+        "La possibilité de supprimer l'avis du métier au profit d'un calcul automatique",
+        "La garantie que le projet le mieux noté réussira en production"
+      ],
+      "correct": 1,
+      "explanation": "La leçon dit explicitement que la vraie valeur de la grille « n'est pas le chiffre final, mais le désaccord qu'elle rend visible » : elle remplace l'opinion par une discussion argumentée. Le score « classe, il ne décide pas »."
+    },
+    {
+      "q": "Comment la leçon recommande-t-elle de traiter l'axe « Risque » par rapport aux axes Valeur et Faisabilité ?",
+      "options": [
+        "Comme un facteur disqualifiant : un risque élevé élimine d'emblée le cas d'usage",
+        "Comme un axe à fusionner avec la faisabilité pour simplifier le score",
+        "Comme une dimension séparée : un risque élevé ne disqualifie pas mais change le calendrier et les contrôles",
+        "Comme un critère secondaire à n'évaluer qu'après la mise en production"
+      ],
+      "correct": 2,
+      "explanation": "La leçon précise que le risque est « à traiter séparément, car un risque élevé ne disqualifie pas mais change le calendrier et les contrôles ». Diviser par le risque « pénalise les paris dangereux sans les interdire »."
+    },
+    {
+      "q": "Dans la formule Score = (Valeur x Faisabilité) / Risque, pourquoi multiplier la valeur et la faisabilité plutôt que les additionner ?",
+      "options": [
+        "Parce qu'un cas à forte valeur mais infaisable vaut zéro, et un cas très faisable sans valeur aussi",
+        "Parce que la multiplication donne toujours un score plus élevé, ce qui motive les équipes",
+        "Parce que l'addition est impossible quand les notes vont de 1 à 5",
+        "Parce que la faisabilité compte deux fois plus que la valeur dans la décision"
+      ],
+      "correct": 0,
+      "explanation": "La leçon explique que multiplier « capte une vérité : un cas à forte valeur mais infaisable vaut zéro, et un cas très faisable sans valeur aussi ». L'addition ne traduirait pas cette annulation mutuelle."
+    },
+    {
+      "q": "Parmi les principes de séquencement du portefeuille, lequel est conforme à la leçon ?",
+      "options": [
+        "Lancer simultanément les deux paris les plus risqués pour aller plus vite",
+        "Consommer toute la capacité disponible en projets neufs, sans réserve",
+        "Ne pas lancer deux paris risqués en parallèle, car si les deux échouent le programme IA perd sa légitimité",
+        "Repousser systématiquement les quick wins après les paris stratégiques"
+      ],
+      "correct": 2,
+      "explanation": "La leçon énonce trois principes : commencer par un quick win à faible risque, « ne pas lancer deux paris risqués en parallèle » (sinon le programme perd sa légitimité), et garder de la capacité pour le run."
+    }
+  ],
+  "strategie-vrai-cout-projet-ia": [
+    {
+      "q": "Selon la leçon, quelle place occupe le coût des jetons (tokens) dans le coût total de possession (TCO) d'un projet IA ?",
+      "options": [
+        "C'est généralement le poste le plus important, qu'il faut surveiller en priorité",
+        "C'est souvent la plus petite ligne de la facture totale",
+        "C'est un coût ponctuel comparable au build",
+        "C'est un poste impossible à piloter une fois le projet lancé"
+      ],
+      "correct": 1,
+      "explanation": "La leçon insiste : citer seulement le prix des appels au modèle est l'erreur d'estimation la plus répandue, car le coût des jetons est souvent la plus petite ligne de la facture totale."
+    },
+    {
+      "q": "La leçon affirme une règle de prudence sur l'horizon de trois ans. Laquelle ?",
+      "options": [
+        "Le build dépasse presque toujours le run sur trois ans",
+        "Le coût des jetons finit par dépasser tous les autres postes",
+        "Le run dépasse presque toujours le build sur trois ans",
+        "L'évaluation représente à elle seule la moitié du coût total"
+      ],
+      "correct": 2,
+      "explanation": "La leçon pose comme règle de prudence que, sur trois ans, le run dépasse presque toujours le build ; budgéter le build seul revient à financer la naissance d'un service sans financer sa vie."
+    },
+    {
+      "q": "Pourquoi la leçon présente-t-elle le jeu d'évaluation et le monitoring comme \"le poste oublié\" qui distingue l'amateur du professionnel ?",
+      "options": [
+        "Parce qu'il coûte plus cher que le build et le run réunis",
+        "Parce qu'il est exigé par la réglementation avant toute mise en production",
+        "Parce que sans lui on modifie une invite ou un modèle \"en priant\", sans mesurer la qualité ni détecter les régressions silencieuses",
+        "Parce qu'il remplace la nécessité d'une boucle de retour utilisateur"
+      ],
+      "correct": 2,
+      "explanation": "La leçon explique que le jeu d'évaluation mesure la qualité avant chaque mise à jour ; sans évaluation continue \"vous ne pilotez pas un système, vous espérez\", et c'est la première ligne de défense contre les régressions silencieuses."
+    },
+    {
+      "q": "D'après la règle du \"calcul honnête\", comment juger qu'un projet IA n'est pas réellement rentable ?",
+      "options": [
+        "Quand le run annuel approche le gain annuel mesuré",
+        "Quand le coût de build dépasse le gain de la première année",
+        "Quand le gain annuel espéré est inférieur au coût des jetons",
+        "Quand la formation coûte plus que la sécurité"
+      ],
+      "correct": 0,
+      "explanation": "La leçon conclut qu'un projet dont le run annuel approche le gain annuel n'est pas rentable : il déguise un coût en innovation. Le calcul oppose le coût total sur trois ans au gain annuel mesuré (et non espéré)."
+    }
+  ],
+  "strategie-gouvernance-conformite": [
+    {
+      "q": "Selon la leçon, quel est le statut juridique du report de certaines échéances « haut risque » de l'AI Act prévu par le paquet « Digital Omnibus sur l'IA » ?",
+      "options": [
+        "C'est déjà du droit définitif applicable, on peut planifier dessus en toute sécurité.",
+        "Ce n'est pas encore du droit définitif à la rédaction : un accord provisoire a été annoncé mais il doit être confirmé, et il ne faut pas planifier sur ces dates sans confirmation officielle.",
+        "Le report a été rejeté par la Commission et l'annexe III s'applique sans changement.",
+        "Il s'agit d'une interdiction supplémentaire entrée en vigueur le 2 février 2025."
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise que le Digital Omnibus prévoit de reporter certaines échéances haut risque (notamment l'annexe III), mais qu'à la rédaction ce report n'est pas encore du droit définitif : un accord provisoire a été annoncé début mai 2026, à confirmer. D'où la mise en garde de ne pas planifier sur ces dates sans confirmation officielle. Le 2 février 2025 correspond, dans la leçon, à l'interdiction des pratiques à risque inacceptable, sans rapport avec l'Omnibus."
+    },
+    {
+      "q": "D'après la classification des systèmes par l'AI Act décrite dans la leçon, à quelle catégorie de risque correspondent les obligations de transparence comme « signaler qu'on parle à une IA ou qu'un contenu est généré » ?",
+      "options": [
+        "Au risque inacceptable, qui est interdit.",
+        "Au haut risque de l'annexe III.",
+        "Au risque limité.",
+        "Au risque minimal, qui n'entraîne aucune obligation."
+      ],
+      "correct": 2,
+      "explanation": "La leçon classe les systèmes en quatre niveaux : inacceptable (interdit), haut risque, risque limité (obligations de transparence, ex. signaler qu'on parle à une IA ou qu'un contenu est généré) et risque minimal. Les obligations de transparence citées relèvent donc explicitement du risque limité."
+    },
+    {
+      "q": "Selon la leçon, à quoi sert principalement le comité IA ?",
+      "options": [
+        "À écrire le code des projets et à choisir l'architecture technique à la place des équipes.",
+        "À produire une charte détaillée que chaque collaborateur doit signer avant tout usage.",
+        "À décider quels cas d'usage sont autorisés et sous quelles conditions, tenir un registre des cas d'usage, classer leur niveau de risque et conditionner la mise en production à des contrôles proportionnés.",
+        "À remplacer le DPO et le service juridique dans la qualification du risque réglementaire."
+      ],
+      "correct": 2,
+      "explanation": "La leçon décrit le comité IA comme l'organe qui décide des cas d'usage autorisés et de leurs conditions, tient un registre, classe les niveaux de risque et conditionne la mise en production à des contrôles proportionnés — pas de réunions infinies, mais des décisions tracées. Le DPO/juridique y siège pour qualifier le risque, mais le comité ne le remplace pas."
+    },
+    {
+      "q": "D'après les montants cités dans la leçon, quel plafond de sanction correspond au niveau le plus élevé de l'AI Act, et pour quel type de manquement ?",
+      "options": [
+        "Jusqu'à 35 millions d'euros ou 7 % du chiffre d'affaires mondial, pour les pratiques interdites.",
+        "Jusqu'à 20 millions d'euros ou 4 % du chiffre d'affaires mondial, pour les manquements les plus graves.",
+        "Jusqu'à 10 millions d'euros ou 2 % du chiffre d'affaires mondial, pour tout manquement.",
+        "Jusqu'à 35 millions d'euros ou 4 % du chiffre d'affaires mondial, pour les systèmes à haut risque."
+      ],
+      "correct": 0,
+      "explanation": "La leçon indique que l'AI Act prévoit des sanctions allant jusqu'à 35 millions d'euros ou 7 % du chiffre d'affaires mondial pour les pratiques interdites. Les montants de 10 M€/2 % et 20 M€/4 % correspondent au RGPD (article 83), pas à l'AI Act."
+    }
+  ],
+  "strategie-conduite-changement-adoption": [
+    {
+      "q": "Selon la leçon, quelle est la cause la plus fréquente d'échec des projets IA qui déçoivent ?",
+      "options": [
+        "Le modèle choisi est techniquement mauvais ou mal entraîné",
+        "Personne ne s'en sert vraiment, ou s'en sert mal",
+        "Le budget initial était trop faible pour entraîner un bon modèle",
+        "La réglementation a bloqué le déploiement en cours de route"
+      ],
+      "correct": 1,
+      "explanation": "La leçon affirme que la majorité des projets IA décevants ne le sont pas pour des raisons techniques : ils déçoivent parce que personne ne s'en sert vraiment. Un outil techniquement réussi mais non adopté a un ROI nul."
+    },
+    {
+      "q": "D'après la leçon, comment reconnaît-on un véritable sponsor par opposition à une simple « signature » ?",
+      "options": [
+        "Il envoie un e-mail de lancement officiel à toute l'entreprise",
+        "Il délègue le portage du projet à l'équipe technique compétente",
+        "Il utilise lui-même l'outil, débloque les arbitrages et assume publiquement des débuts imparfaits",
+        "Il fixe des objectifs chiffrés ambitieux dès la première semaine"
+      ],
+      "correct": 2,
+      "explanation": "La leçon distingue le sponsor qui se contente d'un e-mail de lancement (une simple signature) du vrai sponsor : il utilise l'outil et en parle concrètement, débloque budget et arbitrages, et accepte publiquement que les premiers mois soient imparfaits."
+    },
+    {
+      "q": "La leçon cite : « Les gens ne résistent pas au changement, ils résistent à ce qu'ils risquent d'y perdre. » Quelle posture en découle face à une réticence ?",
+      "options": [
+        "La traiter comme de l'irrationalité à corriger par la pédagogie",
+        "Écouter la peur réelle qui la sous-tend et y répondre franchement",
+        "Imposer l'outil rapidement pour court-circuiter la résistance",
+        "Retirer les utilisateurs réticents du périmètre du projet"
+      ],
+      "correct": 1,
+      "explanation": "La leçon explique que derrière une réticence il y a presque toujours une raison sensée (peur de l'emploi, surcharge, mauvaise expérience). Traiter cela comme de l'irrationalité « c'est la garantir » ; il faut au contraire écouter la peur réelle et y répondre franchement."
+    },
+    {
+      "q": "La leçon oppose l'« adoption » à l'« impact ». Que signale, selon elle, un usage fort mais sans impact ?",
+      "options": [
+        "Un problème d'accompagnement des utilisateurs",
+        "Un mauvais cas d'usage",
+        "Un sponsor insuffisamment impliqué",
+        "Un déploiement réalisé trop lentement"
+      ],
+      "correct": 1,
+      "explanation": "La leçon distingue adoption (les gens s'en servent) et impact (le résultat visé est produit). Elle précise qu'un fort usage sans impact signale un mauvais cas d'usage, tandis qu'un faible usage avec impact signale un problème d'accompagnement."
+    }
+  ],
+  "strategie-securite-risques": [
+    {
+      "q": "Selon la leçon, pourquoi l'injection d'invite (prompt injection) est-elle un risque spécifique à l'IA ?",
+      "options": [
+        "Parce que les modèles d'IA chiffrent mal les données qu'ils reçoivent",
+        "Parce que le modèle ne distingue pas nativement vos instructions des instructions cachées dans le contenu qu'il traite",
+        "Parce que les fournisseurs conservent toujours les invites pour entraîner leurs modèles",
+        "Parce que l'injection d'invite ne peut être détectée par aucune journalisation"
+      ],
+      "correct": 1,
+      "explanation": "La leçon explique que le modèle « ne distingue pas nativement vos instructions des instructions cachées dans le contenu qu'il traite » (e-mail, page web, document), d'où la règle d'or : tout contenu entrant peut contenir des instructions."
+    },
+    {
+      "q": "Un assistant qui résume les e-mails reçoit un message contenant, en petits caractères, l'ordre de transférer les trois derniers messages à une adresse externe. D'après la leçon, quelle défense empêche le plus directement que ce piège fonctionne ?",
+      "options": [
+        "Appliquer le principe de moindre privilège : ne pas donner au résumeur le droit d'envoyer des e-mails",
+        "Augmenter la taille du jeu d'évaluation pour détecter la dérive",
+        "Choisir un fournisseur qui propose des options de non-rétention des données",
+        "Demander au modèle de toujours ignorer les instructions qu'il juge suspectes"
+      ],
+      "correct": 0,
+      "explanation": "La leçon précise « un résumeur n'a pas besoin du droit d'envoyer » et que le piège fonctionne « si l'assistant a le droit d'envoyer des e-mails » : limiter les pouvoirs (moindre privilège) supprime la capacité même de l'action, c'est la défense la plus directe."
+    },
+    {
+      "q": "La leçon distingue trois fuites de données. Concernant la fuite « vers l'utilisateur », que recommande-t-elle exactement ?",
+      "options": [
+        "Compter sur le modèle pour se censurer et masquer les données sensibles dans sa réponse",
+        "Activer les options de non-rétention auprès du fournisseur",
+        "Appliquer le contrôle d'accès avant que la donnée n'atteigne le modèle",
+        "Former les employés à ne pas coller de données confidentielles"
+      ],
+      "correct": 2,
+      "explanation": "La leçon dit que « le contrôle d'accès doit s'appliquer avant que la donnée n'atteigne le modèle, jamais en comptant sur le modèle pour se censurer ». Les options de non-rétention concernent la fuite vers le fournisseur, et la formation des employés concerne la fuite par les employés."
+    },
+    {
+      "q": "Pour réduire la dépendance fournisseur, la leçon recommande d'« abstraire le fournisseur » dans le code. Quel objectif vise précisément cette mesure ?",
+      "options": [
+        "Détecter automatiquement la dérive du modèle en production",
+        "Pouvoir changer de fournisseur sans tout réécrire",
+        "Obtenir de meilleures conditions tarifaires auprès du fournisseur",
+        "Garantir que les données ne sont jamais conservées par le fournisseur"
+      ],
+      "correct": 1,
+      "explanation": "La leçon présente l'abstraction du fournisseur comme un moyen « pour pouvoir en changer sans tout réécrire ». La détection de régression relève du jeu d'évaluation (découpler de la version), pas de l'abstraction."
+    }
+  ],
+  "claude-code-outil-pas-oracle": [
+    {
+      "q": "Selon la leçon, pourquoi est-il déconseillé de demander à Claude « le BTC va-t-il monter ? »",
+      "options": [
+        "Parce que Claude refuse par principe de répondre aux questions sur les cryptomonnaies",
+        "Parce qu'un modèle de langage n'a pas d'avantage prédictif sur les prix et produit une réponse plausible, pas informée",
+        "Parce que la prédiction de prix nécessite un abonnement payant à des données de marché en temps réel",
+        "Parce que Claude n'a pas accès aux cours boursiers récents"
+      ],
+      "correct": 1,
+      "explanation": "La leçon explique qu'un modèle de langage n'a pas d'avantage prédictif sur des prix : il produit une réponse plausible, pas une réponse informée, ce qui transforme une devinette en quelque chose qui a l'air d'une analyse."
+    },
+    {
+      "q": "Quelle est la « bascule mentale » qui structure le bon cadrage de Claude Code pour un trader ?",
+      "options": [
+        "Demander à Claude ce qu'il faut faire sur le marché, puis vérifier soi-même",
+        "Lui faire construire les outils qui exécutent et vérifient votre méthode, plutôt que lui demander quoi faire sur le marché",
+        "Utiliser Claude uniquement pour résumer l'actualité financière avant de trader",
+        "Déléguer à Claude à la fois la décision et l'exécution pour gagner du temps"
+      ],
+      "correct": 1,
+      "explanation": "La leçon résume le bon cadrage : on ne demande pas à Claude ce qu'il faut faire sur le marché, on lui fait construire les outils qui exécutent et vérifient votre méthode."
+    },
+    {
+      "q": "D'après la leçon, qu'est-ce qui distingue Claude Code d'un simple chat pour ce travail ?",
+      "options": [
+        "Il fournit des prédictions de marché plus fiables qu'un chat classique",
+        "Il agit sur vos fichiers et lance des commandes, garde le contexte du projet et boucle (tester → corriger → re-tester)",
+        "Il garantit que le code produit est sans erreur dès le premier essai",
+        "Il se connecte automatiquement à votre courtier pour passer les ordres"
+      ],
+      "correct": 1,
+      "explanation": "La leçon cite trois différences décisives : il agit sur les fichiers et lance des commandes, il garde le contexte du projet, et il boucle (tester, échouer, corriger, re-tester)."
+    },
+    {
+      "q": "Selon le disclaimer et la règle finale de la leçon, où se situe la frontière entre l'IA et l'humain ?",
+      "options": [
+        "L'IA décide de la stratégie et l'humain se contente de l'exécuter manuellement",
+        "L'IA construit et vérifie ; l'humain décide et engage le capital — et cette frontière ne bouge jamais",
+        "L'IA et l'humain partagent à parts égales la responsabilité de chaque décision",
+        "L'humain construit les outils et l'IA prend les décisions de trading sous supervision"
+      ],
+      "correct": 1,
+      "explanation": "La règle qui structure tout le parcours est explicite : l'IA construit et vérifie, l'humain décide et engage le capital, et la frontière ne bouge jamais. Le disclaimer rappelle aussi que chaque décision reste la vôtre."
+    }
+  ],
+  "backtester-sans-se-mentir": [
+    {
+      "q": "Selon la leçon, à quoi sert FONDAMENTALEMENT un backtest honnête ?",
+      "options": [
+        "À valider et confirmer qu'une idée de trading est rentable",
+        "À vous empêcher de perdre de l'argent sur une idée qui ne tient pas (à tuer l'idée)",
+        "À produire la plus belle courbe d'equity possible",
+        "À optimiser un maximum de paramètres pour maximiser le rendement"
+      ],
+      "correct": 1,
+      "explanation": "La leçon dit qu'un backtest n'a qu'une seule utilité : vous empêcher de perdre de l'argent sur une idée qui ne tient pas. Le réflexe final insiste : un bon backtest ne cherche pas à valider l'idée, il cherche à la tuer ; ce qui survit a une chance."
+    },
+    {
+      "q": "Tester une stratégie actions sur l'univers actuel du S&P 500 illustre lequel des quatre tueurs, et pourquoi ?",
+      "options": [
+        "Le look-ahead bias, car on utilise la clôture du jour pour entrer le même jour",
+        "L'overfitting, car on optimise trop de paramètres sur le bruit",
+        "Le survivorship bias, car on ne teste que sur les survivants, les faillites et sorties d'indice ayant disparu",
+        "Les coûts ignorés, car le spread et le slippage ne sont pas modélisés"
+      ],
+      "correct": 2,
+      "explanation": "La leçon décrit le survivorship bias précisément avec cet exemple : tester sur l'univers actuel du S&P 500 ne teste que les survivants, gonflant mécaniquement les résultats ; il faut un univers point-in-time."
+    },
+    {
+      "q": "Dans le squelette de code proposé, pourquoi le signal est-il décalé avec shift(1) et l'exécution placée à t+1 ?",
+      "options": [
+        "Pour éviter le look-ahead : à la barre t, le signal n'utilise que les données connues et l'exécution se fait à l'ouverture de t+1",
+        "Pour réduire les coûts de transaction en regroupant les trades",
+        "Pour augmenter le nombre de trades et lisser la courbe d'equity",
+        "Pour corriger le survivorship bias en réintégrant les actifs disparus"
+      ],
+      "correct": 0,
+      "explanation": "La leçon présente le shift(1) sur le signal et l'exécution à t+1 comme la différence entre un backtest honnête et une machine à illusions : c'est la garantie qu'on n'utilise aucune donnée future (anti look-ahead)."
+    },
+    {
+      "q": "Selon la méthode « beat the idea to death », que révèle un test null (remplacer le signal par des entrées aléatoires de même fréquence) ?",
+      "options": [
+        "Que la stratégie est trop coûteuse en commissions et slippage",
+        "Que l'univers de test contient un survivorship bias",
+        "Que, si l'aléatoire fait presque aussi bien que votre signal, votre edge est imaginaire",
+        "Que les paramètres voisins sont mal optimisés"
+      ],
+      "correct": 2,
+      "explanation": "La leçon décrit le test null comme le remplacement du signal par des entrées aléatoires de même fréquence : si l'aléatoire fait presque aussi bien, l'edge est imaginaire."
+    }
+  ],
+  "coder-le-risque-sizing-et-stops": [
+    {
+      "q": "Selon la leçon, qu'est-ce que le trader contrôle vraiment et qui justifie de coder soigneusement un module de risque ?",
+      "options": [
+        "La probabilité qu'un trade soit gagnant",
+        "Combien il perd si le trade perd",
+        "Le moment exact où le marché retournera",
+        "La volatilité future de l'actif"
+      ],
+      "correct": 1,
+      "explanation": "La leçon ouvre sur l'idée que l'on ne contrôle pas si un trade gagne, mais bien 'combien vous perdez s'il perd' : la gestion du risque est la seule variable sous maîtrise totale."
+    },
+    {
+      "q": "En fixed-fractional, que se passe-t-il pour la taille de position lorsque le stop est placé plus loin du prix d'entrée ?",
+      "options": [
+        "La position devient plus grande pour compenser",
+        "La position reste identique car le pourcentage est fixe",
+        "La position devient plus petite, le risque par trade restant constant",
+        "Le risque par trade augmente proportionnellement à la distance au stop"
+      ],
+      "correct": 2,
+      "explanation": "La leçon décrit la 'conséquence vertueuse' : taille = risque_€ / risque_unit, donc plus le stop est large, plus la position est petite, tandis que le risque par trade reste constant."
+    },
+    {
+      "q": "Pourquoi la leçon déconseille-t-elle le Kelly plein au profit d'un Kelly fractionnaire (ou du fixed-fractional) ?",
+      "options": [
+        "Parce que le Kelly plein est trop conservateur et fait stagner le capital",
+        "Parce que le Kelly plein suppose des probabilités connues exactement et produit des drawdowns insupportables",
+        "Parce que le Kelly plein est interdit par la réglementation",
+        "Parce que le Kelly plein ne tient pas compte de la distance au stop"
+      ],
+      "correct": 1,
+      "explanation": "La leçon explique que le Kelly plein est 'beaucoup trop agressif' : il suppose qu'on connaît exactement ses probabilités (ce qui est faux) et génère des drawdowns insupportables, d'où le recours au Kelly fractionnaire ou au fixed-fractional, plus robuste à l'incertitude."
+    },
+    {
+      "q": "Concernant le plafond de risque codé dans le module, quelle exigence la leçon présente-t-elle comme critique ?",
+      "options": [
+        "Le dépassement du plafond doit lever une erreur, pas être un simple avertissement",
+        "Le plafond doit être un avertissement ajustable par l'opérateur en cours de trade",
+        "Le plafond doit être recalculé automatiquement par l'IA à chaque ordre",
+        "Le plafond ne s'applique qu'aux actifs non corrélés"
+      ],
+      "correct": 0,
+      "explanation": "La leçon insiste : 'le plafond doit être une erreur, pas un avertissement' car 'un garde-fou qu'on peut ignorer n'est pas un garde-fou'. Dépasser le plafond doit lever une erreur, pas l'ignorer."
+    }
+  ],
+  "automatiser-la-recherche-et-garde-fous": [
+    {
+      "q": "D'après la leçon, quel comportement faut-il explicitement demander à Claude Code d'intégrer à l'étape de validation du pipeline de données ?",
+      "options": [
+        "Corriger automatiquement et silencieusement les valeurs aberrantes pour ne pas interrompre l'ingestion",
+        "Échouer bruyamment si la donnée est suspecte, car une donnée silencieusement fausse coûte plus cher qu'un pipeline qui plante",
+        "Ignorer les trous et doublons tant que la majorité des enregistrements est correcte",
+        "Reconstruire entièrement le pipeline à chaque exécution pour garantir la fraîcheur"
+      ],
+      "correct": 1,
+      "explanation": "La leçon dit de demander une 'validation qui échoue bruyamment' si la donnée est suspecte, précisant qu'une donnée silencieusement fausse coûte plus cher qu'un pipeline qui plante."
+    },
+    {
+      "q": "Selon la leçon, pourquoi horodater chaque enregistrement du pipeline de données est-il important ?",
+      "options": [
+        "Pour accélérer les requêtes sur la base locale",
+        "Pour garantir le point-in-time, c'est-à-dire savoir ce qui était connu et à quel moment",
+        "Pour permettre à Claude Code d'exécuter des ordres au bon instant",
+        "Pour calculer automatiquement les splits et dividendes"
+      ],
+      "correct": 1,
+      "explanation": "La leçon indique que l'horodatage de chaque enregistrement sert à garantir le point-in-time : savoir ce qui était connu, et quand."
+    },
+    {
+      "q": "Concernant la connexion de Claude à vos données via MCP, quelle est la 'ligne rouge' posée par la leçon ?",
+      "options": [
+        "Ne jamais donner d'accès en lecture aux rapports",
+        "N'utiliser MCP que pour résumer des documents, jamais pour interroger une base",
+        "Aucune connexion ne doit laisser un modèle passer un ordre réel sans validation humaine explicite (jamais le carnet d'ordres)",
+        "Limiter MCP à un seul serveur par projet"
+      ],
+      "correct": 2,
+      "explanation": "La leçon nomme explicitement comme ligne rouge le fait de ne jamais connecter le carnet d'ordres : aucun modèle ne doit passer un ordre réel sans validation humaine explicite."
+    },
+    {
+      "q": "Quelle est, d'après la leçon, la formule qui résume 'la discipline qui fait la différence' ?",
+      "options": [
+        "Automatiser la recherche et la surveillance, jamais le jugement",
+        "Automatiser entièrement l'exécution pour gagner du temps",
+        "Faire confiance aux réponses bien rédigées de l'IA car elles sont fiables",
+        "Laisser l'IA engager le capital dans des enveloppes de risque prédéfinies"
+      ],
+      "correct": 0,
+      "explanation": "La leçon résume : 'Automatisez la recherche et la surveillance, jamais le jugement', l'objectif étant que l'IA vous rende plus rapide et rigoureux, non qu'elle trade à votre place."
+    }
+  ],
+  "ecosysteme-prompts-skills-github": [
+    {
+      "q": "Selon la leçon, à quoi ressemble le plus le fait d'installer un prompt ou un skill partagé sur GitHub ?",
+      "options": [
+        "À lire un article informatif sans conséquence sur votre machine",
+        "À exécuter le script d'un inconnu, car ce sont des instructions et souvent du code non fiables",
+        "À ajouter une simple fonctionnalité de confort à votre éditeur",
+        "À consulter une documentation officielle validée par Anthropic"
+      ],
+      "correct": 1,
+      "explanation": "Le principe fondateur de la leçon : un prompt ou un skill partagé, ce sont des instructions non fiables et souvent du code non fiable ; l'installer ressemble plus à exécuter le script d'un inconnu qu'à lire un article."
+    },
+    {
+      "q": "Dans la cartographie du texte au code des artefacts, lequel est présenté comme le PLUS dangereux ?",
+      "options": [
+        "Les plugins, paquets qui regroupent plusieurs des autres éléments",
+        "Les prompts / templates en texte brut",
+        "Les slash commands rangés dans .claude/commands/",
+        "Les skills accompagnés de leurs scripts"
+      ],
+      "correct": 0,
+      "explanation": "La leçon classe les artefacts du moins au plus dangereux : prompts/templates, slash commands, skills, sub-agents, serveurs MCP, puis plugins. Les plugins arrivent en dernier car ils regroupent plusieurs des éléments précédents et doivent être audités dans leur ensemble."
+    },
+    {
+      "q": "Que dit la leçon sur l'emplacement des slash commands ?",
+      "options": [
+        "Ils doivent obligatoirement rester dans .claude/commands/, seul dossier supporté",
+        "Ils ne s'exécutent jamais : ce sont de simples notes que l'agent ignore",
+        "Ils ont été fusionnés avec les skills ; l'emplacement recommandé est désormais .claude/skills/<nom>/SKILL.md, l'ancien dossier restant fonctionnel",
+        "Ce sont de vrais programmes qui tournent avec vos permissions"
+      ],
+      "correct": 2,
+      "explanation": "La leçon précise que les slash commands, historiquement dans .claude/commands/, ont été fusionnés avec les skills : l'emplacement recommandé est désormais .claude/skills/<nom>/SKILL.md, l'ancien dossier restant fonctionnel. Ce sont des instructions que l'agent exécute quand on les invoque ; l'option 3 décrit plutôt les serveurs MCP."
+    },
+    {
+      "q": "Pourquoi la leçon affirme-t-elle qu'un prompt en texte brut n'est pas totalement sans risque ?",
+      "options": [
+        "Parce qu'il consomme beaucoup de mémoire et ralentit l'agent",
+        "Parce qu'il démarre automatiquement un processus avec vos permissions",
+        "Parce qu'il télécharge des dépendances réseau à votre insu",
+        "Parce qu'il peut contenir des instructions cachées destinées à détourner votre agent"
+      ],
+      "correct": 3,
+      "explanation": "La leçon classe les prompts/templates comme le risque le plus faible mais pas nul, précisément parce qu'un prompt peut contenir des instructions cachées destinées à détourner votre agent."
+    }
+  ],
+  "chercher-et-evaluer-prompts-github": [
+    {
+      "q": "Selon la leçon, comment vaut-il mieux trier les résultats de recherche sur GitHub pour repérer un projet utilisable ?",
+      "options": [
+        "Par nombre d'étoiles, car la popularité reflète la fiabilité",
+        "Par date de mise à jour récente, car un projet maintenu vaut mieux qu'un projet mort populaire",
+        "Par nombre de forks, car cela indique l'adoption réelle",
+        "Par ancienneté du dépôt, car un projet ancien est plus éprouvé"
+      ],
+      "correct": 1,
+      "explanation": "La leçon recommande explicitement de trier par date de mise à jour récente plutôt que par étoiles : « un projet maintenu vaut mieux qu'un projet mort populaire »."
+    },
+    {
+      "q": "D'après la leçon, que penser de l'affirmation « beaucoup d'étoiles = sûr » ?",
+      "options": [
+        "Vraie : un dépôt très étoilé a été vérifié par la communauté",
+        "Partiellement vraie : les étoiles garantissent au moins l'absence de code malveillant",
+        "Fausse et dangereuse : les étoiles mesurent la popularité, pas la sécurité",
+        "Vraie uniquement pour les dépôts d'organisations identifiées"
+      ],
+      "correct": 2,
+      "explanation": "La leçon qualifie ce piège de « Faux, et dangereux » : les étoiles mesurent la popularité, pas la sécurité. Un dépôt très étoilé peut être compromis, et un dépôt neuf peut être honnête."
+    },
+    {
+      "q": "La leçon présente les listes « awesome- » de la communauté. Quel est leur statut exact ?",
+      "options": [
+        "Ce sont des dépôts officiels Anthropic, donc la base la plus sûre",
+        "Ce sont de simples annuaires : l'inscription dans une liste ne garantit rien",
+        "Elles certifient la sécurité des projets qu'elles référencent",
+        "Elles remplacent la lecture du code grâce à leur curation"
+      ],
+      "correct": 1,
+      "explanation": "La leçon décrit les listes « awesome- » comme « ce ne sont que des annuaires » et précise que « l'inscription dans une liste ne garantit rien »."
+    },
+    {
+      "q": "La leçon propose un prompt pour demander à Claude de résumer un artefact avant lecture. Quelle est sa limite « cruciale » ?",
+      "options": [
+        "Il consomme trop de tokens pour les longs fichiers",
+        "Un artefact malveillant peut être conçu pour tromper le relecteur, y compris l'IA ; ce filtre ne remplace pas la lecture humaine",
+        "Il ne fonctionne que sur les fichiers SKILL.md, pas sur les serveurs MCP",
+        "Il exige un accès réseau qui expose vos secrets pendant l'analyse"
+      ],
+      "correct": 1,
+      "explanation": "La leçon insiste : un artefact malveillant peut être conçu pour tromper le relecteur, y compris l'IA. Le filtre aide mais ne remplace pas votre lecture humaine."
+    }
+  ],
+  "installer-ce-que-ca-accorde-vraiment": [
+    {
+      "q": "Selon la leçon, quelle est la bonne question à se poser au moment d'installer un artefact externe ?",
+      "options": [
+        "« Est-ce que ça marche bien sur ma configuration ? »",
+        "« Qu'est-ce que ça peut faire sur ma machine ? »",
+        "« Est-ce que beaucoup de gens l'utilisent déjà ? »",
+        "« Combien de temps l'installation va-t-elle prendre ? »"
+      ],
+      "correct": 1,
+      "explanation": "La leçon insiste : installer, c'est accorder des capacités. La question n'est jamais « est-ce que ça marche ? » mais « qu'est-ce que ça peut faire sur ma machine ? »."
+    },
+    {
+      "q": "D'après la leçon, en quoi un prompt/template se distingue-t-il d'une slash command sur le plan de l'exécution ?",
+      "options": [
+        "Le prompt exécute du code dès qu'on le copie, alors que la slash command reste un simple texte inerte",
+        "Les deux démarrent un processus sur la machine avec les droits qu'on leur donne",
+        "Avec un prompt on copie du texte et rien ne s'exécute tout seul, alors que le contenu d'une slash command est exécuté comme des instructions quand on l'invoque",
+        "Aucun des deux ne peut contenir d'instructions cachées, ils sont sans risque"
+      ],
+      "correct": 2,
+      "explanation": "La leçon classe les prompts/templates comme du texte copié (rien ne s'exécute seul, risque faible), tandis que la slash command est un fichier Markdown dont le contenu est exécuté comme des instructions par l'agent au moment de l'invocation."
+    },
+    {
+      "q": "La leçon énonce « les trois questions à se poser avant tout MCP / skill ». Laquelle des propositions suivantes N'EN fait PAS partie ?",
+      "options": [
+        "Quels fichiers peut-il lire ou écrire ?",
+        "Peut-il exécuter des commandes shell ?",
+        "A-t-il accès au réseau et à mes secrets ?",
+        "Combien d'étoiles le dépôt a-t-il sur GitHub ?"
+      ],
+      "correct": 3,
+      "explanation": "Les trois questions de la leçon portent sur les fichiers lus/écrits, l'exécution de commandes shell, et l'accès réseau/secrets. La popularité (étoiles) ne figure pas parmi ces trois questions ; si l'on ne peut y répondre, on n'est pas prêt à installer."
+    },
+    {
+      "q": "Pourquoi la leçon recommande-t-elle d'épingler une version ou un hash de commit plutôt que de suivre « main » ?",
+      "options": [
+        "Parce que suivre main aveuglément revient à accepter que le code audité hier soit remplacé demain, éventuellement par un commit malveillant",
+        "Parce que main est toujours plus lent à se charger que les versions épinglées",
+        "Parce qu'épingler une version donne automatiquement plus de droits à l'agent",
+        "Parce que main n'autorise jamais les mises à jour de sécurité"
+      ],
+      "correct": 0,
+      "explanation": "La leçon explique qu'un dépôt change : suivre main aveuglément, c'est accepter que le code relu hier soit remplacé demain, possiblement par un commit malveillant. D'où l'épinglage d'une version/hash réellement relu et la mise à jour délibérée."
+    }
+  ],
+  "modele-de-menace-injection-exfiltration": [
+    {
+      "q": "Selon la leçon, quelle est la cause racine de la prompt injection (« la mère de toutes les menaces ») ?",
+      "options": [
+        "L'agent exécute toujours le code des dépendances sans les auditer",
+        "L'agent ne distingue pas toujours les données à traiter des instructions à exécuter",
+        "L'agent stocke les secrets en clair dans les variables d'environnement",
+        "L'agent fait confiance par défaut aux serveurs MCP signés"
+      ],
+      "correct": 1,
+      "explanation": "La leçon explique que l'agent ne sépare pas toujours les données (ce qu'il doit traiter) des instructions (ce qu'il doit faire) : un attaquant qui glisse des instructions dans un contenu lu par l'agent peut le détourner avec vos permissions."
+    },
+    {
+      "q": "D'après la « lethal trifecta » décrite dans la leçon, à quel moment apparaît le vrai danger de vol de données ?",
+      "options": [
+        "Dès qu'un agent a accès à des données privées, ce seul ingrédient suffisant",
+        "Quand l'agent réunit en même temps accès aux données privées, exposition à du contenu non fiable et canal d'exfiltration",
+        "Uniquement lorsqu'un serveur MCP est techniquement non signé",
+        "Dès que l'agent dispose d'un canal d'exfiltration vers le réseau"
+      ],
+      "correct": 1,
+      "explanation": "La leçon précise que chaque ingrédient pris isolément est gérable ; c'est leur réunion simultanée (données privées + contenu non fiable + canal d'exfiltration) qui permet le vol de données."
+    },
+    {
+      "q": "Pourquoi la leçon affirme-t-elle que « ce n'est qu'un prompt » est un raisonnement faux ?",
+      "options": [
+        "Parce qu'un prompt contient toujours du code base64 caché",
+        "Parce qu'un prompt peut modifier les permissions système de l'agent",
+        "Parce que si l'agent dispose d'outils, le prompt devient le déclencheur et les outils deviennent l'arme",
+        "Parce que tout prompt est par nature un serveur MCP malveillant"
+      ],
+      "correct": 2,
+      "explanation": "La leçon indique qu'un simple texte devient dangereux dès que l'agent peut agir : le prompt sert de déclencheur et les outils de l'agent deviennent l'arme."
+    },
+    {
+      "q": "Parmi ces situations, laquelle la leçon classe-t-elle explicitement comme un risque de type « supply chain » ?",
+      "options": [
+        "Un dépôt au nom presque identique au vrai (typosquatting)",
+        "Des instructions cachées en caractères invisibles de largeur nulle",
+        "Un serveur « météo » qui lit votre .ssh au premier appel d'outil",
+        "Une slash command qui demande de lire le fichier .env"
+      ],
+      "correct": 0,
+      "explanation": "La leçon range sous « supply chain » le typosquatting, un dépôt autrefois sain devenu malveillant et les dépendances non auditées d'un serveur MCP. Les caractères invisibles relèvent des instructions dissimulées, et les deux autres exemples sont d'autres vecteurs distincts."
+    }
+  ],
+  "checklist-vetting-et-sandbox": [
+    {
+      "q": "Selon le workflow « sandbox d'abord » de la leçon, dans quel ordre faut-il procéder pour adopter un artefact externe ?",
+      "options": [
+        "Adopter en moindre privilège, puis lire le code, puis observer dans un conteneur",
+        "Cloner, puis lire le code, puis lancer dans un conteneur sans credentials, observer, et seulement ensuite adopter en moindre privilège",
+        "Lancer dans un conteneur avec credentials pour tester en conditions réelles, puis lire le code si un problème survient",
+        "Vérifier l'auteur, adopter, puis surveiller a posteriori les appels réseau"
+      ],
+      "correct": 1,
+      "explanation": "La leçon décrit explicitement l'ordre protecteur : cloner -> LIRE le code -> lancer dans un conteneur SANS credentials -> observer (fichiers, réseau) -> seulement ensuite adopter, en moindre privilège."
+    },
+    {
+      "q": "La leçon recommande de faire tourner le « prompt de vetting » dans une session séparée. Quelle précaution accompagne cette recommandation ?",
+      "options": [
+        "La session doit avoir accès aux secrets pour tester l'exfiltration réelle",
+        "Ce prompt remplace le jugement humain une fois le verdict « adopter » obtenu",
+        "La session ne doit pas avoir accès aux secrets, et le prompt assiste le jugement sans le remplacer car un artefact peut être conçu pour tromper l'auditeur",
+        "Il suffit de lancer ce vetting sur la branche main pour rester à jour"
+      ],
+      "correct": 2,
+      "explanation": "La leçon précise de lancer le vetting dans une session « qui n'a pas accès à vos secrets », rappelle qu'un artefact peut tromper l'auditeur, et que ce prompt assiste le jugement mais ne le remplace pas."
+    },
+    {
+      "q": "Concernant le versionnage d'un artefact externe, que recommande la checklist de la leçon ?",
+      "options": [
+        "Épingler une version ou un commit précis que vous avez relu, plutôt que de suivre main aveuglément",
+        "Toujours suivre la branche main pour bénéficier des derniers correctifs de sécurité",
+        "Cloner sans épingler de version, l'important étant uniquement la sandbox",
+        "Choisir la version la plus téléchargée, gage de fiabilité"
+      ],
+      "correct": 0,
+      "explanation": "Le point 4 de la checklist dit d'« épingler une version / un commit précis que vous avez relu » et de « ne pas suivre main aveuglément »."
+    },
+    {
+      "q": "Parmi les éléments suivants, lequel la leçon classe-t-elle parmi les « drapeaux rouges » à repérer dans un artefact ?",
+      "options": [
+        "Une description détaillée de 200 lignes utiles",
+        "Une licence open-source clairement indiquée",
+        "Une maintenance active avec des issues ouvertes",
+        "Une consigne de « désactiver la validation » ou des chaînes obfusquées / encodées et de l'Unicode caché"
+      ],
+      "correct": 3,
+      "explanation": "Le point 8 énumère les drapeaux rouges : chaînes obfusquées/encodées, instruction d'exfiltration, demande de permissions très larges, consigne de « désactiver la validation » et Unicode caché."
+    }
+  ]
+}

@@ -4,8 +4,8 @@
 // Idempotent : ré-exécutable, upsert sur slug.
 //
 // Parcours 01 : contenu RÉEL, sourcé Tier 1 (doc officielle Anthropic
-//   « Prompting best practices », vérifiée 2026-05-15). À jour Opus 4.7 :
-//   adaptive thinking, effort parameter, prefill retiré, littéralisme 4.7.
+//   « Prompting best practices », vérifiée 2026-05-15). À jour Opus 4.8 :
+//   adaptive thinking, effort parameter, prefill retiré, littéralisme 4.8.
 // Parcours 02-05 : stubs (placeholder, à produire ensuite).
 // =========================================
 
@@ -27,14 +27,14 @@ const SOURCE_FOOTER = `
 
 ---
 
-**Sources** · Doc officielle Anthropic, *Prompting best practices* (Tier 1, vérifiée 2026-05-15) : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\`. Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu valable pour Claude Opus 4.7 / Sonnet 4.6 / Haiku 4.5.`;
+**Sources** · Doc officielle Anthropic, *Prompting best practices* (Tier 1, vérifiée 2026-05-15) : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\`. Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu valable pour Claude Opus 4.8 / Sonnet 4.6 / Haiku 4.5.`;
 
 const COURSES = [
   {
     slug: "prompt-engineering-pro",
     title: "Prompt Engineering pro",
     description:
-      "Les techniques officielles Anthropic, traduites en méthode opérationnelle : clarté, contexte, exemples, balises XML, raisonnement, chaînage. À jour Claude Opus 4.7.",
+      "Les techniques officielles Anthropic, traduites en méthode opérationnelle : clarté, contexte, exemples, balises XML, raisonnement, chaînage. À jour Claude Opus 4.8.",
     tier_required: "starter",
     display_order: 1,
     estimated_duration_min: 210,
@@ -86,10 +86,10 @@ Chaque leçon : la technique officielle, un prompt opérationnel, un anti-patter
 
 ## Une note de fraîcheur importante
 
-Ce parcours est à jour pour **Claude Opus 4.7** (le modèle le plus capable au moment d'écrire). Deux changements récents que beaucoup de contenus en ligne ratent encore :
+Ce parcours est à jour pour **Claude Opus 4.8** (le modèle le plus capable au moment d'écrire). Deux changements récents que beaucoup de contenus en ligne ratent encore :
 
 - Le **prefill** de la dernière réponse assistant n'est plus supporté depuis Claude 4.6 (renvoie une erreur 400). On verra par quoi le remplacer.
-- Opus 4.7 suit les instructions **plus littéralement** : il ne généralise plus une consigne d'un cas à l'autre tout seul. C'est une force si vous savez en tenir compte, un piège sinon.
+- Opus 4.8 suit les instructions **plus littéralement** : il ne généralise plus une consigne d'un cas à l'autre tout seul. C'est une force si vous savez en tenir compte, un piège sinon.
 
 C'est exactement pour ça que ce parcours est tenu à jour : ce qui était vrai il y a six mois ne l'est déjà plus.${SOURCE_FOOTER}`,
       },
@@ -139,7 +139,7 @@ Avant d'envoyer un prompt que vous allez réutiliser, faites littéralement ceci
 
 ## Anti-pattern
 
-Empiler les précisions au fil de l'eau (« ah et aussi… », « n'oublie pas… ») au lieu de spécifier dès le départ. Avec Opus 4.7 qui interprète plus littéralement, une consigne ajoutée en passant et mal située sera appliquée littéralement ou ignorée, pas « comprise dans l'esprit ».
+Empiler les précisions au fil de l'eau (« ah et aussi… », « n'oublie pas… ») au lieu de spécifier dès le départ. Avec Opus 4.8 qui interprète plus littéralement, une consigne ajoutée en passant et mal située sera appliquée littéralement ou ignorée, pas « comprise dans l'esprit ».
 
 ## Exercice
 
@@ -325,7 +325,7 @@ Définir un rôle dans le **system prompt** focalise le comportement et le ton. 
 
 \`\`\`python
 client.messages.create(
-    model="claude-opus-4-7",
+    model="claude-opus-4-8",
     max_tokens=1024,
     system="You are a helpful coding assistant specializing in Python.",
     messages=[{"role": "user", "content": "How do I sort a list of dicts by key?"}],
@@ -346,7 +346,7 @@ Le négatif (« ne fais pas X ») laisse le champ ouvert. Le positif (« fais Y 
 2. **Indiquer le format via des balises XML** : « écris les sections en prose dans des balises \`<prose>\` ».
 3. **Faire matcher le style du prompt à la sortie voulue.** Si vous voulez peu de markdown en sortie, retirez le markdown de votre prompt. Le style du prompt déteint sur la réponse.
 
-## Le changement Opus 4.7 à connaître
+## Le changement Opus 4.8 à connaître
 
 Le **prefill** de la dernière réponse assistant (forcer le début de la réponse de Claude) **n'est plus supporté depuis Claude 4.6** : requête en erreur 400. Avant, on s'en servait pour forcer un JSON ou supprimer un préambule.
 
@@ -366,12 +366,12 @@ Prenez un prompt où vous avez accumulé des « ne fais pas ». Réécrivez chaq
         slug: "faire-raisonner-chainer-auto-corriger",
         title: "Faire raisonner, chaîner, auto-corriger",
         description:
-          "Adaptive thinking et effort sur Opus 4.7, l'auto-vérification, et le pattern de chaînage qui rattrape les erreurs.",
+          "Adaptive thinking et effort sur Opus 4.8, l'auto-vérification, et le pattern de chaînage qui rattrape les erreurs.",
         duration_min: 19,
         is_free_preview: false,
         content_md: `## Le raisonnement a changé de mécanique
 
-Si vous avez appris le prompt engineering il y a un an, cette partie a changé. Les modèles récents (Opus 4.7, Sonnet 4.6) utilisent l'**adaptive thinking** : le modèle décide lui-même quand et combien réfléchir, calibré par deux choses :
+Si vous avez appris le prompt engineering il y a un an, cette partie a changé. Les modèles récents (Opus 4.8, Sonnet 4.6) utilisent l'**adaptive thinking** : le modèle décide lui-même quand et combien réfléchir, calibré par deux choses :
 
 - le paramètre **effort** (\`low\` → \`medium\` → \`high\` → \`xhigh\` → \`max\`)
 - la complexité de la requête

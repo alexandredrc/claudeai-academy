@@ -53,6 +53,34 @@ export const SOURCES = [
     impacts: ["claude-code-ia-agentic", "strategie-conduite-ia"],
   },
 
+  // ---------- TIER 1 — Officiel juridique (UE / France) ----------
+  // Couvre la dérive réglementaire du parcours Stratégie (AI Act, RGPD).
+  // Échéances AI Act mouvantes → surveillance des pages officielles d'application.
+  {
+    id: "eu-ai-act-framework",
+    label: "Commission UE — Cadre réglementaire de l'IA (AI Act)",
+    tier: 1,
+    kind: "html-hash",
+    url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    impacts: ["strategie-conduite-ia"],
+  },
+  {
+    id: "eu-ai-act-implementation",
+    label: "Commission UE — Mise en application de l'AI Act (calendrier)",
+    tier: 1,
+    kind: "html-hash",
+    url: "https://digital-strategy.ec.europa.eu/en/policies/ai-act-implementation",
+    impacts: ["strategie-conduite-ia"],
+  },
+  {
+    id: "cnil-ia",
+    label: "CNIL — Intelligence artificielle (RGPD)",
+    tier: 1,
+    kind: "html-hash",
+    url: "https://www.cnil.fr/fr/intelligence-artificielle",
+    impacts: ["strategie-conduite-ia"],
+  },
+
   // ---------- TIER 2 — Indépendant haute confiance ----------
   {
     id: "simon-willison",

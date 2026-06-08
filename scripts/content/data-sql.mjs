@@ -18,7 +18,7 @@ export const claudeDataSql = {
   slug: "claude-data-sql",
   title: "Claude pour data et SQL",
   description:
-    "Faire de Claude votre analyste senior — générer, debugger et optimiser du SQL, profiler des données et bâtir des dashboards — tout en vérifiant systématiquement chaque sortie.",
+    "Faire de Claude votre bras droit data — générer, debugger et optimiser du SQL, profiler des données et bâtir des dashboards — tout en vérifiant systématiquement chaque sortie.",
   tier_required: "mastery",
   display_order: 3,
   estimated_duration_min: 130,
@@ -59,7 +59,7 @@ Trois familles d'erreurs reviennent sans cesse :
 2. **La sémantique SQL piégeuse.** Les **NULL**, les jointures qui dupliquent les lignes, les agrégats sur des données dénormalisées : autant de zones où une requête *s'exécute sans erreur* tout en renvoyant un faux résultat. C'est le pire cas — pas de message d'alerte, juste un chiffre faux.
 3. **L'aplomb.** Claude formule une réponse fausse avec la même assurance qu'une réponse juste. Il n'y a pas de signal de confiance fiable dans le ton. C'est à vous de créer ce signal, par la vérification.
 
-## Le bon modèle mental : analyste senior, pas oracle
+## Le bon modèle mental : analyste junior brillant, pas oracle
 
 Traitez Claude comme un analyste junior surdoué et infatigable, à qui vous confieriez du travail — mais dont vous **relisez systématiquement le livrable** parce qu'il ne connaît pas vos données aussi bien que vous, et qu'il ne vous dira jamais spontanément « là, je ne suis pas sûr ».
 

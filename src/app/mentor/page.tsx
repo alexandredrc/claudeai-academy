@@ -7,12 +7,23 @@ import { MentorChat } from "./Chat";
 
 export const dynamic = "force-dynamic";
 
-export default async function MentorPage() {
+export default async function MentorPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ exercice?: string }>;
+}) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/mentor");
+
+  // Pré-remplissage « correction d'exercice » depuis une leçon (?exercice=Titre)
+  const sp = await searchParams;
+  const exercice = typeof sp.exercice === "string" ? sp.exercice.slice(0, 200) : "";
+  const initialInput = exercice
+    ? `Voici ma réponse à l'exercice de la leçon « ${exercice} ».\n\n[Colle ta réponse ici, puis envoie]\n\nCorrige-la contre les critères de la leçon : points forts, axes d'amélioration prioritaires, et une version améliorée si pertinent.`
+    : "";
 
   const hasMastery = await userHasTier(supabase, "mastery");
 
@@ -68,7 +79,7 @@ export default async function MentorPage() {
             cite les leçons. {MENTOR_DAILY_LIMIT} questions par jour.
           </p>
         </header>
-        <MentorChat />
+        <MentorChat initialInput={initialInput} />
       </div>
     </section>
   );

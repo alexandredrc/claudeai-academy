@@ -22,6 +22,16 @@ Principe : **Tier 1 = source de vérité** (officiel Anthropic). Tier 2 = signal
 | Effective context engineering | `anthropic.com/engineering/effective-context-engineering-for-ai-agents` | Référence parcours 02 / 05 | — |
 | Blog produit | `claude.com/blog` | Annonces produit/modèles | — |
 
+## Tier 1 — Officiel juridique (UE / France)
+
+Couvre la dérive réglementaire du parcours 05 « Stratégie » (AI Act, RGPD), dont les échéances sont mouvantes.
+
+| Source | URL | Usage | Surveillé |
+|---|---|---|---|
+| Commission UE — Cadre réglementaire IA (AI Act) | `digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai` | Référence AI Act parcours 05 | ✅ |
+| Commission UE — Mise en application AI Act (calendrier) | `digital-strategy.ec.europa.eu/en/policies/ai-act-implementation` | Suivi des échéances mouvantes | ✅ |
+| CNIL — Intelligence artificielle | `cnil.fr/fr/intelligence-artificielle` | Doctrine RGPD/IA française | ✅ |
+
 ## Tier 2 — Indépendant haute confiance
 
 | Source | URL | Pourquoi fiable | Surveillé |

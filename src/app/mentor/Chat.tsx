@@ -10,9 +10,9 @@ const SUGGESTIONS = [
   "Donne-moi un exemple de few-shot bien construit pour de la classif.",
 ];
 
-export function MentorChat() {
+export function MentorChat({ initialInput = "" }: { initialInput?: string }) {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(initialInput);
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);

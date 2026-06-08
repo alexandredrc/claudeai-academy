@@ -146,7 +146,7 @@ L'erreur de débutant : voir l'installation comme « ajouter une fonctionnalité
 ## Les trois questions à se poser avant tout MCP / skill
 
 1. **Quels fichiers peut-il lire ou écrire ?** Un dossier précis, ou tout votre disque / home ?
-2. **Peut-il exécuter des commandes shell ?** Si oui, il peut tout faire ce que vous pouvez faire.
+2. **Peut-il exécuter des commandes shell ?** Si oui, il peut faire tout ce que vous pouvez faire.
 3. **A-t-il accès au réseau et à mes secrets ?** Lui passez-vous des variables d'environnement, des clés d'API, des tokens ?
 
 Si vous ne pouvez pas répondre à ces trois questions, **vous n'êtes pas prêt à l'installer**.

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ClaudeAI Academy — Teaser stories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F5F1EB; --cream-soft:#FAF7F2; --cream-dark:#EDE6D9;
+    --coral:#D97757; --coral-dark:#C2664A; --coral-soft:#F2D5C7;
+    --ink:#1F1F1E; --ink-soft:#3D3929; --muted:#6B6557; --line:#E5DED0;
+    --green:#2A9D8F;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); background:#cfc7b8; color:var(--ink);
+    padding:40px; display:flex; flex-wrap:wrap; gap:40px; justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hint{
+    width:100%; max-width:1080px; background:#fff; border:1px solid var(--line);
+    border-radius:16px; padding:18px 22px; font-size:15px; color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .hint b{color:var(--coral-dark)}
+  .hint code{background:var(--cream-dark); padding:2px 6px; border-radius:6px; font-size:13px}
+
+  /* Format story Instagram : 1080 x 1920 (9:16) */
+  .story{
+    position:relative; width:1080px; height:1920px; overflow:hidden;
+    background:var(--cream); color:var(--ink);
+    display:flex; flex-direction:column; padding:120px 96px;
+    box-shadow:0 30px 80px rgba(0,0,0,.25);
+  }
+  /* halo doux en fond */
+  .story::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(120% 80% at 75% 12%, rgba(217,119,87,.16), transparent 55%),
+               radial-gradient(90% 60% at 10% 95%, rgba(217,119,87,.10), transparent 50%);
+    pointer-events:none;
+  }
+  .story > *{position:relative; z-index:1}
+
+  .kicker{
+    font-size:26px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--coral); margin-bottom:40px;
+  }
+  .brand{ font-family:var(--serif); font-weight:500; font-size:40px; color:var(--ink) }
+  .brand span{ color:var(--coral) }
+
+  h1{
+    font-family:var(--serif); font-weight:500; line-height:1.04;
+    letter-spacing:-.02em; font-size:108px; color:var(--ink);
+  }
+  h1 em{ font-style:italic; color:var(--coral) }
+  .lead{ font-size:40px; line-height:1.5; color:var(--ink-soft); }
+  .spacer{ flex:1 }
+
+  .chips{ display:flex; flex-direction:column; gap:22px; }
+  .chip{
+    display:flex; align-items:baseline; gap:28px;
+    background:var(--cream-soft); border:1px solid var(--line);
+    border-radius:26px; padding:34px 40px;
+  }
+  .chip .n{ font-family:var(--serif); font-weight:500; font-size:84px; color:var(--coral); line-height:1; min-width:170px }
+  .chip .l{ font-size:38px; color:var(--ink-soft); line-height:1.25 }
+
+  .feat{ display:flex; gap:28px; align-items:flex-start; margin-top:36px }
+  .feat .ico{ font-size:56px; line-height:1 }
+  .feat .t{ font-family:var(--serif); font-size:46px; font-weight:500; color:var(--ink) }
+  .feat .d{ font-size:34px; color:var(--muted); line-height:1.45; margin-top:8px }
+  .badge{
+    align-self:flex-start; background:var(--coral-soft); color:var(--coral-dark);
+    font-weight:700; font-size:26px; letter-spacing:.04em;
+    padding:12px 24px; border-radius:999px; margin-bottom:30px;
+  }
+
+  .cta{
+    background:var(--coral); color:var(--cream); font-weight:700; font-size:46px;
+    text-align:center; padding:46px; border-radius:28px;
+    box-shadow:0 18px 40px rgba(217,119,87,.35);
+  }
+  .footer{ margin-top:46px; font-size:32px; color:var(--muted); text-align:center }
+  .arrow{ font-size:64px; text-align:center; margin-top:30px; color:var(--coral) }
+</style>
+</head>
+<body>
+
+  <div class="hint">
+    <b>Comment l'utiliser :</b> ouvre ce fichier dans un navigateur. Chaque carte fait exactement <b>1080×1920</b> (format story).
+    Pour exporter : ouvre les <b>DevTools → mode appareil</b> (icône mobile) puis « Capturer une capture pleine taille » sur chaque carte,
+    ou ouvre la page sur ton téléphone et fais une capture d'écran. Tu peux modifier les textes directement dans le fichier.
+    <br>⚠️ <b>Phase teasing</b> : aucune fausse rareté, aucun faux témoignage — seulement des chiffres réels (7 / 40 / 170) + liste d'attente honnête.
+  </div>
+
+  <!-- STORY 1 — HOOK -->
+  <section class="story">
+    <div class="kicker">ClaudeAI Academy</div>
+    <div class="spacer"></div>
+    <h1>Tu utilises l'IA tous les jours…<br><em>et tu en exploites 20 %.</em></h1>
+    <div class="spacer"></div>
+    <p class="lead">Le problème n'est jamais l'outil. C'est qu'on tâtonne, sans méthode.</p>
+    <div class="arrow">↓</div>
+  </section>
+
+  <!-- STORY 2 — LE PROJET + STATS RÉELLES -->
+  <section class="story">
+    <div class="kicker">Bientôt en ligne 🇫🇷</div>
+    <div class="brand">ClaudeAI <span>Academy</span></div>
+    <h1 style="font-size:90px;margin-top:36px">La maîtrise de Claude,<br><em>structurée.</em></h1>
+    <div class="spacer"></div>
+    <div class="chips">
+      <div class="chip"><div class="n">7</div><div class="l">parcours par métier</div></div>
+      <div class="chip"><div class="n">40</div><div class="l">leçons réelles, sourcées, à jour</div></div>
+      <div class="chip"><div class="n">170</div><div class="l">prompts prêts à copier</div></div>
+    </div>
+    <div class="footer">Trading · Sécurité · Data · Marketing · Code · Stratégie</div>
+  </section>
+
+  <!-- STORY 3 — MENTOR IA + QCM (différenciateurs) -->
+  <section class="story">
+    <div class="badge">CE QUI CHANGE TOUT</div>
+    <h1 style="font-size:92px">Pas que<br>du contenu à <em>lire.</em></h1>
+    <div class="spacer"></div>
+    <div class="feat">
+      <div class="ico">🤖</div>
+      <div>
+        <div class="t">Un Mentor IA</div>
+        <div class="d">Entraîné sur toute la formation. Il répond, corrige tes exercices, et cite la leçon.</div>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="ico">✅</div>
+      <div>
+        <div class="t">Des quiz par leçon</div>
+        <div class="d">Tu vérifies ta compréhension à chaud, avec correction expliquée.</div>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="ico">🔄</div>
+      <div>
+        <div class="t">Mises à jour continues</div>
+        <div class="d">Une veille tient le contenu à jour. L'IA évolue, la formation aussi.</div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </section>
+
+  <!-- STORY 4 — CTA LISTE D'ATTENTE -->
+  <section class="story">
+    <div class="kicker">Lancement imminent</div>
+    <div class="spacer"></div>
+    <h1>Les premiers inscrits<br>seront <em>prévenus en premier.</em></h1>
+    <p class="lead" style="margin-top:48px">7 leçons + 24 prompts offerts pour juger par toi-même. Zéro engagement.</p>
+    <div class="spacer"></div>
+    <div class="cta">Réponds « MOI » pour rejoindre la liste</div>
+    <div class="footer">claudeai-academy.com</div>
+  </section>
+
+</body>
+</html>

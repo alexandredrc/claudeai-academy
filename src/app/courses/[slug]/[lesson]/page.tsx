@@ -5,6 +5,8 @@ import remarkGfm from "remark-gfm";
 import { createClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { userHasTier, type CourseTier } from "@/lib/courses/access";
+import { quizForLesson } from "@/lib/quizzes/library";
+import { LessonQuiz } from "./Quiz";
 import { markLessonCompleteAction } from "./actions";
 import { startCheckoutAction } from "@/app/checkout/actions";
 
@@ -93,6 +95,11 @@ export default async function LessonPage({ params }: { params: Params }) {
     isCompleted = !!progress;
   }
 
+  // 6b) QCM d'auto-évaluation (en code, indépendant de la DB) + accès Mentor
+  const quiz = content ? quizForLesson(lessonMeta.slug) : null;
+  const hasMastery = user ? await userHasTier(supabase, "mastery") : false;
+  const mentorHref = `/mentor?exercice=${encodeURIComponent(lessonMeta.title)}`;
+
   // 7) Navigation prev/next
   const { data: siblings } = await supabase
     .from("lessons")
@@ -152,6 +159,28 @@ export default async function LessonPage({ params }: { params: Params }) {
                 {content.content_md}
               </ReactMarkdown>
             </article>
+
+            {quiz && <LessonQuiz questions={quiz} />}
+
+            {hasMastery && (
+              <div className="mt-8 flex flex-col items-start gap-4 rounded-[22px] border border-coral-soft bg-coral-soft/20 p-6 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="font-serif text-lg font-medium text-ink">
+                    Fais corriger ton exercice par le Mentor IA
+                  </p>
+                  <p className="mt-1 text-[14px] leading-relaxed text-ink-soft">
+                    Colle ta réponse à l&apos;exercice : le Mentor l&apos;évalue
+                    contre les critères de la leçon et te dit quoi améliorer.
+                  </p>
+                </div>
+                <Link
+                  href={mentorHref}
+                  className="shrink-0 rounded-[14px] bg-coral px-5 py-2.5 text-sm font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
+                >
+                  Ouvrir le Mentor →
+                </Link>
+              </div>
+            )}
 
             {user && (
               <CompleteSection

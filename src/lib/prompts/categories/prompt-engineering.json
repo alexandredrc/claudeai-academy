@@ -12,7 +12,7 @@
     "category": "prompt-engineering",
     "title": "Few-shot : guider par l'exemple",
     "useCase": "Quand tu veux un style, un format ou une logique de réponse très précis et reproductible, en montrant 2-3 exemples plutôt qu'en expliquant.",
-    "prompt": "Je veux que tu produises des sorties qui suivent EXACTEMENT le schéma des exemples ci-dessous (même structure, même ton, même niveau de détail).\n\nTâche : [DÉCRIS LA TÂCHE, ex. reformuler une objection client en réponse empathique]\n\nExemple 1\nEntrée : [EXEMPLE D'ENTRÉE 1]\nSortie : [EXEMPLE DE SORTIE 1 IDÉALE]\n\nExemple 2\nEntrée : [EXEMPLE D'ENTRÉE 2]\nSortie : [EXEMPLE DE SORTIE 2 IDÉALE]\n\nExemple 3\nEntrée : [EXEMPLE D'ENTRÉE 3]\nSortie : [EXEMPLE DE SORTIE 3 IDÉALE]\n\nMaintenant, applique le même schéma à cette nouvelle entrée :\nEntrée : [TA VRAIE ENTRÉE]\nSortie :",
+    "prompt": "Tu dois produire des sorties qui suivent EXACTEMENT le schéma des exemples ci-dessous : même structure, même ton, même niveau de détail. Les exemples font autorité sur toute instruction implicite.\n\nTâche : [DÉCRIS LA TÂCHE, ex. reformuler une objection client en réponse empathique]\n\n<exemples>\nEntrée : [EXEMPLE D'ENTRÉE 1, idéalement un cas un peu difficile]\nSortie : [SORTIE 1 IDÉALE]\n---\nEntrée : [EXEMPLE D'ENTRÉE 2, un cas différent du premier]\nSortie : [SORTIE 2 IDÉALE]\n---\nEntrée : [EXEMPLE D'ENTRÉE 3, un cas limite ou exception]\nSortie : [SORTIE 3 IDÉALE]\n</exemples>\n\nVarie volontairement tes exemples pour couvrir les cas normaux ET les cas limites : c'est ce qui rend le schéma robuste. Applique maintenant le même schéma, sans le commenter :\n\nEntrée : [TA VRAIE ENTRÉE]\nSortie :",
     "tier": "free"
   },
   {
@@ -20,7 +20,7 @@
     "category": "prompt-engineering",
     "title": "Chain-of-thought : forcer le raisonnement étape par étape",
     "useCase": "Pour les problèmes de logique, de calcul ou de décision où la réponse directe est souvent fausse : on demande à Claude de raisonner avant de conclure.",
-    "prompt": "Résous le problème suivant avec rigueur.\n\nProblème :\n[COLLE LE PROBLÈME]\n\nProcède ainsi :\n1. Reformule le problème avec tes propres mots pour vérifier ta compréhension.\n2. Liste les données connues et les inconnues.\n3. Raisonne étape par étape, en montrant chaque déduction intermédiaire.\n4. Vérifie ton raisonnement en testant le résultat sur les contraintes de départ.\n5. Donne la réponse finale précédée de la mention « Réponse : ».\n\nNe saute aucune étape. Si une hypothèse est nécessaire, déclare-la explicitement avant de l'utiliser.",
+    "prompt": "Résous le problème suivant avec rigueur.\n\nProblème :\n[COLLE LE PROBLÈME]\n\nRaisonne d'abord dans une section <reflexion>, puis donne ta conclusion dans une section <reponse>.\n\nDans <reflexion>, procède ainsi :\n1. Reformule le problème avec tes propres mots pour vérifier ta compréhension.\n2. Liste les données connues et les inconnues.\n3. Raisonne étape par étape, en montrant chaque déduction intermédiaire.\n4. Vérifie ton raisonnement en testant le résultat contre les contraintes de départ ; si une incohérence apparaît, corrige avant de conclure.\n\nDans <reponse>, donne uniquement la réponse finale, claire et précise.\n\nNe saute aucune étape. Si une hypothèse est nécessaire, déclare-la explicitement avant de l'utiliser.",
     "tier": "free"
   },
   {
@@ -28,7 +28,7 @@
     "category": "prompt-engineering",
     "title": "Balises XML pour isoler les données du texte",
     "useCase": "Quand ton prompt mélange instructions, documents sources et exemples : les balises XML évitent que Claude confonde la consigne avec les données.",
-    "prompt": "Tu vas analyser un document. Les balises délimitent clairement chaque partie.\n\n<instructions>\n[DÉCRIS PRÉCISÉMENT CE QUE TU VEUX, ex. extraire les 5 risques juridiques majeurs]\n</instructions>\n\n<document>\n[COLLE ICI LE DOCUMENT SOURCE, MÊME LONG]\n</document>\n\n<contraintes>\n- Ne te base QUE sur le contenu entre les balises <document>.\n- Si une information n'y figure pas, écris « non précisé dans le document ».\n- N'invente aucune donnée.\n</contraintes>\n\n<format>\nRéponds dans une balise <reponse> contenant une liste numérotée. Pour chaque point : le risque, puis la citation exacte du document qui le justifie.\n</format>",
+    "prompt": "Tu vas analyser un document. Les balises délimitent clairement chaque partie ; respecte-les rigoureusement.\n\n<document>\n[COLLE ICI LE DOCUMENT SOURCE, MÊME LONG — place-le en tête, avant les instructions, surtout s'il est volumineux]\n</document>\n\n<instructions>\n[DÉCRIS PRÉCISÉMENT CE QUE TU VEUX, ex. extraire les 5 risques juridiques majeurs]\n</instructions>\n\n<contraintes>\n- Ne te base QUE sur le contenu entre les balises <document>.\n- Si une information n'y figure pas, écris « non précisé dans le document ».\n- N'invente aucune donnée.\n</contraintes>\n\n<format>\nRéponds dans une balise <reponse> contenant une liste numérotée. Pour chaque point : commence par citer entre <citation> l'extrait exact du document qui le justifie, puis formule le risque. Citer avant d'analyser réduit les erreurs sur un document long.\n</format>",
     "tier": "mastery"
   },
   {
@@ -36,7 +36,7 @@
     "category": "prompt-engineering",
     "title": "Forcer une sortie JSON strictement parsable",
     "useCase": "Quand la réponse doit être consommée par du code ou une API : on impose un schéma JSON exact, sans texte parasite.",
-    "prompt": "Tu es un extracteur de données. Tu réponds UNIQUEMENT par un objet JSON valide, sans texte avant ni après, sans bloc de code markdown.\n\nSchéma exact à respecter :\n{\n  \"titre\": string,\n  \"resume\": string (max 200 caractères),\n  \"themes\": string[] (3 à 5 éléments),\n  \"sentiment\": \"positif\" | \"neutre\" | \"negatif\",\n  \"confiance\": number (0 à 1)\n}\n\nRègles :\n- Toutes les clés sont obligatoires.\n- Si une valeur est inconnue, mets null (jamais de texte explicatif).\n- Échappe correctement les guillemets dans les chaînes.\n\nTexte à analyser :\n[COLLE TON TEXTE]",
+    "prompt": "Tu es un extracteur de données. Tu réponds UNIQUEMENT par un objet JSON valide, sans texte avant ni après, sans bloc de code markdown, sans commentaire.\n\nSchéma exact à respecter (les annotations entre parenthèses décrivent le type attendu, ne les recopie pas) :\n{\n  \"titre\": \"string\",\n  \"resume\": \"string, 200 caractères maximum\",\n  \"themes\": [\"string\", \"3 à 5 éléments\"],\n  \"sentiment\": \"l'une des valeurs : positif | neutre | negatif\",\n  \"confiance\": \"nombre entre 0 et 1\"\n}\n\nRègles :\n- Toutes les clés sont obligatoires et apparaissent dans cet ordre.\n- Si une valeur est inconnue, mets null (jamais de texte explicatif, jamais de chaîne vide).\n- Échappe correctement les guillemets et retours à la ligne dans les chaînes.\n- N'ajoute aucune clé hors schéma.\n\nTexte à analyser :\n[COLLE TON TEXTE]",
     "tier": "mastery"
   },
   {
@@ -44,7 +44,7 @@
     "category": "prompt-engineering",
     "title": "Réduire les hallucinations (ancrage strict aux sources)",
     "useCase": "Pour les réponses factuelles sensibles : on interdit à Claude d'inventer et on l'oblige à signaler ce qu'il ne sait pas.",
-    "prompt": "Réponds à ma question en te basant EXCLUSIVEMENT sur les sources fournies ci-dessous.\n\n<sources>\n[COLLE TES SOURCES / DOCUMENTS / DONNÉES]\n</sources>\n\nQuestion : [TA QUESTION]\n\nRègles impératives :\n1. N'utilise aucune connaissance extérieure aux sources.\n2. Pour chaque affirmation, ajoute entre parenthèses la référence exacte (extrait ou numéro de source).\n3. Si la réponse n'est pas dans les sources, écris exactement : « L'information n'est pas disponible dans les sources fournies. »\n4. Distingue clairement les faits (présents dans les sources) des éventuelles déductions (signalées par « Déduction : »).\n5. Ne comble jamais un vide par une supposition plausible.",
+    "prompt": "Réponds à ma question en te basant EXCLUSIVEMENT sur les sources fournies ci-dessous.\n\n<sources>\n[COLLE TES SOURCES / DOCUMENTS / DONNÉES — numérote chaque source]\n</sources>\n\nQuestion : [TA QUESTION]\n\nRègles impératives :\n1. Avant de répondre, recopie d'abord les extraits exacts des sources pertinents pour la question (cette étape de citation réduit fortement les inventions).\n2. N'utilise aucune connaissance extérieure aux sources, même si elle te semble vraie.\n3. Pour chaque affirmation, ajoute entre parenthèses la référence exacte (numéro de source + extrait).\n4. Si la réponse n'est pas dans les sources, écris exactement : « L'information n'est pas disponible dans les sources fournies. »\n5. Distingue les faits (présents dans les sources) des déductions (préfixées par « Déduction : »).\n6. Ne comble jamais un vide par une supposition plausible.",
     "tier": "mastery"
   },
   {
@@ -52,7 +52,7 @@
     "category": "prompt-engineering",
     "title": "Auto-critique : produire, critiquer, réviser",
     "useCase": "Pour augmenter nettement la qualité d'une production en une seule passe : Claude génère, attaque sa propre réponse, puis la corrige.",
-    "prompt": "Tâche : [DÉCRIS CE QUE TU VEUX PRODUIRE]\n\nProcède en trois temps dans ta réponse :\n\n=== BROUILLON ===\nProduis une première version complète.\n\n=== AUTO-CRITIQUE ===\nJoue le rôle d'un relecteur exigeant et adversarial. Liste les 3 à 5 faiblesses les plus graves du brouillon (imprécisions, manques, erreurs de logique, ton inadapté, affirmations non étayées). Sois sévère.\n\n=== VERSION FINALE ===\nRéécris entièrement en corrigeant chaque faiblesse identifiée. C'est cette version qui compte.\n\nCritères de qualité à viser : [LISTE TES CRITÈRES, ex. précision, concision, actionnable].",
+    "prompt": "Tâche : [DÉCRIS CE QUE TU VEUX PRODUIRE]\n\nCritères de qualité à viser : [LISTE TES CRITÈRES, ex. précision, concision, actionnable].\n\nProcède en trois temps dans ta réponse, en titrant chaque section :\n\n=== BROUILLON ===\nProduis une première version complète.\n\n=== AUTO-CRITIQUE ===\nJoue un relecteur exigeant et adversarial qui CHERCHE les défauts. Liste les 3 à 5 faiblesses les plus graves du brouillon (imprécisions, manques, erreurs de logique, ton inadapté, affirmations non étayées). Pour chacune, cite le passage fautif. Sois sévère ; une critique vague (« peut être amélioré ») ne compte pas.\n\n=== VERSION FINALE ===\nRéécris entièrement en corrigeant chaque faiblesse identifiée. C'est la seule version qui compte ; elle doit satisfaire tous les critères ci-dessus.",
     "tier": "mastery"
   },
   {
@@ -60,7 +60,7 @@
     "category": "prompt-engineering",
     "title": "Méta-prompting : faire écrire le prompt par Claude",
     "useCase": "Quand tu n'arrives pas à formuler une bonne consigne : Claude conçoit et optimise le prompt à ta place.",
-    "prompt": "Tu es un ingénieur prompt expert spécialisé sur Claude. Je veux obtenir le meilleur prompt possible pour atteindre l'objectif ci-dessous.\n\nObjectif que je veux atteindre :\n[DÉCRIS CE QUE TU VEUX OBTENIR, MÊME MALADROITEMENT]\n\nContexte d'usage : [QUI L'UTILISERA, COMBIEN DE FOIS, AVEC QUELLES ENTRÉES]\n\nFais ceci :\n1. Pose-moi les questions de clarification indispensables (numérotées).\n2. Une fois mes réponses obtenues, rédige un prompt complet et réutilisable intégrant rôle, contexte, contraintes, format de sortie et garde-fous.\n3. Explique en 3 puces pourquoi tes choix de formulation maximisent la qualité.\n4. Propose une variante plus courte pour usage rapide.",
+    "prompt": "Tu es un ingénieur prompt expert spécialisé sur Claude. Je veux obtenir le meilleur prompt possible pour atteindre l'objectif ci-dessous.\n\nObjectif que je veux atteindre :\n[DÉCRIS CE QUE TU VEUX OBTENIR, MÊME MALADROITEMENT]\n\nContexte d'usage : [QUI L'UTILISERA, COMBIEN DE FOIS, AVEC QUELLES ENTRÉES TYPES]\n\nFais ceci, dans l'ordre :\n1. Pose-moi d'abord les questions de clarification indispensables (numérotées) et ARRÊTE-TOI : n'écris le prompt qu'après mes réponses.\n2. Rédige ensuite un prompt complet et réutilisable intégrant rôle, contexte, contraintes, format de sortie, variables entre [MAJUSCULES] et garde-fous (gestion du manque d'information).\n3. Explique en 3 puces pourquoi tes choix de formulation maximisent la qualité.\n4. Propose une variante plus courte pour usage rapide.\n5. Suggère un mini-test pour vérifier que le prompt fonctionne avant de le diffuser.",
     "tier": "mastery"
   },
   {
@@ -68,15 +68,15 @@
     "category": "prompt-engineering",
     "title": "Décomposer une tâche complexe en sous-tâches",
     "useCase": "Pour les missions trop larges où Claude bâcle l'ensemble : on impose un découpage explicite avant l'exécution.",
-    "prompt": "Mission globale :\n[DÉCRIS LA MISSION COMPLÈTE]\n\nNe te lance pas directement. Procède en deux phases.\n\nPhase 1 — Plan :\nDécompose la mission en sous-tâches ordonnées et autonomes. Pour chacune : son objectif, ses entrées, sa sortie attendue. Numérote-les. Signale les dépendances entre sous-tâches.\n\nArrête-toi après le plan et demande-moi : « Plan validé ? Veux-tu ajuster avant exécution ? »\n\nPhase 2 — Exécution (seulement après ma validation) :\nTraite chaque sous-tâche dans l'ordre, en titrant clairement, et en t'assurant que la sortie de l'une alimente correctement la suivante.",
+    "prompt": "Mission globale :\n[DÉCRIS LA MISSION COMPLÈTE]\n\nNe te lance pas directement. Procède en deux phases.\n\nPhase 1 — Plan :\nDécompose la mission en sous-tâches ordonnées et autonomes. Pour chacune : son objectif, ses entrées, sa sortie attendue. Numérote-les et signale explicitement les dépendances (quelle sous-tâche a besoin de la sortie de quelle autre).\n\nArrête-toi après le plan et demande-moi : « Plan validé ? Veux-tu ajuster avant exécution ? »\n\nPhase 2 — Exécution (seulement après ma validation) :\nTraite chaque sous-tâche dans l'ordre, en titrant clairement, et en t'assurant que la sortie de l'une alimente correctement la suivante. À la fin, vérifie que la mission globale est réellement couverte par l'ensemble.",
     "tier": "mastery"
   },
   {
-    "slug": "prompt-engineering-prefill-controle-sortie",
+    "slug": "prompt-engineering-controle-format-sortie-stricte",
     "category": "prompt-engineering",
-    "title": "Préremplir le début de réponse pour contrôler la sortie",
-    "useCase": "Pour forcer un format dès le premier caractère (tableau, liste, JSON) en imposant l'amorce de la réponse de Claude.",
-    "prompt": "Tâche : [DÉCRIS LA TÂCHE]\n\nDonnées :\n[COLLE TES DONNÉES]\n\nTu dois commencer ta réponse EXACTEMENT par l'amorce ci-dessous et la continuer sans rien ajouter avant :\n\n| Élément | Catégorie | Priorité | Action recommandée |\n|---|---|---|---|\n\nRègles : une ligne par élément, priorité parmi Haute/Moyenne/Basse, action en moins de 10 mots. Ne mets aucun texte d'introduction ni de conclusion en dehors du tableau.",
+    "title": "Imposer un format de sortie strict dès le premier caractère",
+    "useCase": "Pour obtenir un tableau, une liste ou un gabarit propre sans aucun texte d'introduction parasite (« Voici le tableau… »).",
+    "prompt": "Tâche : [DÉCRIS LA TÂCHE]\n\nDonnées :\n[COLLE TES DONNÉES]\n\nTa réponse doit commencer DIRECTEMENT par le format ci-dessous, sans aucune phrase d'introduction ni de conclusion, sans bloc de code markdown :\n\n| Élément | Catégorie | Priorité | Action recommandée |\n|---|---|---|---|\n\nRègles :\n- Reprends à l'identique cette ligne d'en-tête et la ligne de séparation.\n- Une ligne par élément ; priorité parmi Haute / Moyenne / Basse ; action en moins de 10 mots.\n- Le tout premier caractère de ta réponse est « | ». Tout texte hors du tableau est interdit.\n\nAstuce : si tu intègres ce prompt par API, demander explicitement le format ici est l'équivalent moderne du « préremplissage » — fais-le toujours par instruction, c'est ce qui marche sur les modèles Claude actuels.",
     "tier": "mastery"
   },
   {
@@ -84,7 +84,7 @@
     "category": "prompt-engineering",
     "title": "Cadrer une conversation multi-tours (mode interview)",
     "useCase": "Quand tu veux que Claude te questionne progressivement plutôt que de tout déballer d'un coup, pour co-construire un livrable.",
-    "prompt": "Nous allons travailler en mode interview pour produire : [LIVRABLE VISÉ, ex. un cahier des charges].\n\nRègles de la conversation :\n- Pose-moi UNE seule question à la fois, la plus utile à ce stade.\n- Attends ma réponse avant de continuer.\n- Reformule brièvement ce que tu as compris avant chaque nouvelle question.\n- Garde en tête un fil conducteur ; ne reviens pas en arrière sans raison.\n- Quand tu estimes avoir assez d'informations, annonce-le et propose de générer le livrable.\n\nCommence par la première question. Mon point de départ : [CONTEXTE INITIAL].",
+    "prompt": "Nous allons travailler en mode interview pour produire : [LIVRABLE VISÉ, ex. un cahier des charges].\n\nRègles de la conversation :\n- Pose-moi UNE seule question à la fois, la plus utile à ce stade.\n- Attends ma réponse avant de continuer ; ne réponds jamais à ta propre question.\n- Reformule en une phrase ce que tu as compris avant chaque nouvelle question.\n- Garde un fil conducteur cohérent ; ne reviens pas en arrière sans raison.\n- Quand tu estimes avoir assez d'informations, annonce-le, fais-moi un récapitulatif, et propose de générer le livrable.\n\nCommence maintenant par ta toute première question. Mon point de départ : [CONTEXTE INITIAL].",
     "tier": "mastery"
   },
   {
@@ -92,7 +92,7 @@
     "category": "prompt-engineering",
     "title": "Verrouiller un style et une voix de marque",
     "useCase": "Pour que toutes les productions respectent une charte éditoriale précise et restent cohérentes dans le temps.",
-    "prompt": "Tu écris au nom de [MARQUE / PERSONA]. Respecte rigoureusement ce guide de voix :\n\nTon : [ex. chaleureux mais expert, jamais condescendant]\nVocabulaire imposé : [MOTS À UTILISER]\nVocabulaire interdit : [MOTS / TICS À BANNIR, ex. « solution », « révolutionnaire »]\nNiveau de langue : [SOUTENU / COURANT / FAMILIER]\nLongueur de phrase : [ex. courtes, rythmées]\nPoint de vue : [ex. tutoiement, « nous »]\n\nExemple représentatif de la voix attendue :\n[COLLE UN EXTRAIT TYPIQUE]\n\nTâche : [CE QUE TU VEUX RÉDIGER]\n\nAvant de livrer, vérifie que chaque phrase respecte le guide. Si un terme interdit apparaît, remplace-le.",
+    "prompt": "Tu écris au nom de [MARQUE / PERSONA]. Respecte rigoureusement ce guide de voix :\n\nTon : [ex. chaleureux mais expert, jamais condescendant]\nVocabulaire imposé : [MOTS À UTILISER]\nVocabulaire interdit : [MOTS / TICS À BANNIR, ex. « solution », « révolutionnaire »]\nNiveau de langue : [SOUTENU / COURANT / FAMILIER]\nLongueur de phrase : [ex. courtes, rythmées]\nPoint de vue : [ex. tutoiement, « nous »]\n\n<exemple_de_voix>\n[COLLE 1 OU 2 EXTRAITS TYPIQUES DE LA VOIX ATTENDUE — l'exemple guide mieux que la description]\n</exemple_de_voix>\n\nTâche : [CE QUE TU VEUX RÉDIGER]\n\nAvant de livrer, relis chaque phrase contre le guide. Si un terme interdit apparaît ou si le ton dévie de l'exemple, corrige avant de répondre.",
     "tier": "mastery"
   },
   {
@@ -100,7 +100,7 @@
     "category": "prompt-engineering",
     "title": "Exiger des clarifications avant d'agir",
     "useCase": "Pour empêcher Claude de partir dans la mauvaise direction sur une demande ambiguë ou à fort enjeu.",
-    "prompt": "Demande : [TA DEMANDE]\n\nNe produis encore aucun résultat final.\n\nÉtape 1 : reformule ce que tu crois que je veux, et liste explicitement les hypothèses que tu serais tenté de faire.\nÉtape 2 : identifie les zones d'ambiguïté ou les informations manquantes qui changeraient significativement le résultat.\nÉtape 3 : pose-moi au maximum 4 questions ciblées, classées par impact sur le résultat.\n\nNe passe à la production qu'une fois mes réponses reçues. Si je ne réponds pas à une question, choisis l'hypothèse la plus prudente et signale-la.",
+    "prompt": "Demande : [TA DEMANDE]\n\nNe produis encore aucun résultat final.\n\nÉtape 1 : reformule ce que tu crois que je veux, et liste explicitement les hypothèses que tu serais tenté de faire.\nÉtape 2 : identifie les zones d'ambiguïté ou les informations manquantes qui changeraient significativement le résultat.\nÉtape 3 : pose-moi au maximum 4 questions ciblées, classées par impact décroissant sur le résultat.\n\nNe passe à la production qu'une fois mes réponses reçues. Si je ne réponds pas à une question, choisis l'hypothèse la plus prudente et signale-la clairement au début de ta réponse.",
     "tier": "mastery"
   },
   {
@@ -108,7 +108,7 @@
     "category": "prompt-engineering",
     "title": "Contraintes négatives et garde-fous explicites",
     "useCase": "Quand Claude dérive systématiquement (trop long, hors sujet, ton inadapté) : on liste précisément ce qu'il ne doit PAS faire.",
-    "prompt": "Tâche : [DÉCRIS LA TÂCHE]\n\nContraintes positives :\n- [CE QU'IL FAUT FAIRE]\n\nInterdictions strictes (ne JAMAIS faire) :\n- Ne dépasse pas [LIMITE].\n- N'ajoute aucune introduction ni conclusion de type « Voici… » ou « En résumé… ».\n- N'invente aucun chiffre, nom ou citation.\n- Ne donne pas de conseils non demandés.\n- N'utilise pas de formules creuses ([EXEMPLES À BANNIR]).\n\nSi tu es sur le point d'enfreindre une interdiction, reformule plutôt que d'y céder. Vérifie cette liste avant de finaliser.",
+    "prompt": "Tâche : [DÉCRIS LA TÂCHE]\n\nCe qu'il faut faire (formulé positivement, car Claude suit mieux une consigne d'action qu'une interdiction) :\n- [COMPORTEMENT ATTENDU 1]\n- [COMPORTEMENT ATTENDU 2]\n\nÀ ne jamais faire :\n- Ne dépasse pas [LIMITE].\n- N'ajoute aucune introduction ni conclusion de type « Voici… » ou « En résumé… ».\n- N'invente aucun chiffre, nom ou citation.\n- Ne donne pas de conseils non demandés.\n- N'emploie pas de formules creuses ([EXEMPLES À BANNIR]).\n\nChaque fois que possible, exprime une interdiction comme une instruction de remplacement (« dis plutôt X » plutôt que « ne dis pas Y »). Avant de finaliser, relis ta réponse contre cette liste et corrige toute infraction.",
     "tier": "mastery"
   },
   {
@@ -116,7 +116,7 @@
     "category": "prompt-engineering",
     "title": "Résumé multi-niveaux d'un document",
     "useCase": "Pour obtenir d'un seul prompt un résumé exploitable à plusieurs granularités (titre, paragraphe, points clés).",
-    "prompt": "Résume le document ci-dessous à quatre niveaux de profondeur.\n\n<document>\n[COLLE LE DOCUMENT]\n</document>\n\nProduis exactement, dans cet ordre :\n1. EN UNE LIGNE — l'idée centrale en 15 mots maximum.\n2. EN UN PARAGRAPHE — 4 à 5 phrases couvrant l'essentiel.\n3. POINTS CLÉS — 5 à 8 puces, factuelles et autonomes.\n4. POUR QUI / DÉCISION — qui devrait lire le détail et quelle décision ce document éclaire.\n\nRègles : reste fidèle au document, ne rajoute pas d'opinion, conserve les chiffres importants tels quels.",
+    "prompt": "Résume le document ci-dessous à quatre niveaux de profondeur.\n\n<document>\n[COLLE LE DOCUMENT — place-le en tête du prompt s'il est volumineux]\n</document>\n\nProduis exactement, dans cet ordre :\n1. EN UNE LIGNE — l'idée centrale en 15 mots maximum.\n2. EN UN PARAGRAPHE — 4 à 5 phrases couvrant l'essentiel.\n3. POINTS CLÉS — 5 à 8 puces, factuelles et autonomes.\n4. POUR QUI / DÉCISION — qui devrait lire le détail et quelle décision ce document éclaire.\n\nRègles : reste strictement fidèle au document, n'ajoute aucune opinion ni information extérieure, conserve les chiffres importants tels quels. Si le document est trop pauvre pour un niveau, indique-le au lieu de combler.",
     "tier": "mastery"
   },
   {
@@ -124,7 +124,7 @@
     "category": "prompt-engineering",
     "title": "Évaluer un livrable avec une grille de notation",
     "useCase": "Pour faire évaluer objectivement un texte, un code ou une idée selon des critères pondérés, avec note et justification.",
-    "prompt": "Tu es un évaluateur rigoureux et impartial. Note le livrable ci-dessous selon la grille fournie.\n\nLivrable à évaluer :\n[COLLE LE LIVRABLE]\n\nGrille (chaque critère noté sur 5) :\n- [CRITÈRE 1, ex. clarté] — poids [X%]\n- [CRITÈRE 2, ex. exactitude] — poids [X%]\n- [CRITÈRE 3] — poids [X%]\n\nPour chaque critère : la note, une justification en 2 phrases, et 1 amélioration concrète. Termine par : la note pondérée globale sur 5, les 3 actions prioritaires, et un verdict (À retravailler / Acceptable / Excellent). Justifie chaque note par des éléments du livrable, pas par des impressions.",
+    "prompt": "Tu es un évaluateur rigoureux et impartial. Note le livrable ci-dessous selon la grille fournie, sans complaisance.\n\nLivrable à évaluer :\n[COLLE LE LIVRABLE]\n\nGrille (chaque critère noté sur 5 ; les poids doivent totaliser 100 %) :\n- [CRITÈRE 1, ex. clarté] — poids [X%]\n- [CRITÈRE 2, ex. exactitude] — poids [X%]\n- [CRITÈRE 3] — poids [X%]\n\nPour chaque critère : la note /5, une justification en 2 phrases citant un élément précis du livrable, et 1 amélioration concrète. Calcule ensuite la note pondérée globale sur 5 (montre le calcul). Termine par les 3 actions prioritaires et un verdict (À retravailler / Acceptable / Excellent). Aucune note ne doit reposer sur une impression non justifiée par le livrable.",
     "tier": "mastery"
   },
   {
@@ -132,7 +132,7 @@
     "category": "prompt-engineering",
     "title": "Traduction et localisation fidèles au registre",
     "useCase": "Pour traduire en préservant le ton, les nuances culturelles et la terminologie métier, au lieu d'une traduction mot à mot.",
-    "prompt": "Traduis le texte ci-dessous de [LANGUE SOURCE] vers [LANGUE CIBLE].\n\nContexte d'usage : [ex. site e-commerce, public jeune, marché québécois]\nRegistre : [SOUTENU / COURANT / FAMILIER]\nGlossaire imposé (à respecter strictement) :\n- [TERME SOURCE] → [TERME CIBLE]\n\nTexte :\n[COLLE LE TEXTE]\n\nRègles :\n- Adapte les expressions idiomatiques au lieu de les traduire littéralement.\n- Conserve le ton et l'intention, pas seulement les mots.\n- Garde inchangés : noms propres, marques, balises et variables.\n- Si une phrase est ambiguë, propose deux options en signalant le doute.",
+    "prompt": "Traduis le texte ci-dessous de [LANGUE SOURCE] vers [LANGUE CIBLE].\n\nContexte d'usage : [ex. site e-commerce, public jeune, marché québécois]\nRegistre : [SOUTENU / COURANT / FAMILIER]\nGlossaire imposé (à respecter strictement) :\n- [TERME SOURCE] → [TERME CIBLE]\n\nTexte :\n[COLLE LE TEXTE]\n\nRègles :\n- Adapte les expressions idiomatiques au lieu de les traduire littéralement.\n- Conserve le ton et l'intention, pas seulement les mots.\n- Garde inchangés : noms propres, marques, balises, URL et variables de code.\n- Si une phrase est ambiguë ou intraduisible sans perte, propose deux options et explique brièvement le doute.\n\nRends uniquement la traduction (et, le cas échéant, les notes d'ambiguïté), sans recopier le texte source.",
     "tier": "mastery"
   },
   {
@@ -140,7 +140,7 @@
     "category": "prompt-engineering",
     "title": "Extraction structurée vers un tableau",
     "useCase": "Pour convertir un texte non structuré (mail, compte-rendu, fiche) en données tabulaires propres et homogènes.",
-    "prompt": "Extrais les informations du texte ci-dessous et présente-les en tableau.\n\nTexte source :\n[COLLE LE TEXTE]\n\nColonnes à produire (dans cet ordre) :\n[COLONNE 1] | [COLONNE 2] | [COLONNE 3] | [COLONNE 4]\n\nRègles d'extraction :\n- Une ligne par entité distincte.\n- Normalise les formats (dates en AAAA-MM-JJ, montants en chiffres).\n- Si une valeur est absente du texte, écris « N/A » (ne devine jamais).\n- N'ajoute aucune ligne qui ne s'appuie pas sur le texte.\n\nAprès le tableau, indique le nombre de lignes extraites et signale toute information ambiguë rencontrée.",
+    "prompt": "Extrais les informations du texte ci-dessous et présente-les en tableau Markdown.\n\nTexte source :\n[COLLE LE TEXTE]\n\nColonnes à produire (dans cet ordre) :\n[COLONNE 1] | [COLONNE 2] | [COLONNE 3] | [COLONNE 4]\n\nRègles d'extraction :\n- Une ligne par entité distincte.\n- Normalise les formats : dates en AAAA-MM-JJ, montants en chiffres avec la devise.\n- Si une valeur est absente du texte, écris « N/A » (ne devine jamais).\n- N'ajoute aucune ligne ni valeur qui ne s'appuie pas explicitement sur le texte.\n\nAprès le tableau, indique le nombre de lignes extraites et liste toute information ambiguë ou contradictoire rencontrée.",
     "tier": "mastery"
   },
   {
@@ -148,7 +148,7 @@
     "category": "prompt-engineering",
     "title": "Brainstorming en deux phases : diverger puis converger",
     "useCase": "Pour générer beaucoup d'idées variées, puis les filtrer intelligemment au lieu de s'arrêter aux premières évidentes.",
-    "prompt": "Sujet : [TON SUJET / PROBLÈME]\nContraintes du contexte : [BUDGET, TEMPS, PUBLIC, etc.]\n\nPhase 1 — Divergence :\nGénère 15 idées délibérément variées (du classique au contre-intuitif). Une ligne par idée, sans auto-censure. Inclus au moins 3 idées « hors cadre ».\n\nPhase 2 — Convergence :\nÉvalue chaque idée selon impact (1-5) et effort (1-5). Présente un tableau trié par ratio impact/effort. Recommande les 3 meilleures avec, pour chacune, la première action concrète à faire cette semaine.\n\nNe te contente pas d'idées génériques : ancre-les dans mon contexte.",
+    "prompt": "Sujet : [TON SUJET / PROBLÈME]\nContraintes du contexte : [BUDGET, TEMPS, PUBLIC, etc.]\n\nPhase 1 — Divergence :\nGénère 15 idées délibérément variées (du classique au contre-intuitif). Une ligne par idée, sans auto-censure. Inclus au moins 3 idées « hors cadre » qui remettent en question une hypothèse implicite du problème.\n\nPhase 2 — Convergence :\nÉvalue chaque idée selon impact (1-5) et effort (1-5). Présente un tableau trié par ratio impact/effort décroissant. Recommande les 3 meilleures avec, pour chacune, la première action concrète à faire cette semaine et le principal risque à surveiller.\n\nNe te contente pas d'idées génériques : ancre chacune dans mon contexte précis.",
     "tier": "mastery"
   },
   {
@@ -156,7 +156,7 @@
     "category": "prompt-engineering",
     "title": "Diagnostiquer un prompt qui ne marche pas",
     "useCase": "Quand un prompt donne des résultats décevants et que tu ne sais pas pourquoi : Claude analyse et corrige ta formulation.",
-    "prompt": "Voici un prompt qui ne donne pas le résultat attendu. Aide-moi à le réparer.\n\nMon prompt actuel :\n[COLLE TON PROMPT]\n\nCe que j'obtiens :\n[DÉCRIS OU COLLE LA SORTIE PROBLÉMATIQUE]\n\nCe que je voudrais obtenir :\n[DÉCRIS LE RÉSULTAT IDÉAL]\n\nFais ceci :\n1. Diagnostique les causes probables de l'écart (ambiguïté, manque de contexte, format flou, instructions contradictoires, exemples absents…).\n2. Réécris le prompt corrigé.\n3. Pour chaque modification, explique en une ligne ce qu'elle corrige.\n4. Suggère une mini-vérification pour tester si le nouveau prompt fonctionne.",
+    "prompt": "Voici un prompt qui ne donne pas le résultat attendu. Aide-moi à le réparer.\n\n<prompt_actuel>\n[COLLE TON PROMPT]\n</prompt_actuel>\n\n<sortie_obtenue>\n[DÉCRIS OU COLLE LA SORTIE PROBLÉMATIQUE]\n</sortie_obtenue>\n\n<resultat_voulu>\n[DÉCRIS LE RÉSULTAT IDÉAL]\n</resultat_voulu>\n\nFais ceci :\n1. Diagnostique les causes probables de l'écart (ambiguïté, contexte manquant, format flou, instructions contradictoires, absence d'exemples, rôle non défini…).\n2. Réécris le prompt corrigé en entier.\n3. Pour chaque modification, explique en une ligne ce qu'elle corrige.\n4. Propose une mini-vérification (entrée test + sortie attendue) pour valider le nouveau prompt avant de l'adopter.",
     "tier": "mastery"
   },
   {
@@ -164,7 +164,7 @@
     "category": "prompt-engineering",
     "title": "Confronter plusieurs perspectives sur une décision",
     "useCase": "Pour éclairer une décision en faisant débattre plusieurs points de vue experts avant une synthèse équilibrée.",
-    "prompt": "Décision à éclairer :\n[DÉCRIS LA DÉCISION OU LE DILEMME]\n\nContexte : [INFOS UTILES, CONTRAINTES]\n\nSimule un débat structuré entre trois rôles :\n- [RÔLE 1, ex. directeur financier] — défend [ANGLE]\n- [RÔLE 2, ex. responsable produit] — défend [ANGLE]\n- [RÔLE 3, ex. juriste] — défend [ANGLE]\n\nPour chaque rôle : son argument principal, sa principale objection aux autres, son risque le plus redouté.\n\nTermine par une SYNTHÈSE neutre : les points de consensus, les vrais arbitrages à trancher, et une recommandation conditionnelle (« si [critère], alors [option] »). Ne tranche pas à ma place sans expliciter le critère décisif.",
+    "prompt": "Décision à éclairer :\n[DÉCRIS LA DÉCISION OU LE DILEMME]\n\nContexte : [INFOS UTILES, CONTRAINTES]\n\nSimule un débat structuré entre trois rôles :\n- [RÔLE 1, ex. directeur financier] — défend [ANGLE]\n- [RÔLE 2, ex. responsable produit] — défend [ANGLE]\n- [RÔLE 3, ex. juriste] — défend [ANGLE]\n\nPour chaque rôle : son argument principal, sa principale objection aux deux autres, et le risque qu'il redoute le plus. Chaque rôle doit réellement contredire les autres, pas seulement juxtaposer des avis.\n\nTermine par une SYNTHÈSE neutre : les points de consensus, les vrais arbitrages à trancher, et une recommandation conditionnelle (« si [critère décisif], alors [option] »). N'impose pas un choix unique sans expliciter le critère qui le déclenche.",
     "tier": "mastery"
   },
   {
@@ -172,7 +172,7 @@
     "category": "prompt-engineering",
     "title": "Construire un template de prompt à variables",
     "useCase": "Pour industrialiser une tâche récurrente : on transforme un prompt qui marche en gabarit propre, paramétrable et documenté.",
-    "prompt": "Je veux transformer une tâche récurrente en template de prompt réutilisable.\n\nLa tâche, décrite avec un cas concret :\n[DÉCRIS LA TÂCHE ET DONNE UN EXEMPLE RÉEL D'ENTRÉE ET DE SORTIE SOUHAITÉE]\n\nProduis :\n1. Un template de prompt propre, avec les parties variables clairement notées entre crochets MAJUSCULES.\n2. Une liste des variables, chacune avec : son rôle, un exemple de valeur, et si elle est obligatoire ou optionnelle.\n3. Une note d'utilisation en 3 puces (pièges à éviter, valeurs par défaut conseillées).\n4. Un exemple rempli de bout en bout pour démontrer le rendu.\n\nLe template doit rester robuste même si certaines variables optionnelles sont laissées vides.",
+    "prompt": "Je veux transformer une tâche récurrente en template de prompt réutilisable.\n\nLa tâche, décrite avec un cas concret :\n[DÉCRIS LA TÂCHE ET DONNE UN EXEMPLE RÉEL D'ENTRÉE ET DE SORTIE SOUHAITÉE]\n\nProduis :\n1. Un template de prompt propre, avec chaque partie variable notée entre crochets MAJUSCULES et un nom explicite (ex. [PUBLIC_CIBLE]).\n2. Un tableau des variables : nom, rôle, exemple de valeur, obligatoire ou optionnelle.\n3. Une note d'utilisation en 3 puces (pièges à éviter, valeurs par défaut conseillées).\n4. Un exemple rempli de bout en bout démontrant le rendu.\n\nLe template doit rester robuste si des variables optionnelles sont laissées vides : précise dans le template comment le modèle doit se comporter dans ce cas.",
     "tier": "mastery"
   }
 ]

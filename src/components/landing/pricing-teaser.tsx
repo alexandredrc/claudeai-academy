@@ -1,8 +1,10 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { CheckoutButton } from "@/components/site/checkout-button";
+import { getCatalogStats, type CatalogStats } from "@/lib/courses/stats";
 
-export function PricingTeaser() {
+export async function PricingTeaser() {
+  const stats = await getCatalogStats();
   return (
     <section id="tarifs" className="bg-cream py-24 md:py-32">
       <Container>
@@ -19,7 +21,7 @@ export function PricingTeaser() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[920px] mx-auto">
           <StarterCard />
-          <MasteryCard />
+          <MasteryCard stats={stats} />
         </div>
 
         <PaymentMethods />
@@ -30,8 +32,8 @@ export function PricingTeaser() {
 
 function StarterCard() {
   const features = [
-    "Parcours Prompt Engineering complet (5 leçons)",
-    "Bibliothèque de 30 prompts essentiels",
+    "Parcours Prompt Engineering complet",
+    "Bibliothèque de prompts essentiels",
     "Accès permanent et mises à jour",
     "Mentor IA Claude inclus",
     "Garantie 14 jours satisfait ou remboursé",
@@ -69,9 +71,9 @@ function StarterCard() {
   );
 }
 
-function MasteryCard() {
+function MasteryCard({ stats }: { stats: CatalogStats }) {
   const features = [
-    "Les 5 parcours complets (27 leçons)",
+    `Les ${stats.courseCount} parcours complets (${stats.lessonCount} leçons)`,
     "Bibliothèque complète de 120+ prompts",
     "Templates et cheat sheets téléchargeables",
     "Mentor IA Claude 24/7",

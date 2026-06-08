@@ -1,7 +1,9 @@
 import { Container } from "@/components/site/container";
 import { CheckoutButton } from "@/components/site/checkout-button";
+import { getCatalogStats } from "@/lib/courses/stats";
 
-export function FinalCTA() {
+export async function FinalCTA() {
+  const stats = await getCatalogStats();
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-ink to-[#2D2A26] text-cream py-20 md:py-24">
       <div
@@ -18,7 +20,7 @@ export function FinalCTA() {
               Prêt à devenir <span className="accent-serif">opérationnel sur Claude</span> ?
             </h2>
             <p className="mt-3 text-cream/70 text-[17px] leading-relaxed">
-              5 parcours, 27 leçons, accès à vie. Garantie 14 jours satisfait ou remboursé.
+              {stats.courseCount} parcours, {stats.lessonCount} leçons, accès à vie. Garantie 14 jours satisfait ou remboursé.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

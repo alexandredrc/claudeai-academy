@@ -11,7 +11,7 @@ import { FinalCTA } from "@/components/landing/final-cta";
 export const metadata: Metadata = {
   title: "Tarifs ClaudeAI Academy, Pass Starter 47 € ou Mastery 497 €",
   description:
-    "Pass Starter à 47 € pour découvrir, Pass Mastery à 497 € (ou 3×179 €) pour les 5 parcours complets. Garantie 14 jours satisfait ou remboursé.",
+    "Pass Starter à 47 € pour découvrir, Pass Mastery à 497 € (ou 3×179 €) pour tous les parcours complets. Garantie 14 jours satisfait ou remboursé.",
 };
 
 export default function TarifsPage() {

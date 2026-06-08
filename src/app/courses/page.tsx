@@ -25,6 +25,7 @@ export default async function CoursesPage() {
     .order("display_order");
 
   const list = (courses ?? []) as Course[];
+  const courseCount = list.length;
 
   // Check tier access pour chacun (parallèle).
   const access = await Promise.all(
@@ -44,7 +45,7 @@ export default async function CoursesPage() {
         <h1 className="font-serif text-4xl font-medium leading-[1.1] tracking-tight text-ink md:text-5xl">
           Les{" "}
           <span className="font-serif font-medium italic text-coral">
-            5 parcours
+            {courseCount} parcours
           </span>{" "}
           de ClaudeAI Academy.
         </h1>
@@ -71,8 +72,8 @@ export default async function CoursesPage() {
               Prêt à débloquer l&apos;intégralité ?
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
-              Pass Mastery à 497 € pour les 5 parcours, mentor IA, mises à jour
-              à vie. Garantie 14 jours.
+              Pass Mastery à 497 € pour les {courseCount} parcours, mentor IA,
+              mises à jour à vie. Garantie 14 jours.
             </p>
             <Link
               href="/#tarifs"

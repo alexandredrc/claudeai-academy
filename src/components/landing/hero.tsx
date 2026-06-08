@@ -1,8 +1,10 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
+import { getCatalogStats } from "@/lib/courses/stats";
 
-export function Hero() {
+export async function Hero() {
+  const stats = await getCatalogStats();
   return (
     <section className="relative overflow-hidden pt-20 pb-24 md:pt-28 md:pb-32">
       {/* Halo coral en arrière-plan */}
@@ -18,7 +20,7 @@ export function Hero() {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-16 items-center relative">
           <div>
-            <Eyebrow>5 parcours · 27 leçons · Accès à vie</Eyebrow>
+            <Eyebrow>{stats.courseCount} parcours · {stats.lessonCount} leçons · Accès à vie</Eyebrow>
 
             <h1 className="mt-5 font-serif text-[clamp(2.5rem,5.5vw,4.25rem)] font-medium leading-[1.05] tracking-[-0.025em] text-ink">
               Devenez opérationnel
@@ -43,8 +45,8 @@ export function Hero() {
             </div>
 
             <dl className="mt-14 pt-8 border-t border-line flex flex-wrap gap-x-12 gap-y-5">
-              <TrustItem value="5" label="Parcours métiers" />
-              <TrustItem value="27" label="Leçons structurées" />
+              <TrustItem value={String(stats.courseCount)} label="Parcours métiers" />
+              <TrustItem value={String(stats.lessonCount)} label="Leçons structurées" />
               <TrustItem value="120+" label="Prompts opérationnels" />
             </dl>
           </div>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
-import { LegalNotice } from "@/components/site/legal-notice";
 
 export const metadata: Metadata = {
   title: "Mentions légales — ClaudeAI Academy",
@@ -16,8 +15,6 @@ export default function MentionsLegalesPage() {
         <h1 className="mt-4 font-serif text-[clamp(2rem,4.5vw,3rem)] font-medium leading-[1.1] tracking-tight text-ink">
           Mentions légales
         </h1>
-
-        <LegalNotice />
 
         <div className="prose-lesson mt-10">
           <h2>Éditeur du site</h2>

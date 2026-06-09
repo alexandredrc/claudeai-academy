@@ -22,7 +22,7 @@ export default function CgvPage() {
 
         <div className="prose-lesson mt-10">
           <p>
-            Dernière mise à jour&nbsp;: [À COMPLÉTER : date]. Les présentes
+            Dernière mise à jour&nbsp;: 9 juin 2026. Les présentes
             conditions régissent la vente des formations en ligne proposées sur
             claudeai-academy.com par <strong>ADRC Group</strong> (ci-après «&nbsp;le
             Vendeur&nbsp;»).
@@ -110,10 +110,22 @@ export default function CgvPage() {
           <h2>9. Médiation et droit applicable</h2>
           <p>
             Les présentes CGV sont soumises au droit français. En cas de litige,
-            le client peut recourir gratuitement à un médiateur de la
-            consommation&nbsp;: [À COMPLÉTER : nom et coordonnées du médiateur]. À
-            défaut d’accord amiable, les tribunaux compétents seront ceux du
-            ressort applicable selon la loi.
+            le client est invité à contacter au préalable le Vendeur à{" "}
+            <a href="mailto:contact@claudeai-academy.com">
+              contact@claudeai-academy.com
+            </a>{" "}
+            afin de rechercher une solution amiable. Le client peut également
+            recourir gratuitement à un médiateur de la consommation et, pour les
+            achats en ligne, utiliser la plateforme européenne de règlement en
+            ligne des litiges&nbsp;:{" "}
+            <a
+              href="https://ec.europa.eu/consumers/odr"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ec.europa.eu/consumers/odr
+            </a>
+            . À défaut d’accord amiable, les tribunaux français sont compétents.
           </p>
 
           <h2>10. Contact</h2>

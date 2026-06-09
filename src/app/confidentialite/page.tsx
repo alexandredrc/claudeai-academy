@@ -22,7 +22,7 @@ export default function ConfidentialitePage() {
 
         <div className="prose-lesson mt-10">
           <p>
-            Dernière mise à jour&nbsp;: [À COMPLÉTER : date]. La présente politique
+            Dernière mise à jour&nbsp;: 9 juin 2026. La présente politique
             explique comment <strong>ADRC Group</strong> (éditeur de
             claudeai-academy.com) traite vos données personnelles, conformément
             au Règlement Général sur la Protection des Données (RGPD).
@@ -30,12 +30,13 @@ export default function ConfidentialitePage() {
 
           <h2>1. Responsable du traitement</h2>
           <p>
-            ADRC Group — RCS Nanterre 892&nbsp;303&nbsp;082. Contact&nbsp;:{" "}
+            ADRC Group — Alexandre Dos Reis Caetano, entrepreneur individuel,
+            SIREN 892&nbsp;303&nbsp;082, 99 avenue Achille Peretti, 92200
+            Neuilly-sur-Seine. Contact&nbsp;:{" "}
             <a href="mailto:contact@claudeai-academy.com">
               contact@claudeai-academy.com
             </a>
-            . Délégué à la protection des données (le cas échéant)&nbsp;: [À
-            COMPLÉTER].
+            . Aucun délégué à la protection des données (DPO) n’a été désigné.
           </p>
 
           <h2>2. Données collectées</h2>
@@ -111,8 +112,12 @@ export default function ConfidentialitePage() {
           <p>
             Les données de compte sont conservées tant que le compte est actif.
             Les données de facturation sont conservées conformément aux
-            obligations légales (généralement 10 ans). Les messages au Mentor IA
-            sont conservés [À COMPLÉTER : durée].
+            obligations légales (généralement 10 ans). Les messages que vous
+            envoyez au Mentor IA ne sont pas conservés de manière persistante par
+            nos soins&nbsp;: ils sont transmis à Anthropic pour générer la
+            réponse, puis ne sont pas stockés au-delà du traitement de la requête.
+            Seuls des compteurs d’usage (nombre de questions par jour) sont
+            conservés afin d’appliquer les limites du service.
           </p>
 
           <h2>6. Vos droits</h2>
@@ -129,10 +134,10 @@ export default function ConfidentialitePage() {
 
           <h2>7. Cookies</h2>
           <p>
-            Le site utilise les cookies strictement nécessaires à son
-            fonctionnement (session, authentification). [À COMPLÉTER : préciser
-            l’usage éventuel de cookies de mesure d’audience et le recueil du
-            consentement le cas échéant.]
+            Le site utilise uniquement les cookies strictement nécessaires à son
+            fonctionnement (session, authentification). Il n’utilise pas de
+            cookies de mesure d’audience ni de cookies publicitaires&nbsp;; ces
+            cookies essentiels ne requièrent pas de consentement préalable.
           </p>
 
           <h2>8. Contact</h2>

@@ -23,16 +23,17 @@ export default function MentionsLegalesPage() {
           <h2>Éditeur du site</h2>
           <p>
             Le site <strong>claudeai-academy.com</strong> est édité par{" "}
-            <strong>ADRC Group</strong>, représentée par Alexandre Dos Reis
-            Caetano.
+            <strong>Alexandre Dos Reis Caetano</strong>, entrepreneur individuel
+            exerçant sous le nom commercial <strong>ADRC Group</strong>.
             <br />
-            RCS Nanterre&nbsp;: <strong>892&nbsp;303&nbsp;082</strong>.
+            SIREN&nbsp;: <strong>892&nbsp;303&nbsp;082</strong> — SIRET du
+            siège&nbsp;: <strong>892&nbsp;303&nbsp;082&nbsp;00028</strong>.
             <br />
-            Siège social&nbsp;: [À COMPLÉTER : adresse du siège].
+            Siège social&nbsp;: 99 avenue Achille Peretti, 92200
+            Neuilly-sur-Seine.
             <br />
-            SIRET&nbsp;: [À COMPLÉTER]. — Capital social&nbsp;: [À COMPLÉTER].
-            <br />
-            N° TVA intracommunautaire&nbsp;: [À COMPLÉTER].
+            TVA non applicable, article&nbsp;293&nbsp;B du Code général des
+            impôts (franchise en base de TVA).
             <br />
             Contact&nbsp;:{" "}
             <a href="mailto:contact@claudeai-academy.com">

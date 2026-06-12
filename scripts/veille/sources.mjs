@@ -52,6 +52,35 @@ export const SOURCES = [
     url: "https://www.anthropic.com/engineering",
     impacts: ["claude-code-ia-agentic", "strategie-conduite-ia"],
   },
+  {
+    id: "anthropic-academy",
+    label: "Anthropic Academy — Cours officiels (anthropic.com/learn)",
+    tier: 1,
+    kind: "html-hash",
+    url: "https://www.anthropic.com/learn",
+    // Benchmark curriculum : nouveaux cours officiels = signal qu'un parcours
+    // doit être enrichi ou qu'un nouveau sujet émerge (ex. Cowork).
+    impacts: [
+      "prompt-engineering-pro",
+      "claude-code-ia-agentic",
+      "strategie-conduite-ia",
+    ],
+  },
+  {
+    id: "claude-tutorials",
+    label: "Claude — Tutorials officiels (claude.com/resources/tutorials)",
+    tier: 1,
+    kind: "html-hash",
+    url: "https://claude.com/resources/tutorials",
+    // Nouveaux tutoriels produit (Skills, Connectors, modèles) = matière
+    // pédagogique à recouper pour les parcours applicatifs.
+    impacts: [
+      "prompt-engineering-pro",
+      "claude-code-ia-agentic",
+      "contenu-et-marketing",
+      "claude-data-sql",
+    ],
+  },
 
   // ---------- TIER 1 — Officiel juridique (UE / France) ----------
   // Couvre la dérive réglementaire du parcours Stratégie (AI Act, RGPD).

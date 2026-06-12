@@ -18,6 +18,8 @@ Principe : **Tier 1 = source de vérité** (officiel Anthropic). Tier 2 = signal
 | Claude Code — CHANGELOG | `github.com/anthropics/claude-code` (raw `CHANGELOG.md`) | Suivi version Claude Code | ✅ |
 | Claude Agent SDK — CHANGELOG | `github.com/anthropics/claude-agent-sdk-typescript` | Suivi SDK agents | ✅ |
 | Engineering blog | `anthropic.com/engineering` | Context engineering, agents, patterns avancés | ✅ |
+| Anthropic Academy | `anthropic.com/learn` | Benchmark curriculum : cours officiels (API, Claude Code, MCP, Cowork) | ✅ |
+| Claude Tutorials | `claude.com/resources/tutorials` | Tutoriels produit officiels (Skills, Connectors, choix de modèles) | ✅ |
 | Building agents with the Agent SDK | `anthropic.com/engineering/building-agents-with-the-claude-agent-sdk` | Référence parcours 02 | — |
 | Effective context engineering | `anthropic.com/engineering/effective-context-engineering-for-ai-agents` | Référence parcours 02 / 05 | — |
 | Blog produit | `claude.com/blog` | Annonces produit/modèles | — |

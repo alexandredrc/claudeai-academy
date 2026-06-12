@@ -27,14 +27,14 @@ const SOURCE_FOOTER = `
 
 ---
 
-**Sources** · Doc officielle Anthropic, *Prompting best practices* (Tier 1, vérifiée 2026-05-15) : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\`. Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu valable pour Claude Opus 4.8 / Sonnet 4.6 / Haiku 4.5.`;
+**Sources** · Doc officielle Anthropic, *Prompting best practices* (Tier 1, vérifiée 2026-05-15) : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\`. Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu valable pour Claude Fable 5 / Opus 4.8 / Sonnet 4.6 / Haiku 4.5.`;
 
 const COURSES = [
   {
     slug: "prompt-engineering-pro",
     title: "Prompt Engineering pro",
     description:
-      "Les techniques officielles Anthropic, traduites en méthode opérationnelle : clarté, contexte, exemples, balises XML, raisonnement, chaînage. À jour Claude Opus 4.8.",
+      "Les techniques officielles Anthropic, traduites en méthode opérationnelle : clarté, contexte, exemples, balises XML, raisonnement, chaînage. À jour Claude Opus 4.8 et Fable 5.",
     tier_required: "starter",
     display_order: 1,
     estimated_duration_min: 210,
@@ -86,7 +86,7 @@ Chaque leçon : la technique officielle, un prompt opérationnel, un anti-patter
 
 ## Une note de fraîcheur importante
 
-Ce parcours est à jour pour **Claude Opus 4.8** (le modèle le plus capable au moment d'écrire). Deux changements récents que beaucoup de contenus en ligne ratent encore :
+Ce parcours est à jour pour **Claude Opus 4.8** et s'applique aussi à **Claude Fable 5**, le nouveau modèle le plus puissant d'Anthropic (sorti le 9 juin 2026, un cran au-dessus d'Opus — mêmes règles de prompting : suivi littéral des instructions, prefill interdit, adaptive thinking). Deux changements récents que beaucoup de contenus en ligne ratent encore :
 
 - Le **prefill** de la dernière réponse assistant n'est plus supporté depuis Claude 4.6 (renvoie une erreur 400). On verra par quoi le remplacer.
 - Opus 4.8 suit les instructions **plus littéralement** : il ne généralise plus une consigne d'un cas à l'autre tout seul. C'est une force si vous savez en tenir compte, un piège sinon.
@@ -371,7 +371,7 @@ Prenez un prompt où vous avez accumulé des « ne fais pas ». Réécrivez chaq
         is_free_preview: false,
         content_md: `## Le raisonnement a changé de mécanique
 
-Si vous avez appris le prompt engineering il y a un an, cette partie a changé. Les modèles récents (Opus 4.8, Sonnet 4.6) utilisent l'**adaptive thinking** : le modèle décide lui-même quand et combien réfléchir, calibré par deux choses :
+Si vous avez appris le prompt engineering il y a un an, cette partie a changé. Les modèles récents utilisent l'**adaptive thinking** : le modèle décide lui-même quand et combien réfléchir. Détail que beaucoup de contenus ratent : sur **Opus 4.8 et Sonnet 4.6**, ce mode est **opt-in** — si le paramètre \`thinking\` n'est pas explicitement réglé sur \`adaptive\` (dans l'API ou l'outil que vous utilisez), le modèle répond sans phase de réflexion. Sur **Claude Fable 5** (sorti le 9 juin 2026), c'est l'inverse : l'adaptive thinking est **toujours actif** et ne peut pas être désactivé. Une fois actif, le modèle calibre sa réflexion sur deux choses :
 
 - le paramètre **effort** (\`low\` → \`medium\` → \`high\` → \`xhigh\` → \`max\`)
 - la complexité de la requête

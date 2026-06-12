@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>ClaudeAI Academy — Post lancement 1080×1350 (4:5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F5F1EB; --cream-soft:#FAF7F2; --cream-dark:#EDE6D9;
+    --coral:#D97757; --coral-dark:#C2664A; --coral-soft:#F2D5C7;
+    --ink:#1F1F1E; --ink-soft:#3D3929; --muted:#6B6557; --line:#E5DED0;
+    --green:#2A9D8F;
+    --sans:'Inter',sans-serif; --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1350px;overflow:hidden}
+  body{
+    font-family:var(--sans); background:var(--cream); color:var(--ink);
+    -webkit-font-smoothing:antialiased; position:relative;
+    display:flex; flex-direction:column; padding:96px 84px 80px;
+  }
+  body::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(110% 70% at 82% 6%, rgba(217,119,87,.14), transparent 55%);
+    pointer-events:none;
+  }
+  body > *{position:relative; z-index:1}
+
+  .kicker{
+    font-size:23px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--coral);
+  }
+  h1{
+    font-family:var(--serif); font-weight:500; line-height:1.08;
+    letter-spacing:-.02em; font-size:68px; color:var(--ink); margin-top:20px;
+  }
+  h1 em{ font-style:italic; color:var(--coral) }
+
+  .list{ margin-top:44px; display:flex; flex-direction:column }
+  .row{
+    display:flex; align-items:baseline; gap:30px;
+    padding:19px 0; border-bottom:1px solid var(--line);
+  }
+  .row:last-child{ border-bottom:none }
+  .row .num{
+    font-family:var(--serif); font-style:italic; font-weight:500;
+    font-size:38px; color:var(--coral); min-width:74px;
+  }
+  .row .title{ font-size:35px; font-weight:600; color:var(--ink); flex:1; line-height:1.25 }
+  .row .count{ font-size:27px; color:var(--muted); white-space:nowrap }
+
+  .spacer{ flex:1 }
+
+  .statbar{
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--cream-soft); border:1px solid var(--line);
+    border-radius:20px; padding:28px 38px; margin-top:32px;
+  }
+  .stat{ text-align:center }
+  .stat .n{ font-family:var(--serif); font-weight:500; font-size:48px; color:var(--ink) }
+  .stat .l{ font-size:22px; color:var(--muted); margin-top:4px }
+  .statbar .sep{ width:1px; height:64px; background:var(--line) }
+
+  .bottom{
+    display:flex; justify-content:space-between; align-items:center; margin-top:32px;
+  }
+  .price{ font-size:29px; color:var(--ink-soft) }
+  .price b{ color:var(--ink) }
+  .price .g{ color:var(--green); font-weight:600 }
+  .cta{
+    background:var(--coral); color:var(--cream); font-weight:700; font-size:29px;
+    padding:22px 40px; border-radius:16px;
+    box-shadow:0 10px 26px rgba(217,119,87,.32);
+  }
+</style>
+</head>
+<body>
+  <div class="kicker">ClaudeAI Academy — Le programme complet</div>
+  <h1>Voici <em>exactement</em> ce qu'il y a dedans.</h1>
+
+  <div class="list">
+    <div class="row"><span class="num">01</span><span class="title">Prompt Engineering pro</span><span class="count">7 leçons</span></div>
+    <div class="row"><span class="num">02</span><span class="title">Claude Code et IA agentic</span><span class="count">6 leçons</span></div>
+    <div class="row"><span class="num">03</span><span class="title">Claude pour data et SQL</span><span class="count">6 leçons</span></div>
+    <div class="row"><span class="num">04</span><span class="title">Contenu et marketing avec Claude</span><span class="count">6 leçons</span></div>
+    <div class="row"><span class="num">05</span><span class="title">Stratégie et conduite IA en entreprise</span><span class="count">6 leçons</span></div>
+    <div class="row"><span class="num">06</span><span class="title">Trading + Claude Code</span><span class="count">4 leçons</span></div>
+    <div class="row"><span class="num">07</span><span class="title">Prompts &amp; Skills GitHub : sécurité</span><span class="count">5 leçons</span></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="statbar">
+    <div class="stat"><div class="n">40</div><div class="l">leçons</div></div>
+    <div class="sep"></div>
+    <div class="stat"><div class="n">170</div><div class="l">prompts prêts à l'emploi</div></div>
+    <div class="sep"></div>
+    <div class="stat"><div class="n">Mentor IA</div><div class="l">inclus, corrige tes exercices</div></div>
+    <div class="sep"></div>
+    <div class="stat"><div class="n">À vie</div><div class="l">accès + mises à jour</div></div>
+  </div>
+
+  <div class="bottom">
+    <div class="price">Dès <b>47 €</b> · <span class="g">garantie 14 jours</span></div>
+    <div class="cta">Lien en bio</div>
+  </div>
+</body>
+</html>

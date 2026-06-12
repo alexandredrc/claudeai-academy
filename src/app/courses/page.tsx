@@ -1,8 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { userHasTier, type CourseTier } from "@/lib/courses/access";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Les parcours de formation Claude AI — ClaudeAI Academy",
+  description:
+    "7 parcours de formation Claude AI en français : prompt engineering, Claude Code et IA agentic, data et SQL, contenu et marketing, stratégie IA en entreprise, trading, sécurité des prompts. Première leçon de chaque parcours en accès libre.",
+  alternates: { canonical: "/courses" },
+};
 
 type Course = {
   id: string;

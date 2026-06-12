@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -5,6 +6,67 @@ import { userHasTier, type CourseTier } from "@/lib/courses/access";
 import { startCheckoutAction } from "@/app/checkout/actions";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const supabase = await createClient();
+  const { data: course } = await supabase
+    .from("courses")
+    .select("title, description, total_lessons")
+    .eq("slug", slug)
+    .single<Pick<Course, "title" | "description" | "total_lessons">>();
+
+  if (!course) return {};
+
+  const description =
+    course.description ??
+    `Parcours ${course.title} : ${course.total_lessons} leçons pour maîtriser Claude AI en pratique.`;
+
+  return {
+    title: `${course.title}, formation Claude AI — ClaudeAI Academy`,
+    description,
+    alternates: { canonical: `/courses/${slug}` },
+    openGraph: {
+      title: `${course.title} — ClaudeAI Academy`,
+      description,
+    },
+  };
+}
+
+function courseJsonLd(course: Course) {
+  const price = course.tier_required === "mastery" ? "497" : "47";
+  return {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: course.title,
+    description: course.description ?? undefined,
+    url: `https://www.claudeai-academy.com/courses/${course.slug}`,
+    inLanguage: "fr-FR",
+    provider: {
+      "@type": "Organization",
+      name: "ClaudeAI Academy",
+      url: "https://www.claudeai-academy.com",
+    },
+    offers: {
+      "@type": "Offer",
+      price,
+      priceCurrency: "EUR",
+      category: "Paid",
+      url: "https://www.claudeai-academy.com/tarifs",
+    },
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "Online",
+      courseWorkload: course.estimated_duration_min
+        ? `PT${course.estimated_duration_min}M`
+        : undefined,
+    },
+  };
+}
 
 type Course = {
   id: string;
@@ -82,6 +144,10 @@ export default async function CoursePage({ params }: { params: Params }) {
 
   return (
     <section className="bg-cream-soft">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd(course)) }}
+      />
       <div className="mx-auto max-w-[860px] px-6 py-16 md:py-24">
         <Link
           href="/courses"

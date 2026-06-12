@@ -12,11 +12,45 @@ export const metadata: Metadata = {
   title: "Tarifs ClaudeAI Academy, Pass Starter 47 € ou Mastery 497 €",
   description:
     "Pass Starter à 47 € pour découvrir, Pass Mastery à 497 € (ou 3×179 €) pour tous les parcours complets. Garantie 14 jours satisfait ou remboursé.",
+  alternates: { canonical: "/tarifs" },
+};
+
+const offersJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "Formation ClaudeAI Academy",
+  description:
+    "Formation en ligne francophone pour maîtriser Claude AI : 7 parcours, 40 leçons, 170 prompts, mentor IA. Paiement unique, accès à vie, garantie 14 jours.",
+  url: "https://www.claudeai-academy.com/tarifs",
+  image: "https://www.claudeai-academy.com/og.png",
+  brand: { "@type": "Organization", name: "ClaudeAI Academy" },
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Pass Starter",
+      price: "47",
+      priceCurrency: "EUR",
+      url: "https://www.claudeai-academy.com/tarifs#starter",
+      availability: "https://schema.org/InStock",
+    },
+    {
+      "@type": "Offer",
+      name: "Pass Mastery",
+      price: "497",
+      priceCurrency: "EUR",
+      url: "https://www.claudeai-academy.com/tarifs#mastery",
+      availability: "https://schema.org/InStock",
+    },
+  ],
 };
 
 export default function TarifsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersJsonLd) }}
+      />
       <PricingHero />
       <PricingTeaser />
       <ValueStack />

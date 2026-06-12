@@ -2,11 +2,13 @@ import Link from "next/link";
 import { Logo } from "./logo";
 
 const parcoursLinks = [
-  { href: "/programme/prompt-engineering", label: "Prompt Engineering" },
-  { href: "/programme/claude-code", label: "Claude Code" },
-  { href: "/programme/ia-business", label: "IA & Business" },
-  { href: "/programme/ia-marketing", label: "IA & Marketing" },
-  { href: "/programme/data-ia", label: "Data & IA" },
+  { href: "/courses/prompt-engineering-pro", label: "Prompt Engineering pro" },
+  { href: "/courses/claude-code-ia-agentic", label: "Claude Code et IA agentic" },
+  { href: "/courses/claude-data-sql", label: "Claude pour data et SQL" },
+  { href: "/courses/contenu-et-marketing", label: "Contenu et marketing" },
+  { href: "/courses/strategie-conduite-ia", label: "Stratégie et conduite IA" },
+  { href: "/courses/trading-claude-code", label: "Trading + Claude Code" },
+  { href: "/courses/prompts-skills-github-securite", label: "Prompts & Skills : sécurité" },
 ];
 
 const tarifsLinks = [

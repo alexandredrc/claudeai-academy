@@ -1,11 +1,16 @@
-"use client";
-
-import { useState } from "react";
+import type { Metadata } from "next";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
+import { FaqItem, type Item } from "./FaqItem";
 
-type Item = { q: string; a: string };
+export const metadata: Metadata = {
+  title: "FAQ formation Claude AI — ClaudeAI Academy",
+  description:
+    "Garantie 14 jours, accès à vie, différence Pass Starter / Pass Mastery, niveau requis, Mentor IA, paiement Stripe et facturation pro : toutes les réponses avant de vous lancer.",
+  alternates: { canonical: "/faq" },
+};
+
 type Group = { title: string; items: Item[] };
 
 const groups: Group[] = [
@@ -66,9 +71,25 @@ const groups: Group[] = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: groups.flatMap((g) =>
+    g.items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  ),
+};
+
 export default function FaqPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <section className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12">
         <Container size="narrow">
           <nav className="text-[13px] text-muted mb-5" aria-label="Fil d’Ariane">
@@ -118,47 +139,5 @@ export default function FaqPage() {
         </Container>
       </section>
     </>
-  );
-}
-
-function FaqItem({ item }: { item: Item }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <li
-      className={`overflow-hidden rounded-[18px] border bg-white transition-colors duration-200 ${
-        open
-          ? "border-coral shadow-[0_1px_2px_rgba(31,31,30,0.04),0_8px_24px_rgba(31,31,30,0.06)]"
-          : "border-line hover:border-coral-soft"
-      }`}
-    >
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-      >
-        <span className="text-[16px] font-semibold leading-snug text-ink">
-          {item.q}
-        </span>
-        <span
-          aria-hidden="true"
-          className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-lg transition-transform duration-200 ${
-            open ? "rotate-45 bg-coral text-cream" : "bg-cream text-coral"
-          }`}
-        >
-          +
-        </span>
-      </button>
-      <div
-        className="grid transition-[grid-template-rows] duration-300 ease-out"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-      >
-        <div className="overflow-hidden">
-          <p className="px-6 pb-5 text-[15px] leading-[1.7] text-muted">
-            {item.a}
-          </p>
-        </div>
-      </div>
-    </li>
   );
 }

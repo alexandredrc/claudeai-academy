@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
@@ -33,6 +34,40 @@ type LessonMeta = {
 };
 
 type LessonContent = LessonMeta & { content_md: string };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const { slug, lesson: lessonSlug } = await params;
+  const supabase = await createClient();
+
+  const { data: course } = await supabase
+    .from("courses")
+    .select("id, title")
+    .eq("slug", slug)
+    .single<Pick<CourseRow, "id" | "title">>();
+  if (!course) return {};
+
+  const { data: lesson } = await supabase
+    .from("lessons")
+    .select("title, description, is_free_preview")
+    .eq("course_id", course.id)
+    .eq("slug", lessonSlug)
+    .single<Pick<LessonMeta, "title" | "description" | "is_free_preview">>();
+  if (!lesson) return {};
+
+  return {
+    title: `${lesson.title} — ${course.title} | ClaudeAI Academy`,
+    description:
+      lesson.description ??
+      `Leçon du parcours ${course.title} de ClaudeAI Academy, la formation francophone pour maîtriser Claude AI.`,
+    alternates: { canonical: `/courses/${slug}/${lessonSlug}` },
+    // Les leçons verrouillées n'exposent qu'un paywall : on ne les indexe pas.
+    robots: lesson.is_free_preview ? undefined : { index: false },
+  };
+}
 
 export default async function LessonPage({ params }: { params: Params }) {
   const { slug, lesson: lessonSlug } = await params;

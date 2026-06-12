@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -147,16 +149,27 @@ export function MentorChat({ initialInput = "" }: { initialInput?: string }) {
               <div
                 className={
                   m.role === "user"
-                    ? "max-w-[85%] rounded-[14px] rounded-br-sm bg-ink px-4 py-3 text-[15px] leading-relaxed text-cream"
-                    : "max-w-[90%] whitespace-pre-wrap rounded-[14px] rounded-bl-sm bg-cream-soft px-4 py-3 text-[15px] leading-[1.7] text-ink-soft"
+                    ? "max-w-[85%] whitespace-pre-wrap rounded-[14px] rounded-br-sm bg-ink px-4 py-3 text-[15px] leading-relaxed text-cream"
+                    : "max-w-[90%] rounded-[14px] rounded-bl-sm bg-cream-soft px-4 py-3"
                 }
               >
-                {m.content ||
-                  (m.role === "assistant" && streaming ? (
-                    <span className="text-muted">Le Mentor réfléchit…</span>
+                {m.role === "assistant" ? (
+                  m.content ? (
+                    <div className="prose-chat">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {m.content}
+                      </ReactMarkdown>
+                    </div>
+                  ) : streaming ? (
+                    <span className="text-[15px] leading-[1.7] text-muted">
+                      Le Mentor réfléchit…
+                    </span>
                   ) : (
                     ""
-                  ))}
+                  )
+                ) : (
+                  m.content
+                )}
               </div>
             </div>
           ))

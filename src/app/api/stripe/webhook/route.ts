@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { isValidTier } from "@/lib/stripe/plans";
+import { sendPurchaseWelcomeEmail } from "@/lib/email/welcome";
 
 // Stripe doit recevoir le body brut pour valider la signature.
 // On désactive l'optimisation statique au cas où.
@@ -86,6 +87,14 @@ async function handleCheckoutCompleted(
       ? session.payment_intent
       : (session.payment_intent?.id ?? null);
 
+  // Stripe rejoue les webhooks : on note si l'achat est déjà enregistré
+  // pour n'envoyer l'email de bienvenue qu'au premier passage.
+  const { data: existingPurchase } = await supabaseAdmin
+    .from("purchases")
+    .select("id")
+    .eq("stripe_session_id", session.id)
+    .maybeSingle();
+
   // Upsert sur stripe_session_id (UNIQUE en DB) : idempotent.
   const { error } = await supabaseAdmin
     .from("purchases")
@@ -108,6 +117,29 @@ async function handleCheckoutCompleted(
 
   if (error) {
     throw new Error(`Supabase upsert purchases failed: ${error.message}`);
+  }
+
+  // Email de bienvenue : best effort, jamais bloquant pour le webhook
+  // (l'accès est déjà débloqué par la ligne purchases ci-dessus).
+  if (!existingPurchase) {
+    const to = session.customer_details?.email ?? session.customer_email;
+    if (to) {
+      try {
+        const { data: profile } = await supabaseAdmin
+          .from("profiles")
+          .select("first_name")
+          .eq("id", userId)
+          .maybeSingle();
+        await sendPurchaseWelcomeEmail({
+          to,
+          tier,
+          firstName: profile?.first_name ?? null,
+        });
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        console.error("[stripe-webhook] welcome email failed:", message);
+      }
+    }
   }
 }
 

@@ -29,11 +29,13 @@
   }
   .hint b{color:var(--coral-dark)}
 
-  /* Cover réel 1080 x 1920 (9:16) — la 1re image qui s'affiche dans la grille/feed */
+  /* Cover réel 1080 x 1920 (9:16) — la 1re image figée du réel.
+     Zones sûres : on évite le haut (pseudo) et le bas (légende + boutons d'action du réel). */
   .cover{
     position:relative; width:1080px; height:1920px; overflow:hidden;
     background:var(--cream); color:var(--ink);
-    display:flex; flex-direction:column; padding:130px 96px 120px;
+    display:flex; flex-direction:column;
+    padding:178px 96px 250px;
     box-shadow:0 30px 80px rgba(0,0,0,.25);
   }
   .cover::before{
@@ -43,6 +45,10 @@
     pointer-events:none;
   }
   .cover > *{position:relative; z-index:1}
+
+  .top{ flex:0 0 auto }
+  .mid{ flex:1 1 auto; display:flex; flex-direction:column; justify-content:center }
+  .bot{ flex:0 0 auto }
 
   .kicker{
     display:flex; align-items:center; gap:22px;
@@ -55,36 +61,35 @@
   .tag{
     align-self:flex-start; background:var(--coral-soft); color:var(--coral-dark);
     font-weight:700; font-size:28px; letter-spacing:.04em;
-    padding:14px 28px; border-radius:999px; margin-top:46px;
+    padding:14px 28px; border-radius:999px; margin-bottom:38px;
   }
   h1{
     font-family:var(--serif); font-weight:500; line-height:1.04;
-    letter-spacing:-.02em; font-size:116px; color:var(--ink); margin-top:40px;
+    letter-spacing:-.02em; font-size:112px; color:var(--ink); text-wrap:balance;
   }
   h1 em{ font-style:italic; color:var(--coral) }
-  .lead{ font-size:42px; line-height:1.5; color:var(--ink-soft); margin-top:40px; max-width:840px }
-  .spacer{ flex:1 }
+  .lead{ font-size:42px; line-height:1.5; color:var(--ink-soft); margin-top:44px; max-width:860px; text-wrap:pretty }
 
   .statbar{
-    display:flex; justify-content:space-between; align-items:center;
+    display:flex; align-items:center;
     background:var(--cream-soft); border:1px solid var(--line);
-    border-radius:24px; padding:34px 40px;
+    border-radius:24px; padding:36px 24px;
   }
-  .stat{ text-align:center }
-  .stat .n{ font-family:var(--serif); font-weight:500; font-size:58px; color:var(--coral) }
-  .stat .l{ font-size:24px; color:var(--muted); margin-top:6px }
-  .statbar .sep{ width:1px; height:78px; background:var(--line) }
+  .stat{ flex:1 1 0; text-align:center }
+  .stat .n{ font-family:var(--serif); font-weight:500; font-size:56px; color:var(--coral); line-height:1; white-space:nowrap }
+  .stat .l{ font-size:24px; color:var(--muted); margin-top:8px }
+  .statbar .sep{ flex:0 0 auto; width:1px; height:84px; background:var(--line) }
 
   .watch{
-    margin-top:40px; display:flex; justify-content:center; align-items:center; gap:18px;
+    margin-top:42px; display:flex; justify-content:center; align-items:center; gap:18px;
     font-size:34px; font-weight:600; color:var(--ink-soft);
   }
   .watch .play{
     width:64px; height:64px; border-radius:50%; background:var(--coral); color:var(--cream);
-    display:flex; align-items:center; justify-content:center; font-size:30px;
+    display:flex; align-items:center; justify-content:center; font-size:28px; padding-left:5px;
     box-shadow:0 10px 26px rgba(217,119,87,.35);
   }
-  .footer{ margin-top:22px; font-size:30px; color:var(--muted); text-align:center; letter-spacing:.03em }
+  .footer{ margin-top:20px; font-size:30px; color:var(--muted); text-align:center; letter-spacing:.03em }
 
   /* Bloc script / storyboard (hors export image) */
   .script{
@@ -122,22 +127,25 @@
 
   <!-- COVER DU RÉEL -->
   <section class="cover">
-    <div class="kicker"><span>Claude Code Academy</span><span class="dot"></span><span class="live">En ligne</span></div>
-    <div class="tag">FORMATION CLAUDE IA</div>
-    <h1>L'IA qui<br>t'apprend<br><em>l'IA.</em></h1>
-    <p class="lead">Une formation alimentée directement par Claude lui-même. Tu sauras tout faire, tout seul.</p>
-    <div class="spacer"></div>
-    <div class="statbar">
-      <div class="stat"><div class="n">7</div><div class="l">parcours</div></div>
-      <div class="sep"></div>
-      <div class="stat"><div class="n">40</div><div class="l">leçons</div></div>
-      <div class="sep"></div>
-      <div class="stat"><div class="n">170</div><div class="l">prompts</div></div>
-      <div class="sep"></div>
-      <div class="stat"><div class="n">Mentor IA</div><div class="l">inclus</div></div>
+    <div class="top"><div class="kicker"><span>Claude Code Academy</span><span class="dot"></span><span class="live">En ligne</span></div></div>
+    <div class="mid">
+      <div class="tag">FORMATION CLAUDE IA</div>
+      <h1>L'IA qui t'apprend <em>l'IA.</em></h1>
+      <p class="lead">Une formation alimentée directement par Claude lui-même. Tu sauras tout faire, tout seul.</p>
     </div>
-    <div class="watch"><span class="play">▶</span><span>Regarde jusqu'au bout</span></div>
-    <div class="footer">claudeai-academy.com · lien en bio</div>
+    <div class="bot">
+      <div class="statbar">
+        <div class="stat"><div class="n">7</div><div class="l">parcours</div></div>
+        <div class="sep"></div>
+        <div class="stat"><div class="n">40</div><div class="l">leçons</div></div>
+        <div class="sep"></div>
+        <div class="stat"><div class="n">170</div><div class="l">prompts</div></div>
+        <div class="sep"></div>
+        <div class="stat"><div class="n">Mentor IA</div><div class="l">inclus</div></div>
+      </div>
+      <div class="watch"><span class="play">▶</span><span>Regarde jusqu'au bout</span></div>
+      <div class="footer">claudeai-academy.com · lien en bio</div>
+    </div>
   </section>
 
   <!-- SCRIPT / STORYBOARD DU RÉEL -->

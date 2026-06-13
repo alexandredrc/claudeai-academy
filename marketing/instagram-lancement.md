@@ -184,5 +184,67 @@ Le risque est de notre côté.
 
 1. **Le compte Instagram** doit exister et être en *compte professionnel* (gratuit : Paramètres → Type de compte). Donne accès aux stats + au sticker Lien.
 2. **La publication elle-même** : soit tu la fais (5 min, copier-coller depuis ce fichier + glisser les PNG du Bureau), soit je peux t'assister via le navigateur si tu es connecté à Instagram — dis-moi.
-3. **Optionnel** : un *reel* (vidéo courte) booste fortement la portée. La branche spawné en avait amorcé un mais hors-charte — je peux en refaire un propre si tu veux passer à la vidéo.
+3. **Reel** : `claudeai-academy-reel.mp4` est prêt sur le Bureau (12 s, 9:16). Muet — ajoute un son tendance dans l'app au moment de poster.
+
+---
+
+## 8. ⭐ LÉGENDES FINALES — optimisées IG SEO (à utiliser)
+
+> Règles 2026 (sources en bas) : la **légende = ~70 % du référencement**, les hashtags ~30 %. Mets les **mots-clés importants dans la 1re phrase**, vise une légende **≥150 mots**, et place les **5 hashtags dans la légende** (pas en 1er commentaire — l'algo indexe mieux la légende). Le 1er commentaire mots-clés = bonus.
+
+### A) REEL — légende
+
+```
+Apprendre à maîtriser Claude AI, en français et par la pratique. Et si Claude t'apprenait à utiliser Claude ?
+
+C'est toute l'idée de ClaudeAI Academy : une formation francophone construite avec Claude pour exploiter vraiment l'intelligence artificielle — du prompt engineering à Claude Code, de la data à la stratégie.
+
+Au lieu d'utiliser Claude à 20 % de son potentiel, tu apprends la méthode : structurer tes prompts, automatiser tes tâches, et faire corriger ton travail par un Mentor IA.
+
+Dans le programme : 7 parcours par métier, 40 leçons sourcées et tenues à jour, 170 prompts prêts à copier, et un Mentor IA qui répond à tes questions et corrige tes exercices.
+
+Dès 47 €. Accès à vie, mises à jour comprises. Garantie 14 jours, satisfait ou remboursé.
+
+Le programme complet est en lien dans la bio.
+
+#ClaudeAI #ClaudeCode #PromptEngineering #IntelligenceArtificielle #FormationIA
+```
+
+### B) CARROUSEL — légende
+
+```
+Formation Claude AI en français : voici exactement ce qu'il y a dedans. Tu utilises Claude presque tous les jours, mais personne ne t'a montré la méthode.
+
+ClaudeAI Academy, c'est la formation francophone qui te fait passer du tâtonnement à la maîtrise de l'intelligence artificielle — pour de vrai.
+
+Les 7 parcours par métier :
+→ Prompt Engineering pro
+→ Claude Code & IA agentic
+→ Claude pour la data & le SQL
+→ Contenu & marketing avec Claude
+→ Stratégie & conduite de l'IA en entreprise
+→ Trading + Claude Code
+→ Prompts & Skills GitHub : sécurité
+
+40 leçons sourcées · 170 prompts prêts à copier · un Mentor IA qui corrige ton travail · accès à vie, mises à jour comprises.
+
+Dès 47 €. Garantie 14 jours : si le contenu n'est pas à la hauteur, tu écris, on rembourse. Le risque est de notre côté.
+
+Le programme complet est en lien dans la bio.
+
+#ClaudeAI #IA #PromptEngineering #ApprendreLIA #FormationIA
+```
+
+### C) 1er commentaire — bonus mots-clés (pour les 2 posts)
+
+```
+💬 Pour la recherche : apprendre Claude AI en français · formation Claude Code · prompt engineering pour débutants · automatiser ses tâches avec l'IA · Mentor IA · IA pour entrepreneurs · maîtriser l'intelligence artificielle.
+```
+
+### D) Texte alternatif (alt text) — accessibilité + SEO
+
+- **Reel** : `ClaudeAI Academy — « Et si Claude t'apprenait à utiliser Claude ? » Formation francophone à l'IA, au prompt engineering et à Claude Code.`
+- **Carrousel** : `Carrousel ClaudeAI Academy : 7 parcours, 40 leçons, 170 prompts et un Mentor IA pour apprendre Claude AI en français, dès 47 €.`
+
+*Sources IG SEO 2026 :* [Later](https://later.com/blog/instagram-seo/) · [TrueFuture Media](https://www.truefuturemedia.com/articles/instagram-reach-2026-algorithm-reels-carousels-caption-seo) · [Lamplight Creatives](https://lamplightcreatives.com/captions-vs-hashtags-instagram-2026/)
 ```

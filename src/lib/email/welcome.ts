@@ -1,45 +1,5 @@
 import type { PlanTier } from "@/lib/stripe/plans";
-
-const SITE_URL = "https://www.claudeai-academy.com";
-
-// Envoi via l'API REST Resend (pas de dépendance npm).
-// No-op si RESEND_API_KEY absent : l'email ne doit jamais bloquer le webhook.
-async function sendEmail(params: {
-  to: string;
-  subject: string;
-  html: string;
-  text: string;
-}): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM;
-
-  if (!apiKey || !from) {
-    console.warn(
-      "[email] RESEND_API_KEY ou EMAIL_FROM non défini — email de bienvenue non envoyé.",
-    );
-    return;
-  }
-
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: params.to,
-      subject: params.subject,
-      html: params.html,
-      text: params.text,
-    }),
-  });
-
-  if (!res.ok) {
-    const body = await res.text();
-    throw new Error(`Resend ${res.status}: ${body}`);
-  }
-}
+import { SITE_URL, sendEmail } from "@/lib/email/send";
 
 type WelcomeContent = {
   subject: string;

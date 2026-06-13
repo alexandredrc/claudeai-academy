@@ -68,6 +68,35 @@ Le programme complet est en lien dans la bio.
 
 ---
 
+## 2 bis. CARROUSEL « L'IA qui t'apprend l'IA » (4 slides) — visuels `carrousel-01…04`
+
+Set de 4 slides (cover hook → promesse → 7/40/170 → CTA). Utilisable **en carrousel feed** (les 4 PNG `claudeai-academy-carrousel-0X.png`, dans l'ordre) **et en stories** (les 4 PNG `claudeai-academy-story-0X.png`, à la suite).
+
+**Légende du carrousel** (copier-coller) :
+
+```
+Et si Claude t'apprenait à utiliser Claude ?
+
+C'est toute l'idée de ClaudeAI Academy : une formation francophone construite avec Claude, pour enfin exploiter ce qu'il sait vraiment faire — au lieu de l'utiliser à 20 % de son potentiel.
+
+Ce qu'il y a dedans 👇
+→ 7 parcours par métier, du code à la stratégie
+→ 40 leçons sourcées et tenues à jour
+→ 170 prompts prêts à copier dans ton quotidien
+→ un Mentor IA qui répond à tes questions ET corrige tes exercices
+
+Dès 47 €. Accès à vie, mises à jour comprises.
+Garantie 14 jours : si le contenu n'est pas à la hauteur, tu écris, on rembourse. Le risque est de notre côté.
+
+Le programme complet est en lien dans la bio. ⟶ swipe
+
+#ClaudeAI #IntelligenceArtificielle #FormationIA #PromptEngineering #IA
+```
+
+**En stories** : poste les 4 dans l'ordre. Sur le **slide 1**, ajoute un sticker **Lien** (« Le programme complet » → `claudeai-academy.com`). Sur le **slide 4**, re-mets un sticker **Lien** (« Je rejoins » → `claudeai-academy.com/tarifs`). Tu peux glisser un sticker sondage sur le slide 2 (« Tu en es où avec Claude ? »).
+
+---
+
 ## 3. POST VALEUR (J+2/J+3) — réciprocité, pas de vente dure
 
 Format conseillé : **carrousel** (1 prompt offert, décortiqué) ou un simple visuel texte. Donne d'abord, vends à peine.

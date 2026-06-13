@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ClaudeAI Academy — Stories Instagram (1080×1920)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F5F1EB; --cream-soft:#FAF7F2; --cream-dark:#EDE6D9;
+    --coral:#D97757; --coral-dark:#C2664A; --coral-soft:#F2D5C7;
+    --ink:#1F1F1E; --ink-soft:#3D3929; --muted:#6B6557; --line:#E5DED0;
+    --green:#2A9D8F;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); background:#cfc7b8; color:var(--ink);
+    padding:40px; display:flex; flex-wrap:wrap; gap:40px; justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hint{
+    width:100%; max-width:1080px; background:#fff; border:1px solid var(--line);
+    border-radius:16px; padding:18px 22px; font-size:15px; color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .hint b{color:var(--coral-dark)}
+
+  /* Isolation pour l'export : #s1..#s4 dans l'URL → on n'affiche que ce slide,
+     fond neutre, pas de marge → screenshot exactement 1080×1920. Sans hash, on
+     voit tout (preview navigateur). */
+  body:has(.story:target){padding:0;gap:0;background:var(--cream)}
+  body:has(.story:target) .hint{display:none}
+  body:has(.story:target) .story:not(:target){display:none}
+  .story:target{box-shadow:none}
+
+  /* Format story Instagram : 1080 x 1920 (9:16).
+     Zones sûres : ~210px haut (pseudo + barre), ~250px bas (réponse). */
+  .story{
+    position:relative; width:1080px; height:1920px; overflow:hidden;
+    background:var(--cream); color:var(--ink);
+    display:flex; flex-direction:column;
+    padding:188px 96px 226px;
+    box-shadow:0 30px 80px rgba(0,0,0,.25);
+  }
+  .story::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(120% 80% at 75% 12%, rgba(217,119,87,.16), transparent 55%),
+               radial-gradient(90% 60% at 10% 95%, rgba(217,119,87,.10), transparent 50%);
+    pointer-events:none;
+  }
+  .story > *{position:relative; z-index:1}
+
+  .top{ flex:0 0 auto }
+  .mid{ flex:1 1 auto; display:flex; flex-direction:column; justify-content:center }
+  .bot{ flex:0 0 auto }
+
+  .kicker{
+    display:flex; align-items:center; gap:22px;
+    font-size:27px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--coral);
+  }
+  .kicker .dot{ width:15px;height:15px;border-radius:50%;background:var(--green) }
+  .kicker .live{ color:var(--ink-soft); letter-spacing:.10em; font-weight:600 }
+  .brand{ font-family:var(--serif); font-weight:500; font-size:44px; color:var(--ink) }
+  .brand span{ color:var(--coral) }
+
+  h1{
+    font-family:var(--serif); font-weight:500; line-height:1.06;
+    letter-spacing:-.02em; font-size:100px; color:var(--ink); text-wrap:balance;
+  }
+  h1 em{ font-style:italic; color:var(--coral) }
+  .lead{ font-size:42px; line-height:1.5; color:var(--ink-soft); text-wrap:pretty }
+
+  .badge{
+    display:inline-block; background:var(--coral-soft); color:var(--coral-dark);
+    font-weight:700; font-size:27px; letter-spacing:.05em;
+    padding:14px 28px; border-radius:999px;
+  }
+  .arrow{ font-size:60px; text-align:center; color:var(--coral) }
+
+  .feat{
+    display:flex; align-items:center; gap:30px;
+    background:var(--cream-soft); border:1px solid var(--line);
+    border-radius:28px; padding:38px 42px;
+  }
+  .feat .ico{ font-size:62px; line-height:1; flex:0 0 auto }
+  .feat .t{ font-family:var(--serif); font-size:46px; font-weight:500; color:var(--ink); line-height:1.1 }
+  .feat .d{ font-size:33px; color:var(--muted); line-height:1.42; margin-top:10px }
+
+  .chip{
+    display:flex; align-items:center; gap:34px;
+    background:var(--cream-soft); border:1px solid var(--line);
+    border-radius:26px; padding:34px 42px;
+  }
+  .chip .n{
+    font-family:var(--serif); font-weight:500; font-size:84px; color:var(--coral);
+    line-height:1; flex:0 0 168px; text-align:center;
+  }
+  .chip .l{ font-size:38px; color:var(--ink-soft); line-height:1.28 }
+
+  .cta{
+    background:var(--coral); color:var(--cream); font-weight:700; font-size:46px;
+    text-align:center; padding:44px 40px; border-radius:28px; line-height:1.15;
+    box-shadow:0 18px 40px rgba(217,119,87,.35);
+  }
+  .guarantee{
+    margin-top:32px; display:flex; justify-content:center; align-items:center; gap:16px;
+    font-size:30px; color:var(--ink-soft);
+  }
+  .guarantee .check{ color:var(--green); font-weight:700 }
+  .footer{ font-size:30px; color:var(--muted); text-align:center; letter-spacing:.03em }
+</style>
+</head>
+<body>
+
+  <div class="hint">
+    <b>Export :</b> ajoute <code>#s1</code> … <code>#s4</code> à l'URL du fichier pour isoler un slide (fond plein, 1080×1920), puis capture. Voir <code>scripts/render-instagram.mjs</code>.
+    <br>⚠️ <b>Règles maison :</b> aucune fausse rareté, aucun faux témoignage — chiffres réels (7 / 40 / 170), Mentor IA, garantie 14 jours.
+  </div>
+
+  <!-- STORY 1 — HOOK -->
+  <section class="story" id="s1">
+    <div class="top"><div class="kicker"><span>ClaudeAI Academy</span><span class="dot"></span><span class="live">En ligne</span></div></div>
+    <div class="mid">
+      <h1>Et si <em>Claude</em> t'apprenait à utiliser <em>Claude&nbsp;?</em></h1>
+      <p class="lead" style="margin-top:48px">Une formation à Claude, construite avec Claude.</p>
+    </div>
+    <div class="bot"><div class="arrow">↓</div></div>
+  </section>
+
+  <!-- STORY 2 — LA PROMESSE -->
+  <section class="story" id="s2">
+    <div class="top"><div class="brand">Claude<span>AI</span> Academy</div></div>
+    <div class="mid">
+      <h1 style="font-size:90px">L'IA qui t'apprend <em>l'IA.</em></h1>
+      <div style="display:flex;flex-direction:column;gap:24px;margin-top:54px">
+        <div class="feat">
+          <div class="ico">🤖</div>
+          <div>
+            <div class="t">Contenu alimenté par Claude</div>
+            <div class="d">Chaque leçon est construite avec Claude, puis sourcée et tenue à jour.</div>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="ico">🎓</div>
+          <div>
+            <div class="t">Un Mentor IA inclus</div>
+            <div class="d">Il répond, corrige tes exercices et cite la leçon exacte.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bot"><p class="lead">Tu ne pourras plus dire que tu ne sais pas l'utiliser.</p></div>
+  </section>
+
+  <!-- STORY 3 — CE QU'IL Y A DEDANS -->
+  <section class="story" id="s3">
+    <div class="top"><div class="badge">CE QU'IL Y A DEDANS</div></div>
+    <div class="mid">
+      <h1 style="font-size:88px">Tu sauras tout faire, <em>tout seul.</em></h1>
+      <div style="display:flex;flex-direction:column;gap:22px;margin-top:54px">
+        <div class="chip"><div class="n">7</div><div class="l">parcours par métier, du code à la stratégie</div></div>
+        <div class="chip"><div class="n">40</div><div class="l">leçons sourcées, maintenues à jour</div></div>
+        <div class="chip"><div class="n">170</div><div class="l">prompts prêts à copier dans ton quotidien</div></div>
+      </div>
+    </div>
+    <div class="bot"><div class="footer">Code · Data · Marketing · Stratégie · Trading · Sécurité</div></div>
+  </section>
+
+  <!-- STORY 4 — CTA -->
+  <section class="story" id="s4">
+    <div class="top"><div class="kicker"><span>Accès à vie</span><span class="dot"></span><span class="live">Garantie 14 jours</span></div></div>
+    <div class="mid">
+      <h1>Arrête de tâtonner. <em>Apprends la méthode.</em></h1>
+      <p class="lead" style="margin-top:46px">Le programme complet, dès 47 € — accès à vie et mises à jour incluses.</p>
+    </div>
+    <div class="bot">
+      <div class="cta">Le programme complet&nbsp;→<br><span style="font-weight:600;font-size:34px;opacity:.92">lien en bio</span></div>
+      <div class="guarantee"><span class="check">✓</span><span>Satisfait ou remboursé 14 jours · Accès à vie</span></div>
+      <div class="footer" style="margin-top:16px">claudeai-academy.com</div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Claude Code Academy — Stories Instagram (1080×1920)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F5F1EB; --cream-soft:#FAF7F2; --cream-dark:#EDE6D9;
+    --coral:#D97757; --coral-dark:#C2664A; --coral-soft:#F2D5C7;
+    --ink:#1F1F1E; --ink-soft:#3D3929; --muted:#6B6557; --line:#E5DED0;
+    --green:#2A9D8F;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); background:#cfc7b8; color:var(--ink);
+    padding:40px; display:flex; flex-wrap:wrap; gap:40px; justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hint{
+    width:100%; max-width:1080px; background:#fff; border:1px solid var(--line);
+    border-radius:16px; padding:18px 22px; font-size:15px; color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .hint b{color:var(--coral-dark)}
+  .hint code{background:var(--cream-dark); padding:2px 6px; border-radius:6px; font-size:13px}
+
+  /* Format story / réel Instagram : 1080 x 1920 (9:16) */
+  .story{
+    position:relative; width:1080px; height:1920px; overflow:hidden;
+    background:var(--cream); color:var(--ink);
+    display:flex; flex-direction:column; padding:120px 96px 110px;
+    box-shadow:0 30px 80px rgba(0,0,0,.25);
+  }
+  .story::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(120% 80% at 75% 12%, rgba(217,119,87,.16), transparent 55%),
+               radial-gradient(90% 60% at 10% 95%, rgba(217,119,87,.10), transparent 50%);
+    pointer-events:none;
+  }
+  .story > *{position:relative; z-index:1}
+
+  .kicker{
+    display:flex; align-items:center; gap:22px;
+    font-size:26px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--coral);
+  }
+  .kicker .dot{ width:15px;height:15px;border-radius:50%;background:var(--green) }
+  .kicker .live{ color:var(--ink-soft); letter-spacing:.10em; font-weight:600 }
+  .brand{ font-family:var(--serif); font-weight:500; font-size:42px; color:var(--ink) }
+  .brand span{ color:var(--coral) }
+
+  h1{
+    font-family:var(--serif); font-weight:500; line-height:1.05;
+    letter-spacing:-.02em; font-size:104px; color:var(--ink);
+  }
+  h1 em{ font-style:italic; color:var(--coral) }
+  .lead{ font-size:40px; line-height:1.5; color:var(--ink-soft); }
+  .spacer{ flex:1 }
+  .arrow{ font-size:64px; text-align:center; margin-top:30px; color:var(--coral) }
+
+  /* slide « écrit par Claude » */
+  .selfmade{
+    display:flex; align-items:center; gap:28px;
+    background:var(--cream-soft); border:1px solid var(--line);
+    border-radius:28px; padding:38px 40px; margin-top:40px;
+  }
+  .selfmade .ico{ font-size:62px; line-height:1 }
+  .selfmade .t{ font-family:var(--serif); font-size:44px; font-weight:500; color:var(--ink) }
+  .selfmade .d{ font-size:32px; color:var(--muted); line-height:1.4; margin-top:6px }
+
+  .chips{ display:flex; flex-direction:column; gap:20px; }
+  .chip{
+    display:flex; align-items:baseline; gap:28px;
+    background:var(--cream-soft); border:1px solid var(--line);
+    border-radius:26px; padding:32px 40px;
+  }
+  .chip .n{ font-family:var(--serif); font-weight:500; font-size:82px; color:var(--coral); line-height:1; min-width:170px }
+  .chip .l{ font-size:37px; color:var(--ink-soft); line-height:1.25 }
+
+  .badge{
+    align-self:flex-start; background:var(--coral-soft); color:var(--coral-dark);
+    font-weight:700; font-size:26px; letter-spacing:.04em;
+    padding:12px 26px; border-radius:999px; margin-bottom:34px;
+  }
+
+  .cta{
+    background:var(--coral); color:var(--cream); font-weight:700; font-size:46px;
+    text-align:center; padding:46px; border-radius:28px;
+    box-shadow:0 18px 40px rgba(217,119,87,.35);
+  }
+  .guarantee{
+    margin-top:34px; display:flex; justify-content:center; align-items:center; gap:16px;
+    font-size:30px; color:var(--ink-soft);
+  }
+  .guarantee .check{ color:var(--green); font-weight:700 }
+  .footer{ margin-top:18px; font-size:30px; color:var(--muted); text-align:center; letter-spacing:.03em }
+</style>
+</head>
+<body>
+
+  <div class="hint">
+    <b>Comment l'exporter :</b> ouvre ce fichier dans un navigateur. Chaque carte fait exactement <b>1080×1920</b> (story / réel 9:16).
+    DevTools → mode appareil → « Capturer une capture pleine taille » sur chaque carte, ou ouvre la page sur ton téléphone et fais une capture d'écran.
+    Tu peux modifier les textes directement ici.
+    <br>⚠️ <b>Règles maison :</b> aucune fausse rareté, aucun faux témoignage — uniquement des chiffres réels (7 / 40 / 170), Mentor IA, garantie 14 jours.
+  </div>
+
+  <!-- STORY 1 — HOOK -->
+  <section class="story">
+    <div class="kicker"><span>Claude Code Academy</span><span class="dot"></span><span class="live">En ligne</span></div>
+    <div class="spacer"></div>
+    <h1>Et si <em>Claude</em><br>t'apprenait<br>à utiliser <em>Claude ?</em></h1>
+    <div class="spacer"></div>
+    <p class="lead">Une formation Claude IA alimentée directement par Claude lui-même.</p>
+    <div class="arrow">↓</div>
+  </section>
+
+  <!-- STORY 2 — LA PROMESSE (écrit par Claude) -->
+  <section class="story">
+    <div class="brand">Claude Code <span>Academy</span></div>
+    <h1 style="font-size:88px;margin-top:38px">L'IA qui<br>t'apprend <em>l'IA.</em></h1>
+    <div class="spacer"></div>
+    <div class="selfmade">
+      <div class="ico">🤖</div>
+      <div>
+        <div class="t">Contenu alimenté par Claude</div>
+        <div class="d">Chaque leçon est construite avec Claude, puis sourcée et tenue à jour.</div>
+      </div>
+    </div>
+    <div class="selfmade">
+      <div class="ico">🎓</div>
+      <div>
+        <div class="t">Un Mentor IA inclus</div>
+        <div class="d">Il répond, corrige tes exercices et cite la leçon exacte.</div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <p class="lead">Tu ne pourras plus dire que tu ne sais pas l'utiliser.</p>
+  </section>
+
+  <!-- STORY 3 — CE QU'IL Y A DEDANS (chiffres réels) -->
+  <section class="story">
+    <div class="badge">CE QU'IL Y A DEDANS</div>
+    <h1 style="font-size:92px">Tu sauras tout faire,<br><em>tout seul.</em></h1>
+    <div class="spacer"></div>
+    <div class="chips">
+      <div class="chip"><div class="n">7</div><div class="l">parcours par métier, du code à la stratégie</div></div>
+      <div class="chip"><div class="n">40</div><div class="l">leçons sourcées, maintenues à jour</div></div>
+      <div class="chip"><div class="n">170</div><div class="l">prompts prêts à copier dans ton quotidien</div></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="footer">Code · Data · Marketing · Stratégie · Trading · Sécurité</div>
+  </section>
+
+  <!-- STORY 4 — CTA -->
+  <section class="story">
+    <div class="kicker"><span>Accès à vie</span><span class="dot"></span><span class="live">Garantie 14 jours</span></div>
+    <div class="spacer"></div>
+    <h1>Arrête de tâtonner.<br><em>Apprends la méthode.</em></h1>
+    <p class="lead" style="margin-top:46px">Le programme complet, dès 47 € — accès à vie et mises à jour incluses.</p>
+    <div class="spacer"></div>
+    <div class="cta">Le programme complet — lien en bio</div>
+    <div class="guarantee"><span class="check">✓</span><span>Satisfait ou remboursé 14 jours · Accès à vie</span></div>
+    <div class="footer">claudeai-academy.com</div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Claude Code Academy — Réel Instagram (cover + script)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F5F1EB; --cream-soft:#FAF7F2; --cream-dark:#EDE6D9;
+    --coral:#D97757; --coral-dark:#C2664A; --coral-soft:#F2D5C7;
+    --ink:#1F1F1E; --ink-soft:#3D3929; --muted:#6B6557; --line:#E5DED0;
+    --green:#2A9D8F;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); background:#cfc7b8; color:var(--ink);
+    padding:40px; display:flex; flex-wrap:wrap; gap:40px; justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hint{
+    width:100%; max-width:1080px; background:#fff; border:1px solid var(--line);
+    border-radius:16px; padding:18px 22px; font-size:15px; color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .hint b{color:var(--coral-dark)}
+
+  /* Cover réel 1080 x 1920 (9:16) — la 1re image qui s'affiche dans la grille/feed */
+  .cover{
+    position:relative; width:1080px; height:1920px; overflow:hidden;
+    background:var(--cream); color:var(--ink);
+    display:flex; flex-direction:column; padding:130px 96px 120px;
+    box-shadow:0 30px 80px rgba(0,0,0,.25);
+  }
+  .cover::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(120% 80% at 78% 10%, rgba(217,119,87,.18), transparent 55%),
+               radial-gradient(90% 60% at 8% 96%, rgba(217,119,87,.10), transparent 50%);
+    pointer-events:none;
+  }
+  .cover > *{position:relative; z-index:1}
+
+  .kicker{
+    display:flex; align-items:center; gap:22px;
+    font-size:27px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--coral);
+  }
+  .kicker .dot{ width:15px;height:15px;border-radius:50%;background:var(--green) }
+  .kicker .live{ color:var(--ink-soft); letter-spacing:.10em; font-weight:600 }
+
+  .tag{
+    align-self:flex-start; background:var(--coral-soft); color:var(--coral-dark);
+    font-weight:700; font-size:28px; letter-spacing:.04em;
+    padding:14px 28px; border-radius:999px; margin-top:46px;
+  }
+  h1{
+    font-family:var(--serif); font-weight:500; line-height:1.04;
+    letter-spacing:-.02em; font-size:116px; color:var(--ink); margin-top:40px;
+  }
+  h1 em{ font-style:italic; color:var(--coral) }
+  .lead{ font-size:42px; line-height:1.5; color:var(--ink-soft); margin-top:40px; max-width:840px }
+  .spacer{ flex:1 }
+
+  .statbar{
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--cream-soft); border:1px solid var(--line);
+    border-radius:24px; padding:34px 40px;
+  }
+  .stat{ text-align:center }
+  .stat .n{ font-family:var(--serif); font-weight:500; font-size:58px; color:var(--coral) }
+  .stat .l{ font-size:24px; color:var(--muted); margin-top:6px }
+  .statbar .sep{ width:1px; height:78px; background:var(--line) }
+
+  .watch{
+    margin-top:40px; display:flex; justify-content:center; align-items:center; gap:18px;
+    font-size:34px; font-weight:600; color:var(--ink-soft);
+  }
+  .watch .play{
+    width:64px; height:64px; border-radius:50%; background:var(--coral); color:var(--cream);
+    display:flex; align-items:center; justify-content:center; font-size:30px;
+    box-shadow:0 10px 26px rgba(217,119,87,.35);
+  }
+  .footer{ margin-top:22px; font-size:30px; color:var(--muted); text-align:center; letter-spacing:.03em }
+
+  /* Bloc script / storyboard (hors export image) */
+  .script{
+    width:100%; max-width:1080px; background:#fff; border:1px solid var(--line);
+    border-radius:20px; padding:40px 44px; color:var(--ink);
+  }
+  .script h2{ font-family:var(--serif); font-weight:500; font-size:34px; color:var(--ink); margin-bottom:6px }
+  .script .sub{ font-size:16px; color:var(--muted); margin-bottom:26px }
+  .scene{
+    display:grid; grid-template-columns:120px 1fr; gap:22px;
+    padding:22px 0; border-top:1px solid var(--line);
+  }
+  .scene .tc{ font-weight:700; color:var(--coral-dark); font-size:18px }
+  .scene .tc small{ display:block; color:var(--muted); font-weight:500; margin-top:4px }
+  .scene .body{ font-size:17px; line-height:1.6 }
+  .scene .onscreen{ font-family:var(--serif); font-size:22px; color:var(--ink); margin-bottom:8px }
+  .scene .vo{ color:var(--ink-soft) }
+  .scene .vo b{ color:var(--coral-dark) }
+  .scene .note{ color:var(--muted); font-size:15px; margin-top:8px }
+  .caption{
+    margin-top:30px; background:var(--cream-soft); border:1px solid var(--line);
+    border-radius:14px; padding:24px 26px; font-size:16px; line-height:1.7; white-space:pre-wrap;
+  }
+  .caption .label{ font-weight:700; color:var(--coral-dark); display:block; margin-bottom:10px; white-space:normal }
+  .tags{ color:var(--green); font-weight:600 }
+</style>
+</head>
+<body>
+
+  <div class="hint">
+    <b>Format réel (Reel) :</b> la carte ci-dessous est la <b>cover 1080×1920</b> (la 1re image figée du réel).
+    Exporte-la comme les autres (DevTools → capture pleine taille). Sous la cover : le <b>script scène par scène</b> (texte à l'écran + voix off + plans)
+    pour filmer/monter le réel, puis la <b>légende prête à coller</b>. Durée cible : <b>20–30 s</b>.
+  </div>
+
+  <!-- COVER DU RÉEL -->
+  <section class="cover">
+    <div class="kicker"><span>Claude Code Academy</span><span class="dot"></span><span class="live">En ligne</span></div>
+    <div class="tag">FORMATION CLAUDE IA</div>
+    <h1>L'IA qui<br>t'apprend<br><em>l'IA.</em></h1>
+    <p class="lead">Une formation alimentée directement par Claude lui-même. Tu sauras tout faire, tout seul.</p>
+    <div class="spacer"></div>
+    <div class="statbar">
+      <div class="stat"><div class="n">7</div><div class="l">parcours</div></div>
+      <div class="sep"></div>
+      <div class="stat"><div class="n">40</div><div class="l">leçons</div></div>
+      <div class="sep"></div>
+      <div class="stat"><div class="n">170</div><div class="l">prompts</div></div>
+      <div class="sep"></div>
+      <div class="stat"><div class="n">Mentor IA</div><div class="l">inclus</div></div>
+    </div>
+    <div class="watch"><span class="play">▶</span><span>Regarde jusqu'au bout</span></div>
+    <div class="footer">claudeai-academy.com · lien en bio</div>
+  </section>
+
+  <!-- SCRIPT / STORYBOARD DU RÉEL -->
+  <div class="script">
+    <h2>Script du réel — 20 à 30 s</h2>
+    <div class="sub">Texte à l'écran (gros, en haut) + voix off. Plans suggérés : écran d'ordi qui code/prompt + ton visage en caméra face.</div>
+
+    <div class="scene">
+      <div class="tc">0–3 s<small>HOOK</small></div>
+      <div class="body">
+        <div class="onscreen">« Et si Claude t'apprenait Claude ? »</div>
+        <div class="vo"><b>Voix off :</b> Tu utilises l'IA tous les jours… et tu en exploites à peine 20 %.</div>
+        <div class="note">Plan : gros plan visage, coupe rapide. Sous-titres animés mot à mot.</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="tc">3–8 s<small>PROBLÈME</small></div>
+      <div class="body">
+        <div class="onscreen">« Le problème n'est jamais l'outil. »</div>
+        <div class="vo"><b>Voix off :</b> Le souci, c'est qu'on tâtonne, sans méthode. On copie des prompts au hasard et on abandonne.</div>
+        <div class="note">Plan : timelapse d'un chat brouillon / onglets qui s'empilent.</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="tc">8–15 s<small>SOLUTION</small></div>
+      <div class="body">
+        <div class="onscreen">« Une formation alimentée par Claude lui-même »</div>
+        <div class="vo"><b>Voix off :</b> Claude Code Academy : chaque leçon est construite avec Claude, sourcée et tenue à jour. Et un Mentor IA corrige tes exercices en citant la leçon.</div>
+        <div class="note">Plan : screen-record de l'app + Mentor IA qui répond.</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="tc">15–22 s<small>PREUVE</small></div>
+      <div class="body">
+        <div class="onscreen">« 7 parcours · 40 leçons · 170 prompts »</div>
+        <div class="vo"><b>Voix off :</b> Code, data, marketing, stratégie, trading, sécurité. Tu ne pourras plus dire que tu ne sais pas t'en servir.</div>
+        <div class="note">Plan : les chiffres qui s'affichent un par un, punchy.</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="tc">22–28 s<small>CTA</small></div>
+      <div class="body">
+        <div class="onscreen">« Tu sauras tout faire, tout seul. »</div>
+        <div class="vo"><b>Voix off :</b> Dès 47 €, accès à vie, garantie 14 jours. Le lien est en bio.</div>
+        <div class="note">Plan : retour caméra face + sticker « lien en bio ».</div>
+      </div>
+    </div>
+
+    <div class="caption">
+<span class="label">Légende prête à coller :</span>L'IA qui t'apprend l'IA. 🤖
+
+Tu testes Claude depuis des mois, mais tu as toujours l'impression d'en exploiter 10 %. Normal : le problème n'a jamais été l'outil, c'est l'absence de méthode.
+
+Claude Code Academy, c'est une formation alimentée directement par Claude lui-même :
+→ 7 parcours par métier (code, data, marketing, stratégie, trading, sécurité)
+→ 40 leçons sourcées et tenues à jour
+→ 170 prompts prêts à copier
+→ un Mentor IA qui corrige tes exercices et cite la leçon
+
+Après ça, tu ne pourras plus dire que tu ne sais pas l'utiliser. Tu sauras tout faire, tout seul.
+
+Accès à vie · garantie 14 jours · dès 47 €
+👉 Lien en bio
+
+<span class="tags">#ClaudeAI #Claude #IntelligenceArtificielle #ClaudeCode #IA #Productivité #FormationIA #PromptEngineering #Anthropic</span></div>
+  </div>
+
+</body>
+</html>

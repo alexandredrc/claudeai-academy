@@ -16,7 +16,22 @@ const benefits = [
   "Un usage concret de Claude par semaine, ensuite, dans ta boîte mail.",
 ];
 
-export default function KitPage() {
+// Attribution : on lit ?src= (ou ?utm_source=) pour savoir quel canal a amené
+// le lead (linkedin, instagram-bio, etc.). Stocké dans leads.source.
+function resolveSource(raw: string | string[] | undefined): string {
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  if (!value) return "kit-direct";
+  const clean = value.toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40);
+  return clean || "kit-direct";
+}
+
+export default async function KitPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ src?: string | string[]; utm_source?: string | string[] }>;
+}) {
+  const sp = await searchParams;
+  const source = resolveSource(sp.src ?? sp.utm_source);
   return (
     <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
       <div
@@ -62,7 +77,7 @@ export default function KitPage() {
               <p className="text-[14px] text-muted mb-6">
                 Accès immédiat par email. Gratuit, sans carte bancaire.
               </p>
-              <LeadCaptureForm source="kit-15-prompts" />
+              <LeadCaptureForm source={source} />
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import type { PlanTier } from "@/lib/stripe/plans";
 import { SITE_URL, sendEmail } from "@/lib/email/send";
 
-export type NurtureKind = "nurture_d1" | "nurture_d7";
+export type NurtureKind = "nurture_d1" | "nurture_d7" | "nurture_d14";
 
 // --- Charte : coquille HTML commune (crème / coral / serif) ---
 function shell(inner: string): string {
@@ -189,14 +189,88 @@ function renderD7(tier: PlanTier, firstName: string | null): Rendered {
   return { subject, html: shell(inner), text };
 }
 
+// =========================================
+// J+14 — ascension Starter -> Mastery (séquence B)
+// Envoyé uniquement aux acheteurs Starter (filtre tier dans le cron).
+// =========================================
+function renderD14(tier: PlanTier, firstName: string | null): Rendered {
+  // Garde-fou : si jamais appelé pour un Mastery, message de fond sobre.
+  if (tier === "mastery") {
+    const subject = "Deux semaines avec le Mastery — un cap utile";
+    const inner = [
+      p(greeting(firstName)),
+      p(
+        "Deux semaines que tu as accès à tout. Si tu as avancé sur un ou deux parcours, le meilleur réflexe maintenant c'est d'ancrer : choisis un usage que tu répètes chaque semaine dans ton métier, et fais-en une habitude avec le Mentor IA à côté.",
+      ),
+      cta("Reprendre où tu en es", `${SITE_URL}/courses`),
+    ].join("\n");
+    const text = [
+      greeting(firstName),
+      "",
+      "Deux semaines que tu as accès à tout. Le meilleur réflexe maintenant : ancrer un usage que tu répètes chaque semaine, avec le Mentor IA à côté.",
+      "",
+      `Reprendre où tu en es : ${SITE_URL}/courses`,
+      "",
+      "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+    ].join("\n");
+    return { subject, html: shell(inner), text };
+  }
+
+  const subject = "Tu as ouvert une porte. Voici la pièce entière.";
+  const inner = [
+    p(greeting(firstName)),
+    p(
+      "Ça fait deux semaines que tu as le Pass Starter. Si tu es arrivé jusqu'ici, tu as vu le retour sur le temps investi.",
+    ),
+    p(
+      "Le Starter, c'est deux parcours. Le <strong>Pass Mastery</strong>, ce sont les cinq autres en plus (Claude Code, Data &amp; SQL, Marketing, Stratégie, Trading &amp; Sécurité), la bibliothèque complète de 170 prompts, et le Mentor IA qui te débloque en continu.",
+    ),
+    p(
+      "Ceux qui passent au Mastery ne le font pas pour « avoir plus de contenu ». Ils le font parce qu'ils veulent appliquer la même méthode à <strong>tout</strong> leur métier, pas juste à un coin.",
+    ),
+    cta("Voir le Pass Mastery", `${SITE_URL}/tarifs`),
+    p(
+      "Le paiement en 3×179 € existe si tu préfères étaler, et la garantie 14 jours s'applique toujours.",
+    ),
+    p(
+      "Une question avant de décider ? Réponds à cet email, il arrive directement à moi.",
+    ),
+  ].join("\n");
+
+  const text = [
+    greeting(firstName),
+    "",
+    "Ça fait deux semaines que tu as le Pass Starter. Si tu es arrivé jusqu'ici, tu as vu le retour sur le temps investi.",
+    "",
+    "Le Starter, c'est deux parcours. Le Pass Mastery, ce sont les cinq autres en plus (Claude Code, Data & SQL, Marketing, Stratégie, Trading & Sécurité), la bibliothèque complète de 170 prompts, et le Mentor IA qui te débloque en continu.",
+    "",
+    "Ceux qui passent au Mastery ne le font pas pour « avoir plus de contenu ». Ils le font parce qu'ils veulent appliquer la même méthode à tout leur métier, pas juste à un coin.",
+    "",
+    `Voir le Pass Mastery : ${SITE_URL}/tarifs`,
+    "",
+    "Le paiement en 3×179 € existe si tu préfères étaler, et la garantie 14 jours s'applique toujours.",
+    "",
+    "Une question avant de décider ? Réponds à cet email, il arrive directement à moi.",
+    "",
+    "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+  ].join("\n");
+
+  return { subject, html: shell(inner), text };
+}
+
 export function renderNurture(
   kind: NurtureKind,
   tier: PlanTier,
   firstName: string | null,
 ): Rendered {
-  return kind === "nurture_d1"
-    ? renderD1(tier, firstName)
-    : renderD7(tier, firstName);
+  switch (kind) {
+    case "nurture_d1":
+      return renderD1(tier, firstName);
+    case "nurture_d7":
+      return renderD7(tier, firstName);
+    case "nurture_d14":
+      return renderD14(tier, firstName);
+  }
 }
 
 export async function sendNurtureEmail(params: {

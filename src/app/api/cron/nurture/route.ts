@@ -16,9 +16,11 @@ const NURTURE_EPOCH = "2026-06-13T00:00:00.000Z";
 
 // On cible les achats « assez vieux » pour l'étape. L'idempotence vient de
 // email_log (unique user_id+kind) : un cron en retard rattrape sans doublon.
-const STEPS: { kind: NurtureKind; minAgeDays: number }[] = [
+// onlyTier : restreint l'étape à un tier (ex. ascension d14 réservée aux Starter).
+const STEPS: { kind: NurtureKind; minAgeDays: number; onlyTier?: PlanTier }[] = [
   { kind: "nurture_d1", minAgeDays: 1 },
   { kind: "nurture_d7", minAgeDays: 7 },
+  { kind: "nurture_d14", minAgeDays: 14, onlyTier: "starter" },
 ];
 
 type Candidate = {
@@ -73,6 +75,25 @@ export async function GET(req: NextRequest) {
       firstByUser.set(row.user_id, { id: row.id, tier: row.tier });
     }
     if (firstByUser.size === 0) continue;
+
+    // Étape restreinte à un tier (ex. ascension Starter) : on ne garde que ce tier,
+    // et on exclut ceux qui ont DÉJÀ acheté le Mastery (ne jamais re-pitcher un client).
+    if (step.onlyTier) {
+      for (const [userId, p] of [...firstByUser]) {
+        if (p.tier !== step.onlyTier) firstByUser.delete(userId);
+      }
+      if (firstByUser.size === 0) continue;
+      if (step.onlyTier === "starter") {
+        const { data: upgraders } = await supabaseAdmin
+          .from("purchases")
+          .select("user_id")
+          .eq("status", "paid")
+          .eq("tier", "mastery")
+          .in("user_id", [...firstByUser.keys()]);
+        for (const u of upgraders ?? []) firstByUser.delete(u.user_id);
+        if (firstByUser.size === 0) continue;
+      }
+    }
 
     // Profils (email + prénom) pour ces users.
     const ids = [...firstByUser.keys()];

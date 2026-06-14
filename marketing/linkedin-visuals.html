@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ClaudeAI Academy — Visuels LinkedIn (1080×1350)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F5F1EB; --cream-soft:#FAF7F2; --cream-dark:#EDE6D9;
+    --coral:#D97757; --coral-dark:#C2664A; --coral-soft:#F2D5C7;
+    --ink:#1F1F1E; --ink-soft:#3D3929; --muted:#6B6557; --line:#E5DED0;
+    --green:#2A9D8F;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --serif:'Fraunces',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); background:#cfc7b8; color:var(--ink);
+    padding:40px; display:flex; flex-wrap:wrap; gap:40px; justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hint{
+    width:100%; max-width:1080px; background:#fff; border:1px solid var(--line);
+    border-radius:16px; padding:18px 22px; font-size:15px; color:var(--ink-soft); line-height:1.6;
+  }
+  .hint b{color:var(--coral-dark)}
+  .hint code{font-family:var(--mono); background:var(--cream-dark); padding:1px 6px; border-radius:5px}
+
+  /* Isolation par ancre :target — capture une carte à la fois (#post-1 … #cover-3). */
+  body:has(.card:target){padding:0;gap:0;background:var(--cream)}
+  body:has(.card:target) .hint{display:none}
+  body:has(.card:target) .card:not(:target){display:none}
+  .card:target{box-shadow:none}
+
+  /* Format LinkedIn portrait 4:5 — 1080 x 1350 (celui qui performe le mieux). */
+  .card{
+    position:relative; width:1080px; height:1350px; overflow:hidden;
+    background:var(--cream); color:var(--ink);
+    display:flex; flex-direction:column;
+    padding:104px 96px 96px;
+    box-shadow:0 30px 80px rgba(0,0,0,.25);
+  }
+  .card::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(120% 80% at 78% 10%, rgba(217,119,87,.16), transparent 55%),
+               radial-gradient(90% 60% at 8% 96%, rgba(217,119,87,.09), transparent 50%);
+    pointer-events:none;
+  }
+  .card > *{position:relative; z-index:1}
+
+  .top{ flex:0 0 auto }
+  .mid{ flex:1 1 auto; display:flex; flex-direction:column; justify-content:center }
+  .bot{ flex:0 0 auto }
+
+  /* Eyebrow façon charte : uppercase, tracking large, coral. */
+  .eyebrow{
+    display:flex; align-items:center; gap:20px;
+    font-size:25px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--coral);
+  }
+  .eyebrow .dot{ width:13px;height:13px;border-radius:50%;background:var(--green) }
+  .eyebrow .sub{ color:var(--ink-soft); letter-spacing:.10em; font-weight:600 }
+
+  h1{
+    font-family:var(--serif); font-weight:500; line-height:1.07;
+    letter-spacing:-.02em; font-size:88px; color:var(--ink); text-wrap:balance;
+  }
+  h1 em{ font-style:italic; color:var(--coral); font-weight:600 }
+  h1.sm{ font-size:74px }
+  h1.xs{ font-size:64px }
+
+  .lead{ font-size:38px; line-height:1.5; color:var(--ink-soft); text-wrap:pretty }
+
+  /* Bloc prompt encadré, monospace — pour les posts tactiques. */
+  .prompt{
+    background:var(--cream-soft); border:1px solid var(--line); border-radius:22px;
+    padding:40px 44px; margin-top:46px;
+  }
+  .prompt .ptag{
+    font-family:var(--sans); font-size:23px; font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--coral); margin-bottom:22px; display:flex; gap:14px; align-items:center;
+  }
+  .prompt .ptag .bar{ width:34px; height:3px; background:var(--coral); border-radius:2px }
+  .prompt code{
+    display:block; font-family:var(--mono); font-size:31px; line-height:1.62; color:var(--ink-soft);
+  }
+  .prompt code b{ color:var(--ink); font-weight:600 }
+  .prompt code .ph{ color:var(--coral-dark); font-weight:500 }
+
+  /* Liste numérotée éditoriale (erreurs / bullets). */
+  .rows{ margin-top:44px; display:flex; flex-direction:column }
+  .row{
+    display:flex; align-items:baseline; gap:34px;
+    padding:30px 0; border-bottom:1px solid var(--line);
+  }
+  .row:last-child{ border-bottom:none }
+  .row .num{
+    font-family:var(--serif); font-style:italic; font-weight:500;
+    font-size:54px; color:var(--coral); min-width:80px; line-height:1;
+  }
+  .row .txt{ font-size:38px; font-weight:500; color:var(--ink); flex:1; line-height:1.3 }
+  .row .txt b{ color:var(--ink); font-weight:700 }
+
+  /* Comparatif amateur / pro. */
+  .vs{ display:flex; flex-direction:column; gap:24px; margin-top:46px }
+  .vsrow{
+    display:flex; align-items:center; gap:28px;
+    background:var(--cream-soft); border:1px solid var(--line); border-radius:22px; padding:34px 40px;
+  }
+  .vsrow .tag{
+    font-family:var(--sans); font-size:25px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    flex:0 0 200px;
+  }
+  .vsrow.am .tag{ color:var(--muted) }
+  .vsrow.pro .tag{ color:var(--coral) }
+  .vsrow .body{ font-size:34px; color:var(--ink-soft); line-height:1.35; flex:1 }
+  .vsrow .body b{ color:var(--ink); font-weight:600 }
+
+  .badge{
+    display:inline-block; background:var(--coral-soft); color:var(--coral-dark);
+    font-weight:700; font-size:25px; letter-spacing:.05em; padding:13px 26px; border-radius:999px;
+  }
+
+  /* Footer cohérent sur toutes les cartes. */
+  .footer{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:48px; padding-top:30px; border-top:1px solid var(--line);
+  }
+  .footer .url{ font-size:30px; color:var(--ink); font-weight:600 }
+  .footer .url span{ color:var(--coral) }
+  .footer .note{ font-size:27px; color:var(--muted) }
+
+  /* Couvertures de carrousel : plus grosses, plus de respiration. */
+  .cover h1{ font-size:104px }
+  .cover .swipe{
+    margin-top:54px; display:flex; align-items:center; gap:22px;
+    font-size:30px; font-weight:600; color:var(--coral); letter-spacing:.04em;
+  }
+  .cover .swipe .arrow{ font-size:46px; line-height:1 }
+  .kit{
+    margin-top:40px; display:inline-flex; align-items:center; gap:16px;
+    background:var(--cream-soft); border:1px solid var(--line); border-radius:999px; padding:18px 34px;
+    font-size:29px; color:var(--ink-soft);
+  }
+  .kit b{ color:var(--ink); font-weight:600 }
+  .kit .pin{ color:var(--coral); font-weight:700 }
+</style>
+</head>
+<body>
+
+  <div class="hint">
+    <b>Export :</b> ajoute <code>#post-1</code> … <code>#post-13</code> ou <code>#cover-1</code> … <code>#cover-3</code> à l'URL pour isoler une carte (1080×1350), puis capture. Le script <code>scripts/render-linkedin.mjs</code> le fait automatiquement.
+  </div>
+
+  <!-- ============ POST 1 — L'angle 80 % ============ -->
+  <section class="card" id="post-1">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">L'angle 80 %</span></div></div>
+    <div class="mid">
+      <h1>Tu utilises l'IA tous les jours. Et tu en exploites <em>20 %.</em></h1>
+      <p class="lead" style="margin-top:44px">Ce n'est pas une question d'intelligence. C'est une question de méthode : un rôle clair, du contexte, un format imposé.</p>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">15 prompts gratuits</span></div>
+    </div>
+  </section>
+
+  <!-- ============ POST 2 — La phrase amateur vs pro ============ -->
+  <section class="card" id="post-2">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Méthode</span></div></div>
+    <div class="mid">
+      <h1 class="sm">La phrase qui sépare l'amateur du <em>pro</em> avec l'IA.</h1>
+      <div class="vs">
+        <div class="vsrow am"><span class="tag">Amateur</span><span class="body">« Explique-moi X. »</span></div>
+        <div class="vsrow pro"><span class="tag">Pro</span><span class="body">« Tu es un <b>[rôle]</b>. Voici mon <b>[contexte]</b>. Donne le résultat sous forme de <b>[format]</b>. »</span></div>
+      </div>
+    </div>
+    <div class="bot">
+      <p class="lead">Même outil. Résultat dix fois meilleur.</p>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">15 prompts gratuits</span></div>
+    </div>
+  </section>
+
+  <!-- ============ POST 5 — 3 erreurs ============ -->
+  <section class="card" id="post-5">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Erreurs courantes</span></div></div>
+    <div class="mid">
+      <h1 class="sm">3 erreurs qui plombent tes résultats avec <em>l'IA.</em></h1>
+      <div class="rows">
+        <div class="row"><span class="num">1</span><span class="txt">Tu poses une question <b>au lieu de donner un rôle</b>.</span></div>
+        <div class="row"><span class="num">2</span><span class="txt">Tu ne donnes <b>aucun contexte</b>. L'IA devine. Mal.</span></div>
+        <div class="row"><span class="num">3</span><span class="txt">Tu laisses le <b>format ouvert</b>. Tu reçois un pavé.</span></div>
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">15 prompts qui les corrigent</span></div>
+    </div>
+  </section>
+
+  <!-- ============ POST 6 — L'IA écrit n'importe quoi ============ -->
+  <section class="card" id="post-6">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Le vrai problème</span></div></div>
+    <div class="mid">
+      <h1>« L'IA écrit n'importe quoi. » Non. Tu lui demandes <em>n'importe comment.</em></h1>
+      <p class="lead" style="margin-top:44px">Un rôle précis, le contexte réel, un format de sortie. Et la qualité monte d'un cran. Le problème est rarement l'outil. C'est l'input.</p>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">15 inputs qui marchent</span></div>
+    </div>
+  </section>
+
+  <!-- ============ POST 7 — Prompt debug ============ -->
+  <section class="card" id="post-7">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Tactique · Dev</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Un prompt pour débugger <em>plus vite.</em></h1>
+      <div class="prompt">
+        <div class="ptag"><span class="bar"></span>À copier</div>
+        <code>« J'ai cette erreur : <span class="ph">[message]</span>. Voici le code : <span class="ph">[...]</span>. Voici ce que <b>j'ai déjà essayé</b> : <span class="ph">[...]</span>. Donne 3 hypothèses de cause classées par probabilité, et pour chacune comment la vérifier. »</code>
+      </div>
+    </div>
+    <div class="bot">
+      <p class="lead">La clé, c'est « ce que j'ai déjà essayé ». Ça empêche l'IA de te resservir les évidences.</p>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">14 autres prompts</span></div>
+    </div>
+  </section>
+
+  <!-- ============ POST 10 — Arrête de collectionner ============ -->
+  <section class="card" id="post-10">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Contre-intuitif</span></div></div>
+    <div class="mid">
+      <h1 class="sm">Arrête de collectionner les <em>prompts.</em></h1>
+      <p class="lead" style="margin-top:44px">200 prompts copiés-collés ne valent pas 5 prompts que tu sais adapter. Un bon prompt n'est pas une formule magique : c'est un squelette. Un rôle, un contexte, un format.</p>
+    </div>
+    <div class="bot">
+      <p class="lead">Une fois la structure comprise, tu ne cherches plus. Tu construis.</p>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">15 squelettes pour démarrer</span></div>
+    </div>
+  </section>
+
+  <!-- ============ POST 12 — Développeurs ============ -->
+  <section class="card" id="post-12">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Pour les développeurs</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Si tu utilises l'IA juste pour l'autocomplétion, tu rates <em>l'essentiel.</em></h1>
+      <div class="rows">
+        <div class="row"><span class="num">·</span><span class="txt">Revue de code <b>pédagogique</b></span></div>
+        <div class="row"><span class="num">·</span><span class="txt">Tests sur les <b>cas limites</b> oubliés</span></div>
+        <div class="row"><span class="num">·</span><span class="txt">Documentation automatique</span></div>
+        <div class="row"><span class="num">·</span><span class="txt">Débogage <b>méthodique</b></span></div>
+      </div>
+    </div>
+    <div class="bot">
+      <p class="lead">Ce ne sont pas des gadgets. C'est 1 à 2 heures par jour.</p>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">4 prompts dev prêts à l'emploi</span></div>
+    </div>
+  </section>
+
+  <!-- ============ POST 13 — Managers / consultants ============ -->
+  <section class="card" id="post-13">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Pour les managers</span></div></div>
+    <div class="mid">
+      <h1 class="xs">« Par où on commence avec l'IA ? » Voici le prompt qui donne un <em>cadre.</em></h1>
+      <div class="prompt">
+        <div class="ptag"><span class="bar"></span>À copier</div>
+        <code>« Mon équipe fait <span class="ph">[activité]</span>. Identifie les <b>5 tâches</b> où l'IA apporterait le plus de gain, classe-les par <b>impact × facilité</b>, et donne un plan de test 2 semaines sur la n°1. »</code>
+      </div>
+    </div>
+    <div class="bot">
+      <p class="lead">De « il faudrait s'y mettre » à un plan concret en cinq minutes.</p>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Le reste du Kit en commentaire</span></div>
+    </div>
+  </section>
+
+  <!-- ============ COVER 1 — Carrousel « Les 80 % » ============ -->
+  <section class="card cover" id="cover-1">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Carrousel</span></div></div>
+    <div class="mid">
+      <h1>Tu utilises Claude à <em>20 %.</em> Voici les 80 % qui te manquent.</h1>
+      <div class="swipe"><span>Fais défiler</span><span class="arrow">→</span></div>
+    </div>
+    <div class="bot">
+      <div class="kit"><span class="pin">📌</span><span><b>15 prompts gratuits</b> · lien en commentaire</span></div>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Rôle · Contexte · Format</span></div>
+    </div>
+  </section>
+
+  <!-- ============ COVER 2 — Carrousel « 5 erreurs » ============ -->
+  <section class="card cover" id="cover-2">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Carrousel</span></div></div>
+    <div class="mid">
+      <h1>5 erreurs qui te coûtent <em>80 %</em> du potentiel de l'IA.</h1>
+      <div class="swipe"><span>Fais défiler</span><span class="arrow">→</span></div>
+    </div>
+    <div class="bot">
+      <div class="kit"><span class="pin">📌</span><span>Le <b>Kit gratuit</b> corrige les cinq · lien en commentaire</span></div>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Rôle · Contexte · Format · Itération</span></div>
+    </div>
+  </section>
+
+  <!-- ============ COVER 3 — Carrousel « 1 prompt par métier » ============ -->
+  <section class="card cover" id="cover-3">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Carrousel</span></div></div>
+    <div class="mid">
+      <h1>4 prompts. 4 métiers. <em>0 blabla.</em></h1>
+      <div class="swipe"><span>Fais défiler</span><span class="arrow">→</span></div>
+    </div>
+    <div class="bot">
+      <div class="kit"><span class="pin">📌</span><span><b>11 autres prompts</b> dans le Kit gratuit · lien en commentaire</span></div>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Dev · Data · Marketing · Manager</span></div>
+    </div>
+  </section>
+
+</body>
+</html>

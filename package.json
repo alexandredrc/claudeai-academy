@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "render:instagram": "node scripts/render-instagram.mjs",
+    "render:linkedin": "node scripts/render-linkedin.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",

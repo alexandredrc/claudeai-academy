@@ -147,6 +147,14 @@
   }
   .kit b{ color:var(--ink); font-weight:600 }
   .kit .pin{ color:var(--coral); font-weight:700 }
+
+  /* Compteur de slide (carrousels internes). */
+  .eyebrow .count{ margin-left:auto; color:var(--muted); letter-spacing:.10em; font-weight:700 }
+  /* Gros mot-clé d'ouverture de slide (erreurs). */
+  .kicker{
+    font-family:var(--serif); font-style:italic; font-weight:600; color:var(--coral);
+    font-size:34px; letter-spacing:.01em; margin-bottom:18px;
+  }
 </style>
 </head>
 <body>
@@ -306,6 +314,245 @@
     <div class="mid">
       <h1>4 prompts. 4 métiers. <em>0 blabla.</em></h1>
       <div class="swipe"><span>Fais défiler</span><span class="arrow">→</span></div>
+    </div>
+    <div class="bot">
+      <div class="kit"><span class="pin">📌</span><span><b>11 autres prompts</b> dans le Kit gratuit · lien en commentaire</span></div>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Dev · Data · Marketing · Manager</span></div>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- ============ CARROUSEL 1 — slides internes (c1-2 … c1-7) ============== -->
+  <!-- ====================================================================== -->
+
+  <section class="card" id="c1-2">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Les 80 %</span><span class="count">2 / 7</span></div></div>
+    <div class="mid">
+      <h1 class="sm">La règle tient en trois mots : <em>rôle, contexte, format.</em></h1>
+      <div class="rows">
+        <div class="row"><span class="num">1</span><span class="txt">Un <b>rôle</b> : « Tu es un expert qui... » au lieu de « explique ».</span></div>
+        <div class="row"><span class="num">2</span><span class="txt">Du <b>contexte</b> : tes vraies données, ta contrainte réelle.</span></div>
+        <div class="row"><span class="num">3</span><span class="txt">Un <b>format</b> imposé : tableau, liste, plan. Jamais ouvert.</span></div>
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">La structure de tout bon prompt</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c1-3">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Cas dev</span><span class="count">3 / 7</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Développeur : tu n'utilises l'IA qu'en <em>autocomplétion.</em></h1>
+      <div class="vs">
+        <div class="vsrow am"><span class="tag">20 %</span><span class="body">Autocomplétion ligne à ligne. Tu gagnes quelques secondes.</span></div>
+        <div class="vsrow pro"><span class="tag">80 %</span><span class="body">Revue de code <b>pédagogique</b>, tests sur les <b>cas limites</b> oubliés, débogage méthodique.</span></div>
+      </div>
+    </div>
+    <div class="bot">
+      <p class="lead">Ce ne sont pas des gadgets. C'est 1 à 2 heures par jour.</p>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Rôle · Contexte · Format</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c1-4">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Cas data</span><span class="count">4 / 7</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Data : la requête SQL <em>à la main</em> vs en langage humain.</h1>
+      <div class="vs">
+        <div class="vsrow am"><span class="tag">40 min</span><span class="body">Tu l'écris à la main, tu testes, tu corriges, tu recommences.</span></div>
+        <div class="vsrow pro"><span class="tag">5 min</span><span class="body">Tu décris ton besoin en français. Claude génère la requête optimisée et <b>repère l'index manquant</b>.</span></div>
+      </div>
+    </div>
+    <div class="bot">
+      <p class="lead">Le gain n'est pas dans l'outil. Il est dans la façon de lui parler.</p>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Rôle · Contexte · Format</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c1-5">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Cas marketing</span><span class="count">5 / 7</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Marketing : produire <em>sans que ça sente l'IA.</em></h1>
+      <div class="vs">
+        <div class="vsrow am"><span class="tag">20 %</span><span class="body">« Écris un post. » Résultat générique qu'on repère à dix mètres.</span></div>
+        <div class="vsrow pro"><span class="tag">80 %</span><span class="body">Tu <b>interdis les formules creuses</b>, imposes le ton, demandes 3 angles. Directement publiable.</span></div>
+      </div>
+    </div>
+    <div class="bot">
+      <p class="lead">La solution tient dans la contrainte.</p>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Rôle · Contexte · Format</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c1-6">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Cas manager</span><span class="count">6 / 7</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Manager : de « par où commencer » à un <em>cadre.</em></h1>
+      <div class="vs">
+        <div class="vsrow am"><span class="tag">Avant</span><span class="body">« Il faudrait s'y mettre. » Aucun plan, aucune priorité.</span></div>
+        <div class="vsrow pro"><span class="tag">Après</span><span class="body">« Classe les 5 tâches par <b>impact × facilité</b>, plan de test 2 semaines sur la n°1. » Un cadre en 5 min.</span></div>
+      </div>
+    </div>
+    <div class="bot">
+      <p class="lead">Tu passes de l'intention au plan concret.</p>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Rôle · Contexte · Format</span></div>
+    </div>
+  </section>
+
+  <section class="card cover" id="c1-7">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Conclusion</span><span class="count">7 / 7</span></div></div>
+    <div class="mid">
+      <h1 class="sm">Les 80 %, ce n'est pas l'outil. C'est <em>la méthode.</em></h1>
+      <p class="lead" style="margin-top:40px">J'ai réuni 15 prompts qui l'appliquent par construction, classés par métier. Gratuits.</p>
+    </div>
+    <div class="bot">
+      <div class="kit"><span class="pin">📌</span><span><b>15 prompts gratuits</b> · lien en commentaire</span></div>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Commence aujourd'hui</span></div>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- ============ CARROUSEL 2 — slides internes (c2-2 … c2-7) ============== -->
+  <!-- ====================================================================== -->
+
+  <section class="card" id="c2-2">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">5 erreurs</span><span class="count">2 / 7</span></div></div>
+    <div class="mid">
+      <div class="kicker">Erreur 1</div>
+      <h1 class="sm">Poser une question au lieu de donner <em>un rôle.</em></h1>
+      <p class="lead" style="margin-top:40px">« Explique » te donne un cours. « Tu es un expert qui... » te donne un livrable. Le rôle cadre tout le reste.</p>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">1 / 5</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c2-3">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">5 erreurs</span><span class="count">3 / 7</span></div></div>
+    <div class="mid">
+      <div class="kicker">Erreur 2</div>
+      <h1 class="sm">Zéro <em>contexte.</em></h1>
+      <p class="lead" style="margin-top:40px">Sans tes vraies données et ta contrainte réelle, l'IA devine. Mal. Le contexte fait la plus grosse part de la qualité.</p>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">2 / 5</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c2-4">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">5 erreurs</span><span class="count">4 / 7</span></div></div>
+    <div class="mid">
+      <div class="kicker">Erreur 3</div>
+      <h1 class="sm">Format de sortie <em>ouvert.</em></h1>
+      <p class="lead" style="margin-top:40px">Tu reçois un pavé. Impose un tableau, une liste, un plan. Tu récupères du directement exploitable, pas un texte à retravailler.</p>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">3 / 5</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c2-5">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">5 erreurs</span><span class="count">5 / 7</span></div></div>
+    <div class="mid">
+      <div class="kicker">Erreur 4</div>
+      <h1 class="sm">Accepter la <em>première réponse.</em></h1>
+      <p class="lead" style="margin-top:40px">La première sortie est un brouillon. Demande mieux : « affûte », « plus court », « pose-moi tes questions avant de répondre ».</p>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">4 / 5</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c2-6">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">5 erreurs</span><span class="count">6 / 7</span></div></div>
+    <div class="mid">
+      <div class="kicker">Erreur 5</div>
+      <h1 class="sm">Un prompt isolé au lieu d'un <em>workflow.</em></h1>
+      <p class="lead" style="margin-top:40px">Les vrais gains viennent d'une chaîne : cadrer, produire, critiquer, corriger. Pas d'un one-shot.</p>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">5 / 5</span></div>
+    </div>
+  </section>
+
+  <section class="card cover" id="c2-7">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Conclusion</span><span class="count">7 / 7</span></div></div>
+    <div class="mid">
+      <h1 class="sm">Aucune n'a à voir avec <em>l'outil.</em> Toutes se corrigent avec la méthode.</h1>
+      <p class="lead" style="margin-top:40px">Le Kit gratuit de 15 prompts les corrige par construction, classés par métier.</p>
+    </div>
+    <div class="bot">
+      <div class="kit"><span class="pin">📌</span><span>Le <b>Kit gratuit</b> corrige les cinq · lien en commentaire</span></div>
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">Méthode &gt; outil</span></div>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- ============ CARROUSEL 3 — slides internes (c3-2 … c3-6) ============== -->
+  <!-- ====================================================================== -->
+
+  <section class="card" id="c3-2">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Dev</span><span class="count">2 / 6</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Dev : le prompt de <em>debug méthodique.</em></h1>
+      <div class="prompt">
+        <div class="ptag"><span class="bar"></span>À copier</div>
+        <code>« J'ai cette erreur : <span class="ph">[message]</span>. Voici le code : <span class="ph">[...]</span>. Voici ce que <b>j'ai déjà essayé</b> : <span class="ph">[...]</span>. Donne 3 hypothèses de cause classées par probabilité, et pour chacune comment la vérifier. »</code>
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">1 prompt · 1 métier</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c3-3">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Data</span><span class="count">3 / 6</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Data : la requête SQL <em>en langage humain.</em></h1>
+      <div class="prompt">
+        <div class="ptag"><span class="bar"></span>À copier</div>
+        <code>« Voici mon schéma : <span class="ph">[tables]</span>. Je veux <span class="ph">[besoin métier]</span>. Écris la requête SQL <b>optimisée</b>, signale tout index manquant, et propose une visualisation adaptée. »</code>
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">1 prompt · 1 métier</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c3-4">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Marketing</span><span class="count">4 / 6</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Marketing : le prompt <em>anti « ton IA ».</em></h1>
+      <div class="prompt">
+        <div class="ptag"><span class="bar"></span>À copier</div>
+        <code>« Rédige <span class="ph">[contenu]</span> pour <span class="ph">[audience]</span>. <b>Interdis</b> « dans un monde où », « il est important de ». Phrases courtes, un exemple concret. Donne 3 angles avant d'écrire. »</code>
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">1 prompt · 1 métier</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="c3-5">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Manager</span><span class="count">5 / 6</span></div></div>
+    <div class="mid">
+      <h1 class="xs">Manager : le <em>cadre de décision</em> IA en 5 min.</h1>
+      <div class="prompt">
+        <div class="ptag"><span class="bar"></span>À copier</div>
+        <code>« Mon équipe fait <span class="ph">[activité]</span>. Identifie les <b>5 tâches</b> où l'IA apporterait le plus de gain, classe-les par <b>impact × facilité</b>, et donne un plan de test 2 semaines sur la n°1. »</code>
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">1 prompt · 1 métier</span></div>
+    </div>
+  </section>
+
+  <section class="card cover" id="c3-6">
+    <div class="top"><div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Conclusion</span><span class="count">6 / 6</span></div></div>
+    <div class="mid">
+      <h1 class="sm">Un rôle. Un contexte. Un format. <em>Toujours.</em></h1>
+      <p class="lead" style="margin-top:40px">11 autres prompts prêts à copier dans le Kit gratuit, classés par métier.</p>
     </div>
     <div class="bot">
       <div class="kit"><span class="pin">📌</span><span><b>11 autres prompts</b> dans le Kit gratuit · lien en commentaire</span></div>

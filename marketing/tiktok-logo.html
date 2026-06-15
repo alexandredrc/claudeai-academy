@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logo TikTok — alex crypto ia (800×800)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700&family=Inter:wght@600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --display:'Sora',var(--sans);
+    --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); background:#3a3a3a;
+    padding:40px; display:flex; flex-wrap:wrap; gap:40px; justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hint{
+    width:100%; max-width:900px; background:#fff; border-radius:16px;
+    padding:18px 22px; font-size:15px; color:#333; line-height:1.6;
+  }
+  .hint code{background:#eee;padding:1px 6px;border-radius:5px;font-family:ui-monospace,monospace}
+
+  /* Isolation par ancre :target — une vignette à la fois (#logo-1 …). */
+  body:has(.avatar:target){padding:0;gap:0;background:#fff}
+  body:has(.avatar:target) .hint{display:none}
+  body:has(.avatar:target) .avatar:not(:target){display:none}
+  body:has(.avatar:target) .ring{display:none}   /* repère de coupe : aperçu seulement, jamais à l'export */
+
+  /* Avatar carré 800×800 ; TikTok rogne en cercle → tout est centré dans la zone sûre. */
+  .avatar{
+    position:relative; width:800px; height:800px; overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .ring{ position:absolute; inset:0; pointer-events:none }      /* cercle de coupe TikTok (repère) */
+  .mark{ width:430px; height:430px; display:block }
+  .word{ font-family:var(--display); font-weight:800; letter-spacing:.02em; line-height:1; }
+  .tag{ font-family:var(--sans); font-weight:700; text-transform:uppercase; }
+
+  /* ---------- Variante 1 — Dark Gold (crypto premium) ---------- */
+  #logo-1{ background:radial-gradient(120% 120% at 50% 30%, #1b2436 0%, #0c1018 70%, #05070b 100%) }
+  #logo-1 .word{ font-size:118px; margin-top:18px;
+    background:linear-gradient(180deg,#FCEFC2,#D9A441); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent }
+  #logo-1 .tag{ color:#8ea0c0; font-size:30px; letter-spacing:.42em; margin-top:18px; text-indent:.42em }
+
+  /* ---------- Variante 2 — Neon Tech (IA-forward) ---------- */
+  #logo-2{ background:radial-gradient(120% 120% at 50% 35%, #141233 0%, #0a0820 70%, #050410 100%) }
+  #logo-2 .word{ color:#fff; font-size:118px; margin-top:18px }
+  #logo-2 .tag{ font-size:30px; letter-spacing:.42em; margin-top:18px; text-indent:.42em;
+    background:linear-gradient(90deg,#37E6FF,#A56BFF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent }
+  #logo-2 .grid{ position:absolute; inset:0; opacity:.10;
+    background-image:linear-gradient(#6f7bff 1px,transparent 1px),linear-gradient(90deg,#6f7bff 1px,transparent 1px);
+    background-size:46px 46px }
+
+  /* ---------- Variante 3 — Charte chaude (cohérence ClaudeAI Academy) ---------- */
+  #logo-3{ background:radial-gradient(120% 120% at 50% 25%, #FAF7F2 0%, #F1E9DC 100%) }
+  #logo-3 .word{ color:#1F1F1E; font-size:118px; margin-top:18px }
+  #logo-3 .tag{ color:#C2664A; font-size:30px; letter-spacing:.42em; margin-top:18px; text-indent:.42em }
+</style>
+</head>
+<body>
+
+  <div class="hint">
+    <b>Export :</b> ajoute <code>#logo-1</code>, <code>#logo-2</code> ou <code>#logo-3</code> à l'URL pour isoler une vignette (800×800), puis capture. Le script <code>scripts/render-tiktok-logo.mjs</code> le fait automatiquement. Le cercle pointillé montre la zone visible après le rognage circulaire de TikTok.
+  </div>
+
+  <!-- ============ VARIANTE 1 — DARK GOLD ============ -->
+  <section class="avatar" id="logo-1">
+    <svg class="ring" viewBox="0 0 800 800"><circle cx="400" cy="400" r="392" fill="none" stroke="#ffffff" stroke-opacity=".14" stroke-dasharray="6 10" stroke-width="2"/></svg>
+    <svg class="mark" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#FCEFC2"/><stop offset="1" stop-color="#D9A441"/>
+        </linearGradient>
+        <filter id="glow1" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- hexagone crypto -->
+      <polygon points="200,40 330,115 330,265 200,340 70,265 70,115" stroke="url(#g1)" stroke-width="10" stroke-linejoin="round" fill="rgba(217,164,65,.05)"/>
+      <!-- A : deux jambages + barre = circuit IA -->
+      <g filter="url(#glow1)">
+        <path d="M150 268 L200 120 L250 268" stroke="url(#g1)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M170 212 L230 212" stroke="url(#g1)" stroke-width="14" stroke-linecap="round"/>
+      </g>
+      <!-- nœuds IA -->
+      <circle cx="200" cy="120" r="15" fill="#FCEFC2"/>
+      <circle cx="150" cy="268" r="13" fill="#D9A441"/>
+      <circle cx="250" cy="268" r="13" fill="#D9A441"/>
+      <circle cx="170" cy="212" r="9" fill="#FCEFC2"/>
+      <circle cx="230" cy="212" r="9" fill="#FCEFC2"/>
+    </svg>
+    <div class="word">ALEX</div>
+    <div class="tag">Crypto · IA</div>
+  </section>
+
+  <!-- ============ VARIANTE 2 — NEON TECH ============ -->
+  <section class="avatar" id="logo-2">
+    <div class="grid"></div>
+    <svg class="ring" viewBox="0 0 800 800"><circle cx="400" cy="400" r="392" fill="none" stroke="#ffffff" stroke-opacity=".14" stroke-dasharray="6 10" stroke-width="2"/></svg>
+    <svg class="mark" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#37E6FF"/><stop offset="1" stop-color="#A56BFF"/>
+        </linearGradient>
+        <filter id="glow2" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <polygon points="200,40 330,115 330,265 200,340 70,265 70,115" stroke="url(#g2)" stroke-width="8" stroke-linejoin="round" fill="rgba(86,120,255,.06)"/>
+      <g filter="url(#glow2)">
+        <path d="M150 268 L200 120 L250 268" stroke="url(#g2)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M170 212 L230 212" stroke="url(#g2)" stroke-width="14" stroke-linecap="round"/>
+      </g>
+      <circle cx="200" cy="120" r="16" fill="#37E6FF" filter="url(#glow2)"/>
+      <circle cx="150" cy="268" r="13" fill="#A56BFF"/>
+      <circle cx="250" cy="268" r="13" fill="#A56BFF"/>
+      <circle cx="170" cy="212" r="9" fill="#7FD9FF"/>
+      <circle cx="230" cy="212" r="9" fill="#7FD9FF"/>
+    </svg>
+    <div class="word">ALEX</div>
+    <div class="tag">Crypto · IA</div>
+  </section>
+
+  <!-- ============ VARIANTE 3 — CHARTE CHAUDE ============ -->
+  <section class="avatar" id="logo-3">
+    <svg class="ring" viewBox="0 0 800 800"><circle cx="400" cy="400" r="392" fill="none" stroke="#1F1F1E" stroke-opacity=".10" stroke-dasharray="6 10" stroke-width="2"/></svg>
+    <svg class="mark" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#E08964"/><stop offset="1" stop-color="#C2664A"/>
+        </linearGradient>
+      </defs>
+      <polygon points="200,40 330,115 330,265 200,340 70,265 70,115" stroke="url(#g3)" stroke-width="10" stroke-linejoin="round" fill="rgba(217,119,87,.06)"/>
+      <path d="M150 268 L200 120 L250 268" stroke="url(#g3)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M170 212 L230 212" stroke="url(#g3)" stroke-width="14" stroke-linecap="round"/>
+      <circle cx="200" cy="120" r="15" fill="#C2664A"/>
+      <circle cx="150" cy="268" r="13" fill="#E08964"/>
+      <circle cx="250" cy="268" r="13" fill="#E08964"/>
+      <circle cx="170" cy="212" r="9" fill="#C2664A"/>
+      <circle cx="230" cy="212" r="9" fill="#C2664A"/>
+    </svg>
+    <div class="word">ALEX</div>
+    <div class="tag">Crypto · IA</div>
+  </section>
+
+</body>
+</html>

@@ -15,6 +15,47 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tarifs" },
 };
 
+// Produit numérique : aucune livraison physique (accès en ligne immédiat) et
+// garantie « satisfait ou remboursé » 14 jours. On déclare malgré tout
+// shippingDetails (à 0 €, 0 jour) et hasMerchantReturnPolicy pour satisfaire
+// les exigences des fiches de marchand Google et lever les avertissements.
+const shippingDetails = {
+  "@type": "OfferShippingDetails",
+  shippingRate: {
+    "@type": "MonetaryAmount",
+    value: "0",
+    currency: "EUR",
+  },
+  shippingDestination: {
+    "@type": "DefinedRegion",
+    addressCountry: "FR",
+  },
+  deliveryTime: {
+    "@type": "ShippingDeliveryTime",
+    handlingTime: {
+      "@type": "QuantitativeValue",
+      minValue: 0,
+      maxValue: 0,
+      unitCode: "DAY",
+    },
+    transitTime: {
+      "@type": "QuantitativeValue",
+      minValue: 0,
+      maxValue: 0,
+      unitCode: "DAY",
+    },
+  },
+};
+
+const hasMerchantReturnPolicy = {
+  "@type": "MerchantReturnPolicy",
+  applicableCountry: "FR",
+  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+  merchantReturnDays: 14,
+  returnMethod: "https://schema.org/ReturnByMail",
+  returnFees: "https://schema.org/FreeReturn",
+};
+
 const offersJsonLd = {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -23,7 +64,7 @@ const offersJsonLd = {
     "Formation en ligne francophone pour maîtriser Claude AI : 7 parcours, 40 leçons, 170 prompts, mentor IA. Paiement unique, accès à vie, garantie 14 jours.",
   url: "https://www.claudeai-academy.com/tarifs",
   image: "https://www.claudeai-academy.com/og.png",
-  brand: { "@type": "Organization", name: "ClaudeAI Academy" },
+  brand: { "@type": "Brand", name: "ClaudeAI Academy" },
   offers: [
     {
       "@type": "Offer",
@@ -32,6 +73,8 @@ const offersJsonLd = {
       priceCurrency: "EUR",
       url: "https://www.claudeai-academy.com/tarifs#starter",
       availability: "https://schema.org/InStock",
+      shippingDetails,
+      hasMerchantReturnPolicy,
     },
     {
       "@type": "Offer",
@@ -40,6 +83,8 @@ const offersJsonLd = {
       priceCurrency: "EUR",
       url: "https://www.claudeai-academy.com/tarifs#mastery",
       availability: "https://schema.org/InStock",
+      shippingDetails,
+      hasMerchantReturnPolicy,
     },
   ],
 };

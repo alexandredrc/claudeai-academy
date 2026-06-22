@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ClaudeAI Academy — Neuromarketing appliqué (1080×1350)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F5F1EB; --cream-soft:#FAF7F2; --cream-dark:#EDE6D9;
+    --coral:#D97757; --coral-dark:#C2664A; --coral-soft:#F2D5C7;
+    --ink:#1F1F1E; --ink-soft:#3D3929; --muted:#6B6557; --line:#E5DED0;
+    --green:#2A9D8F; --red:#C2664A;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --serif:'Fraunces',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); background:#cfc7b8; color:var(--ink);
+    padding:40px; display:flex; flex-wrap:wrap; gap:40px; justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hint{
+    width:100%; max-width:1080px; background:#fff; border:1px solid var(--line);
+    border-radius:16px; padding:18px 22px; font-size:15px; color:var(--ink-soft); line-height:1.6;
+  }
+  .hint b{color:var(--coral-dark)}
+  .hint code{font-family:var(--mono); background:var(--cream-dark); padding:1px 6px; border-radius:5px}
+
+  /* Isolation par ancre :target — capture une carte à la fois (#nm-1 …). */
+  body:has(.card:target){padding:0;gap:0;background:var(--cream)}
+  body:has(.card:target) .hint{display:none}
+  body:has(.card:target) .card:not(:target){display:none}
+  .card:target{box-shadow:none}
+
+  /* Format portrait 4:5 — 1080 x 1350. */
+  .card{
+    position:relative; width:1080px; height:1350px; overflow:hidden;
+    background:var(--cream); color:var(--ink);
+    display:flex; flex-direction:column;
+    padding:96px 88px 88px;
+    box-shadow:0 30px 80px rgba(0,0,0,.25);
+  }
+  .card::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(120% 80% at 78% 8%, rgba(217,119,87,.16), transparent 55%),
+               radial-gradient(90% 60% at 8% 96%, rgba(217,119,87,.09), transparent 50%);
+    pointer-events:none;
+  }
+  .card > *{position:relative; z-index:1}
+
+  .top{ flex:0 0 auto }
+  .mid{ flex:1 1 auto; display:flex; flex-direction:column; justify-content:center }
+  .bot{ flex:0 0 auto }
+
+  /* Eyebrow : titre de série, façon charte. */
+  .eyebrow{
+    display:flex; align-items:center; gap:18px;
+    font-size:25px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--coral);
+  }
+  .eyebrow .dot{ width:13px;height:13px;border-radius:50%;background:var(--green) }
+  .eyebrow .sub{ color:var(--ink-soft); letter-spacing:.10em; font-weight:600 }
+
+  /* Numéro de concept + titre. */
+  .knum{
+    font-family:var(--serif); font-style:italic; font-weight:600; color:var(--coral);
+    font-size:40px; margin-top:30px;
+  }
+  h1{
+    font-family:var(--serif); font-weight:500; line-height:1.05;
+    letter-spacing:-.02em; font-size:82px; color:var(--ink); text-wrap:balance; margin-top:6px;
+  }
+  h1 em{ font-style:italic; color:var(--coral); font-weight:600 }
+
+  .lead{ font-size:38px; line-height:1.45; color:var(--ink-soft); text-wrap:pretty; margin-top:30px }
+
+  /* Comparatif deux colonnes : ❌ montant brut  vs  ✅ montant divisé. */
+  .compare{ display:flex; gap:36px; margin-top:18px }
+  .pane{ flex:1 1 0; display:flex; flex-direction:column; align-items:center; text-align:center }
+
+  /* Carte « Pass » stylisée (équivalent de la carte d'abonnement de la réf). */
+  .pass{
+    position:relative; width:100%; aspect-ratio:1.586/1; border-radius:30px;
+    padding:34px 36px; color:#fff; overflow:hidden;
+    box-shadow:0 24px 48px rgba(31,31,30,.22);
+    transform:rotate(-3deg);
+  }
+  .pane.ok .pass{ transform:rotate(3deg) }
+  .pass.dim{ background:linear-gradient(135deg,#8a8275,#6b6557) }
+  .pass.live{ background:linear-gradient(135deg,var(--coral),var(--coral-dark)) }
+  .pass .brand{ font-family:var(--serif); font-weight:600; font-size:34px; letter-spacing:-.01em }
+  .pass .tier{
+    position:absolute; top:34px; right:36px; font-size:22px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; opacity:.9;
+  }
+  .pass .chip{
+    position:absolute; left:36px; top:108px; width:74px; height:56px; border-radius:12px;
+    background:linear-gradient(135deg, rgba(255,255,255,.85), rgba(255,255,255,.5));
+  }
+  .pass .stripe{
+    position:absolute; left:0; right:0; bottom:96px; height:46px;
+    background:rgba(0,0,0,.28);
+  }
+  .pass .id{
+    position:absolute; left:36px; bottom:34px; font-family:var(--mono);
+    font-size:24px; letter-spacing:.18em; opacity:.92;
+  }
+  .pass .life{
+    position:absolute; right:36px; bottom:34px; font-size:22px; font-weight:600; opacity:.92;
+  }
+
+  /* Pastille ❌ / ✅ posée sur la carte. */
+  .mark{
+    position:absolute; right:-18px; bottom:-22px; width:120px; height:120px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:72px; font-weight:800; line-height:1;
+    box-shadow:0 14px 30px rgba(31,31,30,.28); z-index:3;
+  }
+  .mark.no{ background:#fff; color:var(--red) }
+  .mark.yes{ background:#fff; color:var(--green) }
+
+  .amount{ font-family:var(--serif); font-weight:600; font-size:64px; line-height:1; margin-top:48px }
+  .pane.no .amount{ color:var(--muted) }
+  .pane.ok .amount{ color:var(--ink) }
+  .caption{ font-size:31px; line-height:1.35; color:var(--ink-soft); margin-top:18px; max-width:380px }
+  .caption b{ color:var(--ink); font-weight:700 }
+
+  /* Bandeau d'insight neuromarketing. */
+  .insight{
+    margin-top:54px; background:var(--cream-soft); border:1px solid var(--line); border-radius:22px;
+    padding:34px 40px; font-size:33px; line-height:1.45; color:var(--ink-soft);
+  }
+  .insight b{ color:var(--ink); font-weight:700 } .insight .hl{ color:var(--coral-dark); font-weight:700 }
+
+  /* Footer cohérent avec les autres séries. */
+  .footer{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:46px; padding-top:28px; border-top:1px solid var(--line);
+  }
+  .footer .url{ font-size:30px; color:var(--ink); font-weight:600 }
+  .footer .url span{ color:var(--coral) }
+  .footer .note{ font-size:27px; color:var(--muted) }
+</style>
+</head>
+<body>
+
+  <div class="hint">
+    <b>Export :</b> ajoute <code>#nm-1</code> à l'URL pour isoler une carte (1080×1350), puis capture. Le script <code>scripts/render-neuromarketing.mjs</code> le fait automatiquement.
+  </div>
+
+  <!-- ============ NM-1 — L'illusion du prix abordable (Pass Mastery) ============ -->
+  <section class="card" id="nm-1">
+    <div class="top">
+      <div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Neuromarketing appliqué</span></div>
+      <div class="knum">Concept n°2</div>
+      <h1>L'illusion du <em>prix abordable</em></h1>
+      <p class="lead">Un montant élevé paraît plus accessible quand on le divise en petites sommes.</p>
+    </div>
+
+    <div class="mid">
+      <div class="compare">
+        <!-- Colonne ❌ : le prix brut -->
+        <div class="pane no">
+          <div class="pass dim">
+            <div class="brand">Pass Mastery</div>
+            <div class="tier">Accès à vie</div>
+            <div class="chip"></div>
+            <div class="stripe"></div>
+            <div class="id">CLAUDE · AI</div>
+            <div class="life">★ ★ ★</div>
+            <div class="mark no">✕</div>
+          </div>
+          <div class="amount">497 €</div>
+          <div class="caption">« La formation revient à <b>497 € d'un coup.</b> »</div>
+        </div>
+
+        <!-- Colonne ✅ : le prix divisé -->
+        <div class="pane ok">
+          <div class="pass live">
+            <div class="brand">Pass Mastery</div>
+            <div class="tier">Accès à vie</div>
+            <div class="chip"></div>
+            <div class="stripe"></div>
+            <div class="id">CLAUDE · AI</div>
+            <div class="life">★ ★ ★</div>
+            <div class="mark yes">✓</div>
+          </div>
+          <div class="amount">1,36 € <span style="font-size:34px;font-weight:500;color:var(--muted)">/ jour</span></div>
+          <div class="caption">« La formation revient à <b>moins de 1,40 € par jour</b> la première année. »</div>
+        </div>
+      </div>
+
+      <div class="insight">
+        Même prix. <b>497 € payés une fois</b>, c'est <span class="hl">le prix d'un café par jour</span> sur un an — sauf que l'accès, lui, est <b>à vie</b>.
+      </div>
+    </div>
+
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/tarifs</span></span><span class="note">Pass Mastery · ou 3×179 €</span></div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "render:instagram": "node scripts/render-instagram.mjs",
-    "render:linkedin": "node scripts/render-linkedin.mjs"
+    "render:linkedin": "node scripts/render-linkedin.mjs",
+    "render:neuromarketing": "node scripts/render-neuromarketing.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",

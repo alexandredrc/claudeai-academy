@@ -30,7 +30,7 @@
   .hint b{color:var(--coral-dark)}
   .hint code{font-family:var(--mono); background:var(--cream-dark); padding:1px 6px; border-radius:5px}
 
-  /* Isolation par ancre :target — capture une carte à la fois (#nm-1 …). */
+  /* Isolation par ancre :target — capture une carte à la fois (#nm-1 … #nm-5). */
   body:has(.card:target){padding:0;gap:0;background:var(--cream)}
   body:has(.card:target) .hint{display:none}
   body:has(.card:target) .card:not(:target){display:none}
@@ -73,6 +73,7 @@
     font-family:var(--serif); font-weight:500; line-height:1.05;
     letter-spacing:-.02em; font-size:82px; color:var(--ink); text-wrap:balance; margin-top:6px;
   }
+  h1.sm{ font-size:72px }
   h1 em{ font-style:italic; color:var(--coral); font-weight:600 }
 
   .lead{ font-size:38px; line-height:1.45; color:var(--ink-soft); text-wrap:pretty; margin-top:30px }
@@ -93,8 +94,8 @@
   .pass.live{ background:linear-gradient(135deg,var(--coral),var(--coral-dark)) }
   .pass .brand{ font-family:var(--serif); font-weight:600; font-size:34px; letter-spacing:-.01em }
   .pass .tier{
-    position:absolute; top:34px; right:36px; font-size:22px; font-weight:700;
-    letter-spacing:.12em; text-transform:uppercase; opacity:.9;
+    margin-top:6px; font-size:20px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; opacity:.85;
   }
   .pass .chip{
     position:absolute; left:36px; top:108px; width:74px; height:56px; border-radius:12px;
@@ -129,10 +130,56 @@
 
   /* Bandeau d'insight neuromarketing. */
   .insight{
-    margin-top:54px; background:var(--cream-soft); border:1px solid var(--line); border-radius:22px;
+    margin-top:50px; background:var(--cream-soft); border:1px solid var(--line); border-radius:22px;
     padding:34px 40px; font-size:33px; line-height:1.45; color:var(--ink-soft);
   }
   .insight b{ color:var(--ink); font-weight:700 } .insight .hl{ color:var(--coral-dark); font-weight:700 }
+
+  /* === Ancrage de prix (nm-1) === */
+  .anchor{ display:flex; flex-direction:column; gap:30px; margin-top:8px }
+  .price-row{
+    display:flex; align-items:center; gap:34px;
+    background:var(--cream-soft); border:1px solid var(--line); border-radius:24px; padding:40px 46px;
+  }
+  .price-row.hero{ background:var(--coral-soft); border-color:var(--coral-soft) }
+  .price-row .pr-amt{ font-family:var(--serif); font-weight:600; font-size:88px; line-height:1; flex:0 0 auto }
+  .price-row.ref .pr-amt{ color:var(--ink) }
+  .price-row.hero .pr-amt{ color:var(--coral-dark) }
+  .price-row .pr-txt{ font-size:32px; line-height:1.35; color:var(--ink-soft) }
+  .price-row .pr-txt b{ color:var(--ink); font-weight:700 }
+
+  /* === Aversion à la perte (nm-4) : split perte / gain === */
+  .split{ display:flex; gap:32px; margin-top:8px }
+  .half{ flex:1 1 0; border-radius:24px; padding:42px 40px }
+  .half .htag{ font-size:25px; font-weight:700; letter-spacing:.10em; text-transform:uppercase; margin-bottom:22px }
+  .half .big{ font-family:var(--serif); font-weight:600; font-size:96px; line-height:1 }
+  .half .desc{ font-size:30px; line-height:1.35; margin-top:18px }
+  .half.loss{ background:#f3e0d8; border:1px solid var(--coral-soft) }
+  .half.loss .htag{ color:var(--coral-dark) } .half.loss .big{ color:var(--coral-dark) } .half.loss .desc{ color:var(--ink-soft) }
+  .half.gain{ background:#e3efec; border:1px solid #c9e2db }
+  .half.gain .htag{ color:var(--green) } .half.gain .big{ color:var(--green) } .half.gain .desc{ color:var(--ink-soft) }
+
+  /* === Réduction du risque (nm-5) : garantie === */
+  .seal{
+    margin:14px auto 0; width:300px; height:300px; border-radius:50%;
+    background:radial-gradient(circle at 50% 40%, var(--coral), var(--coral-dark));
+    color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    box-shadow:0 24px 50px rgba(194,102,74,.4); border:6px dashed rgba(255,255,255,.5);
+  }
+  .seal .d{ font-family:var(--serif); font-weight:600; font-size:120px; line-height:.9 }
+  .seal .u{ font-size:30px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-top:6px }
+
+  /* === Preuve sociale (nm-3) : stats produit === */
+  .stats{ display:flex; gap:26px; margin-top:8px }
+  .stat{ flex:1 1 0; background:var(--cream-soft); border:1px solid var(--line); border-radius:24px; padding:42px 22px; text-align:center }
+  .stat .n{ font-family:var(--serif); font-weight:600; font-size:90px; line-height:1; color:var(--coral-dark) }
+  .stat .l{ font-size:28px; color:var(--ink-soft); margin-top:14px; font-weight:500 }
+  .quote{
+    margin-top:36px; background:var(--cream-soft); border:1px solid var(--line); border-left:6px solid var(--coral);
+    border-radius:18px; padding:36px 40px; font-size:34px; line-height:1.45; color:var(--ink-soft); font-style:italic;
+  }
+  .quote b{ color:var(--ink); font-weight:700; font-style:normal }
+  .quote .who{ display:block; margin-top:18px; font-size:27px; font-style:normal; color:var(--muted) }
 
   /* Footer cohérent avec les autres séries. */
   .footer{
@@ -147,21 +194,47 @@
 <body>
 
   <div class="hint">
-    <b>Export :</b> ajoute <code>#nm-1</code> à l'URL pour isoler une carte (1080×1350), puis capture. Le script <code>scripts/render-neuromarketing.mjs</code> le fait automatiquement.
+    <b>Export :</b> ajoute <code>#nm-1</code> … <code>#nm-5</code> à l'URL pour isoler une carte (1080×1350), puis capture. Le script <code>scripts/render-neuromarketing.mjs</code> le fait automatiquement.
   </div>
 
-  <!-- ============ NM-1 — L'illusion du prix abordable (Pass Mastery) ============ -->
+  <!-- ============ NM-1 — L'ancrage de prix ============ -->
   <section class="card" id="nm-1">
+    <div class="top">
+      <div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Neuromarketing appliqué</span></div>
+      <div class="knum">Concept n°1</div>
+      <h1>L'<em>ancrage</em> de prix</h1>
+      <p class="lead">Le premier chiffre que tu vois devient la référence qui juge tous les autres.</p>
+    </div>
+    <div class="mid">
+      <div class="anchor">
+        <div class="price-row ref">
+          <div class="pr-amt">497 €</div>
+          <div class="pr-txt">Le <b>Pass Mastery</b> : 7 parcours, accès à vie.<br />C'est l'ancre.</div>
+        </div>
+        <div class="price-row hero">
+          <div class="pr-amt">47 €</div>
+          <div class="pr-txt">À côté, le <b>Pass Starter</b> ne ressemble plus à une dépense — juste à un premier pas.</div>
+        </div>
+      </div>
+      <div class="insight">
+        Présenté seul, 47 € se discute. Présenté <b>après 497 €</b>, il paraît <span class="hl">évident</span>. Le chiffre n'a pas changé — le point de comparaison, si.
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/tarifs</span></span><span class="note">Starter 47 € · Mastery 497 €</span></div>
+    </div>
+  </section>
+
+  <!-- ============ NM-2 — L'illusion du prix abordable ============ -->
+  <section class="card" id="nm-2">
     <div class="top">
       <div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Neuromarketing appliqué</span></div>
       <div class="knum">Concept n°2</div>
       <h1>L'illusion du <em>prix abordable</em></h1>
       <p class="lead">Un montant élevé paraît plus accessible quand on le divise en petites sommes.</p>
     </div>
-
     <div class="mid">
       <div class="compare">
-        <!-- Colonne ❌ : le prix brut -->
         <div class="pane no">
           <div class="pass dim">
             <div class="brand">Pass Mastery</div>
@@ -175,8 +248,6 @@
           <div class="amount">497 €</div>
           <div class="caption">« La formation revient à <b>497 € d'un coup.</b> »</div>
         </div>
-
-        <!-- Colonne ✅ : le prix divisé -->
         <div class="pane ok">
           <div class="pass live">
             <div class="brand">Pass Mastery</div>
@@ -191,14 +262,91 @@
           <div class="caption">« La formation revient à <b>moins de 1,40 € par jour</b> la première année. »</div>
         </div>
       </div>
-
       <div class="insight">
         Même prix. <b>497 € payés une fois</b>, c'est <span class="hl">le prix d'un café par jour</span> sur un an — sauf que l'accès, lui, est <b>à vie</b>.
       </div>
     </div>
-
     <div class="bot">
       <div class="footer"><span class="url">claudeai-academy.com<span>/tarifs</span></span><span class="note">Pass Mastery · ou 3×179 €</span></div>
+    </div>
+  </section>
+
+  <!-- ============ NM-3 — La preuve sociale ============ -->
+  <section class="card" id="nm-3">
+    <div class="top">
+      <div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Neuromarketing appliqué</span></div>
+      <div class="knum">Concept n°3</div>
+      <h1 class="sm">La <em>preuve sociale</em></h1>
+      <p class="lead">On juge la valeur d'un choix à ce que font — et disent — les autres.</p>
+    </div>
+    <div class="mid">
+      <div class="stats">
+        <div class="stat"><div class="n">7</div><div class="l">parcours complets</div></div>
+        <div class="stat"><div class="n">40</div><div class="l">leçons guidées</div></div>
+        <div class="stat"><div class="n">170</div><div class="l">prompts prêts</div></div>
+      </div>
+      <div class="quote">
+        « <b>[Témoignage à insérer]</b> — en deux semaines, je gagne une heure par jour sur mes tâches. »
+        <span class="who">— Prénom N., métier · [à remplacer par un vrai avis]</span>
+      </div>
+      <div class="insight">
+        Les chiffres rassurent, l'avis humain <span class="hl">convainc</span>. Un visage et une phrase concrète valent mieux que dix arguments.
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/tarifs</span></span><span class="note">7 parcours · 40 leçons · 170 prompts</span></div>
+    </div>
+  </section>
+
+  <!-- ============ NM-4 — L'aversion à la perte ============ -->
+  <section class="card" id="nm-4">
+    <div class="top">
+      <div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Neuromarketing appliqué</span></div>
+      <div class="knum">Concept n°4</div>
+      <h1 class="sm">L'<em>aversion</em> à la perte</h1>
+      <p class="lead">On déteste perdre deux fois plus fort qu'on aime gagner.</p>
+    </div>
+    <div class="mid">
+      <div class="split">
+        <div class="half loss">
+          <div class="htag">Sans méthode</div>
+          <div class="big">80 %</div>
+          <div class="desc">du potentiel de l'IA que tu laisses sur la table, chaque jour.</div>
+        </div>
+        <div class="half gain">
+          <div class="htag">Avec méthode</div>
+          <div class="big">+1 h</div>
+          <div class="desc">par jour récupérée sur tes tâches répétitives.</div>
+        </div>
+      </div>
+      <div class="insight">
+        « Économise du temps » fait hausser les épaules. <b>« Tu perds 80 % de l'outil que tu utilises déjà »</b> <span class="hl">fait agir</span>.
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/kit</span></span><span class="note">15 prompts gratuits pour commencer</span></div>
+    </div>
+  </section>
+
+  <!-- ============ NM-5 — La réduction du risque (garantie) ============ -->
+  <section class="card" id="nm-5">
+    <div class="top">
+      <div class="eyebrow"><span>ClaudeAI Academy</span><span class="dot"></span><span class="sub">Neuromarketing appliqué</span></div>
+      <div class="knum">Concept n°5</div>
+      <h1 class="sm">La <em>réduction</em> du risque</h1>
+      <p class="lead">On achète quand la peur de se tromper disparaît.</p>
+    </div>
+    <div class="mid">
+      <div class="seal">
+        <div class="d">14</div>
+        <div class="u">jours</div>
+      </div>
+      <div class="insight">
+        Garantie <b>satisfait ou remboursé</b> : le risque passe de ton côté au <span class="hl">nôtre</span>. Tu ne paries plus — tu testes. Et tester, c'est déjà commencer.
+      </div>
+    </div>
+    <div class="bot">
+      <div class="footer"><span class="url">claudeai-academy.com<span>/tarifs</span></span><span class="note">14 jours · remboursé sans condition</span></div>
     </div>
   </section>
 

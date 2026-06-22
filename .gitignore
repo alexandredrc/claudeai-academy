@@ -44,6 +44,9 @@ next-env.d.ts
 scripts/veille/.state.json
 scripts/veille/reports/
 
+# visuels rendus (PNG = artefacts générés depuis les gabarits HTML)
+marketing/exports/
+
 # Local-only (agent state, backups)
 .claude/
 _archive/

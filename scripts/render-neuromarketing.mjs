@@ -32,7 +32,7 @@ const W = 1080;
 const H = 1350;
 
 // Ancres présentes dans le gabarit (doivent matcher les id="" des <section>).
-const anchors = ["nm-1", "nm-2", "nm-3", "nm-4", "nm-5"];
+const anchors = ["nm-1", "nm-2", "nm-3", "nm-4"];
 
 const url = "file:///" + path.resolve(FILE).replace(/\\/g, "/");
 

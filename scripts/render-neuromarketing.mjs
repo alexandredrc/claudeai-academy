@@ -28,27 +28,32 @@ if (!browser) {
 }
 
 const FILE = "marketing/neuromarketing-visuals.html";
-const W = 1080;
-const H = 1350;
 
-// Ancres présentes dans le gabarit (doivent matcher les id="" des <section>).
-const anchors = ["nm-1", "nm-2", "nm-3", "nm-4"];
+// Deux formats : feed 4:5 (nm-*) et story/TikTok 9:16 (st-*).
+const sets = [
+  { anchors: ["nm-1", "nm-2", "nm-3", "nm-4"], w: 1080, h: 1350 },
+  { anchors: ["st-1", "st-2", "st-3", "st-4"], w: 1080, h: 1920 },
+];
 
 const url = "file:///" + path.resolve(FILE).replace(/\\/g, "/");
 
-for (const anchor of anchors) {
-  const out = path.join(outDir, `${anchor}.png`);
-  execFileSync(browser, [
-    "--headless=new",
-    "--disable-gpu",
-    "--hide-scrollbars",
-    "--force-device-scale-factor=2",
-    `--window-size=${W},${H}`,
-    "--virtual-time-budget=15000",
-    `--screenshot=${out}`,
-    `${url}#${anchor}`,
-  ]);
-  console.log("✓", out);
+let count = 0;
+for (const { anchors, w, h } of sets) {
+  for (const anchor of anchors) {
+    const out = path.join(outDir, `${anchor}.png`);
+    execFileSync(browser, [
+      "--headless=new",
+      "--disable-gpu",
+      "--hide-scrollbars",
+      "--force-device-scale-factor=2",
+      `--window-size=${w},${h}`,
+      "--virtual-time-budget=15000",
+      `--screenshot=${out}`,
+      `${url}#${anchor}`,
+    ]);
+    console.log("✓", out);
+    count++;
+  }
 }
 
-console.log(`\n${anchors.length} visuel(s) rendu(s) dans ${outDir}`);
+console.log(`\n${count} visuel(s) rendu(s) dans ${outDir}`);

@@ -87,8 +87,17 @@ export async function sendPurchaseWelcomeEmail(params: {
   to: string;
   tier: PlanTier;
   firstName: string | null;
+  /** Lien de connexion magique pour les comptes créés après paiement (pay-first). */
+  accessLink?: string | null;
 }): Promise<void> {
   const content = welcomeContent(params.tier);
+  if (params.accessLink) {
+    // Achat pay-first : le compte vient d'être créé. Le CTA principal devient
+    // le lien magique pour une première connexion en un clic, sans mot de passe.
+    content.ctaHref = params.accessLink;
+    content.ctaLabel = "Activer mon accès et commencer";
+    content.intro = `${content.intro} Ton compte a été créé automatiquement avec cet email — clique sur le bouton ci-dessous pour l'activer et tout débloquer.`;
+  }
   await sendEmail({
     to: params.to,
     subject: content.subject,

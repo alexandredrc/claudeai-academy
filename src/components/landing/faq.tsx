@@ -13,11 +13,11 @@ type Item = {
 const items: Item[] = [
   {
     q: "Je n'ai jamais rien fait en IA, c'est pour moi ?",
-    a: "Oui. La leçon 1 du parcours Prompt Engineering pose tous les fondamentaux. Chaque parcours commence par l'introduction nécessaire pour suivre. Aucun prérequis technique pour les parcours Business, Marketing ou Prompt Engineering. Pour Claude Code et Data & IA, des bases de programmation sont recommandées.",
+    a: "Oui. Le parcours Prompt Engineering pro pose tous les fondamentaux dès la première leçon. Aucun prérequis technique pour Prompt Engineering, Contenu & marketing ou Stratégie & conduite IA. Pour Claude Code, Data & SQL, Trading et les Skills GitHub, des bases de programmation aident — mais chaque parcours démarre par l'essentiel.",
   },
   {
     q: "Combien de temps faut-il pour terminer le programme ?",
-    a: "Compter 14 heures de contenu structuré au total. La majorité des membres terminent en 3 à 6 semaines à raison de 2 sessions par semaine. Vous gardez l'accès à vie, donc rien ne vous oblige à courir.",
+    a: "Comptez plus de 17 heures de contenu structuré (7 parcours, 40 leçons). La majorité des membres terminent en 4 à 8 semaines à raison de 2 sessions par semaine. Vous gardez l'accès à vie, donc rien ne vous oblige à courir.",
   },
   {
     q: "Le contenu sera-t-il dépassé dans 6 mois ?",

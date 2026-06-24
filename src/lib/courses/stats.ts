@@ -13,7 +13,7 @@ export type CatalogStats = {
  * landing ne doit JAMAIS planter à cause d'un compteur marketing. Valeurs
  * volontairement prudentes — la vraie source de vérité reste la base.
  */
-const FALLBACK: CatalogStats = { courseCount: 7, lessonCount: 28, totalMinutes: 0 };
+const FALLBACK: CatalogStats = { courseCount: 7, lessonCount: 40, totalMinutes: 1050 };
 
 /**
  * Stats du catalogue calculées depuis la base (source de vérité unique pour

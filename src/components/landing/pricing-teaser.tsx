@@ -32,7 +32,7 @@ export async function PricingTeaser() {
 
 function StarterCard() {
   const features = [
-    "Parcours Prompt Engineering complet",
+    "Les 2 parcours fondateurs : Prompt Engineering pro + Claude Code (13 leçons)",
     "Bibliothèque de prompts essentiels",
     "Accès permanent et mises à jour",
     "Mentor IA Claude inclus",
@@ -88,7 +88,7 @@ function MasteryCard({ stats }: { stats: CatalogStats }) {
       className="relative bg-gradient-to-br from-ink to-[#2D2A26] text-cream border border-ink rounded-[22px] p-9 md:p-10 flex flex-col"
     >
       <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-coral text-cream text-[12px] font-bold tracking-wider px-3.5 py-1.5 rounded-full">
-        ★ PLUS POPULAIRE
+        ★ LE PLUS COMPLET
       </span>
 
       <h3 className="font-serif text-2xl font-semibold">Pass Mastery</h3>

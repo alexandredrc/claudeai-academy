@@ -38,7 +38,7 @@ export async function Hero() {
 
             <div className="mt-9 flex flex-wrap gap-3">
               <Button href="/tarifs" variant="primary" size="lg">
-                Voir les tarifs
+                Rejoindre l&apos;académie
               </Button>
               <Button href="#programme" variant="ghost" size="lg">
                 Découvrir le programme

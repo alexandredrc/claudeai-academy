@@ -13,10 +13,11 @@ export default async function CheckoutSuccessPage({
   const { session_id } = await searchParams;
   if (!session_id) redirect("/account");
 
-  // Récupère la session Stripe pour afficher le bon plan / montant.
+  // Récupère la session Stripe pour afficher le bon plan / montant / email.
   // Pas critique si ça échoue (le webhook reste la source de vérité).
   let tierName = "Pass";
   let amountFormatted = "";
+  let buyerEmail: string | null = null;
   try {
     const session = await getStripe().checkout.sessions.retrieve(session_id);
     const tier = session.metadata?.tier;
@@ -31,18 +32,19 @@ export default async function CheckoutSuccessPage({
       currency: (session.currency ?? "eur").toUpperCase(),
       minimumFractionDigits: 0,
     }).format((session.amount_total ?? 0) / 100);
+    buyerEmail = session.customer_details?.email ?? session.customer_email ?? null;
   } catch {
     // Affichage générique si l'API Stripe répond mal.
   }
 
-  // S'assure que le user est bien authentifié (sinon redirige vers login).
+  // Achat connecté → accès direct à l'espace. Achat « pay-first » anonyme → le
+  // compte est créé par le webhook et le lien d'accès part par email : on NE
+  // force PAS la connexion (le membre n'a pas encore de mot de passe).
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) {
-    redirect(`/login?next=/checkout/success?session_id=${session_id}`);
-  }
+  const loggedIn = Boolean(user);
 
   return (
     <section className="bg-cream-soft">
@@ -58,27 +60,62 @@ export default async function CheckoutSuccessPage({
           </span>
           .
         </h1>
-        <p className="mx-auto mt-6 max-w-[480px] text-[15px] leading-relaxed text-ink-soft">
-          Ton {tierName}
-          {amountFormatted ? ` (${amountFormatted})` : ""} est activé. Tu vas
-          recevoir un email de confirmation avec ta facture dans quelques
-          minutes.
-        </p>
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-          <Link
-            href="/account"
-            className="rounded-[14px] bg-coral px-8 py-4 text-base font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
-          >
-            Accéder à mon espace
-          </Link>
-        </div>
+
+        {loggedIn ? (
+          <>
+            <p className="mx-auto mt-6 max-w-[480px] text-[15px] leading-relaxed text-ink-soft">
+              Ton {tierName}
+              {amountFormatted ? ` (${amountFormatted})` : ""} est activé. Tu vas
+              recevoir un email de confirmation avec ta facture dans quelques
+              minutes.
+            </p>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
+              <Link
+                href="/account"
+                className="rounded-[14px] bg-coral px-8 py-4 text-base font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
+              >
+                Accéder à mon espace
+              </Link>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="mx-auto mt-6 max-w-[500px] text-[15px] leading-relaxed text-ink-soft">
+              Ton {tierName}
+              {amountFormatted ? ` (${amountFormatted})` : ""} est activé. On
+              vient de créer ton compte
+              {buyerEmail ? (
+                <>
+                  {" "}
+                  (<strong className="text-ink">{buyerEmail}</strong>)
+                </>
+              ) : null}
+              {" "}: tu reçois à l&apos;instant un email avec ton{" "}
+              <strong className="text-ink">lien d&apos;accès en un clic</strong>{" "}
+              et ta facture. Clique-le pour entrer dans ton espace.
+            </p>
+            <p className="mx-auto mt-4 max-w-[460px] text-[13px] leading-relaxed text-muted">
+              L&apos;email n&apos;arrive pas sous 2-3 minutes ? Pense à vérifier
+              tes spams, ou écris-nous et on t&apos;ouvre l&apos;accès à la main.
+            </p>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
+              <Link
+                href="/login"
+                className="rounded-[14px] border border-line bg-white px-8 py-4 text-base font-semibold text-ink transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-coral"
+              >
+                J&apos;ai déjà un mot de passe — me connecter
+              </Link>
+            </div>
+          </>
+        )}
+
         <p className="mt-10 text-[13px] text-muted">
           Un souci ?{" "}
           <a
-            href="mailto:hello@claudeai-academy.com"
+            href="mailto:contact@claudeai-academy.com"
             className="underline hover:text-ink"
           >
-            hello@claudeai-academy.com
+            contact@claudeai-academy.com
           </a>
         </p>
       </div>

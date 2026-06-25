@@ -62,7 +62,14 @@ async function handleCheckoutCompleted(
   session: Stripe.Checkout.Session,
 ): Promise<void> {
   if (session.mode !== "payment") return;
-  if (session.payment_status !== "paid") return;
+  // "paid" = achat normal. "no_payment_required" = total 0 € (code promo 100 %,
+  // ex. sièges « Membres Fondateurs » offerts) → on débloque l'accès pareil.
+  if (
+    session.payment_status !== "paid" &&
+    session.payment_status !== "no_payment_required"
+  ) {
+    return;
+  }
 
   const tier = session.metadata?.tier;
   if (!tier || !isValidTier(tier)) {

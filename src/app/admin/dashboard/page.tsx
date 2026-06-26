@@ -144,6 +144,13 @@ export default async function AdminDashboardPage() {
   return (
     <section className="min-h-screen bg-cream-soft">
       <div className="mx-auto max-w-[1180px] px-5 py-12 md:px-8 md:py-16">
+        <a
+          href="/"
+          className="mb-6 inline-flex items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-coral"
+        >
+          <span aria-hidden="true">←</span> Retour à l&apos;accueil
+        </a>
+
         {/* Header */}
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>

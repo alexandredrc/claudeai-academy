@@ -65,6 +65,28 @@ export default async function AccountPage({
             : "Bienvenue dans ton espace ClaudeAI Academy."}
         </p>
 
+        {user.email === "adrc13820@gmail.com" && (
+          <Link
+            href="/admin/dashboard"
+            className="mt-8 flex items-center justify-between gap-4 rounded-[18px] bg-ink px-6 py-5 text-cream transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(31,31,30,0.22)]"
+          >
+            <span>
+              <span className="block text-[12px] font-semibold uppercase tracking-[0.12em] text-cream/60">
+                Espace admin
+              </span>
+              <span className="mt-1 block font-serif text-xl font-semibold">
+                Dashboard pilotage — publication sociale
+              </span>
+              <span className="mt-1 block text-[13px] text-cream/70">
+                Vue 360° : réseaux connectés, file de publications, calendrier 4 semaines.
+              </span>
+            </span>
+            <span className="shrink-0 text-2xl" aria-hidden="true">
+              →
+            </span>
+          </Link>
+        )}
+
         {showRequestedCta && requestedTier && (
           <PurchasePrompt tier={requestedTier} />
         )}

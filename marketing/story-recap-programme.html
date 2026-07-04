@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>ClaudeAI Academy — Story récap programme 1080×1920</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F5F1EB; --cream-soft:#FAF7F2; --cream-dark:#EDE6D9;
+    --coral:#D97757; --coral-dark:#C2664A; --coral-soft:#F2D5C7;
+    --ink:#1F1F1E; --ink-soft:#3D3929; --muted:#6B6557; --line:#E5DED0;
+    --green:#2A9D8F;
+    --sans:'Inter',sans-serif; --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden}
+  body{
+    font-family:var(--sans); background:var(--cream); color:var(--ink);
+    -webkit-font-smoothing:antialiased; position:relative;
+    display:flex; flex-direction:column; padding:150px 88px 150px;
+  }
+  body::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(120% 80% at 80% 8%, rgba(217,119,87,.15), transparent 55%),
+               radial-gradient(90% 60% at 6% 98%, rgba(217,119,87,.10), transparent 50%);
+    pointer-events:none;
+  }
+  body > *{position:relative; z-index:1}
+
+  .kicker{
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:26px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--coral);
+  }
+  .kicker .maj{ color:var(--muted); letter-spacing:.12em; font-weight:600; text-transform:none; font-size:24px }
+
+  h1{
+    font-family:var(--serif); font-weight:500; line-height:1.05;
+    letter-spacing:-.02em; font-size:84px; color:var(--ink); margin-top:36px;
+  }
+  h1 em{ font-style:italic; color:var(--coral) }
+
+  .spacer{ flex:1 }
+
+  .list{ margin-top:40px; display:flex; flex-direction:column }
+  .row{
+    display:flex; align-items:center; gap:24px;
+    padding:20px 6px; border-bottom:1px solid var(--line);
+  }
+  .row:first-child{ border-top:1px solid var(--line) }
+  .row .num{
+    font-family:var(--serif); font-weight:500; font-size:42px;
+    color:var(--coral); min-width:70px; line-height:1;
+  }
+  .row .t{ font-size:33px; font-weight:600; color:var(--ink); line-height:1.25; flex:1; white-space:nowrap }
+  .row .lc{ font-size:26px; color:var(--muted); white-space:nowrap }
+  .row .new{
+    font-size:20px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--cream-soft); background:var(--coral);
+    border-radius:999px; padding:7px 16px; white-space:nowrap;
+  }
+
+  .statbar{
+    margin-top:38px; display:flex; gap:22px;
+  }
+  .stat{
+    flex:1; background:var(--cream-soft); border:1px solid var(--line);
+    border-radius:24px; padding:30px 18px; text-align:center;
+  }
+  .stat .n{ font-family:var(--serif); font-weight:500; font-size:64px; color:var(--coral); line-height:1 }
+  .stat .l{ font-size:26px; color:var(--ink-soft); margin-top:12px; line-height:1.25 }
+
+  .cta{
+    margin-top:34px; background:var(--ink); border-radius:26px;
+    padding:38px 44px; display:flex; align-items:center; justify-content:space-between; gap:24px;
+  }
+  .cta .txt{ color:var(--cream); font-family:var(--serif); font-size:40px; font-weight:500; line-height:1.2 }
+  .cta .txt em{ font-style:italic; color:var(--coral-soft) }
+  .cta .pill{
+    background:var(--coral); color:#fff; font-weight:700; font-size:30px;
+    border-radius:999px; padding:20px 36px; white-space:nowrap;
+  }
+  .legal{
+    margin-top:26px; text-align:center; font-size:25px; color:var(--muted);
+  }
+</style>
+</head>
+<body>
+  <div class="kicker">
+    <span>Claude<span style="color:var(--ink)">AI</span> Academy</span>
+    <span class="maj">Programme — juillet 2026</span>
+  </div>
+
+  <h1>Tout ce qu'il y a dans la <em>formation</em>, exactement.</h1>
+
+  <div class="list">
+    <div class="row">
+      <span class="num">01</span>
+      <span class="t">Bien démarrer avec Claude</span>
+      <span class="new">Nouveau</span>
+      <span class="lc">8 leçons</span>
+    </div>
+    <div class="row">
+      <span class="num">02</span>
+      <span class="t">Prompt Engineering pro</span>
+      <span class="lc">7 leçons</span>
+    </div>
+    <div class="row">
+      <span class="num">03</span>
+      <span class="t">Claude Code et IA agentic</span>
+      <span class="lc">6 leçons</span>
+    </div>
+    <div class="row">
+      <span class="num">04</span>
+      <span class="t">Claude pour data et SQL</span>
+      <span class="lc">6 leçons</span>
+    </div>
+    <div class="row">
+      <span class="num">05</span>
+      <span class="t">Contenu et marketing</span>
+      <span class="lc">6 leçons</span>
+    </div>
+    <div class="row">
+      <span class="num">06</span>
+      <span class="t">Stratégie et conduite IA</span>
+      <span class="lc">6 leçons</span>
+    </div>
+    <div class="row">
+      <span class="num">07</span>
+      <span class="t">Trading + Claude Code</span>
+      <span class="lc">4 leçons</span>
+    </div>
+    <div class="row">
+      <span class="num">08</span>
+      <span class="t">Prompts &amp; Skills GitHub : sécurité</span>
+      <span class="lc">5 leçons</span>
+    </div>
+  </div>
+
+  <div class="statbar">
+    <div class="stat"><div class="n">48</div><div class="l">leçons sourcées<br/>doc officielle</div></div>
+    <div class="stat"><div class="n">170</div><div class="l">prompts prêts<br/>à l'emploi</div></div>
+    <div class="stat"><div class="n">24/7</div><div class="l">Mentor IA qui<br/>corrige vos exos</div></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="cta">
+    <div class="txt">Dès 47 € — <em>accès à vie</em>,<br/>mises à jour comprises.</div>
+    <div class="pill">Lien en bio →</div>
+  </div>
+  <div class="legal">Garantie 14 jours satisfait ou remboursé · claudeai-academy.com</div>
+</body>
+</html>

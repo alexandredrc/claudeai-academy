@@ -39,20 +39,20 @@ Claude est accessible de trois façons, toutes reliées au même compte — vos 
 
 ## Créer le compte
 
-Rendez-vous sur \`claude.ai\` et créez un compte avec votre adresse email ou votre compte Google. Deux conditions officielles : avoir **au moins 18 ans** et se trouver dans une **région supportée** (la France et la Suisse le sont).
+Rendez-vous sur \`claude.ai\` et créez un compte avec votre adresse email ou votre compte Google. Deux conditions officielles : avoir **au moins 18 ans** et se trouver dans une **région supportée** (la France, la Belgique, la Suisse, le Luxembourg et le Canada le sont).
 
 C'est tout. Pas de carte bancaire : le plan gratuit permet de commencer immédiatement.
 
 ## Installer l'application de bureau
 
 1. Allez sur la page de téléchargement de Claude (\`claude.com/download\`).
-2. Choisissez la version pour votre système (Mac ou Windows).
+2. Choisissez la version pour votre système (Mac ou Windows — pour Linux, voir ci-dessous).
 3. Ouvrez le fichier téléchargé et laissez l'installation se terminer.
 4. Lancez Claude depuis le dossier Applications (Mac) ou le menu Démarrer (Windows), puis connectez-vous.
 
 Sur **Linux**, Anthropic recommande d'installer depuis son dépôt apt plutôt qu'un .deb téléchargé : les mises à jour arrivent alors par le gestionnaire de paquets du système.
 
-Pourquoi s'embêter avec l'app de bureau alors que le web existe ? Le raccourci clavier global : Claude s'ouvre par-dessus n'importe quelle application, vous posez votre question, vous revenez à votre travail. C'est la différence entre « un outil que je vais consulter » et « un réflexe ».
+Pourquoi s'embêter avec l'app de bureau alors que le web existe ? Le raccourci clavier global : Claude s'ouvre par-dessus n'importe quelle application, vous posez votre question, vous revenez à votre travail. Cette fonction s'appelle **Quick Entry** — vous trouverez (et pourrez modifier) le raccourci dans les réglages de l'application de bureau. C'est la différence entre « un outil que je vais consulter » et « un réflexe ».
 
 ## Installer sur mobile
 
@@ -75,7 +75,7 @@ Le conseil officiel d'Anthropic tient en une phrase : parlez à Claude **comme �
 
 ## Exercice
 
-Installez Claude aux trois endroits : web (compte créé), bureau (app installée + connectée), mobile (app installée + connectée). Puis envoyez le même message depuis le mobile et vérifiez sur le web que la conversation apparaît bien dans l'historique. À partir de maintenant, Claude est à portée de main dans 100 % de vos contextes de travail.` + FOOTER,
+Installez Claude aux trois endroits : web (compte créé), bureau (app installée + connectée), mobile (app installée + connectée). Puis envoyez le même message depuis le mobile et vérifiez sur le web que la conversation apparaît bien dans l'historique. À partir de maintenant, Claude est à portée de main partout où vous travaillez.` + FOOTER,
     },
     {
       slug: "gratuit-pro-ou-max-choisir-son-plan",
@@ -92,17 +92,17 @@ Au moment où nous vérifions (juillet 2026), l'offre officielle est la suivante
 | --- | --- | --- |
 | **Free** | 0 $ | Chat sur web, mobile et bureau. Accès limité aux modèles, limites d'usage serrées. |
 | **Pro** | 17 $/mois (facturation annuelle) ou 20 $/mois | Usage nettement augmenté, accès aux modèles les plus capables, Research, Claude Code, Cowork, Design, intégration Microsoft 365. |
-| **Max** | à partir de 100 $/mois | Usage 5× ou 20× celui de Pro, accès anticipé aux nouveautés, priorité aux heures de pointe. |
-| **Team** | 20 $/siège/mois (annuel) | Pour 5 à 150 personnes : facturation centralisée, administration, SSO. |
-| **Enterprise** | sur devis | Contrôles avancés, audit logs, SCIM, offre compatible HIPAA. |
+| **Max** | à partir de 100 $/mois | Usage 5× ou 20× celui de Pro, accès anticipé aux nouveautés. |
+| **Team** | 20 $/siège/mois (annuel) | Pour 5 à 150 personnes : facturation centralisée, administration, connexion via le compte d'entreprise (SSO). |
+| **Enterprise** | sur devis | Réservé aux grandes organisations : contrôles de sécurité et de conformité avancés (journaux d'audit, gestion automatique des comptes, conformité santé HIPAA). |
 
 Les prix sont en dollars et évoluent : vérifiez toujours \`claude.com/pricing\` avant de décider.
 
 ## Comprendre les limites d'usage (le vrai sujet)
 
-Le plan gratuit fonctionne par **sessions** : une limite d'usage qui se réinitialise **toutes les 5 heures**, et qui varie selon la charge des serveurs. Concrètement : vous pouvez tester sérieusement Claude gratuitement, mais vous toucherez le plafond dès que vous travaillerez vraiment avec — analyse de documents longs, sessions de travail suivies, gros volumes.
+**Tous les plans fonctionnent par sessions de 5 heures** : une enveloppe d'usage qui se réinitialise toutes les 5 heures (et varie selon la charge des serveurs). Ce qui change d'un plan à l'autre, c'est la taille de l'enveloppe : très serrée en Free, environ 5× plus large en Pro, 5× à 20× celle de Pro en Max. Les plans payants ont **en plus une limite hebdomadaire globale**, qui se réinitialise à heure fixe chaque semaine.
 
-Ce n'est pas un défaut caché, c'est le modèle : le gratuit sert à évaluer, les plans payants à travailler.
+Concrètement : vous pouvez tester sérieusement Claude gratuitement, mais vous toucherez le plafond dès que vous travaillerez vraiment avec — analyse de documents longs, sessions de travail suivies, gros volumes. Ce n'est pas un défaut caché, c'est le modèle : le gratuit sert à évaluer, les plans payants à travailler. Et si vous atteignez les limites d'un plan payant, sachez qu'il existe des **crédits d'usage** optionnels pour continuer sans attendre la réinitialisation.
 
 ## Le critère de décision
 
@@ -141,7 +141,7 @@ Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche e
 
 - **Claude Sonnet 5** (sorti le 30 juin 2026) : le modèle équilibré de dernière génération — raisonnement, usage d'outils et rédaction en net progrès. Excellent défaut pour le travail quotidien.
 - **Claude Opus 4.8** (mai 2026) : le haut de gamme pour le code, les tâches agentiques et le raisonnement exigeant.
-- **Claude Fable 5** : le niveau le plus capable de la génération Claude 5, réservé aux plans supérieurs.
+- **Claude Fable 5** : le haut de gamme absolu de la génération Claude 5, disponible depuis le 1er juillet 2026. Modalités d'accès particulières au moment où nous écrivons : inclus pour les plans payants à hauteur de 50 % du quota hebdomadaire jusqu'au 7 juillet, ensuite via des crédits d'usage optionnels — situation transitoire, vérifiez la doc officielle.
 - **Claude Haiku 4.5** : le plus rapide et le plus économe — parfait pour les questions simples et les gros volumes.
 - Les générations précédentes (Opus 4.7, Opus 4.6, Sonnet 4.6…) restent accessibles via « Plus de modèles ».
 
@@ -155,9 +155,11 @@ Le sélecteur se trouve **à côté du bouton d'envoi** du message. Il affiche l
 2. **L'effort** : l'intensité de traitement de chaque réponse.
 3. **La réflexion étendue** (extended thinking) : un temps de réflexion visible avant la réponse.
 
+Précision importante (juillet 2026) : le sélecteur d'**effort** n'est proposé que sur certains modèles — la doc officielle liste Opus 4.8, 4.7, 4.6 et Sonnet 4.6. Sur les autres, dont **Sonnet 5 proposé par défaut**, vous verrez seulement l'interrupteur de réflexion étendue (« Extended »). Si vous ne trouvez pas le réglage d'effort, ce n'est donc pas un bug : changez de modèle via « Plus de modèles » ou passez-vous-en.
+
 ## L'effort : le réglage que tout le monde ignore
 
-La doc officielle est claire : *« Higher effort means more thorough responses, but they take longer and use more tokens. »* Plus d'effort = réponses plus fouillées, mais plus lentes et plus consommatrices de votre quota.
+La doc officielle est claire : *« Higher effort means more thorough responses, but they take longer and use more tokens […] »* Plus d'effort = réponses plus fouillées, mais plus lentes et plus consommatrices de votre quota.
 
 - **Low / Medium** : questions simples, reformulations, usage courant — et votre quota dure plus longtemps.
 - **High** : le bon équilibre par défaut pour le travail sérieux.
@@ -171,14 +173,14 @@ Inutile de l'activer pour « résume cet email ». Indispensable pour « trouve 
 
 ## La règle pratique
 
-> Tâche simple → défauts (Sonnet, effort standard, sans réflexion étendue).
-> Tâche complexe → montez UN cran à la fois : d'abord l'effort, puis la réflexion étendue, puis le modèle supérieur.
+> Tâche simple → défauts (Sonnet, sans réflexion étendue).
+> Tâche complexe → montez UN cran à la fois : d'abord la réflexion étendue, puis le modèle supérieur, puis — sur les modèles qui le proposent — l'effort.
 
-Monter les trois d'un coup pour une question banale, c'est payer trois fois (temps, quota) pour un gain nul.
+Tout monter d'un coup pour une question banale, c'est payer plusieurs fois (temps, quota) pour un gain nul.
 
 ## Exercice
 
-Prenez un même problème non trivial de votre métier (une décision à argumenter, un texte à structurer). Posez-le trois fois dans trois conversations : (1) Haiku ou Sonnet effort bas, (2) Sonnet effort high, (3) le meilleur modèle disponible + réflexion étendue. Comparez les trois réponses : vous saurez d'expérience — pas par ouï-dire — ce que chaque cran apporte sur VOS tâches.` + FOOTER,
+Prenez un même problème non trivial de votre métier (une décision à argumenter, un texte à structurer). Posez-le trois fois dans trois conversations : (1) Haiku 4.5, réglages par défaut ; (2) Sonnet 5, réglages par défaut ; (3) le meilleur modèle disponible + réflexion étendue. Comparez les trois réponses : vous saurez d'expérience — pas par ouï-dire — ce que chaque cran apporte sur VOS tâches. Bonus si vous voulez tester l'effort : ouvrez « Plus de modèles », choisissez Sonnet 4.6, et comparez effort bas vs effort haut sur la même question.` + FOOTER,
     },
     {
       slug: "le-tour-de-l-interface-qui-compte",
@@ -191,14 +193,14 @@ Prenez un même problème non trivial de votre métier (une décision à argumen
 
 L'interface de Claude est volontairement sobre : une zone de saisie, un historique de conversations à gauche, le sélecteur de modèle à côté du bouton d'envoi (leçon précédente). Deux raccourcis à connaître dès le premier jour :
 
-- **« + »** : joindre des fichiers (PDF, images, tableurs, code…), lancer les outils.
+- **« + »** (dans la zone de saisie) : joindre des fichiers (PDF, images, tableurs, code…) et activer ou désactiver des capacités comme la recherche web — ce que l'interface appelle les « outils ».
 - **« / »** dans la zone de saisie : accéder aux commandes et aux skills (on y reviendra dans la leçon sur la personnalisation).
 
 Vous pouvez envoyer des documents entiers : Claude lit les PDF, analyse les images et les captures d'écran, décortique les tableurs. C'est l'un des usages les plus rentables dès la première semaine.
 
 ## Les artefacts : quand Claude produit un livrable
 
-Dès que vous demandez un contenu structuré — document, tableau, page web, diagramme, morceau de code — Claude peut le créer dans un **artefact** : un panneau dédié à côté de la conversation, que vous pouvez **éditer directement** (sans repasser par le chat), télécharger et partager. La conversation sert à itérer ; l'artefact contient le livrable propre.
+Dès que vous demandez un contenu structuré — document, tableau, page web, diagramme, morceau de code — Claude peut le créer dans un **artefact** : un panneau dédié à côté de la conversation, téléchargeable et partageable. Les documents texte s'y **éditent directement** : surlignez le passage à changer et cliquez « Edit with Claude », sans repasser par le chat. Les autres types (pages web, code, diagrammes) se modifient en redemandant à Claude dans la conversation. Dans tous les cas : la conversation sert à itérer, l'artefact contient le livrable propre.
 
 Réflexe à prendre : pour tout ce qui doit *sortir* de Claude (un document à envoyer, une page, un script), demandez-le en artefact.
 
@@ -211,7 +213,7 @@ La doc officielle résume bien la répartition : recherche web pour les **faits 
 
 ## Le mode incognito
 
-L'icône **fantôme** (en haut à droite) ouvre une conversation incognito : elle n'est pas sauvegardée dans l'historique et n'alimente pas la mémoire de Claude (leçon 7). Utile pour les sujets sensibles ou les tests jetables.
+L'icône **fantôme** (en haut à droite) ouvre une conversation incognito : elle n'est pas sauvegardée dans l'historique et n'alimente pas la mémoire de Claude (leçon 7). Utile pour les sujets sensibles ou les tests jetables. Deux nuances à connaître : incognito ne veut pas dire zéro trace — Anthropic conserve ces conversations 30 jours pour des raisons de sécurité — et une conversation incognito fermée ne peut **jamais être rouverte** : copiez ce que vous voulez garder avant de la quitter.
 
 ## Ce que vous pouvez ignorer pour l'instant
 
@@ -223,7 +225,7 @@ Rester dans une seule conversation-fleuve de 200 messages où se mélangent votr
 
 ## Exercice
 
-En une session : (1) envoyez un PDF de votre quotidien et demandez-en une synthèse en 5 points ; (2) demandez un livrable en artefact (« transforme cette synthèse en note d'une page pour mon équipe, en artefact ») et modifiez un titre directement dans l'artefact ; (3) posez une question qui exige la recherche web (« que s'est-il passé cette semaine dans [votre secteur] ? ») et vérifiez les sources citées.` + FOOTER,
+En une session : (1) envoyez un PDF de votre quotidien et demandez-en une synthèse en 5 points ; (2) demandez un livrable en artefact (« transforme cette synthèse en note d'une page pour mon équipe, en artefact ») puis modifiez un titre directement : surlignez-le dans l'artefact et cliquez « Edit with Claude » ; (3) posez une question qui exige la recherche web (« que s'est-il passé cette semaine dans [votre secteur] ? ») et vérifiez les sources citées — si aucune source n'apparaît, vérifiez que la recherche web est activée via le bouton « + ».` + FOOTER,
     },
     {
       slug: "parametrer-claude-les-reglages-qui-comptent",
@@ -247,30 +249,30 @@ C'est la section la plus importante. Vous y activez ou désactivez les **capacit
 
 ## Settings > Appearance
 
-Thème clair/sombre, densité d'affichage, police. Cosmétique, mais deux minutes bien investies si vous passez des heures dans l'outil.
+Thème clair/sombre (ou calé sur le système) et police du chat — y compris une option adaptée aux dyslexiques. Cosmétique, mais deux minutes bien investies si vous passez des heures dans l'outil.
 
 ## Les connecteurs : brancher Claude sur vos outils
 
 Claude peut se connecter à des services externes — Google Drive, calendrier, GitHub, et des dizaines d'autres via les **connecteurs** (basés sur le standard MCP, que le parcours Claude Code approfondit). Une fois un connecteur autorisé, Claude peut par exemple chercher dans vos documents Drive ou lire un ticket.
 
-Règle de sécurité dès le premier jour : **ne connectez que ce dont vous avez un besoin identifié**, et souvenez-vous que chaque connecteur est une porte d'accès à vos données. Le parcours « Prompts, skills, GitHub : l'écosystème sans se faire piéger » traite en profondeur des risques (injection de prompt, exfiltration).
+Règle de sécurité dès le premier jour : **ne connectez que ce dont vous avez un besoin identifié**, et souvenez-vous que chaque connecteur est une porte d'accès à vos données. Le parcours « Prompts & Skills GitHub : trouver, installer, sécuriser » traite en profondeur des risques (injection de prompt, exfiltration).
 
 ## La langue
 
-Claude vous répond par défaut dans la langue de votre message. Si vous voulez forcer un comportement (« réponds-moi toujours en français, même quand je colle des sources en anglais »), ce n'est pas un réglage : c'est une **instruction de profil** — précisément l'objet de la leçon suivante.
+Il existe un réglage **Language** (menu profil) : il traduit l'**interface** — menus, boutons — en français. Mais la langue des **réponses** de Claude, elle, ne se règle pas là : Claude répond par défaut dans la langue de votre message. Et si vous voulez forcer un comportement (« réponds-moi toujours en français, même quand je colle des sources en anglais »), ce n'est pas un réglage : c'est une **instruction de profil** — précisément l'objet de la leçon suivante.
 
 ## Vos données : ce qu'il faut savoir
 
 Deux points à retenir, réglables dans Settings > Privacy :
 
 1. Vous pouvez consulter et **exporter vos données** (conversations, mémoire).
-2. Vérifiez le réglage de **contribution à l'amélioration des modèles** et alignez-le sur votre politique — c'est particulièrement important si vous traitez des données clients. Pour les conversations qui ne doivent laisser aucune trace, le mode incognito (leçon 4) reste l'outil dédié.
+2. Vérifiez le réglage de **contribution à l'amélioration des modèles** (interrupteur « Help improve Claude ») et alignez-le sur votre politique — c'est particulièrement important si vous traitez des données clients. Pour les conversations qui ne doivent pas rester dans votre historique ni nourrir la mémoire, le mode incognito (leçon 4) reste l'outil dédié — en gardant en tête qu'Anthropic les conserve 30 jours pour des raisons de sécurité.
 
 ## La checklist de configuration (10 minutes)
 
 1. ☐ Mémoire activée (Settings > Capabilities) — et bouton « View and edit memory » repéré.
 2. ☐ Apparence réglée à votre goût.
-3. ☐ Réglage de confidentialité vérifié et conscient.
+3. ☐ Réglage de confidentialité (« Help improve Claude ») vérifié — choix fait en connaissance de cause.
 4. ☐ Aucun connecteur activé « au cas où » — uniquement ceux dont vous avez besoin.
 5. ☐ Le sélecteur de modèle/effort repéré (leçon 3).
 
@@ -285,13 +287,13 @@ Déroulez la checklist ci-dessus, puis ouvrez « View and edit memory » et lise
         "La leçon la plus rentable de ce parcours : les instructions de profil qui font que Claude répond comme VOUS le voulez — qui vous êtes, ce que vous faites, comment répondre, comment ne pas répondre.",
       duration_min: 18,
       is_free_preview: false,
-      content_md: `## Le problème que 90 % des utilisateurs ne règlent jamais
+      content_md: `## Le problème que presque personne ne règle
 
 Par défaut, Claude ne sait **rien** de vous. Alors il répond « pour tout le monde » : réponses génériques, précautions inutiles, niveau de détail au hasard, anglicismes, listes à puces à rallonge. La plupart des gens compensent en répétant les mêmes consignes au début de chaque conversation — « réponds en français », « je suis développeur, pas besoin d'expliquer ce qu'est une API », « sois direct »…
 
 Il existe un endroit pour écrire ces consignes **une seule fois** : les **instructions de profil**. Elles s'appliquent automatiquement à toutes vos conversations.
 
-**Où** : vos initiales en bas à gauche → Settings → section **« Instructions for Claude »**.
+**Où** : vos initiales en bas à gauche → Settings → section **« Instructions for Claude »**. (Si votre interface est en français, les libellés s'affichent traduits — Settings = Paramètres. Ce parcours donne les libellés anglais : repérez la section équivalente dans votre langue.)
 
 ## Les quatre blocs d'une bonne instruction de profil
 
@@ -328,7 +330,9 @@ C'est un document vivant : chaque fois que vous vous surprenez à re-corriger Cl
 
 ## Les skills : la personnalisation par contexte
 
-Les instructions de profil définissent votre défaut permanent. Pour des **modes** ponctuels — un ton spécifique, un format récurrent — Claude propose les **skills** (qui remplacent les anciens « styles ») : des paquets de consignes activables à la demande, via **Customize > Skills** ou une commande **« / »** dans le chat. Exemple : le skill « Learning » fait adopter à Claude une posture de pédagogue qui vous fait travailler au lieu de donner la réponse.
+Les instructions de profil définissent votre défaut permanent. Pour des **modes** ponctuels — un ton spécifique, un format récurrent — Claude propose les **skills** (qui remplacent progressivement les anciens « styles » ; pendant la transition, vous verrez peut-être encore un menu de styles) : des paquets de consignes activables à la demande, via **Customize > Skills** ou une commande **« / »** dans le chat. Exemple : le skill « Learning » fait adopter à Claude une posture de pédagogue qui vous fait travailler au lieu de donner la réponse (à installer une fois : Customize > Skills > « + » > Browse skills > « Learning »).
+
+Et quand vous serez à l'aise, sachez que vous pouvez **créer vos propres skills** : un fichier de consignes \`SKILL.md\` (un nom, une description, vos instructions), éventuellement accompagné de ressources, chargé via Customize > Skills — disponible sur tous les plans quand l'exécution de code est activée. La méthode pas-à-pas est dans l'article officiel « How to create custom skills » du centre d'aide, et deux parcours de cette formation la mettent en pratique : **Claude Code et IA agentic** (créer ses skills de travail) et **Prompts & Skills GitHub** (installer ceux des autres sans risque).
 
 La hiérarchie à retenir :
 
@@ -340,7 +344,7 @@ La hiérarchie à retenir :
 
 ## Exercice
 
-Rédigez vos instructions de profil avec la méthode des 4 blocs, installez-les, puis faites le test avant/après : posez la même question métier dans une conversation (profil actif) et dans une fenêtre incognito (profil ignoré). La différence que vous constaterez, c'est ce que vous venez de gagner sur TOUTES vos futures conversations.` + FOOTER,
+Faites le test avant/après. AVANT d'installer quoi que ce soit : posez une vraie question métier dans une conversation et copiez la réponse. Rédigez ensuite vos instructions de profil avec la méthode des 4 blocs, installez-les, ouvrez une NOUVELLE conversation et reposez exactement la même question. Comparez les deux réponses : la différence, c'est ce que vous venez de gagner sur TOUTES vos futures conversations. (Ne testez pas le « sans profil » en fenêtre incognito : les instructions de profil s'y appliquent aussi — l'incognito ne coupe que l'historique et la mémoire.)` + FOOTER,
     },
     {
       slug: "memoire-et-projets-contexte-durable",
@@ -366,7 +370,7 @@ Trois gestes de contrôle à connaître :
 
 1. **Voir et corriger** : Settings > Capabilities > « View and edit memory ». Tout ce que Claude retient est là, éditable.
 2. **Diriger** : vous pouvez dire en pleine conversation « retiens que je préfère X » — la mémoire n'est pas qu'automatique.
-3. **Suspendre ou effacer** : « Pause memory » (la mémoire est conservée mais plus utilisée) ou « Reset » (effacement définitif, irréversible).
+3. **Suspendre ou effacer** : « Pause memory » (la mémoire est conservée mais plus utilisée) ou « Reset » (effacement définitif et irréversible de toutes les mémoires, y compris celles de vos projets).
 
 Sur les plans payants s'ajoute la **recherche dans les chats passés** : « qu'avions-nous conclu sur la tarification le mois dernier ? » et Claude retrouve la conversation.
 
@@ -374,10 +378,10 @@ Sur les plans payants s'ajoute la **recherche dans les chats passés** : « qu'a
 
 Un **projet** regroupe des conversations autour d'un même sujet, avec deux super-pouvoirs :
 
-1. **La base de connaissances** : vous y déposez les documents de référence (brief, contrat, charte, code…). Claude les consulte pour toutes les conversations du projet — plus besoin de re-uploader.
-2. **Les instructions de projet** : des consignes qui ne s'appliquent que là. *« Dans ce projet, tu es relecteur de mes propositions commerciales. Ton critique et exigeant. Vérifie systématiquement la cohérence des chiffres. »*
+1. **La base de connaissances** : vous y déposez les documents de référence (brief, contrat, charte, code…). Claude les consulte pour toutes les conversations du projet — plus besoin de les joindre à chaque conversation.
+2. **Les instructions de projet** : des consignes qui ne s'appliquent que là. *« Dans ce projet, tu es relecteur de mes propositions commerciales. Adopte un ton critique et exigeant. Vérifie systématiquement la cohérence des chiffres. »*
 
-Le plan gratuit permet jusqu'à **5 projets** ; les instructions de projet relèvent des plans payants. Point important de la doc officielle : les conversations d'un projet **ne partagent pas leur contenu entre elles** — ce qui doit être durable doit aller dans la base de connaissances.
+Le plan gratuit permet jusqu'à **5 projets** (nombre illimité sur les plans payants), base de connaissances et instructions de projet incluses. Point important de la doc officielle : les conversations d'un projet **ne partagent pas leur contenu entre elles** — ce qui doit être durable doit aller dans la base de connaissances.
 
 ## L'architecture complète du contexte
 
@@ -409,9 +413,9 @@ Créez votre premier projet sur un dossier réel en cours : (1) nommez-le, (2) d
       is_free_preview: false,
       content_md: `## Tout est en place. Maintenant, les réflexes.
 
-Compte créé partout, plan choisi, modèle compris, réglages faits, profil personnalisé, mémoire et projets en route. Ce qui suit est la synthèse à garder sous la main : dix réflexes, chacun découlant directement de ce parcours ou des recommandations officielles d'Anthropic.
+Compte créé partout, plan choisi, modèle compris, interface apprivoisée, réglages faits, profil personnalisé, mémoire et projets en route. Ce qui suit est la synthèse à garder sous la main : dix réflexes, chacun découlant directement de ce parcours ou des recommandations officielles d'Anthropic.
 
-**1. Parlez comme à un collègue.** Le conseil n° 1 de la doc officielle. Pas de formules magiques ni de télégraphe : des phrases naturelles, complètes, en français. Claude n'est pas un moteur de recherche, c'est un interlocuteur.
+**1. Parlez comme à un collègue.** Le conseil n° 1 de la doc officielle. Pas de formules magiques ni de style télégraphique : des phrases naturelles, complètes, en français. Claude n'est pas un moteur de recherche, c'est un interlocuteur.
 
 **2. Soyez spécifique — toujours plus que vous ne pensez nécessaire.** « Améliore ce texte » produit une réponse moyenne. « Resserre ce texte à 150 mots pour des DAF, en gardant les deux chiffres clés » produit ce que vous voulez. La spécificité est le levier n° 1, avant toute technique avancée.
 
@@ -419,17 +423,17 @@ Compte créé partout, plan choisi, modèle compris, réglages faits, profil per
 
 **4. Un sujet = une conversation.** Les conversations-fleuves dégradent les réponses et rendent l'historique inutilisable. Nouveau sujet, nouvelle conversation — les projets organisent le reste.
 
-**5. Le bon modèle et le bon effort pour la bonne tâche.** Question simple : modèle rapide, effort bas, quota préservé. Enjeu réel : effort haut, réflexion étendue si c'est du raisonnement pur. Montez un cran à la fois.
+**5. Le bon modèle et les bons réglages pour la bonne tâche.** Question simple : modèle rapide, réglages par défaut, quota préservé. Enjeu réel : réflexion étendue si c'est du raisonnement pur, modèle supérieur — et effort haut sur les modèles qui le proposent. Montez un cran à la fois.
 
 **6. Donnez les documents, pas des résumés de documents.** Claude lit les PDF, les images, les tableurs. Un vrai contrat en pièce jointe vaut mieux que trois paragraphes qui le paraphrasent de mémoire.
 
 **7. Les livrables en artefact.** Tout ce qui doit sortir de Claude — note, page, script, tableau — se demande en artefact : éditable, téléchargeable, propre.
 
-**8. Vérifiez ce qui est vérifiable.** Claude peut se tromper avec assurance — chiffres, dates, références. Pour les faits récents, exigez la recherche web et regardez les sources. Pour les enjeux forts, demandez : « qu'est-ce qui, dans ta réponse, mériterait vérification ? » Cette vigilance est un thème central des parcours suivants.
+**8. Vérifiez ce qui est vérifiable.** Claude peut se tromper avec assurance — chiffres, dates, références. Pour les faits récents, exigez la recherche web — demandez-le en toutes lettres (« cherche sur le web et cite tes sources ») — et regardez les sources. Pour les enjeux forts, demandez : « qu'est-ce qui, dans ta réponse, mériterait vérification ? » Cette vigilance est un thème central des parcours suivants.
 
 **9. Chaque agacement devient une ligne de profil.** Deux fois la même correction (« pas de puces ! », « en français ! ») = une consigne à remonter dans vos instructions de profil. C'est ainsi que l'outil converge vers vous, semaine après semaine.
 
-**10. Auditez votre mémoire une fois par mois.** « View and edit memory » : cinq minutes pour corriger ce qui est faux, effacer ce qui est périmé. Une mémoire propre = un contexte fiable partout.
+**10. Auditez votre mémoire une fois par mois.** « View and edit memory » (Settings > Capabilities) : cinq minutes pour corriger ce qui est faux, effacer ce qui est périmé. Une mémoire propre = un contexte fiable partout.
 
 ## L'erreur d'état d'esprit à éviter
 

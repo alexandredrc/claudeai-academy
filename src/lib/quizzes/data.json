@@ -44,7 +44,7 @@
         "Une limite de 10 conversations par jour"
       ],
       "correct": 1,
-      "explanation": "Le plan gratuit fonctionne par sessions : la limite se réinitialise toutes les 5 heures et dépend de la charge des serveurs. Le gratuit sert à évaluer, les plans payants à travailler."
+      "explanation": "Tous les plans fonctionnent par sessions de 5 heures — ce qui change, c'est la taille de l'enveloppe (Pro ≈ 5× Free, Max 5× à 20× Pro), plus une limite hebdomadaire sur les plans payants. Le gratuit sert à évaluer, les plans payants à travailler."
     },
     {
       "q": "Quel est le critère recommandé dans la leçon pour choisir entre Free, Pro et Max ?",
@@ -90,7 +90,7 @@
         "Il raccourcit les réponses pour économiser l'écran"
       ],
       "correct": 1,
-      "explanation": "« Higher effort means more thorough responses, but they take longer and use more tokens » : effort bas pour le courant, haut pour le travail sérieux, extra-high/max pour les tâches les plus complexes."
+      "explanation": "« Higher effort means more thorough responses, but they take longer and use more tokens » : effort bas pour le courant, haut pour le travail sérieux. Attention : le sélecteur d'effort n'est proposé que sur certains modèles (Opus 4.8/4.7/4.6 et Sonnet 4.6 en juillet 2026) — sur les autres, dont Sonnet 5, seul l'interrupteur de réflexion étendue apparaît."
     },
     {
       "q": "Pour quel type de tâche la réflexion étendue (extended thinking) est-elle la plus utile ?",

@@ -10,12 +10,12 @@ const proofs = [
   {
     icon: "📂",
     title: "Le programme est public avant l'achat",
-    body: "Les 7 parcours et 40 leçons sont détaillés sur le site. Vous voyez exactement ce que vous achetez — titres, durées, compétences — avant de sortir la carte.",
+    body: "Les 8 parcours et 48 leçons sont détaillés sur le site. Vous voyez exactement ce que vous achetez — titres, durées, compétences — avant de sortir la carte.",
   },
   {
     icon: "🛠️",
     title: "Conçue par un praticien, pas un théoricien",
-    body: "Le site, le Mentor IA et les 40 leçons ont été construits en utilisant Claude au quotidien. On enseigne une méthode qu'on applique vraiment, à jour des derniers modèles.",
+    body: "Le site, le Mentor IA et les 48 leçons ont été construits en utilisant Claude au quotidien. On enseigne une méthode qu'on applique vraiment, à jour des derniers modèles.",
   },
   {
     icon: "🛡️",

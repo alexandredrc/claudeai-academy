@@ -21,7 +21,7 @@ export const tradingClaudeCode = {
   description:
     "Utiliser Claude Code comme pair-programmeur pour bâtir des backtests honnêtes, une gestion du risque codée proprement et une recherche automatisée. Outillage technique — pas de conseil financier.",
   tier_required: "mastery",
-  display_order: 6,
+  display_order: 7,
   estimated_duration_min: 180,
   lessons: [
     {

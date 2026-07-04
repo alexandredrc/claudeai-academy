@@ -18,7 +18,7 @@ export const contenuEtMarketing = {
   description:
     "Produire du contenu et du marketing avec Claude sans sombrer dans le générique : voix de marque réutilisable, industrialisation maîtrisée, SEO/GEO à l'ère des résumés IA, et mesure honnête.",
   tier_required: "mastery",
-  display_order: 4,
+  display_order: 5,
   estimated_duration_min: 130,
   lessons: [
     {

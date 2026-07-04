@@ -18,7 +18,7 @@ export const strategieConduiteIa = {
   description:
     "Choisir les bons cas d'usage, les prioriser, en connaître le vrai coût, les gouverner (RGPD/AI Act), les faire adopter et les sécuriser — la méthode complète pour passer du POC à la valeur.",
   tier_required: "mastery",
-  display_order: 5,
+  display_order: 6,
   estimated_duration_min: 120,
   lessons: [
     {

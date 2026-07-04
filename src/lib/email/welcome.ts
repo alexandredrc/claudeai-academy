@@ -16,7 +16,7 @@ function welcomeContent(tier: PlanTier): WelcomeContent {
       intro:
         "Ton paiement est confirmé. Tu as maintenant accès à l'intégralité de ClaudeAI Academy, à vie, mises à jour comprises.",
       unlocked: [
-        { label: "Les 7 parcours complets (40 leçons)", href: `${SITE_URL}/courses` },
+        { label: "Les 8 parcours complets (48 leçons)", href: `${SITE_URL}/courses` },
         { label: "La bibliothèque de 170 prompts opérationnels", href: `${SITE_URL}/prompts` },
         { label: "Le Mentor IA, pour tes questions et la correction de tes exercices", href: `${SITE_URL}/mentor` },
       ],
@@ -27,13 +27,14 @@ function welcomeContent(tier: PlanTier): WelcomeContent {
   return {
     subject: "Ton Pass Starter est actif",
     intro:
-      "Ton paiement est confirmé. Tu as maintenant accès aux deux premiers parcours, à vie, mises à jour comprises.",
+      "Ton paiement est confirmé. Tu as maintenant accès aux trois premiers parcours, à vie, mises à jour comprises.",
     unlocked: [
-      { label: "Parcours 1 — Prompt Engineering pro (7 leçons)", href: `${SITE_URL}/courses/prompt-engineering-pro` },
-      { label: "Parcours 2 — Claude Code et IA agentic (6 leçons)", href: `${SITE_URL}/courses/claude-code-ia-agentic` },
+      { label: "Parcours 1 — Bien démarrer avec Claude (8 leçons)", href: `${SITE_URL}/courses/bien-demarrer-avec-claude` },
+      { label: "Parcours 2 — Prompt Engineering pro (7 leçons)", href: `${SITE_URL}/courses/prompt-engineering-pro` },
+      { label: "Parcours 3 — Claude Code et IA agentic (6 leçons)", href: `${SITE_URL}/courses/claude-code-ia-agentic` },
     ],
     ctaLabel: "Commencer le premier parcours",
-    ctaHref: `${SITE_URL}/courses/prompt-engineering-pro`,
+    ctaHref: `${SITE_URL}/courses/bien-demarrer-avec-claude`,
   };
 }
 

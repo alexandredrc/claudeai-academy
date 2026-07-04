@@ -40,7 +40,7 @@ export function Founder() {
                 , fondateur d&apos;ADRC Group. J&apos;utilise Claude tous les
                 jours sur de vrais projets — au point d&apos;avoir construit
                 cette académie avec : le site que vous lisez, le Mentor IA qui
-                répond à vos questions, les 40 leçons. Tout est sorti de cette
+                répond à vos questions, les 48 leçons. Tout est sorti de cette
                 pratique quotidienne.
               </p>
               <p>

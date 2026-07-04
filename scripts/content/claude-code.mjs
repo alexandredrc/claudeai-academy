@@ -18,7 +18,7 @@ export const claudeCodeIaAgentic = {
   description:
     "L'agent de coding qui s'exécute dans votre terminal : CLAUDE.md, slash commands et skills, hooks, MCP, sub-agents. Faites-en votre environnement de travail, en gardant le contrôle.",
   tier_required: "starter",
-  display_order: 2,
+  display_order: 3,
   estimated_duration_min: 120,
   lessons: [
     {

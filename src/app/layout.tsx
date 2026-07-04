@@ -23,7 +23,7 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: "ClaudeAI Academy — Formation Claude AI en français",
   description:
-    "La formation francophone pour maîtriser Claude AI en pratique : prompt engineering, Claude Code, data, marketing, stratégie. 7 parcours, 40 leçons, 170 prompts, mentor IA.",
+    "La formation francophone pour maîtriser Claude AI en pratique : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 8 parcours, 48 leçons, 170 prompts, mentor IA.",
   metadataBase: new URL("https://www.claudeai-academy.com"),
   keywords: [
     "formation Claude AI",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ClaudeAI Academy — Formation Claude AI en français",
     description:
-      "7 parcours, 40 leçons, 170 prompts et un mentor IA pour maîtriser Claude AI en pratique.",
+      "8 parcours, 48 leçons, 170 prompts et un mentor IA pour maîtriser Claude AI en pratique.",
     images: ["/og.png"],
   },
 };

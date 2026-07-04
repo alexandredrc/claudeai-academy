@@ -81,7 +81,7 @@ starter_product = ensure_product(
 )
 mastery_product = ensure_product(
     "Pass Mastery",
-    "Intégrale ClaudeAI Academy : 7 parcours, 40 leçons, 170 prompts, Mentor IA, mises à jour à vie.",
+    "Intégrale ClaudeAI Academy : 8 parcours, 49 leçons, 170 prompts, Mentor IA, mises à jour à vie.",
 )
 starter_price = ensure_price(starter_product, 4700, "Pass Starter 47 EUR")
 mastery_price = ensure_price(mastery_product, 49700, "Pass Mastery 497 EUR")

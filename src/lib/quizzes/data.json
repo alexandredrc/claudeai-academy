@@ -1,4 +1,295 @@
 {
+  "creer-son-compte-et-installer-claude-partout": [
+    {
+      "q": "Quelles sont les trois façons officielles d'accéder à Claude avec un même compte ?",
+      "options": [
+        "Le web (claude.ai), l'application de bureau et l'application mobile",
+        "Uniquement le site web claude.ai",
+        "Une extension de navigateur, un plugin Word et un bot Discord",
+        "L'API uniquement, réservée aux développeurs"
+      ],
+      "correct": 0,
+      "explanation": "Web, bureau (Mac/Windows, Linux en bêta) et mobile (iOS/Android) partagent le même compte : vos conversations vous suivent d'un appareil à l'autre."
+    },
+    {
+      "q": "Quelles sont les deux conditions officielles pour créer un compte Claude ?",
+      "options": [
+        "Payer un abonnement et fournir une carte bancaire",
+        "Avoir au moins 18 ans et se trouver dans une région supportée",
+        "Avoir une adresse email professionnelle et un numéro de téléphone",
+        "Être développeur et posséder une clé API"
+      ],
+      "correct": 1,
+      "explanation": "18 ans minimum et une région supportée (France et Suisse le sont). Aucune carte bancaire : le plan gratuit permet de commencer immédiatement."
+    },
+    {
+      "q": "Quel est l'intérêt principal de l'application de bureau par rapport au web ?",
+      "options": [
+        "Elle donne accès à des modèles plus puissants",
+        "Elle est gratuite alors que le web est payant",
+        "Le raccourci clavier global : Claude s'ouvre par-dessus n'importe quelle application",
+        "Elle fonctionne sans connexion internet"
+      ],
+      "correct": 2,
+      "explanation": "Les capacités sont les mêmes ; ce qui change, c'est la friction. Le raccourci clavier transforme Claude en réflexe plutôt qu'en outil qu'on va consulter."
+    }
+  ],
+  "gratuit-pro-ou-max-choisir-son-plan": [
+    {
+      "q": "Comment fonctionnent les limites d'usage du plan gratuit ?",
+      "options": [
+        "Un quota mensuel fixe de 100 messages",
+        "Une limite par session qui se réinitialise toutes les 5 heures et varie selon la charge",
+        "Aucune limite, seul le modèle est restreint",
+        "Une limite de 10 conversations par jour"
+      ],
+      "correct": 1,
+      "explanation": "Le plan gratuit fonctionne par sessions : la limite se réinitialise toutes les 5 heures et dépend de la charge des serveurs. Le gratuit sert à évaluer, les plans payants à travailler."
+    },
+    {
+      "q": "Quel est le critère recommandé dans la leçon pour choisir entre Free, Pro et Max ?",
+      "options": [
+        "Le nombre d'heures que l'outil vous fait gagner par semaine",
+        "Votre budget mensuel disponible",
+        "Le nombre d'appareils que vous possédez",
+        "Toujours prendre le plan le plus cher pour être tranquille"
+      ],
+      "correct": 0,
+      "explanation": "Dès ~2 h gagnées par semaine, Pro est rentabilisé. Max se justifie par un constat d'usage (buter régulièrement sur les limites de Pro), jamais par précaution."
+    },
+    {
+      "q": "Parmi ces fonctionnalités, lesquelles sont incluses dans le plan Pro (juillet 2026) ?",
+      "options": [
+        "Research, Claude Code et l'usage augmenté",
+        "Uniquement le chat web avec plus de messages",
+        "L'accès API illimité et le support téléphonique",
+        "Le fine-tuning de modèles personnalisés"
+      ],
+      "correct": 0,
+      "explanation": "Pro (17 $/mois en annuel) inclut notamment l'usage augmenté, les modèles les plus capables, Research, Claude Code, Cowork et Design. Vérifiez claude.com/pricing : l'offre évolue."
+    }
+  ],
+  "choisir-le-bon-modele-effort-reflexion": [
+    {
+      "q": "Quelle logique faut-il retenir sur la famille de modèles Claude (plutôt que les numéros de version) ?",
+      "options": [
+        "Haiku = vitesse, Sonnet = équilibre, Opus/Fable = puissance maximale",
+        "Tous les modèles sont identiques, seul le prix change",
+        "Sonnet est réservé au code, Opus à la rédaction",
+        "Plus le numéro est petit, plus le modèle est puissant"
+      ],
+      "correct": 0,
+      "explanation": "Les numéros changent tous les trimestres (Sonnet 5 est sorti le 30 juin 2026), mais la logique de gamme reste : rapide / équilibré / maximal."
+    },
+    {
+      "q": "Que fait le réglage d'effort ?",
+      "options": [
+        "Il change le modèle utilisé automatiquement",
+        "Il augmente la profondeur des réponses, au prix de plus de temps et de quota",
+        "Il active la recherche web",
+        "Il raccourcit les réponses pour économiser l'écran"
+      ],
+      "correct": 1,
+      "explanation": "« Higher effort means more thorough responses, but they take longer and use more tokens » : effort bas pour le courant, haut pour le travail sérieux, extra-high/max pour les tâches les plus complexes."
+    },
+    {
+      "q": "Pour quel type de tâche la réflexion étendue (extended thinking) est-elle la plus utile ?",
+      "options": [
+        "Résumer un email",
+        "Traduire une phrase",
+        "Les tâches de raisonnement pur : problème mathématique, débogage, analyse d'une décision",
+        "Chercher une actualité récente sur le web"
+      ],
+      "correct": 2,
+      "explanation": "La réflexion étendue brille sur le raisonnement qui ne nécessite pas d'information externe récente. Pour les faits récents, c'est la recherche web ; les deux réglages sont indépendants."
+    }
+  ],
+  "le-tour-de-l-interface-qui-compte": [
+    {
+      "q": "Quelle est la différence entre la recherche web et Research ?",
+      "options": [
+        "Aucune, ce sont deux noms de la même fonction",
+        "La recherche web va chercher des faits récents ponctuels ; Research mène une investigation multi-sources et rend un rapport sourcé",
+        "Research est plus rapide que la recherche web",
+        "La recherche web est payante, Research est gratuit"
+      ],
+      "correct": 1,
+      "explanation": "Recherche web = faits récents ponctuels. Research (plans payants) = investigation de fond de plusieurs minutes avec rapport structuré et sourcé."
+    },
+    {
+      "q": "À quoi sert le mode incognito (icône fantôme) ?",
+      "options": [
+        "À accéder aux modèles les plus puissants",
+        "À masquer votre adresse IP",
+        "À ouvrir une conversation qui n'est ni sauvegardée dans l'historique ni mémorisée",
+        "À partager une conversation publiquement"
+      ],
+      "correct": 2,
+      "explanation": "Les conversations incognito ne sont pas sauvegardées et n'alimentent pas la mémoire de Claude. Utile pour les sujets sensibles ou les tests jetables."
+    },
+    {
+      "q": "Quel est le bon réflexe pour tout contenu qui doit « sortir » de Claude (note, page, script) ?",
+      "options": [
+        "Le demander en artefact : un panneau éditable, téléchargeable et partageable",
+        "Le copier-coller depuis le chat",
+        "Le faire dicter à voix haute",
+        "L'envoyer par email depuis Claude"
+      ],
+      "correct": 0,
+      "explanation": "La conversation sert à itérer ; l'artefact contient le livrable propre — et depuis 2026 il s'édite directement, sans repasser par le chat."
+    }
+  ],
+  "parametrer-claude-les-reglages-qui-comptent": [
+    {
+      "q": "Où se trouvent tous les réglages de Claude ?",
+      "options": [
+        "Dans un fichier de configuration à éditer",
+        "Vos initiales en bas à gauche → Settings",
+        "Sur un site séparé, admin.claude.ai",
+        "Il faut les demander dans le chat"
+      ],
+      "correct": 1,
+      "explanation": "Un seul chemin à mémoriser : initiales en bas à gauche, puis Settings. La section Capabilities est la plus importante (mémoire, capacités)."
+    },
+    {
+      "q": "Quelle est la règle de sécurité recommandée pour les connecteurs ?",
+      "options": [
+        "En activer le plus possible pour que Claude soit plus utile",
+        "Ne jamais en activer aucun",
+        "Ne connecter que ce dont on a un besoin identifié : chaque connecteur est une porte d'accès à vos données",
+        "Les connecteurs sont réservés aux entreprises"
+      ],
+      "correct": 2,
+      "explanation": "Un connecteur autorisé donne à Claude accès à des données externes. On n'active pas « au cas où » — le parcours sécurité approfondit les risques (injection, exfiltration)."
+    },
+    {
+      "q": "Comment voir exactement ce que Claude a retenu de vous ?",
+      "options": [
+        "C'est impossible, la mémoire est opaque",
+        "Settings > Capabilities > « View and edit memory »",
+        "En demandant un export RGPD par email",
+        "Dans l'historique des conversations"
+      ],
+      "correct": 1,
+      "explanation": "La fenêtre « View and edit memory » affiche tout ce que Claude retient, et permet de corriger ou supprimer. Vous gardez la main sur la mémoire."
+    }
+  ],
+  "personnaliser-claude-dites-lui-qui-vous-etes": [
+    {
+      "q": "Quels sont les quatre blocs d'une bonne instruction de profil ?",
+      "options": [
+        "Nom, prénom, adresse, profession",
+        "Qui vous êtes, ce que vous faites, comment répondre, comment NE PAS répondre",
+        "Vos objectifs annuels, vos KPI, votre équipe, votre budget",
+        "Un CV complet, vos hobbies, vos valeurs, vos citations préférées"
+      ],
+      "correct": 1,
+      "explanation": "Métier et niveau (calibre les réponses), usages récurrents, ton/format voulus, et le bloc le plus oublié : ce que Claude ne doit PAS faire (flatterie, avertissements inutiles, anglais…)."
+    },
+    {
+      "q": "Où s'écrivent les instructions de profil ?",
+      "options": [
+        "Au début de chaque conversation, à répéter",
+        "Dans Settings → section « Instructions for Claude » (initiales en bas à gauche)",
+        "Dans un fichier CLAUDE.md sur votre bureau",
+        "Dans la description de votre premier projet"
+      ],
+      "correct": 1,
+      "explanation": "Écrites une seule fois dans le profil, elles s'appliquent automatiquement à toutes vos conversations — fini de répéter « réponds en français, sois direct » à chaque fois."
+    },
+    {
+      "q": "Quelle est la hiérarchie des trois niveaux de personnalisation ?",
+      "options": [
+        "Profil = toujours actif ; instructions de projet = actives dans le projet ; skill = activé à la demande",
+        "Skill = permanent ; profil = par projet ; projet = à la demande",
+        "Les trois font exactement la même chose",
+        "Seul le profil existe, le reste est payant"
+      ],
+      "correct": 0,
+      "explanation": "Le profil définit votre défaut permanent, le projet son contexte propre, et les skills (ex-styles) s'activent ponctuellement via Customize > Skills ou une commande « / »."
+    },
+    {
+      "q": "Quel est l'anti-pattern classique des instructions de profil ?",
+      "options": [
+        "Les écrire en français",
+        "Les tester après les avoir écrites",
+        "Écrire une biographie de 2 000 mots au lieu de consignes opérationnelles",
+        "Y mettre des consignes de format"
+      ],
+      "correct": 2,
+      "explanation": "Chaque phrase doit changer quelque chose dans les réponses. « J'aime la mer » ne change rien ; « ne me propose jamais de solution qui nécessite de coder » change tout. Visez 150 à 300 mots."
+    }
+  ],
+  "memoire-et-projets-contexte-durable": [
+    {
+      "q": "Comment fonctionne la mémoire de Claude ?",
+      "options": [
+        "Claude relit toutes vos conversations à chaque message",
+        "Claude construit une synthèse de vos conversations, mise à jour environ toutes les 24 h, injectée dans chaque nouvelle conversation",
+        "Vous devez remplir un formulaire de mémoire à la main",
+        "La mémoire n'existe que sur le plan Max"
+      ],
+      "correct": 1,
+      "explanation": "Disponible pour tous les utilisateurs (gratuit inclus), elle s'active dans Settings > Capabilities. Les chats incognito n'y entrent jamais, et chaque projet a sa mémoire séparée."
+    },
+    {
+      "q": "Quelle est la différence entre « Pause memory » et « Reset » ?",
+      "options": [
+        "Aucune, ce sont des synonymes",
+        "Pause conserve la mémoire sans l'utiliser ; Reset l'efface définitivement et irréversiblement",
+        "Pause efface tout ; Reset redémarre l'application",
+        "Reset ne touche qu'aux projets"
+      ],
+      "correct": 1,
+      "explanation": "Pause = la mémoire est gardée mais plus injectée. Reset = effacement définitif. À connaître avant d'y toucher : le Reset est irréversible."
+    },
+    {
+      "q": "Que faut-il mettre dans la base de connaissances d'un projet plutôt qu'en mémoire ?",
+      "options": [
+        "Vos préférences de communication",
+        "Votre métier et votre niveau d'expertise",
+        "Les documents de travail durables du sujet (brief, contrat, charte, code)",
+        "Rien, la mémoire suffit à tout"
+      ],
+      "correct": 2,
+      "explanation": "La mémoire sert au contexte de fond ; les données de travail vont dans la base de connaissances du projet. Et les conversations d'un projet ne partagent pas leur contenu entre elles — seule la base de connaissances est commune."
+    }
+  ],
+  "les-dix-reflexes-pour-bien-demarrer": [
+    {
+      "q": "Quel est le conseil n° 1 de la doc officielle pour parler à Claude ?",
+      "options": [
+        "Utiliser des mots-clés comme dans un moteur de recherche",
+        "Parler comme à un collègue : phrases naturelles et complètes",
+        "Écrire uniquement en anglais",
+        "Toujours vouvoyer le modèle"
+      ],
+      "correct": 1,
+      "explanation": "Claude n'est pas un moteur de recherche : des phrases naturelles, spécifiques, en français, fonctionnent mieux que du télégraphe — et l'itération est le mode de travail normal."
+    },
+    {
+      "q": "Que faire quand vous corrigez Claude deux fois sur la même chose ?",
+      "options": [
+        "Changer de modèle",
+        "Abandonner la tâche",
+        "Remonter la consigne dans vos instructions de profil",
+        "Réinitialiser la mémoire"
+      ],
+      "correct": 2,
+      "explanation": "Chaque agacement récurrent devient une ligne de profil : c'est ainsi que l'outil converge vers vous, semaine après semaine, sans re-répéter les mêmes consignes."
+    },
+    {
+      "q": "Pourquoi vérifier les réponses de Claude sur les faits, chiffres et références ?",
+      "options": [
+        "Parce que Claude peut se tromper avec assurance : pour les faits récents, exiger la recherche web et regarder les sources",
+        "Parce que Claude refuse de répondre aux questions factuelles",
+        "Ce n'est pas nécessaire avec les modèles récents",
+        "Uniquement pour les questions juridiques"
+      ],
+      "correct": 0,
+      "explanation": "La vigilance sur le vérifiable est un réflexe de base : sources pour les faits récents, et « qu'est-ce qui mériterait vérification dans ta réponse ? » pour les enjeux forts."
+    }
+  ],
   "intro-pourquoi-le-prompt-est-de-l-ingenierie": [
     {
       "q": "Selon la doc Anthropic, que faut-il réunir AVANT même de commencer à optimiser un prompt ?",

@@ -36,7 +36,7 @@ const groups: Group[] = [
     items: [
       {
         q: "Je n’ai jamais rien fait en IA, c’est pour moi ?",
-        a: "Oui. La leçon 1 du parcours Prompt Engineering pose tous les fondamentaux. Aucun prérequis technique pour les parcours Business, Marketing ou Prompt Engineering. Pour Claude Code et Data & IA, des bases de programmation sont recommandées.",
+        a: "Oui. Le parcours Bien démarrer avec Claude part de zéro : créer son compte, installer les applications, choisir son plan et son modèle, paramétrer et personnaliser Claude. Puis Prompt Engineering pose tous les fondamentaux. Aucun prérequis technique pour ces parcours ni pour Marketing et Stratégie. Pour Claude Code et Data & SQL, des bases de programmation sont recommandées.",
       },
       {
         q: "Combien de temps faut-il pour terminer le programme ?",

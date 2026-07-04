@@ -217,7 +217,7 @@ export default function KitRessourcesPage() {
             Un prompt isolé, c&apos;est 20 % du potentiel. Les vrais gains
             arrivent quand tu enchaînes Claude dans tes workflows : bibliothèques
             de prompts, Claude Code dans ta stack, automatisations. C&apos;est
-            exactement ce que couvre ClaudeAI Academy — 7 parcours, 170 prompts,
+            exactement ce que couvre ClaudeAI Academy — 8 parcours, 170 prompts,
             mentor IA, accès à vie, garantie 14 jours.
           </p>
           <Button href="/tarifs" variant="ghost-light" size="lg">

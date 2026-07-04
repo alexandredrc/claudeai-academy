@@ -15,6 +15,17 @@ type Presentation = {
 };
 
 const PRESENTATION: Record<string, Presentation> = {
+  "bien-demarrer-avec-claude": {
+    emoji: "🚦",
+    role: "Le point de départ, même sans aucune base",
+    skills: [
+      "Installer Claude partout : web, ordinateur, mobile",
+      "Choisir son plan et le bon modèle sans se tromper",
+      "Paramétrer les réglages qui comptent (mémoire, capacités)",
+      "Personnaliser Claude : qui vous êtes, comment il doit répondre",
+      "Mémoire, projets et les 10 réflexes de la première semaine",
+    ],
+  },
   "prompt-engineering-pro": {
     emoji: "💬",
     role: "Le socle, indispensable pour tout le reste",

@@ -20,7 +20,7 @@ export const claudeDataSql = {
   description:
     "Faire de Claude votre bras droit data — générer, debugger et optimiser du SQL, profiler des données et bâtir des dashboards — tout en vérifiant systématiquement chaque sortie.",
   tier_required: "mastery",
-  display_order: 3,
+  display_order: 4,
   estimated_duration_min: 130,
   lessons: [
     {

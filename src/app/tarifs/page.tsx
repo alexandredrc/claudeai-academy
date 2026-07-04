@@ -61,7 +61,7 @@ const offersJsonLd = {
   "@type": "Product",
   name: "Formation ClaudeAI Academy",
   description:
-    "Formation en ligne francophone pour maîtriser Claude AI : 7 parcours, 40 leçons, 170 prompts, mentor IA. Paiement unique, accès à vie, garantie 14 jours.",
+    "Formation en ligne francophone pour maîtriser Claude AI : 8 parcours, 48 leçons, 170 prompts, mentor IA. Paiement unique, accès à vie, garantie 14 jours.",
   url: "https://www.claudeai-academy.com/tarifs",
   image: "https://www.claudeai-academy.com/og.png",
   brand: { "@type": "Brand", name: "ClaudeAI Academy" },

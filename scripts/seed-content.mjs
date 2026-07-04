@@ -6,10 +6,12 @@
 // Parcours 01 : contenu RÉEL, sourcé Tier 1 (doc officielle Anthropic
 //   « Prompting best practices », vérifiée 2026-05-15). À jour Opus 4.8 :
 //   adaptive thinking, effort parameter, prefill retiré, littéralisme 4.8.
-// Parcours 02-05 : stubs (placeholder, à produire ensuite).
+// Parcours 01-08 : contenu réel. Parcours « Bien démarrer » ajouté le 2026-07-04
+//   (sources : support.claude.com + claude.com/pricing, vérifiées 2026-07-04).
 // =========================================
 
 import { createClient } from "@supabase/supabase-js";
+import { bienDemarrerAvecClaude } from "./content/bien-demarrer.mjs";
 import { tradingClaudeCode } from "./content/trading-claude-code.mjs";
 import { githubPromptsSecurite } from "./content/github-prompts-securite.mjs";
 import { claudeCodeIaAgentic } from "./content/claude-code.mjs";
@@ -27,16 +29,17 @@ const SOURCE_FOOTER = `
 
 ---
 
-**Sources** · Doc officielle Anthropic, *Prompting best practices* (Tier 1, vérifiée 2026-05-15) : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\`. Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu valable pour Claude Fable 5 / Opus 4.8 / Sonnet 4.6 / Haiku 4.5.`;
+**Sources** · Doc officielle Anthropic, *Prompting best practices* (Tier 1, vérifiée 2026-05-15) : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\`. Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu valable pour Claude Fable 5 / Sonnet 5 / Opus 4.8 / Haiku 4.5 (gamme revérifiée le 2026-07-04).`;
 
 const COURSES = [
+  bienDemarrerAvecClaude,
   {
     slug: "prompt-engineering-pro",
     title: "Prompt Engineering pro",
     description:
       "Les techniques officielles Anthropic, traduites en méthode opérationnelle : clarté, contexte, exemples, balises XML, raisonnement, chaînage. À jour Claude Opus 4.8 et Fable 5.",
     tier_required: "starter",
-    display_order: 1,
+    display_order: 2,
     estimated_duration_min: 210,
     lessons: [
       {

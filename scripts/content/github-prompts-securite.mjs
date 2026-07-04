@@ -18,7 +18,7 @@ export const githubPromptsSecurite = {
   description:
     "Où trouver les meilleurs prompts, skills, slash commands et serveurs MCP sur GitHub, comment les utiliser et les installer — et surtout comment ne pas se faire pirater en le faisant. Le réflexe sécurité d'abord.",
   tier_required: "mastery",
-  display_order: 7,
+  display_order: 8,
   estimated_duration_min: 160,
   lessons: [
     {

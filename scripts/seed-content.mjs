@@ -19,19 +19,25 @@ import { strategieConduiteIa } from "./content/strategie-ia.mjs";
 import { contenuEtMarketing } from "./content/marketing-contenu.mjs";
 import { claudeDataSql } from "./content/data-sql.mjs";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false, autoRefreshToken: false } },
-);
+// Client créé paresseusement : le module est aussi importé par gen-sql.mjs
+// (génération SQL hors-ligne) où les variables d'env Supabase sont absentes.
+let supabase;
+function getSupabase() {
+  supabase ??= createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY,
+    { auth: { persistSession: false, autoRefreshToken: false } },
+  );
+  return supabase;
+}
 
 const SOURCE_FOOTER = `
 
 ---
 
-**Sources** · Doc officielle Anthropic, *Prompting best practices* (Tier 1, vérifiée 2026-05-15) : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\`. Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu valable pour Claude Fable 5 / Sonnet 5 / Opus 4.8 / Haiku 4.5 (gamme revérifiée le 2026-07-04).`;
+**Sources** · Doc officielle Anthropic, *Prompting best practices* (Tier 1, revérifiée 2026-07-16) : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\` et \`…/prompt-engineering/overview\` (+ pages par modèle : *Prompting Claude Fable 5*, *Prompting Claude Opus 4.8*). Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu valable pour Claude Fable 5 / Sonnet 5 / Opus 4.8 / Haiku 4.5 (gamme revérifiée le 2026-07-16).`;
 
-const COURSES = [
+export const COURSES = [
   bienDemarrerAvecClaude,
   {
     slug: "prompt-engineering-pro",
@@ -89,7 +95,7 @@ Chaque leçon : la technique officielle, un prompt opérationnel, un anti-patter
 
 ## Une note de fraîcheur importante
 
-Ce parcours est à jour pour **Claude Opus 4.8** et s'applique aussi à **Claude Fable 5**, le nouveau modèle le plus puissant d'Anthropic (sorti le 9 juin 2026, un cran au-dessus d'Opus — mêmes règles de prompting : suivi littéral des instructions, prefill interdit, adaptive thinking). Deux changements récents que beaucoup de contenus en ligne ratent encore :
+Ce parcours est à jour pour **Claude Opus 4.8** et s'applique aussi à **Claude Fable 5**, le modèle le plus puissant d'Anthropic accessible au grand public (sorti le 9 juin 2026, un cran au-dessus d'Opus ; sa variante Mythos 5 est réservée sur invitation). Le socle est commun — suivi littéral des instructions, prefill interdit, adaptive thinking — mais Anthropic documente désormais des **règles spécifiques par modèle** : sur Fable 5, les tours de travail sont beaucoup plus longs, l'effort \`high\` par défaut suffit à la plupart des tâches, et il ne faut **jamais lui demander de retranscrire son raisonnement interne** (la requête est refusée). Deux changements récents que beaucoup de contenus en ligne ratent encore :
 
 - Le **prefill** de la dernière réponse assistant n'est plus supporté depuis Claude 4.6 (renvoie une erreur 400). On verra par quoi le remplacer.
 - Opus 4.8 suit les instructions **plus littéralement** : il ne généralise plus une consigne d'un cas à l'autre tout seul. C'est une force si vous savez en tenir compte, un piège sinon.
@@ -208,7 +214,7 @@ Reprenez vos 3 contraintes les plus fréquentes (longueur, ton, format). Pour ch
 
 Pour le format, le ton et la structure, un exemple vaut trente lignes de consignes. La doc officielle :
 
-> *« Examples are one of the most reliable ways to steer Claude's output format, tone, and structure. A few well-crafted examples (known as few-shot or multishot prompting) can dramatically improve accuracy and consistency. »*
+> *« Examples are one of the most reliable ways to steer Claude's output format, tone, and structure. A few well-crafted examples (known as few-shot or multishot prompting) improve accuracy and consistency. »*
 
 ## Les 3 critères d'un bon exemple (officiels)
 
@@ -374,14 +380,20 @@ Prenez un prompt où vous avez accumulé des « ne fais pas ». Réécrivez chaq
         is_free_preview: false,
         content_md: `## Le raisonnement a changé de mécanique
 
-Si vous avez appris le prompt engineering il y a un an, cette partie a changé. Les modèles récents utilisent l'**adaptive thinking** : le modèle décide lui-même quand et combien réfléchir. Détail que beaucoup de contenus ratent : sur **Opus 4.8 et Sonnet 4.6**, ce mode est **opt-in** — si le paramètre \`thinking\` n'est pas explicitement réglé sur \`adaptive\` (dans l'API ou l'outil que vous utilisez), le modèle répond sans phase de réflexion. Sur **Claude Fable 5** (sorti le 9 juin 2026), c'est l'inverse : l'adaptive thinking est **toujours actif** et ne peut pas être désactivé. Une fois actif, le modèle calibre sa réflexion sur deux choses :
+Si vous avez appris le prompt engineering il y a un an, cette partie a changé. Les modèles récents utilisent l'**adaptive thinking** : le modèle décide lui-même quand et combien réfléchir. Détail que beaucoup de contenus ratent — le réglage par défaut dépend du modèle (vérifié juillet 2026) :
+
+- **Opus 4.6 → 4.8 et Sonnet 4.6** : opt-in. Si le paramètre \`thinking\` n'est pas explicitement réglé sur \`adaptive\` (dans l'API ou l'outil que vous utilisez), le modèle répond sans phase de réflexion.
+- **Sonnet 5** (sorti le 30 juin 2026) : **activé par défaut**, mais désactivable (\`thinking: {type: "disabled"}\`).
+- **Claude Fable 5** : **toujours actif**, non désactivable.
+
+Une fois actif, le modèle calibre sa réflexion sur deux choses :
 
 - le paramètre **effort** (\`low\` → \`medium\` → \`high\` → \`xhigh\` → \`max\`)
 - la complexité de la requête
 
-La doc est explicite : l'ancien \`budget_tokens\` (extended thinking) est **déprécié**. Le bon levier aujourd'hui, c'est **effort**.
+La doc est explicite : l'ancien \`budget_tokens\` (extended thinking) est **déprécié sur les modèles 4.6**, et carrément **supprimé à partir d'Opus 4.7** ainsi que sur Sonnet 5 et Fable 5 (le paramètre renvoie une erreur 400). Le bon levier aujourd'hui, c'est **effort**.
 
-> Recommandations officielles : \`xhigh\` pour le code et l'agentique ; minimum \`high\` pour tout ce qui est sensible à l'intelligence ; \`low\`/\`medium\` pour la latence et le coût quand la tâche n'est pas exigeante.
+> Recommandations officielles, par modèle : sur **Opus 4.8**, \`xhigh\` pour le code et l'agentique, minimum \`high\` pour tout ce qui est sensible à l'intelligence. Sur **Fable 5**, \`high\` (le défaut) suffit à la plupart des tâches — la doc précise qu'un effort bas sur Fable 5 dépasse souvent le \`xhigh\` des modèles précédents ; réservez \`xhigh\` aux charges les plus exigeantes. Partout : \`low\`/\`medium\` pour la latence et le coût quand la tâche n'est pas exigeante. À \`xhigh\`/\`max\`, prévoyez un \`max_tokens\` large (~64k) : il plafonne réflexion + réponse.
 
 Conséquence pratique : si Claude raisonne trop superficiellement sur un problème dur, **montez l'effort** avant de bricoler le prompt. Inversement, s'il sur-réfléchit sur du simple, baissez-le.
 
@@ -430,6 +442,7 @@ Sur une tâche à enjeu (analyse, rédaction importante) : (1) ajoutez une claus
 ];
 
 async function seed() {
+  const supabase = getSupabase();
   let coursesUpserted = 0;
   let lessonsUpserted = 0;
 
@@ -503,7 +516,14 @@ async function seed() {
   );
 }
 
-seed().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// N'exécute le seed que lancé directement (pas via un import, ex. gen-sql.mjs).
+import { pathToFileURL } from "node:url";
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  seed().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

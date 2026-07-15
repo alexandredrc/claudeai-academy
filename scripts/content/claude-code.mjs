@@ -100,10 +100,12 @@ Pour une tâche non triviale, faites d'abord **produire un plan** (mode plan / �
 
 ## L'hygiène de contexte
 
-La fenêtre de contexte n'est pas infinie, et un contexte saturé ou pollué dégrade les réponses. Deux habitudes :
+La fenêtre de contexte s'est beaucoup agrandie (le modèle par défaut de Claude Code, Sonnet 5, offre 1 million de tokens en natif depuis juillet 2026), mais la règle de fond n'a pas changé : **un contexte pollué dégrade les réponses**, même loin de la saturation. Deux habitudes :
 
-- **Repartir propre entre deux tâches sans rapport** (commande de type /clear) pour éviter que l'ancien sujet ne parasite le nouveau.
-- **Compacter** une session longue (commande de type /compact) pour garder l'essentiel quand l'historique s'allonge.
+- **Repartir propre entre deux tâches sans rapport** (commande de type /clear) pour éviter que l'ancien sujet ne parasite le nouveau. Ce n'est plus un aller simple : /rewind permet de retrouver la conversation d'avant un /clear.
+- **Compacter** une session longue (commande de type /compact) pour garder l'essentiel quand l'historique s'allonge — moins souvent nécessaire avec 1M de tokens, mais toujours utile pour assainir.
+
+Bonus : la commande **/doctor** fait désormais un check-up complet de votre installation, et propose même d'élaguer un CLAUDE.md trop bavard en coupant ce que Claude peut déduire du code lui-même.
 
 > Un bon opérateur de Claude Code gère son contexte comme un plan de travail : on range entre deux tâches, on ne laisse pas tout traîner.
 
@@ -128,11 +130,11 @@ Dès que vous utilisez Claude Code sérieusement, vous répétez les mêmes cons
 
 Historiquement, on créait des **slash commands** : des fichiers Markdown dans **.claude/commands/** invoqués par /nom. Ils ont **convergé avec les skills** : l'emplacement recommandé aujourd'hui est **.claude/skills/<nom>/SKILL.md** (le dossier .claude/commands/ reste pris en charge en legacy). Vérifiez le détail selon votre version.
 
-Concrètement, vous écrivez une fois la consigne, et vous la rejouez d'un mot. Vous pouvez passer des arguments : une syntaxe capture **tout l'argument** (souvent ARGUMENTS), et une autre des **arguments positionnels** individuels — mais la numérotation exacte dépend de la version, vérifiez la doc avant de vous y fier.
+Concrètement, vous écrivez une fois la consigne, et vous la rejouez d'un mot. Vous pouvez passer des arguments (syntaxe vérifiée juillet 2026) : \`$ARGUMENTS\` capture **tout** le texte passé après la commande ; \`$ARGUMENTS[N]\` (ou le raccourci \`$N\`) capture un **argument positionnel** — attention, la numérotation part de **0** (\`$0\` = premier argument, \`$1\` = deuxième) ; et un champ \`arguments\` dans le frontmatter permet des **arguments nommés** (\`$issue\`, \`$branch\`). Astuce puissante : on peut **empiler jusqu'à 6 skills** dans un même message (\`/revue /conventions corrige ce module\`) — tous se chargent, le texte restant leur arrive en \`$ARGUMENTS\`.
 
 ## Un skill, c'est quoi exactement
 
-Un skill = un fichier **SKILL.md** avec un en-tête (frontmatter) comprenant au minimum un **name** et une **description**. Point crucial : **la description est ce que l'agent lit pour décider** d'activer le skill. Une description vague = un skill qui ne se déclenche jamais au bon moment. Le détail volumineux (procédures, exemples) va dans des fichiers que le skill charge **à la demande**, pour ne pas alourdir le contexte.
+Un skill = un fichier **SKILL.md** avec un en-tête (frontmatter). Tous les champs y sont **facultatifs** : sans \`name\`, le skill prend le nom de son dossier ; sans \`description\`, c'est le premier paragraphe du contenu qui sert de description. Mais ne vous en passez pas : **la description est ce que l'agent lit pour décider** d'activer le skill (plafond 1 536 caractères avec \`when_to_use\`). Une description vague = un skill qui ne se déclenche jamais au bon moment. Le détail volumineux (procédures, exemples) va dans des fichiers que le skill charge **à la demande**, pour ne pas alourdir le contexte.
 
 ## Quand créer un skill (et quand non)
 
@@ -174,6 +176,7 @@ Selon la convention, un hook **PreToolUse** qui renvoie un certain code de sorti
 - **Lancer les tests** concernés après une modification.
 - **Protéger des fichiers ou dossiers sensibles** : bloquer toute écriture sur, par exemple, des fichiers de secrets ou de config de prod (PreToolUse).
 - **Imposer une convention** que vous ne voulez pas répéter à chaque session.
+- **Être alerté au bon moment** : l'événement Notification signale entre autres qu'un agent en arrière-plan a besoin de vous ou vient de terminer — pratique pour brancher une notification système et ne plus surveiller le terminal.
 
 ## Le revers : un hook exécute du code arbitraire
 
@@ -199,7 +202,7 @@ Par défaut, Claude Code agit sur votre code. Le **Model Context Protocol (MCP)*
 
 ## Comment on ajoute un serveur
 
-Deux voies courantes : déclarer le serveur dans un fichier de projet (souvent **.mcp.json**, versionnable et partageable avec l'équipe), ou l'ajouter en ligne de commande. Vous vérifiez ensuite les serveurs connectés (commande de type claude mcp list, ou /mcp en session). Les noms exacts dépendent de la version — vérifiez la doc.
+Deux voies courantes : déclarer le serveur dans un fichier de projet (souvent **.mcp.json**, versionnable et partageable avec l'équipe), ou l'ajouter en ligne de commande. Vous vérifiez ensuite les serveurs connectés (commande de type claude mcp list, ou /mcp en session). Pour les serveurs qui exigent une authentification OAuth, \`claude mcp login <nom>\` / \`claude mcp logout <nom>\` gèrent la connexion depuis le terminal.
 
 ## Ce que ça débloque
 
@@ -217,6 +220,8 @@ Les règles de base :
 - **Moindre privilège** : un accès en lecture seule et restreint au strict nécessaire ; ne lui passez pas tous vos secrets.
 - **Épinglez une version** ; ne suivez pas une source qui peut changer sous vous.
 - Traitez les sorties d'outils comme des **données**, jamais comme des ordres.
+
+Signe que le risque est pris au sérieux jusque chez l'éditeur : depuis mi-2026, un dépôt cloné ne peut plus **auto-approuver ses propres serveurs** \`.mcp.json\` via un fichier de réglages committé — dans un espace de travail non approuvé, ils restent « en attente d'approbation » au lieu de se lancer. Exactement l'esprit de cette leçon : chaque connexion est une porte, et c'est à vous de l'ouvrir.
 
 (Le parcours « Prompts & Skills GitHub : sécuriser » détaille ce modèle de menace.)
 
@@ -239,9 +244,15 @@ Pourquoi déléguer plutôt que tout faire dans la session principale :
 
 - **Isoler le contexte** : le sub-agent travaille sur sa tâche sans polluer (ni être pollué par) le reste.
 - **Spécialiser** : un agent « revue de sécurité » avec une consigne précise est meilleur qu'un agent généraliste.
-- **Paralléliser** : plusieurs sous-tâches indépendantes peuvent avancer en même temps.
+- **Paralléliser** : depuis mi-2026, ce n'est plus une option mais le **comportement par défaut** — les sub-agents tournent en arrière-plan, l'agent principal continue de travailler et est notifié quand ils terminent. Si un sub-agent de fond a besoin d'une permission, la demande remonte dans votre session principale (avec le nom de l'agent demandeur).
 
-Donnez à chaque sub-agent **le minimum d'outils nécessaires** (moindre privilège), comme pour un serveur MCP.
+Donnez à chaque sub-agent **le minimum d'outils nécessaires** (moindre privilège), comme pour un serveur MCP. Côté création : plus de wizard dédié — demandez à Claude de créer l'agent, ou éditez directement les fichiers de **.claude/agents/**.
+
+## Les background agents : déléguer des sessions entières
+
+L'étape au-dessus du sub-agent : les **agents en arrière-plan** (vue \`claude agents\`, un tableau de bord de vos sessions de fond). Chaque agent peut travailler dans un **worktree git isolé** — une copie de travail dédiée du dépôt — et, quand il termine une tâche de code, il **commite, pousse sa branche et ouvre une pull request en brouillon** tout seul.
+
+Une tension apparente avec la règle « humain dans la boucle pour tout push » ? Non : le push automatique va vers une **branche isolée** et la PR reste en **brouillon** — la validation humaine ne disparaît pas, elle se déplace au moment du merge, là où elle compte vraiment. C'est le pattern à retenir : automatiser le trajet, garder l'humain au péage.
 
 ## Architecturer un workflow agentic
 
@@ -265,6 +276,7 @@ Quelques patterns utiles :
 - **Critère de succès défini** avant de lancer : sinon l'agent « termine » sans que vous sachiez si c'est bon.
 - **Coût et contexte maîtrisés** : plus un workflow est long, plus il consomme et plus il dérive — découpez.
 - **Tout est journalisé et relu** : vous restez le responsable.
+- **Méfiance structurelle entre agents** : le harnais lui-même applique cette règle depuis mi-2026 — le message d'un agent n'est jamais traité comme une approbation humaine, les notifications de tâches de fond précisent qu'aucune validation n'a eu lieu, et l'outil de délégation est durci contre l'injection de prompt via le contenu qu'un sub-agent a lu. Appliquez la même logique dans vos workflows : une sortie d'agent est une **donnée à vérifier**, pas une décision.
 
 > L'objectif n'est pas que l'agent travaille seul, mais qu'il vous rende **plus rapide et plus rigoureux** — sans jamais vous retirer le contrôle des décisions qui comptent.
 

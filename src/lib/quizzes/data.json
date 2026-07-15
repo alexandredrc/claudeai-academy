@@ -1580,15 +1580,15 @@
   ],
   "strategie-gouvernance-conformite": [
     {
-      "q": "Selon la leçon, quel est le statut juridique du report de certaines échéances « haut risque » de l'AI Act prévu par le paquet « Digital Omnibus sur l'IA » ?",
+      "q": "Selon la leçon, qu'a changé le paquet « Digital Omnibus sur l'IA » (adopté en juin 2026) au calendrier de l'AI Act ?",
       "options": [
-        "C'est déjà du droit définitif applicable, on peut planifier dessus en toute sécurité.",
-        "Ce n'est pas encore du droit définitif à la rédaction : un accord provisoire a été annoncé mais il doit être confirmé, et il ne faut pas planifier sur ces dates sans confirmation officielle.",
-        "Le report a été rejeté par la Commission et l'annexe III s'applique sans changement.",
-        "Il s'agit d'une interdiction supplémentaire entrée en vigueur le 2 février 2025."
+        "Il a tout reporté : plus aucune obligation ne s'applique avant décembre 2027.",
+        "Il a reporté les échéances haut risque (annexe III au 2 décembre 2027, annexe I au 2 août 2028), mais les interdictions, la littératie IA, les obligations GPAI et la transparence de l'article 50 gardent leur calendrier d'origine.",
+        "Il a été rejeté par le Conseil : le calendrier initial s'applique sans changement.",
+        "Il a avancé l'application des obligations haut risque au 2 février 2025."
       ],
       "correct": 1,
-      "explanation": "La leçon précise que le Digital Omnibus prévoit de reporter certaines échéances haut risque (notamment l'annexe III), mais qu'à la rédaction ce report n'est pas encore du droit définitif : un accord provisoire a été annoncé début mai 2026, à confirmer. D'où la mise en garde de ne pas planifier sur ces dates sans confirmation officielle. Le 2 février 2025 correspond, dans la leçon, à l'interdiction des pratiques à risque inacceptable, sans rapport avec l'Omnibus."
+      "explanation": "La leçon précise que le Digital Omnibus, définitivement adopté en juin 2026 (Parlement le 16 juin, Conseil le 29 juin), reporte les échéances haut risque : annexe III au 2 décembre 2027 et annexe I au 2 août 2028. Mais tout n'est pas reporté — les interdictions, la littératie IA, les obligations GPAI et les obligations de transparence de l'article 50 (applicables au 2 août 2026) suivent le calendrier d'origine."
     },
     {
       "q": "D'après la classification des systèmes par l'AI Act décrite dans la leçon, à quelle catégorie de risque correspondent les obligations de transparence comme « signaler qu'on parle à une IA ou qu'un contenu est généré » ?",

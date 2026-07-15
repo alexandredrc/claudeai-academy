@@ -221,6 +221,8 @@ La donnée est le fondement — et la source n°1 de biais. Faites construire un
 
 Le prompt-clé : demandez explicitement à Claude Code d'ajouter une étape de **validation qui échoue bruyamment** si la donnée est suspecte. Une donnée silencieusement fausse coûte plus cher qu'un pipeline qui plante.
 
+Au passage : avec le contexte de 1 million de tokens des modèles récents (Sonnet 5), vous pouvez faire ingérer à Claude un gros CSV ou un long rapport de backtest **en une seule session** d'analyse — ce qui exigeait hier un découpage laborieux.
+
 ## 2. Un tableau de bord
 
 Une fois la donnée et le backtest en place, un dashboard transforme des chiffres en décisions. Demandez à Claude Code un tableau (par exemple en Streamlit) qui affiche :
@@ -247,6 +249,7 @@ C'est la leçon la plus importante du parcours.
 - **Loggez tout.** Chaque signal, chaque taille, chaque décision, avec sa raison. Votre journal est votre seule vraie source d'apprentissage.
 - **Méfiez-vous de la fluidité.** Une réponse d'IA bien écrite *paraît* fiable. Vérifiez les chiffres, surtout quand ils vous arrangent.
 - **Un kill-switch.** Tout automate de recherche doit pouvoir être coupé instantanément, et ne jamais agir hors d'enveloppes de risque définies à l'avance.
+- **La défense en profondeur existe déjà côté outil** : les versions récentes de Claude Code bloquent ou re-confirment d'elles-mêmes les commandes destructives non demandées. Tant mieux — mais ça ne remplace ni vos enveloppes de risque ni votre kill-switch : les garde-fous de l'éditeur protègent la machine, les vôtres protègent le capital.
 
 ## La discipline qui fait la différence
 

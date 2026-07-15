@@ -141,7 +141,7 @@ Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche e
 
 - **Claude Sonnet 5** (sorti le 30 juin 2026) : le modèle équilibré de dernière génération — raisonnement, usage d'outils et rédaction en net progrès. Excellent défaut pour le travail quotidien.
 - **Claude Opus 4.8** (mai 2026) : le haut de gamme pour le code, les tâches agentiques et le raisonnement exigeant.
-- **Claude Fable 5** : le haut de gamme absolu de la génération Claude 5, disponible depuis le 1er juillet 2026. Modalités d'accès particulières au moment où nous écrivons : inclus pour les plans payants à hauteur de 50 % du quota hebdomadaire jusqu'au 7 juillet, ensuite via des crédits d'usage optionnels — situation transitoire, vérifiez la doc officielle.
+- **Claude Fable 5** : le haut de gamme absolu de la génération Claude 5 (sa variante jumelle Claude Mythos 5 est réservée, sur invitation, à des organisations approuvées). Modalités d'accès particulières au moment où nous vérifions (mi-juillet 2026) : inclus pour les plans payants à hauteur de 50 % du quota hebdomadaire **jusqu'au 19 juillet 2026** (échéance déjà repoussée deux fois), ensuite via des crédits d'usage optionnels facturés à part. Anthropic annonce que le modèle reviendra dans les abonnements quand la capacité serveur suivra — situation mouvante, vérifiez la doc officielle.
 - **Claude Haiku 4.5** : le plus rapide et le plus économe — parfait pour les questions simples et les gros volumes.
 - Les générations précédentes (Opus 4.7, Opus 4.6, Sonnet 4.6…) restent accessibles via « Plus de modèles ».
 
@@ -155,7 +155,7 @@ Le sélecteur se trouve **à côté du bouton d'envoi** du message. Il affiche l
 2. **L'effort** : l'intensité de traitement de chaque réponse.
 3. **La réflexion étendue** (extended thinking) : un temps de réflexion visible avant la réponse.
 
-Précision importante (juillet 2026) : le sélecteur d'**effort** n'est proposé que sur certains modèles — la doc officielle liste Opus 4.8, 4.7, 4.6 et Sonnet 4.6. Sur les autres, dont **Sonnet 5 proposé par défaut**, vous verrez seulement l'interrupteur de réflexion étendue (« Extended »). Si vous ne trouvez pas le réglage d'effort, ce n'est donc pas un bug : changez de modèle via « Plus de modèles » ou passez-vous-en.
+Précision importante (juillet 2026) : le sélecteur d'**effort** n'est proposé que sur certains modèles — la doc officielle liste Opus 4.8, 4.7, 4.6 et Sonnet 4.6. Sur les autres, dont **Sonnet 5 proposé par défaut**, vous verrez seulement l'interrupteur de réflexion étendue (« Extended »). Si vous ne trouvez pas le réglage d'effort, ce n'est donc pas un bug : changez de modèle via « Plus de modèles » ou passez-vous-en. Autre cas de « modèle manquant » : sur les comptes Team/Enterprise, les administrateurs peuvent désormais restreindre les modèles et niveaux d'effort accessibles par rôle — si un modèle cité ici n'apparaît pas chez vous au travail, c'est peut-être une politique d'entreprise, pas une erreur.
 
 ## L'effort : le réglage que tout le monde ignore
 
@@ -217,7 +217,7 @@ L'icône **fantôme** (en haut à droite) ouvre une conversation incognito : ell
 
 ## Ce que vous pouvez ignorer pour l'instant
 
-L'écosystème Claude comprend aussi **Cowork** (déléguer des tâches de fond), **Claude Design** (prototypes visuels), **Claude Code** (l'agent en terminal — un parcours entier lui est consacré), et les **connecteurs** vers vos outils (leçon suivante). Ne cherchez pas à tout ouvrir la première semaine : maîtrisez d'abord chat + fichiers + artefacts, le reste s'ajoutera naturellement.
+L'écosystème Claude comprend aussi **Cowork** (déléguer des tâches de fond — depuis juillet 2026 il partage le même accueil que le chat, sur le web et le mobile, avec des sessions qui peuvent continuer dans le cloud même ordinateur fermé), **Claude Design** (prototypes visuels), **Claude Code** (l'agent en terminal — un parcours entier lui est consacré), et les **connecteurs** vers vos outils (leçon suivante). Ne cherchez pas à tout ouvrir la première semaine : maîtrisez d'abord chat + fichiers + artefacts, le reste s'ajoutera naturellement.
 
 ## Anti-pattern
 
@@ -250,6 +250,11 @@ C'est la section la plus importante. Vous y activez ou désactivez les **capacit
 ## Settings > Appearance
 
 Thème clair/sombre (ou calé sur le système) et police du chat — y compris une option adaptée aux dyslexiques. Cosmétique, mais deux minutes bien investies si vous passez des heures dans l'outil.
+
+## Deux sections récentes à connaître (juillet 2026)
+
+- **Settings > Reflect** (bêta) : un bilan de votre usage de Claude — sujets récurrents, périodes d'activité, façons de collaborer — sur 1, 3, 6 ou 12 mois. Nécessite la mémoire activée ; les conversations incognito en sont exclues. Utile pour repérer *vos* usages à fort rendement (et ceux que vous sous-exploitez).
+- **Settings > Time and focus** : des notifications de pause optionnelles et des heures calmes. Anecdotique en apparence, sain en pratique.
 
 ## Les connecteurs : brancher Claude sur vos outils
 

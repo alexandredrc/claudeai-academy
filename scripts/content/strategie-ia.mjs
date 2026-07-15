@@ -2,7 +2,7 @@
 // Parcours « Stratégie et conduite IA en entreprise »
 // Contenu original au standard du Parcours. Sujet : choisir, prioriser, chiffrer,
 // gouverner, déployer et sécuriser des projets IA en entreprise — sans POC orphelin.
-// Cadres RGPD et AI Act (UE) vérifiés à la rédaction (juin 2026). Contenu ÉDUCATIF,
+// Cadres RGPD et AI Act (UE) vérifiés à la rédaction (juillet 2026, post-Digital Omnibus). Contenu ÉDUCATIF,
 // ne remplace pas un conseil juridique.
 // =========================================
 
@@ -206,7 +206,7 @@ Un projet dont le run annuel approche le gain annuel n'est pas rentable — il d
       content_md:
         `## Avertissement, parce qu'il compte
 
-Cette leçon est **éducative**. Elle vous donne le vocabulaire et les repères pour cadrer un projet et **dialoguer avec un professionnel du droit** — elle ne remplace ni un avocat, ni votre délégué à la protection des données (DPO), ni le service juridique. Le droit évolue, dépend de votre secteur et de votre situation. Vérifiez toujours auprès d'une source à jour et d'un conseil qualifié. Les dates ci-dessous sont vérifiées à la rédaction (juin 2026).
+Cette leçon est **éducative**. Elle vous donne le vocabulaire et les repères pour cadrer un projet et **dialoguer avec un professionnel du droit** — elle ne remplace ni un avocat, ni votre délégué à la protection des données (DPO), ni le service juridique. Le droit évolue, dépend de votre secteur et de votre situation. Vérifiez toujours auprès d'une source à jour et d'un conseil qualifié. Les dates ci-dessous sont vérifiées à la rédaction (juillet 2026).
 
 ## Pourquoi gouverner, et pas seulement coder
 
@@ -245,6 +245,8 @@ Le Règlement général sur la protection des données (RGPD, règlement UE 2016
 
 > Pour un traitement susceptible d'engendrer un risque élevé, une **analyse d'impact** (AIPD, en anglais DPIA) peut être requise. C'est exactement le genre de point à valider avec votre DPO.
 
+Côté outillage, la CNIL publie des recommandations dédiées à l'IA, et a lancé début 2026 avec l'ANSSI, le PEReN et Inria l'outil **PANAME** pour auditer la confidentialité des modèles (est-ce qu'un modèle régurgite des données personnelles ?). Le Comité européen de la protection des données (CEPD) a aussi publié en juillet 2026 des lignes directrices sur l'anonymisation et le moissonnage de données (web scraping) — deux sujets qui reviennent dans presque tout projet IA.
+
 Côté sanctions, le RGPD prévoit deux niveaux : jusqu'à **10 millions d'euros ou 2 %** du chiffre d'affaires annuel mondial pour le premier, et jusqu'à **20 millions d'euros ou 4 %** (le montant le plus élevé étant retenu) pour les manquements les plus graves, au titre de l'article 83. En France, l'autorité de contrôle est la CNIL.
 
 ## AI Act : ce qui est vérifié, et ce qui bouge
@@ -253,12 +255,13 @@ Le règlement sur l'intelligence artificielle (**AI Act**, règlement UE 2024/16
 
 - **2 février 2025** : interdiction des pratiques à risque inacceptable (notation sociale, manipulation subliminale, certaines reconnaissances) et obligations de **littératie IA**.
 - **2 août 2025** : obligations pour les modèles d'IA à usage général (GPAI), dont les grands modèles de langage.
-- **2 août 2026** : application de l'essentiel des obligations pour les systèmes à **haut risque** de l'annexe III.
-- **2 août 2027** : systèmes à haut risque intégrés à des produits déjà réglementés (annexe I).
+- **2 août 2026** : obligations de **transparence** (article 50) — signaler qu'on parle à une IA, marquer les contenus générés (tolérance jusqu'au 2 décembre 2026 pour les systèmes déjà déployés). Maintenues malgré l'Omnibus (voir ci-dessous) : pour un chatbot d'entreprise, c'est l'échéance la plus concrète.
+- **2 décembre 2027** : obligations pour les systèmes à **haut risque** de l'annexe III (échéance initialement fixée au 2 août 2026, reportée par le règlement de simplification dit « Digital Omnibus IA »).
+- **2 août 2028** : systèmes à haut risque intégrés à des produits déjà réglementés (annexe I) — également reporté d'un an par l'Omnibus.
 
 Sanctions : jusqu'à **35 millions d'euros ou 7 %** du chiffre d'affaires mondial pour les pratiques interdites.
 
-**Point d'actualité à vérifier impérativement.** Un paquet de simplification dit *Digital Omnibus sur l'IA*, proposé par la Commission en novembre 2025, prévoit de **reporter** certaines échéances haut risque (notamment l'annexe III, évoquée vers fin 2027). Un accord provisoire a été annoncé début mai 2026, mais à la rédaction ce report **n'est pas encore du droit définitif** : il doit être confirmé. Ne planifiez pas sur ces dates reportées sans confirmer leur adoption finale auprès d'une source officielle et de votre conseil. C'est précisément pour ce genre de mouvement que cette leçon reste éducative et renvoie au professionnel.` + FOOTER,
+**Point d'actualité.** Le paquet de simplification dit *Digital Omnibus sur l'IA*, proposé par la Commission en novembre 2025, a été **définitivement adopté** (vote du Parlement européen le 16 juin 2026, feu vert du Conseil le 29 juin 2026, entrée en vigueur en juillet 2026) : c'est lui qui fixe les dates de 2027 et 2028 ci-dessus. Attention, tout n'est pas reporté — les interdictions, la littératie IA, les obligations GPAI et la transparence de l'article 50 s'appliquent selon le calendrier d'origine. Le texte ajoute aussi deux interdictions à l'article 5 (images intimes non consenties et contenus pédocriminels générés par IA), applicables au **2 décembre 2026**. Vérifié à la rédaction (juillet 2026) ; le droit continue d'évoluer — confirmez toujours auprès d'une source officielle et de votre conseil. C'est précisément pour ce genre de mouvement que cette leçon reste éducative et renvoie au professionnel.` + FOOTER,
     },
     {
       slug: "strategie-conduite-changement-adoption",

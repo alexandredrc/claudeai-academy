@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getStripe } from "@/lib/stripe/server";
 import { createClient } from "@/lib/supabase/server";
+import { PurchaseConversion } from "@/components/site/purchase-conversion";
 
 type SearchParams = Promise<{ session_id?: string }>;
 
@@ -18,6 +19,8 @@ export default async function CheckoutSuccessPage({
   let tierName = "Pass";
   let amountFormatted = "";
   let buyerEmail: string | null = null;
+  let conversionValue = 0;
+  let conversionCurrency = "EUR";
   try {
     const session = await getStripe().checkout.sessions.retrieve(session_id);
     const tier = session.metadata?.tier;
@@ -27,11 +30,13 @@ export default async function CheckoutSuccessPage({
         : tier === "starter"
           ? "Pass Starter"
           : "votre pass";
+    conversionValue = (session.amount_total ?? 0) / 100;
+    conversionCurrency = (session.currency ?? "eur").toUpperCase();
     amountFormatted = new Intl.NumberFormat("fr-FR", {
       style: "currency",
-      currency: (session.currency ?? "eur").toUpperCase(),
+      currency: conversionCurrency,
       minimumFractionDigits: 0,
-    }).format((session.amount_total ?? 0) / 100);
+    }).format(conversionValue);
     buyerEmail = session.customer_details?.email ?? session.customer_email ?? null;
   } catch {
     // Affichage générique si l'API Stripe répond mal.
@@ -48,6 +53,11 @@ export default async function CheckoutSuccessPage({
 
   return (
     <section className="bg-cream-soft">
+      <PurchaseConversion
+        value={conversionValue}
+        currency={conversionCurrency}
+        transactionId={session_id}
+      />
       <div className="mx-auto flex min-h-[calc(100vh-81px-145px)] max-w-[640px] flex-col justify-center px-6 py-16 text-center">
         <span className="inline-flex items-center justify-center gap-2 self-center rounded-full bg-green-soft px-4 py-2 text-[13px] font-semibold text-green">
           <span className="h-1.5 w-1.5 rounded-full bg-green" />

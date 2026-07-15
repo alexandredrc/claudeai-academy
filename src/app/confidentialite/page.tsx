@@ -131,10 +131,21 @@ export default function ConfidentialitePage() {
 
           <h2>7. Cookies</h2>
           <p>
-            Le site utilise uniquement les cookies strictement nécessaires à son
-            fonctionnement (session, authentification). Il n’utilise pas de
-            cookies de mesure d’audience ni de cookies publicitaires&nbsp;; ces
-            cookies essentiels ne requièrent pas de consentement préalable.
+            Le site utilise les cookies strictement nécessaires à son
+            fonctionnement (session, authentification), qui ne requièrent pas de
+            consentement préalable.
+          </p>
+          <p>
+            Lorsque nous menons des campagnes publicitaires, le site peut en
+            outre utiliser un cookie de <strong>mesure de conversion Google
+            (Google Ads)</strong>, uniquement destiné à savoir quelles campagnes
+            aboutissent à une inscription. Ce cookie n’est déposé
+            qu’<strong>avec votre consentement</strong>, recueilli via la
+            bannière prévue à cet effet&nbsp;; vous pouvez refuser sans aucune
+            conséquence sur votre navigation, et revenir sur votre choix en
+            supprimant les données de site de votre navigateur. En cas de refus,
+            seuls des signaux techniques anonymes et sans cookie (Google Consent
+            Mode) sont émis à des fins de mesure agrégée.
           </p>
 
           <h2>8. Contact</h2>

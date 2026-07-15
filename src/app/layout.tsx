@@ -3,6 +3,8 @@ import { Inter, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { GoogleTag, GADS_ID } from "@/components/site/google-tag";
+import { ConsentBanner } from "@/components/site/consent-banner";
 import { createClient } from "@/lib/supabase/server";
 
 const inter = Inter({
@@ -103,9 +105,11 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
         />
+        <GoogleTag />
         <Header isLoggedIn={!!user} />
         <main className="flex-1">{children}</main>
         <Footer />
+        {GADS_ID ? <ConsentBanner /> : null}
       </body>
     </html>
   );

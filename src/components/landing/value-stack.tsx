@@ -97,7 +97,7 @@ export async function ValueStack() {
               Rejoindre Mastery, 497 €
             </CheckoutButton>
             <p className="mt-3 text-[13px] text-muted">
-              ou 3 × 179 € sans frais · Garantie 14 jours
+              Paiement unique · Garantie 14 jours
             </p>
           </div>
         </div>

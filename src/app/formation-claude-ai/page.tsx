@@ -65,8 +65,8 @@ async function LandingHero() {
           <p className="mt-7 text-lg leading-relaxed text-muted max-w-[620px]">
             Vous cherchez une formation Claude AI sérieuse, en français ? La
             voici : {stats.courseCount} parcours structurés,{" "}
-            {stats.lessonCount} leçons concrètes et {PROMPT_COUNT} prompts
-            prêts à l&apos;emploi pour appliquer l&apos;IA à votre métier dès
+            {stats.lessonCount} leçons concrètes et {PROMPT_COUNT}{" "}
+            prompts prêts à l&apos;emploi pour appliquer l&apos;IA à votre métier dès
             la première semaine. Paiement unique, accès à vie.
           </p>
 
@@ -152,7 +152,7 @@ function PainBridge() {
         <p className="mt-12 text-center text-lg leading-relaxed text-ink-soft max-w-[680px] mx-auto">
           ClaudeAI Academy est le pont entre les deux : une méthode structurée,
           leçon par leçon, du premier réglage jusqu&apos;aux workflows
-          d&apos;expert — avec un qcm et des prompts à appliquer à chaque
+          d&apos;expert — avec un QCM et des prompts à appliquer à chaque
           étape.
         </p>
       </Container>
@@ -240,7 +240,7 @@ function LandingFAQ() {
     },
     {
       q: "« Est-ce finançable par le CPF ? »",
-      a: "Non, et c'est un choix : pas de dossier, pas de délai, pas d'organisme intermédiaire. Vous payez 47 € ou 497 € en direct (ou 3×179 €), vous accédez au contenu dans la minute, et la garantie 14 jours remplace la paperasse.",
+      a: "Non, et c'est un choix : pas de dossier, pas de délai, pas d'organisme intermédiaire. Vous payez 47 € ou 497 € en direct, vous accédez au contenu dans la minute, et la garantie 14 jours remplace la paperasse.",
     },
   ];
   return (

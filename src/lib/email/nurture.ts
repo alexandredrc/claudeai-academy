@@ -235,7 +235,7 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
     ),
     cta("Voir le Pass Mastery", `${SITE_URL}/tarifs`),
     p(
-      "Et parce que tu as déjà le Starter : <strong>tes 47 € sont déduits automatiquement</strong> au paiement quand tu es connecté à ton espace. Le Mastery te revient à 450 €. Le 3× sans frais existe aussi, et la garantie 14 jours s'applique toujours.",
+      "Et parce que tu as déjà le Starter : <strong>tes 47 € sont déduits automatiquement</strong> au paiement quand tu es connecté à ton espace. Le Mastery te revient à 450 €, et la garantie 14 jours s'applique toujours.",
     ),
     p(
       "Une question avant de décider ? Réponds à cet email, il arrive directement à moi.",
@@ -253,7 +253,7 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
     "",
     `Voir le Pass Mastery : ${SITE_URL}/tarifs`,
     "",
-    "Et parce que tu as déjà le Starter : tes 47 € sont déduits automatiquement au paiement quand tu es connecté à ton espace. Le Mastery te revient à 450 €. Le 3× sans frais existe aussi, et la garantie 14 jours s'applique toujours.",
+    "Et parce que tu as déjà le Starter : tes 47 € sont déduits automatiquement au paiement quand tu es connecté à ton espace. Le Mastery te revient à 450 €, et la garantie 14 jours s'applique toujours.",
     "",
     "Une question avant de décider ? Réponds à cet email, il arrive directement à moi.",
     "",
@@ -266,7 +266,7 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
 // =========================================
 // J+21 — objection prix (séquence B, Starter uniquement)
 // L'objection dominante à ce stade : « 497 €, c'est cher ». On la traite
-// frontalement : reframe coût/leçon, crédit Starter, 3×, garantie.
+// frontalement : reframe coût/leçon, crédit Starter, garantie.
 // =========================================
 function renderD21(tier: PlanTier, firstName: string | null): Rendered {
   const subject = "« 497 €, c'est cher » — parlons-en franchement";
@@ -278,10 +278,9 @@ function renderD21(tier: PlanTier, firstName: string | null): Rendered {
     p(
       "497 € pour 48 leçons, c'est ~10 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
     ),
-    p("Trois choses qui réduisent encore le risque :"),
+    p("Deux choses qui réduisent encore le risque :"),
     bullets([
       "<strong>Ton Starter est déduit</strong> : connecté à ton espace, le Mastery passe automatiquement à 450 €.",
-      "<strong>Le 3× sans frais</strong> : 179 € par mois, sans dossier.",
       "<strong>La garantie 14 jours</strong> : si le contenu ne tient pas la promesse, tu es intégralement remboursé, sans justification.",
     ]),
     cta("Passer au Mastery (crédit déduit)", `${SITE_URL}/tarifs`),
@@ -297,9 +296,8 @@ function renderD21(tier: PlanTier, firstName: string | null): Rendered {
     "",
     "497 € pour 48 leçons, c'est ~10 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
     "",
-    "Trois choses qui réduisent encore le risque :",
+    "Deux choses qui réduisent encore le risque :",
     "- Ton Starter est déduit : connecté à ton espace, le Mastery passe automatiquement à 450 €.",
-    "- Le 3× sans frais : 179 € par mois, sans dossier.",
     "- La garantie 14 jours : remboursement intégral, sans justification.",
     "",
     `Passer au Mastery (crédit déduit) : ${SITE_URL}/tarifs`,

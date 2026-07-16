@@ -24,16 +24,17 @@ export async function Hero() {
             <Eyebrow>{stats.courseCount} parcours · {stats.lessonCount} leçons · Accès à vie</Eyebrow>
 
             <h1 className="mt-5 font-serif text-[clamp(2.5rem,5.5vw,4.25rem)] font-medium leading-[1.05] tracking-[-0.025em] text-ink">
-              Devenez opérationnel
+              La formation <span className="accent-serif">Claude AI</span>
               <br />
-              sur <span className="accent-serif">Claude</span>, vraiment.
+              qui vous rend opérationnel, vraiment.
             </h1>
 
             <p className="mt-7 text-lg leading-relaxed text-muted max-w-[540px]">
-              La méthode complète pour utiliser l&apos;IA générative comme un pro.
-              Prompt engineering, Claude Code, business, marketing, data : un
-              programme structuré pour passer de &laquo; je teste &raquo; à
-              &laquo; je livre des résultats &raquo;.
+              Une formation en ligne, en français et à votre rythme, pour
+              utiliser l&apos;IA générative comme un pro. Prompt engineering,
+              Claude Code, business, marketing, data : un programme structuré
+              pour passer de &laquo; je teste &raquo; à &laquo; je livre des
+              résultats &raquo;.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">

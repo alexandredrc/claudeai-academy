@@ -6,7 +6,7 @@ import { userHasTier, type CourseTier } from "@/lib/courses/access";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Les parcours de formation Claude AI — ClaudeAI Academy",
+  title: "8 parcours pour maîtriser Claude AI : prompts, Claude Code, data, marketing",
   description:
     "8 parcours de formation Claude AI en français : bien démarrer avec Claude, prompt engineering, Claude Code et IA agentic, data et SQL, contenu et marketing, stratégie IA en entreprise, trading, sécurité des prompts. Première leçon de chaque parcours en accès libre.",
   alternates: { canonical: "/courses" },
@@ -51,11 +51,10 @@ export default async function CoursesPage() {
           Catalogue
         </span>
         <h1 className="font-serif text-4xl font-medium leading-[1.1] tracking-tight text-ink md:text-5xl">
-          Les{" "}
           <span className="font-serif font-medium italic text-coral">
             {courseCount} parcours
           </span>{" "}
-          de ClaudeAI Academy.
+          pour maîtriser Claude AI.
         </h1>
         <p className="mt-6 max-w-[640px] text-lg leading-relaxed text-muted">
           {user

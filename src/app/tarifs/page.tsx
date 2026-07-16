@@ -9,9 +9,9 @@ import { FAQ } from "@/components/landing/faq";
 import { FinalCTA } from "@/components/landing/final-cta";
 
 export const metadata: Metadata = {
-  title: "Tarifs ClaudeAI Academy, Pass Starter 47 € ou Mastery 497 €",
+  title: "Prix de la formation Claude AI : 47 € ou 497 € — sans CPF ni devis",
   description:
-    "Pass Starter à 47 € pour découvrir, Pass Mastery à 497 € (ou 3×179 €) pour tous les parcours complets. Garantie 14 jours satisfait ou remboursé.",
+    "Une formation Claude AI accessible : Pass Starter à 47 €, Pass Mastery à 497 € (ou 3×179 €) pour tous les parcours complets. Paiement en ligne immédiat, sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé.",
   alternates: { canonical: "/tarifs" },
 };
 
@@ -130,12 +130,14 @@ function PricingHero() {
 
         <Eyebrow>Investissement et accès</Eyebrow>
         <h1 className="mt-4 font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-medium leading-[1.05] tracking-tight text-ink">
-          Deux formules, <span className="accent-serif">une seule promesse</span>
+          Une formation Claude AI accessible :{" "}
+          <span className="accent-serif">deux formules, une seule promesse</span>
         </h1>
         <p className="mt-6 text-lg leading-relaxed text-muted max-w-[640px]">
           Vous payez une fois, vous gardez l&apos;accès à vie, et vous testez
           14 jours sans risque. Pas d&apos;abonnement, pas d&apos;engagement,
-          pas de frais cachés.
+          pas de frais cachés — et pas de dossier CPF ni de devis à attendre :
+          vous commencez dans les 5 minutes.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">

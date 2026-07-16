@@ -4,9 +4,9 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
 
 export const metadata: Metadata = {
-  title: "Kit gratuit — 15 prompts Claude qui font gagner 1 h/jour",
+  title: "Comment utiliser Claude AI : le kit de démarrage gratuit (15 prompts)",
   description:
-    "Reçois gratuitement 15 prompts Claude prêts à l'emploi pour développeurs, data analysts, marketers et managers. Les 80 % du potentiel que tu n'exploites pas encore.",
+    "Apprends comment utiliser Claude AI à son plein potentiel : 15 prompts gratuits prêts à l'emploi, en français, pour développeurs, data analysts, marketers et managers. Les 80 % que tu n'exploites pas encore.",
   alternates: { canonical: "/kit" },
 };
 
@@ -47,7 +47,7 @@ export default async function KitPage({
           <div>
             <Eyebrow>Kit gratuit · 15 prompts</Eyebrow>
             <h1 className="mt-5 font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-medium leading-[1.05] tracking-[-0.025em] text-ink">
-              Les <span className="accent-serif">80 %</span> de Claude
+              Les <span className="accent-serif">80 %</span> de Claude AI
               <br />
               que tu n&apos;exploites pas.
             </h1>

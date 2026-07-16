@@ -26,8 +26,20 @@ export async function generateMetadata({
     course.description ??
     `Parcours ${course.title} : ${course.total_lessons} leçons pour maîtriser Claude AI en pratique.`;
 
+  // Titles SEO dédiés pour les parcours à fort volume de recherche
+  // (requêtes exactes relevées sur les SERP FR, juillet 2026).
+  const seoTitles: Record<string, string> = {
+    "bien-demarrer-avec-claude":
+      "Apprendre Claude AI : le parcours débutant complet en français",
+    "claude-code-ia-agentic":
+      "Formation Claude Code en ligne : codez avec l'IA, en français",
+    "prompt-engineering-pro":
+      "Formation prompt engineering pour Claude : techniques et modèles",
+  };
+
   return {
-    title: `${course.title}, formation Claude AI — ClaudeAI Academy`,
+    title:
+      seoTitles[slug] ?? `${course.title}, formation Claude AI — ClaudeAI Academy`,
     description,
     alternates: { canonical: `/courses/${slug}` },
     openGraph: {

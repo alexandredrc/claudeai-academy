@@ -14,8 +14,8 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Bibliothèque de prompts Claude AI — ClaudeAI Academy",
-  description: `${PROMPT_COUNT} prompts Claude AI opérationnels, prêts à copier-coller, classés par domaine : prompt engineering, Claude Code, business, marketing, data, trading, sécurité, design.`,
+  title: `${PROMPT_COUNT} prompts Claude prêts à l'emploi, en français, classés par métier`,
+  description: `Les meilleurs prompts Claude : ${PROMPT_COUNT} modèles en français, prêts à copier-coller, classés par cas d'usage — prompt engineering, Claude Code, business, marketing, data, trading, sécurité, design.`,
   alternates: { canonical: "/prompts" },
 };
 
@@ -35,7 +35,7 @@ export default async function PromptsPage() {
         <h1 className="font-serif text-4xl font-medium leading-[1.1] tracking-tight text-ink md:text-5xl">
           {PROMPT_COUNT}{" "}
           <span className="font-serif font-medium italic text-coral">
-            prompts
+            prompts Claude
           </span>{" "}
           prêts à l&apos;emploi.
         </h1>

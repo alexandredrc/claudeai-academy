@@ -1,7 +1,12 @@
 import type { PlanTier } from "@/lib/stripe/plans";
 import { SITE_URL, sendEmail } from "@/lib/email/send";
 
-export type NurtureKind = "nurture_d1" | "nurture_d7" | "nurture_d14";
+export type NurtureKind =
+  | "nurture_d1"
+  | "nurture_d7"
+  | "nurture_d14"
+  | "nurture_d21"
+  | "nurture_d30";
 
 // --- Charte : coquille HTML commune (crème / coral / serif) ---
 function shell(inner: string): string {
@@ -230,7 +235,7 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
     ),
     cta("Voir le Pass Mastery", `${SITE_URL}/tarifs`),
     p(
-      "Le paiement en 3×179 € existe si tu préfères étaler, et la garantie 14 jours s'applique toujours.",
+      "Et parce que tu as déjà le Starter : <strong>tes 47 € sont déduits automatiquement</strong> au paiement quand tu es connecté à ton espace. Le Mastery te revient à 450 €. Le 3× sans frais existe aussi, et la garantie 14 jours s'applique toujours.",
     ),
     p(
       "Une question avant de décider ? Réponds à cet email, il arrive directement à moi.",
@@ -248,9 +253,95 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
     "",
     `Voir le Pass Mastery : ${SITE_URL}/tarifs`,
     "",
-    "Le paiement en 3×179 € existe si tu préfères étaler, et la garantie 14 jours s'applique toujours.",
+    "Et parce que tu as déjà le Starter : tes 47 € sont déduits automatiquement au paiement quand tu es connecté à ton espace. Le Mastery te revient à 450 €. Le 3× sans frais existe aussi, et la garantie 14 jours s'applique toujours.",
     "",
     "Une question avant de décider ? Réponds à cet email, il arrive directement à moi.",
+    "",
+    "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+  ].join("\n");
+
+  return { subject, html: shell(inner), text };
+}
+
+// =========================================
+// J+21 — objection prix (séquence B, Starter uniquement)
+// L'objection dominante à ce stade : « 497 €, c'est cher ». On la traite
+// frontalement : reframe coût/leçon, crédit Starter, 3×, garantie.
+// =========================================
+function renderD21(tier: PlanTier, firstName: string | null): Rendered {
+  const subject = "« 497 €, c'est cher » — parlons-en franchement";
+  const inner = [
+    p(greeting(firstName)),
+    p(
+      "Si tu n'es pas passé au Mastery, il y a de fortes chances que ce soit pour une seule raison : le prix. C'est une objection légitime, alors traitons-la franchement.",
+    ),
+    p(
+      "497 € pour 48 leçons, c'est ~10 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
+    ),
+    p("Trois choses qui réduisent encore le risque :"),
+    bullets([
+      "<strong>Ton Starter est déduit</strong> : connecté à ton espace, le Mastery passe automatiquement à 450 €.",
+      "<strong>Le 3× sans frais</strong> : 179 € par mois, sans dossier.",
+      "<strong>La garantie 14 jours</strong> : si le contenu ne tient pas la promesse, tu es intégralement remboursé, sans justification.",
+    ]),
+    cta("Passer au Mastery (crédit déduit)", `${SITE_URL}/tarifs`),
+    p(
+      "Et si ce n'est simplement pas le bon moment, aucun problème — le Starter reste à toi à vie, et cette proposition ne disparaît pas.",
+    ),
+  ].join("\n");
+
+  const text = [
+    greeting(firstName),
+    "",
+    "Si tu n'es pas passé au Mastery, il y a de fortes chances que ce soit pour une seule raison : le prix. C'est une objection légitime, alors traitons-la franchement.",
+    "",
+    "497 € pour 48 leçons, c'est ~10 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
+    "",
+    "Trois choses qui réduisent encore le risque :",
+    "- Ton Starter est déduit : connecté à ton espace, le Mastery passe automatiquement à 450 €.",
+    "- Le 3× sans frais : 179 € par mois, sans dossier.",
+    "- La garantie 14 jours : remboursement intégral, sans justification.",
+    "",
+    `Passer au Mastery (crédit déduit) : ${SITE_URL}/tarifs`,
+    "",
+    "Et si ce n'est simplement pas le bon moment, aucun problème — le Starter reste à toi à vie, et cette proposition ne disparaît pas.",
+    "",
+    "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+  ].join("\n");
+
+  return { subject, html: shell(inner), text };
+}
+
+// =========================================
+// J+30 — win-back (séquence B, Starter uniquement)
+// Dernier email de la série : court, humain, sans discount agressif.
+// =========================================
+function renderD30(tier: PlanTier, firstName: string | null): Rendered {
+  const subject = "Dernier email de cette série (promis)";
+  const inner = [
+    p(greeting(firstName)),
+    p(
+      "C'est le dernier email de cette série — après celui-ci, je te laisse tranquille.",
+    ),
+    p(
+      "Un mois après ton Pass Starter, deux situations possibles. Soit tu as trouvé ton rythme avec Claude : dans ce cas, continue, tu n'as besoin de rien d'autre. Soit tu sens qu'il y a plus à aller chercher — pour ton marketing, tes données, ta stratégie — et dans ce cas le Mastery t'attend, avec ton Starter déduit (450 € au lieu de 497 €) et la garantie 14 jours.",
+    ),
+    cta("Voir le Pass Mastery", `${SITE_URL}/tarifs`),
+    p(
+      "Dans les deux cas : merci d'avoir fait partie des premiers. Si tu as une question, une remarque, ou un retour sur la formation (bon ou mauvais), réponds à cet email — je lis tout, et ça m'aide vraiment.",
+    ),
+  ].join("\n");
+
+  const text = [
+    greeting(firstName),
+    "",
+    "C'est le dernier email de cette série — après celui-ci, je te laisse tranquille.",
+    "",
+    "Un mois après ton Pass Starter, deux situations possibles. Soit tu as trouvé ton rythme avec Claude : dans ce cas, continue, tu n'as besoin de rien d'autre. Soit tu sens qu'il y a plus à aller chercher — pour ton marketing, tes données, ta stratégie — et dans ce cas le Mastery t'attend, avec ton Starter déduit (450 € au lieu de 497 €) et la garantie 14 jours.",
+    "",
+    `Voir le Pass Mastery : ${SITE_URL}/tarifs`,
+    "",
+    "Dans les deux cas : merci d'avoir fait partie des premiers. Si tu as une question, une remarque, ou un retour sur la formation (bon ou mauvais), réponds à cet email — je lis tout, et ça m'aide vraiment.",
     "",
     "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
   ].join("\n");
@@ -270,6 +361,10 @@ export function renderNurture(
       return renderD7(tier, firstName);
     case "nurture_d14":
       return renderD14(tier, firstName);
+    case "nurture_d21":
+      return renderD21(tier, firstName);
+    case "nurture_d30":
+      return renderD30(tier, firstName);
   }
 }
 

@@ -1,9 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
 import { Button } from "./button";
+
+// Routes « landing pub » : header réduit au logo, sans navigation — le trafic
+// payé ne doit avoir qu'une seule sortie, le checkout.
+const MINIMAL_ROUTES = new Set(["/formation-claude-ai"]);
 
 const navItems = [
   { href: "/courses", label: "Parcours" },
@@ -13,6 +18,7 @@ const navItems = [
 ];
 
 export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -22,6 +28,19 @@ export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  if (pathname && MINIMAL_ROUTES.has(pathname)) {
+    return (
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-cream/85 border-b border-line">
+        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-[72px]">
+          <Logo />
+          <span className="text-[13px] font-medium text-muted">
+            🛡️ Garantie 14 jours satisfait ou remboursé
+          </span>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header

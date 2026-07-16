@@ -2,6 +2,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { CheckoutButton } from "@/components/site/checkout-button";
 import { getCatalogStats, type CatalogStats } from "@/lib/courses/stats";
+import { PROMPT_COUNT } from "@/lib/prompts/library";
 
 export async function PricingTeaser() {
   const stats = await getCatalogStats();
@@ -74,7 +75,7 @@ function StarterCard() {
 function MasteryCard({ stats }: { stats: CatalogStats }) {
   const features = [
     `Les ${stats.courseCount} parcours complets (${stats.lessonCount} leçons)`,
-    "Bibliothèque complète de 120+ prompts",
+    `Bibliothèque complète de ${PROMPT_COUNT} prompts`,
     "Templates et cheat sheets téléchargeables",
     "Mentor IA Claude 24/7",
     "Accès à vie et mises à jour permanentes",

@@ -58,7 +58,9 @@ function Stars() {
   );
 }
 
-export function Testimonials() {
+// `pricingHref` : la home pointe vers /tarifs ; la landing pub pointe vers
+// son propre bloc tarifs (#tarifs) pour ne pas faire sortir le trafic payé.
+export function Testimonials({ pricingHref = "/tarifs" }: { pricingHref?: string } = {}) {
   return (
     <section className="bg-cream-soft py-24 md:py-32">
       <Container>
@@ -103,7 +105,7 @@ export function Testimonials() {
           <strong className="text-ink">premiers membres</strong> : votre retour
           comptera vraiment, et c&apos;est ici qu&apos;il sera mis en avant.{" "}
           <Link
-            href="/tarifs"
+            href={pricingHref}
             className="text-coral font-semibold hover:text-coral-dark transition-colors"
           >
             Voir les formules →

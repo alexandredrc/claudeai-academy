@@ -21,6 +21,8 @@ const STEPS: { kind: NurtureKind; minAgeDays: number; onlyTier?: PlanTier }[] = 
   { kind: "nurture_d1", minAgeDays: 1 },
   { kind: "nurture_d7", minAgeDays: 7 },
   { kind: "nurture_d14", minAgeDays: 14, onlyTier: "starter" },
+  { kind: "nurture_d21", minAgeDays: 21, onlyTier: "starter" },
+  { kind: "nurture_d30", minAgeDays: 30, onlyTier: "starter" },
 ];
 
 type Candidate = {

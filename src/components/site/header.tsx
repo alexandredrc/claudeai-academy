@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
 import { Button } from "./button";
+import { InstagramBadge } from "./instagram";
 
 // Routes « landing pub » : header réduit au logo, sans navigation — le trafic
 // payé ne doit avoir qu'une seule sortie, le checkout.
@@ -33,7 +34,10 @@ export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
     return (
       <header className="sticky top-0 z-50 backdrop-blur-md bg-cream/85 border-b border-line">
         <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-[72px]">
-          <Logo />
+          <div className="flex items-center gap-4">
+            <InstagramBadge />
+            <Logo />
+          </div>
           <span className="text-[13px] font-medium text-muted">
             🛡️ Garantie 14 jours satisfait ou remboursé
           </span>
@@ -51,7 +55,10 @@ export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
       }`}
     >
       <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-[72px]">
-        <Logo />
+        <div className="flex items-center gap-4">
+          <InstagramBadge />
+          <Logo />
+        </div>
 
         <nav className="hidden md:block" aria-label="Navigation principale">
           <ul className="flex items-center gap-1">

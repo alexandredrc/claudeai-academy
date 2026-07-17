@@ -60,7 +60,7 @@ const groups: Group[] = [
       },
       {
         q: "Quelle est la différence entre Pass Starter et Pass Mastery ?",
-        a: "Le Pass Starter (47 €) vous fait découvrir et couvre les fondamentaux. Le Pass Mastery (497 €, paiement unique) débloque tous les parcours complets, le Mentor IA et les mises à jour à vie. C’est l’offre cœur du programme.",
+        a: "Le Pass Starter (47 €) vous fait découvrir et couvre les fondamentaux. Le Pass Mastery (497 €, ou 3× sans frais avec Klarna) débloque tous les parcours complets, le Mentor IA et les mises à jour à vie. C’est l’offre cœur du programme.",
       },
     ],
   },

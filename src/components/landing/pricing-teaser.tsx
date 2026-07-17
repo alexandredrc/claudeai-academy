@@ -101,7 +101,7 @@ function MasteryCard({ stats }: { stats: CatalogStats }) {
       </div>
 
       <span className="mt-3 self-start inline-block bg-green-soft text-green text-[12px] font-bold px-3 py-1 rounded-full">
-        Accès à vie, mises à jour incluses
+        Ou 3 × 165,67 € sans frais avec Klarna
       </span>
 
       <CheckoutButton tier="mastery" variant="primary" size="md" className="mt-7 w-full">
@@ -125,6 +125,7 @@ function PaymentMethods() {
     { ico: "💳", label: "Carte bancaire" },
     { ico: "", label: "Apple Pay" },
     { ico: "G", label: "Google Pay" },
+    { ico: "⚡", label: "Klarna · 3× sans frais", highlight: true },
     { ico: "🔗", label: "Link (paiement en 1 clic)" },
   ];
   return (
@@ -136,7 +137,11 @@ function PaymentMethods() {
         {pills.map((p) => (
           <span
             key={p.label}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-semibold border transition-all duration-200 bg-cream-soft border-line text-ink-soft hover:bg-white hover:-translate-y-px"
+            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13px] font-semibold border transition-all duration-200 ${
+              p.highlight
+                ? "bg-coral-soft border-coral text-coral-dark"
+                : "bg-cream-soft border-line text-ink-soft hover:bg-white hover:-translate-y-px"
+            }`}
           >
             {p.ico && <span aria-hidden="true">{p.ico}</span>}
             {p.label}

@@ -240,7 +240,7 @@ function LandingFAQ() {
     },
     {
       q: "« Est-ce finançable par le CPF ? »",
-      a: "Non, et c'est un choix : pas de dossier, pas de délai, pas d'organisme intermédiaire. Vous payez 47 € ou 497 € en direct, vous accédez au contenu dans la minute, et la garantie 14 jours remplace la paperasse.",
+      a: "Non, et c'est un choix : pas de dossier, pas de délai, pas d'organisme intermédiaire. Vous payez 47 € ou 497 € en direct (ou en 3× sans frais avec Klarna), vous accédez au contenu dans la minute, et la garantie 14 jours remplace la paperasse.",
     },
   ];
   return (

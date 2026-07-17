@@ -1,6 +1,7 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import Link from "next/link";
+import { InstagramIcon, INSTAGRAM_URL, INSTAGRAM_HANDLE } from "@/components/site/instagram";
 
 export function Founder() {
   return (
@@ -57,7 +58,7 @@ export function Founder() {
               — Alexandre, fondateur
             </p>
 
-            <div className="mt-6">
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link
                 href="/a-propos"
                 className="inline-flex items-center gap-1.5 text-coral font-semibold hover:text-coral-dark transition-colors"
@@ -65,6 +66,15 @@ export function Founder() {
                 Lire l&apos;histoire complète
                 <span aria-hidden="true">→</span>
               </Link>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-ink-soft font-semibold hover:text-coral transition-colors"
+              >
+                <InstagramIcon className="w-5 h-5" />
+                {INSTAGRAM_HANDLE}
+              </a>
             </div>
           </div>
         </div>

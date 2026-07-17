@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
+import { InstagramIcon, INSTAGRAM_URL, INSTAGRAM_HANDLE } from "@/components/site/instagram";
 
 export const metadata: Metadata = {
   title: "Contact — ClaudeAI Academy",
@@ -58,6 +59,26 @@ export default function ContactPage() {
               Écrire un email
             </Button>
           </div>
+        </div>
+
+        <div className="mt-6 rounded-[22px] border border-line bg-white p-8 shadow-card">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-muted">
+            Instagram
+          </p>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex items-center gap-3 font-serif text-2xl text-ink hover:text-coral transition-colors"
+          >
+            <InstagramIcon className="w-6 h-6" />
+            {INSTAGRAM_HANDLE}
+          </a>
+          <p className="mt-4 text-[15px] leading-relaxed text-muted">
+            Pour les questions rapides ou juste voir qui est derrière
+            l&apos;académie : mon compte perso, mes projets, mon quotidien avec
+            l&apos;IA. Les DM sont ouverts — je réponds moi-même.
+          </p>
         </div>
 
         <p className="mt-8 text-[14px] text-muted">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./logo";
+import { InstagramIcon, INSTAGRAM_URL, INSTAGRAM_HANDLE } from "./instagram";
 
 const parcoursLinks = [
   { href: "/courses/prompt-engineering-pro", label: "Prompt Engineering pro" },
@@ -47,6 +48,15 @@ export function Footer() {
                 contact@claudeai-academy.com
               </a>
             </p>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-2 text-[13px] text-cream/50 hover:text-coral transition-colors"
+            >
+              <InstagramIcon className="w-[18px] h-[18px]" />
+              <span>{INSTAGRAM_HANDLE} — posez vos questions en DM</span>
+            </a>
           </div>
 
           <FooterColumn title="Parcours" links={parcoursLinks} />

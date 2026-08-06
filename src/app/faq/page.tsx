@@ -31,7 +31,7 @@ const groups: Group[] = [
       },
       {
         q: "Quel est le meilleur modèle Claude en 2026 ?",
-        a: "Il n'y a pas un meilleur modèle, mais un bon modèle par usage : Haiku 4.5 pour la vitesse et les questions simples, Sonnet 5 (sorti en juin 2026, le défaut) pour le travail quotidien, Opus 4.8 pour le code et le raisonnement exigeant, et Fable 5 pour les tâches les plus complexes. Le parcours « Bien démarrer avec Claude » consacre une leçon entière au choix du modèle et aux réglages d'effort et de réflexion.",
+        a: "Il n'y a pas un meilleur modèle, mais un bon modèle par usage : Haiku 4.5 pour la vitesse et les questions simples, Sonnet 5 pour le travail quotidien, Opus 5 (sorti le 24 juillet 2026, 1 M de tokens de contexte) pour le code et le raisonnement exigeant, et Fable 5 pour les tâches les plus complexes. Le parcours « Bien démarrer avec Claude » consacre une leçon entière au choix du modèle et au réglage de l'effort — devenu le vrai levier depuis qu'Opus 5 réfléchit par défaut.",
       },
       {
         q: "Comment bien prompter Claude ?",

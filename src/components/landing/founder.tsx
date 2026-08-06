@@ -49,7 +49,7 @@ export function Founder() {
                 Claude sont soit superficiels, soit en anglais, soit produits par
                 des gens qui ne l&apos;utilisent pas vraiment. ClaudeAI Academy
                 comble ce vide — une référence francophone rigoureuse,
-                opérationnelle, tenue à jour des dernières évolutions (Opus 4.8,
+                opérationnelle, tenue à jour des dernières évolutions (Opus 5,
                 Claude Code, skills, MCP).
               </p>
             </div>

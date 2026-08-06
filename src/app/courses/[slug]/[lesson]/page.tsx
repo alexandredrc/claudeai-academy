@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { createClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { userHasTier, type CourseTier } from "@/lib/courses/access";
 import { quizForLesson } from "@/lib/quizzes/library";
+import { extractHeadings } from "@/lib/lessons/blocks";
+import { RichLesson } from "@/components/lesson/rich-lesson";
+import { LessonToc, ReadingProgress } from "@/components/lesson/interactive";
 import { LessonQuiz } from "./Quiz";
 import { markLessonCompleteAction } from "./actions";
 import { startCheckoutAction } from "@/app/checkout/actions";
@@ -138,7 +139,7 @@ export default async function LessonPage({ params }: { params: Params }) {
   // 7) Navigation prev/next
   const { data: siblings } = await supabase
     .from("lessons")
-    .select("slug, display_order, title")
+    .select("id, slug, display_order, title")
     .eq("course_id", course.id)
     .order("display_order");
   const idx =
@@ -149,8 +150,27 @@ export default async function LessonPage({ params }: { params: Params }) {
       ? siblings[idx + 1]
       : null;
 
+  // 8) Avancement dans le parcours : combien de leçons déjà terminées.
+  const totalLessons = siblings?.length ?? 0;
+  let completedInCourse = 0;
+  if (user && siblings && siblings.length > 0) {
+    const { count } = await supabase
+      .from("lesson_progress")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .in(
+        "lesson_id",
+        siblings.map((s) => s.id),
+      );
+    completedInCourse = count ?? 0;
+  }
+
+  // 9) Sommaire, construit sur les titres de niveau 2 du contenu.
+  const headings = content ? extractHeadings(content.content_md) : [];
+
   return (
     <section className="bg-cream">
+      {unlocked && content && <ReadingProgress targetId="lesson-body" />}
       <div className="mx-auto max-w-[760px] px-6 py-12 md:py-20">
         <Link
           href={`/courses/${course.slug}`}
@@ -180,20 +200,40 @@ export default async function LessonPage({ params }: { params: Params }) {
               {lessonMeta.description}
             </p>
           )}
-          <div className="mt-4 text-[13px] text-muted">
-            {lessonMeta.duration_min
-              ? `${lessonMeta.duration_min} minutes de lecture`
-              : "—"}
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-muted">
+            <span>
+              {lessonMeta.duration_min
+                ? `${lessonMeta.duration_min} min de lecture`
+                : "—"}
+            </span>
+            {quiz && (
+              <span className="inline-flex items-center gap-1.5">
+                <span aria-hidden>✎</span>
+                {quiz.length} questions de quiz
+              </span>
+            )}
           </div>
+
+          {totalLessons > 0 && (
+            <CourseProgress
+              current={idx >= 0 ? idx + 1 : lessonMeta.display_order}
+              total={totalLessons}
+              completed={completedInCourse}
+              showCompleted={!!user}
+            />
+          )}
         </header>
 
         {unlocked && content ? (
           <>
-            <article className="prose-lesson mt-12">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {content.content_md}
-              </ReactMarkdown>
-            </article>
+            <LessonToc headings={headings} />
+
+            <div id="lesson-body" className="mt-12">
+              <RichLesson
+                markdown={content.content_md}
+                lessonSlug={lessonMeta.slug}
+              />
+            </div>
 
             {quiz && <LessonQuiz questions={quiz} />}
 
@@ -280,6 +320,60 @@ export default async function LessonPage({ params }: { params: Params }) {
         </nav>
       </div>
     </section>
+  );
+}
+
+/** Où j'en suis dans le parcours : position dans le sommaire + leçons validées. */
+function CourseProgress({
+  current,
+  total,
+  completed,
+  showCompleted,
+}: {
+  current: number;
+  total: number;
+  completed: number;
+  showCompleted: boolean;
+}) {
+  const positionPct = Math.round((current / total) * 100);
+  const donePct = Math.round((completed / total) * 100);
+
+  return (
+    <div className="mt-6">
+      <div className="flex items-center justify-between text-[12px] text-muted">
+        <span>
+          Leçon <strong className="font-semibold text-ink">{current}</strong> sur{" "}
+          {total}
+        </span>
+        {showCompleted && (
+          <span>
+            {completed === total
+              ? "Parcours terminé 🎉"
+              : `${donePct} % du parcours terminé`}
+          </span>
+        )}
+      </div>
+      <div
+        className="relative mt-2 h-1.5 overflow-hidden rounded-full bg-cream-dark"
+        role="progressbar"
+        aria-label="Avancement dans le parcours"
+        aria-valuenow={showCompleted ? donePct : positionPct}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        {/* Fond pâle : la position dans le sommaire. Plein : ce qui est validé. */}
+        <div
+          className="absolute inset-y-0 left-0 rounded-full bg-coral-soft"
+          style={{ width: `${positionPct}%` }}
+        />
+        {showCompleted && completed > 0 && (
+          <div
+            className="absolute inset-y-0 left-0 rounded-full bg-coral"
+            style={{ width: `${donePct}%` }}
+          />
+        )}
+      </div>
+    </div>
   );
 }
 

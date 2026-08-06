@@ -20,6 +20,9 @@
   --color-white: #FFFFFF;
   --color-green: #2A9D8F;
   --color-green-soft: #E8F5E9;
+  /* Ambre : réservé aux avertissements des leçons (pièges à éviter) */
+  --color-amber: #A9722A;
+  --color-amber-soft: #F7EAD3;
 
   /* Typographies */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -137,6 +140,9 @@ details > summary::-webkit-details-marker {
    Prose : rendu Markdown des leçons
    ========================================= */
 
+/* Les blocs pédagogiques (`.not-prose`) portent leur propre mise en forme :
+   toutes les règles de prose ci-dessous les épargnent explicitement. */
+
 .prose-lesson {
   color: var(--color-ink-soft);
   font-size: 16px;
@@ -146,7 +152,7 @@ details > summary::-webkit-details-marker {
 .prose-lesson > * + * {
   margin-top: 1.25em;
 }
-.prose-lesson h2 {
+.prose-lesson h2:not(.not-prose *) {
   font-family: var(--font-serif);
   font-weight: 600;
   font-size: 1.65rem;
@@ -156,7 +162,7 @@ details > summary::-webkit-details-marker {
   margin-bottom: 0.6em;
   letter-spacing: -0.01em;
 }
-.prose-lesson h3 {
+.prose-lesson h3:not(.not-prose *) {
   font-family: var(--font-serif);
   font-weight: 600;
   font-size: 1.25rem;
@@ -165,11 +171,11 @@ details > summary::-webkit-details-marker {
   margin-top: 2em;
   margin-bottom: 0.5em;
 }
-.prose-lesson p {
+.prose-lesson p:not(.not-prose *) {
   margin-top: 1.1em;
   margin-bottom: 1.1em;
 }
-.prose-lesson a {
+.prose-lesson a:not(.not-prose *) {
   color: var(--color-coral);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -178,35 +184,35 @@ details > summary::-webkit-details-marker {
 .prose-lesson a:hover {
   color: var(--color-coral-dark);
 }
-.prose-lesson strong {
+.prose-lesson strong:not(.not-prose *) {
   color: var(--color-ink);
   font-weight: 600;
 }
-.prose-lesson ul,
-.prose-lesson ol {
+.prose-lesson ul:not(.not-prose *),
+.prose-lesson ol:not(.not-prose *) {
   margin: 1.1em 0;
   padding-left: 1.5em;
 }
-.prose-lesson ul {
+.prose-lesson ul:not(.not-prose *) {
   list-style-type: disc;
 }
-.prose-lesson ol {
+.prose-lesson ol:not(.not-prose *) {
   list-style-type: decimal;
 }
-.prose-lesson li {
+.prose-lesson li:not(.not-prose *) {
   margin: 0.4em 0;
 }
-.prose-lesson li > p {
+.prose-lesson li > p:not(.not-prose *) {
   margin: 0.2em 0;
 }
-.prose-lesson blockquote {
+.prose-lesson blockquote:not(.not-prose *) {
   border-left: 2px solid var(--color-coral);
   padding: 0.2em 0 0.2em 1.25em;
   margin: 1.5em 0;
   color: var(--color-ink);
   font-style: italic;
 }
-.prose-lesson code {
+.prose-lesson code:not(.not-prose *) {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.92em;
   background: var(--color-cream-dark);
@@ -214,7 +220,7 @@ details > summary::-webkit-details-marker {
   border-radius: 6px;
   color: var(--color-ink);
 }
-.prose-lesson pre {
+.prose-lesson pre:not(.not-prose *) {
   background: var(--color-ink);
   color: var(--color-cream);
   padding: 1.25em 1.5em;
@@ -231,27 +237,120 @@ details > summary::-webkit-details-marker {
   font-size: inherit;
   border-radius: 0;
 }
-.prose-lesson hr {
+.prose-lesson hr:not(.not-prose *) {
   border: 0;
   border-top: 1px solid var(--color-line);
   margin: 2.5em 0;
 }
-.prose-lesson table {
+.prose-lesson table:not(.not-prose *) {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5em 0;
   font-size: 0.95em;
 }
-.prose-lesson th,
-.prose-lesson td {
+.prose-lesson th:not(.not-prose *),
+.prose-lesson td:not(.not-prose *) {
   border: 1px solid var(--color-line);
   padding: 0.6em 0.8em;
   text-align: left;
 }
-.prose-lesson th {
+.prose-lesson th:not(.not-prose *) {
   background: var(--color-cream-soft);
   font-weight: 600;
   color: var(--color-ink);
+}
+
+/* =========================================
+   Prose : Markdown à l'intérieur d'un bloc
+   pédagogique (cartouches, défis, comparatifs)
+   ========================================= */
+
+.prose-block {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+}
+.prose-block > :first-child {
+  margin-top: 0;
+}
+.prose-block > :last-child {
+  margin-bottom: 0;
+}
+.prose-block p {
+  margin: 0.7em 0;
+}
+.prose-block strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.prose-block a {
+  color: var(--color-coral);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-block ul,
+.prose-block ol {
+  margin: 0.7em 0;
+  padding-left: 1.3em;
+}
+.prose-block ul {
+  list-style-type: disc;
+}
+.prose-block ol {
+  list-style-type: decimal;
+}
+.prose-block li {
+  margin: 0.3em 0;
+}
+.prose-block code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+  background: rgba(31, 31, 30, 0.06);
+  padding: 0.12em 0.38em;
+  border-radius: 5px;
+  color: var(--color-ink);
+}
+.prose-block pre {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  padding: 1em 1.15em;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 0.88em;
+  line-height: 1.6;
+  margin: 0.9em 0;
+}
+.prose-block pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+.prose-block table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.9em 0;
+  font-size: 0.93em;
+}
+.prose-block th,
+.prose-block td {
+  border: 1px solid var(--color-line);
+  padding: 0.5em 0.7em;
+  text-align: left;
+}
+
+/* Variante sur fond sombre (bloc « En 30 secondes ») */
+.prose-block-dark {
+  color: rgba(245, 241, 235, 0.85);
+}
+.prose-block-dark strong {
+  color: var(--color-cream);
+}
+.prose-block-dark code {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-cream);
+}
+.prose-block-dark a {
+  color: var(--color-coral);
 }
 
 /* =========================================

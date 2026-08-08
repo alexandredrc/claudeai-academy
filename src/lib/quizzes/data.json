@@ -9,7 +9,7 @@
     "L'API uniquement, réservée aux développeurs"
    ],
    "correct": 0,
-   "explanation": "Web, bureau (Mac/Windows, Linux en bêta) et mobile (iOS/Android) partagent le même compte : vos conversations vous suivent d'un appareil à l'autre."
+   "explanation": "Web, bureau (Mac/Windows, Linux en bêta) et mobile (iOS/Android) partagent le même compte : tes conversations te suivent d'un appareil à l'autre."
   },
   {
    "q": "Quelles sont les deux conditions officielles pour créer un compte Claude ?",
@@ -49,9 +49,9 @@
   {
    "q": "Quel est le critère recommandé dans la leçon pour choisir entre Free, Pro et Max ?",
    "options": [
-    "Le nombre d'heures que l'outil vous fait gagner par semaine",
-    "Votre budget mensuel disponible",
-    "Le nombre d'appareils que vous possédez",
+    "Le nombre d'heures que l'outil te fait gagner par semaine",
+    "Ton budget mensuel disponible",
+    "Le nombre d'appareils que tu possèdes",
     "Toujours prendre le plan le plus cher pour être tranquille"
    ],
    "correct": 0,
@@ -142,7 +142,7 @@
    "q": "À quoi sert le mode incognito (icône fantôme) ?",
    "options": [
     "À accéder aux modèles les plus puissants",
-    "À masquer votre adresse IP",
+    "À masquer ton adresse IP",
     "À ouvrir une conversation qui n'est ni sauvegardée dans l'historique ni mémorisée",
     "À partager une conversation publiquement"
    ],
@@ -177,7 +177,7 @@
    "q": "Où se trouvent tous les réglages de Claude ?",
    "options": [
     "Dans un fichier de configuration à éditer",
-    "Vos initiales en bas à gauche → Settings",
+    "Tes initiales en bas à gauche → Settings",
     "Sur un site séparé, admin.claude.ai",
     "Il faut les demander dans le chat"
    ],
@@ -189,14 +189,14 @@
    "options": [
     "En activer le plus possible pour que Claude soit plus utile",
     "Ne jamais en activer aucun",
-    "Ne connecter que ce dont on a un besoin identifié : chaque connecteur est une porte d'accès à vos données",
+    "Ne connecter que ce dont on a un besoin identifié : chaque connecteur est une porte d'accès à tes données",
     "Les connecteurs sont réservés aux entreprises"
    ],
    "correct": 2,
    "explanation": "Un connecteur autorisé donne à Claude accès à des données externes. On n'active pas « au cas où » — le parcours sécurité approfondit les risques (injection, exfiltration)."
   },
   {
-   "q": "Comment voir exactement ce que Claude a retenu de vous ?",
+   "q": "Comment voir exactement ce que Claude a retenu de toi ?",
    "options": [
     "C'est impossible, la mémoire est opaque",
     "Settings > Capabilities > « View and edit memory »",
@@ -204,7 +204,7 @@
     "Dans l'historique des conversations"
    ],
    "correct": 1,
-   "explanation": "La fenêtre « View and edit memory » affiche tout ce que Claude retient, et permet de corriger ou supprimer. Vous gardez la main sur la mémoire."
+   "explanation": "La fenêtre « View and edit memory » affiche tout ce que Claude retient, et permet de corriger ou supprimer. Tu gardes la main sur la mémoire."
   }
  ],
  "personnaliser-claude-dites-lui-qui-vous-etes": [
@@ -212,9 +212,9 @@
    "q": "Quels sont les quatre blocs d'une bonne instruction de profil ?",
    "options": [
     "Nom, prénom, adresse, profession",
-    "Qui vous êtes, ce que vous faites, comment répondre, comment NE PAS répondre",
-    "Vos objectifs annuels, vos KPI, votre équipe, votre budget",
-    "Un CV complet, vos hobbies, vos valeurs, vos citations préférées"
+    "Qui tu es, ce que tu fais, comment répondre, comment NE PAS répondre",
+    "Tes objectifs annuels, tes KPI, ton équipe, ton budget",
+    "Un CV complet, tes hobbies, tes valeurs, tes citations préférées"
    ],
    "correct": 1,
    "explanation": "Métier et niveau (calibre les réponses), usages récurrents, ton/format voulus, et le bloc le plus oublié : ce que Claude ne doit PAS faire (flatterie, avertissements inutiles, anglais…)."
@@ -224,11 +224,11 @@
    "options": [
     "Au début de chaque conversation, à répéter",
     "Dans Settings → section « Instructions for Claude » (initiales en bas à gauche)",
-    "Dans un fichier CLAUDE.md sur votre bureau",
-    "Dans la description de votre premier projet"
+    "Dans un fichier CLAUDE.md sur ton bureau",
+    "Dans la description de ton premier projet"
    ],
    "correct": 1,
-   "explanation": "Écrites une seule fois dans le profil, elles s'appliquent automatiquement à toutes vos conversations — fini de répéter « réponds en français, sois direct » à chaque fois."
+   "explanation": "Écrites une seule fois dans le profil, elles s'appliquent automatiquement à toutes tes conversations — fini de répéter « réponds en français, sois direct » à chaque fois."
   },
   {
    "q": "Quelle est la hiérarchie des trois niveaux de personnalisation ?",
@@ -239,7 +239,7 @@
     "Seul le profil existe, le reste est payant"
    ],
    "correct": 0,
-   "explanation": "Le profil définit votre défaut permanent, le projet son contexte propre, et les skills (ex-styles) s'activent ponctuellement via Customize > Skills ou une commande « / »."
+   "explanation": "Le profil définit ton défaut permanent, le projet son contexte propre, et les skills (ex-styles) s'activent ponctuellement via Customize > Skills ou une commande « / »."
   },
   {
    "q": "Quel est l'anti-pattern classique des instructions de profil ?",
@@ -250,20 +250,20 @@
     "Y mettre des consignes de format"
    ],
    "correct": 2,
-   "explanation": "Chaque phrase doit changer quelque chose dans les réponses. « J'aime la mer » ne change rien ; « ne me propose jamais de solution qui nécessite de coder » change tout. Visez 150 à 300 mots."
+   "explanation": "Chaque phrase doit changer quelque chose dans les réponses. « J'aime la mer » ne change rien ; « ne me propose jamais de solution qui nécessite de coder » change tout. Vise 150 à 300 mots."
   }
  ],
  "memoire-et-projets-contexte-durable": [
   {
    "q": "Comment fonctionne la mémoire de Claude depuis le 10 juillet 2026 ?",
    "options": [
-    "Claude relit toutes vos conversations à chaque message",
-    "Claude construit un résumé quotidien de vos conversations, mis à jour environ toutes les 24 h",
+    "Claude relit toutes tes conversations à chaque message",
+    "Claude construit un résumé quotidien de tes conversations, mis à jour environ toutes les 24 h",
     "Claude tient des entrées catégorisées individuelles, lues et mises à jour en cours de conversation",
     "La mémoire n'existe que sur le plan Max"
    ],
    "correct": 2,
-   "explanation": "Depuis le 10 juillet 2026, la mémoire est passée des résumés quotidiens à des entrées catégorisées individuelles, mises à jour pendant la conversation : ce que vous demandez à Claude de retenir est pris en compte immédiatement, et chaque entrée se corrige ou se supprime séparément. Elle reste disponible sur tous les plans, gratuit inclus ; les chats incognito n'y entrent jamais et chaque projet a sa mémoire séparée."
+   "explanation": "Depuis le 10 juillet 2026, la mémoire est passée des résumés quotidiens à des entrées catégorisées individuelles, mises à jour pendant la conversation : ce que tu demandes à Claude de retenir est pris en compte immédiatement, et chaque entrée se corrige ou se supprime séparément. Elle reste disponible sur tous les plans, gratuit inclus ; les chats incognito n'y entrent jamais et chaque projet a sa mémoire séparée."
   },
   {
    "q": "Quelle est la différence entre « Pause memory » et « Reset » ?",
@@ -279,8 +279,8 @@
   {
    "q": "Que faut-il mettre dans la base de connaissances d'un projet plutôt qu'en mémoire ?",
    "options": [
-    "Vos préférences de communication",
-    "Votre métier et votre niveau d'expertise",
+    "Tes préférences de communication",
+    "Ton métier et ton niveau d'expertise",
     "Les documents de travail durables du sujet (brief, contrat, charte, code)",
     "Rien, la mémoire suffit à tout"
    ],
@@ -301,15 +301,15 @@
    "explanation": "Claude n'est pas un moteur de recherche : des phrases naturelles, spécifiques, en français, fonctionnent mieux que du télégraphe — et l'itération est le mode de travail normal."
   },
   {
-   "q": "Que faire quand vous corrigez Claude deux fois sur la même chose ?",
+   "q": "Que faire quand tu corriges Claude deux fois sur la même chose ?",
    "options": [
     "Changer de modèle",
     "Abandonner la tâche",
-    "Remonter la consigne dans vos instructions de profil",
+    "Remonter la consigne dans tes instructions de profil",
     "Réinitialiser la mémoire"
    ],
    "correct": 2,
-   "explanation": "Chaque agacement récurrent devient une ligne de profil : c'est ainsi que l'outil converge vers vous, semaine après semaine, sans re-répéter les mêmes consignes."
+   "explanation": "Chaque agacement récurrent devient une ligne de profil : c'est ainsi que l'outil converge vers toi, semaine après semaine, sans re-répéter les mêmes consignes."
   },
   {
    "q": "Pourquoi vérifier les réponses de Claude sur les faits, chiffres et références ?",
@@ -349,13 +349,13 @@
   {
    "q": "Quel modèle mental la doc recommande-t-elle d'adopter vis-à-vis de Claude ?",
    "options": [
-    "Un moteur de recherche qui indexe vos données",
-    "Un collègue brillant mais nouveau, qui n'a aucun contexte sur vos normes et process",
+    "Un moteur de recherche qui indexe tes données",
+    "Un collègue brillant mais nouveau, qui n'a aucun contexte sur tes normes et process",
     "Une base de données qu'il suffit d'interroger",
     "Un stagiaire incompétent qu'il faut surveiller en continu"
    ],
    "correct": 1,
-   "explanation": "Il est compétent mais sans contexte : c'est à vous de fournir explicitement les normes, le contexte et l'objectif."
+   "explanation": "Il est compétent mais sans contexte : c'est à toi de fournir explicitement les normes, le contexte et l'objectif."
   },
   {
    "q": "Quel conseil de prompt engineering est devenu contre-productif sur Claude Opus 5 (sorti le 24 juillet 2026) ?",
@@ -401,7 +401,7 @@
     "Repeter la consigne plusieurs fois dans le prompt"
    ],
    "correct": 0,
-   "explanation": "La lecon souligne : « si vous voulez un resultat qui depasse le minimum, demandez-le explicitement. » Le modele ne devine pas que vous vouliez le travail complet a partir d'un prompt vague."
+   "explanation": "La lecon souligne : « si tu veux un resultat qui depasse le minimum, demande-le explicitement. » Le modele ne devine pas que tu voulais le travail complet a partir d'un prompt vague."
   },
   {
    "q": "Comment la lecon decrit-elle le « test du collegue » et ce qu'il revele ?",
@@ -412,7 +412,7 @@
     "Comparer sa propre execution du prompt a celle d'un collegue pour mesurer l'ecart"
    ],
    "correct": 2,
-   "explanation": "La lecon decrit litteralement d'envoyer le prompt a un collegue qui ne connait pas la tache et de lui demander de l'executer a la lettre : « La ou il vous pose une question, Claude se trompera silencieusement. »"
+   "explanation": "La lecon decrit litteralement d'envoyer le prompt a un collegue qui ne connait pas la tache et de lui demander de l'executer a la lettre : « La ou il te pose une question, Claude se trompera silencieusement. »"
   },
   {
    "q": "D'après la section anti-pattern, pourquoi empiler les précisions au fil de l'eau (« ah et aussi… », « n'oublie pas… ») est-il risqué avec les modèles récents ?",
@@ -436,7 +436,7 @@
     "Parce que cela réduit le nombre de tokens consommés par la consigne"
    ],
    "correct": 1,
-   "explanation": "La leçon cite la doc Anthropic : le modèle « généralise à partir du pourquoi » et gère ainsi les cas que vous n'aviez pas explicitement prévus, plutôt que de seulement exécuter."
+   "explanation": "La leçon cite la doc Anthropic : le modèle « généralise à partir du pourquoi » et gère ainsi les cas que tu n'avais pas explicitement prévus, plutôt que de seulement exécuter."
   },
   {
    "q": "Dans l'exemple officiel, pourquoi la version « never use ellipses since the text-to-speech engine will not know how to pronounce them » est-elle jugée plus efficace que « NEVER use ellipses » ?",
@@ -458,7 +458,7 @@
     "Aucune justification : la consigne doit rester sèche et directe"
    ],
    "correct": 0,
-   "explanation": "La règle à retenir précise : ajoutez « une demi-phrase de raison. Pas un paragraphe. Juste “parce que X” » pour que le modèle généralise dans la bonne direction."
+   "explanation": "La règle à retenir précise : ajoute « une demi-phrase de raison. Pas un paragraphe. Juste “parce que X” » pour que le modèle généralise dans la bonne direction."
   },
   {
    "q": "Comment la leçon distingue-t-elle un « pourquoi utile » d'un « pourquoi décoratif » ?",
@@ -550,7 +550,7 @@
     "Laisser le modèle citer librement sans balises dédiées"
    ],
    "correct": 2,
-   "explanation": "La 3e règle (« Ancrez la réponse dans des citations ») demande à Claude d'extraire d'abord les passages pertinents entre balises <quotes>, puis de répondre à partir de ces citations, ce qui lui fait traverser le bruit. Le gabarit montre bien l'extraction des citations AVANT l'analyse."
+   "explanation": "La 3e règle (« Ancre la réponse dans des citations ») demande à Claude d'extraire d'abord les passages pertinents entre balises <quotes>, puis de répondre à partir de ces citations, ce qui lui fait traverser le bruit. Le gabarit montre bien l'extraction des citations AVANT l'analyse."
   },
   {
    "q": "La leçon recommande de structurer chaque document du contexte long. Quelle imbrication de balises donne-t-elle en exemple ?",
@@ -631,7 +631,7 @@
     "Baisser l'effort pour réduire la latence et laisser le modèle se concentrer."
    ],
    "correct": 2,
-   "explanation": "La leçon conseille : si Claude raisonne trop superficiellement sur un problème dur, montez l'effort avant de bricoler le prompt (et inversement, baissez-le s'il sur-réfléchit sur du simple)."
+   "explanation": "La leçon conseille : si Claude raisonne trop superficiellement sur un problème dur, monte l'effort avant de bricoler le prompt (et inversement, baisse-le s'il sur-réfléchit sur du simple)."
   },
   {
    "q": "À propos du chaînage explicite (découper en appels API séparés) avec l'adaptive thinking, que dit la leçon ?",
@@ -656,7 +656,7 @@
    "explanation": "Depuis Opus 5 (24 juillet 2026), Anthropic demande de retirer ces instructions héritées des modèles précédents : le modèle vérifie son travail sans qu'on le lui demande, et la consigne le fait sur-vérifier — plus long, plus cher, sans gain de qualité. Ce qu'on garde, ce sont les critères qui décrivent le livrable attendu (« chaque risque cite le numéro de sa clause »), pas les consignes de relecture."
   },
   {
-   "q": "Sur Opus 5, que se passe-t-il si vous envoyez thinking: {\"type\": \"disabled\"} avec un niveau d'effort xhigh ou max ?",
+   "q": "Sur Opus 5, que se passe-t-il si tu envoies thinking: {\"type\": \"disabled\"} avec un niveau d'effort xhigh ou max ?",
    "options": [
     "La requête passe, mais la réflexion est silencieusement réactivée",
     "L'API renvoie une erreur 400 : la désactivation n'est acceptée qu'à effort high ou en dessous",
@@ -673,11 +673,11 @@
    "options": [
     "Il genere des reponses plus longues et mieux formatees qu'un chatbot",
     "C'est un agent qui vit dans le terminal : il lit les fichiers, modifie le code, lance des commandes et observe les resultats pour se corriger",
-    "Il fonctionne sans connexion et garde l'historique de toutes vos conversations",
+    "Il fonctionne sans connexion et garde l'historique de toutes tes conversations",
     "Il remplace entierement le developpeur en prenant seul les decisions d'architecture"
    ],
    "correct": 1,
-   "explanation": "La lecon oppose le schema copier/coller du chatbot au fait que Claude Code est un agent qui vit dans votre terminal qui lit, ecrit/modifie, lance des commandes et observe les resultats pour se corriger. Le changement n'est pas cosmetique : on delegue des taches au lieu de transferer des extraits."
+   "explanation": "La lecon oppose le schema copier/coller du chatbot au fait que Claude Code est un agent qui vit dans ton terminal qui lit, ecrit/modifie, lance des commandes et observe les resultats pour se corriger. Le changement n'est pas cosmetique : on delegue des taches au lieu de transferer des extraits."
   },
   {
    "q": "Quelles sont, dans l'ordre, les quatre etapes de la boucle agentique decrite dans la lecon ?",
@@ -699,7 +699,7 @@
     "Rediger les tests pendant que l'agent redige le code de production"
    ],
    "correct": 1,
-   "explanation": "La lecon precise : Votre role n'est pas de taper le code : c'est de cadrer l'objectif, de fournir le bon contexte, et de valider. L'agent fait le reste, et boucle jusqu'au resultat."
+   "explanation": "La lecon precise : Ton role n'est pas de taper le code : c'est de cadrer l'objectif, de fournir le bon contexte, et de valider. L'agent fait le reste, et boucle jusqu'au resultat."
   },
   {
    "q": "Selon la regle qui ne bouge pas enoncee dans la lecon, comment doit varier la validation humaine ?",
@@ -710,7 +710,7 @@
     "La validation peut etre supprimee des que l'agent maitrise le contexte du projet"
    ],
    "correct": 0,
-   "explanation": "La lecon enonce que l'agent propose et execute sous votre controle, que vous restez responsable de ce qui part en production, et que plus l'action est irreversible, plus la validation humaine est obligatoire."
+   "explanation": "La lecon enonce que l'agent propose et execute sous ton controle, que tu restes responsable de ce qui part en production, et que plus l'action est irreversible, plus la validation humaine est obligatoire."
   }
  ],
  "bien-demarrer-claude-md-et-contexte": [
@@ -770,7 +770,7 @@
    "explanation": "Le 24 juillet 2026, Anthropic a révélé avoir supprimé plus de 80 % du system prompt de Claude Code pour les modèles avancés sans perte de performance mesurable. La logique s'inverse : on garde CLAUDE.md court et factuel, et tout ce qui est spécialisé part dans un skill chargé à la demande. Test simple pour chaque ligne : « Claude peut-il le déduire du code lui-même ? » Si oui, on coupe."
   },
   {
-   "q": "Quelle consigne classique la doc « Prompting Claude Opus 5 » demande-t-elle désormais de RETIRER de vos prompts ?",
+   "q": "Quelle consigne classique la doc « Prompting Claude Opus 5 » demande-t-elle désormais de RETIRER de tes prompts ?",
    "options": [
     "« Sois concis dans tes réponses »",
     "« Ne modifie que les fichiers de ce dossier »",
@@ -818,7 +818,7 @@
   {
    "q": "Quel est le réflexe sécurité que la leçon associe aux commands et skills tout faits récupérés sur GitHub ?",
    "options": [
-    "Les lire avant de les installer, car ce sont des instructions que votre agent va exécuter, comme du code",
+    "Les lire avant de les installer, car ce sont des instructions que ton agent va exécuter, comme du code",
     "Les exécuter d'abord dans un bac à sable pour observer leur comportement",
     "Vérifier seulement le nombre d'étoiles du dépôt avant installation",
     "Faire confiance aux skills populaires, le vetting n'étant utile que pour les hooks"
@@ -878,10 +878,10 @@
     "Ils ralentissent l'agent ; il faut donc limiter leur nombre par session",
     "Ils ne s'exécutent pas toujours ; il faut donc les doubler d'un rappel au modèle",
     "Ils peuvent diverger du plan ; il faut donc les faire valider par un humain à chaque exécution",
-    "Ils exécutent du code shell arbitraire avec vos droits ; il faut donc relire tout hook avant de l'activer, surtout s'il vient d'un dépôt externe"
+    "Ils exécutent du code shell arbitraire avec tes droits ; il faut donc relire tout hook avant de l'activer, surtout s'il vient d'un dépôt externe"
    ],
    "correct": 3,
-   "explanation": "La leçon souligne qu'un hook lance des commandes shell avec vos droits et recommande de relire tout hook avant activation (surtout d'origine externe) et de privilégier des hooks simples et lisibles."
+   "explanation": "La leçon souligne qu'un hook lance des commandes shell avec tes droits et recommande de relire tout hook avant activation (surtout d'origine externe) et de privilégier des hooks simples et lisibles."
   },
   {
    "q": "Quel statut faut-il donner à une liste d'autorisations (allowlist) Bash configurée dans Claude Code ?",
@@ -899,13 +899,13 @@
   {
    "q": "Selon la leçon, pourquoi un serveur MCP représente-t-il un risque de sécurité particulier ?",
    "options": [
-    "Parce qu'il chiffre vos données et vous empêche d'y accéder sans clé",
-    "Parce qu'il s'exécute sur votre machine avec vos permissions et peut donc lire vos fichiers et vos secrets",
+    "Parce qu'il chiffre tes données et t'empêche d'y accéder sans clé",
+    "Parce qu'il s'exécute sur ta machine avec tes permissions et peut donc lire tes fichiers et tes secrets",
     "Parce qu'il ralentit l'agent en consommant trop de contexte",
-    "Parce qu'il remplace automatiquement le contenu de votre CLAUDE.md"
+    "Parce qu'il remplace automatiquement le contenu de ton CLAUDE.md"
    ],
    "correct": 1,
-   "explanation": "La leçon insiste sur ce point critique : un serveur MCP est un programme qui s'exécute sur votre machine avec vos permissions ; un serveur malveillant ou mal écrit peut lire vos fichiers et vos secrets et les envoyer ailleurs."
+   "explanation": "La leçon insiste sur ce point critique : un serveur MCP est un programme qui s'exécute sur ta machine avec tes permissions ; un serveur malveillant ou mal écrit peut lire tes fichiers et tes secrets et les envoyer ailleurs."
   },
   {
    "q": "La leçon décrit deux voies courantes pour ajouter un serveur MCP. Lesquelles ?",
@@ -933,7 +933,7 @@
    "q": "Parmi ces règles de base, laquelle correspond au principe de moindre privilège tel que décrit dans la leçon ?",
    "options": [
     "Suivre toujours la dernière version du serveur pour bénéficier des correctifs",
-    "Donner au serveur un accès en lecture seule, restreint au strict nécessaire, sans lui passer tous vos secrets",
+    "Donner au serveur un accès en lecture seule, restreint au strict nécessaire, sans lui passer tous tes secrets",
     "Installer un maximum de serveurs pour couvrir tous les besoins de l'équipe",
     "Partager le fichier .mcp.json publiquement pour faciliter la collaboration"
    ],
@@ -980,7 +980,7 @@
    "options": [
     "Pour que l'agent puisse choisir seul ses outils en cours de route",
     "Parce que c'est obligatoire pour créer un sub-agent dans .claude/agents/",
-    "Sinon l'agent « termine » sans que vous sachiez si le résultat est bon",
+    "Sinon l'agent « termine » sans que tu saches si le résultat est bon",
     "Pour empêcher tout humain d'intervenir pendant l'exécution"
    ],
    "correct": 2,
@@ -1052,7 +1052,7 @@
     "Un analyste junior surdoué et infatigable dont on relit systématiquement le livrable"
    ],
    "correct": 3,
-   "explanation": "La leçon propose de traiter Claude comme un analyste junior surdoué et infatigable dont on relit systématiquement le livrable, car il ne connaît pas vos données aussi bien que vous et ne dira jamais spontanément qu'il n'est pas sûr ; on délègue la production, pas le jugement."
+   "explanation": "La leçon propose de traiter Claude comme un analyste junior surdoué et infatigable dont on relit systématiquement le livrable, car il ne connaît pas tes données aussi bien que toi et ne dira jamais spontanément qu'il n'est pas sûr ; on délègue la production, pas le jugement."
   }
  ],
  "data-generer-sql-fiable": [
@@ -1114,7 +1114,7 @@
  ],
  "data-debugger-optimiser": [
   {
-   "q": "Une requête utilise WHERE id NOT IN (SELECT customer_id FROM ...) et renvoie zéro ligne alors que vous en attendiez. Selon la leçon, quelle est la cause la plus probable et la parade recommandée ?",
+   "q": "Une requête utilise WHERE id NOT IN (SELECT customer_id FROM ...) et renvoie zéro ligne alors que tu en attendais. Selon la leçon, quelle est la cause la plus probable et la parade recommandée ?",
    "options": [
     "Un index manque sur la colonne id ; il faut ajouter EXPLAIN ANALYZE pour le confirmer",
     "Au moins un customer_id de la sous-requête est NULL, ce qui rend la condition jamais vraie ; utiliser NOT EXISTS (ou filtrer les NULL dans la sous-requête)",
@@ -1147,7 +1147,7 @@
    "explanation": "La leçon indique qu'ANALYZE exécute réellement la requête et donne les temps mesurés ; sans lui on n'a que des estimations. (Mettre à jour les statistiques relève de la commande ANALYZE sur la table, un autre usage cité comme remède aux écarts estimé/réel.)"
   },
   {
-   "q": "Vous avez un index composite (a, b). Selon la leçon, pour quelles requêtes cet index est-il utile ?",
+   "q": "Tu as un index composite (a, b). Selon la leçon, pour quelles requêtes cet index est-il utile ?",
    "options": [
     "Pour les filtres sur b seul, mais pas sur a seul",
     "Pour n'importe quel filtre sur a ou b indifféremment, car l'ordre des colonnes n'a pas d'importance",
@@ -1247,10 +1247,10 @@
     "Les seuils d'alerte sont déterminés automatiquement par la requête, sans intervention humaine"
    ],
    "correct": 2,
-   "explanation": "La leçon est explicite : on demande à Claude de générer une dizaine de contrôles adaptés au schéma, « mais c'est vous qui décidez ce qu'est un résultat normal : Claude propose les tests, vous fixez les seuils d'alerte »."
+   "explanation": "La leçon est explicite : on demande à Claude de générer une dizaine de contrôles adaptés au schéma, « mais c'est toi qui décides ce qu'est un résultat normal : Claude propose les tests, tu fixes les seuils d'alerte »."
   },
   {
-   "q": "D'après la leçon, que faut-il faire d'un écart entre votre résultat et une source de vérité (par exemple 1,28 M€ contre 1,19 M€ en compta) ?",
+   "q": "D'après la leçon, que faut-il faire d'un écart entre ton résultat et une source de vérité (par exemple 1,28 M€ contre 1,19 M€ en compta) ?",
    "options": [
     "Le considérer comme une piste à investiguer : remboursements, TVA, période décalée, etc.",
     "Le négliger tant qu'il reste sous 10 % du total, car c'est dans la marge d'erreur normale",
@@ -1561,15 +1561,15 @@
  ],
  "marketing-mesurer-iterer-ne-pas-halluciner": [
   {
-   "q": "Selon la leçon, quel est le rôle de Claude vis-à-vis de vos données de performance (taux d'ouverture, trafic, conversion) ?",
+   "q": "Selon la leçon, quel est le rôle de Claude vis-à-vis de tes données de performance (taux d'ouverture, trafic, conversion) ?",
    "options": [
-    "Il interprète les données que vous lui fournissez, mais ne les produit pas",
-    "Il peut estimer vos chiffres de façon fiable à partir de votre secteur d'activité",
-    "Il a accès à vos statistiques et peut donc les mesurer directement",
+    "Il interprète les données que tu lui fournis, mais ne les produit pas",
+    "Il peut estimer tes chiffres de façon fiable à partir de ton secteur d'activité",
+    "Il a accès à tes statistiques et peut donc les mesurer directement",
     "Il produit les données puis les interprète dans la foulée"
    ],
    "correct": 0,
-   "explanation": "La leçon insiste : « Claude n'a pas accès à vos données de performance. » Tout chiffre qu'il avancerait spontanément est une hallucination ; son rôle est d'interpréter les données que vous lui fournissez, pas de les produire."
+   "explanation": "La leçon insiste : « Claude n'a pas accès à tes données de performance. » Tout chiffre qu'il avancerait spontanément est une hallucination ; son rôle est d'interpréter les données que tu lui fournis, pas de les produire."
   },
   {
    "q": "D'après la leçon, pourquoi le trafic seul est-il devenu une métrique trompeuse pour la notoriété/SEO ?",
@@ -1729,7 +1729,7 @@
     "Parce qu'il remplace la nécessité d'une boucle de retour utilisateur"
    ],
    "correct": 2,
-   "explanation": "La leçon explique que le jeu d'évaluation mesure la qualité avant chaque mise à jour ; sans évaluation continue \"vous ne pilotez pas un système, vous espérez\", et c'est la première ligne de défense contre les régressions silencieuses."
+   "explanation": "La leçon explique que le jeu d'évaluation mesure la qualité avant chaque mise à jour ; sans évaluation continue \"tu ne pilotes pas un système, tu espères\", et c'est la première ligne de défense contre les régressions silencieuses."
   },
   {
    "q": "D'après la règle du \"calcul honnête\", comment juger qu'un projet IA n'est pas réellement rentable ?",
@@ -1840,12 +1840,12 @@
    "q": "Selon la leçon, pourquoi l'injection d'invite (prompt injection) est-elle un risque spécifique à l'IA ?",
    "options": [
     "Parce que les modèles d'IA chiffrent mal les données qu'ils reçoivent",
-    "Parce que le modèle ne distingue pas nativement vos instructions des instructions cachées dans le contenu qu'il traite",
+    "Parce que le modèle ne distingue pas nativement tes instructions des instructions cachées dans le contenu qu'il traite",
     "Parce que les fournisseurs conservent toujours les invites pour entraîner leurs modèles",
     "Parce que l'injection d'invite ne peut être détectée par aucune journalisation"
    ],
    "correct": 1,
-   "explanation": "La leçon explique que le modèle « ne distingue pas nativement vos instructions des instructions cachées dans le contenu qu'il traite » (e-mail, page web, document), d'où la règle d'or : tout contenu entrant peut contenir des instructions."
+   "explanation": "La leçon explique que le modèle « ne distingue pas nativement tes instructions des instructions cachées dans le contenu qu'il traite » (e-mail, page web, document), d'où la règle d'or : tout contenu entrant peut contenir des instructions."
   },
   {
    "q": "Un assistant qui résume les e-mails reçoit un message contenant, en petits caractères, l'ordre de transférer les trois derniers messages à une adresse externe. D'après la leçon, quelle défense empêche le plus directement que ce piège fonctionne ?",
@@ -1881,7 +1881,7 @@
    "explanation": "La leçon présente l'abstraction du fournisseur comme un moyen « pour pouvoir en changer sans tout réécrire ». La détection de régression relève du jeu d'évaluation (découpler de la version), pas de l'abstraction."
   },
   {
-   "q": "Un fournisseur t'affirme : « avec Claude Enterprise vous avez le zero data retention et un hébergement en Europe ». Que faut-il corriger ?",
+   "q": "Un fournisseur t'affirme : « avec Claude Enterprise, le zero data retention et l'hébergement en Europe sont inclus ». Que faut-il corriger ?",
    "options": [
     "Rien : les deux affirmations sont exactes",
     "Seulement le ZDR : l'hébergement européen est bien proposé en direct par Anthropic",
@@ -1988,7 +1988,7 @@
    "options": [
     "Que la stratégie est trop coûteuse en commissions et slippage",
     "Que l'univers de test contient un survivorship bias",
-    "Que, si l'aléatoire fait presque aussi bien que votre signal, votre edge est imaginaire",
+    "Que, si l'aléatoire fait presque aussi bien que ton signal, ton edge est imaginaire",
     "Que les paramètres voisins sont mal optimisés"
    ],
    "correct": 2,
@@ -2065,7 +2065,7 @@
    "explanation": "La leçon indique que l'horodatage de chaque enregistrement sert à garantir le point-in-time : savoir ce qui était connu, et quand."
   },
   {
-   "q": "Concernant la connexion de Claude à vos données via MCP, quelle est la 'ligne rouge' posée par la leçon ?",
+   "q": "Concernant la connexion de Claude à tes données via MCP, quelle est la 'ligne rouge' posée par la leçon ?",
    "options": [
     "Ne jamais donner d'accès en lecture aux rapports",
     "N'utiliser MCP que pour résumer des documents, jamais pour interroger une base",
@@ -2102,9 +2102,9 @@
   {
    "q": "Selon la leçon, à quoi ressemble le plus le fait d'installer un prompt ou un skill partagé sur GitHub ?",
    "options": [
-    "À lire un article informatif sans conséquence sur votre machine",
+    "À lire un article informatif sans conséquence sur ta machine",
     "À exécuter le script d'un inconnu, car ce sont des instructions et souvent du code non fiables",
-    "À ajouter une simple fonctionnalité de confort à votre éditeur",
+    "À ajouter une simple fonctionnalité de confort à ton éditeur",
     "À consulter une documentation officielle validée par Anthropic"
    ],
    "correct": 1,
@@ -2127,7 +2127,7 @@
     "Ils doivent obligatoirement rester dans .claude/commands/, seul dossier supporté",
     "Ils ne s'exécutent jamais : ce sont de simples notes que l'agent ignore",
     "Ils ont été fusionnés avec les skills ; l'emplacement recommandé est désormais .claude/skills/<nom>/SKILL.md, l'ancien dossier restant fonctionnel",
-    "Ce sont de vrais programmes qui tournent avec vos permissions"
+    "Ce sont de vrais programmes qui tournent avec tes permissions"
    ],
    "correct": 2,
    "explanation": "La leçon précise que les slash commands, historiquement dans .claude/commands/, ont été fusionnés avec les skills : l'emplacement recommandé est désormais .claude/skills/<nom>/SKILL.md, l'ancien dossier restant fonctionnel. Ce sont des instructions que l'agent exécute quand on les invoque ; l'option 3 décrit plutôt les serveurs MCP."
@@ -2136,12 +2136,12 @@
    "q": "Pourquoi la leçon affirme-t-elle qu'un prompt en texte brut n'est pas totalement sans risque ?",
    "options": [
     "Parce qu'il consomme beaucoup de mémoire et ralentit l'agent",
-    "Parce qu'il démarre automatiquement un processus avec vos permissions",
-    "Parce qu'il télécharge des dépendances réseau à votre insu",
-    "Parce qu'il peut contenir des instructions cachées destinées à détourner votre agent"
+    "Parce qu'il démarre automatiquement un processus avec tes permissions",
+    "Parce qu'il télécharge des dépendances réseau à ton insu",
+    "Parce qu'il peut contenir des instructions cachées destinées à détourner ton agent"
    ],
    "correct": 3,
-   "explanation": "La leçon classe les prompts/templates comme le risque le plus faible mais pas nul, précisément parce qu'un prompt peut contenir des instructions cachées destinées à détourner votre agent."
+   "explanation": "La leçon classe les prompts/templates comme le risque le plus faible mais pas nul, précisément parce qu'un prompt peut contenir des instructions cachées destinées à détourner ton agent."
   },
   {
    "q": "Qu'est-ce que la spécification MCP du 28 juillet 2026 a supprimé du protocole ?",
@@ -2195,10 +2195,10 @@
     "Il consomme trop de tokens pour les longs fichiers",
     "Un artefact malveillant peut être conçu pour tromper le relecteur, y compris l'IA ; ce filtre ne remplace pas la lecture humaine",
     "Il ne fonctionne que sur les fichiers SKILL.md, pas sur les serveurs MCP",
-    "Il exige un accès réseau qui expose vos secrets pendant l'analyse"
+    "Il exige un accès réseau qui expose tes secrets pendant l'analyse"
    ],
    "correct": 1,
-   "explanation": "La leçon insiste : un artefact malveillant peut être conçu pour tromper le relecteur, y compris l'IA. Le filtre aide mais ne remplace pas votre lecture humaine."
+   "explanation": "La leçon insiste : un artefact malveillant peut être conçu pour tromper le relecteur, y compris l'IA. Le filtre aide mais ne remplace pas ta lecture humaine."
   },
   {
    "q": "Qu'a corrigé le SDK Python claude-agent-sdk en version 0.2.129 ?",
@@ -2279,7 +2279,7 @@
     "L'agent fait confiance par défaut aux serveurs MCP signés"
    ],
    "correct": 1,
-   "explanation": "La leçon explique que l'agent ne sépare pas toujours les données (ce qu'il doit traiter) des instructions (ce qu'il doit faire) : un attaquant qui glisse des instructions dans un contenu lu par l'agent peut le détourner avec vos permissions."
+   "explanation": "La leçon explique que l'agent ne sépare pas toujours les données (ce qu'il doit traiter) des instructions (ce qu'il doit faire) : un attaquant qui glisse des instructions dans un contenu lu par l'agent peut le détourner avec tes permissions."
   },
   {
    "q": "D'après la « lethal trifecta » décrite dans la leçon, à quel moment apparaît le vrai danger de vol de données ?",
@@ -2308,7 +2308,7 @@
    "options": [
     "Un dépôt au nom presque identique au vrai (typosquatting)",
     "Des instructions cachées en caractères invisibles de largeur nulle",
-    "Un serveur « météo » qui lit votre .ssh au premier appel d'outil",
+    "Un serveur « météo » qui lit ton .ssh au premier appel d'outil",
     "Une slash command qui demande de lire le fichier .env"
    ],
    "correct": 0,
@@ -2347,18 +2347,18 @@
     "Il suffit de lancer ce vetting sur la branche main pour rester à jour"
    ],
    "correct": 2,
-   "explanation": "La leçon précise de lancer le vetting dans une session « qui n'a pas accès à vos secrets », rappelle qu'un artefact peut tromper l'auditeur, et que ce prompt assiste le jugement mais ne le remplace pas."
+   "explanation": "La leçon précise de lancer le vetting dans une session « qui n'a pas accès à tes secrets », rappelle qu'un artefact peut tromper l'auditeur, et que ce prompt assiste le jugement mais ne le remplace pas."
   },
   {
    "q": "Concernant le versionnage d'un artefact externe, que recommande la checklist de la leçon ?",
    "options": [
-    "Épingler une version ou un commit précis que vous avez relu, plutôt que de suivre main aveuglément",
+    "Épingler une version ou un commit précis que tu as relu, plutôt que de suivre main aveuglément",
     "Toujours suivre la branche main pour bénéficier des derniers correctifs de sécurité",
     "Cloner sans épingler de version, l'important étant uniquement la sandbox",
     "Choisir la version la plus téléchargée, gage de fiabilité"
    ],
    "correct": 0,
-   "explanation": "Le point 4 de la checklist dit d'« épingler une version / un commit précis que vous avez relu » et de « ne pas suivre main aveuglément »."
+   "explanation": "Le point 4 de la checklist dit d'« épingler une version / un commit précis que tu as relu » et de « ne pas suivre main aveuglément »."
   },
   {
    "q": "Parmi les éléments suivants, lequel la leçon classe-t-elle parmi les « drapeaux rouges » à repérer dans un artefact ?",

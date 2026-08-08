@@ -687,7 +687,7 @@ R: Non, seulement celle de l'interface. La langue des réponses se pilote par un
     },
     {
       slug: "personnaliser-claude-dites-lui-qui-vous-etes",
-      title: "Personnaliser Claude : dites-lui qui vous êtes",
+      title: "Personnaliser Claude : dis-lui qui tu es",
       description:
         "La leçon la plus rentable de ce parcours : les instructions de profil qui font que Claude répond comme TOI tu le veux — qui tu es, ce que tu fais, comment répondre, comment ne pas répondre.",
       duration_min: 20,

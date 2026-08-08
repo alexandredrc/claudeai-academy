@@ -10,7 +10,7 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Contenu vérifié au **6 août 2026**, sur **Claude Code 2.1.223**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifiez sur le changelog de votre version. Contenu original rédigé pour ClaudeAI Academy.`;
+**Sources & méthode** · Contenu vérifié au **6 août 2026**, sur **Claude Code 2.1.223**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifie sur le changelog de ta version. Contenu original rédigé pour ClaudeAI Academy.`;
 
 export const claudeCodeIaAgentic = {
   slug: "claude-code-ia-agentic",
@@ -25,7 +25,7 @@ export const claudeCodeIaAgentic = {
       slug: "ce-qui-change-vraiment-avec-claude-code",
       title: "Ce qui change vraiment avec Claude Code",
       description:
-        "Pas un chatbot de plus : un agent qui lit votre dépôt, édite des fichiers, lance des commandes et boucle. Le changement de posture.",
+        "Pas un chatbot de plus : un agent qui lit ton dépôt, édite des fichiers, lance des commandes et boucle. Le changement de posture.",
       duration_min: 16,
       is_free_preview: true,
       content_md:
@@ -291,9 +291,9 @@ R: À revenir en arrière dans la session, y compris retrouver la conversation d
     },
     {
       slug: "slash-commands-et-skills",
-      title: "Slash commands & skills : industrialiser vos workflows",
+      title: "Slash commands & skills : industrialiser tes workflows",
       description:
-        "Transformer vos prompts récurrents en commandes et skills réutilisables — et savoir quand en créer un.",
+        "Transformer tes prompts récurrents en commandes et skills réutilisables — et savoir quand en créer un.",
       duration_min: 26,
       is_free_preview: false,
       content_md:
@@ -570,9 +570,9 @@ R: sandbox.network.strictAllowlist, ajouté le 24 juillet 2026.
     },
     {
       slug: "mcp-connecter-vos-outils",
-      title: "MCP : connecter vos outils et vos données",
+      title: "MCP : connecter tes outils et tes données",
       description:
-        "Le Model Context Protocol pour donner à l'agent l'accès à vos bases, API et outils — sans ouvrir une faille de sécurité.",
+        "Le Model Context Protocol pour donner à l'agent l'accès à tes bases, API et outils — sans ouvrir une faille de sécurité.",
       duration_min: 22,
       is_free_preview: false,
       content_md:

@@ -1,9 +1,21 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
-import { createClient } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/admin";
+import { buildAccessLink, safeNext, sendAccessLink } from "@/lib/auth/access-link";
+import { sendSignupConfirmationEmail } from "@/lib/email/confirm-signup";
 
+/**
+ * Inscription.
+ *
+ * On n'utilise plus `supabase.auth.signUp`, qui délègue l'email à Supabase :
+ * son template pointait sur `/auth/v1/verify`, un GET qui consomme le jeton à
+ * usage unique — les antivirus de messagerie l'ouvraient avant le
+ * destinataire, et 60 % des inscriptions en adresse professionnelle
+ * n'aboutissaient jamais. Ici Supabase ne sert qu'à fabriquer le jeton :
+ * l'email part par Resend, comme tous les autres, et le lien passe par
+ * /auth/confirm qui n'active le jeton qu'après un clic humain.
+ */
 export async function signupAction(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
@@ -11,54 +23,51 @@ export async function signupAction(formData: FormData) {
   const lastName = String(formData.get("last_name") ?? "").trim();
   const plan = String(formData.get("plan") ?? "").trim();
 
+  const planSuffix = plan ? `&plan=${encodeURIComponent(plan)}` : "";
+  const fail = (message: string) =>
+    redirect(`/signup?error=${encodeURIComponent(message)}${planSuffix}`);
+
   if (!email || !password || !firstName || !lastName) {
-    redirect(
-      `/signup?error=${encodeURIComponent("Tous les champs sont requis.")}${plan ? `&plan=${plan}` : ""}`,
-    );
+    fail("Tous les champs sont requis.");
   }
-
+  if (!email.includes("@")) {
+    fail("Entre une adresse email valide.");
+  }
   if (password.length < 8) {
-    redirect(
-      `/signup?error=${encodeURIComponent("Le mot de passe doit faire au moins 8 caractères.")}${plan ? `&plan=${plan}` : ""}`,
-    );
+    fail("Le mot de passe doit faire au moins 8 caractères.");
   }
 
-  const supabase = await createClient();
-  const origin =
-    process.env.NEXT_PUBLIC_APP_URL ?? (await getOriginFromHeaders());
+  // Le plan choisi survit à la confirmation : après /auth/confirm, on atterrit
+  // sur /account avec le bandeau « Finaliser ton achat ».
+  const next = safeNext(
+    plan
+      ? `/account?plan=${encodeURIComponent(plan)}&welcome=1`
+      : "/account?welcome=1",
+    "/account?welcome=1",
+  );
 
-  // Propage le plan choisi à travers la confirmation email :
-  // après /auth/callback, on atterrit sur /account avec ?plan= et un bandeau
-  // "Finaliser ton achat" qui POST sur /checkout.
-  const accountTarget = plan
-    ? `/account?plan=${encodeURIComponent(plan)}&welcome=1`
-    : "/account?welcome=1";
-  const emailRedirect = `${origin}/auth/callback?next=${encodeURIComponent(accountTarget)}`;
-
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabaseAdmin.auth.admin.generateLink({
+    type: "signup",
     email,
     password,
-    options: {
-      emailRedirectTo: emailRedirect,
-      data: {
-        first_name: firstName,
-        last_name: lastName,
-      },
-    },
+    options: { data: { first_name: firstName, last_name: lastName } },
   });
 
-  if (error) {
-    redirect(
-      `/signup?error=${encodeURIComponent(error.message)}${plan ? `&plan=${plan}` : ""}`,
-    );
+  const tokenHash = data?.properties?.hashed_token;
+
+  if (error || !tokenHash) {
+    // Cas principal : l'adresse a déjà un compte. On n'en dit rien (pas
+    // d'énumération d'emails) et on rend service — un lien de connexion part
+    // vers la boîte, ce qui est exactement ce dont la personne a besoin.
+    await sendAccessLink({ email, next: "/account" });
+    redirect(`/signup?sent=1${planSuffix}`);
   }
 
-  redirect(`/signup?sent=1${plan ? `&plan=${plan}` : ""}`);
-}
+  await sendSignupConfirmationEmail({
+    to: email,
+    confirmLink: buildAccessLink({ tokenHash, email, next, type: "signup" }),
+    firstName: firstName || null,
+  });
 
-async function getOriginFromHeaders() {
-  const h = await headers();
-  const host = h.get("host") ?? "localhost:3000";
-  const proto = h.get("x-forwarded-proto") ?? "http";
-  return `${proto}://${host}`;
+  redirect(`/signup?sent=1${planSuffix}`);
 }

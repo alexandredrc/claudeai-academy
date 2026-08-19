@@ -29,18 +29,19 @@ export default async function SignupPage({
       <AuthShell title="Vérifie ta boîte mail">
         <p className="text-[15px] leading-[1.7] text-ink-soft">
           On vient de t&apos;envoyer un email de confirmation. Clique sur le
-          lien pour activer ton compte, puis reviens te connecter.
+          bouton qu&apos;il contient et tu arrives directement dans ton espace
+          — rien d&apos;autre à saisir.
         </p>
-        <p className="mt-6 text-[13px] text-muted">
+        <p className="mt-6 text-[13px] leading-relaxed text-muted">
           Pas reçu ? Vérifie tes spams. L&apos;email peut prendre 1 à 2 minutes
           à arriver.
         </p>
         <div className="mt-10">
           <Link
-            href="/login"
+            href="/acces"
             className="text-sm font-semibold text-coral hover:text-coral-dark"
           >
-            Aller à la connexion →
+            Le lien ne marche pas ? Reçois-en un nouveau →
           </Link>
         </div>
       </AuthShell>

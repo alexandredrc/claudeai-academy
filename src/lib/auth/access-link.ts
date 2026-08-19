@@ -21,10 +21,13 @@ export function buildAccessLink(params: {
   tokenHash: string;
   email: string;
   next?: string;
+  /** `magiclink` par défaut ; `signup` pour une confirmation d'inscription. */
+  type?: "magiclink" | "signup" | "recovery";
 }): string {
   const next = encodeURIComponent(safeNext(params.next));
   const email = encodeURIComponent(params.email);
-  return `${SITE_URL}/auth/confirm?token_hash=${params.tokenHash}&type=magiclink&next=${next}&email=${email}`;
+  const type = params.type ?? "magiclink";
+  return `${SITE_URL}/auth/confirm?token_hash=${params.tokenHash}&type=${type}&next=${next}&email=${email}`;
 }
 
 /**

@@ -14,9 +14,7 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(
-    `${origin}/login?error=${encodeURIComponent(
-      "Lien de confirmation invalide ou expiré. Réessaie ou recrée un compte.",
-    )}`,
-  );
+  // Lien de confirmation grillé (expiré, ou déjà ouvert par un antivirus de
+  // messagerie) : on envoie vers la page de récupération, pas vers un mur.
+  return NextResponse.redirect(`${origin}/acces?raison=expire`);
 }

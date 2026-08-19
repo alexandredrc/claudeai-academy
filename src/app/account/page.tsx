@@ -2,16 +2,22 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { startCheckoutAction } from "../checkout/actions";
+import { setPasswordAction } from "./actions";
 import { isValidTier } from "@/lib/stripe/plans";
 
-type SearchParams = Promise<{ plan?: string; welcome?: string }>;
+type SearchParams = Promise<{
+  plan?: string;
+  welcome?: string;
+  mdp?: string;
+  mdp_erreur?: string;
+}>;
 
 export default async function AccountPage({
   searchParams,
 }: {
   searchParams: SearchParams;
 }) {
-  const { plan, welcome } = await searchParams;
+  const { plan, welcome, mdp, mdp_erreur: mdpErreur } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -78,8 +84,8 @@ export default async function AccountPage({
                 </h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
                   {hasMastery
-                    ? "Tu as accès aux 5 parcours."
-                    : "Tu as accès aux 2 parcours fondamentaux."}
+                    ? "Tu as accès aux 8 parcours, soit 48 leçons."
+                    : "Tu as accès aux 3 parcours fondamentaux, soit 21 leçons."}
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 self-start sm:self-auto">
@@ -119,6 +125,69 @@ export default async function AccountPage({
                 className="rounded-[14px] border-[1.5px] border-ink px-5 py-2.5 text-sm font-semibold text-ink transition-all duration-200 ease-out hover:bg-ink hover:text-cream"
               >
                 Se déconnecter
+              </button>
+            </form>
+          </Card>
+        </div>
+
+        <div className="mt-6">
+          <Card title="Mot de passe">
+            <p className="text-[14px] leading-relaxed text-ink-soft">
+              Ton accès a été ouvert par un lien email ? Choisis un mot de
+              passe : tu pourras te connecter directement, sans jamais
+              redemander de lien.
+            </p>
+
+            {mdp === "ok" && (
+              <div
+                role="status"
+                className="mt-5 rounded-[14px] border border-line bg-cream-soft px-4 py-3 text-[14px] text-ink"
+              >
+                Mot de passe enregistré. Tu peux désormais te connecter avec
+                ton email et ce mot de passe.
+              </div>
+            )}
+            {mdpErreur && (
+              <div
+                role="alert"
+                className="mt-5 rounded-[14px] border border-coral-dark/30 bg-coral-soft/40 px-4 py-3 text-[14px] text-ink"
+              >
+                {decodeURIComponent(mdpErreur)}
+              </div>
+            )}
+
+            <form action={setPasswordAction} className="mt-6 space-y-4">
+              <label className="block">
+                <span className="mb-1.5 block text-[13px] font-semibold text-ink-soft">
+                  Nouveau mot de passe
+                </span>
+                <input
+                  name="password"
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={8}
+                  required
+                  className="w-full rounded-[10px] border border-line bg-cream-soft px-4 py-3 text-[15px] text-ink outline-none transition-colors focus:border-coral focus:bg-white focus:ring-2 focus:ring-coral/20"
+                />
+              </label>
+              <label className="block">
+                <span className="mb-1.5 block text-[13px] font-semibold text-ink-soft">
+                  Confirmation
+                </span>
+                <input
+                  name="password_confirm"
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={8}
+                  required
+                  className="w-full rounded-[10px] border border-line bg-cream-soft px-4 py-3 text-[15px] text-ink outline-none transition-colors focus:border-coral focus:bg-white focus:ring-2 focus:ring-coral/20"
+                />
+              </label>
+              <button
+                type="submit"
+                className="rounded-[14px] bg-coral px-6 py-3 text-sm font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
+              >
+                Enregistrer
               </button>
             </form>
           </Card>

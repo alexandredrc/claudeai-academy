@@ -3,14 +3,14 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { loginAction, sendLoginLinkAction } from "./actions";
 
-type SearchParams = Promise<{ error?: string; next?: string; sent?: string }>;
+type SearchParams = Promise<{ error?: string; next?: string }>;
 
 export default async function LoginPage({
   searchParams,
 }: {
   searchParams: SearchParams;
 }) {
-  const { error, next, sent } = await searchParams;
+  const { error, next } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -40,17 +40,6 @@ export default async function LoginPage({
               {decodeURIComponent(error)}
             </div>
           )}
-          {sent && (
-            <div
-              role="status"
-              className="mb-6 rounded-[14px] border border-line bg-cream-soft px-4 py-3 text-[14px] text-ink"
-            >
-              Si un compte existe pour cette adresse, un lien de connexion
-              vient de t&apos;être envoyé. Pense à vérifier tes courriers
-              indésirables.
-            </div>
-          )}
-
           <form action={loginAction} className="space-y-5">
             {next && <input type="hidden" name="next" value={next} />}
             <label className="block">
@@ -95,8 +84,9 @@ export default async function LoginPage({
           <form action={sendLoginLinkAction} className="space-y-4">
             {next && <input type="hidden" name="next" value={next} />}
             <p className="text-[14px] leading-relaxed text-ink-soft">
-              Pas de mot de passe (ou oublié) ? Reçois un lien de connexion
-              par email — un clic et tu es sur tes parcours.
+              Pas de mot de passe (ou oublié) ? C&apos;est le cas de tous les
+              accès ouverts après un achat. Reçois un lien de connexion par
+              email — un clic et tu es sur tes parcours.
             </p>
             <label className="block">
               <span className="mb-1.5 block text-[13px] font-semibold text-ink-soft">

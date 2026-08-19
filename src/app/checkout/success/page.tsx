@@ -110,10 +110,20 @@ export default async function CheckoutSuccessPage({
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link
+                href={
+                  buyerEmail
+                    ? `/acces?email=${encodeURIComponent(buyerEmail)}`
+                    : "/acces"
+                }
+                className="rounded-[14px] bg-coral px-8 py-4 text-base font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
+              >
+                Renvoyer mon lien d&apos;accès
+              </Link>
+              <Link
                 href="/login"
                 className="rounded-[14px] border border-line bg-white px-8 py-4 text-base font-semibold text-ink transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-coral"
               >
-                J&apos;ai déjà un mot de passe — me connecter
+                J&apos;ai déjà un mot de passe
               </Link>
             </div>
           </>

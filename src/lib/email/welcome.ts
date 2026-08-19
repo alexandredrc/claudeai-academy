@@ -59,6 +59,7 @@ function renderHtml(c: WelcomeContent, firstName: string | null): string {
       <p style="margin:0 0 32px;">
         <a href="${c.ctaHref}" style="display:inline-block;background:#D97757;color:#FFFFFF;text-decoration:none;padding:12px 24px;border-radius:6px;font-size:16px;">${c.ctaLabel}</a>
       </p>
+      <p style="font-size:14px;line-height:1.7;color:#5A5750;margin:0 0 8px;">Le bouton ne fonctionne plus ? Certaines messageries d'entreprise ouvrent les liens avant toi et les désactivent. Redemande un accès en 10 secondes sur <a href="${SITE_URL}/acces" style="color:#5A5750;">${SITE_URL.replace("https://", "")}/acces</a>.</p>
       <p style="font-size:14px;line-height:1.7;color:#5A5750;margin:0 0 8px;">Garantie 14 jours : si la formation ne te convient pas, réponds simplement à cet email et on te rembourse, sans question.</p>
       <p style="font-size:14px;line-height:1.7;color:#5A5750;margin:0;">Une question ? Écris-nous : <a href="mailto:contact@claudeai-academy.com" style="color:#5A5750;">contact@claudeai-academy.com</a></p>
     </div>
@@ -78,6 +79,8 @@ function renderText(c: WelcomeContent, firstName: string | null): string {
     items,
     "",
     `${c.ctaLabel} : ${c.ctaHref}`,
+    "",
+    `Le bouton ne fonctionne plus ? Redemande un accès en 10 secondes : ${SITE_URL}/acces`,
     "",
     "Garantie 14 jours : si la formation ne te convient pas, réponds simplement à cet email et on te rembourse, sans question.",
     "Une question ? contact@claudeai-academy.com",

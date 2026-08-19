@@ -4,7 +4,7 @@ import { getStripe } from "@/lib/stripe/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { isValidTier } from "@/lib/stripe/plans";
 import { sendPurchaseWelcomeEmail } from "@/lib/email/welcome";
-import { SITE_URL } from "@/lib/email/send";
+import { buildAccessLink } from "@/lib/auth/access-link";
 
 // Stripe doit recevoir le body brut pour valider la signature.
 // On désactive l'optimisation statique au cas où.
@@ -220,8 +220,9 @@ async function findProfileIdByEmail(email: string): Promise<string | null> {
 }
 
 /**
- * Génère un lien de connexion magique. Le token hash est vérifié côté serveur
- * par /auth/confirm via `verifyOtp` (pas de PKCE → valable depuis un email).
+ * Génère un lien de connexion magique. Le token hash est vérifié par
+ * /auth/confirm après un clic humain (pas de PKCE → valable depuis un email,
+ * pas de consommation par les antivirus de messagerie).
  */
 async function generateAccessLink(email: string): Promise<string | null> {
   try {
@@ -229,10 +230,9 @@ async function generateAccessLink(email: string): Promise<string | null> {
       type: "magiclink",
       email,
     });
-    const hashedToken = data?.properties?.hashed_token;
-    if (error || !hashedToken) return null;
-    const next = encodeURIComponent("/courses");
-    return `${SITE_URL}/auth/confirm?token_hash=${hashedToken}&type=magiclink&next=${next}`;
+    const tokenHash = data?.properties?.hashed_token;
+    if (error || !tokenHash) return null;
+    return buildAccessLink({ tokenHash, email, next: "/courses" });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[stripe-webhook] generateAccessLink failed:", message);

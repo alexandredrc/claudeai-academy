@@ -6,6 +6,7 @@ import { Footer } from "@/components/site/footer";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleTag, GOOGLE_TAG_ENABLED } from "@/components/site/google-tag";
 import { ConsentBanner } from "@/components/site/consent-banner";
+import { AuthHashGuard } from "@/components/site/auth-hash-guard";
 import { createClient } from "@/lib/supabase/server";
 
 const inter = Inter({
@@ -113,6 +114,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
         />
         <GoogleTag />
+        <AuthHashGuard />
         <Header isLoggedIn={!!user} />
         <main className="flex-1">{children}</main>
         <Footer />

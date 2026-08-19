@@ -1101,15 +1101,15 @@
    "explanation": "La leçon explique que NULL signifie « inconnu » et se propage en logique ternaire : WHERE remboursement <> 'oui' exclut silencieusement les lignes NULL. Elle précise aussi que COUNT(colonne) ignore les NULL alors que COUNT(*) les compte (l'option 0 inverse donc volontairement cette règle), et qu'il faut amount IS NULL plutôt que amount = NULL."
   },
   {
-   "q": "Au 6 août 2026, que faut-il savoir du tarif de Claude Sonnet 5 par million de tokens ?",
+   "q": "Au 19 août 2026, que faut-il savoir du tarif de Claude Sonnet 5 par million de tokens ?",
    "options": [
-    "Il est fixé à 2 $ en entrée et 10 $ en sortie de façon permanente",
-    "C'est un tarif d'introduction (2 $ / 10 $) valable jusqu'au 31 août 2026, puis 3 $ / 15 $ au 1er septembre",
+    "Il est fixé à 2 $ en entrée et 10 $ en sortie, et ce tarif est devenu permanent",
+    "C'est un tarif d'introduction (2 $ / 10 $) qui passe à 3 $ / 15 $ au 1er septembre 2026",
     "Il est identique à celui d'Opus 5",
     "Il varie chaque mois selon la charge des serveurs"
    ],
-   "correct": 1,
-   "explanation": "Les 2 $ / 10 $ de Sonnet 5 sont un tarif d'introduction qui prend fin le 31 août 2026 ; à partir du 1er septembre, le tarif standard est de 3 $ / 15 $. C'est pour ça qu'un chiffrage de coût doit toujours porter sa date : un budget calculé en août est faux en septembre. Rappel utile : le batch coûte 50 % de moins et la lecture de cache un dixième du prix d'entrée."
+   "correct": 0,
+   "explanation": "Les 2 $ / 10 $ de Sonnet 5 avaient été annoncés comme un tarif d'introduction expirant le 31 août 2026, avec une hausse à 3 $ / 15 $ au 1er septembre. Le 11 août 2026, ce tarif est devenu permanent et la hausse a été annulée : l'option 1 est exactement ce qu'il fallait croire une semaine plus tôt. C'est la leçon de fond — un chiffrage de coût porte toujours sa date, dans les deux sens : un budget peut être faux parce qu'un prix monte, comme parce qu'une hausse annoncée n'arrive jamais. Rappel utile : le batch coûte 50 % de moins et la lecture de cache un dixième du prix d'entrée."
   }
  ],
  "data-debugger-optimiser": [

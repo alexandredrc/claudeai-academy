@@ -492,7 +492,7 @@ R: Son run annuel approche son gain annuel mesuré.
       slug: "strategie-gouvernance-conformite",
       title: "Gouvernance et conformité (RGPD + AI Act)",
       description:
-        "Comité IA, registre des usages, calendrier réel de l'AI Act au 6 août 2026 et état exact du RGPD — éducatif, pour dialoguer avec tes juristes, pas pour les remplacer.",
+        "Comité IA, registre des usages, calendrier réel de l'AI Act au 19 août 2026 et état exact du RGPD — éducatif, pour dialoguer avec tes juristes, pas pour les remplacer.",
       duration_min: 30,
       is_free_preview: false,
       content_md:
@@ -552,6 +552,10 @@ Son rôle : tenir un **registre des cas d'usage**, classer leur niveau de risque
 
 Ce registre n'est pas un formulaire imposé aux PME par un texte : c'est l'outil qui te permet de répondre en dix minutes, et non en trois semaines, à un client, un assureur ou une autorité qui demande « quels usages de l'IA avez-vous, et comment les encadrez-vous ? ».
 
+:::maj 11 août 2026
+Les usages en **agent** — Claude Cowork, Claude Code — étaient jusqu'ici l'angle mort de tout registre : impossible de dire *qui* avait lancé *quoi*. L'**API de conformité** d'Anthropic les couvre désormais (beta, plan Enterprise) et renvoie les transcriptions consolidées avec **identité vérifiée de l'utilisateur, identifiant d'organisation, identifiants de session et horodatages**. Si ton organisation est sur Enterprise, c'est la source qui alimente automatiquement la colonne « traçabilité » de ton registre. Sur les autres plans, la traçabilité reste **déclarative** : dis-le dans le registre plutôt que de laisser croire à un journal qui n'existe pas.
+:::
+
 ## Les données d'abord
 
 Avant tout projet, réponds par écrit :
@@ -595,7 +599,7 @@ Côté sanctions, le RGPD prévoit deux niveaux : jusqu'à **10 millions d'euros
 **Faux, et c'est le contresens le plus répandu de l'été 2026.** Le paquet proposé en novembre 2025 a été **scindé** : seul le volet IA a été adopté. Le volet données (RGPD, ePrivacy) est **toujours en négociation** et n'est pas attendu avant fin 2026 au plus tôt. **Aucune règle du RGPD n'a changé en 2026.** Ce qui a changé, c'est l'AI Act.
 :::
 
-## AI Act : le calendrier réel au 6 août 2026
+## AI Act : le calendrier réel au 19 août 2026
 
 Le règlement sur l'intelligence artificielle (**AI Act**, règlement UE 2024/1689) est **entré en vigueur le 1er août 2024**, avec une application **échelonnée**. Il classe les systèmes par niveau de risque : **inacceptable** (interdit), **haut risque**, **risque limité** (obligations de transparence, par exemple signaler qu'on parle à une IA ou qu'un contenu est généré), et **risque minimal**.
 
@@ -603,7 +607,7 @@ Le règlement sur l'intelligence artificielle (**AI Act**, règlement UE 2024/16
 Le paquet de simplification dit **Digital Omnibus sur l'IA** n'est plus une proposition : c'est du **droit positif**. Le **Règlement (UE) 2026/1744** a été adopté le 8 juillet 2026, publié au Journal officiel de l'Union européenne le **24 juillet 2026** et est **entré en vigueur le 27 juillet 2026**. C'est lui qui reporte le haut risque et qui réécrit l'article 4. Pour citer un article précis du texte, réfère-toi à la version publiée au JOUE — pas à un résumé de presse.
 :::
 
-| Date | Ce qui s'applique | Statut au 06/08/2026 |
+| Date | Ce qui s'applique | Statut au 19/08/2026 |
 | --- | --- | --- |
 | 01/08/2024 | Entrée en vigueur du règlement | fait |
 | **02/02/2025** | Pratiques interdites (art. 5) + **littératie IA (art. 4)** | **en vigueur** |

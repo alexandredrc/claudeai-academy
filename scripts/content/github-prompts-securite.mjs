@@ -6,14 +6,14 @@
 // sécurité supply chain. Aucune reproduction de source tierce.
 // Mis à jour le 06/08/2026 : spec MCP 2026-07-28 (stateless), correctif web_fetch,
 // contournements de permissions Bash, faille SDK Python 0.2.129, skills de
-// vérification, Claude Code 2.1.223.
+// vérification, Claude Code 2.1.235.
 // =========================================
 
 const FOOTER = `
 
 ---
 
-**Sources & méthode** · Vérifié au **6 août 2026**, Claude Code **2.1.223**. Concepts de sécurité établis : *prompt injection* (OWASP LLM01) ; *« lethal trifecta »* (données privées + contenu non fiable + canal d'exfiltration), grille popularisée par le chercheur Simon Willison ; moindre privilège et sécurité de la chaîne d'approvisionnement logicielle. Spécification **MCP 2026-07-28** : \`modelcontextprotocol.io/specification/2026-07-28/changelog\`. Documentation Claude Code (changelog, settings, sandboxing, skills, plugins) : \`code.claude.com/docs/en/\`. Documentation API, modèles et prompt engineering : \`platform.claude.com/docs/en/\`. Études de cas : exfiltration via \`web_fetch\` découverte par **Ayush Paul**, publiée le 15/07/2026 et **corrigée** par Anthropic ; incidents des évaluations cyber d'Anthropic publiés le 30/07/2026 ; faille d'injection du SDK Python \`claude-agent-sdk\` 0.2.129 ; contournements de permissions Bash corrigés dans les versions 2.1.214 à 2.1.223 — documentés au CHANGELOG, **aucun avis GHSA n'a été publié** pour juillet-août 2026. Contenu original rédigé pour ClaudeAI Academy, audité à la rédaction.`;
+**Sources & méthode** · Vérifié au **19 août 2026**, Claude Code **2.1.235**. Concepts de sécurité établis : *prompt injection* (OWASP LLM01) ; *« lethal trifecta »* (données privées + contenu non fiable + canal d'exfiltration), grille popularisée par le chercheur Simon Willison ; moindre privilège et sécurité de la chaîne d'approvisionnement logicielle. Spécification **MCP 2026-07-28** : \`modelcontextprotocol.io/specification/2026-07-28/changelog\`. Documentation Claude Code (changelog, settings, sandboxing, skills, plugins) : \`code.claude.com/docs/en/\`. Documentation API, modèles et prompt engineering : \`platform.claude.com/docs/en/\`. Études de cas : exfiltration via \`web_fetch\` découverte par **Ayush Paul**, publiée le 15/07/2026 et **corrigée** par Anthropic ; incidents des évaluations cyber d'Anthropic publiés le 30/07/2026 ; faille d'injection du SDK Python \`claude-agent-sdk\` 0.2.129 ; contournements de permissions Bash corrigés dans les versions 2.1.214 à 2.1.223 — documentés au CHANGELOG, **aucun avis GHSA n'a été publié** pour juillet-août 2026. Contenu original rédigé pour ClaudeAI Academy, audité à la rédaction.`;
 
 export const githubPromptsSecurite = {
   slug: "prompts-skills-github-securite",
@@ -131,7 +131,7 @@ Avant d'apprendre à te défendre, regarde ce qui est déjà chez toi.
 - Pour chaque skill trouvé, tu as noté son champ \`allowed-tools\` (ou « absent », ce qui est une info)
 - Tu as listé tes serveurs MCP configurés et, pour chacun, dit à voix haute d'où il vient
 - Tu as identifié au moins un artefact que tu serais incapable de justifier aujourd'hui
-- Tu as vérifié ta version de Claude Code (\`claude --version\`) et la compares à 2.1.223
+- Tu as vérifié ta version de Claude Code (\`claude --version\`) et la compares à 2.1.235
 :::
 
 :::memo
@@ -386,7 +386,7 @@ Jusqu'à la version **2.1.222 (04/08/2026)**, des **hooks \`PreToolUse\` pouvaie
 
 Un dépôt change. Suivre \`main\` aveuglément, c'est accepter que le code audité hier soit remplacé demain — éventuellement par un commit malveillant. **Épingle une version ou un hash de commit** que tu as réellement relu, et mets à jour de façon délibérée, pas automatique.
 
-Ça vaut aussi pour ton propre outillage : au 6 août 2026, la référence est Claude Code **2.1.223**, SDK Python **0.2.131**, SDK TypeScript **0.3.223**.
+Ça vaut aussi pour ton propre outillage : au 19 août 2026, la référence est Claude Code **2.1.235**.
 
 :::maj 4 au 6 août 2026 — ce qui a bougé dans Claude Code
 - **\`ultraplan\` a été supprimé** (2.1.222).
@@ -707,8 +707,16 @@ Le vetting n'est pas un événement, c'est un régime. Trois habitudes suffisent
 - **Surveiller les publications automatiques.** Depuis la **2.1.221 (04/08/2026)**, les sessions d'arrière-plan de Claude Code **committent, poussent et ouvrent une pull request en draft**. C'est pratique — et c'est un canal de sortie qui n'existait pas dans ton modèle de menace il y a un mois.
 - **Suivre les changelogs et mettre à jour.** Les correctifs de contournements de permissions de juillet-août 2026 sont documentés au **CHANGELOG** de Claude Code ; **aucun avis GHSA n'a été publié** sur cette période. Autrement dit : si tu attends une alerte de sécurité formelle, tu la rateras.
 
-:::maj Repères de version au 6 août 2026
-Claude Code **2.1.223** · SDK Python \`claude-agent-sdk\` **0.2.131** · SDK TypeScript \`@anthropic-ai/claude-agent-sdk\` **0.3.223** · spécification MCP **2026-07-28**. Notes utiles de la période : \`ultraplan\` supprimé, \`/review\` devenu alias de \`/code-review\`, hook \`DirectoryAdded\` disponible, wildcards \`owner/*\` acceptés dans \`strictKnownMarketplaces\` et \`blockedMarketplaces\`.
+:::maj 6 au 18 août 2026 — trois nouveautés qui changent ton modèle de menace
+- **Analyse de sécurité automatique des skills et plugins** (6 août, plan Enterprise) : les artefacts tiers déposés sont scannés à la création et à l'édition pour y détecter du contenu malveillant. C'est un filet, **pas** une dispense de relecture — tout ce que dit cette leçon sur le vetting manuel reste valable.
+- **Masquage des identifiants dans le bac à sable** : sur Linux et WSL, la commande ne reçoit qu'un substitut inoffensif et le proxy garde la main sur le moment où la vraie valeur sort. Moins de secrets recopiés dans les logs, la sortie d'outil et les scripts générés — c'est une réduction réelle de surface, à activer.
+- **API de conformité étendue à Cowork et Claude Code** (11 août, beta Enterprise) : les équipes sécurité récupèrent des transcriptions consolidées avec identité vérifiée, identifiants d'organisation et de session, et horodatages. Pour un audit ou une procédure de découverte, les sessions d'agent cessent d'être un angle mort.
+
+Et deux points d'attention nouveaux : les **environnements auto-hébergés** (beta publique, 7 août) déplacent la frontière de sécurité chez toi — c'est un gain de confidentialité et **une responsabilité d'exploitation en plus** ; le **Remote Control** (13 août) ajoute un chemin de pilotage à distance qu'il faut inscrire au modèle de menace.
+:::
+
+:::maj Repères de version au 19 août 2026
+Claude Code **2.1.235** · SDK Python \`claude-agent-sdk\` **0.2.131** · SDK TypeScript \`@anthropic-ai/claude-agent-sdk\` **0.3.223** · spécification MCP **2026-07-28**. Notes utiles de la période : \`ultraplan\` supprimé, \`/review\` devenu alias de \`/code-review\`, hook \`DirectoryAdded\` disponible, wildcards \`owner/*\` acceptés dans \`strictKnownMarketplaces\` et \`blockedMarketplaces\`.
 :::
 
 ## Le principe de clôture

@@ -12,7 +12,7 @@ const FOOTER = `
 
 ---
 
-**Sources** · Vérifié le **6 août 2026**. Documentation officielle : *What's new in Opus 5*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable 5 on your plan*, *Use Claude Cowork on web, desktop and mobile*, *Get started with Claude in Chrome*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
+**Sources** · Vérifié le **19 août 2026**. Documentation officielle : *What's new in Opus 5*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable 5 on your plan*, *Use Claude Cowork on web, desktop and mobile*, *Get started with Claude in Chrome*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
 
 export const bienDemarrerAvecClaude = {
   slug: "bien-demarrer-avec-claude",
@@ -381,11 +381,11 @@ Les tarifs API comptent pour toi dès que tu utilises des crédits ou des bundle
 | --- | --- |
 | Claude Fable 5 | 10 $ / 50 $ |
 | Claude Opus 5 | 5 $ / 25 $ |
-| Claude Sonnet 5 | **2 $ / 10 $ jusqu'au 31 août 2026**, puis 3 $ / 15 $ |
+| Claude Sonnet 5 | **2 $ / 10 $** (tarif définitif) |
 | Claude Haiku 4.5 | 1 $ / 5 $ |
 
-:::maj 1er septembre 2026
-Le tarif d'introduction de **Sonnet 5** (2 $ / 10 $) prend fin le **31 août 2026**. À partir du 1er septembre, il passe à **3 $ / 15 $** par million de tokens. Si tu bâtis un budget d'usage sur Sonnet 5, prends le tarif d'après.
+:::maj 11 août 2026
+Le tarif de **Sonnet 5** (2 $ / 10 $ par million de tokens), annoncé au lancement comme un tarif d'introduction valable jusqu'au 31 août, **devient permanent**. La hausse à 3 $ / 15 $ qui était prévue au 1er septembre 2026 **n'aura pas lieu**. Si tu as chiffré un budget sur l'ancienne annonce, tu peux le réviser à la baisse — et si tu lis encore « le tarif augmente le 1er septembre » quelque part, c'est périmé.
 :::
 
 ## La règle pratique
@@ -454,7 +454,7 @@ R: Qu'il fonctionne encore mais n'est plus mis en avant, et sera retiré un jour
 :::
 
 :::flash
-Trois réflexes suffisent la première semaine : joindre les vrais documents plutôt que de les résumer, demander tout livrable **en artefact**, et ouvrir **une conversation par sujet**. Le reste de l'écosystème — Cowork, Design, mode vocal, Claude in Chrome — s'ajoutera quand tu en auras l'usage.
+Trois réflexes suffisent la première semaine : joindre les vrais documents plutôt que de les résumer, demander tout livrable **en artefact**, et ouvrir **une conversation par sujet**. Le reste de l'écosystème — Cowork (y compris dans Chrome), Design, mode vocal — s'ajoutera quand tu en auras l'usage.
 :::
 
 ## L'essentiel visible
@@ -516,10 +516,10 @@ La distinction utile à retenir : le **chat** sert quand tu veux une réponse ma
 | **Claude Code** | L'agent en terminal | Un parcours entier lui est consacré |
 | **Claude Science** | Outils orientés travaux scientifiques | Selon ton métier |
 | **Connecteurs** | Brancher Claude sur Drive, Slack, Microsoft 365… | Leçon suivante |
-| **Claude in Chrome** | L'extension qui laisse Claude agir dans ton navigateur | Voir la mise à jour ci-dessous |
+| **Claude Cowork dans Chrome** | Le panneau latéral qui laisse Claude agir dans ton navigateur | Voir la mise à jour ci-dessous |
 
-:::maj 6 août 2026
-**Claude in Chrome** est en beta sur **tous les plans payants** (Pro, Max, Team, Enterprise) — ce n'était le cas que de Max auparavant. Attention : **Chrome uniquement**, pas Edge, ni Brave, ni Arc, ni le mobile.
+:::maj 12 août 2026
+**« Claude in Chrome » n'existe plus sous ce nom.** Le panneau latéral de Chrome est devenu une **session Claude Cowork**. Ce n'est pas qu'un changement d'étiquette : ce que tu commences dans le navigateur **se retrouve sur le bureau, le web et le mobile**, les conversations sont enregistrées dans l'historique de ton compte, et tes **skills et connecteurs fonctionnent dans le navigateur**. Déploiement immédiat sur **Max et Team**, puis **Pro dans les semaines qui suivent**. Toujours **Chrome uniquement** : ni Edge, ni Brave, ni Arc, ni le mobile.
 :::
 
 Le **mode vocal** a lui aussi changé de dimension : depuis le 23 juillet 2026, sur les plans payants, il ne tourne plus seulement sur Haiku mais aussi sur **Opus et Sonnet**, reprend la famille de modèle utilisée en dernier dans le chat texte, et peut accéder à tes **outils connectés pendant la conversation vocale** (Gmail, Google Agenda, Google Docs, Slack). Le plan Free reste sur Haiku avec un seul outil connecté. Ce point est relayé par la presse spécialisée plus que par les notes de version officielles : considère-le comme fiable dans les grandes lignes, et vérifie le détail dans ton application.
@@ -551,8 +551,8 @@ R: Non. Elle n'entre ni dans l'historique ni dans la mémoire, mais Anthropic la
 Q: Cowork est-il réservé à l'application de bureau et au plan Max ?
 R: Non. Depuis le 7 juillet 2026 il est sur le web et le mobile, avec des sessions cloud, et il est listé dans le plan Pro.
 ===
-Q: Claude in Chrome est-il réservé au plan Max ?
-R: Non, la beta couvre tous les plans payants au 6 août 2026 — mais sur Chrome uniquement.
+Q: Qu'est devenu « Claude in Chrome » ?
+R: Depuis le 12 août 2026, le panneau latéral de Chrome est une session Claude Cowork : le travail se poursuit sur bureau, web et mobile, et les skills et connecteurs y fonctionnent. Chrome uniquement.
 :::` + FOOTER,
     },
     {
@@ -1007,6 +1007,8 @@ L'écosystème avance vite, et une partie de ce que tu liras ailleurs sur Claude
 | 23 juillet 2026 | Mode vocal sur Opus et Sonnet (plans payants) | « Le mode vocal tourne sur Haiku » |
 | 24 juillet 2026 | **Opus 5**, thinking par défaut, effort comme levier | « Le dernier Opus est le 4.8 » |
 | 5 août 2026 | Retrait d'Opus 4.1 | « Opus 4.1 est encore utilisable » |
+| 11 août 2026 | Tarif Sonnet 5 (2 $ / 10 $) rendu **permanent** | « Sonnet 5 augmente le 1er septembre » |
+| 12 août 2026 | Le panneau Chrome devient une **session Cowork** | « Claude in Chrome est une extension à part » |
 
 :::astuce Prends le réflexe de dater ce que tu apprends
 Quand tu lis un tutoriel sur Claude, cherche d'abord sa date. Sans date, ou plus vieux que trois mois, traite-le comme une hypothèse à vérifier — pas comme un fait. La documentation officielle est sur \`platform.claude.com/docs/en/\` et le centre d'aide sur \`support.claude.com\` : ce sont les deux seules sources qui bougent en même temps que le produit.

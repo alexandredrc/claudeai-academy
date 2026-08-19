@@ -8,7 +8,7 @@
 // SQL) doivent TOUJOURS être vérifiées. Jamais de confiance aveugle.
 //
 // Mise à jour du 2026-08-06 : Opus 5 (contexte 1M, thinking par défaut, effort),
-// grille de prix datée (Sonnet 5 : 2/10 $ jusqu'au 31/08/2026 puis 3/15 $),
+// grille de prix datée (Sonnet 5 : 2/10 $, rendu permanent le 11/08/2026),
 // cache de prompt à 512 tokens, code execution, spec MCP 2026-07-28 (stateless),
 // connecteurs (>950) + Anthropic Economic Index, confidentialité des données
 // par plan. Blocs pédagogiques appliqués selon scripts/content/FORMAT.md.
@@ -311,12 +311,12 @@ La liste d'hypothèses est ta checklist de relecture : tu valides chaque point c
 
 ## Ce que ça coûte quand tu passes par l'API
 
-Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du modèle se chiffre. Tarifs par million de tokens relevés au **6 août 2026** :
+Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du modèle se chiffre. Tarifs par million de tokens relevés au **19 août 2026** :
 
 | Modèle | Entrée | Sortie | Bon pour |
 | --- | --- | --- | --- |
 | Haiku 4.5 | 1 $ | 5 $ | contrôles répétitifs, reformatage, classification |
-| Sonnet 5 | **2 $ jusqu'au 31/08/2026, puis 3 $** | **10 $ jusqu'au 31/08/2026, puis 15 $** | l'essentiel de la génération SQL |
+| Sonnet 5 | **2 $** | **10 $** | l'essentiel de la génération SQL |
 | Opus 5 | 5 $ | 25 $ | schémas énormes, requêtes analytiques tordues |
 
 Deux leviers de coût qui comptent beaucoup sur des traitements data répétitifs :
@@ -324,6 +324,10 @@ Deux leviers de coût qui comptent beaucoup sur des traitements data répétitif
 - Le **traitement par lots** (batch) coûte **50 % moins cher** : idéal pour requalifier 10 000 lignes ou générer 200 contrôles en une passe, quand la réponse n'est pas attendue dans la seconde.
 - Le **cache de prompt** : lire un préfixe déjà mis en cache coûte **un dixième** du prix d'entrée. Comme ton schéma est identique d'une requête à l'autre, mets-le en tête de prompt et laisse-le en cache. L'écriture en cache coûte ×1,25 pour une durée de vie de 5 minutes, ×2 pour une heure.
 - Le paramètre **inference_geo: "us"** applique un supplément de 10 % sur le tarif.
+
+:::maj 11 août 2026
+Le tarif de **Sonnet 5** est désormais **définitif**. Les 2 $ / 10 $ avaient été annoncés comme un tarif d'introduction expirant le 31 août 2026, avec un passage à 3 $ / 15 $ au 1er septembre : cette hausse **est annulée**. Un chiffrage data bâti sur Sonnet 5 ne prend donc pas 50 % en septembre — contrairement à ce qu'annonçait la documentation jusqu'au 10 août.
+:::
 
 :::maj 24 juillet 2026
 Sur Opus 5, le **minimum cacheable descend à 512 tokens** (contre 1 024 sur Opus 4.8). Concrètement, même un petit schéma de deux ou trois tables devient cacheable : sur une boucle qui envoie cent requêtes avec le même DDL en tête, la facture d'entrée est divisée par dix sur la partie cachée.
@@ -363,7 +367,7 @@ Q: Que fait WHERE remboursement <> 'oui' sur une ligne où la colonne est NULL ?
 R: Elle l'exclut silencieusement : la comparaison vaut « inconnu », donc pas vrai.
 ===
 Q: Combien coûte Sonnet 5 par million de tokens ?
-R: 2 $ en entrée et 10 $ en sortie jusqu'au 31 août 2026, puis 3 $ et 15 $.
+R: 2 $ en entrée et 10 $ en sortie. Ce tarif d'introduction est devenu permanent le 11 août 2026 : la hausse à 3 $ / 15 $ prévue au 1er septembre est annulée.
 ===
 Q: À partir de quelle taille un préfixe de prompt est-il cacheable sur Opus 5 ?
 R: 512 tokens depuis le 24 juillet 2026. La lecture depuis le cache coûte un dixième du prix d'entrée.

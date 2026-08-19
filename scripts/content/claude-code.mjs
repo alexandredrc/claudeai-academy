@@ -10,13 +10,13 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Contenu vérifié au **6 août 2026**, sur **Claude Code 2.1.223**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifie sur le changelog de ta version. Contenu original rédigé pour ClaudeAI Academy.`;
+**Sources & méthode** · Contenu vérifié au **19 août 2026**, sur **Claude Code 2.1.235**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifie sur le changelog de ta version. Contenu original rédigé pour ClaudeAI Academy.`;
 
 export const claudeCodeIaAgentic = {
   slug: "claude-code-ia-agentic",
   title: "Claude Code et l'IA agentique",
   description:
-    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents et coûts maîtrisés. À jour de Claude Code 2.1.223 (6 août 2026).",
+    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents et coûts maîtrisés. À jour de Claude Code 2.1.235 (19 août 2026).",
   tier_required: "starter",
   display_order: 3,
   estimated_duration_min: 138,
@@ -37,7 +37,7 @@ export const claudeCodeIaAgentic = {
 :::
 
 :::flash
-Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 6 août 2026, la version courante est **2.1.223**, et **Opus 5** est le modèle Opus par défaut depuis le 24 juillet.
+Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 19 août 2026, la version courante est **2.1.235**, et **Opus 5** est le modèle Opus par défaut depuis le 24 juillet.
 :::
 
 ## Le saut : du chatbot à l'agent
@@ -99,7 +99,18 @@ Un mot sur le modèle, puisqu'il pilote la facture. **Claude Opus 5 est le modè
 ## Mettre à jour n'est pas cosmétique
 
 :::maj 6 août 2026
-Claude Code est en **2.1.223**. Entre le 18 juillet et le 6 août 2026, le changelog documente **au moins cinq corrections de contournement du système de permissions Bash** : contournement en PowerShell 5.1, conditionnels regex zsh, mauvaise gestion des guillemets PowerShell, hooks pré-outil qui court-circuitaient les restrictions d'outils, et commande masquant une partie d'elle-même via des tabulations ou de l'Unicode invisible.
+Entre le 18 juillet et le 6 août 2026 (version **2.1.223**), le changelog documente **au moins cinq corrections de contournement du système de permissions Bash** : contournement en PowerShell 5.1, conditionnels regex zsh, mauvaise gestion des guillemets PowerShell, hooks pré-outil qui court-circuitaient les restrictions d'outils, et commande masquant une partie d'elle-même via des tabulations ou de l'Unicode invisible.
+:::
+
+:::maj 18 août 2026
+Claude Code est en **2.1.235**. Douze versions en douze jours, dont cinq nouveautés qui changent la façon de travailler :
+- **Environnements auto-hébergés** en beta publique (2.1.224, 7 août), pour les plans Team et Enterprise : les sessions tournent sur ton infrastructure, avec accès au réseau interne, et les dépôts, artefacts de build et secrets **ne quittent pas ta machine**.
+- **Remote Control** (2.1.229, 13 août) : piloter une session depuis un autre appareil, avec synchronisation élargie en 2.1.234.
+- **Sessions qui se parlent** (2.1.232, 14 août) : tape \`@\` pour mentionner une autre session Claude par son nom et travailler à plusieurs fils en parallèle. Le **forking de sous-agent devient le comportement par défaut**.
+- **Merge requests GitLab** dans la vue worktree (2.1.233, 15 août), avec badges en 2.1.234 — GitHub n'est plus le seul servi.
+- **Masquage des secrets dans le bac à sable** : la commande ne voit qu'un substitut inoffensif, le proxy décide seul du moment où la vraie valeur sort. Moins de secrets qui fuient dans les logs et les scripts générés.
+
+Et côté confort : **vue Focus** dans VSCode (\`Ctrl+Alt+F\`) qui replie l'activité des outils derrière un résumé par tour, plafonds de dépense sur les passerelles (2.1.225), correcteur orthographique optionnel dans le prompt (2.1.235).
 :::
 
 Autrement dit : la liste d'autorisations Bash que tu configureras est de la **défense en profondeur**, pas une frontière de sécurité dure. On développera ce point dans la leçon sur les hooks. Pour l'instant, retiens le geste : **tiens ta version à jour**, c'est la mesure de sécurité la moins chère du parcours.
@@ -122,7 +133,7 @@ L'agent **propose et exécute** sous ton contrôle. **Toi** restes responsable d
 
 :::defi 15 min — Ton diagnostic de départ
 Avant d'aller plus loin, installe le décor et fais ton tri.
-- Tu as vérifié ta version de Claude Code et tu es sur 2.1.223 ou plus récent
+- Tu as vérifié ta version de Claude Code et tu es sur 2.1.235 ou plus récent
 - Tu as ouvert Claude Code dans un vrai dépôt à toi (pas un projet jouet)
 - Tu as écrit une liste de 5 tâches récurrentes de ta semaine
 - Pour chacune, tu as noté s'il existe une commande qui dit « c'est bon » ou « c'est cassé »
@@ -136,8 +147,8 @@ R: Rassembler le contexte, agir, observer, corriger.
 Q: Quel critère pratique dit si une tâche est déléguable à l'agent ?
 R: S'il existe une commande qui vérifie le résultat automatiquement, elle est déléguable.
 ===
-Q: Quelle est la version de Claude Code au 6 août 2026 ?
-R: 2.1.223.
+Q: Quelle est la version de Claude Code au 19 août 2026 ?
+R: 2.1.235.
 ===
 Q: Une liste d'autorisations Bash est-elle une frontière de sécurité fiable ?
 R: Non. Au moins cinq contournements ont été corrigés entre le 18 juillet et le 6 août 2026. C'est de la défense en profondeur.
@@ -547,7 +558,7 @@ Mets en place le duo formatage + garde-fou, et prouve que le garde-fou marche.
 - Un hook PreToolUse bloque toute écriture sur tes fichiers de secrets ou de config de prod
 - Tu as **testé le blocage** : tu as demandé l'écriture interdite et elle a bien été refusée
 - Chaque hook tient en une commande lisible, sans script opaque
-- Tu as vérifié ta version de Claude Code (2.1.223 ou plus récent) et noté pourquoi ça compte
+- Tu as vérifié ta version de Claude Code (2.1.235 ou plus récent) et noté pourquoi ça compte
 :::
 
 :::memo

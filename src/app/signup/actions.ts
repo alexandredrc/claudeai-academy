@@ -63,11 +63,28 @@ export async function signupAction(formData: FormData) {
     redirect(`/signup?sent=1${planSuffix}`);
   }
 
-  await sendSignupConfirmationEmail({
-    to: email,
-    confirmLink: buildAccessLink({ tokenHash, email, next, type: "signup" }),
-    firstName: firstName || null,
-  });
+  // Le compte existe déjà à ce stade. Si l'envoi échoue, on ne peut ni
+  // prétendre que l'email est parti, ni planter sur une page d'erreur : on
+  // renvoie vers /acces, qui sait redemander un lien.
+  let sent = false;
+  try {
+    sent = await sendSignupConfirmationEmail({
+      to: email,
+      confirmLink: buildAccessLink({ tokenHash, email, next, type: "signup" }),
+      firstName: firstName || null,
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[signup] envoi de la confirmation échoué:", message);
+  }
+
+  if (!sent) {
+    redirect(
+      `/acces?email=${encodeURIComponent(email)}&erreur=${encodeURIComponent(
+        "Ton compte est bien créé, mais l'email de confirmation n'est pas parti. Redemande un lien ci-dessous.",
+      )}`,
+    );
+  }
 
   redirect(`/signup?sent=1${planSuffix}`);
 }

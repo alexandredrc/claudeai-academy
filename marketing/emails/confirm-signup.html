@@ -1,7 +1,10 @@
 <!--
   Supabase Auth — template « Confirm signup » charté ClaudeAI Academy.
   À coller dans Supabase → Authentication → Email Templates → "Confirm signup".
-  Variable Supabase utilisée : {{ .ConfirmationURL }}
+  Variable Supabase utilisée : {{ .TokenHash }} (PAS {{ .ConfirmationURL }} : le lien
+  passe par /auth/confirm, qui n'active le compte qu'après un clic humain — les
+  antivirus de messagerie ouvrent les liens en GET et brûlaient le jeton avant le
+  destinataire).
   Sujet conseillé : Confirme ton adresse — ClaudeAI Academy
 -->
 <!DOCTYPE html>
@@ -12,10 +15,10 @@
       <h1 style="font-size:24px;line-height:1.3;font-weight:600;margin:0 0 16px;">Confirme ton adresse email</h1>
       <p style="font-size:16px;line-height:1.7;margin:0 0 16px;">Bienvenue. Il ne reste qu'une étape pour activer ton compte et accéder à tes parcours : confirme que cette adresse est bien la tienne.</p>
       <p style="margin:24px 0 32px;">
-        <a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#D97757;color:#FFFFFF;text-decoration:none;padding:13px 26px;border-radius:6px;font-size:16px;">Confirmer mon adresse</a>
+        <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/account%3Fwelcome%3D1&email={{ .Email }}" style="display:inline-block;background:#D97757;color:#FFFFFF;text-decoration:none;padding:13px 26px;border-radius:6px;font-size:16px;">Confirmer mon adresse</a>
       </p>
       <p style="font-size:14px;line-height:1.7;color:#5A5750;margin:0 0 8px;">Si le bouton ne fonctionne pas, copie-colle ce lien dans ton navigateur :</p>
-      <p style="font-size:13px;line-height:1.6;color:#5A5750;word-break:break-all;margin:0 0 28px;"><a href="{{ .ConfirmationURL }}" style="color:#5A5750;">{{ .ConfirmationURL }}</a></p>
+      <p style="font-size:13px;line-height:1.6;color:#5A5750;word-break:break-all;margin:0 0 28px;"><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/account%3Fwelcome%3D1&email={{ .Email }}" style="color:#5A5750;">{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/account%3Fwelcome%3D1&email={{ .Email }}</a></p>
       <hr style="border:none;border-top:1px solid #E2DCD0;margin:0 0 20px;" />
       <p style="font-size:13px;line-height:1.7;color:#8A857B;margin:0 0 4px;">Tu n'as pas créé de compte sur ClaudeAI Academy ? Ignore simplement cet email, aucune action ne sera entreprise.</p>
       <p style="font-size:13px;line-height:1.7;color:#8A857B;margin:0;">Une question ? <a href="mailto:contact@claudeai-academy.com" style="color:#8A857B;">contact@claudeai-academy.com</a></p>

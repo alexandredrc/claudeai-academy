@@ -85,17 +85,51 @@ export async function startCheckoutAction(formData: FormData) {
     }
   }
 
+  // Fiche client Stripe. En mode `payment`, Stripe n'en crée AUCUNE par
+  // défaut : les achats restaient anonymes, introuvables dans l'onglet
+  // Clients, et `stripe_customer_id` valait littéralement "unknown".
+  // On réutilise la fiche existante quand on la connaît (un client qui monte
+  // de Starter à Mastery ne doit pas se dédoubler), sinon on en fait créer une.
+  let existingCustomerId: string | null = null;
+  if (user?.id) {
+    const { data: previous } = await supabase
+      .from("purchases")
+      .select("stripe_customer_id")
+      .eq("user_id", user.id)
+      .like("stripe_customer_id", "cus_%")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    existingCustomerId = previous?.stripe_customer_id ?? null;
+  }
+
   const session = await getStripe().checkout.sessions.create({
     mode: "payment",
     line_items: [{ price: plan.priceId, quantity: 1 }],
-    ...(user?.email ? { customer_email: user.email } : {}),
+    ...(existingCustomerId
+      ? {
+          customer: existingCustomerId,
+          // Autorise Checkout à compléter la fiche existante (nom, adresse).
+          customer_update: { name: "auto", address: "auto" },
+        }
+      : {
+          customer_creation: "always",
+          ...(user?.email ? { customer_email: user.email } : {}),
+        }),
     ...(user?.id ? { client_reference_id: user.id } : {}),
     metadata,
     payment_intent_data: { metadata },
     locale: "fr",
     success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/checkout/cancel?plan=${plan.tier}`,
-    billing_address_collection: "auto",
+    // « required » impose le bloc nom + adresse de facturation. En « auto »,
+    // Stripe le sautait : aucun nom n'était collecté, d'où des paiements
+    // impossibles à retrouver autrement que par email, et des emails de
+    // bienvenue qui disaient « Bonjour, » au lieu du prénom.
+    billing_address_collection: "required",
+    // Facture Stripe pour chaque achat : obligation comptable, et le client
+    // peut la récupérer seul au lieu de l'écrire au support.
+    invoice_creation: { enabled: true },
     ...(upgradeCoupon
       ? { discounts: [{ coupon: upgradeCoupon }] }
       : { allow_promotion_codes: true }),

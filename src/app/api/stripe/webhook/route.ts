@@ -151,6 +151,28 @@ async function handleCheckoutCompleted(
     throw new Error(`Supabase upsert purchases failed: ${error.message}`);
   }
 
+  // Complète le profil avec le nom collecté par Stripe quand il manque.
+  // Historiquement le checkout ne demandait pas le nom : des profils créés
+  // par ce webhook n'en ont aucun, et les emails disent « Bonjour, ».
+  const buyerName = session.customer_details?.name?.trim();
+  if (buyerName) {
+    const { data: profile } = await supabaseAdmin
+      .from("profiles")
+      .select("first_name")
+      .eq("id", userId)
+      .maybeSingle();
+    if (!profile?.first_name) {
+      const parts = buyerName.split(/\s+/).filter(Boolean);
+      await supabaseAdmin
+        .from("profiles")
+        .update({
+          first_name: parts[0] ?? null,
+          last_name: parts.length > 1 ? parts.slice(1).join(" ") : null,
+        })
+        .eq("id", userId);
+    }
+  }
+
   // Email de bienvenue : best effort, jamais bloquant pour le webhook
   // (l'accès est déjà débloqué par la ligne purchases ci-dessus).
   if (!existingPurchase && email) {

@@ -130,6 +130,19 @@ export async function startCheckoutAction(formData: FormData) {
     // Facture Stripe pour chaque achat : obligation comptable, et le client
     // peut la récupérer seul au lieu de l'écrire au support.
     invoice_creation: { enabled: true },
+    // Rattrapage des paniers abandonnés. Le 19/08, un Pass Mastery à 497 €
+    // a échoué sur une authentification 3DS et la session a expiré en
+    // silence : ni relance, ni alerte, la vente s'est simplement évaporée.
+    // Stripe fabrique désormais une URL de reprise, que le webhook
+    // `checkout.session.expired` envoie au client.
+    after_expiration: {
+      recovery: {
+        enabled: true,
+        // Cumuler une reprise avec un coupon d'ascension est refusé par
+        // Stripe : on ne rouvre le champ code promo que hors ascension.
+        allow_promotion_codes: !upgradeCoupon,
+      },
+    },
     ...(upgradeCoupon
       ? { discounts: [{ coupon: upgradeCoupon }] }
       : { allow_promotion_codes: true }),

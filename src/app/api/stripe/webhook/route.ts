@@ -4,6 +4,7 @@ import { getStripe } from "@/lib/stripe/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { isValidTier } from "@/lib/stripe/plans";
 import { sendPurchaseWelcomeEmail } from "@/lib/email/welcome";
+import { sendCheckoutRecoveryEmail } from "@/lib/email/checkout-recovery";
 import { buildAccessLink } from "@/lib/auth/access-link";
 
 // Stripe doit recevoir le body brut pour valider la signature.
@@ -41,6 +42,10 @@ export async function POST(req: NextRequest) {
         await handleCheckoutCompleted(event.data.object);
         break;
 
+      case "checkout.session.expired":
+        await handleCheckoutExpired(event.data.object);
+        break;
+
       case "charge.refunded":
         await handleChargeRefunded(event.data.object);
         break;
@@ -71,7 +76,12 @@ async function handleCheckoutCompleted(
     return;
   }
 
-  const tier = session.metadata?.tier;
+  // Le tier voyage normalement dans la metadata posée par /checkout. Mais un
+  // paiement peut arriver par une autre voie — lien de paiement Stripe créé à
+  // la main pour dépanner un client, relance, facture. Dans ce cas il n'y a
+  // pas de metadata, et refuser l'achat priverait d'accès quelqu'un qui a
+  // payé. On retombe donc sur le prix facturé, qui, lui, est toujours là.
+  const tier = session.metadata?.tier ?? (await tierFromLineItems(session.id));
   if (!tier || !isValidTier(tier)) {
     throw new Error(
       `checkout.session.completed avec tier invalide: ${tier} (session=${session.id})`,
@@ -199,6 +209,34 @@ async function handleCheckoutCompleted(
 }
 
 /**
+ * Déduit le pass acheté à partir du prix facturé, quand la metadata manque.
+ * Filet de sécurité : un client qui a payé doit obtenir son accès, quelle que
+ * soit la façon dont le paiement a été initié.
+ */
+async function tierFromLineItems(sessionId: string): Promise<string | null> {
+  try {
+    const items = await getStripe().checkout.sessions.listLineItems(sessionId, {
+      limit: 10,
+    });
+    const priceIds = new Set(
+      items.data.map((i) => i.price?.id).filter((id): id is string => Boolean(id)),
+    );
+    for (const tier of ["mastery", "starter"] as const) {
+      const configured =
+        process.env[
+          tier === "mastery" ? "STRIPE_PRICE_MASTERY_LIVE" : "STRIPE_PRICE_STARTER_LIVE"
+        ] ?? process.env[tier === "mastery" ? "STRIPE_PRICE_MASTERY" : "STRIPE_PRICE_STARTER"];
+      if (configured && priceIds.has(configured)) return tier;
+    }
+    return null;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[stripe-webhook] tierFromLineItems échoué:", message);
+    return null;
+  }
+}
+
+/**
  * Retrouve l'utilisateur par email (table `profiles`) ou le crée via l'API
  * admin. Le compte est marqué email confirmé : l'achat Stripe fait foi.
  */
@@ -259,6 +297,45 @@ async function generateAccessLink(email: string): Promise<string | null> {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[stripe-webhook] generateAccessLink failed:", message);
     return null;
+  }
+}
+
+/**
+ * Panier abandonné : la session a expiré sans paiement. Typiquement une
+ * authentification 3D Secure qui n'aboutit pas — le client reste devant son
+ * échec, ne sait pas qu'il peut saisir sa carte autrement, et repart.
+ *
+ * Sans ça, la vente disparaissait sans le moindre signal : c'est ce qui est
+ * arrivé le 19/08 à un Pass Mastery de 497 €.
+ */
+async function handleCheckoutExpired(
+  session: Stripe.Checkout.Session,
+): Promise<void> {
+  if (session.payment_status === "paid") return;
+
+  const recoveryUrl = session.after_expiration?.recovery?.url;
+  if (!recoveryUrl) return;
+
+  const email = (
+    session.customer_details?.email ??
+    session.customer_email ??
+    ""
+  )
+    .trim()
+    .toLowerCase();
+  if (!email) return;
+
+  const tier = session.metadata?.tier;
+  if (!tier || !isValidTier(tier)) return;
+
+  const firstName = session.customer_details?.name?.trim().split(/\s+/)[0] ?? null;
+
+  try {
+    await sendCheckoutRecoveryEmail({ to: email, recoveryUrl, tier, firstName });
+    console.info(`[stripe-webhook] relance panier envoyée à ${email} (${tier})`);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[stripe-webhook] relance panier échouée:", message);
   }
 }
 

@@ -384,6 +384,10 @@ Les tarifs API comptent pour toi dès que tu utilises des crédits ou des bundle
 | Claude Sonnet 5 | **2 $ / 10 $** (tarif définitif) |
 | Claude Haiku 4.5 | 1 $ / 5 $ |
 
+:::maj 20 août 2026
+**Un piège de calcul qui coûte cher.** Les modèles **Claude 4.7 et suivants** (donc Opus 5, Sonnet 5, Fable 5) utilisent un tokenizer plus récent qui produit environ **30 % de tokens en plus pour le même texte**. Le tarif par million de tokens a baissé, mais le nombre de tokens facturés pour un document identique a augmenté : si tu compares une facture d'aujourd'hui à un budget calculé sur Sonnet 4.6, compare des coûts réels, pas des prix affichés. L'écart exact dépend de ton contenu.
+:::
+
 :::maj 11 août 2026
 Le tarif de **Sonnet 5** (2 $ / 10 $ par million de tokens), annoncé au lancement comme un tarif d'introduction valable jusqu'au 31 août, **devient permanent**. La hausse à 3 $ / 15 $ qui était prévue au 1er septembre 2026 **n'aura pas lieu**. Si tu as chiffré un budget sur l'ancienne annonce, tu peux le réviser à la baisse — et si tu lis encore « le tarif augmente le 1er septembre » quelque part, c'est périmé.
 :::

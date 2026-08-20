@@ -42,6 +42,7 @@ next-env.d.ts
 
 # veille (état + rapports = artefacts générés)
 scripts/veille/.state.json
+scripts/veille/.last-changes.json
 scripts/veille/reports/
 
 # Local-only (agent state, backups)

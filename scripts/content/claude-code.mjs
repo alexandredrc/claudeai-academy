@@ -37,7 +37,7 @@ export const claudeCodeIaAgentic = {
 :::
 
 :::flash
-Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 19 août 2026, la version courante est **2.1.235**, et **Opus 5** est le modèle Opus par défaut depuis le 24 juillet.
+Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 20 août 2026, la version courante est **2.1.237**, et **Opus 5** est le modèle Opus par défaut depuis le 24 juillet.
 :::
 
 ## Le saut : du chatbot à l'agent

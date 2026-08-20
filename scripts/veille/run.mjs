@@ -263,6 +263,24 @@ async function main() {
   await writeFile(reportPath, md, "utf8");
   await writeFile(STATE_PATH, JSON.stringify(nextState, null, 2), "utf8");
 
+  // Sortie lisible par machine, pour le vérificateur de faits (check-facts.mjs).
+  // Sans elle, il faudrait reparser le rapport Markdown — fragile.
+  await writeFile(
+    join(HERE, ".last-changes.json"),
+    JSON.stringify(
+      {
+        date,
+        sourcesModifiees: findings
+          .filter((f) => f.type !== "baseline")
+          .map((f) => f.src.id),
+        rapport: `scripts/veille/reports/${date}.md`,
+      },
+      null,
+      2,
+    ),
+    "utf8",
+  );
+
   // Coopère avec GitHub Actions si présent (sans coupler le script à CI).
   if (process.env.GITHUB_OUTPUT) {
     const { appendFileSync } = await import("node:fs");

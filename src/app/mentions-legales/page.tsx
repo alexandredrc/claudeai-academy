@@ -5,6 +5,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 export const metadata: Metadata = {
   title: "Mentions légales — ClaudeAI Academy",
   description: "Mentions légales du site ClaudeAI Academy, édité par ADRC Group.",
+  alternates: { canonical: "/mentions-legales" },
 };
 
 export default function MentionsLegalesPage() {

@@ -8,6 +8,7 @@ import { GoogleTag, GOOGLE_TAG_ENABLED } from "@/components/site/google-tag";
 import { ConsentBanner } from "@/components/site/consent-banner";
 import { AuthHashGuard } from "@/components/site/auth-hash-guard";
 import { createClient } from "@/lib/supabase/server";
+import { INSTAGRAM_URL } from "@/components/site/instagram";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -70,23 +71,56 @@ export const metadata: Metadata = {
   },
 };
 
+// `EducationalOrganization` plutôt que `Organization` : c'est le type que
+// Google et les moteurs génératifs relient aux requêtes « formation … ».
+// `sameAs` et l'identité de l'éditeur alimentent l'E-E-A-T (Trust) — sans
+// quoi un site marchand récent reste une entité inconnue.
 const organizationJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["EducationalOrganization", "Organization"],
+  "@id": "https://www.claudeai-academy.com/#organization",
   name: "ClaudeAI Academy",
+  alternateName: "Claude AI Academy",
   url: "https://www.claudeai-academy.com",
-  logo: "https://www.claudeai-academy.com/og.png",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://www.claudeai-academy.com/og.png",
+    width: 1200,
+    height: 630,
+  },
+  image: "https://www.claudeai-academy.com/og.png",
   email: "contact@claudeai-academy.com",
+  inLanguage: "fr-FR",
+  areaServed: ["FR", "BE", "CH", "LU", "CA"],
+  knowsLanguage: "fr-FR",
+  sameAs: [INSTAGRAM_URL],
+  founder: {
+    "@type": "Person",
+    name: "Alexandre Dos Reis Caetano",
+    jobTitle: "Fondateur, ClaudeAI Academy",
+    url: "https://www.claudeai-academy.com/a-propos",
+  },
+  parentOrganization: { "@type": "Organization", name: "ADRC Group" },
+  knowsAbout: [
+    "Intelligence artificielle générative",
+    "Claude (Anthropic)",
+    "Prompt engineering",
+    "Claude Code",
+    "Automatisation par IA",
+    "Analyse de données assistée par IA",
+  ],
   description:
-    "Organisme de formation en ligne francophone spécialisé dans la maîtrise de Claude AI : prompt engineering, Claude Code, data, marketing et stratégie IA.",
+    "Organisme de formation en ligne francophone spécialisé dans la maîtrise de l'IA générative avec Claude d'Anthropic : prompt engineering, Claude Code, data, marketing et stratégie IA.",
 };
 
 const webSiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": "https://www.claudeai-academy.com/#website",
   name: "ClaudeAI Academy",
   url: "https://www.claudeai-academy.com",
   inLanguage: "fr-FR",
+  publisher: { "@id": "https://www.claudeai-academy.com/#organization" },
 };
 
 export default async function RootLayout({

@@ -19,6 +19,15 @@ const tarifsLinks = [
   { href: "/faq", label: "FAQ et objections" },
 ];
 
+// Pages piliers organiques : elles ont besoin d'un lien depuis chaque page du
+// site pour recevoir de l'autorité interne. C'est ce qui les fait remonter.
+const ressourcesLinks = [
+  { href: "/formation-intelligence-artificielle", label: "Formation intelligence artificielle" },
+  { href: "/claude-vs-chatgpt", label: "Claude ou ChatGPT ?" },
+  { href: "/prompts", label: "Bibliothèque de prompts" },
+  { href: "/kit", label: "Kit gratuit, 15 prompts" },
+];
+
 const academieLinks = [
   { href: "/a-propos", label: "À propos" },
   { href: "/contact", label: "Contact" },
@@ -35,7 +44,7 @@ export function Footer() {
   return (
     <footer className="bg-ink text-cream/70 pt-20 pb-6 mt-auto">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-10 pb-12 border-b border-cream/10">
+        <div className="grid grid-cols-1 gap-10 pb-12 border-b border-cream/10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]">
           <div>
             <Logo variant="light" />
             <p className="mt-4 text-[14px] leading-relaxed max-w-[280px] text-cream/65">
@@ -61,6 +70,7 @@ export function Footer() {
           </div>
 
           <FooterColumn title="Parcours" links={parcoursLinks} />
+          <FooterColumn title="Ressources" links={ressourcesLinks} />
           <FooterColumn title="Tarifs" links={tarifsLinks} />
           <FooterColumn title="L'académie" links={academieLinks} />
         </div>

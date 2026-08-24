@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Contact — ClaudeAI Academy",
   description:
     "Une question sur les parcours, un problème d’accès, une demande de facture ou de remboursement ? Écrivez-nous, réponse sous 48 h ouvrées.",
+  alternates: { canonical: "/contact" },
 };
 
 const CONTACT_EMAIL = "contact@claudeai-academy.com";

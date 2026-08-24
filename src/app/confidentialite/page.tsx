@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Politique de confidentialité — ClaudeAI Academy",
   description:
     "Comment ClaudeAI Academy collecte, utilise et protège vos données personnelles, conformément au RGPD.",
+  alternates: { canonical: "/confidentialite" },
 };
 
 export default function ConfidentialitePage() {

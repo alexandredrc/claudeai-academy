@@ -3,11 +3,21 @@ import { createClient } from "@supabase/supabase-js";
 
 const BASE = "https://www.claudeai-academy.com";
 
-const staticRoutes: { path: string; priority: number; changeFrequency: "weekly" | "monthly" | "yearly" }[] = [
+type Freq = "weekly" | "monthly" | "yearly";
+
+const staticRoutes: { path: string; priority: number; changeFrequency: Freq }[] = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
+  // Pages piliers organiques : elles visent les requêtes de tête réellement
+  // recherchées en France (« formation intelligence artificielle »,
+  // « claude ou chatgpt »), là où le reste du site vise « formation Claude AI ».
+  { path: "/formation-intelligence-artificielle", priority: 0.95, changeFrequency: "monthly" },
+  { path: "/claude-vs-chatgpt", priority: 0.85, changeFrequency: "monthly" },
   { path: "/courses", priority: 0.9, changeFrequency: "weekly" },
   { path: "/tarifs", priority: 0.9, changeFrequency: "monthly" },
   { path: "/prompts", priority: 0.8, changeFrequency: "weekly" },
+  // Le kit gratuit est la porte d'entrée organique la plus large : il doit
+  // être découvrable, il ne l'était pas.
+  { path: "/kit", priority: 0.7, changeFrequency: "monthly" },
   { path: "/faq", priority: 0.6, changeFrequency: "monthly" },
   { path: "/a-propos", priority: 0.5, changeFrequency: "yearly" },
   { path: "/contact", priority: 0.4, changeFrequency: "yearly" },
@@ -17,8 +27,11 @@ const staticRoutes: { path: string; priority: number; changeFrequency: "weekly" 
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const now = new Date();
+
   const entries: MetadataRoute.Sitemap = staticRoutes.map((r) => ({
     url: `${BASE}${r.path}`,
+    lastModified: now,
     changeFrequency: r.changeFrequency,
     priority: r.priority,
   }));
@@ -32,12 +45,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const { data: courses } = await supabase
     .from("courses")
-    .select("id, slug")
+    .select("id, slug, updated_at")
     .order("display_order");
 
   for (const course of courses ?? []) {
     entries.push({
       url: `${BASE}/courses/${course.slug}`,
+      // Date réelle de dernière révision : c'est le signal de fraîcheur que
+      // lisent Google et les moteurs génératifs, pas une valeur décorative.
+      lastModified: course.updated_at ? new Date(course.updated_at) : now,
       changeFrequency: "monthly",
       priority: 0.8,
     });
@@ -49,7 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const courseById = new Map(courses.map((c) => [c.id, c.slug]));
     const { data: lessons } = await supabase
       .from("lessons")
-      .select("slug, course_id, is_free_preview")
+      .select("slug, course_id, is_free_preview, updated_at")
       .eq("is_free_preview", true);
 
     for (const lesson of lessons ?? []) {
@@ -57,6 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (courseSlug) {
         entries.push({
           url: `${BASE}/courses/${courseSlug}/${lesson.slug}`,
+          lastModified: lesson.updated_at ? new Date(lesson.updated_at) : now,
           changeFrequency: "monthly",
           priority: 0.6,
         });

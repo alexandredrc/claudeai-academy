@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Conditions Générales de Vente — ClaudeAI Academy",
   description:
     "Conditions générales de vente des formations ClaudeAI Academy : prix, paiement, accès à vie, garantie 14 jours, rétractation.",
+  alternates: { canonical: "/cgv" },
 };
 
 export default function CgvPage() {

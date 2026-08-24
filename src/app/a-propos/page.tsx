@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "À propos — ClaudeAI Academy",
   description:
     "Pourquoi ClaudeAI Academy existe : une référence francophone rigoureuse et opérationnelle pour maîtriser Claude, portée par Alexandre Dos Reis Caetano (ADRC Group).",
+  alternates: { canonical: "/a-propos" },
 };
 
 export default function AProposPage() {

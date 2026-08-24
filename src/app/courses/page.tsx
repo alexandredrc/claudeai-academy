@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { userHasTier, type CourseTier } from "@/lib/courses/access";
+import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
 
 export const dynamic = "force-dynamic";
 
@@ -44,8 +45,52 @@ export default async function CoursesPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // `ItemList` de `Course` : c'est la forme que Google et les moteurs
+  // génératifs savent restituer sous forme de liste quand la question est
+  // « quels parcours propose cette formation ? ».
+  const catalogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Catalogue ClaudeAI Academy — ${courseCount} parcours de formation`,
+    numberOfItems: courseCount,
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    itemListElement: list.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Course",
+        "@id": `${SITE_URL}/courses/${c.slug}#course`,
+        name: c.title,
+        description: c.description ?? undefined,
+        url: `${SITE_URL}/courses/${c.slug}`,
+        inLanguage: "fr-FR",
+        provider: { "@id": ORG_ID },
+        hasCourseInstance: {
+          "@type": "CourseInstance",
+          courseMode: "Online",
+          courseWorkload: c.estimated_duration_min
+            ? `PT${c.estimated_duration_min}M`
+            : undefined,
+        },
+      },
+    })),
+  };
+
   return (
     <section className="bg-cream-soft">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(catalogJsonLd)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(
+          breadcrumbJsonLd([
+            { name: "Accueil", path: "/" },
+            { name: "Parcours", path: "/courses" },
+          ]),
+        )}
+      />
       <div className="mx-auto max-w-[1100px] px-6 py-16 md:py-24">
         <span className="mb-5 inline-block text-[13px] font-semibold uppercase tracking-[0.12em] text-coral">
           Catalogue

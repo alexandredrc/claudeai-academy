@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { userHasTier, type CourseTier } from "@/lib/courses/access";
 import { startCheckoutAction } from "@/app/checkout/actions";
+import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
 
 export const dynamic = "force-dynamic";
 
@@ -49,33 +50,53 @@ export async function generateMetadata({
   };
 }
 
-function courseJsonLd(course: Course) {
+function courseJsonLd(course: Course, lessons: LessonMeta[]) {
   const price = course.tier_required === "mastery" ? "497" : "47";
   return {
     "@context": "https://schema.org",
     "@type": "Course",
+    "@id": `${SITE_URL}/courses/${course.slug}#course`,
     name: course.title,
     description: course.description ?? undefined,
-    url: `https://www.claudeai-academy.com/courses/${course.slug}`,
+    url: `${SITE_URL}/courses/${course.slug}`,
     inLanguage: "fr-FR",
-    provider: {
-      "@type": "Organization",
-      name: "ClaudeAI Academy",
-      url: "https://www.claudeai-academy.com",
-    },
+    // Rattache le parcours à l'entité éditrice unique déclarée dans le layout.
+    provider: { "@id": ORG_ID },
+    // `educationalLevel` et `teaches` sont ce que les moteurs génératifs
+    // lisent pour répondre à « quelle formation IA pour un débutant ? ».
+    educationalLevel:
+      course.tier_required === "mastery" ? "Intermédiaire à avancé" : "Débutant",
+    teaches: lessons.slice(0, 12).map((l) => l.title),
+    // Le plan de cours : sans lui, Google refuse l'enrichissement « Course ».
+    syllabusSections: lessons.map((l, i) => ({
+      "@type": "Syllabus",
+      name: l.title,
+      description: l.description ?? undefined,
+      position: i + 1,
+      timeRequired: l.duration_min ? `PT${l.duration_min}M` : undefined,
+      url: `${SITE_URL}/courses/${course.slug}/${l.slug}`,
+    })),
+    numberOfCredits: undefined,
     offers: {
       "@type": "Offer",
       price,
       priceCurrency: "EUR",
       category: "Paid",
-      url: "https://www.claudeai-academy.com/tarifs",
+      availability: "https://schema.org/InStock",
+      url: `${SITE_URL}/tarifs`,
     },
     hasCourseInstance: {
       "@type": "CourseInstance",
+      // Requis par Google depuis 2024 pour le rich result « Course ».
       courseMode: "Online",
       courseWorkload: course.estimated_duration_min
         ? `PT${course.estimated_duration_min}M`
         : undefined,
+      instructor: {
+        "@type": "Person",
+        name: "Alexandre Dos Reis Caetano",
+        url: `${SITE_URL}/a-propos`,
+      },
     },
   };
 }
@@ -158,7 +179,17 @@ export default async function CoursePage({ params }: { params: Params }) {
     <section className="bg-cream-soft">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd(course)) }}
+        dangerouslySetInnerHTML={jsonLdScript(courseJsonLd(course, lessonList))}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(
+          breadcrumbJsonLd([
+            { name: "Accueil", path: "/" },
+            { name: "Parcours", path: "/courses" },
+            { name: course.title, path: `/courses/${course.slug}` },
+          ]),
+        )}
       />
       <div className="mx-auto max-w-[860px] px-6 py-16 md:py-24">
         <Link

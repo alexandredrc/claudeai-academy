@@ -11,6 +11,7 @@ import { LessonToc, ReadingProgress } from "@/components/lesson/interactive";
 import { LessonQuiz } from "./Quiz";
 import { markLessonCompleteAction } from "./actions";
 import { startCheckoutAction } from "@/app/checkout/actions";
+import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
 
 export const dynamic = "force-dynamic";
 
@@ -168,8 +169,60 @@ export default async function LessonPage({ params }: { params: Params }) {
   // 9) Sommaire, construit sur les titres de niveau 2 du contenu.
   const headings = content ? extractHeadings(content.content_md) : [];
 
+  // 10) Balisage structuré. Seules les leçons en aperçu gratuit sont
+  // indexables : leur baliser en `LearningResource` est ce qui les rend
+  // citables par les moteurs génératifs sur des questions du type
+  // « comment structurer un prompt ? ». Les leçons verrouillées n'affichent
+  // qu'un paywall — les baliser reviendrait à décrire un contenu absent.
+  const lessonJsonLd = lessonMeta.is_free_preview
+    ? {
+        "@context": "https://schema.org",
+        "@type": ["LearningResource", "Article"],
+        "@id": `${SITE_URL}/courses/${course.slug}/${lessonMeta.slug}#lesson`,
+        headline: lessonMeta.title,
+        name: lessonMeta.title,
+        description: lessonMeta.description ?? undefined,
+        url: `${SITE_URL}/courses/${course.slug}/${lessonMeta.slug}`,
+        inLanguage: "fr-FR",
+        learningResourceType: "Leçon",
+        educationalLevel:
+          course.tier_required === "mastery" ? "Intermédiaire" : "Débutant",
+        timeRequired: lessonMeta.duration_min
+          ? `PT${lessonMeta.duration_min}M`
+          : undefined,
+        isPartOf: { "@id": `${SITE_URL}/courses/${course.slug}#course` },
+        publisher: { "@id": ORG_ID },
+        author: {
+          "@type": "Person",
+          name: "Alexandre Dos Reis Caetano",
+          url: `${SITE_URL}/a-propos`,
+        },
+        isAccessibleForFree: true,
+      }
+    : null;
+
   return (
     <section className="bg-cream">
+      {lessonJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLdScript(lessonJsonLd)}
+        />
+      ) : null}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(
+          breadcrumbJsonLd([
+            { name: "Accueil", path: "/" },
+            { name: "Parcours", path: "/courses" },
+            { name: course.title, path: `/courses/${course.slug}` },
+            {
+              name: lessonMeta.title,
+              path: `/courses/${course.slug}/${lessonMeta.slug}`,
+            },
+          ]),
+        )}
+      />
       {unlocked && content && <ReadingProgress targetId="lesson-body" />}
       <div className="mx-auto max-w-[760px] px-6 py-12 md:py-20">
         <Link

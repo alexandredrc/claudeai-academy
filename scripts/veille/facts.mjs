@@ -96,6 +96,41 @@ export const FAITS = [
     ou: [{ fichier: "scripts/content/strategie-ia.mjs", motif: null }],
     verif: { kind: "revue", sources: ["eu-ai-act", "eu-ai-act-implementation"] },
   },
+  // ── Pages piliers SEO : des chiffres sourcés, donc des chiffres qui périment ──
+  {
+    id: "insee-adoption-ia",
+    libelle: "Taux d'adoption de l'IA par les entreprises françaises (Insee, enquête TIC)",
+    gravite: "date",
+    pourquoi:
+      "Affiché en gros sur la page pilier /formation-intelligence-artificielle avec l'année de référence. L'Insee publie une nouvelle vague chaque été : la phrase devient datée, pas fausse.",
+    ou: [
+      {
+        fichier: "src/app/formation-intelligence-artificielle/page.tsx",
+        motif: /value="(\d+) %"[\s\S]{0,40}?des entreprises françaises/,
+      },
+    ],
+    verif: { kind: "revue", sources: [] },
+  },
+  {
+    id: "ai-act-article-4",
+    libelle: "Obligation de maîtrise de l'IA (AI Act, art. 4) et sa date d'application",
+    gravite: "critique",
+    pourquoi:
+      "Argument commercial ET affirmation juridique, répété sur la page pilier et dans son FAQPage structuré. Le Digital Omnibus a déjà décalé d'autres échéances de l'AI Act : si celle-ci bouge, la page induit le lecteur en erreur.",
+    ou: [
+      { fichier: "src/app/formation-intelligence-artificielle/page.tsx", motif: null },
+    ],
+    verif: { kind: "revue", sources: ["eu-ai-act", "eu-ai-act-implementation"] },
+  },
+  {
+    id: "comparatif-claude-chatgpt",
+    libelle: "Différences structurelles Claude / ChatGPT",
+    gravite: "date",
+    pourquoi:
+      "La page /claude-vs-chatgpt évite volontairement versions et benchmarks, mais les écarts structurels (écosystème, documents longs, suivi de consigne) peuvent se refermer. À relire une fois par trimestre.",
+    ou: [{ fichier: "src/app/claude-vs-chatgpt/page.tsx", motif: null }],
+    verif: { kind: "revue", sources: ["anthropic-release-notes", "claude-blog"] },
+  },
   {
     id: "cnil-doctrine-ia",
     libelle: "Doctrine CNIL sur l'IA et le RGPD",

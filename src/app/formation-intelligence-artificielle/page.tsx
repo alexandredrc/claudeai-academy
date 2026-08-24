@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "Quelle formation en intelligence artificielle choisir en 2026 ?",
-    a: "Cela dépend de ce que vous voulez pouvoir faire lundi matin. Pour utiliser l'IA générative dans votre métier — rédiger, analyser, coder, décider — une formation courte et pratique en ligne suffit, et coûte entre 40 € et 600 €. Pour concevoir des modèles d'IA, il faut un cursus long en machine learning, généralement diplômant, et le budget se compte en milliers d'euros. La confusion entre ces deux besoins est la première cause d'abandon : 90 % des professionnels cherchent le premier et s'inscrivent au second.",
+    a: "Cela dépend de ce que vous voulez pouvoir faire lundi matin. Pour utiliser l'IA générative dans votre métier — rédiger, analyser, coder, décider — une formation courte et pratique en ligne suffit, et coûte entre 40 € et 600 €. Pour concevoir des modèles d'IA, il faut un cursus long en machine learning, généralement diplômant, et le budget se compte en milliers d'euros. La confusion entre ces deux besoins est une cause fréquente d'abandon : on cherche le premier et on s'inscrit au second.",
   },
   {
     q: "La formation à l'IA est-elle obligatoire en entreprise ?",
@@ -560,7 +560,34 @@ export default async function FormationIAPage() {
             ))}
           </dl>
 
+          {/* Le pilier renvoie vers ses satellites : c'est ce maillage
+              descendant qui fait exister le cluster aux yeux de Google. */}
           <p className="mt-8 text-[15px] text-muted">
+            Pour aller plus loin :{" "}
+            <Link
+              href="/prompt-engineering"
+              className="font-semibold text-coral hover:text-coral-dark"
+            >
+              la méthode de prompt engineering en 5 points
+            </Link>{" "}
+            ·{" "}
+            <Link
+              href="/formation-ia-obligatoire-ai-act"
+              className="font-semibold text-coral hover:text-coral-dark"
+            >
+              l’obligation de formation de l’AI Act
+            </Link>{" "}
+            ·{" "}
+            <Link
+              href="/claude-vs-chatgpt"
+              className="font-semibold text-coral hover:text-coral-dark"
+            >
+              Claude ou ChatGPT
+            </Link>
+            .
+          </p>
+
+          <p className="mt-4 text-[15px] text-muted">
             D’autres questions ? La{" "}
             <Link href="/faq" className="font-semibold text-coral hover:text-coral-dark">
               FAQ complète

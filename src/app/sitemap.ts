@@ -12,6 +12,10 @@ const staticRoutes: { path: string; priority: number; changeFrequency: Freq }[] 
   // « claude ou chatgpt »), là où le reste du site vise « formation Claude AI ».
   { path: "/formation-intelligence-artificielle", priority: 0.95, changeFrequency: "monthly" },
   { path: "/claude-vs-chatgpt", priority: 0.85, changeFrequency: "monthly" },
+  // Satellites du pilier : ils captent les requêtes de moyenne traîne et
+  // renvoient l'autorité vers /formation-intelligence-artificielle.
+  { path: "/prompt-engineering", priority: 0.85, changeFrequency: "monthly" },
+  { path: "/formation-ia-obligatoire-ai-act", priority: 0.85, changeFrequency: "monthly" },
   { path: "/courses", priority: 0.9, changeFrequency: "weekly" },
   { path: "/tarifs", priority: 0.9, changeFrequency: "monthly" },
   { path: "/prompts", priority: 0.8, changeFrequency: "weekly" },

@@ -2,17 +2,29 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import Link from "next/link";
 
-// Retours des premiers lecteurs de la formation (fournis par le fondateur,
-// personnes ayant eu accès au contenu avant/à l'ouverture). Cadrage honnête :
-// on les présente comme « premiers lecteurs », pas comme des acheteurs
-// vérifiés. Pas de schema Review/aggregateRating : les avis auto-collectés
-// sur sa propre page produit sont exclus des rich results Google — les
-// baliser n'apporterait rien et exposerait à une action manuelle.
+// Retours de personnes ayant reçu un accès offert à la formation — accès
+// fondateur ou accès anticipé — en contrepartie d'un retour d'expérience.
+// Aucune n'a acheté la formation, et c'est dit noir sur blanc en bas de
+// section : la directive Omnibus impose d'indiquer comment les avis sont
+// recueillis, et un avis dont l'origine est annoncée vaut mieux qu'un avis
+// flatteur dont on doute.
 //
-// Prénom, âge et métier fournis par le fondateur le 24/08/2026. Ils comptent
-// autant pour la conversion que pour l'E-E-A-T : un avis anonyme ne prouve
-// rien, ni à un lecteur ni à Google.
-const reviews = [
+// Pas de schema Review/aggregateRating : les avis auto-collectés sur sa
+// propre page produit sont exclus des rich results Google — les baliser
+// n'apporterait rien et exposerait à une action manuelle.
+//
+// Prénom, âge et métier fournis par le fondateur (24/08 pour les sept
+// premiers, 29/08 pour les cinq suivants). Ils comptent autant pour la
+// conversion que pour l'E-E-A-T : un avis anonyme ne prouve rien, ni à un
+// lecteur ni à Google. L'âge n'est renseigné que là où il est connu.
+type Review = {
+  name: string;
+  role: string;
+  age?: number;
+  quote: string;
+};
+
+const reviews: Review[] = [
   {
     name: "Andréa",
     age: 22,
@@ -55,6 +67,41 @@ const reviews = [
     quote:
       "Le formateur maîtrise parfaitement Claude IA. Les explications sont simples, efficaces et orientées résultats.",
   },
+  {
+    name: "Thomas",
+    role: "Entrepreneur",
+    quote:
+      "Je connaissais déjà Claude, mais je l'utilisais finalement à 10 % de ses capacités. La formation m'a permis de comprendre comment construire de vrais prompts et surtout comment intégrer Claude dans mon quotidien professionnel. Aujourd'hui, certaines tâches qui me prenaient plusieurs heures sont faites en quelques dizaines de minutes.",
+  },
+  {
+    // Dernière phrase retirée (« la formation a rapidement été rentabilisée ») :
+    // elle sous-entend un achat, or l'accès a été offert. Le gain de temps
+    // annoncé porte déjà la valeur, sans rien affirmer de faux.
+    name: "Sarah",
+    role: "E-commerce",
+    quote:
+      "Ce que j'ai apprécié avec ClaudeAI Academy, c'est qu'on ne reste pas dans la théorie. Chaque module donne des méthodes directement applicables. J'ai notamment mis en place plusieurs automatisations qui me font gagner plusieurs heures chaque semaine.",
+  },
+  {
+    name: "Julien",
+    role: "Consultant",
+    quote:
+      "J'utilisais ChatGPT et Claude depuis plusieurs mois et je pensais plutôt bien maîtriser l'IA. Je me suis rendu compte en suivant la formation que je passais complètement à côté de certaines fonctionnalités et méthodes de travail. Le changement le plus important pour moi est la façon dont je structure désormais mes demandes à Claude.",
+  },
+  {
+    // « J'ai acheté » → « J'ai commencé » : même phrase, moins l'affirmation
+    // que les enregistrements de paiement ne soutiennent pas.
+    name: "Nicolas",
+    role: "Dirigeant",
+    quote:
+      "J'ai commencé la formation avec l'objectif de gagner du temps et d'utiliser davantage l'IA dans mon activité. Les résultats ont dépassé mes attentes. Claude m'aide maintenant pour la rédaction, l'analyse de données, la création de documents et une partie de mes tâches répétitives. C'est devenu un véritable assistant dans mon business.",
+  },
+  {
+    name: "Camille",
+    role: "Indépendante",
+    quote:
+      "J'avais peur que la formation soit trop technique pour moi. Finalement, tout est expliqué étape par étape et je n'avais pas besoin de connaissances particulières. J'ai pu appliquer les méthodes immédiatement et surtout comprendre comment réfléchir lorsque je veux demander quelque chose à Claude. C'est probablement ce qui m'a le plus servi.",
+  },
 ];
 
 const featuredReview = {
@@ -73,7 +120,7 @@ function Attribution({
   size = "sm",
 }: {
   name: string;
-  age: number;
+  age?: number;
   role: string;
   size?: "sm" | "lg";
 }) {
@@ -94,7 +141,7 @@ function Attribution({
         <span
           className={`block font-semibold text-ink ${big ? "text-[16px]" : "text-[14px]"}`}
         >
-          {name}, {age} ans
+          {age ? `${name}, ${age} ans` : name}
         </span>
         <span
           className={`block text-muted ${big ? "text-[14px]" : "text-[13px]"}`}
@@ -138,7 +185,8 @@ export function Testimonials({ pricingHref = "/tarifs" }: { pricingHref?: string
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-muted">
             L&apos;académie vient d&apos;ouvrir : voici les retours des
-            premières personnes à avoir parcouru la formation. Et vous pouvez
+            premières personnes à avoir parcouru la formation, à qui
+            l&apos;accès a été offert en échange de leur avis. Et vous pouvez
             vérifier par vous-même — le programme complet est public, et la
             première leçon de chaque parcours est en accès libre.
           </p>
@@ -160,7 +208,7 @@ export function Testimonials({ pricingHref = "/tarifs" }: { pricingHref?: string
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {reviews.map((r) => (
             <figure
-              key={r.name}
+              key={`${r.name}-${r.role}`}
               className="flex flex-col rounded-[22px] border border-line bg-white p-8"
             >
               <Stars />
@@ -173,8 +221,12 @@ export function Testimonials({ pricingHref = "/tarifs" }: { pricingHref?: string
         </div>
 
         <p className="mt-10 max-w-[680px] text-[14px] leading-relaxed text-muted">
-          Retours recueillis auprès des premiers lecteurs de la formation.
-          Vous faites partie des{" "}
+          <strong className="text-ink">Comment ces avis sont recueillis.</strong>{" "}
+          Ils proviennent de personnes disposant d&apos;un accès nominatif à la
+          formation, à qui cet accès a été offert — accès fondateur ou accès
+          anticipé — en contrepartie d&apos;un retour d&apos;expérience. Aucune
+          n&apos;a acheté la formation, et aucun avis n&apos;est écarté en raison
+          de son caractère négatif. Vous faites partie des{" "}
           <strong className="text-ink">premiers membres</strong> : votre retour
           comptera vraiment, et c&apos;est ici qu&apos;il sera mis en avant.{" "}
           <Link

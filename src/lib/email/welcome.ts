@@ -107,5 +107,6 @@ export async function sendPurchaseWelcomeEmail(params: {
     subject: content.subject,
     html: renderHtml(content, params.firstName),
     text: renderText(content, params.firstName),
+    kind: "welcome",
   });
 }

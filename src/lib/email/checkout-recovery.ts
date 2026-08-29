@@ -72,5 +72,6 @@ export async function sendCheckoutRecoveryEmail(params: {
     subject: "Votre paiement n'est pas allé au bout — on vous remet le lien",
     html: renderHtml(params),
     text: renderText(params),
+    kind: "checkout_recovery",
   });
 }

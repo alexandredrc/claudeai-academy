@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getStripe } from "@/lib/stripe/server";
 import { createClient } from "@/lib/supabase/server";
 import { PurchaseConversion } from "@/components/site/purchase-conversion";
+import { CheckoutButton } from "@/components/site/checkout-button";
 
 type SearchParams = Promise<{ session_id?: string }>;
 
@@ -21,9 +22,11 @@ export default async function CheckoutSuccessPage({
   let buyerEmail: string | null = null;
   let conversionValue = 0;
   let conversionCurrency = "EUR";
+  let boughtStarter = false;
   try {
     const session = await getStripe().checkout.sessions.retrieve(session_id);
     const tier = session.metadata?.tier;
+    boughtStarter = tier === "starter";
     tierName =
       tier === "mastery"
         ? "Pass Mastery"
@@ -129,6 +132,8 @@ export default async function CheckoutSuccessPage({
           </>
         )}
 
+        {boughtStarter ? <StarterUpgrade /> : null}
+
         <p className="mt-10 text-[13px] text-muted">
           Un souci ?{" "}
           <a
@@ -140,5 +145,46 @@ export default async function CheckoutSuccessPage({
         </p>
       </div>
     </section>
+  );
+}
+
+/**
+ * Montée en gamme après un achat Starter.
+ *
+ * Le moment qui suit immédiatement un paiement est le seul où la carte est
+ * encore sortie — et la page de confirmation n'en faisait rien : elle
+ * renvoyait vers l'espace membre, point final. Le Starter donne 3 parcours
+ * sur 8 ; les 5 autres n'étaient jamais proposés ailleurs que dans un email
+ * envoyé deux semaines plus tard.
+ *
+ * Le montant déjà payé est déduit à la main sur demande : tant qu'aucun code
+ * de remise « upgrade » n'existe côté Stripe, mieux vaut une phrase honnête
+ * qu'une promesse que le tunnel ne tient pas.
+ */
+function StarterUpgrade() {
+  return (
+    <aside className="mx-auto mt-14 max-w-[520px] border-t border-line pt-10 text-left">
+      <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-coral">
+        Pendant qu&apos;on y est
+      </p>
+      <h2 className="mt-3 font-serif text-2xl font-medium leading-snug tracking-tight text-ink">
+        Il te reste 5 parcours à ouvrir
+      </h2>
+      <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
+        Le Starter couvre les 3 parcours fondateurs. Les 5 autres — data,
+        marketing, stratégie, trading, prompts avancés — et les 27 leçons qui
+        vont avec sont dans le Pass Mastery, avec la bibliothèque complète de
+        prompts et le Mentor IA.
+      </p>
+      <div className="mt-6">
+        <CheckoutButton tier="mastery" variant="primary" size="md">
+          Passer au Mastery · 497 €
+        </CheckoutButton>
+      </div>
+      <p className="mt-3 text-[13px] leading-relaxed text-muted">
+        ou 3 × 165,67 € sans frais avec Klarna. Tu viens de payer 47 € :
+        écris-nous avant de basculer et on déduit ce montant.
+      </p>
+    </aside>
   );
 }

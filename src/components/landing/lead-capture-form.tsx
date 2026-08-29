@@ -48,7 +48,7 @@ export function LeadCaptureForm({ source = "kit-15-prompts" }: { source?: string
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
-          placeholder="Ton prénom (optionnel)"
+          placeholder="Prénom (optionnel)"
           autoComplete="given-name"
           className="w-full rounded-[12px] border border-line bg-white px-4 py-3.5 text-[15px] text-ink placeholder:text-muted focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20 transition-colors"
         />
@@ -57,7 +57,7 @@ export function LeadCaptureForm({ source = "kit-15-prompts" }: { source?: string
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="ton@email.com"
+          placeholder="email@exemple.com"
           autoComplete="email"
           className="w-full rounded-[12px] border border-line bg-white px-4 py-3.5 text-[15px] text-ink placeholder:text-muted focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20 transition-colors"
         />

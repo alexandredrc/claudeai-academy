@@ -20,6 +20,16 @@ export async function sendEmail(params: {
   html: string;
   text: string;
   replyTo?: string;
+  /**
+   * Étape de séquence (`nurture_d1`, `lead_a3`, `activation_j10`, …).
+   *
+   * Transmise à Resend comme tag, elle revient sur chaque événement du
+   * webhook : c'est ce qui permet de calculer un taux d'ouverture et de clic
+   * *par étape* plutôt qu'un chiffre global illisible. Resend n'accepte que
+   * lettres, chiffres, tirets et soulignés dans une valeur de tag — d'où le
+   * nettoyage ci-dessous plutôt qu'un envoi refusé en bloc.
+   */
+  kind?: string;
 }): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
@@ -30,6 +40,8 @@ export async function sendEmail(params: {
     );
     return false;
   }
+
+  const kind = params.kind?.replace(/[^A-Za-z0-9_-]/g, "").slice(0, 60);
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -45,6 +57,7 @@ export async function sendEmail(params: {
       text: params.text,
       // Toujours présent : un email sans Reply-To renvoie vers `no-reply@`.
       reply_to: params.replyTo ?? REPLY_TO,
+      ...(kind ? { tags: [{ name: "kind", value: kind }] } : {}),
     }),
   });
 

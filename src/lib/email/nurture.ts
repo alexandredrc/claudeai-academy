@@ -380,5 +380,6 @@ export async function sendNurtureEmail(params: {
     subject: r.subject,
     html: r.html,
     text: r.text,
+    kind: params.kind,
   });
 }

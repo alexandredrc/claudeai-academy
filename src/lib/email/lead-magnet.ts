@@ -257,5 +257,11 @@ export async function sendLeadEmail(params: {
   firstName: string | null;
 }): Promise<boolean> {
   const r = renderLeadEmail(params.kind, params.firstName);
-  return sendEmail({ to: params.to, subject: r.subject, html: r.html, text: r.text });
+  return sendEmail({
+    to: params.to,
+    subject: r.subject,
+    html: r.html,
+    text: r.text,
+    kind: params.kind,
+  });
 }

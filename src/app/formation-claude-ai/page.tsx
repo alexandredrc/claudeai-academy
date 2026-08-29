@@ -5,7 +5,9 @@ import { Button } from "@/components/site/button";
 import { CheckoutButton } from "@/components/site/checkout-button";
 import { Testimonials } from "@/components/landing/testimonials";
 import { PricingTeaser } from "@/components/landing/pricing-teaser";
+import { ValueStack } from "@/components/landing/value-stack";
 import { Guarantee } from "@/components/landing/guarantee";
+import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
 import { getCatalogStats } from "@/lib/courses/stats";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 
@@ -29,8 +31,10 @@ export default function FormationClaudeAI() {
       <WhatYouGet />
       <Testimonials pricingHref="#tarifs" />
       <PricingTeaser />
+      <ValueStack />
       <Guarantee />
       <LandingFAQ />
+      <NotTodayCapture />
       <LastCall />
     </>
   );
@@ -71,16 +75,16 @@ async function LandingHero() {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <CheckoutButton tier="starter" variant="primary" size="lg">
-              Commencer maintenant · 47 €
+            <CheckoutButton tier="mastery" variant="primary" size="lg">
+              Rejoindre Mastery · 497 €
             </CheckoutButton>
             <Button href="#tarifs" variant="ghost" size="lg">
-              Comparer les deux formules
+              Ou commencer à 47 €
             </Button>
           </div>
           <p className="mt-4 text-[13px] text-muted">
-            🛡️ Garantie 14 jours satisfait ou remboursé · Paiement sécurisé
-            Stripe · Accès immédiat
+            ou 3 × 165,67 € sans frais avec Klarna · 🛡️ Garantie 14 jours
+            satisfait ou remboursé · Accès immédiat
           </p>
 
           <dl className="mt-12 pt-8 border-t border-line flex flex-wrap gap-x-12 gap-y-5">
@@ -193,9 +197,12 @@ async function WhatYouGet() {
               (dernière mise à jour : juillet 2026).
             </p>
             <div className="mt-8">
-              <CheckoutButton tier="starter" variant="primary" size="lg">
-                Commencer maintenant · 47 €
+              <CheckoutButton tier="mastery" variant="primary" size="lg">
+                Accéder aux {stats.courseCount} parcours · 497 €
               </CheckoutButton>
+              <p className="mt-3 text-[13px] text-muted">
+                ou 3 × 165,67 € sans frais avec Klarna · Garantie 14 jours
+              </p>
             </div>
           </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -280,6 +287,41 @@ function LandingFAQ() {
 }
 
 // =========================================
+// Filet de récupération — le visiteur payé qui n'achète pas aujourd'hui
+// =========================================
+// Un clic publicitaire coûte ~1,09 €. Sans ce bloc, les 98 à 99 % de
+// visiteurs qui n'achètent pas immédiatement étaient perdus définitivement :
+// la page ne captait aucune adresse, et aucun des prospects en base ne
+// provenait de la publicité. Le kit gratuit existait déjà — il n'était
+// simplement jamais proposé ici.
+function NotTodayCapture() {
+  return (
+    <section className="bg-white border-t border-line py-20 md:py-24">
+      <Container>
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.05fr_1fr] md:items-center md:gap-16">
+          <div>
+            <Eyebrow>Pas aujourd&apos;hui ?</Eyebrow>
+            <h2 className="mt-4 font-serif text-3xl md:text-[2.5rem] font-medium leading-[1.15] tracking-tight text-ink">
+              Repartez au moins avec{" "}
+              <span className="accent-serif">15 prompts</span>.
+            </h2>
+            <p className="mt-5 text-[17px] leading-relaxed text-muted max-w-[480px]">
+              Le kit de démarrage est gratuit : 15 prompts prêts à copier,
+              classés par métier, et la règle en trois points qui sépare
+              l&apos;amateur du pro. Vous jugerez la méthode sur pièces avant de
+              décider quoi que ce soit.
+            </p>
+          </div>
+          <div className="md:justify-self-end">
+            <LeadCaptureForm source="ads-formation-claude" />
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+// =========================================
 // Dernier push
 // =========================================
 function LastCall() {
@@ -292,13 +334,18 @@ function LastCall() {
             <span className="accent-serif">soit les mêmes tâtonnements</span>.
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-muted max-w-[560px] mx-auto">
-            Le Pass Starter coûte 47 €, l&apos;accès est immédiat et la
-            garantie 14 jours porte tout le risque à notre place.
+            L&apos;accès complet coûte 497 € — ou 3 × 165,67 € sans frais. Il
+            est immédiat, définitif, et la garantie 14 jours porte tout le
+            risque à notre place. Le Pass Starter à 47 € reste là si vous
+            préférez commencer petit.
           </p>
-          <div className="mt-8 flex justify-center">
-            <CheckoutButton tier="starter" variant="primary" size="lg">
-              Commencer maintenant · 47 € · Garantie 14 j
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <CheckoutButton tier="mastery" variant="primary" size="lg">
+              Rejoindre Mastery · 497 € · Garantie 14 j
             </CheckoutButton>
+            <Button href="#tarifs" variant="ghost" size="lg">
+              Ou commencer à 47 €
+            </Button>
           </div>
         </div>
       </Container>

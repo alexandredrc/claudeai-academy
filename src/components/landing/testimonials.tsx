@@ -196,7 +196,7 @@ function Stars() {
 // son propre bloc tarifs (#tarifs) pour ne pas faire sortir le trafic payé.
 export function Testimonials({ pricingHref = "/tarifs" }: { pricingHref?: string } = {}) {
   return (
-    <section className="bg-cream-soft py-24 md:py-32">
+    <section id="avis" className="scroll-mt-24 bg-cream-soft py-24 md:py-32">
       <Container>
         <div className="mb-14 max-w-[680px]">
           <Eyebrow>Premiers retours</Eyebrow>

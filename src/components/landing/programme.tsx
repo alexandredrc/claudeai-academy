@@ -153,7 +153,7 @@ export async function Programme() {
   const others = parcours.filter((p) => p.slug !== featured.slug);
 
   return (
-    <section id="programme" className="bg-cream py-24 md:py-32">
+    <section id="programme" className="scroll-mt-24 bg-cream py-24 md:py-32">
       <Container>
         <div className="text-center mb-14">
           <Eyebrow align="center">Le programme</Eyebrow>

@@ -7,7 +7,7 @@ import { PROMPT_COUNT } from "@/lib/prompts/library";
 export async function PricingTeaser() {
   const stats = await getCatalogStats();
   return (
-    <section id="tarifs" className="bg-cream py-24 md:py-32">
+    <section id="tarifs" className="scroll-mt-24 bg-cream py-24 md:py-32">
       <Container>
         <div className="text-center mb-16">
           <Eyebrow align="center">Tarifs</Eyebrow>
@@ -43,7 +43,7 @@ function StarterCard() {
   return (
     <article
       id="starter"
-      className="bg-white border border-line rounded-[22px] p-9 md:p-10 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_4px_8px_rgba(31,31,30,0.05),0_24px_48px_rgba(31,31,30,0.10)]"
+      className="scroll-mt-24 bg-white border border-line rounded-[22px] p-9 md:p-10 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_4px_8px_rgba(31,31,30,0.05),0_24px_48px_rgba(31,31,30,0.10)]"
     >
       <h3 className="font-serif text-2xl font-semibold text-ink">Pass Starter</h3>
       <p className="mt-1.5 text-muted text-[14px]">Pour découvrir la méthode</p>
@@ -86,7 +86,7 @@ function MasteryCard({ stats }: { stats: CatalogStats }) {
   return (
     <article
       id="mastery"
-      className="relative bg-gradient-to-br from-ink to-[#2D2A26] text-cream border border-ink rounded-[22px] p-9 md:p-10 flex flex-col"
+      className="scroll-mt-24 relative bg-gradient-to-br from-ink to-[#2D2A26] text-cream border border-ink rounded-[22px] p-9 md:p-10 flex flex-col"
     >
       <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-coral text-cream text-[12px] font-bold tracking-wider px-3.5 py-1.5 rounded-full">
         ★ LE PLUS COMPLET

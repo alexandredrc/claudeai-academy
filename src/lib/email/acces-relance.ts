@@ -28,14 +28,27 @@ type Contenu = {
 
 const PASS = (tier: string) => (tier === "mastery" ? "Pass Mastery" : "Pass Starter");
 
-function contenu(kind: RelanceKind, tier: string, jours: number): Contenu {
+function contenu(
+  kind: RelanceKind,
+  tier: string,
+  jours: number,
+  /**
+   * Faux pour un siège offert (code fondateur à −100 %). Sans cette
+   * distinction, la séquence écrivait « ton paiement est bien enregistré »
+   * puis finissait par proposer un remboursement — à quelqu'un qui n'a jamais
+   * rien payé. Embarrassant, et ça décrédibilise tout le reste du message.
+   */
+  paye: boolean,
+): Contenu {
   const pass = PASS(tier);
 
   if (kind === "acces_relance_1") {
     return {
       subject: `Ton ${pass} t'attend — voici ton accès en un clic`,
       paragraphes: [
-        `Ton paiement est bien enregistré et ton ${pass} est actif depuis ${jours} jour${jours > 1 ? "s" : ""}. Mais ton compte n'a encore jamais été ouvert — il se peut que l'email d'accès se soit perdu en route.`,
+        paye
+          ? `Ton paiement est bien enregistré et ton ${pass} est actif depuis ${jours} jour${jours > 1 ? "s" : ""}. Mais ton compte n'a encore jamais été ouvert — il se peut que l'email d'accès se soit perdu en route.`
+          : `Ton ${pass} est actif depuis ${jours} jour${jours > 1 ? "s" : ""}. Mais ton compte n'a encore jamais été ouvert — il se peut que l'email d'accès se soit perdu en route.`,
         "Le bouton ci-dessous te connecte directement, sans mot de passe.",
       ],
       cta: "Ouvrir ma formation",
@@ -49,13 +62,29 @@ function contenu(kind: RelanceKind, tier: string, jours: number): Contenu {
     return {
       subject: `Tu n'arrives pas à accéder à ton ${pass} ?`,
       paragraphes: [
-        `Ton ${pass} est payé depuis ${jours} jours et n'a toujours pas été ouvert. Si quelque chose bloque, ce n'est pas normal et c'est à nous de le régler.`,
+        `Ton ${pass} est ${paye ? "payé" : "ouvert"} depuis ${jours} jours et n'a toujours pas été utilisé. Si quelque chose bloque, ce n'est pas normal et c'est à nous de le régler.`,
         "Voici un nouveau lien d'accès direct :",
       ],
       cta: "Accéder à ma formation",
       apres: [
         "Si ça ne marche toujours pas, réponds simplement à cet email en décrivant ce que tu vois : on te débloque à la main.",
         "Vérifie aussi tes indésirables — nos emails s'y glissent parfois.",
+      ],
+    };
+  }
+
+  if (!paye) {
+    // Siège offert : pas d'argent en jeu, donc ni remboursement à proposer ni
+    // insistance à avoir. Un dernier message, honnête, et on s'arrête.
+    return {
+      subject: `Ton ${pass} est toujours là si tu le veux`,
+      paragraphes: [
+        `Ton ${pass} t'a été ouvert il y a ${jours} jours et tu ne t'en es jamais servi. Aucun souci — ce message est le dernier, on ne va pas te relancer indéfiniment.`,
+        "Si tu veux y jeter un œil un jour, le lien ci-dessous te connecte en un clic, et ton accès reste valable sans limite de temps.",
+      ],
+      cta: "Ouvrir ma formation",
+      apres: [
+        "Et si quelque chose t'avait empêché d'entrer, dis-le-nous en répondant : c'est utile à savoir.",
       ],
     };
   }
@@ -119,8 +148,10 @@ export async function sendAccesRelanceEmail(params: {
   jours: number;
   firstName: string | null;
   accessLink: string;
+  /** Faux pour un siège offert : change le discours et retire le remboursement. */
+  paye: boolean;
 }): Promise<boolean> {
-  const c = contenu(params.kind, params.tier, params.jours);
+  const c = contenu(params.kind, params.tier, params.jours, params.paye);
   return sendEmail({
     to: params.to,
     subject: c.subject,

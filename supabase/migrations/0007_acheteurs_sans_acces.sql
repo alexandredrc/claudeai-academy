@@ -24,7 +24,8 @@ returns table (
   email text,
   tier text,
   paid_at timestamptz,
-  jours int
+  jours int,
+  amount_total int
 )
 language sql
 security definer

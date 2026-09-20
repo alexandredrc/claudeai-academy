@@ -43,6 +43,7 @@ type Acheteur = {
   tier: string;
   paid_at: string;
   jours: number;
+  amount_total: number;
 };
 
 export async function GET(req: NextRequest) {
@@ -157,6 +158,9 @@ export async function GET(req: NextRequest) {
         tier: c.tier,
         jours: c.jours,
         firstName: prenoms.get(c.user_id) ?? null,
+        // Un siège offert (code fondateur à −100 %) n'a rien payé : ni
+        // « ton paiement est enregistré », ni proposition de remboursement.
+        paye: (c.amount_total ?? 0) > 0,
         accessLink: buildAccessLink({
           tokenHash,
           email: c.email,

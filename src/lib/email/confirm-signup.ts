@@ -52,5 +52,8 @@ export async function sendSignupConfirmationEmail(params: {
     subject: "Confirme ton adresse — ClaudeAI Academy",
     html: renderHtml(params.confirmLink, params.firstName),
     text: renderText(params.confirmLink, params.firstName),
+    // Tag d'envoi : sans lui, les évènements Resend de cet email
+    // remontent sans étiquette et ne s'attribuent à rien.
+    kind: "confirm_signup",
   });
 }

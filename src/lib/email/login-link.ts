@@ -42,5 +42,8 @@ export async function sendLoginLinkEmail(params: {
     subject: "Ton lien de connexion — ClaudeAI Academy",
     html: renderHtml(params.accessLink),
     text: renderText(params.accessLink),
+    // Tag d'envoi : sans lui, les évènements Resend de cet email
+    // remontent sans étiquette et ne s'attribuent à rien.
+    kind: "login_link",
   });
 }

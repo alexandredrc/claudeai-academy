@@ -377,10 +377,10 @@ Le coût récurrent, celui qui dure tant que le service vit.
 
 ## L'économie du poste « abonnements »
 
-Beaucoup d'usages professionnels ne passent pas par l'API mais par des abonnements. Au 6 août 2026, chez Anthropic, l'abonnement **Pro** est affiché à **17 $ par mois en engagement annuel** (payé d'avance) et **20 $ par mois** en mensuel. Au-delà des limites incluses, les plans payants peuvent activer des **crédits d'usage** facturés aux tarifs API, et acheter des **bundles d'usage** pré-payés qui donnent **jusqu'à 30 % de remise** (paliers de 10, 20 et 30 %), **plafonnés à 2 000 $ par mois** pour un particulier Pro ou Max.
+Beaucoup d'usages professionnels ne passent pas par l'API mais par des abonnements. Grille Anthropic au **20 septembre 2026** : **Pro** à **17 $ par mois en engagement annuel** (200 $ payés d'avance) ou **20 $ par mois** en mensuel ; **Max** à partir de **100 $ par mois** (deux paliers d'usage, 5× ou 20×) ; **Team** à **20 $ par siège et par mois** en annuel (25 $ en mensuel) pour un siège standard, **100 $** en annuel (125 $ en mensuel) pour un siège premium ; **Enterprise** sur devis, avec un prix de siège auquel s'ajoute l'usage facturé aux tarifs API. Au-delà des limites incluses, les plans payants peuvent activer des **crédits d'usage** facturés aux tarifs API, et acheter des **bundles d'usage** pré-payés qui donnent **jusqu'à 30 % de remise** (paliers de 10, 20 et 30 %), **plafonnés à 2 000 $ par mois** pour un particulier Pro ou Max.
 
 :::chiffres
-17 $/mois | Claude Pro en engagement annuel (20 $ en mensuel) au 06/08/2026
+17 $/mois | Claude Pro en engagement annuel (20 $ en mensuel) au 20/09/2026
 30 % | remise maximale des bundles d'usage pré-payés
 2 000 $/mois | plafond de bundles pour un compte particulier Pro ou Max
 :::

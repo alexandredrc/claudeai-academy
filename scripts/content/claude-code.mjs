@@ -10,13 +10,13 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Contenu vérifié au **19 août 2026**, sur **Claude Code 2.1.235**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifie sur le changelog de ta version. Contenu original rédigé pour ClaudeAI Academy.`;
+**Sources & méthode** · Contenu vérifié au **20 septembre 2026**, sur **Claude Code 2.1.278**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifie sur le changelog de ta version. Contenu original rédigé pour ClaudeAI Academy.`;
 
 export const claudeCodeIaAgentic = {
   slug: "claude-code-ia-agentic",
   title: "Claude Code et l'IA agentique",
   description:
-    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents et coûts maîtrisés. À jour de Claude Code 2.1.235 (19 août 2026).",
+    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents et coûts maîtrisés. À jour de Claude Code 2.1.278 (20 septembre 2026).",
   tier_required: "starter",
   display_order: 3,
   estimated_duration_min: 138,
@@ -37,7 +37,7 @@ export const claudeCodeIaAgentic = {
 :::
 
 :::flash
-Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 20 août 2026, la version courante est **2.1.237**, et **Opus 5** est le modèle Opus par défaut depuis le 24 juillet.
+Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 20 septembre 2026, la version courante est **2.1.278**, et **Opus 5** est le modèle Opus par défaut depuis le 24 juillet.
 :::
 
 ## Le saut : du chatbot à l'agent
@@ -102,6 +102,17 @@ Un mot sur le modèle, puisqu'il pilote la facture. **Claude Opus 5 est le modè
 Entre le 18 juillet et le 6 août 2026 (version **2.1.223**), le changelog documente **au moins cinq corrections de contournement du système de permissions Bash** : contournement en PowerShell 5.1, conditionnels regex zsh, mauvaise gestion des guillemets PowerShell, hooks pré-outil qui court-circuitaient les restrictions d'outils, et commande masquant une partie d'elle-même via des tabulations ou de l'Unicode invisible.
 :::
 
+:::maj 20 septembre 2026
+Claude Code est passé de **2.1.237 à 2.1.278** en un mois. Quatre changements méritent que tu modifies ta façon de travailler :
+
+- **\`AGENTS.md\` est reconnu** (2.1.277). Dans un projet **sans** CLAUDE.md, Claude Code lit \`AGENTS.md\` à la place — le format de consignes partagé par plusieurs agents de code. Le réglage est dans \`/config\` → « Project instructions ». Concrètement : si tu travailles sur un dépôt open source qui a déjà un AGENTS.md, tu n'as plus rien à recopier.
+- **Le résultat d'un sous-agent ne peut plus se faire passer pour une consigne** (2.1.277). Il remonte désormais sous un en-tête qui le marque comme sortie de sous-agent, et son contenu est indenté. C'est une défense contre l'injection de prompt : un fichier piégé lu par un sous-agent ne pilote plus l'agent principal. Même logique en 2.1.277 côté saisie : les **caractères Unicode invisibles** d'un prompt sont retirés et le prompt nettoyé t'est montré avant envoi.
+- **Le mode auto ne te facture plus son propre contrôle** (2.1.278). Le classifieur qui décide si une commande peut passer tourne côté serveur, sans surcoût de tokens. \`/status\` affiche une ligne « Auto mode server » qui te dit où il tourne.
+- **Les domaines s'ouvrent commande par commande** (2.1.271). En mode auto avec bac à sable, une commande déclare les hôtes dont elle a besoin (\`allowed_domains\`) ; ils sont examinés avec elle et ouverts pour elle seule. Les autres restent refusés.
+
+Côté confort : \`/output-style\` pour changer de style de sortie (2.1.269), \`/focus\` pour une vue réduite à ton prompt et à la réponse (2.1.269), \`Ctrl+Entrée\` pour interrompre le tour en cours et envoyer d'un coup tout ce que tu as mis en file (2.1.275), et la **synchronisation des skills et plugins** activés sur ton compte claude.ai vers le terminal (2.1.275).
+:::
+
 :::maj 18 août 2026
 Claude Code est en **2.1.235**. Douze versions en douze jours, dont cinq nouveautés qui changent la façon de travailler :
 - **Environnements auto-hébergés** en beta publique (2.1.224, 7 août), pour les plans Team et Enterprise : les sessions tournent sur ton infrastructure, avec accès au réseau interne, et les dépôts, artefacts de build et secrets **ne quittent pas ta machine**.
@@ -133,7 +144,7 @@ L'agent **propose et exécute** sous ton contrôle. **Toi** restes responsable d
 
 :::defi 15 min — Ton diagnostic de départ
 Avant d'aller plus loin, installe le décor et fais ton tri.
-- Tu as vérifié ta version de Claude Code et tu es sur 2.1.235 ou plus récent
+- Tu as vérifié ta version de Claude Code et tu es sur 2.1.278 ou plus récent
 - Tu as ouvert Claude Code dans un vrai dépôt à toi (pas un projet jouet)
 - Tu as écrit une liste de 5 tâches récurrentes de ta semaine
 - Pour chacune, tu as noté s'il existe une commande qui dit « c'est bon » ou « c'est cassé »
@@ -147,8 +158,8 @@ R: Rassembler le contexte, agir, observer, corriger.
 Q: Quel critère pratique dit si une tâche est déléguable à l'agent ?
 R: S'il existe une commande qui vérifie le résultat automatiquement, elle est déléguable.
 ===
-Q: Quelle est la version de Claude Code au 19 août 2026 ?
-R: 2.1.235.
+Q: Quelle est la version de Claude Code au 20 septembre 2026 ?
+R: 2.1.278.
 ===
 Q: Une liste d'autorisations Bash est-elle une frontière de sécurité fiable ?
 R: Non. Au moins cinq contournements ont été corrigés entre le 18 juillet et le 6 août 2026. C'est de la défense en profondeur.
@@ -213,6 +224,12 @@ C'est le fichier le plus rentable. Placé à la racine, il est **chargé automat
 | Ce qui n'est écrit nulle part ailleurs | Des exemples à rallonge de code déjà présent dans le dépôt |
 
 Garde-le **court et factuel** — c'est du contexte permanent, pas une documentation. Tu peux pointer vers d'autres fichiers avec une référence du type @chemin/vers/fichier plutôt que tout recopier.
+
+:::maj 17 septembre 2026
+**\`AGENTS.md\` fonctionne aussi.** Depuis la version 2.1.277, dans un projet qui n'a **pas** de CLAUDE.md, Claude Code lit \`AGENTS.md\` — le fichier de consignes que plusieurs agents de code se partagent. Tout ce qui est dit dans cette leçon s'y applique mot pour mot : court, factuel, non devinable.
+
+Deux conséquences pratiques. Si tu contribues à un dépôt qui a déjà son AGENTS.md, tu n'as rien à faire. Et si tu hésites à créer un CLAUDE.md dans un dépôt partagé avec des collègues qui utilisent d'autres outils, écris plutôt un AGENTS.md : tout le monde en profite. Le choix se règle dans \`/config\` → « Project instructions ». CLAUDE.md reste prioritaire quand les deux existent.
+:::
 
 :::piege Le CLAUDE.md obèse
 L'erreur la plus fréquente en 2026 : empiler des centaines de lignes « au cas où ». Chaque ligne est rechargée à **chaque session**, coûte du contexte, et dilue les consignes qui comptent vraiment. Si un bloc n'est utile que pour un type de tâche précis, il ne va pas dans CLAUDE.md : il va dans un **skill** chargé à la demande (leçon suivante). Test simple : « Claude peut-il déduire ça du code lui-même ? » Si oui, coupe.

@@ -105,10 +105,14 @@ export async function POST(req: NextRequest) {
   //    Prompt caching : instructions + base de connaissance dans `system`,
   //    breakpoint sur le dernier bloc (stable pour tous les users Mastery).
   //    La conversation (volatile) est dans `messages`, après le cache.
-  //    Thinking off (Q&A ancré, latence chat) + effort medium.
+  //    Réflexion désactivée explicitement : sur Sonnet 5, omettre `thinking`
+  //    lance la réflexion adaptative, ce qui ajouterait une attente avant le
+  //    premier mot. Ici la réponse est ancrée dans une base fournie — le
+  //    modèle n'a rien à déduire, il a à retrouver et à expliquer.
   const stream = getAnthropic().messages.stream({
     model: MENTOR_MODEL,
     max_tokens: 4096,
+    thinking: { type: "disabled" },
     output_config: { effort: "medium" },
     system: [
       { type: "text", text: MENTOR_SYSTEM_INSTRUCTIONS },

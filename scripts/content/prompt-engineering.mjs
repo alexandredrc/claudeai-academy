@@ -9,13 +9,13 @@ const SOURCE_FOOTER = `
 
 ---
 
-**Sources** · Doc officielle Anthropic, *Prompting best practices* : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\` et \`…/prompt-engineering/overview\`. Page par modèle **Prompting Claude Opus 5** : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5\`. Article *The new rules of context engineering for Claude 5 generation models* (24/07/2026) : \`claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models\`. Nouveautés du modèle : \`platform.claude.com/docs/en/about-claude/models/whats-new-opus-5\`. Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu revérifié le **6 août 2026** pour la gamme Claude Fable 5 / Opus 5 / Sonnet 5 / Haiku 4.5.`;
+**Sources** · Doc officielle Anthropic, *Prompting best practices* : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\` et \`…/prompt-engineering/overview\`. Page par modèle **Prompting Claude Opus 5** : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5\`. Article *The new rules of context engineering for Claude 5 generation models* (24/07/2026) : \`claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models\`. Nouveautés du modèle : \`platform.claude.com/docs/en/about-claude/models/whats-new-opus-5\`. Tutoriel interactif : \`github.com/anthropics/prompt-eng-interactive-tutorial\`. Contenu revérifié le **20 septembre 2026** pour la gamme Claude Fable 5.1 / Opus 5 / Sonnet 5 / Haiku 4.5.`;
 
 export const promptEngineeringPro = {
   slug: "prompt-engineering-pro",
   title: "Prompt Engineering pro",
   description:
-    "Les techniques officielles Anthropic, traduites en méthode opérationnelle : clarté, contexte, exemples, balises XML, réglage de l'effort, chaînage. À jour Claude Opus 5 et Fable 5 — y compris les conseils qui se sont inversés en juillet 2026.",
+    "Les techniques officielles Anthropic, traduites en méthode opérationnelle : clarté, contexte, exemples, balises XML, réglage de l'effort, chaînage. À jour Claude Opus 5 et Fable 5.1 — y compris les conseils qui se sont inversés en juillet 2026.",
   tier_required: "starter",
   display_order: 2,
   estimated_duration_min: 230,
@@ -86,7 +86,7 @@ Chaque leçon : la technique officielle, des prompts copiables, un ou deux anti-
 
 ## Ce qui a changé en 2026, et pourquoi ça compte dès maintenant
 
-Ce parcours est à jour au **6 août 2026** pour la gamme actuelle : **Claude Fable 5**, **Claude Opus 5**, **Claude Sonnet 5** et **Claude Haiku 4.5**. Le socle n'a pas bougé — clarté, contexte, exemples, balises. En revanche, une partie des conseils de la génération précédente s'est purement et simplement **inversée**.
+Ce parcours est à jour au **20 septembre 2026** pour la gamme actuelle : **Claude Fable 5.1** (sorti le 1er septembre), **Claude Opus 5**, **Claude Sonnet 5** et **Claude Haiku 4.5**. Le socle n'a pas bougé — clarté, contexte, exemples, balises. En revanche, une partie des conseils de la génération précédente s'est purement et simplement **inversée**.
 
 :::maj 24 juillet 2026
 **Claude Opus 5** (\`claude-opus-5\`) sort et devient le modèle Opus par défaut : 1 M de tokens de contexte, **réflexion activée par défaut**, 5 $ / 25 $ par million de tokens. Le même jour, Anthropic publie *The new rules of context engineering for Claude 5 generation models* — l'article qui rend caduque une partie de ce que tout le monde enseignait encore en juin.
@@ -803,7 +803,7 @@ Si tu as appris le prompt engineering il y a un an, tout ce paragraphe a changé
 | --- | --- | --- |
 | **Claude Opus 5** (24/07/2026) | **Activée** | Seulement à effort \`high\` ou moins ; sinon erreur 400 |
 | Claude Sonnet 5 | Activée | Oui (\`thinking: {type: "disabled"}\`) |
-| Claude Fable 5 | Toujours active | Non |
+| Claude Fable 5.1 et Fable 5 | Toujours active | Non |
 | Opus 4.6 → 4.8, Sonnet 4.6 (legacy) | Opt-in | — |
 
 :::maj 24 juillet 2026
@@ -825,7 +825,7 @@ Si Claude raisonne trop superficiellement sur un problème dur, le premier réfl
 Quelques repères issus de la doc, à confronter à tes propres tests :
 
 - **Tâches sensibles à l'intelligence** (analyse fine, code non trivial, agentique) : reste au minimum sur \`high\`.
-- **Sur Fable 5**, \`high\` (le défaut) suffit à la plupart des tâches ; garde \`xhigh\` pour les charges vraiment exigeantes.
+- **Sur Fable 5.1**, \`high\` (le défaut) suffit à la plupart des tâches ; garde \`xhigh\` pour les charges vraiment exigeantes. Fais l'essai à \`low\` et \`medium\` avant de monter : depuis la version 5.1, ces deux crans atteignent souvent ce que Fable 5 demandait plus haut, pour nettement moins cher.
 - **Latence et coût prioritaires**, tâche mécanique : \`low\` ou \`medium\`.
 - À \`xhigh\` / \`max\`, prévois un \`max_tokens\` large (~64k) : il plafonne réflexion **et** réponse.
 

@@ -12,7 +12,7 @@ const FOOTER = `
 
 ---
 
-**Sources** · Vérifié le **19 août 2026**. Documentation officielle : *What's new in Opus 5*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable 5 on your plan*, *Use Claude Cowork on web, desktop and mobile*, *Get started with Claude in Chrome*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
+**Sources** · Vérifié le **20 septembre 2026**. Documentation officielle : *What's new in Opus 5*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable models on your plan*, *Claude Cowork and chat are now one Claude*, *Get started with Claude in Chrome*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
 
 export const bienDemarrerAvecClaude = {
   slug: "bien-demarrer-avec-claude",
@@ -93,7 +93,7 @@ Choisis un raccourci que tes doigts atteignent sans regarder et qui n'entre en c
 Connecte-toi avec le même compte : l'historique est synchronisé. Le mobile est idéal pour dicter une idée en marchant, photographier un document à analyser, ou reprendre une conversation commencée au bureau.
 
 :::maj 7 juillet 2026
-**Claude Cowork** — l'espace où tu délègues des tâches de fond — n'est plus réservé à l'application de bureau : il est arrivé en beta sur \`claude.ai\` et sur mobile iOS/Android. Les sessions tournent **dans le cloud** : une tâche lancée depuis le téléphone continue même quand tu ranges ton portable, et Claude te notifie quand il a besoin d'une décision. Le déploiement a commencé par les abonnés Max, puis s'étend aux autres plans. On y revient en leçon 4.
+**Cowork — l'espace où l'on déléguait les tâches de fond — a fusionné avec le chat le 16 septembre 2026.** Il n'y a plus d'application à part ni de décision à prendre : tu écris dans Claude, et c'est lui qui enclenche le travail de fond quand la tâche le demande. Les sessions tournent **dans le cloud**, donc une tâche lancée depuis le téléphone continue quand tu ranges ton portable. Déploiement d'abord sur **Pro et Max**, puis Team et Free. On y revient en leçon 4.
 :::
 
 ## Quelle porte pour quel usage
@@ -144,8 +144,8 @@ R: Avoir au moins 18 ans et se trouver dans une région supportée. Aucune carte
 Q: Quel est le vrai intérêt de l'application de bureau par rapport au web ?
 R: Le raccourci clavier global (Quick Entry), qui ouvre Claude par-dessus n'importe quelle application.
 ===
-Q: Cowork est-il encore une application de bureau uniquement ?
-R: Non. Depuis le 7 juillet 2026, Cowork est aussi sur le web et le mobile, avec des sessions qui tournent dans le cloud.
+Q: Faut-il choisir entre le chat et Cowork ?
+R: Non, plus depuis le 16 septembre 2026 : les deux ont fusionné. Tu écris dans Claude, il enclenche le travail de fond quand c'est nécessaire.
 ===
 Q: Le plan gratuit se limite-t-il au chat ?
 R: Non. Au 6 août 2026 il inclut notamment Claude Code, la recherche web, la mémoire et la réflexion étendue. C'est le volume d'usage qui est limité.
@@ -177,7 +177,7 @@ Grille relevée sur \`claude.com/pricing\` le **6 août 2026** :
 | Plan | Prix affiché | Ce qui compte vraiment |
 | --- | --- | --- |
 | **Free** | 0 $ | Web, iOS, Android et bureau. **Claude Code**, recherche web, mémoire, création de fichiers, exécution de code, extensions de bureau, connecteurs Slack et Google Workspace, **réflexion étendue**. Limites d'usage serrées. |
-| **Pro** | **17 $/mois** en annuel (200 $ payés d'avance) ou **20 $/mois** au mois | Tout le Free, plus : usage augmenté, choix entre plusieurs modèles, **Research**, **Claude Cowork**, **Claude Design**, **Claude Science**, **projets illimités**, intégration **Microsoft 365**. |
+| **Pro** | **17 $/mois** en annuel (200 $ payés d'avance) ou **20 $/mois** au mois | Tout le Free, plus : usage augmenté, choix entre plusieurs modèles, **Research**, le **travail de fond** (l'ancien Cowork, fusionné dans Claude), **Claude Design**, **Claude Docs**, **Claude Slides**, **Claude Science**, **projets illimités**, intégration **Microsoft 365**. |
 | **Max** | « à partir de 100 $/mois » | Usage 5× ou 20× celui de Pro, accès anticipé aux nouveautés. |
 | **Team** | **20 $/siège/mois** en annuel (25 $ au mois) ; siège premium **100 $** en annuel (125 $ au mois) | Facturation centralisée, administration, connexion via le compte d'entreprise (SSO). |
 | **Enterprise** | **20 $/siège** + usage aux tarifs API | Contrôles de sécurité et de conformité avancés : journaux d'audit, gestion automatique des comptes, conformité santé HIPAA. |
@@ -191,7 +191,7 @@ Au 6 août 2026, la page officielle affiche « à partir de 100 $ par mois » su
 ## Ce qui a changé côté Pro (et que beaucoup ignorent)
 
 :::maj 6 août 2026
-Le plan **Pro** ne se résume plus à « plus de messages ». Il liste désormais **Claude Cowork**, **Claude Design**, **Claude Science**, les **projets illimités**, **Research** et l'intégration **Microsoft 365**. Si tu as lu quelque part que Cowork, Design ou Science étaient réservés à Max, c'est périmé.
+Le plan **Pro** ne se résume plus à « plus de messages ». Il donne accès au **travail de fond** (l'ancien Cowork, désormais fondu dans Claude), à **Claude Design**, **Claude Docs**, **Claude Slides**, **Claude Science**, aux **projets illimités**, à **Research** et à l'intégration **Microsoft 365**. Si tu as lu quelque part que Cowork, Design ou Science étaient réservés à Max, c'est périmé.
 :::
 
 Trois de ces éléments reviendront constamment dans les parcours suivants :
@@ -232,7 +232,7 @@ Pour ceux qui consomment régulièrement, il existe en plus des **bundles d'usag
 2 000 $ | plafond mensuel de bundles pour un particulier Pro ou Max
 :::
 
-Le solde acheté est utilisable dans Claude, Claude Code, Claude Cowork et certains produits tiers. C'est le levier que presque personne n'active en France, alors qu'il coûte souvent moins cher qu'un passage à Max pour un besoin ponctuel : une grosse semaine de migration de code, un audit de documents, un lancement.
+Le solde acheté est utilisable dans Claude, Claude Code et certains produits tiers. C'est le levier que presque personne n'active en France, alors qu'il coûte souvent moins cher qu'un passage à Max pour un besoin ponctuel : une grosse semaine de migration de code, un audit de documents, un lancement.
 
 :::piege « Je prends Max pour être tranquille »
 C'est l'erreur la plus fréquente et la plus chère. Commence par Pro : la grande majorité des professionnels n'atteint jamais ses limites hebdomadaires. Si tu butes trois semaines de suite, compare **honnêtement** deux options : passer à Max, ou acheter un bundle d'usage. Max se justifie par un constat d'usage répété, pas par précaution.
@@ -279,19 +279,19 @@ R: Activer les crédits d'usage, ou acheter un bundle d'usage (jusqu'à 30 % de 
 Q: Fable 5 est-il inclus dans l'abonnement Pro ?
 R: Non, plus depuis le 20 juillet 2026. Sur Pro il passe par les crédits d'usage ; Max en couvre jusqu'à 50 % des limites hebdomadaires.
 ===
-Q: Cowork, Design et Science sont-ils réservés à Max ?
-R: Non, ils sont listés dans le plan Pro au 6 août 2026.
+Q: Le travail de fond, Design et Science sont-ils réservés à Max ?
+R: Non, ils sont listés dans le plan Pro au 20 septembre 2026.
 :::` + FOOTER,
     },
     {
       slug: "choisir-le-bon-modele-effort-reflexion",
       title: "Choisir le bon modèle (et régler l'effort et la réflexion)",
       description:
-        "La famille de modèles au 6 août 2026 — Opus 5 en tête —, le sélecteur à côté du bouton d'envoi, et le niveau d'effort devenu le vrai levier de qualité.",
+        "La famille de modèles au 20 septembre 2026 — Fable 5.1 en tête —, le sélecteur à côté du bouton d'envoi, et le niveau d'effort devenu le vrai levier de qualité.",
       duration_min: 18,
       is_free_preview: false,
       content_md: `:::objectifs
-- Situer Opus 5, Sonnet 5, Fable 5 et Haiku 4.5 sans confondre les générations
+- Situer Fable 5.1, Opus 5, Sonnet 5 et Haiku 4.5 sans confondre les générations
 - Comprendre pourquoi la réflexion étendue n'est plus un interrupteur sur Opus 5
 - Régler le **niveau d'effort** selon la tâche — le vrai levier de 2026
 - Reconnaître un modèle « Legacy » et savoir quand il sert encore
@@ -304,18 +304,25 @@ Opus 5 (24 juillet 2026) réfléchit **par défaut**, et dans l'application ce c
 
 ## Il n'y a pas « un » Claude
 
-Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche reste le premier levier de qualité — avant même le prompt. État de la gamme au **6 août 2026** :
+Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche reste le premier levier de qualité — avant même le prompt. État de la gamme au **20 septembre 2026** :
 
 | Modèle | Statut | Pour quoi | Contexte |
 | --- | --- | --- | --- |
-| **Claude Fable 5** | Actuel — le plus capable | Les tâches les plus exigeantes, quand le coût passe après | 1M tokens |
-| **Claude Opus 5** | Actuel — sorti le 24/07/2026 | Code, tâches agentiques, raisonnement exigeant. **Défaut sur Max**, et le modèle le plus puissant accessible sur **Pro** | 1M tokens |
+| **Claude Fable 5.1** | Actuel — le plus capable, sorti le 01/09/2026 | Les tâches les plus exigeantes, le travail long sans supervision, quand le coût passe après | 1M tokens |
+| **Claude Opus 5** | Actuel — sorti le 24/07/2026 | Code, tâches agentiques, raisonnement exigeant. **Défaut sur Max**, et le modèle le plus puissant accessible sur **Pro** sans crédits | 1M tokens |
 | **Claude Sonnet 5** | Actuel | L'équilibré : rédaction, analyse, usage d'outils, travail quotidien | 1M tokens |
 | **Claude Haiku 4.5** | Actuel | Le plus rapide et le plus économe : questions simples, gros volumes | 200k tokens |
+| Claude Fable 5 | Génération précédente, **toujours servie** au même tarif | Workflows déjà calés dessus | 1M tokens |
 | Opus 4.8 / 4.7 / 4.6, Sonnet 4.6 / 4.5, Opus 4.5 | **Legacy** | Reproductibilité, comparaisons, workflows déjà calés dessus | — |
 
 :::maj 24 juillet 2026
 **Claude Opus 5** remplace Opus 4.8 comme modèle Opus de référence : contexte de **1 million de tokens** (c'est à la fois le défaut et le maximum, il n'y a pas de variante 200k), **128 000 tokens de sortie**, réflexion étendue **activée par défaut**, connaissances arrêtées à **mai 2026**. Opus 4.8 bascule dans les « modèles Legacy ». Côté API, Opus 5 est au **même tarif** qu'Opus 4.8 : 5 $ / 25 $ par million de tokens.
+:::
+
+:::maj 1er septembre 2026
+**Claude Fable 5.1** prend la tête de la gamme, devant Fable 5. Le tarif par million de tokens **ne bouge pas** (10 $ / 50 $), mais deux choses changent le calcul réel : la **lecture de cache tombe à 0,25 $ par million** (−75 %), et le modèle atteint à effort \`low\` ou \`medium\` ce que Fable 5 demandait plus haut. Anthropic annonce **−25 % de coût sur les usages courants** et jusqu'à **−45 % sur les tâches agentiques** — c'est-à-dire un modèle plus capable ET moins cher à l'usage, ce qui n'est pas l'ordre habituel des choses.
+
+Pour toi, dans l'application, le régime d'accès ne change pas : Fable 5.1 suit exactement les règles de Fable 5 vues en leçon 2 (**Max** et sièges Team premium : jusqu'à la moitié des limites hebdomadaires ; **Pro** et sièges Team standard : crédits d'usage dès le premier message ; **Free** : indisponible).
 :::
 
 Retiens la logique plutôt que les numéros (ils changent tous les trimestres) : **Haiku = vitesse, Sonnet = équilibre, Opus = puissance de travail, Fable = plafond de capacité.**
@@ -331,7 +338,7 @@ Le sélecteur se trouve **à côté du bouton d'envoi**. Il affiche le modèle a
 1. **Le modèle** : clique sur son nom, choisis dans la liste.
 2. **L'effort** : l'intensité de traitement de chaque réponse.
 
-Au 6 août 2026, le sélecteur de l'application propose **Opus 5, Sonnet 5, Fable 5, Opus 4.8, Opus 4.7, Opus 4.6 et Sonnet 4.6**. Haiku 4.5 est bien un modèle actuel, mais il ne figure pas dans cette liste : on l'utilise via l'API et les outils qui l'appellent, pas depuis le sélecteur du chat.
+Au 20 septembre 2026, le sélecteur de l'application propose les modèles actuels — **Fable 5.1, Opus 5, Sonnet 5** — puis les générations précédentes encore servies (**Fable 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6**). Haiku 4.5 est bien un modèle actuel, mais il ne figure pas dans cette liste : on l'utilise via l'API et les outils qui l'appellent, pas depuis le sélecteur du chat.
 
 Deux autres raisons possibles si tu ne vois pas un modèle cité ici : ton plan (Fable 5 dépend de crédits d'usage sur Pro, voir leçon 2), ou une politique d'entreprise — sur les comptes Team et Enterprise, les administrateurs peuvent restreindre par rôle les modèles et les niveaux d'effort accessibles. Ce n'est pas un bug.
 
@@ -379,10 +386,11 @@ Les tarifs API comptent pour toi dès que tu utilises des crédits ou des bundle
 
 | Modèle | Prix par million de tokens (entrée / sortie) |
 | --- | --- |
-| Claude Fable 5 | 10 $ / 50 $ |
+| Claude Fable 5.1 | 10 $ / 50 $ — **lecture de cache à 0,25 $** |
 | Claude Opus 5 | 5 $ / 25 $ |
 | Claude Sonnet 5 | **2 $ / 10 $** (tarif définitif) |
 | Claude Haiku 4.5 | 1 $ / 5 $ |
+| Claude Fable 5 (génération précédente) | 10 $ / 50 $ |
 
 :::maj 20 août 2026
 **Un piège de calcul qui coûte cher.** Les modèles **Claude 4.7 et suivants** (donc Opus 5, Sonnet 5, Fable 5) utilisent un tokenizer plus récent qui produit environ **30 % de tokens en plus pour le même texte**. Le tarif par million de tokens a baissé, mais le nombre de tokens facturés pour un document identique a augmenté : si tu compares une facture d'aujourd'hui à un budget calculé sur Sonnet 4.6, compare des coûts réels, pas des prix affichés. L'écart exact dépend de ton contenu.
@@ -397,6 +405,7 @@ Le tarif de **Sonnet 5** (2 $ / 10 $ par million de tokens), annoncé au lanceme
 > Tâche simple → Sonnet 5, effort bas (Haiku 4.5 si tu passes par l'API).
 > Tâche sérieuse → Sonnet 5 à \`high\`, puis Opus 5 si la rigueur manque encore.
 > Tâche vraiment difficile → Opus 5 à \`xhigh\`, et seulement là.
+> Tâche que tu confies pour des heures sans la surveiller → Fable 5.1, en sachant ce que ça coûte.
 
 Tout monter d'un coup pour une question banale, c'est payer plusieurs fois — en temps, en quota, en attente — pour un gain nul.
 
@@ -446,7 +455,7 @@ R: Qu'il fonctionne encore mais n'est plus mis en avant, et sera retiré un jour
       slug: "le-tour-de-l-interface-qui-compte",
       title: "Le tour de l'interface : chats, artefacts, recherche, incognito",
       description:
-        "Les fonctions de l'interface qui changent ta façon de travailler — artefacts, recherche, incognito, Cowork en session cloud — et celles que tu peux ignorer au début.",
+        "Les fonctions de l'interface qui changent ta façon de travailler — artefacts, recherche, incognito, documents et slides dans la conversation — et celles que tu peux ignorer au début.",
       duration_min: 17,
       is_free_preview: false,
       content_md: `:::objectifs
@@ -454,11 +463,11 @@ R: Qu'il fonctionne encore mais n'est plus mis en avant, et sera retiré un jour
 - Demander systématiquement tes livrables en artefact, et les éditer sur place
 - Distinguer recherche web, réflexion étendue et Research — et choisir le bon
 - Utiliser le mode incognito en connaissant ses limites réelles
-- Savoir ce qu'est devenu Cowork en 2026, et quand il remplace le chat
+- Comprendre la fusion de Cowork et du chat, et ce qu'elle supprime comme décision
 :::
 
 :::flash
-Trois réflexes suffisent la première semaine : joindre les vrais documents plutôt que de les résumer, demander tout livrable **en artefact**, et ouvrir **une conversation par sujet**. Le reste de l'écosystème — Cowork (y compris dans Chrome), Design, mode vocal — s'ajoutera quand tu en auras l'usage.
+Trois réflexes suffisent la première semaine : joindre les vrais documents plutôt que de les résumer, demander tout livrable **en artefact**, et ouvrir **une conversation par sujet**. Le reste — documents, slides, design, mode vocal, navigateur — vit désormais **dans la conversation** et s'ajoutera quand tu en auras l'usage.
 :::
 
 ## L'essentiel visible
@@ -504,26 +513,38 @@ L'icône **fantôme** (en haut à droite) ouvre une conversation incognito : ell
 
 Deux nuances qui surprennent tout le monde : incognito ne veut pas dire zéro trace — Anthropic conserve ces conversations **30 jours** pour des raisons de sécurité — et une conversation incognito fermée ne peut **jamais** être rouverte. Copie ce que tu veux garder avant de la quitter.
 
-## Cowork : ce n'est plus une application de bureau
+## Cowork : il n'y a plus de choix à faire
 
-:::maj 7 juillet 2026
-**Claude Cowork** est arrivé en beta sur \`claude.ai\` et sur mobile iOS/Android. Le changement de fond n'est pas la surface, c'est l'architecture : les **sessions tournent dans le cloud**. Une tâche lancée depuis ton portable **continue après que tu l'as fermé**, et Claude te notifie quand il a besoin d'une décision. S'y ajoutent le travail en arrière-plan, les **tâches planifiées**, les approbations depuis le mobile, et un **accueil unifié Chat + Cowork** avec projets et artifacts partagés. Le déploiement a commencé par les abonnés Max et s'étend aux autres plans.
+Pendant un an, Claude a eu deux portes : le **chat** pour une réponse tout de suite, **Cowork** pour un travail de fond auquel on revient plus tard. Il fallait donc trancher avant même d'écrire — et un travail commencé d'un côté ne suivait pas de l'autre. Cette décision n'existe plus.
+
+:::maj 16 septembre 2026
+**Cowork et le chat ne font plus qu'un.** Tu ne choisis plus où poser ta tâche : Claude regarde ce qu'elle demande et enclenche de lui-même le travail de fond quand il le faut. Trois modes deviennent deux — **Claude Chat** et **Claude Code**.
+
+Ce qui arrive avec la fusion : **Claude Docs** (rédiger un document à deux dans la conversation), **Claude Slides** (produire une présentation, l'éditer, la présenter depuis Claude ou l'exporter en PowerPoint/PDF), et **Claude Design** qui fonctionne désormais dans n'importe quelle conversation au lieu d'être un espace à part.
+
+Rien n'est perdu au passage : chats, projets, artefacts, connecteurs et skills sont là où tu les avais laissés. Par défaut, Claude **demande ton accord avant d'agir** ; tu peux régler ça pour le laisser continuer seul et ne revenir vers toi qu'en cas de besoin. Déploiement à partir du 16 septembre sur **Pro et Max**, puis **Team et Free** ; les comptes **Enterprise** sont prévenus 30 jours à l'avance.
 :::
 
-La distinction utile à retenir : le **chat** sert quand tu veux une réponse maintenant et que tu restes devant l'écran. **Cowork** sert quand tu veux confier un travail qui prend du temps et revenir plus tard — Cowork est listé dans le plan Pro depuis 2026 (leçon 2), ce n'est plus un privilège Max.
+:::piege Tout ce que tu liras ailleurs sur « chat ou Cowork ? » est périmé
+La quasi-totalité des tutoriels en ligne — y compris récents — t'expliquent comment choisir entre les deux. Cette question n'a plus d'objet depuis le 16 septembre 2026. Si un article te fait ouvrir « l'application Cowork », il a moins d'une saison et il est déjà faux.
+:::
+
+Ce qui reste vrai, et qui est le vrai fond de l'affaire : il y a **deux façons de travailler avec Claude**. Celle où tu restes devant l'écran et tu échanges. Celle où tu confies un travail qui prend du temps, tu fermes, et tu reviens. La seconde n'a plus d'adresse séparée — mais elle demande toujours un cadrage plus complet au départ, puisque tu ne seras pas là pour corriger le tir.
 
 ## Le reste de l'écosystème
 
 | Brique | Ce que c'est | Quand t'en occuper |
 | --- | --- | --- |
-| **Claude Design** | Prototypes et maquettes visuelles | Quand tu produis des interfaces ou des supports |
+| **Claude Docs** | Rédiger et éditer un document dans la conversation | Dès que tu produis de l'écrit à plusieurs mains |
+| **Claude Slides** | Une présentation éditable, exportable en PowerPoint ou PDF | Quand tu prépares un support |
+| **Claude Design** | Prototypes et maquettes visuelles, dans la conversation | Quand tu produis des interfaces ou des supports |
 | **Claude Code** | L'agent en terminal | Un parcours entier lui est consacré |
 | **Claude Science** | Outils orientés travaux scientifiques | Selon ton métier |
 | **Connecteurs** | Brancher Claude sur Drive, Slack, Microsoft 365… | Leçon suivante |
-| **Claude Cowork dans Chrome** | Le panneau latéral qui laisse Claude agir dans ton navigateur | Voir la mise à jour ci-dessous |
+| **Claude dans Chrome** | Le panneau latéral qui laisse Claude agir dans ton navigateur | Voir la mise à jour ci-dessous |
 
 :::maj 12 août 2026
-**« Claude in Chrome » n'existe plus sous ce nom.** Le panneau latéral de Chrome est devenu une **session Claude Cowork**. Ce n'est pas qu'un changement d'étiquette : ce que tu commences dans le navigateur **se retrouve sur le bureau, le web et le mobile**, les conversations sont enregistrées dans l'historique de ton compte, et tes **skills et connecteurs fonctionnent dans le navigateur**. Déploiement immédiat sur **Max et Team**, puis **Pro dans les semaines qui suivent**. Toujours **Chrome uniquement** : ni Edge, ni Brave, ni Arc, ni le mobile.
+**« Claude in Chrome » n'existe plus sous ce nom.** Le panneau latéral de Chrome est devenu une **session Claude** à part entière (à l'époque on disait « session Cowork » ; depuis la fusion du 16 septembre, c'est simplement Claude). Ce n'est pas qu'un changement d'étiquette : ce que tu commences dans le navigateur **se retrouve sur le bureau, le web et le mobile**, les conversations sont enregistrées dans l'historique de ton compte, et tes **skills et connecteurs fonctionnent dans le navigateur**. Déploiement immédiat sur **Max et Team**, puis **Pro dans les semaines qui suivent**. Toujours **Chrome uniquement** : ni Edge, ni Brave, ni Arc, ni le mobile.
 :::
 
 Le **mode vocal** a lui aussi changé de dimension : depuis le 23 juillet 2026, sur les plans payants, il ne tourne plus seulement sur Haiku mais aussi sur **Opus et Sonnet**, reprend la famille de modèle utilisée en dernier dans le chat texte, et peut accéder à tes **outils connectés pendant la conversation vocale** (Gmail, Google Agenda, Google Docs, Slack). Le plan Free reste sur Haiku avec un seul outil connecté. Ce point est relayé par la presse spécialisée plus que par les notes de version officielles : considère-le comme fiable dans les grandes lignes, et vérifie le détail dans ton application.
@@ -539,7 +560,7 @@ Une seule session, cinq gestes. Chacun devient un réflexe.
 - Tu as modifié un titre **dans l'artefact** : surligné puis « Edit with Claude », sans repasser par le chat
 - Tu as posé une question exigeant la recherche web et **vérifié les sources citées** (si aucune n'apparaît, active la recherche web via le bouton « + »)
 - Tu as ouvert une conversation incognito et constaté qu'elle n'apparaît pas dans l'historique
-- Bonus : tu as ouvert Cowork et lancé une tâche de fond pour voir le fonctionnement en session cloud
+- Bonus : tu as confié à Claude une tâche longue, fermé l'onglet, et vérifié qu'elle avait continué sans toi
 :::
 
 :::memo
@@ -552,11 +573,11 @@ R: La recherche web va chercher un fait récent ponctuel ; Research mène une in
 Q: Une conversation incognito laisse-t-elle zéro trace ?
 R: Non. Elle n'entre ni dans l'historique ni dans la mémoire, mais Anthropic la conserve 30 jours pour des raisons de sécurité. Et elle est irrécupérable une fois fermée.
 ===
-Q: Cowork est-il réservé à l'application de bureau et au plan Max ?
-R: Non. Depuis le 7 juillet 2026 il est sur le web et le mobile, avec des sessions cloud, et il est listé dans le plan Pro.
+Q: Où faut-il aller pour confier à Claude un travail long ?
+R: Nulle part ailleurs. Depuis le 16 septembre 2026, Cowork et le chat sont fusionnés : Claude enclenche seul le travail de fond.
 ===
 Q: Qu'est devenu « Claude in Chrome » ?
-R: Depuis le 12 août 2026, le panneau latéral de Chrome est une session Claude Cowork : le travail se poursuit sur bureau, web et mobile, et les skills et connecteurs y fonctionnent. Chrome uniquement.
+R: Depuis le 12 août 2026, le panneau latéral de Chrome est une session Claude : le travail se poursuit sur bureau, web et mobile, et les skills et connecteurs y fonctionnent. Chrome uniquement.
 :::` + FOOTER,
     },
     {
@@ -1012,7 +1033,9 @@ L'écosystème avance vite, et une partie de ce que tu liras ailleurs sur Claude
 | 24 juillet 2026 | **Opus 5**, thinking par défaut, effort comme levier | « Le dernier Opus est le 4.8 » |
 | 5 août 2026 | Retrait d'Opus 4.1 | « Opus 4.1 est encore utilisable » |
 | 11 août 2026 | Tarif Sonnet 5 (2 $ / 10 $) rendu **permanent** | « Sonnet 5 augmente le 1er septembre » |
-| 12 août 2026 | Le panneau Chrome devient une **session Cowork** | « Claude in Chrome est une extension à part » |
+| 12 août 2026 | Le panneau Chrome devient une **session Claude** | « Claude in Chrome est une extension à part » |
+| 1er septembre 2026 | **Fable 5.1**, lecture de cache à 0,25 $ / M | « Fable 5 est le modèle le plus capable » |
+| 16 septembre 2026 | **Cowork fusionne avec le chat** ; Docs et Slides arrivent | « Il faut choisir entre le chat et Cowork » |
 
 :::astuce Prends le réflexe de dater ce que tu apprends
 Quand tu lis un tutoriel sur Claude, cherche d'abord sa date. Sans date, ou plus vieux que trois mois, traite-le comme une hypothèse à vérifier — pas comme un fait. La documentation officielle est sur \`platform.claude.com/docs/en/\` et le centre d'aide sur \`support.claude.com\` : ce sont les deux seules sources qui bougent en même temps que le produit.

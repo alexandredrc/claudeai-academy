@@ -20,7 +20,7 @@ const FOOTER = `
 
 **Sources & méthode** · Bonnes pratiques SQL, statistiques robustes et data-viz : savoir établi, vérifié à la rédaction. Contenu original pour ClaudeAI Academy.
 
-Faits Claude vérifiés le **6 août 2026** — [Opus 5, ce qui change](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) · [Modèles et tarifs](https://platform.claude.com/docs/en/about-claude/models/overview) · [Cache de prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) · [Prompter Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) · [Notes de version](https://platform.claude.com/docs/en/release-notes/overview) · [Spécification MCP 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28/changelog) · [Connecteur Anthropic Economic Index](https://www.anthropic.com/news/anthropic-economic-index-connector) · [Plans et tarifs](https://claude.com/pricing). Les prix, les limites et les versions bougent vite : redate-les avant de t'en servir dans une décision.`;
+Faits Claude vérifiés le **20 septembre 2026** — [Opus 5, ce qui change](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) · [Modèles et tarifs](https://platform.claude.com/docs/en/about-claude/models/overview) · [Cache de prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) · [Prompter Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) · [Notes de version](https://platform.claude.com/docs/en/release-notes/overview) · [Spécification MCP 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28/changelog) · [Connecteur Anthropic Economic Index](https://www.anthropic.com/news/anthropic-economic-index-connector) · [Plans et tarifs](https://claude.com/pricing). Les prix, les limites et les versions bougent vite : redate-les avant de t'en servir dans une décision.`;
 
 export const claudeDataSql = {
   slug: "claude-data-sql",
@@ -311,13 +311,18 @@ La liste d'hypothèses est ta checklist de relecture : tu valides chaque point c
 
 ## Ce que ça coûte quand tu passes par l'API
 
-Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du modèle se chiffre. Tarifs par million de tokens relevés au **19 août 2026** :
+Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du modèle se chiffre. Tarifs par million de tokens relevés au **20 septembre 2026** :
 
 | Modèle | Entrée | Sortie | Bon pour |
 | --- | --- | --- | --- |
 | Haiku 4.5 | 1 $ | 5 $ | contrôles répétitifs, reformatage, classification |
 | Sonnet 5 | **2 $** | **10 $** | l'essentiel de la génération SQL |
 | Opus 5 | 5 $ | 25 $ | schémas énormes, requêtes analytiques tordues |
+| Fable 5.1 | 10 $ | 50 $ | rarement justifié ici — voir ci-dessous |
+
+:::maj 1er septembre 2026
+**Claude Fable 5.1** est sorti et prend la tête de la gamme. Il ne change rien à ce tableau pour la data : sur de la génération SQL, Sonnet 5 fait le travail à un cinquième du prix d'entrée, et la difficulté n'est presque jamais le raisonnement — c'est le contexte que tu fournis. Garde Fable pour ce qu'il sait faire de mieux : un travail long que tu ne surveilles pas, du type « reprends ces 300 requêtes et harmonise-les ». Note quand même sa **lecture de cache à 0,25 $ par million** (−75 %), qui change le calcul dès qu'un gros schéma est renvoyé en boucle.
+:::
 
 Deux leviers de coût qui comptent beaucoup sur des traitements data répétitifs :
 

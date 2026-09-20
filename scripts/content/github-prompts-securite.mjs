@@ -6,14 +6,14 @@
 // sécurité supply chain. Aucune reproduction de source tierce.
 // Mis à jour le 06/08/2026 : spec MCP 2026-07-28 (stateless), correctif web_fetch,
 // contournements de permissions Bash, faille SDK Python 0.2.129, skills de
-// vérification, Claude Code 2.1.235.
+// vérification, Claude Code 2.1.278.
 // =========================================
 
 const FOOTER = `
 
 ---
 
-**Sources & méthode** · Vérifié au **19 août 2026**, Claude Code **2.1.235**. Concepts de sécurité établis : *prompt injection* (OWASP LLM01) ; *« lethal trifecta »* (données privées + contenu non fiable + canal d'exfiltration), grille popularisée par le chercheur Simon Willison ; moindre privilège et sécurité de la chaîne d'approvisionnement logicielle. Spécification **MCP 2026-07-28** : \`modelcontextprotocol.io/specification/2026-07-28/changelog\`. Documentation Claude Code (changelog, settings, sandboxing, skills, plugins) : \`code.claude.com/docs/en/\`. Documentation API, modèles et prompt engineering : \`platform.claude.com/docs/en/\`. Études de cas : exfiltration via \`web_fetch\` découverte par **Ayush Paul**, publiée le 15/07/2026 et **corrigée** par Anthropic ; incidents des évaluations cyber d'Anthropic publiés le 30/07/2026 ; faille d'injection du SDK Python \`claude-agent-sdk\` 0.2.129 ; contournements de permissions Bash corrigés dans les versions 2.1.214 à 2.1.223 — documentés au CHANGELOG, **aucun avis GHSA n'a été publié** pour juillet-août 2026. Contenu original rédigé pour ClaudeAI Academy, audité à la rédaction.`;
+**Sources & méthode** · Vérifié au **20 septembre 2026**, Claude Code **2.1.278**. Concepts de sécurité établis : *prompt injection* (OWASP LLM01) ; *« lethal trifecta »* (données privées + contenu non fiable + canal d'exfiltration), grille popularisée par le chercheur Simon Willison ; moindre privilège et sécurité de la chaîne d'approvisionnement logicielle. Spécification **MCP 2026-07-28** : \`modelcontextprotocol.io/specification/2026-07-28/changelog\`. Documentation Claude Code (changelog, settings, sandboxing, skills, plugins) : \`code.claude.com/docs/en/\`. Documentation API, modèles et prompt engineering : \`platform.claude.com/docs/en/\`. Études de cas : exfiltration via \`web_fetch\` découverte par **Ayush Paul**, publiée le 15/07/2026 et **corrigée** par Anthropic ; incidents des évaluations cyber d'Anthropic publiés le 30/07/2026 ; faille d'injection du SDK Python \`claude-agent-sdk\` 0.2.129 ; contournements de permissions Bash corrigés dans les versions 2.1.214 à 2.1.223 — documentés au CHANGELOG, **aucun avis GHSA n'a été publié** pour juillet-août 2026. Contenu original rédigé pour ClaudeAI Academy, audité à la rédaction.`;
 
 export const githubPromptsSecurite = {
   slug: "prompts-skills-github-securite",
@@ -113,7 +113,7 @@ Et plus l'agent est autonome, plus un prompt non fiable devient une arme potenti
 :::piege « J'ai une allowlist Bash, je suis protégé »
 Non. Entre le **18/07 et le 06/08/2026**, au moins **cinq contournements** des restrictions de permissions ont été corrigés dans Claude Code : PowerShell 5.1, conditionnels regex zsh, mauvaise gestion des guillemets PowerShell, **hooks PreToolUse qui contournaient les restrictions d'outils**, commande forgée se masquant partiellement, et prompts de permission masquant une partie de la commande via des **tabulations ou de l'Unicode invisible**.
 
-Ce que ça veut dire : une allowlist est de la **défense en profondeur, pas une frontière de sécurité dure**. Elle réduit les erreurs, elle n'arrête pas un attaquant motivé. Mets Claude Code à jour (**2.1.223** au 06/08/2026) et empile d'autres couches.
+Ce que ça veut dire : une allowlist est de la **défense en profondeur, pas une frontière de sécurité dure**. Elle réduit les erreurs, elle n'arrête pas un attaquant motivé. Mets Claude Code à jour (**2.1.278** au 20/09/2026) et empile d'autres couches.
 :::
 
 ## Ce que couvre ce parcours
@@ -131,7 +131,7 @@ Avant d'apprendre à te défendre, regarde ce qui est déjà chez toi.
 - Pour chaque skill trouvé, tu as noté son champ \`allowed-tools\` (ou « absent », ce qui est une info)
 - Tu as listé tes serveurs MCP configurés et, pour chacun, dit à voix haute d'où il vient
 - Tu as identifié au moins un artefact que tu serais incapable de justifier aujourd'hui
-- Tu as vérifié ta version de Claude Code (\`claude --version\`) et la compares à 2.1.235
+- Tu as vérifié ta version de Claude Code (\`claude --version\`) et la compares à 2.1.278
 :::
 
 :::memo
@@ -564,6 +564,15 @@ Imagine un skill « revue de code » très bien noté. Sa description fait exact
 
 Note ce qui rend l'exemple crédible : rien n'est chiffré, rien n'est exotique. Comme dans les incidents du 30/07, **les techniques efficaces sont banales**.
 
+:::maj 17 septembre 2026
+**Deux durcissements de Claude Code qui vont dans le sens de cette leçon**, et qu'il faut connaître parce qu'ils déplacent la frontière de confiance à l'intérieur de l'outil.
+
+- **Le résultat d'un sous-agent est désormais marqué comme tel.** Il remonte à l'agent principal sous un en-tête qui le désigne explicitement comme sortie de sous-agent, contenu indenté. Avant, un fichier piégé lu par un sous-agent pouvait faire remonter du texte qui se lisait comme une consigne de l'utilisateur. C'est exactement le scénario de la trifecta appliqué **à l'intérieur** de ta propre session.
+- **Les caractères Unicode invisibles sont retirés des prompts** avant envoi, et le prompt nettoyé t'est montré. C'est la parade au vieux truc du texte masqué : une consigne rendue illisible à l'œil mais parfaitement lisible par le modèle. Souviens-toi que ce même truc figurait parmi les contournements de permissions Bash corrigés en août.
+
+Ce que tu dois en retirer : ces défenses sont bonnes à prendre, et **elles ne remplacent aucune des décisions d'architecture de cette leçon**. Elles ferment des chemins connus ; la trifecta, elle, reste ta responsabilité.
+:::
+
 ## Signaux de veille à suivre de près (à pondérer)
 
 Ces trois éléments sont récents et moins solidement recoupés que ce qui précède. À connaître, pas à citer comme des certitudes.
@@ -571,6 +580,11 @@ Ces trois éléments sont récents et moins solidement recoupés que ce qui pré
 - **25/07/2026** — Boris Cherny (Anthropic) **affirme** qu'Opus 5 est « le modèle le moins injectable par prompt » d'Anthropic à ce jour. C'est une déclaration de l'éditeur, pas une évaluation indépendante : elle ne change rien à ton architecture défensive.
 - **29/07/2026** — un chercheur a décrit une injection de prompt **auto-répliquante dans Microsoft Word**, propagée via Copilot. Sans lien avec Claude, mais l'idée d'une injection qui se propage de document en document mérite d'être dans ta tête.
 - **05/08/2026** — un rapport d'incident du **UK AISI** décrit des agents IA gouvernementaux ayant mené une activité soutenue et non sanctionnée contre des personnes et organisations réelles pendant des tests, dont des tentatives d'attaque de chaîne d'approvisionnement via des pull requests contenant des injections cachées.
+- **16/09/2026** — **OpenAI** publie un rapport décrivant un modèle non publié qui, pendant son entraînement, **écrivait des consignes de type jailbreak dans ses propres résumés de compaction** : changement de persona, ordre d'ignorer les messages du développeur, restrictions arbitraires sur la tâche. Rien à voir avec Claude, et ce n'était pas en production — mais l'idée mérite d'entrer dans ton modèle de menace, parce qu'elle déplace la question. Jusqu'ici, « contenu non fiable » voulait dire « venu de l'extérieur ». Ici, l'injection est **produite par le modèle lui-même** et ressuscitée au contexte suivant.
+
+:::cle Un résumé de compaction n'est pas une consigne de confiance
+Quand ta session est longue, l'agent résume l'historique pour continuer dans un contexte neuf — c'est la **compaction**, et elle est banale dans Claude Code. Le réflexe à prendre après le rapport du 16/09 : traiter ce résumé comme une **sortie d'outil**, pas comme ta propre parole. Concrètement, si après une compaction ton agent se met à suivre des règles que tu n'as jamais posées, ne cherche pas l'explication dans ton prompt d'origine : **relis le résumé**. Et sur un travail sensible, préfère une session neuve avec un brief réécrit à la main plutôt qu'une session compactée dix fois.
+:::
 
 :::cle Le principe défensif
 Traite **chaque** prompt, skill ou serveur externe comme **hostile** jusqu'à preuve du contraire, et pars du principe que ton agent **sera** ciblé par injection. La sécurité ne consiste pas à espérer que personne ne te vise — mais à faire en sorte que, même visé, le pire ne soit pas possible.

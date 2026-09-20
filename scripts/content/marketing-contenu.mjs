@@ -13,7 +13,7 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Contenu vérifié au **6 août 2026**. Bonnes pratiques marketing/SEO/GEO établies. Cadre réglementaire : Commission européenne, \`digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\` (calendrier de l'AI Act et lignes directrices finales sur l'article 50, adoptées le 20/07/2026). Produit Claude : \`platform.claude.com/docs/en\`, \`support.claude.com\`, \`claude.com/pricing\` (relevés le 06/08/2026). Cette formation explique **ce que dit le règlement** ; elle ne remplace pas un avis juridique sur ta situation particulière. Contenu original pour ClaudeAI Academy.`;
+**Sources & méthode** · Contenu vérifié au **6 août 2026**, complété au **20 septembre 2026** (gamme de modèles et outils de production). Bonnes pratiques marketing/SEO/GEO établies. Cadre réglementaire : Commission européenne, \`digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\` (calendrier de l'AI Act et lignes directrices finales sur l'article 50, adoptées le 20/07/2026). Produit Claude : \`platform.claude.com/docs/en\`, \`support.claude.com\`, \`claude.com/pricing\` (relevés le 06/08/2026). Cette formation explique **ce que dit le règlement** ; elle ne remplace pas un avis juridique sur ta situation particulière. Contenu original pour ClaudeAI Academy.`;
 
 export const contenuEtMarketing = {
   slug: "contenu-et-marketing",
@@ -129,7 +129,7 @@ Contrainte : les 3 angles doivent être incompatibles entre eux. Si deux se ress
 
 ## Ce qui a changé cet été et qui te concerne
 
-Deux évolutions récentes changent la façon de travailler sur ce parcours : le modèle par défaut, et l'accès au meilleur modèle d'écriture.
+Plusieurs évolutions récentes changent la façon de travailler sur ce parcours : le modèle par défaut, l'accès au meilleur modèle d'écriture, et depuis septembre les outils de production eux-mêmes.
 
 :::maj 24 juillet 2026
 **Claude Opus 5** devient le modèle Opus le plus récent — Opus 4.8 passe en « Legacy ». Il réfléchit par défaut (la réflexion étendue ne se coupe plus dans l'application pour ce modèle) et accepte **1 million de tokens de contexte** : tu peux lui donner ton brief de marque, tes anciens contenus et tes notes de recherche dans la même conversation.
@@ -141,8 +141,18 @@ Côté écriture pure, la nouvelle est moins agréable, et elle est financière.
 **Fable 5**, le modèle le plus fort d'Anthropic pour l'écriture, **n'est plus inclus dans les plans**. Free n'y a plus accès. Sur **Pro** et sur un siège **Team standard**, il passe par les *usage credits* (paiement à l'usage, avec un crédit unique offert). Sur **Max** et sur un siège **Team premium**, jusqu'à 50 % des limites hebdomadaires peuvent y passer, puis credits.
 :::
 
+:::maj 1er septembre 2026
+**Fable 5.1** remplace Fable 5 en tête de gamme, au même tarif affiché (10 $ / 50 $ par million de tokens) et sous **exactement le même régime d'accès** — donc toujours les credits sur Pro. Deux choses jouent en ta faveur : la **lecture de cache tombe à 0,25 $ par million**, et le modèle atteint à effort bas ce que Fable 5 demandait plus haut. Autrement dit, la passe finale de style coûte sensiblement moins cher qu'en août. Anthropic annonce **−25 % de coût sur les usages courants**.
+:::
+
+:::maj 16 septembre 2026
+**Claude Docs et Claude Slides arrivent dans la conversation**, avec la fusion de Cowork et du chat. Ce qui change pour toi, concrètement : tu ne demandes plus « écris-moi le texte de ma présentation » pour aller ensuite le mettre en forme ailleurs — tu obtiens **la présentation**, éditable, exportable en PowerPoint ou PDF. **Claude Design** fonctionne lui aussi dans n'importe quelle conversation.
+
+Le piège reste le même qu'avec les artefacts : un support bien mis en forme paraît fini bien avant de l'être. La discipline de ce parcours ne change pas — brief, voix de marque, vérification des faits — elle s'applique juste à un livrable qui ressemble maintenant à un vrai livrable dès le premier jet.
+:::
+
 :::astuce Réserve le modèle le plus cher à la dernière passe
-Un plan, un brouillon et dix objets d'email n'ont pas besoin du meilleur modèle d'écriture : Sonnet 5 ou Opus 5 font le travail sans entamer tes credits. Garde Fable 5 pour la passe finale de style, sur les pièces qui portent vraiment la marque — page de vente, manifeste, email de lancement.
+Un plan, un brouillon et dix objets d'email n'ont pas besoin du meilleur modèle d'écriture : Sonnet 5 ou Opus 5 font le travail sans entamer tes credits. Garde **Fable 5.1** pour la passe finale de style, sur les pièces qui portent vraiment la marque — page de vente, manifeste, email de lancement.
 :::
 
 ## Ce que change ce parcours

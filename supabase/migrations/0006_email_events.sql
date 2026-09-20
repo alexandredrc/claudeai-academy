@@ -47,9 +47,13 @@ comment on column public.email_events.kind is 'Étape de séquence issue du tag 
 
 -- Idempotence : Resend rejoue un webhook non acquitté. Un même message ne
 -- peut produire qu'un exemplaire de chaque événement daté.
+-- ⚠️ Index NON partiel, et c'est délibéré : un ON CONFLICT ne peut pas cibler
+-- un index partiel sans en répéter le prédicat, ce que PostgREST n'émet pas.
+-- Un `where resend_id is not null` ici rejetait 100 % des évènements en 500.
+-- Voir 0008_email_events_dedupe_non_partiel.sql. Deux NULL étant distincts
+-- dans un index unique, la sémantique voulue est conservée sans prédicat.
 create unique index email_events_dedupe_key
-  on public.email_events (resend_id, event_type, occurred_at)
-  where resend_id is not null;
+  on public.email_events (resend_id, event_type, occurred_at);
 
 -- Les deux lectures utiles : « taux d'ouverture de l'étape X » et
 -- « que devient l'adresse Y ».

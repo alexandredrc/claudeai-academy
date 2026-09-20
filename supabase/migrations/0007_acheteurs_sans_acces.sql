@@ -18,6 +18,10 @@
 --   n'a pas pu entrer.
 -- =========================================
 
+-- Le type de retour a change apres coup (ajout de amount_total) : `create or
+-- replace` refuse un changement de signature, il faut dropper d'abord.
+drop function if exists public.acheteurs_sans_acces(int);
+
 create or replace function public.acheteurs_sans_acces(min_heures int default 24)
 returns table (
   user_id uuid,
@@ -36,7 +40,8 @@ as $$
     pr.email,
     p.tier::text,
     p.paid_at,
-    floor(extract(epoch from (now() - p.paid_at)) / 86400)::int as jours
+    floor(extract(epoch from (now() - p.paid_at)) / 86400)::int as jours,
+    p.amount_total
   from public.purchases p
   join public.profiles pr on pr.id = p.user_id
   join auth.users au on au.id = p.user_id

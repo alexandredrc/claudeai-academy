@@ -187,24 +187,75 @@ async function handleCheckoutCompleted(
   // (l'accès est déjà débloqué par la ligne purchases ci-dessus).
   if (!existingPurchase && email) {
     try {
-      // Compte créé après paiement (pay-first) → on joint un lien d'accès
-      // magique pour une connexion en un clic, sans mot de passe.
-      const accessLink = isNewAccount ? await generateAccessLink(email) : null;
+      // Lien d'accès en un clic. Le critère n'est pas « compte neuf » mais
+      // « compte jamais ouvert » : un acheteur qui s'était inscrit il y a
+      // trois semaines sans jamais se connecter est exactement aussi démuni
+      // qu'un compte créé à l'instant, et l'ancien code ne lui envoyait rien.
+      const jamaisConnecte = isNewAccount || !(await sEstDejaConnecte(userId));
+      const accessLink = jamaisConnecte ? await generateAccessLink(email) : null;
+
       const { data: profile } = await supabaseAdmin
         .from("profiles")
         .select("first_name")
         .eq("id", userId)
         .maybeSingle();
-      await sendPurchaseWelcomeEmail({
+
+      const envoye = await sendPurchaseWelcomeEmail({
         to: email,
         tier,
         firstName: profile?.first_name ?? null,
         accessLink,
       });
+
+      // Journaliser l'email de bienvenue. C'est le seul message qui porte
+      // l'accès, et c'était jusqu'ici le seul qui ne laissait aucune trace :
+      // impossible de distinguer « parti et ignoré » de « jamais parti ».
+      // Le `kind` dit aussi s'il portait le lien en un clic, parce qu'un
+      // acheteur sans lien doit deviner seul comment entrer.
+      if (envoye) {
+        await journaliserBienvenue(
+          userId,
+          email,
+          jamaisConnecte && !accessLink ? "welcome_sans_lien" : "welcome",
+        );
+      } else {
+        console.error(
+          `[stripe-webhook] welcome email NON envoyé (Resend non configuré ?) pour ${email}`,
+        );
+      }
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       console.error("[stripe-webhook] welcome email failed:", message);
     }
+  }
+}
+
+/** Ce compte a-t-il déjà servi au moins une fois ? */
+async function sEstDejaConnecte(userId: string): Promise<boolean> {
+  try {
+    const { data } = await supabaseAdmin.auth.admin.getUserById(userId);
+    return Boolean(data?.user?.last_sign_in_at);
+  } catch {
+    // Dans le doute on joint le lien : un lien en trop ne coûte rien, un
+    // acheteur sans lien coûte un client.
+    return false;
+  }
+}
+
+/** Trace de l'email de bienvenue — best effort, jamais bloquant. */
+async function journaliserBienvenue(
+  userId: string,
+  email: string,
+  kind: "welcome" | "welcome_sans_lien",
+): Promise<void> {
+  const { error } = await supabaseAdmin.from("email_log").upsert(
+    { user_id: userId, email, kind },
+    // `unique (user_id, kind)` : un second achat (montée en gamme) ne doit
+    // pas faire échouer le webhook pour une ligne de journal.
+    { onConflict: "user_id,kind", ignoreDuplicates: true },
+  );
+  if (error) {
+    console.error("[stripe-webhook] email_log welcome:", error.message);
   }
 }
 

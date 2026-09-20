@@ -93,7 +93,7 @@ export async function sendPurchaseWelcomeEmail(params: {
   firstName: string | null;
   /** Lien de connexion magique pour les comptes créés après paiement (pay-first). */
   accessLink?: string | null;
-}): Promise<void> {
+}): Promise<boolean> {
   const content = welcomeContent(params.tier);
   if (params.accessLink) {
     // Achat pay-first : le compte vient d'être créé. Le CTA principal devient
@@ -102,7 +102,10 @@ export async function sendPurchaseWelcomeEmail(params: {
     content.ctaLabel = "Activer mon accès et commencer";
     content.intro = `${content.intro} Ton compte a été créé automatiquement avec cet email — clique sur le bouton ci-dessous pour l'activer et tout débloquer.`;
   }
-  await sendEmail({
+  // Le booléen remonte jusqu'au webhook Stripe, qui journalise l'envoi :
+  // c'est le seul email qui porte l'accès, et c'était le seul dont on ne
+  // gardait aucune trace.
+  return sendEmail({
     to: params.to,
     subject: content.subject,
     html: renderHtml(content, params.firstName),

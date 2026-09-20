@@ -117,6 +117,17 @@ export async function GET(req: NextRequest) {
     .in("user_id", dormantIds);
   const accessSet = new Set((paid ?? []).map((r) => r.user_id));
 
+  // 3 bis. Les acheteurs qui ne se sont JAMAIS connectés ne relèvent pas de
+  //   l'activation mais de /api/cron/acces, qui leur envoie un lien en un
+  //   clic. Les laisser ici leur vaudrait deux emails par semaine, dont un
+  //   qui les renvoie vers un formulaire de connexion inutilisable pour eux.
+  const { data: bloques } = await supabaseAdmin.rpc("acheteurs_sans_acces", {
+    min_heures: 48,
+  });
+  const relanceAccesSet = new Set(
+    ((bloques ?? []) as { user_id: string }[]).map((r) => r.user_id),
+  );
+
   // 4. Historique d'activation : étapes déjà envoyées et date du dernier envoi.
   const { data: logs } = await supabaseAdmin
     .from("email_log")
@@ -148,6 +159,11 @@ export async function GET(req: NextRequest) {
     const last = lastSentAt.get(c.id);
     if (last && now - last < COOLDOWN_DAYS * DAY_MS) {
       report.cooldown++;
+      continue;
+    }
+
+    if (relanceAccesSet.has(c.id)) {
+      report.relanceAcces++;
       continue;
     }
 
@@ -203,6 +219,7 @@ function emptyReport() {
       number
     >,
     cooldown: 0,
+    relanceAcces: 0,
     completed: 0,
     deferred: 0,
     skipped: 0,

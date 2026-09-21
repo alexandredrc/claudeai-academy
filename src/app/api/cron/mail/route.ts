@@ -22,6 +22,18 @@ export const maxDuration = 60;
  *
  * Silencieux si `MAIL_IMAP_PASSWORD` n'est pas défini — la tâche peut être
  * déployée avant que le mot de passe ne soit renseigné.
+ *
+ * ⚠️ AUCUNE PLANIFICATION VERCEL. L'offre du projet limite les tâches
+ * planifiées à une par jour. Une fréquence de quinze minutes dans vercel.json
+ * fait REFUSER le déploiement entier — pas seulement la tâche, TOUT le
+ * déploiement, ce qui bloque au passage toutes les mises en ligne suivantes.
+ * La planification a donc été retirée, et cette route attend un déclencheur
+ * externe :
+ *   - un appel régulier depuis un service de ping gratuit,
+ *   - ou une tâche Windows locale (voir pipeline/), PC allumé,
+ *   - ou une planification réintroduite le jour d'un passage à une offre
+ *     supérieure.
+ * Dans tous les cas, l'appelant doit envoyer `Authorization: Bearer $CRON_SECRET`.
  */
 
 const CLE_ETAT = "mail_support_dernier_uid";

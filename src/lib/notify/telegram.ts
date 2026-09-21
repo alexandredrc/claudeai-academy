@@ -88,3 +88,26 @@ export async function notifierVente(params: {
 
   return envoyer(texte);
 }
+
+/** Alerte « un mail est arrivé dans la boîte support ». */
+export async function notifierMail(params: {
+  de: string;
+  objet: string;
+}): Promise<boolean> {
+  // Un objet trop long noierait la notification : on coupe proprement.
+  const objet = params.objet.trim() || "(sans objet)";
+  const court = objet.length > 90 ? objet.slice(0, 89) + "…" : objet;
+
+  const texte = [
+    `📧 MAIL REÇU ! — ${params.de}`,
+    "",
+    "✉️✉️✉️✉️✉️✉️✉️✉️✉️✉️",
+    "",
+    `De : ${params.de}`,
+    `Objet : ${court}`,
+    "",
+    "✉️✉️✉️✉️✉️✉️✉️✉️✉️✉️",
+  ].join("\n");
+
+  return envoyer(texte);
+}

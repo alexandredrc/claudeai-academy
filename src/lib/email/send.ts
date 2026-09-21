@@ -30,6 +30,12 @@ export async function sendEmail(params: {
    * nettoyage ci-dessous plutôt qu'un envoi refusé en bloc.
    */
   kind?: string;
+  /**
+   * Pièces jointes (certificat PDF). `content` est encodé en base64 — c'est ce
+   * qu'attend l'API Resend. À garder pour des fichiers légers : le corps de la
+   * requête part en JSON, une pièce jointe lourde le fait gonfler d'un tiers.
+   */
+  attachments?: { filename: string; content: string }[];
 }): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
@@ -58,6 +64,7 @@ export async function sendEmail(params: {
       // Toujours présent : un email sans Reply-To renvoie vers `no-reply@`.
       reply_to: params.replyTo ?? REPLY_TO,
       ...(kind ? { tags: [{ name: "kind", value: kind }] } : {}),
+      ...(params.attachments?.length ? { attachments: params.attachments } : {}),
     }),
   });
 

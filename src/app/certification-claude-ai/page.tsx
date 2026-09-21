@@ -20,9 +20,9 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // qu'on ne délivre pas, et on propose ce qui a réellement de la valeur.
 
 export const metadata: Metadata = {
-  title: "Certification Claude AI : ce qui existe vraiment en 2026",
+  title: "Certification Claude AI : ce qui existe, et ce qu'on délivre",
   description:
-    "Existe-t-il une certification Claude AI ou Anthropic ? Réponse honnête : pas de titre reconnu par l'État sur un outil, des cours gratuits en anglais chez Anthropic, et des attestations privées qui ne prouvent rien. Ce qu'un recruteur regarde à la place.",
+    "Existe-t-il une certification Claude AI ou Anthropic ? Réponse honnête : aucun titre reconnu par l'État sur un outil. ClaudeAI Academy délivre un certificat de réussite, obtenu sur examen final et vérifiable en ligne par un code — pas une attestation de présence.",
   alternates: { canonical: "/certification-claude-ai" },
   keywords: [
     "certification claude",
@@ -32,6 +32,9 @@ export const metadata: Metadata = {
     "claude ai certification",
     "anthropic academy français",
     "diplôme intelligence artificielle",
+    "certificat Claude AI",
+    "formation Claude AI certifiante",
+    "examen certification IA",
   ],
   openGraph: {
     title: "Certification Claude AI : ce qui existe vraiment en 2026",
@@ -71,7 +74,7 @@ const options: Option[] = [
     nom: "Une « attestation » d'organisme privé",
     quoi: "N'importe quel organisme peut imprimer un certificat à son nom, avec un sceau et un numéro. Rien ne l'en empêche, et rien ne le valide.",
     valeur:
-      "Elle atteste que vous avez suivi quelque chose. Elle ne prouve pas que vous savez faire. Un recruteur qui connaît le sujet le sait.",
+      "Tout dépend de ce qu'il faut faire pour l'obtenir. Une attestation qui se déclenche à la fin de la dernière vidéo ne prouve qu'une présence. Un certificat conditionné à un examen corrigé et vérifiable en ligne prouve au moins qu'on a répondu juste — c'est le choix que nous avons fait.",
     prix: "Souvent le prix de la formation, parfois un supplément.",
     verdict: "nuance",
   },
@@ -92,11 +95,15 @@ const faq = [
   },
   {
     q: "Que délivrez-vous à la fin de vos parcours ?",
-    a: "Nous ne délivrons pas de certification, et nous ne vous en vendrons pas une. Ce que vous gardez, c'est l'accès à vie aux parcours et aux mises à jour, et une bibliothèque de 170 consignes prêtes à l'emploi que vous adaptez à votre métier. Notre position est que le livrable utile est ce que vous savez produire, pas un document imprimé.",
+    a: "Un certificat de réussite ClaudeAI Academy, nominatif, qui porte un code de vérification consultable en ligne. Il ne s'obtient pas en assistant : il faut avoir terminé toutes les leçons du parcours et réussi un examen final de 20 questions, tirées au hasard dans l'ensemble du programme, avec 80 % de bonnes réponses. C'est un certificat d'organisme privé, et nous l'écrivons dessus : il ne constitue pas un titre reconnu par l'État.",
   },
   {
     q: "Puis-je financer une formation Claude avec mon CPF ?",
     a: "Non, et il faut s'en méfier quand on vous l'affirme : le financement CPF est réservé aux formations dont la certification est enregistrée au RNCP ou au Répertoire spécifique. Une formation à un outil ne peut donc pas y prétendre. L'avantage de payer directement est qu'il n'y a ni dossier, ni délai d'instruction, ni organisme à convaincre.",
+  },
+  {
+    q: "Comment se passe l'examen de certification ?",
+    a: "Vingt questions à choix multiple, tirées au hasard dans les quiz de l'ensemble de vos parcours — le sujet couvre donc tout le programme, pas un chapitre. Aucune correction n'apparaît pendant l'épreuve, et les bonnes réponses ne quittent jamais nos serveurs : la correction est faite côté serveur. Il faut 80 % pour valider. En cas d'échec, vous pouvez repasser l'examen, avec un tirage différent.",
   },
   {
     q: "Comment prouver qu'on sait utiliser l'IA, alors ?",
@@ -307,12 +314,17 @@ export default function CertificationPage() {
               Ce que nous délivrons, et ce que nous ne délivrons pas
             </h3>
             <p className="mt-4 leading-relaxed text-ink-soft">
-              <strong>Nous ne délivrons aucune certification</strong>, et nous
-              n’en vendrons pas. Ce que vous gardez à vie : les parcours et
-              leurs mises à jour, une bibliothèque de 170 consignes prêtes à
-              l’emploi, et un mentor IA qui corrige les vôtres pendant que vous
-              apprenez. Le livrable, c’est ce que vous savez produire le
-              vendredi soir — pas un PDF avec un sceau.
+              Nous délivrons un <strong>certificat de réussite ClaudeAI
+              Academy</strong>, nominatif, avec un code que n’importe qui peut
+              vérifier en ligne. Il ne s’obtient pas en assistant : il faut avoir
+              terminé toutes les leçons de son parcours, puis réussir un examen
+              final à 80 %.
+            </p>
+            <p className="mt-4 leading-relaxed text-ink-soft">
+              Ce que nous ne délivrons pas, et ne délivrerons pas : un titre
+              reconnu par l’État. C’est écrit sur le certificat lui-même. Nous
+              préférons un document honnête et vérifiable à une promesse qui
+              s’effondre au premier contrôle.
             </p>
           </div>
         </Container>
@@ -349,6 +361,74 @@ export default function CertificationPage() {
               Essayer d’abord le kit gratuit
             </Button>
           </div>
+        </Container>
+      </section>
+
+      {/* La certification maison */}
+      <section className="border-y border-line bg-cream-soft py-16 md:py-20">
+        <Container size="narrow">
+          <Eyebrow>Notre certification</Eyebrow>
+          <h2 className="mt-4 font-serif text-3xl font-medium leading-[1.15] tracking-tight text-ink md:text-[2.5rem]">
+            La certification ClaudeAI Academy
+          </h2>
+          <p className="mt-6 text-lg leading-relaxed text-muted">
+            Nous en délivrons une. Pas un titre d’État — nous venons d’expliquer
+            pourquoi ça n’existe pas — mais un certificat de réussite nominatif,
+            qui se mérite et qui se vérifie.
+          </p>
+
+          <ol className="mt-10 flex flex-col gap-0 overflow-hidden rounded-[18px] border border-line bg-white">
+            {[
+              {
+                t: "Terminez l’intégralité de votre parcours",
+                d: "Toutes les leçons, pas une sélection. C’est la première condition, et elle n’est pas contournable.",
+              },
+              {
+                t: "Passez l’examen final",
+                d: "20 questions tirées au hasard dans l’ensemble du programme. Aucune correction pendant l’épreuve, et les bonnes réponses ne quittent jamais nos serveurs. Il faut 80 % pour valider.",
+              },
+              {
+                t: "Recevez votre certificat",
+                d: "Un PDF nominatif arrive par email dans la minute, avec votre score et un code de vérification.",
+              },
+              {
+                t: "N’importe qui peut le contrôler",
+                d: "Le code ouvre une page publique qui affiche le programme suivi, la date et le résultat. C’est ce qui sépare ce document d’un PDF qu’on imprime chez soi.",
+              },
+            ].map((step, i) => (
+              <li
+                key={step.t}
+                className="flex gap-5 border-b border-line p-6 last:border-b-0 md:p-7"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-coral-soft font-serif text-[15px] font-semibold text-coral-dark">
+                  {i + 1}
+                </span>
+                <div>
+                  <h3 className="font-semibold text-ink">{step.t}</h3>
+                  <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
+                    {step.d}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Button href="/tarifs" variant="primary" size="lg">
+              Commencer le programme — dès 47 €
+            </Button>
+            <Button href="/certification/examen" variant="ghost" size="lg">
+              J’ai fini mon parcours, passer l’examen
+            </Button>
+          </div>
+
+          <p className="mt-7 text-[14px] leading-relaxed text-muted">
+            À dire clairement, parce que c’est ce qui rend le reste crédible :
+            ce certificat est délivré par un organisme privé et indépendant. Il
+            n’est enregistré à aucun répertoire national, il n’ouvre aucun
+            financement CPF, et ClaudeAI Academy n’est ni affiliée à Anthropic ni
+            approuvée par elle. C’est écrit sur le document lui-même.
+          </p>
         </Container>
       </section>
 

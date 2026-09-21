@@ -3,6 +3,7 @@ import { Inter, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { PriceBar } from "@/components/site/price-bar";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleTag, GOOGLE_TAG_ENABLED } from "@/components/site/google-tag";
 import { ConsentBanner } from "@/components/site/consent-banner";
@@ -160,6 +161,9 @@ export default async function RootLayout({
         <Header isLoggedIn={!!user} />
         <main className="flex-1">{children}</main>
         <Footer />
+        {/* Barre de prix : n'apparait qu'apres un debut de lecture, et jamais
+            dans le tunnel ni dans l'espace membre. */}
+        <PriceBar />
         {GOOGLE_TAG_ENABLED ? <ConsentBanner /> : null}
         <Analytics />
       </body>

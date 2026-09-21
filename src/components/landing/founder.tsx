@@ -1,6 +1,5 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
-import Link from "next/link";
 import { InstagramIcon, INSTAGRAM_URL, INSTAGRAM_HANDLE } from "@/components/site/instagram";
 
 export function Founder() {
@@ -38,11 +37,20 @@ export function Founder() {
                 <strong className="text-ink font-semibold">
                   Alexandre Dos Reis Caetano
                 </strong>
-                , fondateur d&apos;ADRC Group. J&apos;utilise Claude tous les
-                jours sur de vrais projets — au point d&apos;avoir construit
-                cette académie avec : le site que vous lisez, le Mentor IA qui
-                répond à vos questions, les 49 leçons. Tout est sorti de cette
-                pratique quotidienne.
+                , <strong className="text-ink font-semibold">
+                  Restaurant Manager en Suisse
+                </strong>
+                . Je ne viens pas de la tech : j&apos;utilise Claude tous les
+                jours dans un métier de terrain, là où une heure gagnée se voit
+                tout de suite.
+              </p>
+              <p>
+                Cette pratique quotidienne m&apos;a mené à développer plusieurs
+                applications — dont une destinée aux hôtels et restaurants, un
+                outil de pilotage pour aider les directeurs et les patrons
+                d&apos;établissement à mieux gérer leur affaire. Cette académie
+                est sortie du même mouvement : le site que vous lisez, le Mentor
+                IA qui répond à vos questions, les 49 leçons.
               </p>
               <p>
                 Le constat de départ est simple : la majorité des contenus sur
@@ -58,24 +66,32 @@ export function Founder() {
               — Alexandre, fondateur
             </p>
 
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <Link
-                href="/a-propos"
-                className="inline-flex items-center gap-1.5 text-coral font-semibold hover:text-coral-dark transition-colors"
-              >
-                Lire l&apos;histoire complète
-                <span aria-hidden="true">→</span>
-              </Link>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-ink-soft font-semibold hover:text-coral transition-colors"
-              >
-                <InstagramIcon className="w-5 h-5" />
-                {INSTAGRAM_HANDLE}
-              </a>
-            </div>
+            {/*
+              On remplace « Lire l'histoire complète » par le compte personnel.
+              Une page « à propos » se rédige ; un compte Instagram tenu au
+              quotidien ne se fabrique pas. Sur un marché où beaucoup vendent
+              derrière un pseudo, c'est la preuve la moins coûteuse et la plus
+              convaincante qu'il y a quelqu'un de réel derrière.
+            */}
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-7 flex items-start gap-4 rounded-[18px] border border-line bg-cream-soft p-5 transition-colors hover:border-coral"
+            >
+              <InstagramIcon className="mt-0.5 h-6 w-6 shrink-0 text-coral" />
+              <span className="block">
+                <span className="block font-semibold text-ink">
+                  {INSTAGRAM_HANDLE}
+                </span>
+                <span className="mt-1 block text-[15px] leading-relaxed text-muted">
+                  Mon compte Instagram personnel. Vous y voyez mon quotidien, mon
+                  travail et mon visage — de quoi vérifier par vous-même qu&apos;il
+                  y a bien quelqu&apos;un de réel derrière cette académie. Écrivez-moi
+                  en message privé, je réponds.
+                </span>
+              </span>
+            </a>
           </div>
         </div>
       </Container>

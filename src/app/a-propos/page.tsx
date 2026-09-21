@@ -6,7 +6,7 @@ import { Button } from "@/components/site/button";
 export const metadata: Metadata = {
   title: "À propos — ClaudeAI Academy",
   description:
-    "Pourquoi ClaudeAI Academy existe : une référence francophone rigoureuse et opérationnelle pour maîtriser Claude, portée par Alexandre Dos Reis Caetano (ADRC Group).",
+    "Pourquoi ClaudeAI Academy existe : une référence francophone rigoureuse et opérationnelle pour maîtriser Claude, portée par Alexandre Dos Reis Caetano, Restaurant Manager en Suisse qui utilise Claude au quotidien.",
   alternates: { canonical: "/a-propos" },
 };
 
@@ -74,10 +74,19 @@ export default function AProposPage() {
             <h2>Qui porte le projet</h2>
             <p>
               ClaudeAI Academy est portée par{" "}
-              <strong>Alexandre Dos Reis Caetano</strong>, fondateur d’ADRC
-              Group. L’objectif&nbsp;: bâtir la ressource qui manquait — rigoureuse,
-              opérationnelle, et honnête sur ce que l’IA permet (et ne permet
-              pas).
+              <strong>Alexandre Dos Reis Caetano</strong>,{" "}
+              <strong>Restaurant Manager en Suisse</strong> et fondateur d’ADRC
+              Group. Pas un profil tech&nbsp;: un métier de terrain, où l’IA se
+              juge à ce qu’elle fait gagner dans la journée.
+            </p>
+            <p>
+              Cette pratique quotidienne l’a conduit à développer plusieurs
+              applications, dont un outil de pilotage destiné aux hôtels et aux
+              restaurants, pour aider les directeurs et les patrons
+              d’établissement à mieux gérer leur affaire. ClaudeAI Academy est
+              née du même mouvement&nbsp;: bâtir la ressource qui manquait —
+              rigoureuse, opérationnelle, et honnête sur ce que l’IA permet (et
+              ne permet pas).
             </p>
 
             <h2>Notre engagement contenu</h2>

@@ -1,5 +1,5 @@
-export const INSTAGRAM_URL = "https://www.instagram.com/alex_crypto_ia/";
-export const INSTAGRAM_HANDLE = "@alex_crypto_ia";
+export const INSTAGRAM_URL = "https://www.instagram.com/alexandre_dosreiscaetano/";
+export const INSTAGRAM_HANDLE = "@alexandre_dosreiscaetano";
 
 /**
  * Glyphe Instagram officiel (trait plein) avec le dégradé de marque —
@@ -24,8 +24,12 @@ export function InstagramGlyphGradient({ className }: { className?: string }) {
 }
 
 /**
- * Badge « @alex_crypto_ia — Une question ? Écris-moi en DM » du header.
- * Sur mobile, seul le glyphe est affiché.
+ * Badge Instagram du header.
+ *
+ * Il pointe vers le compte PERSONNEL du fondateur, et le dit. Sur un marché
+ * saturé de formations vendues par des comptes anonymes, voir la vraie vie de
+ * quelqu'un — son prénom, son métier, son quotidien — vaut plus que n'importe
+ * quel argument. Sur mobile, seul le glyphe est affiché.
  */
 export function InstagramBadge() {
   return (
@@ -33,13 +37,13 @@ export function InstagramBadge() {
       href={INSTAGRAM_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Instagram Alexandre — alex_crypto_ia, posez vos questions en DM"
+      aria-label="Instagram personnel d'Alexandre Dos Reis Caetano"
       className="inline-flex items-center gap-2.5 rounded-full bg-ink pl-2.5 pr-2.5 sm:pr-4 py-2 shadow-[0_4px_18px_rgba(31,31,30,0.28)] hover:-translate-y-px hover:shadow-[0_6px_22px_rgba(31,31,30,0.38)] transition-all duration-200"
     >
       <InstagramGlyphGradient className="w-[22px] h-[22px] shrink-0" />
       <span className="hidden sm:flex flex-col leading-tight text-left">
         <span className="text-[13px] font-bold text-cream">{INSTAGRAM_HANDLE}</span>
-        <span className="text-[11px] text-cream/75">Une question ? Écris-moi en DM</span>
+        <span className="text-[11px] text-cream/75">Mon Instagram perso</span>
       </span>
     </a>
   );

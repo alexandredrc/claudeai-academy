@@ -54,10 +54,10 @@ export const SOURCES = [
   },
   {
     id: "anthropic-academy",
-    label: "Anthropic Academy — Cours officiels (anthropic.com/learn)",
+    label: "Claude Academy — Cours officiels (academy.claude.com)",
     tier: 1,
     kind: "html-hash",
-    url: "https://www.anthropic.com/learn",
+    url: "https://academy.claude.com/courses",
     // Benchmark curriculum : nouveaux cours officiels = signal qu'un parcours
     // doit être enrichi ou qu'un nouveau sujet émerge (ex. Cowork).
     impacts: [
@@ -68,10 +68,10 @@ export const SOURCES = [
   },
   {
     id: "claude-tutorials",
-    label: "Claude — Tutorials officiels (claude.com/resources/tutorials)",
+    label: "Claude Academy — Tutoriels officiels",
     tier: 1,
     kind: "html-hash",
-    url: "https://claude.com/resources/tutorials",
+    url: "https://academy.claude.com/tutorials",
     // Nouveaux tutoriels produit (Skills, Connectors, modèles) = matière
     // pédagogique à recouper pour les parcours applicatifs.
     impacts: [
@@ -95,10 +95,10 @@ export const SOURCES = [
   },
   {
     id: "eu-ai-act-implementation",
-    label: "Commission UE — Mise en application de l'AI Act (calendrier)",
+    label: "Commission UE — Navigating the AI Act (calendrier d'application)",
     tier: 1,
     kind: "html-hash",
-    url: "https://digital-strategy.ec.europa.eu/en/policies/ai-act-implementation",
+    url: "https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act",
     impacts: ["strategie-conduite-ia"],
   },
   {

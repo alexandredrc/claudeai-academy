@@ -51,7 +51,7 @@ const faq = [
   },
   {
     q: "La formation à l'IA est-elle obligatoire en entreprise ?",
-    a: "Oui, en partie. L'article 4 du règlement européen sur l'IA (AI Act) est applicable depuis le 2 février 2025 et impose à tout « déployeur » d'un système d'IA de garantir un niveau suffisant de maîtrise de l'IA chez les personnes qui l'utilisent. Il n'y a ni seuil d'effectif ni seuil de chiffre d'affaires : une TPE dont un salarié utilise ChatGPT est concernée. Aucune certification n'est exigée — la Commission européenne accepte un simple registre des actions de formation et de sensibilisation.",
+    a: "Oui, en partie. L'article 4 du règlement européen sur l'IA (AI Act) est applicable depuis le 2 février 2025 et impose à tout « déployeur » d'un système d'IA de prendre des mesures pour soutenir le développement d'un niveau suffisant de maîtrise de l'IA chez les personnes qui l'utilisent pour son compte. Attention à la formulation : depuis le 27 juillet 2026 et le règlement (UE) 2026/1744, le texte ne dit plus « garantir » mais « prendre des mesures » — c'est une obligation de moyens, et la plupart des sites en ligne citent encore l'ancienne rédaction. Ce qui a changé le 2 août 2026, c'est que les autorités nationales supervisent désormais cette obligation. Il n'y a ni seuil d'effectif ni seuil de chiffre d'affaires : une TPE dont un salarié utilise ChatGPT est concernée. Aucune certification n'est exigée — la Commission européenne accepte un simple registre des actions de formation et de sensibilisation.",
   },
   {
     q: "Faut-il savoir coder pour se former à l'intelligence artificielle ?",
@@ -287,7 +287,7 @@ export default async function FormationIAPage() {
             />
             <Stat
               value="2 févr. 2025"
-              label="date d’entrée en application de l’article 4 de l’AI Act, qui impose la maîtrise de l’IA aux utilisateurs professionnels."
+              label="date d’entrée en application de l’article 4 de l’AI Act, qui oblige les employeurs à agir sur la maîtrise de l’IA de leurs équipes. Supervisé par les autorités nationales depuis le 2 août 2026."
             />
           </dl>
 
@@ -303,8 +303,12 @@ export default async function FormationIAPage() {
               À cela s’ajoute une contrainte que beaucoup découvrent tard.
               L’article 4 du règlement européen sur l’IA, applicable depuis le{" "}
               <strong>2 février 2025</strong>, oblige tout employeur dont les
-              équipes utilisent un système d’IA à garantir un niveau suffisant de
-              « maîtrise de l’IA ». Il n’existe ni seuil d’effectif, ni seuil de
+              équipes utilisent un système d’IA à prendre des mesures pour
+              soutenir le développement d’un niveau suffisant de
+              « maîtrise de l’IA » chez les personnes qui l’utilisent pour son
+              compte — la rédaction issue du règlement (UE) 2026/1744, en
+              vigueur depuis le 27 juillet 2026, qui a remplacé le « garantir »
+              de 2024 par une obligation de moyens. Il n’existe ni seuil d’effectif, ni seuil de
               chiffre d’affaires : une entreprise de cinq personnes dont un
               salarié rédige ses e-mails avec ChatGPT entre dans le champ. Aucune
               certification n’est exigée ; un registre des actions de formation
@@ -326,6 +330,15 @@ export default async function FormationIAPage() {
                 rel="noopener noreferrer"
               >
                 Règlement (UE) 2024/1689, article 4
+              </a>{" "}
+              ·{" "}
+              <a
+                href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32026R1744"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Règlement (UE) 2026/1744 (Digital Omnibus IA), en vigueur le
+                27/07/2026
               </a>
               .
             </p>

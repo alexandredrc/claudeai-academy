@@ -11,7 +11,7 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Contenu vérifié au **6 août 2026**. Sources primaires : \`digital-strategy.ec.europa.eu\` (calendrier de l'AI Act, littératie IA, lignes directrices article 50), \`cnil.fr\` (RGPD, IA agentique, priorités de contrôle), \`anthropic.com/legal\` (conditions, DPA, confidentialité et rétention). Contenu **ÉDUCATIF** : il donne le vocabulaire et les repères pour dialoguer avec un professionnel du droit — il ne remplace ni un avocat, ni un DPO, ni un service juridique. Fais valider tes cas à enjeu. Original pour ClaudeAI Academy.`;
+**Sources & méthode** · Cadre réglementaire vérifié au **19 août 2026**, calendrier de l'AI Act revérifié le **21 septembre 2026** ; faits Claude (modèles, tarifs, abonnements) au **20 septembre 2026**. Sources primaires : \`digital-strategy.ec.europa.eu\` (calendrier de l'AI Act, littératie IA, lignes directrices article 50), \`cnil.fr\` (RGPD, IA agentique, priorités de contrôle), \`anthropic.com/legal\` (conditions, DPA, confidentialité et rétention). Contenu **ÉDUCATIF** : il donne le vocabulaire et les repères pour dialoguer avec un professionnel du droit — il ne remplace ni un avocat, ni un DPO, ni un service juridique. Fais valider tes cas à enjeu. Original pour ClaudeAI Academy.`;
 
 export const strategieConduiteIa = {
   slug: "strategie-conduite-ia",

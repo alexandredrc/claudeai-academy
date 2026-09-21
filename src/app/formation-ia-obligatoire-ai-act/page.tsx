@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "La formation à l'IA est-elle vraiment obligatoire en entreprise ?",
-    a: "Oui, dans les faits. L'article 4 du règlement européen sur l'intelligence artificielle (règlement (UE) 2024/1689, dit « AI Act ») est applicable depuis le 2 février 2025. Il impose à tout fournisseur et à tout déployeur d'un système d'IA de prendre les mesures nécessaires pour garantir « un niveau suffisant de maîtrise de l'IA » chez les personnes qui l'utilisent pour leur compte. Le texte n'emploie pas le mot « formation », mais la formation est le moyen le plus direct et le plus documentable de satisfaire cette obligation.",
+    a: "Oui, dans les faits. L'article 4 du règlement européen sur l'intelligence artificielle (règlement (UE) 2024/1689, dit « AI Act ») est applicable depuis le 2 février 2025. Il impose à tout fournisseur et à tout déployeur d'un système d'IA de prendre des mesures pour soutenir le développement d'« un niveau suffisant de maîtrise de l'IA » chez les personnes qui l'utilisent pour leur compte. C'est une obligation de moyens : depuis le règlement (UE) 2026/1744, en vigueur le 27 juillet 2026, le texte ne dit plus « garantir », et il précise qu'aucun niveau spécifique n'est exigé d'un individu donné. Le texte n'emploie pas le mot « formation », mais la formation est le moyen le plus direct et le plus documentable de satisfaire cette obligation.",
   },
   {
     q: "Quelles entreprises sont concernées ?",
@@ -207,8 +207,11 @@ export default async function AiActPage() {
             <p className="text-lg leading-relaxed text-ink">
               <strong>En une phrase :</strong> l’article 4 de l’AI Act,
               applicable depuis le <strong>2 février 2025</strong>, impose à tout
-              employeur dont les équipes utilisent un système d’IA de garantir
-              chez elles un « niveau suffisant de maîtrise de l’IA ». Il n’y a{" "}
+              employeur dont les équipes utilisent un système d’IA de{" "}
+              <strong>prendre des mesures</strong> pour soutenir chez elles un{" "}
+              « niveau suffisant de maîtrise de l’IA ». C’est une obligation de
+              moyens, pas de résultat, et elle est supervisée par les autorités
+              nationales depuis le <strong>2 août 2026</strong>. Il n’y a{" "}
               <strong>ni seuil d’effectif, ni seuil de chiffre d’affaires</strong>{" "}
               — une entreprise de cinq personnes dont un salarié utilise ChatGPT
               est concernée. Aucune certification n’est exigée : un registre des
@@ -237,10 +240,14 @@ export default async function AiActPage() {
           <div className="prose-lesson mt-8">
             <p>
               L’article 4 demande aux fournisseurs et aux déployeurs de systèmes
-              d’IA de prendre des mesures pour assurer, « dans la mesure du
-              possible », un niveau suffisant de maîtrise de l’IA chez leur
-              personnel et chez les personnes qui utilisent ces systèmes pour
-              leur compte. Le règlement définit cette maîtrise comme les
+              d’IA de prendre des mesures pour « soutenir le développement » d’un
+              niveau suffisant de maîtrise de l’IA chez leur personnel et chez les
+              personnes qui utilisent ces systèmes pour leur compte, en
+              précisant qu’aucun niveau spécifique n’est exigé d’un individu
+              donné. C’est la rédaction issue du règlement (UE) 2026/1744, en
+              vigueur depuis le 27 juillet 2026 : elle a remplacé le « dans la
+              mesure du possible » de 2024, et la plupart des supports en ligne
+              citent encore l’ancienne version. Le règlement définit cette maîtrise comme les
               compétences et connaissances permettant un déploiement éclairé, en
               ayant conscience des opportunités, des risques et des préjudices
               possibles.
@@ -262,13 +269,22 @@ export default async function AiActPage() {
               autant à se défendre qu’à se conformer.
             </p>
             <p className="text-[14px] text-muted">
-              Source :{" "}
+              Sources :{" "}
               <a
                 href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:L_202401689"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Règlement (UE) 2024/1689, article 4 (EUR-Lex)
+              </a>{" "}
+              ·{" "}
+              <a
+                href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32026R1744"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Règlement (UE) 2026/1744 (Digital Omnibus IA), qui a réécrit
+                l’article 4 le 27/07/2026
               </a>
               . Cette page présente le texte applicable et son interprétation
               courante ; elle ne constitue pas un conseil juridique. Pour une

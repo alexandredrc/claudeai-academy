@@ -34,7 +34,36 @@ async function fetchText(url) {
     redirect: "follow",
   });
   if (!res.ok) throw new Error(`HTTP ${res.status} on ${url}`);
-  return res.text();
+  return { texte: await res.text(), urlFinale: res.url || url };
+}
+
+// Le pire cas d'une veille par empreinte : une page supprimee qui repond quand
+// meme 200 (« soft 404 »). L'empreinte se fige sur la page d'erreur, la source
+// ne rebouge plus jamais, et ce silence se lit comme « rien n'a change ».
+// Arrive pour de vrai : la page « mise en application de l'AI Act » de la
+// Commission redirige vers /page-not-found en HTTP 200 — la veille etait muette
+// sur le calendrier de l'AI Act du 15/07 au 21/09/2026, sans aucun voyant.
+const MARQUEURS_PAGE_MORTE = [
+  "page not found",
+  "page non trouv",
+  "page introuvable",
+];
+
+function estPageMorte(texteNormalise) {
+  const debut = texteNormalise.slice(0, 3000);
+  return MARQUEURS_PAGE_MORTE.some((m) => debut.includes(m));
+}
+
+// Une redirection de chemin n'est pas une panne, mais elle veut dire que
+// l'adresse surveillee n'est plus l'adresse canonique : on finit par hasher la
+// destination (souvent une page d'accueil) au lieu de la page voulue.
+function memeAdresse(a, b) {
+  const norm = (u) =>
+    String(u)
+      .replace(/^http:/i, "https:")
+      .replace(/[/]+$/, "")
+      .toLowerCase();
+  return norm(a) === norm(b);
 }
 
 function sha(s) {
@@ -146,7 +175,30 @@ async function main() {
 
   for (const src of SOURCES) {
     try {
-      const raw = await fetchText(src.url);
+      const { texte: raw, urlFinale } = await fetchText(src.url);
+
+      if (estPageMorte(htmlToText(raw))) {
+        // On n'ecrit PAS de nouvelle empreinte : l'etat garde celle de la
+        // derniere page valide, pour que la source reparte seule si l'adresse
+        // revient. Et on le dit fort : une source morte n'est pas un silence.
+        findings.push({
+          src,
+          type: "error",
+          summary:
+            "page supprimee servie en HTTP 200 — source MORTE, a readresser",
+          detail: "",
+        });
+        continue;
+      }
+
+      if (!memeAdresse(src.url, urlFinale)) {
+        findings.push({
+          src,
+          type: "redirection",
+          summary: `redirigee vers ${urlFinale}`,
+          detail: "",
+        });
+      }
 
       if (src.kind === "github-changelog") {
         const ver = parseChangelogVersion(raw);
@@ -226,12 +278,18 @@ async function main() {
   const reportPath = join(REPORTS_DIR, `${date}.md`);
 
   const actionable = findings.filter(
-    (f) => f.type !== "baseline" && f.type !== "error",
+    (f) =>
+      f.type !== "baseline" && f.type !== "error" && f.type !== "redirection",
   );
   const errors = findings.filter((f) => f.type === "error");
+  const redirections = findings.filter((f) => f.type === "redirection");
 
   let md = `# Veille ClaudeAI Academy — ${date}\n\n`;
-  if (actionable.length === 0 && errors.length === 0) {
+  if (
+    actionable.length === 0 &&
+    errors.length === 0 &&
+    redirections.length === 0
+  ) {
     md += `Rien de neuf sur les ${SOURCES.length} sources surveillées. Aucune action.\n`;
   } else {
     if (actionable.length) {
@@ -251,6 +309,14 @@ async function main() {
     if (errors.length) {
       md += `## Sources en erreur (à vérifier)\n\n`;
       for (const f of errors) md += `- ${f.src.label} : ${f.summary}\n`;
+      md += `\n`;
+    }
+    if (redirections.length) {
+      md += `## Sources à réadresser (elles répondent, mais ailleurs)\n\n`;
+      for (const f of redirections) {
+        md += `- ${f.src.label} : ${f.src.url} \u2192 ${f.summary}\n`;
+      }
+      md += `\nTant que l'adresse n'est pas corrigée dans scripts/veille/sources.mjs, c'est la page de destination qui est suivie — souvent une page d'accueil, pas la page voulue.\n`;
     }
   }
 
@@ -271,8 +337,16 @@ async function main() {
       {
         date,
         sourcesModifiees: findings
-          .filter((f) => f.type !== "baseline")
+          .filter((f) => f.type !== "baseline" && f.type !== "redirection")
           .map((f) => f.src.id),
+        // La sante de la veille elle-meme, lisible sans reparser le Markdown.
+        // C'est ce qui permet a l'alerte planifiee de sonner quand une source
+        // meurt, au lieu de ne sonner que quand le contenu bouge.
+        sourcesEnPanne: errors.map((f) => ({ id: f.src.id, motif: f.summary })),
+        sourcesRedirigees: redirections.map((f) => ({
+          id: f.src.id,
+          motif: f.summary,
+        })),
         rapport: `scripts/veille/reports/${date}.md`,
       },
       null,
@@ -292,7 +366,7 @@ async function main() {
 
   console.log(`Rapport écrit : ${reportPath}`);
   console.log(
-    `${actionable.length} changement(s) actionnable(s), ${errors.length} erreur(s), ${baselines.length} baseline(s).`,
+    `${actionable.length} changement(s) actionnable(s), ${errors.length} erreur(s), ${redirections.length} redirection(s), ${baselines.length} baseline(s).`,
   );
   if (actionable.length) {
     console.log("\n--- Aperçu ---\n");

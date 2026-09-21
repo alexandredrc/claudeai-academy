@@ -18,7 +18,7 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Bonnes pratiques SQL, statistiques robustes et data-viz : savoir établi, vérifié à la rédaction. Contenu original pour ClaudeAI Academy.
+**Sources & méthode** · Bonnes pratiques SQL, statistiques robustes et data-viz : savoir établi, vérifié à la rédaction. Faits Claude (modèles, contextes, tarifs, mise en cache) revérifiés le **20 septembre 2026** à la source : \`platform.claude.com/docs/en/about-claude/pricing\`, \`…/models/overview\`, \`…/build-with-claude/prompt-caching\` et \`claude.com/pricing\`. Les tarifs sont datés dans le texte : revérifie-les avant de chiffrer un budget. Contenu original pour ClaudeAI Academy.
 
 Faits Claude vérifiés le **20 septembre 2026** — [Opus 5, ce qui change](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) · [Modèles et tarifs](https://platform.claude.com/docs/en/about-claude/models/overview) · [Cache de prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) · [Prompter Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) · [Notes de version](https://platform.claude.com/docs/en/release-notes/overview) · [Spécification MCP 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28/changelog) · [Connecteur Anthropic Economic Index](https://www.anthropic.com/news/anthropic-economic-index-connector) · [Plans et tarifs](https://claude.com/pricing). Les prix, les limites et les versions bougent vite : redate-les avant de t'en servir dans une décision.`;
 

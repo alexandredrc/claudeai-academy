@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { startCheckoutAction } from "../checkout/actions";
 import { setPasswordAction } from "./actions";
 import { isValidTier } from "@/lib/stripe/plans";
+import { certificationStatus } from "@/lib/certification/core";
+import { CertificationProgress } from "@/components/site/certification-progress";
 
 type SearchParams = Promise<{
   plan?: string;
@@ -47,6 +49,11 @@ export default async function AccountPage({
   const hasMastery = paidPurchases.some((p) => p.tier === "mastery");
   const hasStarter = paidPurchases.some((p) => p.tier === "starter");
   const noPurchase = paidPurchases.length === 0;
+
+  // Avancement vers la certification : c'est le rappel qui manque à l'endroit
+  // où l'on décroche. Calculé seulement pour les acheteurs — inutile d'aller
+  // interroger la base pour quelqu'un qui n'a rien acheté.
+  const certStatus = noPurchase ? null : await certificationStatus(user.id);
 
   // Plan demandé dans l'URL (vient du flow signup) : on met en avant ce tier.
   const requestedTier = isValidTier(plan) ? plan : null;
@@ -107,6 +114,8 @@ export default async function AccountPage({
             </div>
           </div>
         )}
+
+        {certStatus && <CertificationProgress status={certStatus} />}
 
         <div className="mt-12 grid gap-6 md:grid-cols-[1fr_auto]">
           <Card title="Mon compte">

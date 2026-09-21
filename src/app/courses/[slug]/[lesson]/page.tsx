@@ -9,6 +9,8 @@ import { extractHeadings } from "@/lib/lessons/blocks";
 import { RichLesson } from "@/components/lesson/rich-lesson";
 import { LessonToc, ReadingProgress } from "@/components/lesson/interactive";
 import { LessonQuiz } from "./Quiz";
+import { certificationStatus } from "@/lib/certification/core";
+import { CertificationProgress } from "@/components/site/certification-progress";
 import { markLessonCompleteAction } from "./actions";
 import { startCheckoutAction } from "@/app/checkout/actions";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
@@ -135,6 +137,12 @@ export default async function LessonPage({ params }: { params: Params }) {
   // 6b) QCM d'auto-évaluation (en code, indépendant de la DB) + accès Mentor
   const quiz = content ? quizForLesson(lessonMeta.slug) : null;
   const hasMastery = user ? await userHasTier(supabase, "mastery") : false;
+
+  // Avancement vers la certification, rappelé en bas de CHAQUE leçon. C'est le
+  // seul endroit où l'on tient l'attention de quelqu'un qui vient de finir
+  // quelque chose — le moment exact où « encore 7 leçons » se franchit au lieu
+  // de se remettre à plus tard.
+  const certStatus = user ? await certificationStatus(user.id) : null;
   const mentorHref = `/mentor?exercice=${encodeURIComponent(lessonMeta.title)}`;
 
   // 7) Navigation prev/next
@@ -289,6 +297,10 @@ export default async function LessonPage({ params }: { params: Params }) {
             </div>
 
             {quiz && <LessonQuiz questions={quiz} />}
+
+            {certStatus && (
+              <CertificationProgress status={certStatus} variant="compact" />
+            )}
 
             {hasMastery && (
               <div className="mt-8 flex flex-col items-start gap-4 rounded-[22px] border border-coral-soft bg-coral-soft/20 p-6 sm:flex-row sm:items-center sm:justify-between">

@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { isValidTier, isValidPlanCode } from "@/lib/stripe/plans";
+import { notifierVente } from "@/lib/notify/telegram";
 import { sendPurchaseWelcomeEmail } from "@/lib/email/welcome";
 import { sendCheckoutRecoveryEmail } from "@/lib/email/checkout-recovery";
 import { buildAccessLink } from "@/lib/auth/access-link";
@@ -167,6 +168,18 @@ async function handleCheckoutCompleted(
 
   if (error) {
     throw new Error(`Supabase upsert purchases failed: ${error.message}`);
+  }
+
+  // Alerte de vente, immédiate. Placée juste après l'enregistrement pour que
+  // le téléphone sonne même si la suite du webhook échoue — et conditionnée à
+  // `existingPurchase` pour qu'un rejeu Stripe ne fasse pas sonner deux fois.
+  if (!existingPurchase) {
+    await notifierVente({
+      planCode,
+      tier,
+      amountTotal: session.amount_total ?? 0,
+      prenom: session.customer_details?.name?.trim().split(/\s+/)[0] ?? null,
+    });
   }
 
   // Complète le profil avec le nom collecté par Stripe quand il manque.

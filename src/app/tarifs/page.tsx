@@ -7,11 +7,19 @@ import { ValueStack } from "@/components/landing/value-stack";
 import { Guarantee } from "@/components/landing/guarantee";
 import { FAQ } from "@/components/landing/faq";
 import { FinalCTA } from "@/components/landing/final-cta";
+import { ELITE_ENABLED } from "@/lib/stripe/plans";
 
+// Le titre et le balisage doivent suivre le catalogue RÉELLEMENT ouvert :
+// ouvrir ou fermer le Pass Accompagnement sans les mettre à jour laisserait une
+// page qui annonce des prix qu'elle n'affiche plus — et un balisage que Google
+// reprend tel quel dans ses résultats.
 export const metadata: Metadata = {
-  title: "Prix de la formation Claude AI : 47 € ou 497 € — sans CPF ni devis",
-  description:
-    "Une formation Claude AI accessible : Pass Starter à 47 €, Pass Mastery à 497 € (ou 3× sans frais avec Klarna) pour tous les parcours complets. Paiement en ligne immédiat, sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé.",
+  title: ELITE_ENABLED
+    ? "Prix de la formation Claude AI : 47 €, 497 € ou 1 497 €"
+    : "Prix de la formation Claude AI : 47 € ou 497 € — sans CPF ni devis",
+  description: ELITE_ENABLED
+    ? "Trois pass, un paiement unique et l'accès à vie : Starter à 47 €, Mastery à 497 € (ou 3× sans frais avec Klarna) pour tout le programme, et Accompagnement à 1 497 € avec des séances individuelles. Sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé."
+    : "Une formation Claude AI accessible : Pass Starter à 47 €, Pass Mastery à 497 € (ou 3× sans frais avec Klarna) pour tous les parcours complets. Paiement en ligne immédiat, sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé.",
   alternates: { canonical: "/tarifs" },
 };
 
@@ -86,6 +94,20 @@ const offersJsonLd = {
       shippingDetails,
       hasMerchantReturnPolicy,
     },
+    ...(ELITE_ENABLED
+      ? [
+          {
+            "@type": "Offer",
+            name: "Pass Accompagnement",
+            price: "1497",
+            priceCurrency: "EUR",
+            url: "https://www.claudeai-academy.com/tarifs#accompagnement",
+            availability: "https://schema.org/InStock",
+            shippingDetails,
+            hasMerchantReturnPolicy,
+          },
+        ]
+      : []),
   ],
 };
 

@@ -4,6 +4,11 @@ import { CheckoutButton } from "@/components/site/checkout-button";
 import { getCatalogStats, type CatalogStats } from "@/lib/courses/stats";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 
+// Les 3 parcours fondateurs du Pass Starter. Sert à afficher l'écart réel
+// entre les deux pass — un badge qui chiffre la différence aide à choisir,
+// là où « le plus complet » sur le pass le plus complet n'apprend rien.
+const STARTER_LESSON_COUNT = 22;
+
 export async function PricingTeaser() {
   const stats = await getCatalogStats();
   return (
@@ -15,8 +20,9 @@ export async function PricingTeaser() {
             Choisissez votre <span className="accent-serif">accès</span>
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-muted max-w-[640px] mx-auto">
-            Deux options claires. Le Pass Mastery est l&apos;offre cœur du
-            programme. Le Starter est conçu pour goûter avant de s&apos;engager.
+            Le Pass Mastery est celui que nous recommandons : c&apos;est le
+            programme entier, et les 47&nbsp;€ du Starter s&apos;en déduisent si
+            vous commencez petit. Dans les deux cas, 14 jours pour changer d&apos;avis.
           </p>
         </div>
 
@@ -46,7 +52,7 @@ function StarterCard() {
       className="scroll-mt-24 bg-white border border-line rounded-[22px] p-9 md:p-10 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_4px_8px_rgba(31,31,30,0.05),0_24px_48px_rgba(31,31,30,0.10)]"
     >
       <h3 className="font-serif text-2xl font-semibold text-ink">Pass Starter</h3>
-      <p className="mt-1.5 text-muted text-[14px]">Pour découvrir la méthode</p>
+      <p className="mt-1.5 text-muted text-[14px]">Pour tester la méthode sans s&apos;engager</p>
 
       <div className="mt-7 flex items-baseline gap-2">
         <span className="font-serif text-5xl font-semibold text-ink leading-none">47</span>
@@ -57,7 +63,7 @@ function StarterCard() {
       </p>
 
       <CheckoutButton tier="starter" variant="ghost" size="md" className="mt-7 w-full">
-        Choisir Starter
+        Commencer — 47 €
       </CheckoutButton>
 
       <ul className="mt-7 pt-7 border-t border-line space-y-3 flex-1">
@@ -89,7 +95,7 @@ function MasteryCard({ stats }: { stats: CatalogStats }) {
       className="scroll-mt-24 relative bg-gradient-to-br from-ink to-[#2D2A26] text-cream border border-ink rounded-[22px] p-9 md:p-10 flex flex-col"
     >
       <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-coral text-cream text-[12px] font-bold tracking-wider px-3.5 py-1.5 rounded-full">
-        ★ LE PLUS COMPLET
+        ★ {stats.lessonCount - STARTER_LESSON_COUNT} LEÇONS DE PLUS
       </span>
 
       <h3 className="font-serif text-2xl font-semibold">Pass Mastery</h3>
@@ -104,8 +110,16 @@ function MasteryCard({ stats }: { stats: CatalogStats }) {
         Ou 3 × 165,67 € sans frais avec Klarna
       </span>
 
+      {/* Le crédit d'ascension existe depuis toujours côté checkout, mais
+          n'était annoncé nulle part : un acheteur Starter ne pouvait pas
+          savoir qu'il ne repaierait pas deux fois. */}
+      <p className="mt-3 text-[13px] text-cream/70 leading-relaxed">
+        Déjà membre Starter&nbsp;? Vos 47&nbsp;€ sont déduits automatiquement —
+        connectez-vous avant de payer.
+      </p>
+
       <CheckoutButton tier="mastery" variant="primary" size="md" className="mt-7 w-full">
-        Rejoindre Mastery
+        Rejoindre Mastery — 497 €
       </CheckoutButton>
 
       <ul className="mt-7 pt-7 border-t border-cream/15 space-y-3 flex-1">

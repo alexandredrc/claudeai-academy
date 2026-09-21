@@ -130,14 +130,14 @@ function PricingHero() {
 
         <Eyebrow>Investissement et accès</Eyebrow>
         <h1 className="mt-4 font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-medium leading-[1.05] tracking-tight text-ink">
-          Une formation Claude AI accessible :{" "}
-          <span className="accent-serif">deux formules, une seule promesse</span>
+          Formation Claude AI :{" "}
+          <span className="accent-serif">vous payez une fois, vous gardez l&apos;accès à vie</span>
         </h1>
         <p className="mt-6 text-lg leading-relaxed text-muted max-w-[640px]">
-          Vous payez une fois, vous gardez l&apos;accès à vie, et vous testez
-          14 jours sans risque. Pas d&apos;abonnement, pas d&apos;engagement,
-          pas de frais cachés — et pas de dossier CPF ni de devis à attendre :
-          vous commencez dans les 5 minutes.
+          Pas d&apos;abonnement, pas d&apos;engagement, pas de frais cachés —
+          et pas de dossier CPF ni de devis à attendre : vous commencez dans
+          les 5 minutes. Vous testez 14 jours, et si le programme ne vous va
+          pas, vous êtes remboursé sans avoir à vous justifier.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">

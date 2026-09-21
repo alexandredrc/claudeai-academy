@@ -21,35 +21,50 @@ export async function Hero() {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-16 items-center relative">
           <div>
-            <Eyebrow>{stats.courseCount} parcours · {stats.lessonCount} leçons · Accès à vie</Eyebrow>
+            {/* L'accroche nomme la douleur AVANT de nommer le produit : la
+                très grande majorité des visiteurs a déjà essayé une IA et en
+                est repartie déçue. Leur dire que l'échec ne venait pas d'eux
+                lève la honte, qui est le vrai frein à l'achat d'une formation. */}
+            <Eyebrow>Vous avez essayé l&apos;IA. Elle vous a répondu à côté.</Eyebrow>
 
             <h1 className="mt-5 font-serif text-[clamp(2.5rem,5.5vw,4.25rem)] font-medium leading-[1.05] tracking-[-0.025em] text-ink">
               La formation <span className="accent-serif">Claude AI</span>
               <br />
-              qui vous rend opérationnel, vraiment.
+              qui vous apprend quoi lui demander.
             </h1>
 
             <p className="mt-7 text-lg leading-relaxed text-muted max-w-[540px]">
-              Une formation en ligne, en français et à votre rythme, pour
-              utiliser l&apos;IA générative comme un pro. Prompt engineering,
-              Claude Code, business, marketing, data : un programme structuré
-              pour passer de &laquo; je teste &raquo; à &laquo; je livre des
-              résultats &raquo;.
+              Ce n&apos;est pas l&apos;outil qui était mauvais : c&apos;est la
+              question. {stats.courseCount} parcours et {stats.lessonCount} leçons
+              en français, {PROMPT_COUNT} prompts prêts à copier, et un mentor IA
+              qui corrige les vôtres pendant que vous apprenez.
+              <strong className="text-ink-soft"> Sans une ligne de code, sans jargon,
+              à votre rythme.</strong>
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="mt-9 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
               <Button href="/tarifs" variant="primary" size="lg">
-                Rejoindre l&apos;académie
+                Commencer — à partir de 47 €
               </Button>
-              <Button href="#programme" variant="ghost" size="lg">
-                Découvrir le programme
-              </Button>
+              <a
+                href="#programme"
+                className="text-[15px] text-muted underline underline-offset-4 decoration-line hover:text-coral transition-colors"
+              >
+                Voir les {stats.lessonCount} leçons
+              </a>
             </div>
 
+            {/* Objection nº1 du marché français de la formation : « il faut
+                monter un dossier ». La lever ici, et pas seulement sur /tarifs. */}
+            <p className="mt-4 text-[14px] text-muted">
+              Sans dossier CPF ni devis à attendre : vous commencez dans les
+              5&nbsp;minutes.
+            </p>
+
             <dl className="mt-14 pt-8 border-t border-line flex flex-wrap gap-x-12 gap-y-5">
-              <TrustItem value={String(stats.courseCount)} label="Parcours métiers" />
-              <TrustItem value={String(stats.lessonCount)} label="Leçons structurées" />
-              <TrustItem value={String(PROMPT_COUNT)} label="Prompts opérationnels" />
+              <TrustItem value={String(stats.lessonCount)} label="Leçons, en français" />
+              <TrustItem value={String(PROMPT_COUNT)} label="Prompts prêts à copier" />
+              <TrustItem value="14 j" label="Satisfait ou remboursé" />
             </dl>
           </div>
 

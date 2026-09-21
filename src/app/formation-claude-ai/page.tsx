@@ -19,7 +19,7 @@ import { PROMPT_COUNT } from "@/lib/prompts/library";
 export const metadata: Metadata = {
   title: "Formation Claude AI en ligne, en français | ClaudeAI Academy",
   description:
-    "La formation Claude AI en français : 8 parcours, 48 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
+    "La formation Claude AI en français : 8 parcours, 49 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
   robots: { index: false, follow: true },
 };
 

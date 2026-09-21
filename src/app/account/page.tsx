@@ -84,7 +84,7 @@ export default async function AccountPage({
                 </h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
                   {hasMastery
-                    ? "Tu as accès aux 8 parcours, soit 48 leçons."
+                    ? "Tu as accès aux 8 parcours, soit 49 leçons."
                     : "Tu as accès aux 3 parcours fondamentaux, soit 21 leçons."}
                 </p>
               </div>

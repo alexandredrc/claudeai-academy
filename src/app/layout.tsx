@@ -28,7 +28,7 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: "Formation Claude AI en ligne, en français — dès 47 € | ClaudeAI Academy",
   description:
-    "Formation Claude AI en ligne et en français, à votre rythme : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 8 parcours, 48 leçons, 170 prompts, Mentor IA. Dès 47 €, sans CPF ni dossier.",
+    "Formation Claude AI en ligne et en français, à votre rythme : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 8 parcours, 49 leçons, 170 prompts, Mentor IA. Dès 47 €, sans CPF ni dossier.",
   metadataBase: new URL("https://www.claudeai-academy.com"),
   keywords: [
     "formation Claude AI",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Formation Claude AI en ligne, en français — dès 47 €",
     description:
-      "8 parcours, 48 leçons, 170 prompts et un Mentor IA pour maîtriser Claude AI en pratique. À votre rythme, sans CPF ni dossier.",
+      "8 parcours, 49 leçons, 170 prompts et un Mentor IA pour maîtriser Claude AI en pratique. À votre rythme, sans CPF ni dossier.",
     images: ["/og.png"],
   },
 };

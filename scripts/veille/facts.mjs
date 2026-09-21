@@ -34,8 +34,23 @@ export const FAITS = [
     id: "nombre-lecons",
     libelle: "Nombre de leçons",
     gravite: "critique",
-    pourquoi: "Chiffre commercial. Doit correspondre aux leçons réellement publiées en base.",
-    ou: [{ fichier: "src/components/landing/programme.tsx", motif: /(\d+)\s+leçons/ }],
+    pourquoi:
+      "Chiffre commercial répété dans les métadonnées, la FAQ, la page tarifs et trois emails. " +
+      "Il ne suffit pas de le suivre là où il est calculé : \`programme.tsx\` l'affiche depuis la base " +
+      "et ne contient aucun chiffre en dur, donc le motif n'y accrochait rien et le fait passait " +
+      "« aligné » quoi qu'il arrive. Ce sont les copies ÉCRITES À LA MAIN qu'il faut surveiller : " +
+      "le jour où on ajoute une leçon, ce sont elles qui restent en arrière.",
+    ou: [
+      { fichier: "src/app/layout.tsx", motif: /8 parcours, (\d+) leçons/ },
+      { fichier: "src/app/faq/page.tsx", motif: /8 parcours et (\d+) leçons/ },
+      { fichier: "src/app/tarifs/page.tsx", motif: /8 parcours, (\d+) leçons/ },
+      { fichier: "src/app/formation-claude-ai/page.tsx", motif: /8 parcours, (\d+) leçons/ },
+      { fichier: "src/app/account/page.tsx", motif: /8 parcours, soit (\d+) leçons/ },
+      { fichier: "src/components/landing/faq.tsx", motif: /8 parcours, (\d+) leçons\)/ },
+      { fichier: "src/components/landing/founder.tsx", motif: /les (\d+) leçons/ },
+      { fichier: "src/lib/email/welcome.ts", motif: /parcours complets \((\d+) leçons\)/ },
+      { fichier: "src/lib/email/nurture.ts", motif: /497 € pour (\d+) leçons/ },
+    ],
     verif: { kind: "local", fn: "compterLecons" },
   },
   {

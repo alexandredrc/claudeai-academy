@@ -276,7 +276,7 @@ function renderD21(tier: PlanTier, firstName: string | null): Rendered {
       "Si tu n'es pas passé au Mastery, il y a de fortes chances que ce soit pour une seule raison : le prix. C'est une objection légitime, alors traitons-la franchement.",
     ),
     p(
-      "497 € pour 48 leçons, c'est ~10 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
+      "497 € pour 49 leçons, c'est ~10 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
     ),
     p("Trois choses qui réduisent encore le risque :"),
     bullets([
@@ -295,7 +295,7 @@ function renderD21(tier: PlanTier, firstName: string | null): Rendered {
     "",
     "Si tu n'es pas passé au Mastery, il y a de fortes chances que ce soit pour une seule raison : le prix. C'est une objection légitime, alors traitons-la franchement.",
     "",
-    "497 € pour 48 leçons, c'est ~10 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
+    "497 € pour 49 leçons, c'est ~10 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
     "",
     "Trois choses qui réduisent encore le risque :",
     "- Ton Starter est déduit : connecté à ton espace, le Mastery passe automatiquement à 450 €.",

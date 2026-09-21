@@ -39,7 +39,7 @@ const groups: Group[] = [
       },
       {
         q: "Existe-t-il une formation Claude AI en français ?",
-        a: "Oui : ClaudeAI Academy est une formation Claude AI 100 % en français et en ligne, accessible dès 47 €. 8 parcours et 48 leçons couvrent la prise en main, le prompt engineering, Claude Code, la data, le marketing, la stratégie IA en entreprise et la sécurité. Vous avancez à votre rythme, avec un accès à vie et la première leçon de chaque parcours en accès libre.",
+        a: "Oui : ClaudeAI Academy est une formation Claude AI 100 % en français et en ligne, accessible dès 47 €. 8 parcours et 49 leçons couvrent la prise en main, le prompt engineering, Claude Code, la data, le marketing, la stratégie IA en entreprise et la sécurité. Vous avancez à votre rythme, avec un accès à vie et la première leçon de chaque parcours en accès libre.",
       },
       {
         q: "Claude Code, faut-il savoir coder pour s'y mettre ?",

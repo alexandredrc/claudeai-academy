@@ -5,7 +5,7 @@ import { SITE_URL, sendEmail } from "@/lib/email/send";
  * sont jamais mis en marche.
  *
  * Constat du 27/08/2026 : 4 comptes sur 67 avaient validé au moins une leçon,
- * pour 14 leçons terminées sur un catalogue de 48. C'est la cause racine du
+ * pour 14 leçons terminées sur un catalogue de 49. C'est la cause racine du
  * reste — sans utilisateurs qui avancent, il n'y a ni témoignage d'acheteur,
  * ni résultat à montrer, ni montée du Starter vers le Mastery. Le nurture
  * existant (`nurture.ts`) parle aux acheteurs récents et suppose qu'ils ont

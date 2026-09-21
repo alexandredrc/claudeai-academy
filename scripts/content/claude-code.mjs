@@ -16,10 +16,10 @@ export const claudeCodeIaAgentic = {
   slug: "claude-code-ia-agentic",
   title: "Claude Code et l'IA agentique",
   description:
-    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents et coûts maîtrisés. À jour de Claude Code 2.1.278 (20 septembre 2026).",
+    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents et coûts maîtrisés — puis comment le sortir du terminal avec l'Agent SDK ou les agents gérés. À jour de Claude Code 2.1.278 (21 septembre 2026).",
   tier_required: "starter",
   display_order: 3,
-  estimated_duration_min: 138,
+  estimated_duration_min: 164,
   lessons: [
     {
       slug: "ce-qui-change-vraiment-avec-claude-code",
@@ -139,8 +139,9 @@ L'agent **propose et exécute** sous ton contrôle. **Toi** restes responsable d
 3. **Hooks** : automatiser les invariants de façon déterministe.
 4. **MCP** : connecter tes outils et tes données (en sécurité).
 5. **Sous-agents & architecture agentique** : déléguer et orchestrer proprement.
+6. **Sortir du terminal** : programmer ton agent, ou le faire héberger pour qu'il tourne sans toi.
 
-À la fin, Claude Code ne sera plus un gadget mais ton **environnement de travail** quotidien.
+À la fin, Claude Code ne sera plus un gadget mais ton **environnement de travail** quotidien — et tu sauras quoi faire le jour où tu voudras qu'il travaille pendant que tu dors.
 
 :::defi 15 min — Ton diagnostic de départ
 Avant d'aller plus loin, installe le décor et fais ton tri.
@@ -899,6 +900,154 @@ R: Elles committent, poussent leur branche et ouvrent une pull request en brouil
 ===
 Q: Combien coûtent les équipes d'agents par rapport à une session standard ?
 R: Environ 7 fois plus de tokens. Elles sont désactivées par défaut.
+:::`,
+    },
+    {
+      slug: "sortir-du-terminal-agent-sdk-et-agents-geres",
+      title: "Sortir du terminal : programmer ton agent ou le faire héberger",
+      description:
+        "Agent SDK, Tool Runner, agents gérés : qui fournit la boucle, qui fournit la machine, et ce que coûte un agent qui tourne sans toi.",
+      duration_min: 26,
+      is_free_preview: false,
+      content_md:
+        `:::objectifs
+- Distinguer les quatre façons de construire un agent, et savoir laquelle te concerne
+- Ne plus confondre le Tool Runner, le Claude Agent SDK et les agents gérés
+- Décider qui héberge la boucle et qui héberge la machine
+- Chiffrer ce que coûte un agent qui tourne sans toi
+- Placer tes secrets là où l'agent ne peut pas les lire
+:::
+
+:::flash
+Tout ce que tu as construit jusqu'ici vit dans ton terminal, et ne tourne que quand tu es devant. Pour passer à un agent qu'on appelle depuis du code, qui tourne la nuit, ou qu'un collègue utilise sans terminal, deux questions suffisent : **qui fournit la boucle**, et **qui fournit la machine**. Le Claude Agent SDK fournit la boucle, tu fournis la machine. Les agents gérés fournissent les deux.
+:::
+
+## Le mur au bout du parcours
+
+Six leçons plus tôt, tu avais un chatbot. Maintenant tu as un agent qui lit ton dépôt, applique tes hooks, appelle tes serveurs MCP et délègue à des sous-agents. Il a une limite, et elle n'est pas technique : **il vit dans ton terminal, et il ne tourne que pendant que tu le regardes.**
+
+Trois besoins très ordinaires font tomber ce mur.
+
+- Tu veux le **déclencher depuis ton propre code** : à la réception d'un ticket, à chaque commit, dans un job de ton application.
+- Tu veux qu'il **tourne la nuit**, tout seul, et qu'un résultat t'attende au réveil.
+- Tu veux le **donner à quelqu'un** qui n'a ni terminal, ni clé, ni envie d'en avoir.
+
+À ce moment-là, la question n'est plus « comment mieux prompter » mais « où ce truc tourne-t-il quand je ferme mon ordinateur ». C'est un choix d'architecture, et il se prend en deux questions.
+
+## Deux questions, quatre réponses
+
+Les options se ressemblent toutes vues de loin. Elles se séparent nettement dès qu'on demande **qui fournit le harnais** (la boucle d'agent et la gestion du contexte) et **qui fournit le déploiement** (la machine où ça tourne).
+
+| Approche | Tu écris | Harnais | Déploiement | Outils disponibles |
+| --- | --- | --- | --- | --- |
+| **Boucle manuelle** (API Messages) | la boucle \`tool_use\` toi-même | toi | toi | seulement ceux que tu définis |
+| **Tool Runner** (dans le SDK Anthropic) | juste tes fonctions-outils | le SDK | toi | seulement ceux que tu définis |
+| **Claude Agent SDK** | un prompt et des options | le SDK (harnais de Claude Code) | **toi** | lecture/écriture de fichiers, Bash, recherche, MCP, sous-agents |
+| **Agents gérés** (Managed Agents) | une config d'agent | **Anthropic** | **Anthropic** | bac à sable hébergé + skills + MCP + tes outils |
+
+Lis la colonne « Déploiement » : **trois options sur quatre te laissent la machine sur les bras.** C'est la seule qui compte le jour où tu veux que ça tourne la nuit.
+
+:::piege Le Tool Runner n'est pas le Claude Agent SDK
+Les noms se ressemblent, les paquets n'ont rien à voir. Le **Tool Runner** fait partie du SDK Anthropic habituel (\`@anthropic-ai/sdk\`, \`anthropic\`) : il enchaîne appel → exécution → rappel **pour les outils que tu écris**, point. Aucun outil intégré, aucun accès aux fichiers, aucun bac à sable.
+
+Le **Claude Agent SDK** (\`@anthropic-ai/claude-agent-sdk\`, \`claude-agent-sdk\`) est un **autre produit** : c'est Claude Code empaqueté en bibliothèque, avec ses outils intégrés, sa gestion de contexte, ses hooks, ses permissions et ses sous-agents.
+
+Confondre les deux, c'est soit réécrire à la main des outils qui existaient déjà, soit tirer un harnais complet pour trois appels d'API. Repère-les au paquet, jamais au nom.
+:::
+
+## Le Claude Agent SDK : Claude Code en bibliothèque
+
+C'est la marche la plus courte depuis ce parcours, parce que **tu ne réapprends rien**. Le harnais est celui que tu viens d'apprivoiser : mêmes outils de lecture et d'édition, même Bash, même MCP, mêmes sous-agents, mêmes permissions. Tu ne tapes plus dans un terminal, tu appelles une fonction avec un prompt et des options.
+
+Ce que ça débloque concrètement : un agent déclenché par ton application, une étape d'intégration continue qui fait autre chose que lancer des tests, un outil interne où l'utilisateur ne voit jamais le terminal.
+
+:::cle La parité de version est la bonne nouvelle cachée
+L'Agent SDK suit Claude Code version pour version : la **0.3.278** du SDK correspond à la **2.1.278** de Claude Code (21 septembre 2026). Ce que tu apprends dans le terminal reste vrai dans ta bibliothèque, et les corrections arrivent des deux côtés en même temps. C'est aussi pour ça que les deux changelogs méritent d'être suivis ensemble.
+:::
+
+Ce que le SDK ne fait **pas** : il ne te fournit pas de serveur. La boucle tourne où tu la lances — ta machine, ton conteneur, ta fonction serverless. Les secrets, les redémarrages, le stockage des sessions et la surveillance restent ton problème. Pour beaucoup de cas, c'est très bien : tu as déjà une infrastructure, tu y ajoutes un agent.
+
+## Les agents gérés : quand tu ne veux héberger ni la boucle ni la machine
+
+C'est l'autre bout du spectre, et le vrai sujet neuf. Avec les **agents gérés** (*Managed Agents*, en bêta), tu enregistres une **configuration d'agent** — modèle, consignes système, outils — qui devient un objet **persistant et versionné**. Ensuite tu ouvres des **sessions** qui pointent vers cet agent.
+
+Chaque session reçoit **son propre conteneur** : c'est là que Bash, les fichiers et l'exécution de code se passent. La boucle, elle, tourne chez Anthropic. Tu envoies des messages, tu reçois un flux d'événements.
+
+Quatre capacités valent le détour, parce qu'elles n'existent nulle part ailleurs sans travail :
+
+- **Les déploiements planifiés.** Une cadence façon cron, et la session part toute seule. C'est la réponse directe au « je veux qu'il tourne la nuit » : pas d'ordonnanceur à écrire, pas de machine à maintenir allumée.
+- **Les objectifs mesurés.** Au lieu d'un simple message, tu donnes une **grille de critères** : un correcteur séparé fait retravailler l'agent jusqu'à ce qu'elle passe. C'est la différence entre « il a produit quelque chose » et « il a produit quelque chose de correct ».
+- **Les budgets de session.** Un plafond **en dollars**, appliqué par la plateforme, sur une session. Pas une estimation : un mur.
+- **Les politiques de permission.** Chaque outil est en *toujours autoriser*, *toujours demander*, ou *auto* — dans ce dernier cas, le serveur évalue l'appel, refuse ce qu'il juge risqué et s'arrête pour demander quand il n'arrive pas à trancher.
+
+:::chiffres
+0,08 $ | par heure de session d'agent géré — comptée seulement pendant que la session tourne
++ tokens | facturés aux tarifs standards du modèle, la remise Batch ne s'applique pas
+:::
+
+## Ce que ça coûte vraiment
+
+C'est le point où beaucoup se trompent, parce que la facture a **deux dimensions** au lieu d'une.
+
+Les tokens, d'abord, aux tarifs habituels du modèle que tu as choisi dans la config de l'agent — la mise en cache s'applique normalement, la remise Batch non (une session est interactive, il n'y a pas de mode batch). Puis le **temps de session**, à **0,08 $ l'heure**, compté uniquement pendant que la session est en état *running* : l'attente d'un message ou d'une confirmation ne coûte rien.
+
+Le réflexe à garder de la leçon 1 reste le bon : **le coût d'un agent se juge à la tâche terminée**, pas à la requête. Un agent planifié qui tourne vingt minutes chaque nuit coûte moins de 0,60 $ de temps de session par mois — les tokens, eux, dépendent entièrement de ce que tu lui fais lire.
+
+:::piege « Bêta » n'est pas une étiquette décorative
+Les agents gérés sont en **bêta** : l'en-tête \`managed-agents-2026-04-01\` est obligatoire, et la surface d'API peut changer. Deux conséquences pratiques. D'abord, isole ces appels derrière une petite couche à toi, pour ne pas avoir à fouiller tout ton code le jour où une signature bouge. Ensuite, **ce n'est pas disponible sur Amazon Bedrock, Google Vertex ni Microsoft Foundry** : si ton entreprise impose l'un de ces trois, la réponse est l'API Messages avec tes propres outils, pas les agents gérés. Vérifie cette contrainte **avant** de concevoir, pas après.
+:::
+
+## Le geste de sécurité qui change tout
+
+Souviens-toi de la leçon 5 : un serveur MCP tourne avec tes droits, et tout ce qu'un outil rapporte est du contenu non fiable. Un agent hébergé qui exécute du code dans un conteneur pose la même question en plus net : **que se passe-t-il si l'agent se fait détourner alors qu'il détient ta clé d'API interne ?**
+
+La bonne réponse ne consiste pas à mieux prompter. Elle consiste à **ne jamais faire descendre le secret dans le bac à sable**. Les identifiants stockés en **coffre** (*vault*) sont conservés côté Anthropic et **substitués au moment de la sortie réseau** : l'agent peut appeler ton API, mais le jeton n'apparaît jamais dans son environnement. Ni dans une variable, ni dans un fichier, ni dans une sortie de commande qu'une injection pourrait faire afficher.
+
+:::cle La règle transposable
+Un secret que l'agent ne peut pas lire est un secret qu'une injection de prompt ne peut pas exfiltrer. Cette règle ne dépend d'aucun produit : chaque fois que tu donnes un accès à un agent, demande-toi si tu lui donnes **la capacité** ou **la clé**. Donne la capacité.
+:::
+
+## Comment choisir, en trois questions
+
+:::etapes
+1. **Ta tâche a-t-elle vraiment besoin d'un agent ?** Si elle est décrivable d'avance en étapes fixes, écris un enchaînement d'appels classiques. Un agent coûte plus cher, met plus longtemps, et se justifie quand le chemin n'est pas connu à l'avance.
+2. **As-tu besoin des outils de Claude Code — fichiers, Bash, dépôt ?** Si oui, c'est le Claude Agent SDK (ou les agents gérés). Si tu n'as besoin que de tes propres fonctions, le Tool Runner suffit et coûte bien moins d'efforts.
+3. **Qui héberge ?** Si tu as déjà une infrastructure et que tu veux garder la main, Agent SDK chez toi. Si tu veux que ça tourne sans machine à toi — planifié, longue durée, avec un espace de travail par session — agents gérés. Et si un cloud partenaire t'est imposé, repasse à l'API Messages.
+:::
+
+:::astuce Commence par le geste qui ne demande aucune infrastructure
+Avant de choisir un hébergement, vérifie que ta tâche marche. Fais-la tourner une fois dans ton terminal, avec les outils de ce parcours, et regarde combien de tours elle prend et ce qu'elle a eu besoin de lire. Un agent qui n'aboutit pas sous tes yeux n'aboutira pas mieux à trois heures du matin — il te coûtera juste plus cher pour échouer sans témoin.
+:::
+
+:::maj 21 septembre 2026
+**Où en est chaque brique.** Le Claude Agent SDK suit Claude Code en parité de version (0.3.278 pour 2.1.278). Les agents gérés restent en **bêta** — en-tête \`managed-agents-2026-04-01\`, API susceptible d'évoluer, indisponibles sur Bedrock, Vertex et Foundry. Le **mode rapide** (voir parcours « Bien démarrer ») fonctionne sur les agents gérés comme sur l'API Messages, toujours en aperçu de recherche. Ce sont des surfaces jeunes : garde les versions et les en-têtes datés dans ton code, comme on date les affirmations dans cette formation.
+:::
+
+:::defi 45 min — Faire tourner ta première tâche sans toi
+Prends une tâche réelle et ennuyeuse de ta semaine — un rapport, une revue, une veille.
+- Tu l'as fait tourner une fois dans ton terminal et noté le nombre de tours et ce qu'elle a lu
+- Tu as écrit, en une phrase, ce qui déclenche la tâche (un événement de ton code, une heure de la nuit, un humain)
+- Tu as placé ta tâche dans le tableau des quatre approches et su dire pourquoi les trois autres ne conviennent pas
+- Tu as listé chaque secret dont la tâche a besoin, et dit pour chacun s'il peut rester hors du bac à sable
+- Tu as estimé le coût mensuel : temps de session s'il y en a, plus les tokens d'une exécution multipliés par la cadence
+- Bonus : tu as fixé un plafond de dépense avant le premier lancement, pas après
+:::
+
+:::memo
+Q: Quelles sont les deux questions qui séparent les quatre façons de construire un agent ?
+R: Qui fournit le harnais (la boucle), et qui fournit le déploiement (la machine). Seuls les agents gérés fournissent les deux.
+===
+Q: Quelle est la différence entre le Tool Runner et le Claude Agent SDK ?
+R: Le Tool Runner est un aide du SDK Anthropic qui boucle sur les outils que tu écris. Le Claude Agent SDK est Claude Code en bibliothèque, avec ses outils intégrés. Deux paquets différents.
+===
+Q: Comment se facture une session d'agent géré ?
+R: Sur deux dimensions : les tokens aux tarifs standards du modèle, plus 0,08 $ par heure de session, comptée seulement pendant que la session tourne.
+===
+Q: Pourquoi mettre un identifiant en coffre plutôt qu'en variable d'environnement dans le bac à sable ?
+R: Le secret est substitué au moment de la sortie réseau et n'apparaît jamais dans l'environnement de l'agent. Une injection de prompt ne peut pas exfiltrer ce que l'agent ne peut pas lire.
+===
+Q: Sur quelles plateformes les agents gérés ne sont-ils pas disponibles ?
+R: Amazon Bedrock, Google Vertex et Microsoft Foundry. Si l'un des trois t'est imposé, il faut repasser à l'API Messages avec tes propres outils.
 :::` +
         FOOTER,
     },

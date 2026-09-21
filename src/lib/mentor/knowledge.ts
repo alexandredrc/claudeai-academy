@@ -11,7 +11,7 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
  *
  * À mettre à jour à chaque passe de veille appliquée au contenu.
  */
-export const CONTENU_A_JOUR_AU = "20 septembre 2026";
+export const CONTENU_A_JOUR_AU = "21 septembre 2026";
 
 /**
  * Construit la base de connaissance du Mentor IA à partir du contenu RÉEL

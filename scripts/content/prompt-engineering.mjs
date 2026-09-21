@@ -837,6 +837,18 @@ C'est écrit noir sur blanc dans la doc *Prompting Claude Opus 5*, et presque pe
 Reprends les 5 entrées types de ton jeu de test (leçon 1). Passe-les à \`low\`, puis \`medium\`, puis \`high\`. Note pour chaque niveau : nombre d'échecs, longueur de réponse, temps. Dans la majorité des cas tu trouveras un palier où la qualité cesse de progresser — c'est ton réglage, et il est souvent plus bas que ton intuition.
 :::
 
+## L'autre bouton : payer pour la vitesse
+
+L'effort règle **combien le modèle réfléchit**. Le mode rapide ne touche pas à ça : c'est le **même modèle, le même raisonnement**, servi plus vite. Tu n'achètes ni plus ni moins de qualité — seulement des tokens de sortie qui arrivent plus tôt.
+
+:::maj 21 septembre 2026
+**Le mode rapide, en aperçu de recherche.** Sur **Opus 5** (et Opus 4.8), l'API peut servir la réponse jusqu'à **2,5 fois plus vite** en tokens de sortie par seconde, au tarif de **10 $ / 50 $** par million au lieu de 5 $ / 25 $ : le double. Trois pièges avant d'appuyer. Le mode n'existe **que sur l'API d'Anthropic** et sur les agents gérés — ni Bedrock, ni Vertex, ni Foundry, ni l'API de traitement par lots. Il a **sa propre limite de débit**, séparée de celle d'Opus standard. Et **changer de vitesse invalide ta mise en cache** : un aller-retour rapide/standard peut coûter plus cher que le temps gagné.
+:::
+
+:::cle Le mode rapide ne se justifie que si l'attente se voit
+Un humain devant l'écran : la vitesse vaut de l'argent. Un traitement de nuit, un lot, une file d'attente : elle n'en vaut aucun. Avant de doubler ton tarif, demande-toi **qui regarde la réponse arriver**. Si personne, reste en standard et mets l'économie dans l'effort.
+:::
+
 ## Le conseil qui s'est inversé : l'auto-vérification
 
 Voilà le cœur de la mise à jour. Pendant deux ans, tout le monde — cette formation comprise — a enseigné d'ajouter une clause de vérification en fin de prompt. C'était juste. Ça ne l'est plus.

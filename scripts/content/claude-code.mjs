@@ -10,7 +10,7 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Contenu vérifié au **20 septembre 2026**, sur **Claude Code 2.1.278**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifie sur le changelog de ta version. Contenu original rédigé pour ClaudeAI Academy.`;
+**Sources & méthode** · Contenu vérifié au **21 septembre 2026**, sur **Claude Code 2.1.278** et **Claude Agent SDK 0.3.278**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), doc du **Claude Agent SDK** ([code.claude.com/docs/en/agent-sdk](https://code.claude.com/docs/en/agent-sdk)) et son changelog, doc des **agents gérés** et grille tarifaire ([platform.claude.com/docs/en/about-claude/pricing](https://platform.claude.com/docs/en/about-claude/pricing)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Les **agents gérés sont en bêta** : leur surface d'API peut changer, les chiffres cités sont datés. Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifie sur le changelog de ta version. Contenu original rédigé pour ClaudeAI Academy.`;
 
 export const claudeCodeIaAgentic = {
   slug: "claude-code-ia-agentic",
@@ -981,8 +981,8 @@ Quatre capacités valent le détour, parce qu'elles n'existent nulle part ailleu
 - **Les politiques de permission.** Chaque outil est en *toujours autoriser*, *toujours demander*, ou *auto* — dans ce dernier cas, le serveur évalue l'appel, refuse ce qu'il juge risqué et s'arrête pour demander quand il n'arrive pas à trancher.
 
 :::chiffres
-0,08 $ | par heure de session d'agent géré — comptée seulement pendant que la session tourne
-+ tokens | facturés aux tarifs standards du modèle, la remise Batch ne s'applique pas
+0,08 $ | l'heure de session d'agent géré, comptée uniquement pendant qu'elle tourne
+× 2 | dimensions sur la facture : les tokens du modèle, puis le temps de session
 :::
 
 ## Ce que ça coûte vraiment

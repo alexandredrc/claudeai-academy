@@ -54,6 +54,21 @@ export const FAITS = [
     verif: { kind: "local", fn: "compterLecons" },
   },
   {
+    id: "nombre-lecons-starter",
+    libelle: "Nombre de leçons du Pass Starter",
+    gravite: "critique",
+    pourquoi:
+      "Ce qu'un acheteur à 47 € croit acheter. Le piège s'est produit le 21/09/2026 : " +
+      "une leçon ajoutée au parcours Claude Code, et les deux pages qui annonçaient " +
+      "« 21 leçons » sont restées en arrière. Le total du catalogue était suivi, ce " +
+      "sous-total ne l'était pas.",
+    ou: [
+      { fichier: "src/app/account/page.tsx", motif: /fondamentaux, soit (\d+) leçons/ },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: /Claude Code \((\d+) leçons\)/ },
+    ],
+    verif: { kind: "local", fn: "compterLeconsStarter" },
+  },
+  {
     id: "nombre-parcours",
     libelle: "Nombre de parcours",
     gravite: "critique",

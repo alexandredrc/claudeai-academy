@@ -56,7 +56,24 @@ async function compterParcours() {
   return String(readdirSync(join(RACINE, "scripts/content")).filter((f) => f.endsWith(".mjs")).length);
 }
 
-const LOCALES = { compterPrompts, compterLecons, compterParcours };
+/** Le catalogue Starter, c'est-a-dire les parcours accessibles au premier
+ *  palier. Chiffre affiche sur la page tarifs et dans l'espace compte : il
+ *  reste en arriere des qu'on ajoute une lecon a l'un de ces parcours. */
+async function compterLeconsStarter() {
+  const { readdirSync, readFileSync } = await import("node:fs");
+  const dir = join(RACINE, "scripts/content");
+  let total = 0;
+  for (const f of readdirSync(dir).filter((f) => f.endsWith(".mjs"))) {
+    const src = readFileSync(join(dir, f), "utf8");
+    if (!/tier_required:\s*"starter"/.test(src)) continue;
+    total += (src.match(/^\s{4,6}title:\s*"/gm) || []).length;
+  }
+  // Chaine, comme les autres compteurs : la valeur lue dans le contenu vient
+  // d'un regex, donc d'une chaine. Un nombre ici et tout ressort « FAUX ».
+  return String(total);
+}
+
+const LOCALES = { compterPrompts, compterLecons, compterParcours, compterLeconsStarter };
 
 // ── Lecture de ce que le contenu affirme aujourd'hui ─────────────────────────
 

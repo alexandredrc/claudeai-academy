@@ -33,7 +33,7 @@ export async function PricingTeaser() {
 
 function StarterCard() {
   const features = [
-    "Les 3 parcours fondateurs : Bien démarrer + Prompt Engineering pro + Claude Code (21 leçons)",
+    "Les 3 parcours fondateurs : Bien démarrer + Prompt Engineering pro + Claude Code (22 leçons)",
     "Bibliothèque de prompts essentiels",
     "Accès permanent et mises à jour",
     "Mentor IA Claude inclus",

@@ -2,6 +2,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { CheckoutButton } from "@/components/site/checkout-button";
 import { getCatalogStats, type CatalogStats } from "@/lib/courses/stats";
+import { ELITE_ENABLED, ELITE_SEATS_PER_MONTH } from "@/lib/stripe/plans";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 
 // Les 3 parcours fondateurs du Pass Starter. Sert à afficher l'écart réel
@@ -21,14 +22,22 @@ export async function PricingTeaser() {
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-muted max-w-[640px] mx-auto">
             Le Pass Mastery est celui que nous recommandons : c&apos;est le
-            programme entier, et les 47&nbsp;€ du Starter s&apos;en déduisent si
-            vous commencez petit. Dans les deux cas, 14 jours pour changer d&apos;avis.
+            programme entier, et ce que vous avez déjà payé s&apos;en déduit si
+            vous commencez petit. Quel que soit le pass, 14 jours pour changer
+            d&apos;avis.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[920px] mx-auto">
+        <div
+          className={`grid grid-cols-1 gap-6 mx-auto ${
+            ELITE_ENABLED
+              ? "md:grid-cols-2 lg:grid-cols-3 max-w-[1140px]"
+              : "md:grid-cols-2 max-w-[920px]"
+          }`}
+        >
           <StarterCard />
           <MasteryCard stats={stats} />
+          {ELITE_ENABLED && <EliteCard />}
         </div>
 
         <PaymentMethods />
@@ -126,6 +135,64 @@ function MasteryCard({ stats }: { stats: CatalogStats }) {
         {features.map((f) => (
           <li key={f} className="relative pl-7 text-[14px] leading-[1.55] text-cream/85">
             <span className="absolute left-0 top-0 text-coral-soft font-bold text-base">✓</span>
+            {f}
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+// Le palier qui vend du temps humain, pas du contenu : il donne exactement le
+// même accès que le Mastery. Il n'apparaît que si NEXT_PUBLIC_ELITE_ENABLED=1,
+// parce qu'il engage des créneaux réels — une offre d'accompagnement affichée
+// alors qu'on ne peut pas l'honorer coûte plus cher qu'elle ne rapporte.
+function EliteCard() {
+  const features = [
+    "Tout le Pass Mastery, sans exception",
+    "3 séances individuelles d'une heure, en visio",
+    "Audit de vos consignes : vous envoyez les vôtres, je les réécris avec vous",
+    "Accès direct par email pendant 90 jours, réponse sous 24 h ouvrées",
+    "Ce que vous avez déjà payé est déduit automatiquement",
+    "Garantie 14 jours satisfait ou remboursé",
+  ];
+
+  return (
+    <article
+      id="accompagnement"
+      className="scroll-mt-24 relative bg-white border-2 border-coral rounded-[22px] p-9 md:p-10 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_4px_8px_rgba(31,31,30,0.05),0_24px_48px_rgba(31,31,30,0.10)]"
+    >
+      <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-ink text-cream text-[12px] font-bold tracking-wider px-3.5 py-1.5 rounded-full whitespace-nowrap">
+        {ELITE_SEATS_PER_MONTH} PLACES PAR MOIS
+      </span>
+
+      <h3 className="font-serif text-2xl font-semibold text-ink">
+        Pass Accompagnement
+      </h3>
+      <p className="mt-1.5 text-muted text-[14px]">
+        Le programme, et quelqu&apos;un en face
+      </p>
+
+      <div className="mt-7 flex items-baseline gap-2">
+        <span className="font-serif text-5xl font-semibold text-ink leading-none">
+          1&nbsp;497
+        </span>
+        <span className="text-base text-muted">€ une fois</span>
+      </div>
+
+      <p className="mt-3 text-[13px] text-muted leading-relaxed">
+        La limite de places n&apos;est pas un artifice : au-delà, les séances ne
+        seraient plus tenables.
+      </p>
+
+      <CheckoutButton tier="elite" variant="primary" size="md" className="mt-7 w-full">
+        Réserver ma place — 1 497 €
+      </CheckoutButton>
+
+      <ul className="mt-7 pt-7 border-t border-line space-y-3 flex-1">
+        {features.map((f) => (
+          <li key={f} className="relative pl-7 text-[14px] leading-[1.55] text-ink-soft">
+            <span className="absolute left-0 top-0 text-coral font-bold text-base">✓</span>
             {f}
           </li>
         ))}

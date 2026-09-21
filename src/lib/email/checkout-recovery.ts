@@ -1,4 +1,21 @@
-import type { PlanTier } from "@/lib/stripe/plans";
+import type { PlanCode } from "@/lib/stripe/plans";
+
+/**
+ * Nom de l'offre tel que le client l'a vu sur la page de paiement. On part du
+ * CODE D'OFFRE et non du niveau d'accès : l'Accompagnement donne l'accès
+ * « mastery », et relancer un panier de 1 497 € en l'appelant « Pass Mastery »
+ * ferait croire à une erreur de montant.
+ */
+function nomDuPass(code: PlanCode): string {
+  switch (code) {
+    case "elite":
+      return "Pass Accompagnement";
+    case "mastery":
+      return "Pass Mastery";
+    case "starter":
+      return "Pass Starter";
+  }
+}
 import { SITE_URL, sendEmail } from "@/lib/email/send";
 
 /**
@@ -14,11 +31,11 @@ import { SITE_URL, sendEmail } from "@/lib/email/send";
  */
 function renderHtml(params: {
   recoveryUrl: string;
-  tier: PlanTier;
+  tier: PlanCode;
   firstName: string | null;
 }): string {
   const greeting = params.firstName ? `Bonjour ${params.firstName},` : "Bonjour,";
-  const pass = params.tier === "mastery" ? "Pass Mastery" : "Pass Starter";
+  const pass = nomDuPass(params.tier);
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -43,10 +60,10 @@ function renderHtml(params: {
 
 function renderText(params: {
   recoveryUrl: string;
-  tier: PlanTier;
+  tier: PlanCode;
   firstName: string | null;
 }): string {
-  const pass = params.tier === "mastery" ? "Pass Mastery" : "Pass Starter";
+  const pass = nomDuPass(params.tier);
   return [
     params.firstName ? `Bonjour ${params.firstName},` : "Bonjour,",
     "",
@@ -64,7 +81,7 @@ function renderText(params: {
 export async function sendCheckoutRecoveryEmail(params: {
   to: string;
   recoveryUrl: string;
-  tier: PlanTier;
+  tier: PlanCode;
   firstName: string | null;
 }): Promise<boolean> {
   return sendEmail({

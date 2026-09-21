@@ -16,6 +16,10 @@ const staticRoutes: { path: string; priority: number; changeFrequency: Freq }[] 
   // renvoient l'autorité vers /formation-intelligence-artificielle.
   { path: "/prompt-engineering", priority: 0.85, changeFrequency: "monthly" },
   { path: "/formation-ia-obligatoire-ai-act", priority: 0.85, changeFrequency: "monthly" },
+  // « certification claude » / « certification anthropic » pesaient 28 % des
+  // clics publicitaires identifies : une demande mesuree, a laquelle personne
+  // ne repond honnetement en francais.
+  { path: "/certification-claude-ai", priority: 0.85, changeFrequency: "monthly" },
   { path: "/courses", priority: 0.9, changeFrequency: "weekly" },
   { path: "/tarifs", priority: 0.9, changeFrequency: "monthly" },
   { path: "/prompts", priority: 0.8, changeFrequency: "weekly" },

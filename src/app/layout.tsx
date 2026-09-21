@@ -26,11 +26,19 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Formation Claude AI en ligne, en français — dès 47 € | ClaudeAI Academy",
+  // La requete « claude academy » pese 6 849 impressions par trimestre pour
+  // 3,3 % de clics seulement : le titre ne reprenait pas le mot cherche, et
+  // « | ClaudeAI Academy » tombait dans la troncature de Google. Le nom passe
+  // donc en tete, et « en francais » porte le seul differenciateur reel face a
+  // academy.claude.com, dont les cours sont gratuits mais en anglais.
+  title: "ClaudeAI Academy — formation Claude AI en français, dès 47 €",
   description:
-    "Formation Claude AI en ligne et en français, à votre rythme : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 8 parcours, 49 leçons, 170 prompts, Mentor IA. Dès 47 €, sans CPF ni dossier.",
+    "La formation Claude AI en français, à votre rythme : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 8 parcours, 49 leçons, 170 prompts prêts à copier et un Mentor IA. Accès à vie dès 47 €, sans dossier CPF ni devis, garantie 14 jours.",
   metadataBase: new URL("https://www.claudeai-academy.com"),
   keywords: [
+    "claude academy",
+    "claude academy français",
+    "claude academie",
     "formation Claude AI",
     "formation Claude AI en ligne",
     "formation Claude Anthropic",

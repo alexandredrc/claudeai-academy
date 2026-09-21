@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import { startCheckoutAction } from "@/app/checkout/actions";
+import type { PlanCode } from "@/lib/stripe/plans";
 import { Button } from "./button";
 
 type CheckoutButtonProps = {
-  tier: "starter" | "mastery";
+  tier: PlanCode;
   children: ReactNode;
   variant?: "primary" | "ghost" | "ghost-light";
   size?: "md" | "lg";

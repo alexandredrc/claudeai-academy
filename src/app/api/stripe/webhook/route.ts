@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { isValidTier } from "@/lib/stripe/plans";
+import { isValidTier, isValidPlanCode } from "@/lib/stripe/plans";
 import { sendPurchaseWelcomeEmail } from "@/lib/email/welcome";
 import { sendCheckoutRecoveryEmail } from "@/lib/email/checkout-recovery";
 import { buildAccessLink } from "@/lib/auth/access-link";
@@ -81,7 +81,14 @@ async function handleCheckoutCompleted(
   // la main pour dépanner un client, relance, facture. Dans ce cas il n'y a
   // pas de metadata, et refuser l'achat priverait d'accès quelqu'un qui a
   // payé. On retombe donc sur le prix facturé, qui, lui, est toujours là.
-  const tier = session.metadata?.tier ?? (await tierFromLineItems(session.id));
+  const resolved = session.metadata?.tier
+    ? { tier: session.metadata.tier, planCode: session.metadata.plan_code ?? null }
+    : await planFromLineItems(session.id);
+  const tier = resolved?.tier;
+  // Champ d'analyse : jamais bloquant. Un achat sans code d'offre s'enregistre
+  // quand même — priver d'accès quelqu'un qui a payé pour une colonne
+  // statistique manquante serait absurde.
+  const planCode = isValidPlanCode(resolved?.planCode) ? resolved.planCode : null;
   if (!tier || !isValidTier(tier)) {
     throw new Error(
       `checkout.session.completed avec tier invalide: ${tier} (session=${session.id})`,
@@ -144,6 +151,7 @@ async function handleCheckoutCompleted(
     {
       user_id: userId,
       tier,
+      plan_code: planCode,
       stripe_customer_id: customerId ?? "unknown",
       stripe_session_id: session.id,
       stripe_payment_intent_id: paymentIntentId,
@@ -260,11 +268,30 @@ async function journaliserBienvenue(
 }
 
 /**
- * Déduit le pass acheté à partir du prix facturé, quand la metadata manque.
+ * Déduit l'offre achetée à partir du prix facturé, quand la metadata manque.
  * Filet de sécurité : un client qui a payé doit obtenir son accès, quelle que
- * soit la façon dont le paiement a été initié.
+ * soit la façon dont le paiement a été initié (lien de paiement créé à la
+ * main, relance, facture).
+ *
+ * L'ordre de test compte : l'offre Accompagnement partage son niveau d'accès
+ * avec le Mastery, elle doit donc être reconnue AVANT lui pour que le code
+ * d'offre enregistré soit le bon.
  */
-async function tierFromLineItems(sessionId: string): Promise<string | null> {
+const PRICE_ENV_BY_PLAN = {
+  elite: ["STRIPE_PRICE_ELITE_LIVE", "STRIPE_PRICE_ELITE"],
+  mastery: ["STRIPE_PRICE_MASTERY_LIVE", "STRIPE_PRICE_MASTERY"],
+  starter: ["STRIPE_PRICE_STARTER_LIVE", "STRIPE_PRICE_STARTER"],
+} as const;
+
+const TIER_BY_PLAN = {
+  elite: "mastery",
+  mastery: "mastery",
+  starter: "starter",
+} as const;
+
+async function planFromLineItems(
+  sessionId: string,
+): Promise<{ tier: string; planCode: string } | null> {
   try {
     const items = await getStripe().checkout.sessions.listLineItems(sessionId, {
       limit: 10,
@@ -272,17 +299,18 @@ async function tierFromLineItems(sessionId: string): Promise<string | null> {
     const priceIds = new Set(
       items.data.map((i) => i.price?.id).filter((id): id is string => Boolean(id)),
     );
-    for (const tier of ["mastery", "starter"] as const) {
-      const configured =
-        process.env[
-          tier === "mastery" ? "STRIPE_PRICE_MASTERY_LIVE" : "STRIPE_PRICE_STARTER_LIVE"
-        ] ?? process.env[tier === "mastery" ? "STRIPE_PRICE_MASTERY" : "STRIPE_PRICE_STARTER"];
-      if (configured && priceIds.has(configured)) return tier;
+    for (const plan of ["elite", "mastery", "starter"] as const) {
+      const configured = PRICE_ENV_BY_PLAN[plan]
+        .map((key) => process.env[key])
+        .find(Boolean);
+      if (configured && priceIds.has(configured)) {
+        return { tier: TIER_BY_PLAN[plan], planCode: plan };
+      }
     }
     return null;
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error("[stripe-webhook] tierFromLineItems échoué:", message);
+    console.error("[stripe-webhook] planFromLineItems échoué:", message);
     return null;
   }
 }
@@ -376,14 +404,21 @@ async function handleCheckoutExpired(
     .toLowerCase();
   if (!email) return;
 
-  const tier = session.metadata?.tier;
-  if (!tier || !isValidTier(tier)) return;
+  // On relance en nommant l'OFFRE achetée, pas le niveau d'accès. Repli sur le
+  // niveau d'accès pour les sessions ouvertes avant l'ajout de `plan_code`.
+  const planCode = session.metadata?.plan_code ?? session.metadata?.tier;
+  if (!isValidPlanCode(planCode)) return;
 
   const firstName = session.customer_details?.name?.trim().split(/\s+/)[0] ?? null;
 
   try {
-    await sendCheckoutRecoveryEmail({ to: email, recoveryUrl, tier, firstName });
-    console.info(`[stripe-webhook] relance panier envoyée à ${email} (${tier})`);
+    await sendCheckoutRecoveryEmail({
+      to: email,
+      recoveryUrl,
+      tier: planCode,
+      firstName,
+    });
+    console.info(`[stripe-webhook] relance panier envoyée à ${email} (${planCode})`);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[stripe-webhook] relance panier échouée:", message);

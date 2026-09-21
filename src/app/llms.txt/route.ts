@@ -76,6 +76,7 @@ La première leçon de chaque parcours est en accès libre, sans compte.
 - [Formation intelligence artificielle](${SITE_URL}/formation-intelligence-artificielle) — comment se former à l'IA générative, typologie des formations, obligation AI Act
 - [Claude ou ChatGPT ?](${SITE_URL}/claude-vs-chatgpt) — comparatif structurel et recommandation par cas d'usage
 - [Prompt engineering](${SITE_URL}/prompt-engineering) — la méthode en 5 points, avec avant/après commenté
+- [Certification Claude AI](${SITE_URL}/certification-claude-ai) — ce qui existe (cours gratuits d'Anthropic, en anglais), ce qui n'existe pas (titre d'État sur un outil), et ce qu'un recruteur regarde à la place
 - [Formation IA obligatoire (AI Act art. 4)](${SITE_URL}/formation-ia-obligatoire-ai-act) — ce qu'impose le règlement européen aux employeurs depuis le 2 février 2025
 - [Catalogue des parcours](${SITE_URL}/courses)
 - [Tarifs](${SITE_URL}/tarifs) — les deux formules et ce qu'elles contiennent

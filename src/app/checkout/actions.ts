@@ -4,37 +4,62 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe/server";
-import { getPlan, isValidTier } from "@/lib/stripe/plans";
+import { getPlan, isValidPlanCode, ELITE_ENABLED } from "@/lib/stripe/plans";
 
 /**
- * Crédit d'ascension Starter → Mastery : un client qui a déjà payé le Pass
- * Starter (47 €) le voit déduit automatiquement du Mastery au checkout.
- * Le coupon est créé à la volée au premier usage (idempotent par ID fixe),
- * ce qui le rend disponible aussi bien en mode test qu'en live.
+ * Crédit d'ascension : ce qu'un client a déjà payé est déduit du palier
+ * supérieur. Un acheteur Starter (47 €) qui prend le Mastery ne repaie pas ses
+ * 47 € ; un acheteur Mastery (497 €) qui prend l'Accompagnement ne repaie pas
+ * ses 497 €. Sans ça, l'échelle de prix punirait ceux qui ont commencé petit,
+ * c'est-à-dire exactement les clients qu'on veut faire monter.
+ *
+ * Les coupons sont créés à la volée au premier usage et identifiés par un ID
+ * fixe, ce qui les rend idempotents et disponibles en mode test comme en live.
  */
-const STARTER_CREDIT_COUPON_ID = "starter-credit-47";
+const CREDITS = {
+  starter: { id: "starter-credit-47", cents: 4700, name: "Crédit Pass Starter déduit" },
+  mastery: { id: "mastery-credit-497", cents: 49700, name: "Crédit Pass Mastery déduit" },
+} as const;
 
-async function getStarterCreditCouponId(): Promise<string | null> {
+async function getCreditCouponId(kind: keyof typeof CREDITS): Promise<string | null> {
+  const credit = CREDITS[kind];
   const stripe = getStripe();
   try {
-    await stripe.coupons.retrieve(STARTER_CREDIT_COUPON_ID);
-    return STARTER_CREDIT_COUPON_ID;
+    await stripe.coupons.retrieve(credit.id);
+    return credit.id;
   } catch {
     try {
       await stripe.coupons.create({
-        id: STARTER_CREDIT_COUPON_ID,
-        amount_off: 4700,
+        id: credit.id,
+        amount_off: credit.cents,
         currency: "eur",
         duration: "once",
-        name: "Crédit Pass Starter déduit",
+        name: credit.name,
       });
-      return STARTER_CREDIT_COUPON_ID;
+      return credit.id;
     } catch (err) {
       // Un crédit qui échoue ne doit JAMAIS bloquer une vente : on continue sans.
-      console.error("[checkout] création coupon crédit Starter impossible:", err);
+      console.error(`[checkout] création coupon ${credit.id} impossible:`, err);
       return null;
     }
   }
+}
+
+/** A-t-il déjà un achat payé de ce niveau d'accès ? */
+async function hasPaidTier(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string,
+  tier: "starter" | "mastery",
+): Promise<boolean> {
+  const { data } = await supabase
+    .from("purchases")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("tier", tier)
+    .eq("status", "paid")
+    .limit(1)
+    .maybeSingle();
+  return Boolean(data);
 }
 
 /**
@@ -47,7 +72,12 @@ async function getStarterCreditCouponId(): Promise<string | null> {
  */
 export async function startCheckoutAction(formData: FormData) {
   const planRaw = String(formData.get("plan") ?? "");
-  if (!isValidTier(planRaw)) {
+  if (!isValidPlanCode(planRaw)) {
+    redirect("/#tarifs");
+  }
+  // L'Accompagnement engage des créneaux réels : tant qu'il n'est pas ouvert,
+  // un POST forgé ne doit pas pouvoir le vendre.
+  if (planRaw === "elite" && !ELITE_ENABLED) {
     redirect("/#tarifs");
   }
   const plan = getPlan(planRaw);
@@ -62,26 +92,31 @@ export async function startCheckoutAction(formData: FormData) {
   const origin =
     process.env.NEXT_PUBLIC_APP_URL ?? (await getOriginFromHeaders());
 
-  // `tier` voyage toujours ; `user_id` seulement si l'acheteur est connecté.
-  const metadata: Record<string, string> = { tier: plan.tier };
+  // `tier` (niveau d'accès) voyage toujours, c'est lui que le webhook écrit en
+  // base. `plan_code` dit quelle offre a été vendue — deux offres peuvent
+  // donner le même accès. `user_id` seulement si l'acheteur est connecté.
+  const metadata: Record<string, string> = {
+    tier: plan.tier,
+    plan_code: plan.code,
+  };
   if (user?.id) metadata.user_id = user.id;
 
-  // Ascension : un client Starter connecté qui prend le Mastery a son Starter
-  // déduit (−47 €). Stripe interdit de cumuler `discounts` et
-  // `allow_promotion_codes` — l'upgradeur reçoit donc le crédit à la place
-  // du champ code promo (le crédit est systématiquement plus avantageux).
+  // Ascension. Stripe interdit de cumuler `discounts` et
+  // `allow_promotion_codes` — l'upgradeur reçoit donc le crédit à la place du
+  // champ code promo (le crédit est systématiquement plus avantageux).
+  // On applique le crédit le plus élevé auquel il a droit, jamais les deux.
   let upgradeCoupon: string | null = null;
-  if (user?.id && plan.tier === "mastery") {
-    const { data: starterPurchase } = await supabase
-      .from("purchases")
-      .select("id")
-      .eq("user_id", user.id)
-      .eq("tier", "starter")
-      .eq("status", "paid")
-      .limit(1)
-      .maybeSingle();
-    if (starterPurchase) {
-      upgradeCoupon = await getStarterCreditCouponId();
+  if (user?.id) {
+    if (plan.code === "elite") {
+      if (await hasPaidTier(supabase, user.id, "mastery")) {
+        upgradeCoupon = await getCreditCouponId("mastery");
+      } else if (await hasPaidTier(supabase, user.id, "starter")) {
+        upgradeCoupon = await getCreditCouponId("starter");
+      }
+    } else if (plan.code === "mastery") {
+      if (await hasPaidTier(supabase, user.id, "starter")) {
+        upgradeCoupon = await getCreditCouponId("starter");
+      }
     }
   }
 
@@ -121,7 +156,7 @@ export async function startCheckoutAction(formData: FormData) {
     payment_intent_data: { metadata },
     locale: "fr",
     success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/checkout/cancel?plan=${plan.tier}`,
+    cancel_url: `${origin}/checkout/cancel?plan=${plan.code}`,
     // « required » impose le bloc nom + adresse de facturation. En « auto »,
     // Stripe le sautait : aucun nom n'était collecté, d'où des paiements
     // impossibles à retrouver autrement que par email, et des emails de

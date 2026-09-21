@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { startCheckoutAction } from "../actions";
-import { isValidTier } from "@/lib/stripe/plans";
+import { isValidPlanCode } from "@/lib/stripe/plans";
 
 type SearchParams = Promise<{ plan?: string }>;
 
@@ -10,13 +10,15 @@ export default async function CheckoutCancelPage({
   searchParams: SearchParams;
 }) {
   const { plan } = await searchParams;
-  const tier = isValidTier(plan) ? plan : null;
+  const tier = isValidPlanCode(plan) ? plan : null;
   const planLabel =
-    tier === "mastery"
-      ? "Pass Mastery — 497 €"
-      : tier === "starter"
-        ? "Pass Starter — 47 €"
-        : null;
+    tier === "elite"
+      ? "Pass Accompagnement — 1 497 €"
+      : tier === "mastery"
+        ? "Pass Mastery — 497 €"
+        : tier === "starter"
+          ? "Pass Starter — 47 €"
+          : null;
 
   return (
     <section className="bg-cream-soft">

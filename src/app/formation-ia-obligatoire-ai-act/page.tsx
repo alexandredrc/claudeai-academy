@@ -18,7 +18,7 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 
 export const metadata: Metadata = {
   title:
-    "Formation IA obligatoire en entreprise : ce qu'exige l'article 4 de l'AI Act",
+    "Formation IA obligatoire : ce qu'exige l'AI Act en entreprise",
   description:
     "L'article 4 de l'AI Act impose depuis le 2 février 2025 un niveau suffisant de « maîtrise de l'IA » aux salariés qui utilisent l'IA. Aucun seuil d'effectif, aucune certification exigée. Ce que dit le texte, qui est concerné, et comment documenter la conformité.",
   alternates: { canonical: "/formation-ia-obligatoire-ai-act" },

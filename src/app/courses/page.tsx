@@ -7,7 +7,7 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "8 parcours pour maîtriser Claude AI : prompts, Claude Code, data, marketing",
+  title: "8 parcours pour maîtriser Claude AI, en français",
   description:
     "8 parcours de formation Claude AI en français : bien démarrer avec Claude, prompt engineering, Claude Code et IA agentic, data et SQL, contenu et marketing, stratégie IA en entreprise, trading, sécurité des prompts. Première leçon de chaque parcours en accès libre.",
   alternates: { canonical: "/courses" },

@@ -20,7 +20,7 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 
 export const metadata: Metadata = {
   title:
-    "Formation intelligence artificielle en ligne, en français — dès 47 € | ClaudeAI Academy",
+    "Formation intelligence artificielle en français, dès 47 €",
   description:
     "Formation à l'intelligence artificielle générative en ligne, en français, à votre rythme : prompt engineering, IA au travail, automatisation, données. Sans CPF ni dossier, accès à vie, garantie 14 jours. Dès 47 €.",
   alternates: { canonical: "/formation-intelligence-artificielle" },

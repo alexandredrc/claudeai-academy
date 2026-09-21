@@ -17,7 +17,7 @@ import { PROMPT_COUNT } from "@/lib/prompts/library";
 // laboratoire de mesure de la pub. AdsBot ignore le noindex (il suit
 // robots.txt), donc le Quality Score n'est pas affecté.
 export const metadata: Metadata = {
-  title: "Formation Claude AI en ligne, en français | ClaudeAI Academy",
+  title: "Formation Claude AI en français : 8 parcours, dès 47 €",
   description:
     "La formation Claude AI en français : 8 parcours, 49 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
   robots: { index: false, follow: true },

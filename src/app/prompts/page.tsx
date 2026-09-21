@@ -14,7 +14,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: `${PROMPT_COUNT} prompts Claude prêts à l'emploi, en français, classés par métier`,
+  title: `${PROMPT_COUNT} prompts Claude en français, classés par métier`,
   description: `Les meilleurs prompts Claude : ${PROMPT_COUNT} modèles en français, prêts à copier-coller, classés par cas d'usage — prompt engineering, Claude Code, business, marketing, data, trading, sécurité, design.`,
   alternates: { canonical: "/prompts" },
 };

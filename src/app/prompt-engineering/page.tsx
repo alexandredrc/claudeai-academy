@@ -16,7 +16,7 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 
 export const metadata: Metadata = {
   title:
-    "Prompt engineering : la méthode en 5 points pour des résultats reproductibles",
+    "Prompt engineering : la méthode en 5 points + un avant/après",
   description:
     "Le prompt engineering expliqué simplement : ce que c'est, pourquoi vos prompts donnent des résultats irréguliers, et la méthode en 5 points qui transforme un coup de chance en résultat reproductible. Avec un avant/après commenté.",
   alternates: { canonical: "/prompt-engineering" },

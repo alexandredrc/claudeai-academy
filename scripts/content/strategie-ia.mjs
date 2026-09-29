@@ -11,7 +11,7 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Cadre réglementaire vérifié au **19 août 2026**, calendrier de l'AI Act revérifié le **21 septembre 2026** ; faits Claude (modèles, tarifs, abonnements) au **20 septembre 2026**. Sources primaires : \`digital-strategy.ec.europa.eu\` (calendrier de l'AI Act, littératie IA, lignes directrices article 50), \`cnil.fr\` (RGPD, IA agentique, priorités de contrôle), \`anthropic.com/legal\` (conditions, DPA, confidentialité et rétention). Contenu **ÉDUCATIF** : il donne le vocabulaire et les repères pour dialoguer avec un professionnel du droit — il ne remplace ni un avocat, ni un DPO, ni un service juridique. Fais valider tes cas à enjeu. Original pour ClaudeAI Academy.`;
+**Sources & méthode** · Cadre réglementaire vérifié au **19 août 2026**, calendrier de l'AI Act revérifié le **21 septembre 2026** ; faits Claude (modèles, tarifs, abonnements) au **29 septembre 2026**. Sources primaires : \`digital-strategy.ec.europa.eu\` (calendrier de l'AI Act, littératie IA, lignes directrices article 50), \`cnil.fr\` (RGPD, IA agentique, priorités de contrôle), \`anthropic.com/legal\` (conditions, DPA, confidentialité et rétention). Contenu **ÉDUCATIF** : il donne le vocabulaire et les repères pour dialoguer avec un professionnel du droit — il ne remplace ni un avocat, ni un DPO, ni un service juridique. Fais valider tes cas à enjeu. Original pour ClaudeAI Academy.`;
 
 export const strategieConduiteIa = {
   slug: "strategie-conduite-ia",
@@ -377,7 +377,7 @@ Le coût récurrent, celui qui dure tant que le service vit.
 
 ## L'économie du poste « abonnements »
 
-Beaucoup d'usages professionnels ne passent pas par l'API mais par des abonnements. Grille Anthropic au **20 septembre 2026** : **Pro** à **17 $ par mois en engagement annuel** (200 $ payés d'avance) ou **20 $ par mois** en mensuel ; **Max** à partir de **100 $ par mois** (deux paliers d'usage, 5× ou 20×) ; **Team** à **20 $ par siège et par mois** en annuel (25 $ en mensuel) pour un siège standard, **100 $** en annuel (125 $ en mensuel) pour un siège premium ; **Enterprise** sur devis, avec un prix de siège auquel s'ajoute l'usage facturé aux tarifs API. Au-delà des limites incluses, les plans payants peuvent activer des **crédits d'usage** facturés aux tarifs API, et acheter des **bundles d'usage** pré-payés qui donnent **jusqu'à 30 % de remise** (paliers de 10, 20 et 30 %), **plafonnés à 2 000 $ par mois** pour un particulier Pro ou Max.
+Beaucoup d'usages professionnels ne passent pas par l'API mais par des abonnements. Grille Anthropic au **29 septembre 2026** : **Pro** à **17 $ par mois en engagement annuel** (200 $ payés d'avance) ou **20 $ par mois** en mensuel ; **Max** à partir de **100 $ par mois** (deux paliers d'usage, 5× ou 20×) ; **Team** à **20 $ par siège et par mois** en annuel (25 $ en mensuel) pour un siège standard, **100 $** en annuel (125 $ en mensuel) pour un siège premium ; **Enterprise** en abonnement annuel uniquement, avec un prix de siège affiché à **20 $ par siège et par mois** auquel s'ajoute l'usage facturé aux tarifs API. Au-delà des limites incluses, les plans payants peuvent activer des **crédits d'usage** facturés aux tarifs API, et acheter des **bundles d'usage** pré-payés qui donnent **jusqu'à 30 % de remise** (paliers de 10, 20 et 30 %), **plafonnés à 2 000 $ par mois** pour un particulier Pro ou Max.
 
 :::chiffres
 17 $/mois | Claude Pro en engagement annuel (20 $ en mensuel) au 20/09/2026

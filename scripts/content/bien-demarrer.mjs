@@ -12,13 +12,13 @@ const FOOTER = `
 
 ---
 
-**Sources** · Vérifié le **20 septembre 2026**. Documentation officielle : *What's new in Opus 5*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable models on your plan*, *Claude Cowork and chat are now one Claude*, *Get started with Claude in Chrome*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
+**Sources** · Vérifié le **29 septembre 2026**. Documentation officielle : *What's new in Claude Opus 5.5*, *What's new in Claude Sonnet 5.5*, *Choosing the right model*, *Pricing*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable models on your plan*, *Claude Cowork and chat are now one Claude*, *Get started with Claude in Chrome*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
 
 export const bienDemarrerAvecClaude = {
   slug: "bien-demarrer-avec-claude",
   title: "Bien démarrer avec Claude",
   description:
-    "Tout ce qu'il faut mettre en place avant ta première vraie session : compte, applications, bon plan, bon modèle (Opus 5 depuis juillet 2026), réglages essentiels — et surtout la personnalisation qui fait que Claude te répond comme TOI tu le veux.",
+    "Tout ce qu'il faut mettre en place avant ta première vraie session : compte, applications, bon plan, bon modèle (génération 5.5 depuis septembre 2026), réglages essentiels — et surtout la personnalisation qui fait que Claude te répond comme TOI tu le veux.",
   tier_required: "starter",
   display_order: 1,
   estimated_duration_min: 139,
@@ -287,32 +287,32 @@ R: Non, ils sont listés dans le plan Pro au 20 septembre 2026.
       slug: "choisir-le-bon-modele-effort-reflexion",
       title: "Choisir le bon modèle (et régler l'effort et la réflexion)",
       description:
-        "La famille de modèles au 20 septembre 2026 — Fable 5.1 en tête —, le sélecteur à côté du bouton d'envoi, et le niveau d'effort devenu le vrai levier de qualité.",
+        "La famille de modèles au 29 septembre 2026 (Opus 5.5 et Sonnet 5.5 viennent d'arriver), le sélecteur à côté du bouton d'envoi, et le niveau d'effort devenu le vrai levier de qualité.",
       duration_min: 18,
       is_free_preview: false,
       content_md: `:::objectifs
-- Situer Fable 5.1, Opus 5, Sonnet 5 et Haiku 4.5 sans confondre les générations
-- Comprendre pourquoi la réflexion étendue n'est plus un interrupteur sur Opus 5
+- Situer Fable 5.1, Opus 5.5, Sonnet 5.5 et Haiku 4.5 sans confondre les générations
+- Comprendre pourquoi la réflexion étendue n'est plus un interrupteur depuis Opus 5
 - Régler le **niveau d'effort** selon la tâche — le vrai levier de 2026
 - Reconnaître un modèle « Legacy » et savoir quand il sert encore
 - Supprimer de tes prompts les consignes devenues contre-productives
 :::
 
 :::flash
-Opus 5 (24 juillet 2026) réfléchit **par défaut**, et dans l'application ce comportement **ne se désactive pas**. Le levier n'est donc plus « activer la réflexion » mais « régler l'effort », sur une échelle \`low / medium / high / xhigh / max\`. Commence à \`medium\` pour le courant, monte à \`high\` quand la réponse manque de rigueur, réserve \`xhigh\` et \`max\` aux vrais problèmes.
+Depuis Opus 5 (24 juillet 2026), et c'est toujours vrai sur **Opus 5.5** et **Sonnet 5.5** sortis fin septembre, Claude réfléchit **par défaut**, et dans l'application ce comportement **ne se désactive pas**. Le levier n'est donc plus « activer la réflexion » mais « régler l'effort », sur une échelle \`low / medium / high / xhigh / max\`. Commence à \`medium\` pour le courant, monte à \`high\` quand la réponse manque de rigueur, réserve \`xhigh\` et \`max\` aux vrais problèmes.
 :::
 
 ## Il n'y a pas « un » Claude
 
-Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche reste le premier levier de qualité — avant même le prompt. État de la gamme au **20 septembre 2026** :
+Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche reste le premier levier de qualité — avant même le prompt. État de la gamme au **29 septembre 2026** :
 
 | Modèle | Statut | Pour quoi | Contexte |
 | --- | --- | --- | --- |
 | **Claude Fable 5.1** | Actuel — le plus capable, sorti le 01/09/2026 | Les tâches les plus exigeantes, le travail long sans supervision, quand le coût passe après | 1M tokens |
-| **Claude Opus 5** | Actuel — sorti le 24/07/2026 | Code, tâches agentiques, raisonnement exigeant. **Défaut sur Max**, et le modèle le plus puissant accessible sur **Pro** sans crédits | 1M tokens |
-| **Claude Sonnet 5** | Actuel | L'équilibré : rédaction, analyse, usage d'outils, travail quotidien | 1M tokens |
+| **Claude Opus 5.5** | Actuel, sorti le 22/09/2026 | Le **point de départ recommandé par Anthropic** pour la plupart des travaux : code, tâches agentiques longues, travail de fond sur documents, tableurs et présentations | 1M tokens |
+| **Claude Sonnet 5.5** | Actuel, sorti le 28/09/2026 | L'équilibré, et le plus rapide des deux : rédaction, analyse, usage d'outils, travail quotidien | 1M tokens |
 | **Claude Haiku 4.5** | Actuel | Le plus rapide et le plus économe : questions simples, gros volumes | 200k tokens |
-| Claude Fable 5 | Génération précédente, **toujours servie** au même tarif | Workflows déjà calés dessus | 1M tokens |
+| Claude Opus 5, Sonnet 5, Fable 5 | Génération précédente, **toujours servie** | Workflows déjà calés dessus, comparaisons | 1M tokens |
 | Opus 4.8 / 4.7 / 4.6, Sonnet 4.6 / 4.5, Opus 4.5 | **Legacy** | Reproductibilité, comparaisons, workflows déjà calés dessus | — |
 
 :::maj 24 juillet 2026
@@ -323,6 +323,16 @@ Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche r
 **Claude Fable 5.1** prend la tête de la gamme, devant Fable 5. Le tarif par million de tokens **ne bouge pas** (10 $ / 50 $), mais deux choses changent le calcul réel : la **lecture de cache tombe à 0,25 $ par million** (−75 %), et le modèle atteint à effort \`low\` ou \`medium\` ce que Fable 5 demandait plus haut. Anthropic annonce **−25 % de coût sur les usages courants** et jusqu'à **−45 % sur les tâches agentiques** — c'est-à-dire un modèle plus capable ET moins cher à l'usage, ce qui n'est pas l'ordre habituel des choses.
 
 Pour toi, dans l'application, le régime d'accès ne change pas : Fable 5.1 suit exactement les règles de Fable 5 vues en leçon 2 (**Max** et sièges Team premium : jusqu'à la moitié des limites hebdomadaires ; **Pro** et sièges Team standard : crédits d'usage dès le premier message ; **Free** : indisponible).
+:::
+
+:::maj 22 septembre 2026
+**Claude Opus 5.5** ouvre la génération 5.5 et remplace Opus 5 comme modèle Opus de référence. Trois faits à retenir. **Il coûte moins cher** : 4 $ / 20 $ par million de tokens, contre 5 $ / 25 $ pour Opus 5. **Il va plus vite** : Anthropic annonce plus de 30 % de tokens de sortie en plus par seconde, et moins de tokens pour finir la même tâche. **Il se trompe moins sur les chiffres et les sources**, et lit nettement mieux les graphiques, schémas et captures d'écran. Ses connaissances s'arrêtent à **juin 2026**.
+
+Ce qui ne change pas : tes habitudes. La doc officielle précise que les prompts écrits pour Opus 5 fonctionnent tels quels. Tout ce que ce parcours dit d'Opus 5 (réflexion par défaut, effort comme levier, consignes de vérification à retirer) vaut pour Opus 5.5.
+:::
+
+:::maj 28 septembre 2026
+**Claude Sonnet 5.5** suit six jours plus tard, **au même tarif que Sonnet 5** (2 $ / 10 $ par million de tokens). Anthropic annonce l'arrivée de **Haiku 5.5** « dans les prochaines semaines » : d'ici là, Haiku 4.5 reste le modèle rapide de la gamme. Opus 5 et Sonnet 5 ne disparaissent pas : ils passent dans la génération précédente, et Anthropic s'engage à ne pas les retirer avant l'été 2027.
 :::
 
 Retiens la logique plutôt que les numéros (ils changent tous les trimestres) : **Haiku = vitesse, Sonnet = équilibre, Opus = puissance de travail, Fable = plafond de capacité.**
@@ -338,7 +348,7 @@ Le sélecteur se trouve **à côté du bouton d'envoi**. Il affiche le modèle a
 1. **Le modèle** : clique sur son nom, choisis dans la liste.
 2. **L'effort** : l'intensité de traitement de chaque réponse.
 
-Au 20 septembre 2026, le sélecteur de l'application propose les modèles actuels — **Fable 5.1, Opus 5, Sonnet 5** — puis les générations précédentes encore servies (**Fable 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6**). Haiku 4.5 est bien un modèle actuel, mais il ne figure pas dans cette liste : on l'utilise via l'API et les outils qui l'appellent, pas depuis le sélecteur du chat.
+Au 29 septembre 2026, le sélecteur de l'application propose les modèles actuels (**Fable 5.1, Opus 5.5, Sonnet 5.5**) puis les générations précédentes encore servies (**Opus 5, Sonnet 5, Fable 5** et plusieurs modèles 4.x). Haiku 4.5 est bien un modèle actuel, mais il ne figure pas dans cette liste : on l'utilise via l'API et les outils qui l'appellent, pas depuis le sélecteur du chat.
 
 Deux autres raisons possibles si tu ne vois pas un modèle cité ici : ton plan (Fable 5 dépend de crédits d'usage sur Pro, voir leçon 2), ou une politique d'entreprise — sur les comptes Team et Enterprise, les administrateurs peuvent restreindre par rôle les modèles et les niveaux d'effort accessibles. Ce n'est pas un bug.
 
@@ -346,11 +356,11 @@ Deux autres raisons possibles si tu ne vois pas un modèle cité ici : ton plan 
 
 Jusqu'à Opus 4.8, la réflexion étendue était un interrupteur : on l'activait pour les tâches de raisonnement, on la laissait éteinte pour le reste.
 
-:::cle Sur Opus 5, le toggle a disparu
-La réflexion étendue est **activée par défaut** et **ne peut pas être désactivée dans l'application**. Ce n'est pas une option masquée : le réglage n'existe plus pour ce modèle. Côté API, la désactivation reste possible, mais **uniquement si l'effort est \`high\` ou en dessous** — avec \`xhigh\` ou \`max\`, la requête renvoie une erreur 400.
+:::cle Depuis Opus 5, le toggle a disparu
+La réflexion étendue est **activée par défaut** et **ne peut pas être désactivée dans l'application**. Ce n'est pas une option masquée : le réglage n'existe plus. Au 29 septembre 2026, c'est le cas sur **Sonnet 5.5, Opus 5.5, Fable 5.1 et Opus 5**. Côté API, la porte s'est refermée d'un cran avec la génération 5.5 : sur Opus 5.5, toute tentative de désactivation renvoie une erreur 400, quel que soit l'effort.
 :::
 
-Conséquence pratique : si tu veux des réponses rapides et peu coûteuses pour du courant, la bonne réaction n'est plus « je coupe la réflexion », c'est **« je baisse l'effort »** — ou « je bascule sur Sonnet 5 ».
+Conséquence pratique : si tu veux des réponses rapides et peu coûteuses pour du courant, la bonne réaction n'est plus « je coupe la réflexion », c'est **« je baisse l'effort »** — ou « je bascule sur Sonnet 5.5 », plus rapide.
 
 ## L'effort : le réglage qui décide de tout
 
@@ -359,12 +369,16 @@ La doc officielle est directe : *« Higher effort means more thorough responses,
 | Niveau | Quand l'utiliser | Ce que tu paies |
 | --- | --- | --- |
 | \`low\` | Reformulation, traduction, question factuelle simple | Presque rien, réponse immédiate |
-| \`medium\` | Le courant : e-mails, synthèses, brouillons | Le meilleur rapport qualité/quota au quotidien |
-| \`high\` | Le travail sérieux : analyse, rédaction structurée, code | Le défaut sur l'API et Claude Code pour Opus 5 et Sonnet 5 |
+| \`medium\` | Le courant : e-mails, synthèses, brouillons | Le meilleur rapport qualité/quota au quotidien. C'est le défaut d'**Opus 5.5** sur l'API |
+| \`high\` | Le travail sérieux : analyse, rédaction structurée, code | Le niveau recommandé dans l'application, et le défaut sur l'API pour Sonnet 5.5 et Fable 5.1 |
 | \`xhigh\` | Problème réellement difficile, bug tenace, décision lourde | Nettement plus lent et plus coûteux |
 | \`max\` | Le plafond, à sortir rarement | Le maximum de temps et de quota |
 
 Dans l'application, les niveaux \`xhigh\` et au-delà ne sont proposés que sur Opus 4.7 et les modèles plus récents.
+
+:::piege Un même cran ne vaut pas la même chose d'un modèle à l'autre
+Les noms des niveaux ne désignent pas une quantité fixe de réflexion. D'après les tests d'Anthropic, **Opus 5.5 à \`medium\` égale ou dépasse Opus 5 à \`high\`**. Si tu avais pris l'habitude de tout régler sur \`high\` avec Opus 5, redescends d'un cran en passant à Opus 5.5 : tu obtiens au moins la même qualité, plus vite, en entamant moins ton quota.
+:::
 
 :::astuce La montée d'un cran, pas de trois
 Quand une réponse ne te satisfait pas, ne change pas tout d'un coup. Monte **un seul** cran d'effort et relance la même demande. Neuf fois sur dix, passer de \`medium\` à \`high\` suffit — et tu apprends au passage ce que chaque cran apporte réellement sur TES tâches, au lieu de payer \`max\` par superstition.
@@ -375,10 +389,10 @@ Quand une réponse ne te satisfait pas, ne change pas tout d'un coup. Monte **un
 Voici le piège le plus subtil de cette période, et il concerne tout le monde — pas seulement les développeurs.
 
 :::piege Supprime tes « ajoute une étape de vérification finale »
-Anthropic recommande explicitement de **retirer** les instructions de vérification héritées des modèles précédents (« relis-toi et vérifie ton travail avant de répondre », « utilise un sous-agent pour contrôler »). Opus 5 **vérifie déjà son travail spontanément** : ces consignes provoquent de la sur-vérification, donc des réponses plus longues, plus lentes et plus chères, sans gain de qualité. Si tu as des prompts enregistrés écrits pour Opus 4.x, c'est la première ligne à couper.
+Anthropic recommande explicitement de **retirer** les instructions de vérification héritées des modèles précédents (« relis-toi et vérifie ton travail avant de répondre », « utilise un sous-agent pour contrôler »). Opus 5 et Opus 5.5 **vérifient déjà leur travail spontanément** : ces consignes provoquent de la sur-vérification, donc des réponses plus longues, plus lentes et plus chères, sans gain de qualité. Si tu as des prompts enregistrés écrits pour Opus 4.x, c'est la première ligne à couper.
 :::
 
-Autres différences de comportement à connaître sur Opus 5 : les réponses sont **plus longues par défaut**, la progression est **narrée plus souvent**, et la délégation à des sous-agents est **plus spontanée**. Rien de tout cela n'est un dysfonctionnement — mais si tu veux du concis, il faut le demander explicitement dans tes instructions de profil (leçon 6).
+Autres différences de comportement à connaître depuis Opus 5 : les réponses sont **plus longues par défaut**, la progression est **narrée plus souvent**, et la délégation à des sous-agents est **plus spontanée**. Rien de tout cela n'est un dysfonctionnement — mais si tu veux du concis, il faut le demander explicitement dans tes instructions de profil (leçon 6).
 
 ## Ce que ça coûte, si tu passes par les crédits
 
@@ -387,10 +401,16 @@ Les tarifs API comptent pour toi dès que tu utilises des crédits ou des bundle
 | Modèle | Prix par million de tokens (entrée / sortie) |
 | --- | --- |
 | Claude Fable 5.1 | 10 $ / 50 $ — **lecture de cache à 0,25 $** |
-| Claude Opus 5 | 5 $ / 25 $ |
-| Claude Sonnet 5 | **2 $ / 10 $** (tarif définitif) |
+| Claude Opus 5.5 | **4 $ / 20 $** |
+| Claude Sonnet 5.5 | **2 $ / 10 $** |
 | Claude Haiku 4.5 | 1 $ / 5 $ |
+| Claude Opus 5 (génération précédente) | 5 $ / 25 $ |
+| Claude Sonnet 5 (génération précédente) | 2 $ / 10 $ |
 | Claude Fable 5 (génération précédente) | 10 $ / 50 $ |
+
+:::maj 22 septembre 2026
+Pour la première fois, le modèle Opus le plus récent est **aussi le moins cher des Opus** : Opus 5.5 est à 4 $ / 20 $, soit 20 % sous le tarif affiché d'Opus 5. Anthropic annonce 40 % d'économie sur les usages courants, parce que le modèle consomme en plus moins de tokens pour la même tâche. Si tu passes par les crédits d'usage, rester sur Opus 5 par habitude te coûte plus cher pour un résultat moins bon.
+:::
 
 :::maj 20 août 2026
 **Un piège de calcul qui coûte cher.** Les modèles **Claude 4.7 et suivants** (donc Opus 5, Sonnet 5, Fable 5) utilisent un tokenizer plus récent qui produit environ **30 % de tokens en plus pour le même texte**. Le tarif par million de tokens a baissé, mais le nombre de tokens facturés pour un document identique a augmenté : si tu compares une facture d'aujourd'hui à un budget calculé sur Sonnet 4.6, compare des coûts réels, pas des prix affichés. L'écart exact dépend de ton contenu.
@@ -402,9 +422,9 @@ Le tarif de **Sonnet 5** (2 $ / 10 $ par million de tokens), annoncé au lanceme
 
 ## La règle pratique
 
-> Tâche simple → Sonnet 5, effort bas (Haiku 4.5 si tu passes par l'API).
-> Tâche sérieuse → Sonnet 5 à \`high\`, puis Opus 5 si la rigueur manque encore.
-> Tâche vraiment difficile → Opus 5 à \`xhigh\`, et seulement là.
+> Tâche simple → Sonnet 5.5, effort bas (Haiku 4.5 si tu passes par l'API).
+> Tâche sérieuse → Opus 5.5 à \`medium\`, puis \`high\` si la rigueur manque encore.
+> Tâche vraiment difficile → Opus 5.5 à \`xhigh\`, et seulement là.
 > Tâche que tu confies pour des heures sans la surveiller → Fable 5.1, en sachant ce que ça coûte.
 
 Tout monter d'un coup pour une question banale, c'est payer plusieurs fois — en temps, en quota, en attente — pour un gain nul.
@@ -426,8 +446,8 @@ Ensuite seulement, attends ma confirmation avant de traiter la tâche.
 :::defi 25 min — Ton étalonnage personnel
 Arrête de croire ce qu'on raconte sur les modèles : mesure-le sur TON travail.
 - Tu as choisi un problème non trivial de ton métier (une décision à argumenter, un document à structurer)
-- Tu l'as posé une première fois à **Sonnet 5**, réglages par défaut, et copié la réponse
-- Tu l'as reposé à **Opus 5** dans une nouvelle conversation, et copié la réponse
+- Tu l'as posé une première fois à **Sonnet 5.5**, réglages par défaut, et copié la réponse
+- Tu l'as reposé à **Opus 5.5** dans une nouvelle conversation, et copié la réponse
 - Tu l'as reposé une troisième fois avec un **cran d'effort en plus** que l'essai précédent
 - Tu as noté pour chaque essai : le temps d'attente ressenti et ce que la réponse apporte de plus
 - Tu as écrit ta règle personnelle en une phrase (« pour mes [type de tâche], j'utilise [modèle] à [effort] »)
@@ -435,17 +455,17 @@ Arrête de croire ce qu'on raconte sur les modèles : mesure-le sur TON travail.
 :::
 
 :::memo
-Q: Sur Opus 5, comment désactiver la réflexion étendue dans l'application ?
-R: On ne peut pas. Le réglage n'existe plus pour ce modèle. Via l'API, uniquement à effort \`high\` ou en dessous.
+Q: Sur Opus 5.5, comment désactiver la réflexion étendue ?
+R: On ne peut pas, ni dans l'application ni par l'API. Le levier, c'est le niveau d'effort.
 ===
 Q: Quel est le premier réglage à ajuster quand une réponse manque de rigueur ?
 R: Le niveau d'effort — un cran à la fois, pas trois.
 ===
-Q: Quel modèle est le défaut sur le plan Max au 6 août 2026 ?
-R: Claude Opus 5, sorti le 24 juillet 2026. C'est aussi le plus puissant accessible sur Pro.
+Q: Au 29 septembre 2026, par quel modèle Anthropic recommande-t-il de commencer ?
+R: Claude Opus 5.5, sorti le 22 septembre 2026, à 4 $ / 20 $ par million de tokens : plus capable qu'Opus 5 et moins cher.
 ===
-Q: Quelle consigne de prompting est devenue contre-productive sur Opus 5 ?
-R: « Ajoute une étape de vérification finale ». Opus 5 vérifie déjà son travail : la consigne provoque de la sur-vérification.
+Q: Quelle consigne de prompting est devenue contre-productive depuis Opus 5 ?
+R: « Ajoute une étape de vérification finale ». Le modèle vérifie déjà son travail : la consigne provoque de la sur-vérification.
 ===
 Q: Que signifie « Legacy » pour un modèle Claude ?
 R: Qu'il fonctionne encore mais n'est plus mis en avant, et sera retiré un jour avec préavis. Opus 4.8 est passé Legacy le 24 juillet 2026.
@@ -504,7 +524,7 @@ N'attends pas d'avoir une bonne réponse pour demander « mets-la en artefact »
 La doc officielle résume bien la répartition : recherche web pour les **faits récents ponctuels**, réflexion étendue pour le **raisonnement sans information externe**, Research pour **l'investigation en profondeur**.
 
 :::piege Croire que Claude cherche sur le web tout seul, systématiquement
-Il ne le fait que quand il juge la question concernée — et son cutoff de connaissances (mai 2026 pour Opus 5) le trompe parfois. Si ta question porte sur un fait daté, demande-le en toutes lettres : « cherche sur le web et cite tes sources ». Puis **regarde les sources** : c'est là que se repèrent les réponses construites de mémoire.
+Il ne le fait que quand il juge la question concernée — et son cutoff de connaissances (juin 2026 pour Opus 5.5 et Sonnet 5.5) le trompe parfois. Si ta question porte sur un fait daté, demande-le en toutes lettres : « cherche sur le web et cite tes sources ». Puis **regarde les sources** : c'est là que se repèrent les réponses construites de mémoire.
 :::
 
 ## Le mode incognito
@@ -998,7 +1018,7 @@ Resserre ce texte à 150 mots pour un comité de direction financier. Garde les 
 
 **4. Un sujet = une conversation.** Les conversations-fleuves dégradent les réponses et rendent l'historique inutilisable. Nouveau sujet, nouvelle conversation — les projets organisent le reste.
 
-**5. Le bon modèle et le bon effort pour la bonne tâche.** Question simple : Sonnet 5, effort bas, quota préservé. Enjeu réel : Opus 5, et l'**effort monté d'un cran à la fois**. Depuis Opus 5, la réflexion étendue n'est plus un interrupteur à actionner : c'est l'effort qui règle tout.
+**5. Le bon modèle et le bon effort pour la bonne tâche.** Question simple : Sonnet 5.5, effort bas, quota préservé. Enjeu réel : Opus 5.5, et l'**effort monté d'un cran à la fois**. Depuis Opus 5, la réflexion étendue n'est plus un interrupteur à actionner : c'est l'effort qui règle tout.
 
 :::astuce Renomme tes conversations le jour même
 Claude leur donne un titre automatique, souvent générique. Trente secondes pour le remplacer par le nom du dossier et la date, et ton historique reste exploitable six mois plus tard. C'est le complément indispensable du réflexe n° 4 : cloisonner ne sert à rien si tu ne retrouves plus les cloisons.
@@ -1036,6 +1056,8 @@ L'écosystème avance vite, et une partie de ce que tu liras ailleurs sur Claude
 | 12 août 2026 | Le panneau Chrome devient une **session Claude** | « Claude in Chrome est une extension à part » |
 | 1er septembre 2026 | **Fable 5.1**, lecture de cache à 0,25 $ / M | « Fable 5 est le modèle le plus capable » |
 | 16 septembre 2026 | **Cowork fusionne avec le chat** ; Docs et Slides arrivent | « Il faut choisir entre le chat et Cowork » |
+| 22 septembre 2026 | **Opus 5.5** : plus capable, et moins cher (4 $ / 20 $) | « Le dernier Opus est le 5 », « le meilleur modèle est forcément le plus cher » |
+| 28 septembre 2026 | **Sonnet 5.5**, au tarif de Sonnet 5 | « Le dernier Sonnet est le 5 » |
 
 :::astuce Prends le réflexe de dater ce que tu apprends
 Quand tu lis un tutoriel sur Claude, cherche d'abord sa date. Sans date, ou plus vieux que trois mois, traite-le comme une hypothèse à vérifier — pas comme un fait. La documentation officielle est sur \`platform.claude.com/docs/en/\` et le centre d'aide sur \`support.claude.com\` : ce sont les deux seules sources qui bougent en même temps que le produit.

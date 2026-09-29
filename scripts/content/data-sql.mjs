@@ -20,13 +20,13 @@ const FOOTER = `
 
 **Sources & méthode** · Bonnes pratiques SQL, statistiques robustes et data-viz : savoir établi, vérifié à la rédaction. Faits Claude (modèles, contextes, tarifs, mise en cache) revérifiés le **20 septembre 2026** à la source : \`platform.claude.com/docs/en/about-claude/pricing\`, \`…/models/overview\`, \`…/build-with-claude/prompt-caching\` et \`claude.com/pricing\`. Les tarifs sont datés dans le texte : revérifie-les avant de chiffrer un budget. Contenu original pour ClaudeAI Academy.
 
-Faits Claude vérifiés le **20 septembre 2026** — [Opus 5, ce qui change](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) · [Modèles et tarifs](https://platform.claude.com/docs/en/about-claude/models/overview) · [Cache de prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) · [Prompter Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) · [Notes de version](https://platform.claude.com/docs/en/release-notes/overview) · [Spécification MCP 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28/changelog) · [Connecteur Anthropic Economic Index](https://www.anthropic.com/news/anthropic-economic-index-connector) · [Plans et tarifs](https://claude.com/pricing). Les prix, les limites et les versions bougent vite : redate-les avant de t'en servir dans une décision.`;
+Faits Claude vérifiés le **29 septembre 2026** — [Opus 5.5, ce qui change](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5) · [Sonnet 5.5, ce qui change](https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5) · [Grille tarifaire](https://platform.claude.com/docs/en/about-claude/pricing) · [Opus 5, ce qui change](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) · [Modèles et tarifs](https://platform.claude.com/docs/en/about-claude/models/overview) · [Cache de prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) · [Prompter Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) · [Notes de version](https://platform.claude.com/docs/en/release-notes/overview) · [Spécification MCP 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28/changelog) · [Connecteur Anthropic Economic Index](https://www.anthropic.com/news/anthropic-economic-index-connector) · [Plans et tarifs](https://claude.com/pricing). Les prix, les limites et les versions bougent vite : redate-les avant de t'en servir dans une décision.`;
 
 export const claudeDataSql = {
   slug: "claude-data-sql",
   title: "Claude pour data et SQL",
   description:
-    "Faire de Claude ton bras droit data — générer, debugger et optimiser du SQL, profiler des données, brancher tes sources et bâtir des dashboards — en vérifiant systématiquement chaque sortie. À jour au 6 août 2026 (Opus 5, contexte 1M, connecteurs MCP, confidentialité des données).",
+    "Faire de Claude ton bras droit data — générer, debugger et optimiser du SQL, profiler des données, brancher tes sources et bâtir des dashboards — en vérifiant systématiquement chaque sortie. À jour au 29 septembre 2026 (Opus 5.5 et Sonnet 5.5, contexte 1M, connecteurs MCP, confidentialité des données).",
   tier_required: "mastery",
   display_order: 4,
   estimated_duration_min: 152,
@@ -43,7 +43,7 @@ export const claudeDataSql = {
 - Nommer précisément ce que Claude fait très bien sur la data, et les trois familles d'erreurs qu'il commet
 - Appliquer la règle d'or : aucun chiffre n'est utilisable avant vérification indépendante
 - Décider ce que tu as le droit de coller dans une conversation, selon ton plan
-- Tirer parti du contexte de 1M tokens d'Opus 5 sans lui accorder pour autant plus de confiance
+- Tirer parti du contexte de 1M tokens (Opus 5.5, Sonnet 5.5) sans lui accorder pour autant plus de confiance
 :::
 
 :::flash
@@ -94,8 +94,12 @@ Depuis Opus 5, tu n'as plus d'excuse pour briefer à moitié : le schéma comple
 **Claude Opus 5** (**claude-opus-5**) devient le modèle Opus courant. Contexte **1M tokens** (c'est le défaut *et* le maximum), **128k tokens de sortie**, **réflexion étendue activée par défaut**, **5 $ / 25 $ par million de tokens** — le même prix qu'Opus 4.8. Dans l'application, c'est le modèle par défaut sur Max et le plus puissant accessible sur Pro.
 :::
 
+:::maj 22 septembre 2026
+**Claude Opus 5.5** (**claude-opus-5-5**) remplace Opus 5 comme modèle Opus de référence, à **4 $ / 20 $ par million de tokens**. Pour le travail data, un progrès compte plus que les autres : d'après Anthropic, le modèle est **nettement moins enclin à énoncer un chiffre faux ou à citer la mauvaise source**, et il repère mieux les incohérences dans un gros volume (un graphique qui ne correspond pas aux chiffres, une date qui tombe le mauvais jour). Moins enclin ne veut pas dire incapable : la règle de ce parcours ne bouge pas, chaque sortie se vérifie.
+:::
+
 :::chiffres
-1M | tokens de contexte sur Opus 5, défaut et maximum
+1M | tokens de contexte sur Opus 5.5 et Sonnet 5.5
 128k | tokens de sortie maximum
 5 $ / 25 $ | par million de tokens, entrée / sortie (6 août 2026)
 :::
@@ -170,7 +174,7 @@ R: Cinq ans. Sur Team et Enterprise, trente jours, et sans entraînement des mod
 Q: Désactiver l'entraînement suffit-il à couvrir toutes tes conversations ?
 R: Non. Celles signalées en revue de sécurité peuvent être conservées jusqu'à deux ans.
 ===
-Q: Qu'est-ce que le contexte de 1M tokens d'Opus 5 change concrètement sur la data ?
+Q: Qu'est-ce que le contexte de 1M tokens change concrètement sur la data ?
 R: Tu peux coller le schéma entier, la doc métier et un extrait dans la même conversation. Ça ne rend pas la réponse vérifiée pour autant.
 ===
 Q: Quel modèle mental adopter face à Claude sur la data ?
@@ -311,14 +315,18 @@ La liste d'hypothèses est ta checklist de relecture : tu valides chaque point c
 
 ## Ce que ça coûte quand tu passes par l'API
 
-Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du modèle se chiffre. Tarifs par million de tokens relevés au **20 septembre 2026** :
+Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du modèle se chiffre. Tarifs par million de tokens relevés au **29 septembre 2026** :
 
 | Modèle | Entrée | Sortie | Bon pour |
 | --- | --- | --- | --- |
 | Haiku 4.5 | 1 $ | 5 $ | contrôles répétitifs, reformatage, classification |
-| Sonnet 5 | **2 $** | **10 $** | l'essentiel de la génération SQL |
-| Opus 5 | 5 $ | 25 $ | schémas énormes, requêtes analytiques tordues |
+| Sonnet 5.5 | **2 $** | **10 $** | l'essentiel de la génération SQL |
+| Opus 5.5 | **4 $** | **20 $** | schémas énormes, requêtes analytiques tordues |
 | Fable 5.1 | 10 $ | 50 $ | rarement justifié ici — voir ci-dessous |
+
+:::maj 28 septembre 2026
+**Opus 5.5** (22 septembre) et **Sonnet 5.5** (28 septembre) remplacent Opus 5 et Sonnet 5 dans ce tableau. Trois conséquences pour un chiffrage data. **Sonnet 5.5 garde le tarif de Sonnet 5** (2 $ / 10 $) : un budget bâti dessus ne bouge pas. **Opus 5.5 baisse** à 4 $ / 20 $, et sa lecture de cache tombe à **0,20 $ par million**, soit un vingtième du prix d'entrée au lieu d'un dixième : sur une boucle qui renvoie le même gros schéma, monter en gamme coûte moins qu'avant. Enfin, **le seuil de mise en cache de Sonnet passe de 1 024 à 512 tokens** : un petit schéma de deux ou trois tables devient cacheable sur le modèle le moins cher des deux. Opus 5 (5 $ / 25 $) et Sonnet 5 restent servis.
+:::
 
 :::maj 1er septembre 2026
 **Claude Fable 5.1** est sorti et prend la tête de la gamme. Il ne change rien à ce tableau pour la data : sur de la génération SQL, Sonnet 5 fait le travail à un cinquième du prix d'entrée, et la difficulté n'est presque jamais le raisonnement — c'est le contexte que tu fournis. Garde Fable pour ce qu'il sait faire de mieux : un travail long que tu ne surveilles pas, du type « reprends ces 300 requêtes et harmonise-les ». Note quand même sa **lecture de cache à 0,25 $ par million** (−75 %), qui change le calcul dès qu'un gros schéma est renvoyé en boucle.
@@ -327,7 +335,7 @@ Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du mo
 Deux leviers de coût qui comptent beaucoup sur des traitements data répétitifs :
 
 - Le **traitement par lots** (batch) coûte **50 % moins cher** : idéal pour requalifier 10 000 lignes ou générer 200 contrôles en une passe, quand la réponse n'est pas attendue dans la seconde.
-- Le **cache de prompt** : lire un préfixe déjà mis en cache coûte **un dixième** du prix d'entrée. Comme ton schéma est identique d'une requête à l'autre, mets-le en tête de prompt et laisse-le en cache. L'écriture en cache coûte ×1,25 pour une durée de vie de 5 minutes, ×2 pour une heure.
+- Le **cache de prompt** : lire un préfixe déjà mis en cache coûte **un dixième** du prix d'entrée (un vingtième sur Opus 5.5, un quarantième sur Fable 5.1). Comme ton schéma est identique d'une requête à l'autre, mets-le en tête de prompt et laisse-le en cache. L'écriture en cache coûte ×1,25 pour une durée de vie de 5 minutes, ×2 pour une heure.
 - Le paramètre **inference_geo: "us"** applique un supplément de 10 % sur le tarif.
 
 :::maj 11 août 2026
@@ -371,11 +379,11 @@ R: Elle duplique les lignes avant l'agrégat. Le total gonfle sans qu'aucune err
 Q: Que fait WHERE remboursement <> 'oui' sur une ligne où la colonne est NULL ?
 R: Elle l'exclut silencieusement : la comparaison vaut « inconnu », donc pas vrai.
 ===
-Q: Combien coûte Sonnet 5 par million de tokens ?
-R: 2 $ en entrée et 10 $ en sortie. Ce tarif d'introduction est devenu permanent le 11 août 2026 : la hausse à 3 $ / 15 $ prévue au 1er septembre est annulée.
+Q: Combien coûte Sonnet 5.5 par million de tokens ?
+R: 2 $ en entrée et 10 $ en sortie, le tarif de Sonnet 5, devenu permanent le 11 août 2026. Opus 5.5 est à 4 $ / 20 $.
 ===
-Q: À partir de quelle taille un préfixe de prompt est-il cacheable sur Opus 5 ?
-R: 512 tokens depuis le 24 juillet 2026. La lecture depuis le cache coûte un dixième du prix d'entrée.
+Q: À partir de quelle taille un préfixe de prompt est-il cacheable sur Opus 5.5 et Sonnet 5.5 ?
+R: 512 tokens. La lecture depuis le cache coûte un dixième du prix d'entrée sur Sonnet 5.5, un vingtième sur Opus 5.5.
 :::` + FOOTER,
     },
     {
@@ -491,6 +499,10 @@ Ne propose pas de réécrire la requête entière. Je veux des changements testa
 
 :::maj 24 juillet 2026
 Opus 5 a la **réflexion étendue activée par défaut** : sur un plan d'exécution touffu, c'est exactement ce qu'il faut. Le levier de réglage n'est plus « activer la réflexion » mais le **niveau d'effort** (**low**, **medium**, **high** — le défaut —, **xhigh**, **max**). Sur une lecture de plan, **medium** suffit souvent et coûte nettement moins cher : fais le test sur tes propres cas avant de tout passer en **max**.
+:::
+
+:::maj 22 septembre 2026
+Sur **Opus 5.5**, la réflexion est toujours active et le défaut de l'API descend à **medium**. D'après les tests d'Anthropic, ce **medium** égale ou dépasse Opus 5 à **high** : pour lire un plan d'exécution, pars du défaut et ne monte que si l'analyse reste en surface.
 :::
 
 ## Les index : utiles, mais pas magiques

@@ -90,7 +90,7 @@
     "Plus le numéro est petit, plus le modèle est puissant"
    ],
    "correct": 0,
-   "explanation": "Les numéros changent tous les trimestres — Opus 5 est sorti le 24 juillet 2026 et a fait passer Opus 4.8 en « Legacy » — mais la logique de gamme reste : rapide / équilibré / maximal. Au 6 août 2026, Opus 5 est le modèle par défaut sur Max et le plus puissant accessible sur Pro."
+   "explanation": "Les numéros changent tous les trimestres : Opus 5 est sorti le 24 juillet 2026, Opus 5.5 l'a remplacé le 22 septembre, Sonnet 5.5 a suivi le 28. La logique de gamme, elle, reste : rapide / équilibré / maximal. Au 29 septembre 2026, Anthropic recommande Opus 5.5 comme point de départ pour la plupart des travaux, à 4 $ / 20 $ par million de tokens, moins cher qu'Opus 5."
   },
   {
    "q": "Que fait le réglage d'effort, et sur quelle échelle ?",
@@ -101,7 +101,7 @@
     "Il raccourcit les réponses pour économiser l'écran"
    ],
    "correct": 1,
-   "explanation": "Un effort plus élevé donne des réponses plus abouties, mais plus lentes et plus coûteuses en quota. L'échelle va de low à max, et le défaut est high sur l'API et Claude Code pour Opus 5 et Sonnet 5. Depuis Opus 5, l'effort est LE levier : la réflexion étendue n'étant plus désactivable dans l'application, c'est en baissant l'effort — pas en coupant la réflexion — qu'on obtient des réponses rapides et économes."
+   "explanation": "Un effort plus élevé donne des réponses plus abouties, mais plus lentes et plus coûteuses en quota. L'échelle va de low à max, et le défaut sur l'API dépend du modèle : medium sur Opus 5.5, high sur Sonnet 5.5 et Fable 5.1. Depuis Opus 5, l'effort est LE levier : la réflexion étendue n'étant plus désactivable dans l'application, c'est en baissant l'effort, pas en coupant la réflexion, qu'on obtient des réponses rapides et économes. Attention, un même cran ne vaut pas la même chose d'un modèle à l'autre : d'après Anthropic, Opus 5.5 à medium égale ou dépasse Opus 5 à high."
   },
   {
    "q": "Pour quel type de tâche la réflexion étendue (extended thinking) est-elle la plus utile ?",
@@ -115,7 +115,7 @@
    "explanation": "La réflexion étendue brille sur le raisonnement qui ne nécessite pas d'information externe récente. Pour les faits récents, c'est la recherche web ; les deux réglages sont indépendants."
   },
   {
-   "q": "Sur Claude Opus 5, comment désactive-t-on la réflexion étendue dans l'application ?",
+   "q": "Sur Claude Opus 5.5, comment désactive-t-on la réflexion étendue dans l'application ?",
    "options": [
     "Avec l'interrupteur « Extended » à côté du bouton d'envoi",
     "On ne peut pas : elle est activée par défaut et le réglage n'existe plus pour ce modèle",
@@ -123,7 +123,7 @@
     "En passant l'effort au niveau max"
    ],
    "correct": 1,
-   "explanation": "Depuis le 24 juillet 2026, la réflexion étendue d'Opus 5 est active par défaut et ne se désactive pas dans l'application. Via l'API, la désactivation n'est acceptée que si l'effort est high ou en dessous : avec xhigh ou max, la requête renvoie une erreur 400. Pour des réponses rapides, on baisse l'effort ou on bascule sur Sonnet 5."
+   "explanation": "Depuis Opus 5 (24 juillet 2026), la réflexion étendue est active par défaut et ne se désactive pas dans l'application ; c'est toujours le cas sur Opus 5.5 et Sonnet 5.5. Via l'API, Opus 5.5 va plus loin : toute tentative de désactivation renvoie une erreur 400, quel que soit l'effort. Pour des réponses rapides, on baisse l'effort ou on bascule sur Sonnet 5.5."
   }
  ],
  "le-tour-de-l-interface-qui-compte": [
@@ -664,7 +664,7 @@
     "La requête passe et la réflexion est bien désactivée"
    ],
    "correct": 1,
-   "explanation": "C'est un changement cassant d'Opus 5 : thinking désactivé n'est accepté qu'à effort high ou moins ; à xhigh ou max, l'API répond 400. Et même quand c'est accepté, désactiver la réflexion dégrade le comportement — le modèle peut écrire un appel d'outil en texte au lieu d'émettre un vrai bloc tool_use. Le bon réflexe est de garder la réflexion et de baisser l'effort."
+   "explanation": "C'est un changement cassant d'Opus 5 : thinking désactivé n'est accepté qu'à effort high ou moins ; à xhigh ou max, l'API répond 400. Et même quand c'est accepté, désactiver la réflexion dégrade le comportement : le modèle peut écrire un appel d'outil en texte au lieu d'émettre un vrai bloc tool_use. Sur Opus 5.5 (22 septembre 2026), la règle se simplifie : la désactivation est refusée à tous les niveaux d'effort. Sur Sonnet 5.5, c'est between_tools qui remplace disabled. Le bon réflexe reste le même : garder la réflexion et baisser l'effort."
   }
  ],
  "ce-qui-change-vraiment-avec-claude-code": [
@@ -1109,7 +1109,7 @@
     "Il varie chaque mois selon la charge des serveurs"
    ],
    "correct": 0,
-   "explanation": "Les 2 $ / 10 $ de Sonnet 5 avaient été annoncés comme un tarif d'introduction expirant le 31 août 2026, avec une hausse à 3 $ / 15 $ au 1er septembre. Le 11 août 2026, ce tarif est devenu permanent et la hausse a été annulée : l'option 1 est exactement ce qu'il fallait croire une semaine plus tôt. C'est la leçon de fond — un chiffrage de coût porte toujours sa date, dans les deux sens : un budget peut être faux parce qu'un prix monte, comme parce qu'une hausse annoncée n'arrive jamais. Rappel utile : le batch coûte 50 % de moins et la lecture de cache un dixième du prix d'entrée."
+   "explanation": "Les 2 $ / 10 $ de Sonnet 5 avaient été annoncés comme un tarif d'introduction expirant le 31 août 2026, avec une hausse à 3 $ / 15 $ au 1er septembre. Le 11 août 2026, ce tarif est devenu permanent et la hausse a été annulée : l'option 1 est exactement ce qu'il fallait croire une semaine plus tôt. C'est la leçon de fond : un chiffrage de coût porte toujours sa date, dans les deux sens. Un budget peut être faux parce qu'un prix monte, comme parce qu'une hausse annoncée n'arrive jamais. Sonnet 5.5, sorti le 28 septembre 2026, a repris ce même tarif de 2 $ / 10 $. Rappel utile : le batch coûte 50 % de moins et la lecture de cache un dixième du prix d'entrée sur Sonnet."
   }
  ],
  "data-debugger-optimiser": [

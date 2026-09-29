@@ -13,7 +13,7 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Contenu vérifié au **6 août 2026**, complété au **20 septembre 2026** (gamme de modèles et outils de production). Bonnes pratiques marketing/SEO/GEO établies. Cadre réglementaire : Commission européenne, \`digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\` (calendrier de l'AI Act et lignes directrices finales sur l'article 50, adoptées le 20/07/2026). Produit Claude : \`platform.claude.com/docs/en\`, \`support.claude.com\`, \`claude.com/pricing\` (relevés le 06/08/2026). Cette formation explique **ce que dit le règlement** ; elle ne remplace pas un avis juridique sur ta situation particulière. Contenu original pour ClaudeAI Academy.`;
+**Sources & méthode** · Contenu vérifié au **6 août 2026**, complété au **29 septembre 2026** (gamme de modèles et outils de production). Bonnes pratiques marketing/SEO/GEO établies. Cadre réglementaire : Commission européenne, \`digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\` (calendrier de l'AI Act et lignes directrices finales sur l'article 50, adoptées le 20/07/2026). Produit Claude : \`platform.claude.com/docs/en\`, \`support.claude.com\`, \`claude.com/pricing\` (relevés le 06/08/2026). Cette formation explique **ce que dit le règlement** ; elle ne remplace pas un avis juridique sur ta situation particulière. Contenu original pour ClaudeAI Academy.`;
 
 export const contenuEtMarketing = {
   slug: "contenu-et-marketing",
@@ -151,8 +151,16 @@ Côté écriture pure, la nouvelle est moins agréable, et elle est financière.
 Le piège reste le même qu'avec les artefacts : un support bien mis en forme paraît fini bien avant de l'être. La discipline de ce parcours ne change pas — brief, voix de marque, vérification des faits — elle s'applique juste à un livrable qui ressemble maintenant à un vrai livrable dès le premier jet.
 :::
 
+:::maj 28 septembre 2026
+**Opus 5.5** (22 septembre) puis **Sonnet 5.5** (28 septembre) remplacent Opus 5 et Sonnet 5. Tes prompts ne changent pas. Trois choses changent dans ton quotidien de production.
+
+- **Moins d'erreurs sur les chiffres et les sources**, d'après Anthropic, et des documents, tableurs et présentations qui demandent moins de retouches avant d'être partagés. Ta vérification des faits reste obligatoire : « moins souvent faux » n'est pas « jamais faux », et c'est ton nom qui signe.
+- **Une bien meilleure lecture des graphiques et des captures d'écran.** Tu peux lui donner la capture d'un tableau de bord ou d'une page concurrente et obtenir une lecture fiable des valeurs, sans retaper les chiffres.
+- **Un réflexe à cadrer.** Sur une demande ouverte, Sonnet 5.5 peut se mettre à fabriquer la présentation alors que tu voulais des angles. Ajoute dans les instructions de ton projet : « Quand je demande des idées, des options ou un plan, donne-les-moi et arrête-toi là. Ne commence à produire qu'après mon feu vert. »
+:::
+
 :::astuce Réserve le modèle le plus cher à la dernière passe
-Un plan, un brouillon et dix objets d'email n'ont pas besoin du meilleur modèle d'écriture : Sonnet 5 ou Opus 5 font le travail sans entamer tes credits. Garde **Fable 5.1** pour la passe finale de style, sur les pièces qui portent vraiment la marque — page de vente, manifeste, email de lancement.
+Un plan, un brouillon et dix objets d'email n'ont pas besoin du meilleur modèle d'écriture : Sonnet 5.5 ou Opus 5.5 font le travail sans entamer tes credits. Garde **Fable 5.1** pour la passe finale de style, sur les pièces qui portent vraiment la marque — page de vente, manifeste, email de lancement.
 :::
 
 ## Ce que change ce parcours
@@ -832,7 +840,7 @@ Termine par : les 3 phrases que tu supprimerais sans rien perdre, et le seul end
 :::
 
 :::astuce Une passe de style, sur les pièces qui le méritent
-Depuis le 20 juillet 2026, Fable 5 — le modèle le plus fort d'Anthropic pour l'écriture — n'est plus inclus dans les plans : sur Pro il consomme des usage credits, sur Max il puise jusqu'à 50 % des limites hebdomadaires. Structure, angles, objets et brouillons se font très bien sur Opus 5 ou Sonnet 5. Garde la passe de style finale pour la page de vente et l'email de lancement, là où la voix se joue.
+Depuis le 20 juillet 2026, Fable 5 — le modèle le plus fort d'Anthropic pour l'écriture — n'est plus inclus dans les plans : sur Pro il consomme des usage credits, sur Max il puise jusqu'à 50 % des limites hebdomadaires. Structure, angles, objets et brouillons se font très bien sur Opus 5.5 ou Sonnet 5.5. Garde la passe de style finale pour la page de vente et l'email de lancement, là où la voix se joue.
 :::
 
 > Une copy honnête n'est pas une copy fade. La clarté est persuasive ; la preuve est persuasive ; un bénéfice concret est persuasif. La hype, elle, ne persuade plus personne — elle signale juste que tu n'as rien de vrai à dire.

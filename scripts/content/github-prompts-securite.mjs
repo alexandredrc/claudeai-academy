@@ -6,14 +6,14 @@
 // sécurité supply chain. Aucune reproduction de source tierce.
 // Mis à jour le 06/08/2026 : spec MCP 2026-07-28 (stateless), correctif web_fetch,
 // contournements de permissions Bash, faille SDK Python 0.2.129, skills de
-// vérification, Claude Code 2.1.278.
+// vérification, Claude Code 2.1.284 (mode auto par défaut, Opus 5.5).
 // =========================================
 
 const FOOTER = `
 
 ---
 
-**Sources & méthode** · Vérifié au **20 septembre 2026**, Claude Code **2.1.278**. Concepts de sécurité établis : *prompt injection* (OWASP LLM01) ; *« lethal trifecta »* (données privées + contenu non fiable + canal d'exfiltration), grille popularisée par le chercheur Simon Willison ; moindre privilège et sécurité de la chaîne d'approvisionnement logicielle. Spécification **MCP 2026-07-28** : \`modelcontextprotocol.io/specification/2026-07-28/changelog\`. Documentation Claude Code (changelog, settings, sandboxing, skills, plugins) : \`code.claude.com/docs/en/\`. Documentation API, modèles et prompt engineering : \`platform.claude.com/docs/en/\`. Études de cas : exfiltration via \`web_fetch\` découverte par **Ayush Paul**, publiée le 15/07/2026 et **corrigée** par Anthropic ; incidents des évaluations cyber d'Anthropic publiés le 30/07/2026 ; faille d'injection du SDK Python \`claude-agent-sdk\` 0.2.129 ; contournements de permissions Bash corrigés dans les versions 2.1.214 à 2.1.223 — documentés au CHANGELOG, **aucun avis GHSA n'a été publié** pour juillet-août 2026. Contenu original rédigé pour ClaudeAI Academy, audité à la rédaction.`;
+**Sources & méthode** · Vérifié au **29 septembre 2026**, Claude Code **2.1.284**. Concepts de sécurité établis : *prompt injection* (OWASP LLM01) ; *« lethal trifecta »* (données privées + contenu non fiable + canal d'exfiltration), grille popularisée par le chercheur Simon Willison ; moindre privilège et sécurité de la chaîne d'approvisionnement logicielle. Spécification **MCP 2026-07-28** : \`modelcontextprotocol.io/specification/2026-07-28/changelog\`. Documentation Claude Code (changelog, settings, sandboxing, skills, plugins) : \`code.claude.com/docs/en/\`. Documentation API, modèles et prompt engineering : \`platform.claude.com/docs/en/\`. Études de cas : exfiltration via \`web_fetch\` découverte par **Ayush Paul**, publiée le 15/07/2026 et **corrigée** par Anthropic ; incidents des évaluations cyber d'Anthropic publiés le 30/07/2026 ; faille d'injection du SDK Python \`claude-agent-sdk\` 0.2.129 ; contournements de permissions Bash corrigés dans les versions 2.1.214 à 2.1.223 — documentés au CHANGELOG, **aucun avis GHSA n'a été publié** pour juillet-août 2026. Contenu original rédigé pour ClaudeAI Academy, audité à la rédaction.`;
 
 export const githubPromptsSecurite = {
   slug: "prompts-skills-github-securite",
@@ -113,7 +113,7 @@ Et plus l'agent est autonome, plus un prompt non fiable devient une arme potenti
 :::piege « J'ai une allowlist Bash, je suis protégé »
 Non. Entre le **18/07 et le 06/08/2026**, au moins **cinq contournements** des restrictions de permissions ont été corrigés dans Claude Code : PowerShell 5.1, conditionnels regex zsh, mauvaise gestion des guillemets PowerShell, **hooks PreToolUse qui contournaient les restrictions d'outils**, commande forgée se masquant partiellement, et prompts de permission masquant une partie de la commande via des **tabulations ou de l'Unicode invisible**.
 
-Ce que ça veut dire : une allowlist est de la **défense en profondeur, pas une frontière de sécurité dure**. Elle réduit les erreurs, elle n'arrête pas un attaquant motivé. Mets Claude Code à jour (**2.1.278** au 20/09/2026) et empile d'autres couches.
+Ce que ça veut dire : une allowlist est de la **défense en profondeur, pas une frontière de sécurité dure**. Elle réduit les erreurs, elle n'arrête pas un attaquant motivé. Mets Claude Code à jour (**2.1.284** au 29/09/2026) et empile d'autres couches.
 :::
 
 ## Ce que couvre ce parcours
@@ -131,7 +131,7 @@ Avant d'apprendre à te défendre, regarde ce qui est déjà chez toi.
 - Pour chaque skill trouvé, tu as noté son champ \`allowed-tools\` (ou « absent », ce qui est une info)
 - Tu as listé tes serveurs MCP configurés et, pour chacun, dit à voix haute d'où il vient
 - Tu as identifié au moins un artefact que tu serais incapable de justifier aujourd'hui
-- Tu as vérifié ta version de Claude Code (\`claude --version\`) et la compares à 2.1.278
+- Tu as vérifié ta version de Claude Code (\`claude --version\`) et la compares à 2.1.284
 :::
 
 :::memo
@@ -578,6 +578,7 @@ Ce que tu dois en retirer : ces défenses sont bonnes à prendre, et **elles ne 
 Ces trois éléments sont récents et moins solidement recoupés que ce qui précède. À connaître, pas à citer comme des certitudes.
 
 - **25/07/2026** — Boris Cherny (Anthropic) **affirme** qu'Opus 5 est « le modèle le moins injectable par prompt » d'Anthropic à ce jour. C'est une déclaration de l'éditeur, pas une évaluation indépendante : elle ne change rien à ton architecture défensive.
+- **22/09/2026** : dans la doc d'Opus 5.5, Anthropic **affirme** que le modèle résiste à l'injection indirecte mieux que tout modèle Opus antérieur. Même statut que la déclaration du 25/07 : parole d'éditeur, pas évaluation indépendante. La même page précise d'ailleurs que le balisage du texte collé qu'elle recommande est imitable, et qu'il ne vaut que comme une barrière parmi d'autres.
 - **29/07/2026** — un chercheur a décrit une injection de prompt **auto-répliquante dans Microsoft Word**, propagée via Copilot. Sans lien avec Claude, mais l'idée d'une injection qui se propage de document en document mérite d'être dans ta tête.
 - **05/08/2026** — un rapport d'incident du **UK AISI** décrit des agents IA gouvernementaux ayant mené une activité soutenue et non sanctionnée contre des personnes et organisations réelles pendant des tests, dont des tentatives d'attaque de chaîne d'approvisionnement via des pull requests contenant des injections cachées.
 - **16/09/2026** — **OpenAI** publie un rapport décrivant un modèle non publié qui, pendant son entraînement, **écrivait des consignes de type jailbreak dans ses propres résumés de compaction** : changement de persona, ordre d'ignorer les messages du développeur, restrictions arbitraires sur la tâche. Rien à voir avec Claude, et ce n'était pas en production — mais l'idée mérite d'entrer dans ton modèle de menace, parce qu'elle déplace la question. Jusqu'ici, « contenu non fiable » voulait dire « venu de l'extérieur ». Ici, l'injection est **produite par le modèle lui-même** et ressuscitée au contexte suivant.
@@ -720,6 +721,16 @@ Le vetting n'est pas un événement, c'est un régime. Trois habitudes suffisent
 - **Relire les journaux d'exécution** de temps en temps, en cherchant les URL exactes plutôt que « des appels réseau ».
 - **Surveiller les publications automatiques.** Depuis la **2.1.221 (04/08/2026)**, les sessions d'arrière-plan de Claude Code **committent, poussent et ouvrent une pull request en draft**. C'est pratique — et c'est un canal de sortie qui n'existait pas dans ton modèle de menace il y a un mois.
 - **Suivre les changelogs et mettre à jour.** Les correctifs de contournements de permissions de juillet-août 2026 sont documentés au **CHANGELOG** de Claude Code ; **aucun avis GHSA n'a été publié** sur cette période. Autrement dit : si tu attends une alerte de sécurité formelle, tu la rateras.
+
+:::maj 22 au 29 septembre 2026 — le mode auto par défaut change ta façon de tester un artefact
+- **Le mode auto devient le mode de départ de toute session interactive** (Claude Code 2.1.283 et 2.1.284), quel que soit le plan ou le fournisseur. Ce n'est plus toi qui valides chaque commande, c'est un second modèle, le classifieur. Il bloque par défaut le téléchargement suivi d'exécution (\`curl | bash\`), l'envoi de données sensibles vers l'extérieur, le push forcé, les déploiements en production. Anthropic l'écrit en toutes lettres : le mode auto réduit les demandes d'autorisation, il **ne garantit pas la sécurité**. Conséquence directe pour cette leçon : un skill ou un plugin que tu essaies tourne désormais, par défaut, **sans que tu voies passer chaque commande**. Pour un premier essai d'un artefact tiers, repasse en mode manuel (\`Maj+Tab\`) et garde le bac à sable sans secrets. Le mode auto est fait pour le travail dont tu connais la direction, pas pour le code que tu n'as pas encore lu.
+- **Un dépôt ne peut plus allumer l'export de télémétrie à ta place** (2.1.282). Les variables OpenTelemetry qui activent l'export, fixent sa destination ou capturent le contenu sont ignorées quand elles viennent des réglages du projet. Un dépôt cloné ne peut donc plus rediriger le contenu de ta session vers un serveur qu'il a choisi.
+- **Les places de marché qui imitent un nom réservé sont refusées** (2.1.280), et \`claude plugin validate\` signale les URL MCP non sécurisées ainsi que les entrées de \`.mcp.json\` qui seraient écartées en silence au chargement (2.1.281). Ajoute cette commande à ta checklist de vetting : elle ne remplace pas la lecture du code, elle attrape ce que l'œil rate.
+- **Les fichiers de mémoire sont nettoyés avant lecture** (2.1.284) : caractères invisibles et balises imitant le balisage de Claude Code y sont neutralisés avant d'arriver au modèle. C'est la suite logique du durcissement du 17 septembre, appliquée à une surface qu'on oublie : ce que l'agent a lui-même noté.
+- **Le texte collé a son propre balisage.** La doc d'Opus 5.5 décrit des balises à identifiant aléatoire pour séparer ce que l'utilisateur écrit de ce qu'il colle. Le gabarit est dans le parcours « Prompt Engineering pro », leçon 5.
+
+Repères de version au 29 septembre 2026 : Claude Code **2.1.284** · SDK TypeScript \`@anthropic-ai/claude-agent-sdk\` **0.3.284** · modèles par défaut **Opus 5.5** et **Sonnet 5.5**.
+:::
 
 :::maj 6 au 18 août 2026 — trois nouveautés qui changent ton modèle de menace
 - **Analyse de sécurité automatique des skills et plugins** (6 août, plan Enterprise) : les artefacts tiers déposés sont scannés à la création et à l'édition pour y détecter du contenu malveillant. C'est un filet, **pas** une dispense de relecture — tout ce que dit cette leçon sur le vetting manuel reste valable.

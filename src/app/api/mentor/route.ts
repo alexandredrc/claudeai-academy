@@ -105,14 +105,18 @@ export async function POST(req: NextRequest) {
   //    Prompt caching : instructions + base de connaissance dans `system`,
   //    breakpoint sur le dernier bloc (stable pour tous les users Mastery).
   //    La conversation (volatile) est dans `messages`, après le cache.
-  //    Réflexion désactivée explicitement : sur Sonnet 5, omettre `thinking`
-  //    lance la réflexion adaptative, ce qui ajouterait une attente avant le
-  //    premier mot. Ici la réponse est ancrée dans une base fournie — le
+  //    Réflexion au plus bas, explicitement : Sonnet 5.5 refuse
+  //    `thinking: disabled` (400) ; `between_tools` le remplace et n'accepte
+  //    aucun autre champ, ni un effort au-dessus de `high`. Omettre `thinking`
+  //    lancerait la réflexion adaptative : mesuré ici, ≈ 5 s avant le premier
+  //    mot au lieu de ≈ 2 s. La réponse est ancrée dans une base fournie — le
   //    modèle n'a rien à déduire, il a à retrouver et à expliquer.
+  //    Effort fixé en dur (le défaut de l'API est `high`). Ne pas faire varier
+  //    `thinking` d'une requête à l'autre : chaque valeur a son propre cache.
   const stream = getAnthropic().messages.stream({
     model: MENTOR_MODEL,
     max_tokens: 4096,
-    thinking: { type: "disabled" },
+    thinking: { type: "between_tools" },
     output_config: { effort: "medium" },
     system: [
       { type: "text", text: MENTOR_SYSTEM_INSTRUCTIONS },
@@ -144,6 +148,18 @@ export async function POST(req: NextRequest) {
             `cache_read=${cacheRead} cache_write=${cacheWrite} ` +
             `hit=${cacheRead > 0 ? "yes" : "no"}`,
         );
+        // Un refus arrive en HTTP 200, parfois sans un mot de texte : sans ce
+        // cas, l'apprenant resterait devant une bulle vide.
+        if (final.stop_reason === "refusal") {
+          console.warn(
+            `[mentor] refusal category=${final.stop_details?.category ?? "inconnue"}`,
+          );
+          send("error", {
+            message:
+              "Le Mentor ne peut pas répondre à cette demande. Reformule ta question en la rattachant à une leçon.",
+          });
+          return;
+        }
         send("done", {
           stop_reason: final.stop_reason,
           usage: {

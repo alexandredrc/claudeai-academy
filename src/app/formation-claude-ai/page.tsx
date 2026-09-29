@@ -10,6 +10,7 @@ import { Guarantee } from "@/components/landing/guarantee";
 import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
 import { getCatalogStats } from "@/lib/courses/stats";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
+import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 
 // Landing dédiée au trafic Google Ads (requêtes « formation claude ai » et
 // proches). Volontairement hors nav, hors sitemap et noindex : elle ne doit
@@ -194,7 +195,8 @@ async function WhatYouGet() {
               Chaque parcours va du concret au concret : une notion, un prompt
               d&apos;exemple à appliquer immédiatement, un QCM pour ancrer.
               {" "}{stats.lessonCount} leçons au total, mises à jour en continu
-              (dernière mise à jour : juillet 2026).
+              (dernière mise à jour : {CONTENU_A_JOUR_AU}, avec Claude Opus 5.5
+              et Sonnet 5.5).
             </p>
             <div className="mt-8">
               <CheckoutButton tier="mastery" variant="primary" size="lg">

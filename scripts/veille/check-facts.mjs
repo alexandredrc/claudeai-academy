@@ -73,7 +73,53 @@ async function compterLeconsStarter() {
   return String(total);
 }
 
-const LOCALES = { compterPrompts, compterLecons, compterParcours, compterLeconsStarter };
+/** Tous les en-têtes de blocs `:::maj` des générateurs de contenu. */
+async function entetesMaj() {
+  const { readdirSync, readFileSync } = await import("node:fs");
+  const dir = join(RACINE, "scripts/content");
+  const entetes = [];
+  for (const f of readdirSync(dir).filter((f) => f.endsWith(".mjs"))) {
+    for (const m of readFileSync(join(dir, f), "utf8").matchAll(/^:::maj (.+?)\r?$/gm)) entetes.push(m[1]);
+  }
+  return entetes;
+}
+
+async function compterBlocsMaj() {
+  return String((await entetesMaj()).length);
+}
+
+/** La date la plus récente portée par un bloc `:::maj`, au format affiché
+ *  sur le site (« 29 septembre 2026 », « 1er septembre 2026 »). Un en-tête peut
+ *  porter une plage (« 22 au 29 septembre 2026 ») : on lit la dernière date. */
+async function dernierBlocMaj() {
+  const MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+  let max = null;
+  for (const entete of await entetesMaj()) {
+    for (const m of entete.matchAll(/(\d{1,2})(?:er)? (\p{L}+) (\d{4})/gu)) {
+      const mois = MOIS.indexOf(m[2].toLowerCase());
+      if (mois < 0) continue;
+      const cle = Number(m[3]) * 10000 + (mois + 1) * 100 + Number(m[1]);
+      if (!max || cle > max.cle) max = { cle, jour: Number(m[1]), mois, annee: m[3] };
+    }
+  }
+  if (!max) return null;
+  return `${max.jour === 1 ? "1er" : max.jour} ${MOIS[max.mois]} ${max.annee}`;
+}
+
+async function compterSources() {
+  const { SOURCES } = await import("./sources.mjs");
+  return String(SOURCES.length);
+}
+
+const LOCALES = {
+  compterPrompts,
+  compterLecons,
+  compterParcours,
+  compterLeconsStarter,
+  compterBlocsMaj,
+  dernierBlocMaj,
+  compterSources,
+};
 
 // ── Lecture de ce que le contenu affirme aujourd'hui ─────────────────────────
 

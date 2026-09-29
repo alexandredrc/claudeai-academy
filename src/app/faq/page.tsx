@@ -3,6 +3,12 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { FaqItem, type Item } from "./FaqItem";
+import {
+  CONTENU_A_JOUR_AU,
+  DERNIERE_PASSE,
+  NOTES_DE_MISE_A_JOUR,
+  SOURCES_SURVEILLEES,
+} from "@/lib/content/fraicheur";
 
 export const metadata: Metadata = {
   title: "Claude AI : gratuit ou payant, Claude vs ChatGPT, formation — la FAQ",
@@ -31,7 +37,7 @@ const groups: Group[] = [
       },
       {
         q: "Quel est le meilleur modèle Claude en 2026 ?",
-        a: "Il n'y a pas un meilleur modèle, mais un bon modèle par usage : Haiku 4.5 pour la vitesse et les questions simples, Sonnet 5 pour le travail quotidien, Opus 5 (sorti le 24 juillet 2026, 1 M de tokens de contexte) pour le code et le raisonnement exigeant, et Fable 5 pour les tâches les plus complexes. Le parcours « Bien démarrer avec Claude » consacre une leçon entière au choix du modèle et au réglage de l'effort — devenu le vrai levier depuis qu'Opus 5 réfléchit par défaut.",
+        a: "Il n'y a pas un meilleur modèle, mais un bon modèle par usage. Au 29 septembre 2026 : Haiku 4.5 pour la vitesse et les questions simples, Sonnet 5.5 (sorti le 28 septembre) pour le travail quotidien, Opus 5.5 (sorti le 22 septembre, 1 M de tokens de contexte) pour le code et le travail de fond, et Fable 5.1 pour les tâches les plus complexes. Opus 5.5 est le point de départ que recommande Anthropic, et il coûte moins cher qu'Opus 5. Le parcours « Bien démarrer avec Claude » consacre une leçon entière au choix du modèle et au réglage de l'effort, devenu le vrai levier depuis que Claude réfléchit par défaut.",
       },
       {
         q: "Comment bien prompter Claude ?",
@@ -77,7 +83,7 @@ const groups: Group[] = [
       },
       {
         q: "Le contenu sera-t-il dépassé dans 6 mois ?",
-        a: "Les fondamentaux (prompt engineering, architecture d’agents, gouvernance) restent stables. Pour les évolutions plus rapides (Claude Code, MCP, nouvelles fonctionnalités), nous publions des mises à jour régulières — incluses à vie dans le Pass Mastery.",
+        a: `C’est le risque numéro un d’une formation sur l’IA, et nous le traitons comme tel. Une veille surveille ${SOURCES_SURVEILLEES} sources de référence (documentation et notes de version d’Anthropic, journal des versions de Claude Code, Commission européenne, CNIL) et signale chaque phrase de leçon qu’un changement peut rendre fausse. Dernière passe appliquée : ${CONTENU_A_JOUR_AU}, pour intégrer ${DERNIERE_PASSE}. Les leçons portent ${NOTES_DE_MISE_A_JOUR} notes de mise à jour datées depuis juillet 2026, et chaque chiffre qui bouge (prix, version, limite) est écrit avec sa date. Les mises à jour sont incluses, sans supplément.`,
       },
       {
         q: "En quoi c’est différent des cours gratuits sur YouTube ?",

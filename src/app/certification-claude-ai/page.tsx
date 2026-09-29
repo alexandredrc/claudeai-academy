@@ -64,9 +64,9 @@ const options: Option[] = [
   },
   {
     nom: "Les cours officiels d'Anthropic",
-    quoi: "Anthropic publie Claude Academy sur academy.claude.com : des parcours structurés avec quiz, produits par son équipe éducation.",
+    quoi: "Anthropic publie Claude Academy sur academy.claude.com : des parcours structurés avec quiz, produits par son équipe éducation. La plupart délivrent un badge de fin de parcours (relevé le 29 septembre 2026).",
     valeur:
-      "Le contenu est bon et vient de la source. Mais ce sont des cours, pas un diplôme — et ils sont en anglais.",
+      "Le contenu est bon et vient de la source. Le badge atteste que vous avez suivi le cours : ce n'est ni un diplôme, ni un titre. Et tout est en anglais.",
     prix: "Gratuit.",
     verdict: "oui",
   },
@@ -83,11 +83,11 @@ const options: Option[] = [
 const faq = [
   {
     q: "Existe-t-il une certification officielle Claude AI ?",
-    a: "Non, pas au sens d'un titre reconnu par l'État français. Le RNCP enregistre des certifications professionnelles rattachées à des métiers et à des blocs de compétences, pas à des outils logiciels — il n'existe pas plus de titre d'État « Claude » qu'il n'en existe un pour Excel ou Photoshop. Anthropic, de son côté, publie des cours gratuits sur academy.claude.com, mais ce sont des cours, pas une certification.",
+    a: "Non, pas au sens d'un titre reconnu par l'État français. Le RNCP enregistre des certifications professionnelles rattachées à des métiers et à des blocs de compétences, pas à des outils logiciels : il n'existe pas plus de titre d'État « Claude » qu'il n'en existe un pour Excel ou Photoshop. Anthropic, de son côté, publie des cours gratuits sur academy.claude.com, dont la plupart délivrent un badge de fin de parcours : une preuve de suivi, pas une certification.",
   },
   {
     q: "La formation Claude d'Anthropic est-elle gratuite ?",
-    a: "Oui. Claude Academy, publiée par Anthropic sur academy.claude.com, est gratuite et accessible sans carte bancaire. Les parcours sont structurés, avec des quiz. La limite principale pour un public francophone est la langue : les contenus sont en anglais.",
+    a: "Oui. Claude Academy, publiée par Anthropic sur academy.claude.com, est gratuite et accessible sans carte bancaire. Les parcours sont structurés, avec des quiz et, pour la plupart, un badge de fin de parcours. La limite principale pour un public francophone est la langue : les contenus sont en anglais.",
   },
   {
     q: "Une attestation de formation a-t-elle de la valeur sur un CV ?",

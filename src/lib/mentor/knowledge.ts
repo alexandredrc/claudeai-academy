@@ -1,17 +1,14 @@
 import "server-only";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 
 /**
- * Date de la dernière passe de vérification du contenu des leçons.
- *
- * Elle est affirmée au Mentor pour qu'il sache où s'arrête ce qu'il sait.
- * Constante en dur, jamais `new Date()` : la base de connaissance doit être
- * identique d'un octet à l'autre entre deux requêtes, sinon le cache de
- * prompt est invalidé à chaque message et la facture triple.
- *
- * À mettre à jour à chaque passe de veille appliquée au contenu.
+ * Date de la dernière passe de vérification du contenu des leçons, affirmée
+ * au Mentor pour qu'il sache où s'arrête ce qu'il sait. Elle vit désormais
+ * dans `@/lib/content/fraicheur`, que les pages publiques lisent aussi :
+ * une seule copie à tenir à jour à chaque passe de veille.
  */
-export const CONTENU_A_JOUR_AU = "21 septembre 2026";
+export { CONTENU_A_JOUR_AU };
 
 /**
  * Construit la base de connaissance du Mentor IA à partir du contenu RÉEL

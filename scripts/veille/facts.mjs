@@ -77,6 +77,39 @@ export const FAITS = [
     verif: { kind: "local", fn: "compterParcours" },
   },
 
+  // ── Fraîcheur : la preuve qu'on affiche au visiteur qui hésite ───────────
+  // Ces trois valeurs sont écrites à la main dans `fraicheur.ts` et reprises
+  // par la FAQ et la page de vente. Le 29/09/2026, la page de vente annonçait
+  // encore « dernière mise à jour : juillet 2026 » : deux mois de veille
+  // invisibles. D'où une seule copie, et un contrôle contre le dépôt.
+  {
+    id: "date-fraicheur",
+    libelle: "Date de dernière mise à jour affichée",
+    gravite: "critique",
+    pourquoi:
+      "Affichée sur la page de vente et la FAQ, et affirmée au Mentor IA. Si une passe de veille " +
+      "ajoute un bloc :::maj plus récent sans toucher à la constante, le site sous-vend le produit " +
+      "et le Mentor croit sa connaissance plus vieille qu'elle ne l'est.",
+    ou: [{ fichier: "src/lib/content/fraicheur.ts", motif: /CONTENU_A_JOUR_AU = "([^"]+)"/ }],
+    verif: { kind: "local", fn: "dernierBlocMaj" },
+  },
+  {
+    id: "notes-de-mise-a-jour",
+    libelle: "Nombre de notes de mise à jour datées",
+    gravite: "critique",
+    pourquoi: "Chiffre de preuve affiché dans la FAQ. Il doit correspondre aux blocs :::maj réellement présents dans les leçons.",
+    ou: [{ fichier: "src/lib/content/fraicheur.ts", motif: /NOTES_DE_MISE_A_JOUR = (\d+)/ }],
+    verif: { kind: "local", fn: "compterBlocsMaj" },
+  },
+  {
+    id: "sources-surveillees",
+    libelle: "Nombre de sources surveillées par la veille",
+    gravite: "critique",
+    pourquoi: "Chiffre de preuve affiché dans la FAQ. Il doit correspondre aux sources déclarées dans sources.mjs.",
+    ou: [{ fichier: "src/lib/content/fraicheur.ts", motif: /SOURCES_SURVEILLEES = (\d+)/ }],
+    verif: { kind: "local", fn: "compterSources" },
+  },
+
   // ── Écosystème Anthropic ─────────────────────────────────────────────────
   {
     id: "claude-code-version",

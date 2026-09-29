@@ -4,6 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
+import {
+  CONTENU_A_JOUR_AU,
+  DERNIERE_PASSE,
+  NOTES_DE_MISE_A_JOUR,
+  SOURCES_SURVEILLEES,
+} from "@/lib/content/fraicheur";
 
 type Item = {
   q: string;
@@ -21,7 +27,9 @@ const items: Item[] = [
   },
   {
     q: "Le contenu sera-t-il dépassé dans 6 mois ?",
-    a: "Les fondamentaux du prompt engineering, de l'architecture d'agents et de la gouvernance restent stables. Pour les évolutions plus rapides (nouvelles fonctionnalités Claude Code, MCP, etc.), nous publions régulièrement des mises à jour. Ces mises à jour sont incluses à vie dans le Pass Mastery.",
+    // L'objection nº1 d'une formation IA mérite une preuve, pas une promesse :
+    // la date de la dernière passe et ce qu'elle a intégré.
+    a: `C'est le risque numéro un d'une formation sur l'IA, et nous le traitons comme tel. Une veille surveille ${SOURCES_SURVEILLEES} sources de référence et signale chaque phrase de leçon qu'un changement peut rendre fausse. Dernière passe appliquée : ${CONTENU_A_JOUR_AU}, pour intégrer ${DERNIERE_PASSE}. Les leçons portent ${NOTES_DE_MISE_A_JOUR} notes de mise à jour datées depuis juillet 2026. Les mises à jour sont incluses, sans supplément.`,
   },
   {
     q: "En quoi c'est différent des cours gratuits sur YouTube ?",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
+import { ELITE_ENABLED, ELITE_SEATS_PER_MONTH } from "@/lib/stripe/plans";
 
 export const metadata: Metadata = {
   title: "Conditions Générales de Vente — ClaudeAI Academy",
@@ -20,9 +21,9 @@ export default function CgvPage() {
 
         <div className="prose-lesson mt-10">
           <p>
-            Dernière mise à jour&nbsp;: 9 juin 2026. Les présentes
+            Dernière mise à jour&nbsp;: 30 septembre 2026. Les présentes
             conditions régissent la vente des formations en ligne proposées sur
-            claudeai-academy.com par <strong>ADRC Group</strong> (ci-après «&nbsp;le
+            claudeai-academy.com par <strong>ADRC Group</strong>{" "}(ci-après «&nbsp;le
             Vendeur&nbsp;»).
           </p>
 
@@ -30,7 +31,14 @@ export default function CgvPage() {
           <p>
             Les présentes CGV définissent les droits et obligations des parties
             dans le cadre de la vente de formations numériques (parcours, leçons,
-            prompts, templates et accès au Mentor IA) accessibles en ligne.
+            prompts, templates et accès au Mentor IA) accessibles en ligne
+            {ELITE_ENABLED && (
+              <>
+                , ainsi que des prestations d&apos;accompagnement individuel
+                comprises dans le Pass Accompagnement
+              </>
+            )}
+            .
           </p>
 
           <h2>2. Prix</h2>
@@ -39,13 +47,27 @@ export default function CgvPage() {
           </p>
           <ul>
             <li>
-              <strong>Pass Starter</strong> — 47&nbsp;€, paiement unique.
+              <strong>Pass Starter</strong>&nbsp;: 47&nbsp;€, paiement unique.
             </li>
             <li>
-              <strong>Pass Mastery</strong> — 497&nbsp;€ en une fois, ou 3
-              versements de 179&nbsp;€.
+              <strong>Pass Mastery</strong>&nbsp;: 497&nbsp;€ en une fois, ou
+              3&nbsp;×&nbsp;165,67&nbsp;€ sans frais avec Klarna.
             </li>
+            {ELITE_ENABLED && (
+              <li>
+                <strong>Pass Accompagnement</strong>&nbsp;: 1&nbsp;497&nbsp;€,
+                paiement unique. Il comprend l&apos;intégralité du Pass
+                Mastery, 3 séances individuelles d&apos;une heure en visio, un
+                audit de vos consignes et un accès direct par email pendant 90
+                jours. Places limitées à {ELITE_SEATS_PER_MONTH} par mois.
+              </li>
+            )}
           </ul>
+          <p>
+            Un client déjà titulaire d&apos;un pass qui achète un pass
+            supérieur en étant connecté à son compte se voit déduire
+            automatiquement le montant déjà réglé.
+          </p>
           <p>
             Le Vendeur se réserve le droit de modifier ses prix à tout moment&nbsp;;
             les formations sont facturées sur la base du tarif en vigueur au
@@ -56,8 +78,11 @@ export default function CgvPage() {
           <p>
             Le paiement s’effectue en ligne, de manière sécurisée, via notre
             prestataire <strong>Stripe</strong>. Aucune donnée bancaire n’est
-            stockée par le Vendeur. La commande est validée après confirmation du
-            paiement, et une facture est délivrée automatiquement.
+            stockée par le Vendeur. Le paiement en trois fois sans frais est
+            proposé par <strong>Klarna</strong>{" "}au moment du règlement&nbsp;; il
+            est soumis à l’acceptation de Klarna et à ses conditions. La
+            commande est validée après confirmation du paiement, et une facture
+            est délivrée automatiquement.
           </p>
 
           <h2>4. Accès à la formation</h2>

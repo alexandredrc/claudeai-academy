@@ -111,6 +111,34 @@ async function compterSources() {
   return String(SOURCES.length);
 }
 
+/** Les prix que Stripe facture, lus dans « src/lib/stripe/plans.ts » (amountEur).
+ *  Lus par regex plutôt qu'importés : le fichier est en TypeScript et getPlan()
+ *  exige les identifiants de prix Stripe en variables d'environnement, alors
+ *  que ce vérificateur doit tourner sans .env.local. */
+async function prixDesPass() {
+  const src = await readFile(join(RACINE, "src/lib/stripe/plans.ts"), "utf8");
+  const prix = {};
+  for (const m of src.matchAll(/case "(\w+)":[\s\S]*?amountEur: (\d+)/g)) prix[m[1]] = Number(m[2]);
+  for (const code of ["starter", "mastery", "elite"]) {
+    if (!prix[code]) throw new Error(`amountEur introuvable pour « ${code} » dans plans.ts`);
+  }
+  return prix;
+}
+
+// Chaînes sans séparateur de milliers (« 1497 ») : la forme canonique vers
+// laquelle le registre ramène « 1 497 » et « 1&nbsp;497 » avant de comparer.
+const prixPassStarter = async () => String((await prixDesPass()).starter);
+const prixPassMastery = async () => String((await prixDesPass()).mastery);
+const prixPassAccompagnement = async () => String((await prixDesPass()).elite);
+
+/** Ce que Klarna prélève trois fois pour le Mastery : le tiers du prix, arrondi
+ *  au centime supérieur, écrit à la française (« 165,67 »). Dérivé du prix
+ *  réel plutôt qu'écrit en dur : si le Mastery change, la mensualité suit. */
+async function mensualiteKlarnaMastery() {
+  const { mastery } = await prixDesPass();
+  return (Math.ceil((mastery / 3) * 100) / 100).toFixed(2).replace(".", ",");
+}
+
 const LOCALES = {
   compterPrompts,
   compterLecons,
@@ -119,12 +147,19 @@ const LOCALES = {
   compterBlocsMaj,
   dernierBlocMaj,
   compterSources,
+  prixPassStarter,
+  prixPassMastery,
+  prixPassAccompagnement,
+  mensualiteKlarnaMastery,
 };
 
 // ── Lecture de ce que le contenu affirme aujourd'hui ─────────────────────────
 
 async function valeursAffirmees(fait) {
   const trouvees = [];
+  // Une même valeur peut s'écrire de plusieurs façons (« 1 497 », « 1&nbsp;497 »,
+  // « 1497 ») : le fait peut fournir `canon` pour les ramener à une forme unique.
+  const canon = fait.canon ?? ((v) => v);
   for (const emplacement of fait.ou) {
     const chemin = join(RACINE, emplacement.fichier);
     if (!existsSync(chemin)) {
@@ -139,7 +174,7 @@ async function valeursAffirmees(fait) {
     const motif = new RegExp(emplacement.motif.source, emplacement.motif.flags.includes("g")
       ? emplacement.motif.flags
       : emplacement.motif.flags + "g");
-    const vues = [...texte.matchAll(motif)].map((m) => m[1]);
+    const vues = [...texte.matchAll(motif)].map((m) => canon(m[1]));
     const lignes = [];
     texte.split("\n").forEach((l, i) => {
       if (new RegExp(emplacement.motif.source, emplacement.motif.flags).test(l)) lignes.push(i + 1);
@@ -220,7 +255,8 @@ async function main() {
 
     if (src.auto) {
       const valeursDistinctes = [...new Set(affirme.map((a) => a.valeur).filter(Boolean))];
-      const derive = src.valeur && valeursDistinctes.some((v) => v !== src.valeur);
+      const canon = fait.canon ?? ((v) => v);
+      const derive = src.valeur && valeursDistinctes.some((v) => v !== canon(src.valeur));
       const incoherent = valeursDistinctes.length > 1;
       if (derive || incoherent) {
         aCorriger.push({ fait, affirme, source: src, incoherent });

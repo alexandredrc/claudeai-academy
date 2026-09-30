@@ -15,7 +15,37 @@
 //   "date"     — devient DATÉ, pas faux, parce que la phrase est horodatée
 //                (« Au 6 août 2026, la version courante est… »). À rafraîchir
 //                sans urgence.
+//
+// canon (optionnel) : ramène chaque valeur capturée à une forme unique avant
+//   la comparaison — « 1 497 », « 1&nbsp;497 » et « 1497 » disent le même prix.
 // =========================================
+
+// ── Prix : outils de capture ──────────────────────────────────────────────
+// Les prix sont tapés à la main dans une trentaine de fichiers, avec trois
+// façons d'écrire l'espace avant « € » (simple, insécable, entité HTML) et
+// deux façons d'écrire les milliers (« 1 497 », « 1497 »). Ces briques
+// évitent de répéter trente fois le même motif fragile.
+
+/** L'espace avant « € » : simple ou insécable (couvertes par \s), ou l'entité HTML des TSX. */
+const ESP = String.raw`(?:\s|&nbsp;)`;
+/** Un montant tel que le site l'écrit : « 47 », « 497 », « 1 497 », « 1&nbsp;497 ». */
+const MONTANT = String.raw`(\d{1,3}(?:${ESP}\d{3})?)`;
+/** « <contexte>497 € ». Le contexte ancre le motif sur UN pass : un motif
+ *  générique « N € » lirait aussi « 450 € » (Mastery moins Starter) ou
+ *  « 1 500 € » (le CPF cité par la FAQ). */
+const prixApres = (contexte) => new RegExp(`(?:${contexte})${MONTANT}${ESP}€`);
+/** Le prix d'une offre dans le JSON-LD de la page tarifs, ancré sur son nom. */
+const prixJsonLd = (nom) => new RegExp(String.raw`name: "${nom}",\s*price: "(\d+)"`);
+/** « 3 × 165,67 € » — et « 3 versements de 179 € », la forme qu'a prise l'erreur
+ *  des CGV : un motif qui ne lit que la bonne formulation ne l'aurait pas vue. */
+const MOTIF_KLARNA = new RegExp(String.raw`3${ESP}*(?:×|versements de)${ESP}*(\d+(?:,\d+)?)${ESP}*€`);
+/** « 1 497 », « 1&nbsp;497 » et « 1497 » sont le même prix : on compare sans espaces. */
+const canonMontant = (v) => v.replace(/&nbsp;|\s/g, "");
+/** Le gros prix d'une carte de la vitrine : « <h3>Pass Mastery</h3> … 497</span><span>€ une fois ».
+ *  Ancré sur le titre de la carte : les trois cartes partagent la même structure, et le
+ *  « 47 » de la carte Starter ressemble trait pour trait au « 497 » de la carte Mastery. */
+const prixCarte = (pass) =>
+  new RegExp(String.raw`Pass ${pass}\s*</h3>[\s\S]{0,400}?>\s*${MONTANT}\s*</span>\s*<span[^>]*>€ une fois`);
 
 export const FAITS = [
   // ── Produit : ce qu'on promet doit correspondre à ce qu'on livre ─────────
@@ -49,7 +79,7 @@ export const FAITS = [
       { fichier: "src/components/landing/faq.tsx", motif: /8 parcours, (\d+) leçons\)/ },
       { fichier: "src/components/landing/founder.tsx", motif: /les (\d+) leçons/ },
       { fichier: "src/lib/email/welcome.ts", motif: /parcours complets \((\d+) leçons\)/ },
-      { fichier: "src/lib/email/nurture.ts", motif: /497 € pour (\d+) leçons/ },
+      { fichier: "src/lib/email/nurture.ts", motif: /\d+ € pour (\d+) leçons/ },
     ],
     verif: { kind: "local", fn: "compterLecons" },
   },
@@ -75,6 +105,128 @@ export const FAITS = [
     pourquoi: "Chiffre commercial, et il détermine ce que débloque chaque pass.",
     ou: [{ fichier: "src/components/landing/programme.tsx", motif: /(\d+)\s+parcours/ }],
     verif: { kind: "local", fn: "compterParcours" },
+  },
+
+  // ── Prix : ce que le contrat promet doit être ce que Stripe encaisse ─────
+  // Aucun prix n'était suivi. Résultat : de juin à septembre 2026, les CGV ont
+  // annoncé « 3 versements de 179 € » (537 €) pour un pass vendu 497 €, et
+  // aucun contrôle ne l'a vu. La source de vérité est `amountEur` dans
+  // `src/lib/stripe/plans.ts` — ce que le checkout facture réellement. Tout
+  // le reste est une copie tapée à la main : c'est elle qu'on surveille.
+  // Les commentaires de code qui racontent un incident passé (« un Pass
+  // Mastery à 497 € a échoué le 19/08 ») restent volontairement hors registre :
+  // un fait d'histoire ne devient pas faux quand le prix change.
+  {
+    id: "mensualite-klarna-mastery",
+    libelle: "Mensualité Klarna du Pass Mastery (3 × … €)",
+    gravite: "critique",
+    pourquoi:
+      "Promesse commerciale sur la vitrine, la page de vente, le reçu, llms.txt et les CGV, " +
+      "calculée de tête à partir du prix Mastery. Si le prix bouge, ou si quelqu'un retape la " +
+      "mensualité (179 € au lieu de 165,67 € dans les CGV, quatre mois durant), le site annonce " +
+      "un total faux — dans un document contractuel.",
+    ou: [
+      { fichier: "src/app/cgv/page.tsx", motif: MOTIF_KLARNA },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: MOTIF_KLARNA },
+      { fichier: "src/components/landing/value-stack.tsx", motif: MOTIF_KLARNA },
+      { fichier: "src/app/formation-claude-ai/page.tsx", motif: MOTIF_KLARNA },
+      { fichier: "src/app/checkout/success/page.tsx", motif: MOTIF_KLARNA },
+      { fichier: "src/app/llms.txt/route.ts", motif: MOTIF_KLARNA },
+    ],
+    canon: canonMontant,
+    verif: { kind: "local", fn: "mensualiteKlarnaMastery" },
+  },
+  {
+    id: "prix-pass-starter",
+    libelle: "Prix du Pass Starter",
+    gravite: "critique",
+    pourquoi:
+      "Le prix d'appel, répété dans les métadonnées, le JSON-LD, les CGV, l'espace membre et " +
+      "trois emails. Stripe facture `amountEur` de plans.ts : tout le reste doit le répéter.",
+    ou: [
+      { fichier: "src/app/cgv/page.tsx", motif: prixApres(`Pass Starter</strong>${ESP}*(?:—|:)${ESP}*`) },
+      { fichier: "src/app/tarifs/page.tsx", motif: prixApres("Claude AI : |Starter à ") },
+      { fichier: "src/app/tarifs/page.tsx", motif: prixJsonLd("Pass Starter") },
+      { fichier: "src/app/layout.tsx", motif: prixApres("[Dd]ès ") },
+      { fichier: "src/components/landing/hero.tsx", motif: prixApres("à partir de ") },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixCarte("Starter") },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Commencer — |Vos ") },
+      { fichier: "src/components/landing/final-cta.tsx", motif: prixApres("Starter, ") },
+      { fichier: "src/components/site/price-bar.tsx", motif: prixApres("[Dd]ès ") },
+      { fichier: "src/components/site/footer.tsx", motif: prixApres("Pass Starter, ") },
+      { fichier: "src/app/formation-claude-ai/page.tsx", motif: prixApres("[Dd]ès |commencer à |Vous payez |Starter à ") },
+      { fichier: "src/app/formation-intelligence-artificielle/page.tsx", motif: prixApres("[Dd]ès ") },
+      { fichier: "src/app/certification-claude-ai/page.tsx", motif: prixApres("à partir de |[Dd]ès ") },
+      { fichier: "src/app/certification/examen/page.tsx", motif: prixApres("à partir de ") },
+      { fichier: "src/app/faq/page.tsx", motif: prixApres(String.raw`[Dd]ès |Pass Starter \(|c'est `) },
+      { fichier: "src/app/checkout/success/page.tsx", motif: prixApres("payer ") },
+      { fichier: "src/app/checkout/cancel/page.tsx", motif: prixApres("Pass Starter — ") },
+      { fichier: "src/app/signup/page.tsx", motif: prixApres("Pass Starter — ") },
+      { fichier: "src/app/account/page.tsx", motif: prixApres("Pass Starter (?:—|·) ") },
+      { fichier: "src/app/courses/[slug]/page.tsx", motif: prixApres("Pass Starter — ") },
+      { fichier: "src/app/courses/[slug]/page.tsx", motif: /"mastery" \? "\d+" : "(\d+)"/ },
+      { fichier: "src/app/courses/[slug]/[lesson]/page.tsx", motif: prixApres("Pass Starter — ") },
+      { fichier: "src/app/llms.txt/route.ts", motif: prixApres("Pass Starter — ") },
+      { fichier: "src/lib/email/activation.ts", motif: /(\d+) € pour les trois parcours/ },
+      { fichier: "src/lib/email/lead-magnet.ts", motif: /(?:métier\. |risqué : |")(\d+) €[.,]/ },
+      { fichier: "src/lib/email/nurture.ts", motif: /tes (\d+) € sont déduits/ },
+    ],
+    canon: canonMontant,
+    verif: { kind: "local", fn: "prixPassStarter" },
+  },
+  {
+    id: "prix-pass-mastery",
+    libelle: "Prix du Pass Mastery",
+    gravite: "critique",
+    pourquoi:
+      "Le pass qui fait l'essentiel du chiffre d'affaires, et la base de la mensualité Klarna. " +
+      "Écrit à la main dans une vingtaine d'endroits, du JSON-LD à l'email d'objection « c'est cher ».",
+    ou: [
+      { fichier: "src/app/cgv/page.tsx", motif: prixApres(`Pass Mastery</strong>${ESP}*(?:—|:)${ESP}*`) },
+      { fichier: "src/app/tarifs/page.tsx", motif: prixApres(String.raw`Claude AI : \d+ €(?:,| ou) |Mastery à `) },
+      { fichier: "src/app/tarifs/page.tsx", motif: prixJsonLd("Pass Mastery") },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixCarte("Mastery") },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Rejoindre Mastery — ") },
+      { fichier: "src/components/landing/value-stack.tsx", motif: /Votre prix[\s\S]{0,200}?(\d+)\s€/ },
+      { fichier: "src/components/landing/value-stack.tsx", motif: prixApres("Rejoindre Mastery, ") },
+      { fichier: "src/components/landing/final-cta.tsx", motif: prixApres("Rejoindre Mastery, ") },
+      { fichier: "src/components/site/price-bar.tsx", motif: prixApres("Pass complet ") },
+      { fichier: "src/components/site/footer.tsx", motif: prixApres("Pass Mastery, ") },
+      { fichier: "src/app/formation-claude-ai/page.tsx", motif: prixApres(String.raw`Mastery · |parcours · |\d+ € ou |coûte `) },
+      { fichier: "src/app/faq/page.tsx", motif: prixApres(String.raw`Pass Mastery \(|\(ou `) },
+      { fichier: "src/app/checkout/success/page.tsx", motif: prixApres("Mastery · ") },
+      { fichier: "src/app/checkout/cancel/page.tsx", motif: prixApres("Pass Mastery — ") },
+      { fichier: "src/app/signup/page.tsx", motif: prixApres("Pass Mastery — ") },
+      { fichier: "src/app/account/page.tsx", motif: prixApres("Mastery (?:—|·) ") },
+      { fichier: "src/app/mentor/page.tsx", motif: prixApres("Pass Mastery · ") },
+      { fichier: "src/app/courses/page.tsx", motif: prixApres("Pass Mastery à ") },
+      { fichier: "src/app/courses/[slug]/page.tsx", motif: prixApres("Pass Mastery — ") },
+      { fichier: "src/app/courses/[slug]/page.tsx", motif: /"mastery" \? "(\d+)"/ },
+      { fichier: "src/app/courses/[slug]/[lesson]/page.tsx", motif: prixApres("Pass Mastery — ") },
+      { fichier: "src/app/llms.txt/route.ts", motif: prixApres("Pass Mastery — ") },
+      { fichier: "src/lib/email/activation.ts", motif: /(\d+) € pour les huit/ },
+      { fichier: "src/lib/email/nurture.ts", motif: prixApres(String.raw`« |au lieu de |"`) },
+    ],
+    canon: canonMontant,
+    verif: { kind: "local", fn: "prixPassMastery" },
+  },
+  {
+    id: "prix-pass-accompagnement",
+    libelle: "Prix du Pass Accompagnement",
+    gravite: "critique",
+    pourquoi:
+      "Vendu sous drapeau NEXT_PUBLIC_ELITE_ENABLED : peu de copies, rarement relues, et le prix " +
+      "le plus élevé du catalogue. Écrit « 1 497 » en prose et « 1497 » dans le JSON-LD, d'où `canon`.",
+    ou: [
+      { fichier: "src/app/cgv/page.tsx", motif: prixApres(`Pass Accompagnement</strong>${ESP}*:${ESP}*`) },
+      { fichier: "src/app/tarifs/page.tsx", motif: prixApres(String.raw`\d+ €, \d+ € ou |Accompagnement à `) },
+      { fichier: "src/app/tarifs/page.tsx", motif: prixJsonLd("Pass Accompagnement") },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixCarte("Accompagnement") },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Réserver ma place — ") },
+      { fichier: "src/app/checkout/cancel/page.tsx", motif: prixApres("Pass Accompagnement — ") },
+    ],
+    canon: canonMontant,
+    verif: { kind: "local", fn: "prixPassAccompagnement" },
   },
 
   // ── Fraîcheur : la preuve qu'on affiche au visiteur qui hésite ───────────

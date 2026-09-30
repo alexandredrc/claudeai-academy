@@ -232,8 +232,7 @@ function PaymentMethods() {
       <p className="text-[13px] text-muted max-w-[540px] leading-relaxed">
         Paiements traités par <strong className="text-ink">Stripe</strong>, leader
         mondial certifié PCI-DSS niveau 1. Facture professionnelle générée
-        automatiquement. TVA selon votre statut (autoliquidation
-        intracommunautaire avec numéro valide).
+        automatiquement. TVA non applicable, article 293 B du CGI.
       </p>
     </div>
   );

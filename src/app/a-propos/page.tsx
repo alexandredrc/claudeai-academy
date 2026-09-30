@@ -92,8 +92,8 @@ export default function AProposPage() {
             <h2>Notre engagement contenu</h2>
             <p>
               Fiable, vérifié, à jour. Les sources sont tracées, les exemples
-              sont réels, et les mises à jour sont incluses à vie dans le Pass
-              Mastery. Si une leçon ne vous apporte pas une vraie valeur, elle
+              sont réels, et les mises à jour sont incluses à vie, quel que soit
+              le pass. Si une leçon ne vous apporte pas une vraie valeur, elle
               n’a rien à faire dans le programme.
             </p>
           </div>

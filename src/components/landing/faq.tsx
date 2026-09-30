@@ -41,7 +41,7 @@ const items: Item[] = [
   },
   {
     q: "J'ai une facture pro, c'est possible ?",
-    a: "Oui. Vous indiquez vos coordonnées de facturation lors du paiement Stripe et vous recevez automatiquement une facture professionnelle. Pour la TVA, elle s'applique selon votre statut (intracommunautaire avec numéro valide : exonération automatique).",
+    a: "Oui. Vous indiquez vos coordonnées de facturation lors du paiement Stripe et vous recevez automatiquement une facture professionnelle. TVA non applicable, article 293 B du CGI : le prix affiché est le prix facturé, sans TVA à récupérer.",
   },
 ];
 

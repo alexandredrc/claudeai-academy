@@ -43,7 +43,8 @@ export default function CgvPage() {
 
           <h2>2. Prix</h2>
           <p>
-            Les prix sont indiqués en euros, toutes taxes comprises&nbsp;:
+            Les prix sont indiqués en euros, TVA non applicable, article
+            293&nbsp;B du Code général des impôts&nbsp;:
           </p>
           <ul>
             <li>
@@ -89,8 +90,8 @@ export default function CgvPage() {
           <p>
             L’accès aux contenus achetés est ouvert immédiatement après
             validation du paiement, via un compte personnel. L’accès est{" "}
-            <strong>accordé à vie</strong>, sans abonnement. Le Pass Mastery
-            inclut les mises à jour ultérieures du contenu concerné.
+            <strong>accordé à vie</strong>, sans abonnement. Chaque pass inclut
+            les mises à jour ultérieures du contenu qu&apos;il couvre.
           </p>
 
           <h2>5. Droit de rétractation et garantie</h2>

@@ -1,6 +1,13 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/proxy";
-import { utmDepuisSrc } from "@/lib/attribution";
+import {
+  PROVENANCE_COOKIE,
+  PROVENANCE_MAX_AGE,
+  decoderProvenance,
+  encoderProvenance,
+  provenanceDepuisRequete,
+  utmDepuisSrc,
+} from "@/lib/attribution";
 
 /**
  * Un lien `?src=instagram-bio` est redirigé une fois vers le même lien enrichi
@@ -31,10 +38,81 @@ function redirectionAttribution(request: NextRequest) {
   return NextResponse.redirect(url, 307);
 }
 
+/** Date du jour à Paris, `2026-10-02`. */
+function aujourdHuiParis(): string {
+  return new Intl.DateTimeFormat("fr-CA", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+}
+
+/**
+ * Cookie de provenance. Posé à la première page vue, relu quand le visiteur
+ * ouvre le paiement : c'est ce qui permet d'écrire, dans `purchases`, le canal
+ * qui a amené la vente. Sans lui, la vente est enregistrée par un webhook
+ * Stripe qui ne sait rien du navigateur, et le rapport du matin ne peut pas
+ * dire si la com rapporte.
+ *
+ * Règles :
+ *  - seulement les navigations de page (pas les requêtes RSC ni les prefetch,
+ *    qui porteraient un faux « landing ») ;
+ *  - une marque de campagne explicite (utm, src, gclid) écrase toujours : le
+ *    dernier clic sur un lien de com est le plus informatif ;
+ *  - un référent ou une arrivée directe ne font que remplir un cookie absent.
+ */
+function poserProvenance(request: NextRequest, response: NextResponse) {
+  if (request.method !== "GET") return;
+  const { pathname } = request.nextUrl;
+  if (pathname.startsWith("/api") || pathname.startsWith("/auth")) return;
+  const dest = request.headers.get("sec-fetch-dest");
+  if (dest && dest !== "document") return;
+  // Requêtes internes de Next (navigation client, préchargement) : jamais une
+  // « première page vue ». Plusieurs marqueurs, parce que Next n'en garantit
+  // aucun depuis le proxy.
+  if (
+    request.headers.get("rsc") ||
+    request.headers.get("next-router-prefetch") ||
+    request.headers.get("next-url") ||
+    request.headers.get("next-router-state-tree") ||
+    request.nextUrl.searchParams.has("_rsc")
+  ) {
+    return;
+  }
+
+  const existante = decoderProvenance(request.cookies.get(PROVENANCE_COOKIE)?.value);
+  const { provenance, explicite } = provenanceDepuisRequete(
+    request.nextUrl,
+    request.headers.get("referer"),
+    aujourdHuiParis(),
+  );
+  if (existante && !explicite) return;
+  // Même campagne qu'avant : rien à réécrire, on garde la date d'origine.
+  if (
+    existante &&
+    existante.source === provenance.source &&
+    existante.medium === provenance.medium &&
+    existante.campaign === provenance.campaign
+  ) {
+    return;
+  }
+
+  response.cookies.set(PROVENANCE_COOKIE, encoderProvenance(provenance), {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: PROVENANCE_MAX_AGE,
+  });
+}
+
 export async function proxy(request: NextRequest) {
   const attribution = redirectionAttribution(request);
   if (attribution) return attribution;
-  return await updateSession(request);
+  const response = await updateSession(request);
+  poserProvenance(request, response);
+  return response;
 }
 
 export const config = {

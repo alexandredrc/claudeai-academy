@@ -1,10 +1,15 @@
 "use server";
 
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe/server";
 import { getPlan, isValidPlanCode, ELITE_ENABLED } from "@/lib/stripe/plans";
+import {
+  PROVENANCE_COOKIE,
+  decoderProvenance,
+  provenanceVersMetadata,
+} from "@/lib/attribution";
 
 /**
  * Crédit d'ascension : ce qu'un client a déjà payé est déduit du palier
@@ -95,7 +100,14 @@ export async function startCheckoutAction(formData: FormData) {
   // `tier` (niveau d'accès) voyage toujours, c'est lui que le webhook écrit en
   // base. `plan_code` dit quelle offre a été vendue — deux offres peuvent
   // donner le même accès. `user_id` seulement si l'acheteur est connecté.
+  // La provenance (canal qui a amené le visiteur, posée en cookie par le
+  // proxy) voyage aussi : c'est la seule façon pour le webhook, qui ne voit
+  // jamais le navigateur, d'écrire dans `purchases` d'où vient la vente.
+  const provenance = decoderProvenance(
+    (await cookies()).get(PROVENANCE_COOKIE)?.value,
+  );
   const metadata: Record<string, string> = {
+    ...provenanceVersMetadata(provenance),
     tier: plan.tier,
     plan_code: plan.code,
   };

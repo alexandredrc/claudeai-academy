@@ -69,10 +69,15 @@ export async function notifierVente(params: {
   tier: string;
   amountTotal: number;
   prenom?: string | null;
+  /** « instagram / bio », « google / organic »… ou null quand on ne sait pas. */
+  canal?: string | null;
 }): Promise<boolean> {
   const pass = NOM_DU_PASS[params.planCode ?? params.tier] ?? "PASS";
   const montant = euros(params.amountTotal);
   const qui = params.prenom?.trim() ? ` — ${params.prenom.trim()}` : "";
+  // Le canal répond, à l'instant de la vente, à la question qui compte pour
+  // décider où mettre son temps demain : d'où venait cet acheteur ?
+  const canal = params.canal?.trim() || "inconnu";
 
   const texte = [
     `💚 VENTE ${pass} ${montant}${qui}`,
@@ -82,6 +87,8 @@ export async function notifierVente(params: {
     "VOUS VENEZ DE RÉALISER",
     `UNE VENTE DE ${pass}`,
     `À ${montant}`,
+    "",
+    `📣 Canal : ${canal}`,
     "",
     "🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢",
   ].join("\n");

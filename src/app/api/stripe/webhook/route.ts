@@ -7,6 +7,7 @@ import { notifierVente } from "@/lib/notify/telegram";
 import { sendPurchaseWelcomeEmail } from "@/lib/email/welcome";
 import { sendCheckoutRecoveryEmail } from "@/lib/email/checkout-recovery";
 import { buildAccessLink } from "@/lib/auth/access-link";
+import { libelleCanal, provenanceDepuisMetadata } from "@/lib/attribution";
 
 // Stripe doit recevoir le body brut pour valider la signature.
 // On désactive l'optimisation statique au cas où.
@@ -147,6 +148,10 @@ async function handleCheckoutCompleted(
     .eq("stripe_session_id", session.id)
     .maybeSingle();
 
+  // Provenance : le canal de com qui a amené l'acheteur, recopié du cookie
+  // dans la metadata par /checkout. C'est la seule trace qui survit jusqu'ici.
+  const provenance = provenanceDepuisMetadata(session.metadata);
+
   // Upsert sur stripe_session_id (UNIQUE en DB) : idempotent.
   const { error } = await supabaseAdmin.from("purchases").upsert(
     {
@@ -160,6 +165,17 @@ async function handleCheckoutCompleted(
       currency: session.currency ?? "eur",
       status: "paid",
       paid_at: new Date().toISOString(),
+      ...(provenance
+        ? {
+            utm_source: provenance.source,
+            utm_medium: provenance.medium,
+            utm_campaign: provenance.campaign,
+            src: provenance.src ?? null,
+            landing_path: provenance.landing,
+            referrer: provenance.referrer ?? null,
+            first_seen_at: provenance.at || null,
+          }
+        : {}),
     },
     {
       onConflict: "stripe_session_id",
@@ -170,6 +186,14 @@ async function handleCheckoutCompleted(
     throw new Error(`Supabase upsert purchases failed: ${error.message}`);
   }
 
+  // Quand le checkout n'a pas porté de provenance, le lead (s'il existe) dit
+  // au moins par quel lien cette adresse était entrée dans le tunnel.
+  const canal = provenance
+    ? libelleCanal(provenance)
+    : email
+      ? await canalDepuisLead(email)
+      : null;
+
   // Alerte de vente, immédiate. Placée juste après l'enregistrement pour que
   // le téléphone sonne même si la suite du webhook échoue — et conditionnée à
   // `existingPurchase` pour qu'un rejeu Stripe ne fasse pas sonner deux fois.
@@ -179,8 +203,14 @@ async function handleCheckoutCompleted(
       tier,
       amountTotal: session.amount_total ?? 0,
       prenom: session.customer_details?.name?.trim().split(/\s+/)[0] ?? null,
+      canal,
     });
   }
+
+  // Boucler le tunnel : un lead qui achète est marqué converti. La colonne
+  // existait depuis le lancement du kit (14/06) et n'était écrite nulle part,
+  // donc « combien de leads achètent ? » restait sans réponse.
+  if (email) await marquerLeadConverti(email, userId);
 
   // Complète le profil avec le nom collecté par Stripe quand il manque.
   // Historiquement le checkout ne demandait pas le nom : des profils créés
@@ -248,6 +278,34 @@ async function handleCheckoutCompleted(
       const message = err instanceof Error ? err.message : String(err);
       console.error("[stripe-webhook] welcome email failed:", message);
     }
+  }
+}
+
+/** Canal du lead portant cette adresse, ex. « lead instagram-bio ». Best effort. */
+async function canalDepuisLead(email: string): Promise<string | null> {
+  try {
+    const { data } = await supabaseAdmin
+      .from("leads")
+      .select("source")
+      .eq("email", email)
+      .maybeSingle();
+    return data?.source ? `lead ${data.source}` : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Marque le lead comme converti. Best effort, jamais bloquant. */
+async function marquerLeadConverti(email: string, userId: string): Promise<void> {
+  try {
+    const { error } = await supabaseAdmin
+      .from("leads")
+      .update({ converted_user_id: userId })
+      .eq("email", email)
+      .is("converted_user_id", null);
+    if (error) console.error("[stripe-webhook] lead converti:", error.message);
+  } catch (err) {
+    console.error("[stripe-webhook] lead converti:", err instanceof Error ? err.message : err);
   }
 }
 

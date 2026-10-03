@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { Container } from "@/components/site/container";
+import { PROVENANCE_COOKIE, decoderProvenance } from "@/lib/attribution";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
 
@@ -31,7 +33,18 @@ export default async function KitPage({
   searchParams: Promise<{ src?: string | string[]; utm_source?: string | string[] }>;
 }) {
   const sp = await searchParams;
-  const source = resolveSource(sp.src ?? sp.utm_source);
+  // Sans paramètre dans l'URL, on relit le cookie de provenance posé à la
+  // première visite : un visiteur venu de LinkedIn il y a trois jours et qui
+  // revient taper /kit à la main n'est pas « direct ». Au 02/10/2026, 73 leads
+  // sur 81 étaient en « kit-direct », autant dire sans origine.
+  const provenance = decoderProvenance(
+    (await cookies()).get(PROVENANCE_COOKIE)?.value,
+  );
+  const source = resolveSource(
+    sp.src ??
+      sp.utm_source ??
+      (provenance && provenance.source !== "direct" ? provenance.campaign : undefined),
+  );
   return (
     <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
       <div

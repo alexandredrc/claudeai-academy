@@ -137,6 +137,18 @@ export default function ConfidentialitePage() {
             consentement préalable.
           </p>
           <p>
+            Il dépose également un cookie de <strong>provenance</strong>{" "}
+            (<code>cai_prov</code>, 90 jours), émis par notre propre domaine,
+            qui mémorise uniquement le canal par lequel vous êtes arrivé sur le
+            site (par exemple «&nbsp;linkedin&nbsp;», «&nbsp;moteur de
+            recherche&nbsp;» ou «&nbsp;direct&nbsp;») et la première page vue.
+            Il ne contient aucun identifiant personnel, n’est transmis à aucun
+            tiers et ne permet aucun suivi d’un site à l’autre&nbsp;: il sert
+            seulement à savoir quels canaux amènent de vrais élèves. Vous
+            pouvez le supprimer à tout moment depuis les données de site de
+            votre navigateur.
+          </p>
+          <p>
             Lorsque nous menons des campagnes publicitaires, le site peut en
             outre utiliser un cookie de <strong>mesure de conversion Google
             (Google Ads)</strong>, uniquement destiné à savoir quelles campagnes

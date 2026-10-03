@@ -20,7 +20,7 @@ import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 export const metadata: Metadata = {
   title: "Formation Claude AI en français : 8 parcours, dès 47 €",
   description:
-    "La formation Claude AI en français : 8 parcours, 49 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
+    "La formation Claude AI en français : 8 parcours, 50 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
   robots: { index: false, follow: true },
 };
 

@@ -23,7 +23,7 @@ export const DERNIERE_PASSE =
   "Claude Code 2.1.288 et ses mods (1er octobre 2026), retrait de Sonnet 4.5 annoncé pour le 30 novembre";
 
 /** Notes de mise à jour datées (blocs `:::maj`) présentes dans les leçons. */
-export const NOTES_DE_MISE_A_JOUR = 88;
+export const NOTES_DE_MISE_A_JOUR = 89;
 
 /** Sources de référence surveillées par la veille (`scripts/veille/sources.mjs`). */
 export const SOURCES_SURVEILLEES = 11;

@@ -20,6 +20,9 @@ const staticRoutes: { path: string; priority: number; changeFrequency: Freq }[] 
   // clics publicitaires identifies : une demande mesuree, a laquelle personne
   // ne repond honnetement en francais.
   { path: "/certification-claude-ai", priority: 0.85, changeFrequency: "monthly" },
+  // « claude code skill » : la requête associée à Claude Code qui progresse le
+  // plus en France (Trends, 12 mois au 02/10/2026). Personne n'y répond en français.
+  { path: "/claude-code-skills", priority: 0.85, changeFrequency: "monthly" },
   { path: "/courses", priority: 0.9, changeFrequency: "weekly" },
   { path: "/tarifs", priority: 0.9, changeFrequency: "monthly" },
   { path: "/prompts", priority: 0.8, changeFrequency: "weekly" },

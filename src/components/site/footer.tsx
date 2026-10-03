@@ -25,6 +25,7 @@ const ressourcesLinks = [
   { href: "/formation-intelligence-artificielle", label: "Formation intelligence artificielle" },
   { href: "/claude-vs-chatgpt", label: "Claude ou ChatGPT ?" },
   { href: "/prompt-engineering", label: "Le prompt engineering" },
+  { href: "/claude-code-skills", label: "Claude Code : skills, plugins, mods" },
   { href: "/formation-ia-obligatoire-ai-act", label: "Formation IA et AI Act" },
   { href: "/prompts", label: "Bibliothèque de prompts" },
   { href: "/kit", label: "Kit gratuit, 15 prompts" },

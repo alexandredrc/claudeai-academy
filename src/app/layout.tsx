@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   // academy.claude.com, dont les cours sont gratuits mais en anglais.
   title: "ClaudeAI Academy — formation Claude AI en français, dès 47 €",
   description:
-    "La formation Claude AI en français, à votre rythme : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 8 parcours, 49 leçons, 170 prompts prêts à copier et un Mentor IA. Accès à vie dès 47 €, sans dossier CPF ni devis, garantie 14 jours.",
+    "La formation Claude AI en français, à votre rythme : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 8 parcours, 50 leçons, 170 prompts prêts à copier et un Mentor IA. Accès à vie dès 47 €, sans dossier CPF ni devis, garantie 14 jours.",
   metadataBase: new URL("https://www.claudeai-academy.com"),
   keywords: [
     "claude academy",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Formation Claude AI en ligne, en français — dès 47 €",
     description:
-      "8 parcours, 49 leçons, 170 prompts et un Mentor IA pour maîtriser Claude AI en pratique. À votre rythme, sans CPF ni dossier.",
+      "8 parcours, 50 leçons, 170 prompts et un Mentor IA pour maîtriser Claude AI en pratique. À votre rythme, sans CPF ni dossier.",
     images: ["/og.png"],
   },
 };

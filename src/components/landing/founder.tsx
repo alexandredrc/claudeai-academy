@@ -50,7 +50,7 @@ export function Founder() {
                 outil de pilotage pour aider les directeurs et les patrons
                 d&apos;établissement à mieux gérer leur affaire. Cette académie
                 est sortie du même mouvement : le site que vous lisez, le Mentor
-                IA qui répond à vos questions, les 49 leçons.
+                IA qui répond à vos questions, les 50 leçons.
               </p>
               <p>
                 Le constat de départ est simple : la majorité des contenus sur

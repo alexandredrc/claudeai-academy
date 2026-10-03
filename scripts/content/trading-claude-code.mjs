@@ -4,7 +4,7 @@
 //   - Doc officielle Claude Code (code.claude.com/docs/en/…)
 //   - Doc API / prompt engineering Anthropic (platform.claude.com/docs/en/…)
 //   - Principes quant établis (biais de backtest, gestion du risque)
-// Vérifié le 2026-09-29 · Claude Code 2.1.284 · Opus 5.5 modèle Opus par défaut.
+// Vérifié le 2026-10-03 · Claude Code 2.1.288 · Opus 5.5 modèle Opus par défaut.
 // Cadre : on construit de l'OUTILLAGE avec Claude Code. AUCUN conseil
 // financier, aucune stratégie « clé en main ». Disclaimer dans la leçon 1.
 // =========================================
@@ -13,7 +13,7 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Vérifié le **29 septembre 2026** — Claude Code **2.1.284**, **Opus 5.5** modèle Opus par défaut depuis le 22/09/2026. Doc officielle : \`code.claude.com/docs/en/changelog\`, \`code.claude.com/docs/en/costs\` ; prompt engineering Opus 5 : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5\` ; « The new rules of context engineering for Claude 5 generation models » et « Building verification loops in Claude Code with skills » (\`claude.com/blog\`). Côté quant : principes établis de la littérature backtest/risk (look-ahead, survivorship, overfitting, slippage). Contenu original rédigé pour ClaudeAI Academy — aucune reproduction de source tierce.
+**Sources & méthode** · Vérifié le **3 octobre 2026** — Claude Code **2.1.288**, **Opus 5.5** modèle Opus par défaut depuis le 22/09/2026. Doc officielle : \`code.claude.com/docs/en/changelog\`, \`code.claude.com/docs/en/costs\` ; prompt engineering Opus 5 : \`platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5\` ; « The new rules of context engineering for Claude 5 generation models » et « Building verification loops in Claude Code with skills » (\`claude.com/blog\`). Côté quant : principes établis de la littérature backtest/risk (look-ahead, survivorship, overfitting, slippage). Contenu original rédigé pour ClaudeAI Academy — aucune reproduction de source tierce.
 
 **Avertissement** · Ce parcours est *éducatif* et *technique*. Il enseigne à construire des outils avec Claude Code. Il ne constitue **pas un conseil en investissement**, ne recommande aucune stratégie ni aucun actif, ne présente aucune stratégie comme gagnante et ne garantit aucun résultat. **Les performances passées ne préjugent en rien des performances futures** et le risque de perte, y compris totale, est réel. Tu restes seul responsable de tes décisions.`;
 
@@ -42,7 +42,7 @@ export const tradingClaudeCode = {
 :::
 
 :::flash
-Claude Code n'a aucun avantage prédictif sur un prix. Ce qu'il fait très bien, c'est écrire, lancer et corriger le code qui teste ta méthode. Au 29 septembre 2026 il est en version **2.1.284** et tourne sur **Opus 5.5** (contexte 1M, réflexion toujours active) comme modèle Opus par défaut. La frontière qui structure tout le parcours : l'IA construit, l'humain décide et engage le capital.
+Claude Code n'a aucun avantage prédictif sur un prix. Ce qu'il fait très bien, c'est écrire, lancer et corriger le code qui teste ta méthode. Au 3 octobre 2026 il est en version **2.1.288** et tourne sur **Opus 5.5** (contexte 1M, réflexion toujours active) comme modèle Opus par défaut. La frontière qui structure tout le parcours : l'IA construit, l'humain décide et engage le capital.
 :::
 
 ## La mauvaise question
@@ -109,7 +109,7 @@ Le reste des changements de l'été touche des commandes que tu as peut-être vu
 | \`/review\` est une commande distincte | **Alias de \`/code-review\`** depuis le 6 août (2.1.223) |
 | Claude lance \`/verify\` et \`/code-review\` tout seul | **Non**, comportement retiré le 19 juillet (2.1.215) |
 | Claude peut déclencher \`/deep-research\` | **Lancement manuel uniquement** depuis le 22 juillet |
-| Version de Claude Code | **2.1.284** (au 29 septembre 2026) |
+| Version de Claude Code | **2.1.288** (au 3 octobre 2026) |
 | Mode de permission au démarrage | **Mode auto** par défaut depuis 2.1.283, y compris hors abonnement |
 
 :::astuce Vérifie ta version avant de suivre un tuto
@@ -174,7 +174,7 @@ Dans les leçons suivantes, on construit concrètement : un backtest qui ne ment
 
 :::defi 20 min — Poser le cadre avant la première ligne de code
 Crée le dépôt qui servira aux trois leçons suivantes et amorce-le avec Claude Code, sans écrire une seule ligne de stratégie.
-- \`claude --version\` renvoie 2.1.284 ou plus récent
+- \`claude --version\` renvoie 2.1.288 ou plus récent
 - Aucune clé de courtage n'est atteignable depuis la session, et tu sais repasser en mode manuel (\`Maj+Tab\`)
 - Le dépôt existe, avec un dossier \`data/raw\` et un dossier \`tests\`
 - Un \`CLAUDE.md\` de moins de 30 lignes : stack, règles du dépôt, interdiction explicite d'appeler une API de courtier
@@ -187,8 +187,8 @@ Crée le dépôt qui servira aux trois leçons suivantes et amorce-le avec Claud
 Q: Pourquoi ne pas demander à Claude si un actif va monter ?
 R: Un modèle de langage n'a aucun avantage prédictif sur un prix. Il produit du plausible, pas de l'informé.
 ===
-Q: Quel modèle Opus Claude Code utilise-t-il par défaut au 29 septembre 2026, et dans quelle version ?
-R: Opus 5.5 depuis le 22 septembre, contexte 1M et réflexion toujours active. Claude Code est en 2.1.284.
+Q: Quel modèle Opus Claude Code utilise-t-il par défaut au 3 octobre 2026, et dans quelle version ?
+R: Opus 5.5 depuis le 22 septembre, contexte 1M et réflexion toujours active. Claude Code est en 2.1.288.
 ===
 Q: Faut-il écrire « ajoute une étape de vérification finale » dans ses prompts ?
 R: Non. La doc Opus 5 demande de retirer ces instructions, qui provoquent de la sur-vérification. La vérification va dans le code, pas dans le prompt.

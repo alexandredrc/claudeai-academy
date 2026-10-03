@@ -86,7 +86,7 @@ Chaque leçon : la technique officielle, des prompts copiables, un ou deux anti-
 
 ## Ce qui a changé en 2026, et pourquoi ça compte dès maintenant
 
-Ce parcours est à jour au **29 septembre 2026** pour la gamme actuelle : **Claude Fable 5.1** (sorti le 1er septembre), **Claude Opus 5.5** (22 septembre), **Claude Sonnet 5.5** (28 septembre) et **Claude Haiku 4.5**. Le socle n'a pas bougé — clarté, contexte, exemples, balises. En revanche, une partie des conseils de la génération précédente s'est purement et simplement **inversée**.
+Ce parcours est à jour au **3 octobre 2026** pour la gamme actuelle : **Claude Fable 5.1** (sorti le 1er septembre), **Claude Opus 5.5** (22 septembre), **Claude Sonnet 5.5** (28 septembre) et **Claude Haiku 4.5**. Le socle n'a pas bougé — clarté, contexte, exemples, balises. En revanche, une partie des conseils de la génération précédente s'est purement et simplement **inversée**.
 
 :::maj 24 juillet 2026
 **Claude Opus 5** (\`claude-opus-5\`) sort et devient le modèle Opus par défaut : 1 M de tokens de contexte, **réflexion activée par défaut**, 5 $ / 25 $ par million de tokens. Le même jour, Anthropic publie *The new rules of context engineering for Claude 5 generation models* — l'article qui rend caduque une partie de ce que tout le monde enseignait encore en juin.

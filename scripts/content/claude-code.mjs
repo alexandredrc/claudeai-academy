@@ -10,13 +10,13 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Contenu vérifié au **29 septembre 2026**, sur **Claude Code 2.1.284** et **Claude Agent SDK 0.3.284**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), doc du **Claude Agent SDK** ([code.claude.com/docs/en/agent-sdk](https://code.claude.com/docs/en/agent-sdk)) et son changelog, doc des **agents gérés** et grille tarifaire ([platform.claude.com/docs/en/about-claude/pricing](https://platform.claude.com/docs/en/about-claude/pricing)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Les **agents gérés sont en bêta** : leur surface d'API peut changer, les chiffres cités sont datés. Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifie sur le changelog de ta version. Contenu original rédigé pour ClaudeAI Academy.`;
+**Sources & méthode** · Contenu vérifié au **3 octobre 2026**, sur **Claude Code 2.1.288** et **Claude Agent SDK 0.3.288**. Sources : changelog et doc officielle Claude Code ([code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog), [code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)), doc API Anthropic ([platform.claude.com/docs/en](https://platform.claude.com/docs/en)), *Model Context Protocol* ([modelcontextprotocol.io](https://modelcontextprotocol.io)), doc du **Claude Agent SDK** ([code.claude.com/docs/en/agent-sdk](https://code.claude.com/docs/en/agent-sdk)) et son changelog, doc des **agents gérés** et grille tarifaire ([platform.claude.com/docs/en/about-claude/pricing](https://platform.claude.com/docs/en/about-claude/pricing)), et les articles Anthropic « Building verification loops in Claude Code with skills » (22/07/2026) et « The new rules of context engineering for Claude 5 generation models » (24/07/2026). Les **agents gérés sont en bêta** : leur surface d'API peut changer, les chiffres cités sont datés. Claude Code bouge vite : **les versions et les limites chiffrées sont datées dans le texte** — revérifie sur le changelog de ta version. Contenu original rédigé pour ClaudeAI Academy.`;
 
 export const claudeCodeIaAgentic = {
   slug: "claude-code-ia-agentic",
   title: "Claude Code et l'IA agentique",
   description:
-    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents et coûts maîtrisés — puis comment le sortir du terminal avec l'Agent SDK ou les agents gérés. À jour de Claude Code 2.1.284 et d'Opus 5.5 (29 septembre 2026).",
+    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents et coûts maîtrisés — puis comment le sortir du terminal avec l'Agent SDK ou les agents gérés. À jour de Claude Code 2.1.288 et d'Opus 5.5 (3 octobre 2026).",
   tier_required: "starter",
   display_order: 3,
   estimated_duration_min: 164,
@@ -37,7 +37,7 @@ export const claudeCodeIaAgentic = {
 :::
 
 :::flash
-Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 29 septembre 2026, la version courante est **2.1.284**, et **Opus 5.5** est le modèle Opus par défaut depuis le 22 septembre.
+Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 3 octobre 2026, la version courante est **2.1.288**, et **Opus 5.5** est le modèle Opus par défaut depuis le 22 septembre.
 :::
 
 ## Le saut : du chatbot à l'agent
@@ -102,6 +102,19 @@ Un mot sur le modèle, puisqu'il pilote la facture. **Claude Opus 5.5 est le mod
 Entre le 18 juillet et le 6 août 2026 (version **2.1.223**), le changelog documente **au moins cinq corrections de contournement du système de permissions Bash** : contournement en PowerShell 5.1, conditionnels regex zsh, mauvaise gestion des guillemets PowerShell, hooks pré-outil qui court-circuitaient les restrictions d'outils, et commande masquant une partie d'elle-même via des tabulations ou de l'Unicode invisible.
 :::
 
+:::maj 3 octobre 2026
+Claude Code est passé de **2.1.284 à 2.1.288** en quatre jours (l'Agent SDK suit, en 0.3.288). Ce qui compte :
+
+- **Les mods** (2.1.287, 1er octobre). Un plugin ne se limite plus à ajouter des skills, des commandes ou des hooks : il peut désormais **modifier le comportement profond** de Claude Code, remplacer une fonction, ajouter de l'interface, dans le terminal comme dans l'application de bureau. Un mod s'écrit en TypeScript et se distribue par le même annuaire que les plugins. Même règle de prudence que pour les skills : un mod a accès à tout ce que Claude Code voit.
+- **« You should know »** (2.1.287), un mod fourni d'origine : un agent latéral surveille la session et signale ce que toi ou Claude pourriez manquer. Activation : \`/plugin enable cc-plugin-you-should-know@builtin\` (sessions connectées à un compte Anthropic, télémétrie activée).
+- **Un brouillon effacé par Ctrl+C se récupère** (2.1.288) : flèche Haut sur l'invite vide, texte collé et images compris.
+- **\`/code-review --max-findings <n>|all\`** (2.1.288) règle le nombre de constats d'une revue ; le choix est conservé jusqu'à \`--max-findings default\`.
+- **\`/autocompact\` mémorise sa fenêtre par modèle** (2.1.288), et la limite de temps des commandes en arrière-plan ne s'applique plus qu'aux sessions sans surveillance (\`-p\`, SDK, CI, cloud).
+- **\`claude project purge\` devient \`claude purge\`** (2.1.288) ; l'ancien nom marche encore et prévient.
+
+Côté sécurité : un \`rm\` dangereux glissé dans un \`bash -c\` ne passe plus sans question en mode sans permissions (2.1.288), et un hook PreToolUse qui échoue à s'évaluer **bloque** l'appel au lieu d'être ignoré.
+:::
+
 :::maj 29 septembre 2026
 Claude Code est passé de **2.1.278 à 2.1.284** en huit jours, avec deux nouveaux modèles par défaut. Cinq changements modifient ta façon de travailler :
 
@@ -157,7 +170,7 @@ L'agent **propose et exécute** sous ton contrôle. **Toi** restes responsable d
 
 :::defi 15 min — Ton diagnostic de départ
 Avant d'aller plus loin, installe le décor et fais ton tri.
-- Tu as vérifié ta version de Claude Code et tu es sur 2.1.284 ou plus récent
+- Tu as vérifié ta version de Claude Code et tu es sur 2.1.288 ou plus récent
 - Tu sais dans quel mode de permission ta session démarre (regarde la barre d'état) et comment repasser en manuel avec \`Maj+Tab\`
 - Tu as ouvert Claude Code dans un vrai dépôt à toi (pas un projet jouet)
 - Tu as écrit une liste de 5 tâches récurrentes de ta semaine
@@ -172,8 +185,8 @@ R: Rassembler le contexte, agir, observer, corriger.
 Q: Quel critère pratique dit si une tâche est déléguable à l'agent ?
 R: S'il existe une commande qui vérifie le résultat automatiquement, elle est déléguable.
 ===
-Q: Quelle est la version de Claude Code au 29 septembre 2026, et sur quel modèle Opus tourne-t-elle par défaut ?
-R: 2.1.284, sur Opus 5.5 (par défaut depuis le 22 septembre 2026).
+Q: Quelle est la version de Claude Code au 3 octobre 2026, et sur quel modèle Opus tourne-t-elle par défaut ?
+R: 2.1.288, sur Opus 5.5 (par défaut depuis le 22 septembre 2026).
 ===
 Q: Une liste d'autorisations Bash est-elle une frontière de sécurité fiable ?
 R: Non. Au moins cinq contournements ont été corrigés entre le 18 juillet et le 6 août 2026. C'est de la défense en profondeur.
@@ -979,7 +992,7 @@ C'est la marche la plus courte depuis ce parcours, parce que **tu ne réapprends
 Ce que ça débloque concrètement : un agent déclenché par ton application, une étape d'intégration continue qui fait autre chose que lancer des tests, un outil interne où l'utilisateur ne voit jamais le terminal.
 
 :::cle La parité de version est la bonne nouvelle cachée
-L'Agent SDK suit Claude Code version pour version : la **0.3.284** du SDK correspond à la **2.1.284** de Claude Code (29 septembre 2026). Ce que tu apprends dans le terminal reste vrai dans ta bibliothèque, et les corrections arrivent des deux côtés en même temps. C'est aussi pour ça que les deux changelogs méritent d'être suivis ensemble.
+L'Agent SDK suit Claude Code version pour version : la **0.3.288** du SDK correspond à la **2.1.288** de Claude Code (3 octobre 2026). Ce que tu apprends dans le terminal reste vrai dans ta bibliothèque, et les corrections arrivent des deux côtés en même temps. C'est aussi pour ça que les deux changelogs méritent d'être suivis ensemble.
 :::
 
 Ce que le SDK ne fait **pas** : il ne te fournit pas de serveur. La boucle tourne où tu la lances — ta machine, ton conteneur, ta fonction serverless. Les secrets, les redémarrages, le stockage des sessions et la surveillance restent ton problème. Pour beaucoup de cas, c'est très bien : tu as déjà une infrastructure, tu y ajoutes un agent.

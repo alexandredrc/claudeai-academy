@@ -16,14 +16,14 @@
  */
 
 /** Date de la dernière passe de vérification appliquée aux leçons. */
-export const CONTENU_A_JOUR_AU = "29 septembre 2026";
+export const CONTENU_A_JOUR_AU = "3 octobre 2026";
 
 /** Ce que cette passe a intégré, dit en une ligne pour un visiteur. */
 export const DERNIERE_PASSE =
-  "Claude Opus 5.5 et Sonnet 5.5, sortis les 22 et 28 septembre 2026";
+  "Claude Code 2.1.288 et ses mods (1er octobre 2026), retrait de Sonnet 4.5 annoncé pour le 30 novembre";
 
 /** Notes de mise à jour datées (blocs `:::maj`) présentes dans les leçons. */
-export const NOTES_DE_MISE_A_JOUR = 86;
+export const NOTES_DE_MISE_A_JOUR = 88;
 
 /** Sources de référence surveillées par la veille (`scripts/veille/sources.mjs`). */
 export const SOURCES_SURVEILLEES = 11;

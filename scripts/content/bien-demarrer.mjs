@@ -12,7 +12,7 @@ const FOOTER = `
 
 ---
 
-**Sources** · Vérifié le **29 septembre 2026**. Documentation officielle : *What's new in Claude Opus 5.5*, *What's new in Claude Sonnet 5.5*, *Choosing the right model*, *Pricing*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable models on your plan*, *Claude Cowork and chat are now one Claude*, *Get started with Claude in Chrome*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
+**Sources** · Vérifié le **3 octobre 2026**. Documentation officielle : *What's new in Claude Opus 5.5*, *What's new in Claude Sonnet 5.5*, *Choosing the right model*, *Pricing*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable models on your plan*, *Claude Cowork and chat are now one Claude*, *Get started with Claude in Chrome*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
 
 export const bienDemarrerAvecClaude = {
   slug: "bien-demarrer-avec-claude",
@@ -331,6 +331,10 @@ Pour toi, dans l'application, le régime d'accès ne change pas : Fable 5.1 suit
 Ce qui ne change pas : tes habitudes. La doc officielle précise que les prompts écrits pour Opus 5 fonctionnent tels quels. Tout ce que ce parcours dit d'Opus 5 (réflexion par défaut, effort comme levier, consignes de vérification à retirer) vaut pour Opus 5.5.
 :::
 
+:::maj 3 octobre 2026
+**Sonnet 4.5 a sa date de retrait** : annoncée le 30 septembre, retrait de l'API le **30 novembre 2026**, migration recommandée vers Sonnet 5.5. **Haiku 5.5 n'est toujours pas sorti** (annoncé « dans les prochaines semaines » le 22 septembre) : Haiku 4.5 reste le modèle rapide, mais Anthropic ne s'engage à le maintenir que jusqu'au 15 octobre 2026 ; au-delà, un retrait peut être annoncé, avec préavis. Les tarifs de la gamme n'ont pas bougé : Fable 5.1 à 10 $ / 50 $, Opus 5.5 à 4 $ / 20 $, Sonnet 5.5 à 2 $ / 10 $, Haiku 4.5 à 1 $ / 5 $ par million de tokens.
+:::
+
 :::maj 28 septembre 2026
 **Claude Sonnet 5.5** suit six jours plus tard, **au même tarif que Sonnet 5** (2 $ / 10 $ par million de tokens). Anthropic annonce l'arrivée de **Haiku 5.5** « dans les prochaines semaines » : d'ici là, Haiku 4.5 reste le modèle rapide de la gamme. Opus 5 et Sonnet 5 ne disparaissent pas : ils passent dans la génération précédente, et Anthropic s'engage à ne pas les retirer avant l'été 2027.
 :::
@@ -338,7 +342,7 @@ Ce qui ne change pas : tes habitudes. La doc officielle précise que les prompts
 Retiens la logique plutôt que les numéros (ils changent tous les trimestres) : **Haiku = vitesse, Sonnet = équilibre, Opus = puissance de travail, Fable = plafond de capacité.**
 
 :::piege « Legacy » ne veut pas dire « cassé »
-Un modèle Legacy fonctionne toujours. Il n'est simplement plus celui qu'Anthropic met en avant, et il finira par être retiré — avec un préavis. Deux repères concrets : **Opus 4.1 a été retiré le 5 août 2026** (il ne répond plus via l'API), et la prochaine retraite annoncée, celle de Sonnet 4.5, n'interviendra **pas avant le 29 septembre 2026**. Si un flux de travail dépend d'un modèle Legacy, prévois la bascule avant d'y être forcé.
+Un modèle Legacy fonctionne toujours. Il n'est simplement plus celui qu'Anthropic met en avant, et il finira par être retiré — avec un préavis. Deux repères concrets : **Opus 4.1 a été retiré le 5 août 2026** (il ne répond plus via l'API), et la prochaine retraite annoncée, celle de Sonnet 4.5, est fixée au **30 novembre 2026** (annonce du 30 septembre). Si un flux de travail dépend d'un modèle Legacy, prévois la bascule avant d'y être forcé.
 :::
 
 ## Où ça se règle

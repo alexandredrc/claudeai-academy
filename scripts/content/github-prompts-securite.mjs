@@ -6,14 +6,14 @@
 // sécurité supply chain. Aucune reproduction de source tierce.
 // Mis à jour le 06/08/2026 : spec MCP 2026-07-28 (stateless), correctif web_fetch,
 // contournements de permissions Bash, faille SDK Python 0.2.129, skills de
-// vérification, Claude Code 2.1.284 (mode auto par défaut, Opus 5.5).
+// vérification, Claude Code 2.1.288 (mode auto par défaut, Opus 5.5).
 // =========================================
 
 const FOOTER = `
 
 ---
 
-**Sources & méthode** · Vérifié au **29 septembre 2026**, Claude Code **2.1.284**. Concepts de sécurité établis : *prompt injection* (OWASP LLM01) ; *« lethal trifecta »* (données privées + contenu non fiable + canal d'exfiltration), grille popularisée par le chercheur Simon Willison ; moindre privilège et sécurité de la chaîne d'approvisionnement logicielle. Spécification **MCP 2026-07-28** : \`modelcontextprotocol.io/specification/2026-07-28/changelog\`. Documentation Claude Code (changelog, settings, sandboxing, skills, plugins) : \`code.claude.com/docs/en/\`. Documentation API, modèles et prompt engineering : \`platform.claude.com/docs/en/\`. Études de cas : exfiltration via \`web_fetch\` découverte par **Ayush Paul**, publiée le 15/07/2026 et **corrigée** par Anthropic ; incidents des évaluations cyber d'Anthropic publiés le 30/07/2026 ; faille d'injection du SDK Python \`claude-agent-sdk\` 0.2.129 ; contournements de permissions Bash corrigés dans les versions 2.1.214 à 2.1.223 — documentés au CHANGELOG, **aucun avis GHSA n'a été publié** pour juillet-août 2026. Contenu original rédigé pour ClaudeAI Academy, audité à la rédaction.`;
+**Sources & méthode** · Vérifié au **3 octobre 2026**, Claude Code **2.1.288**. Concepts de sécurité établis : *prompt injection* (OWASP LLM01) ; *« lethal trifecta »* (données privées + contenu non fiable + canal d'exfiltration), grille popularisée par le chercheur Simon Willison ; moindre privilège et sécurité de la chaîne d'approvisionnement logicielle. Spécification **MCP 2026-07-28** : \`modelcontextprotocol.io/specification/2026-07-28/changelog\`. Documentation Claude Code (changelog, settings, sandboxing, skills, plugins) : \`code.claude.com/docs/en/\`. Documentation API, modèles et prompt engineering : \`platform.claude.com/docs/en/\`. Études de cas : exfiltration via \`web_fetch\` découverte par **Ayush Paul**, publiée le 15/07/2026 et **corrigée** par Anthropic ; incidents des évaluations cyber d'Anthropic publiés le 30/07/2026 ; faille d'injection du SDK Python \`claude-agent-sdk\` 0.2.129 ; contournements de permissions Bash corrigés dans les versions 2.1.214 à 2.1.223 — documentés au CHANGELOG, **aucun avis GHSA n'a été publié** pour juillet-août 2026. Contenu original rédigé pour ClaudeAI Academy, audité à la rédaction.`;
 
 export const githubPromptsSecurite = {
   slug: "prompts-skills-github-securite",
@@ -113,7 +113,7 @@ Et plus l'agent est autonome, plus un prompt non fiable devient une arme potenti
 :::piege « J'ai une allowlist Bash, je suis protégé »
 Non. Entre le **18/07 et le 06/08/2026**, au moins **cinq contournements** des restrictions de permissions ont été corrigés dans Claude Code : PowerShell 5.1, conditionnels regex zsh, mauvaise gestion des guillemets PowerShell, **hooks PreToolUse qui contournaient les restrictions d'outils**, commande forgée se masquant partiellement, et prompts de permission masquant une partie de la commande via des **tabulations ou de l'Unicode invisible**.
 
-Ce que ça veut dire : une allowlist est de la **défense en profondeur, pas une frontière de sécurité dure**. Elle réduit les erreurs, elle n'arrête pas un attaquant motivé. Mets Claude Code à jour (**2.1.284** au 29/09/2026) et empile d'autres couches.
+Ce que ça veut dire : une allowlist est de la **défense en profondeur, pas une frontière de sécurité dure**. Elle réduit les erreurs, elle n'arrête pas un attaquant motivé. Mets Claude Code à jour (**2.1.288** au 03/10/2026) et empile d'autres couches.
 :::
 
 ## Ce que couvre ce parcours
@@ -131,7 +131,7 @@ Avant d'apprendre à te défendre, regarde ce qui est déjà chez toi.
 - Pour chaque skill trouvé, tu as noté son champ \`allowed-tools\` (ou « absent », ce qui est une info)
 - Tu as listé tes serveurs MCP configurés et, pour chacun, dit à voix haute d'où il vient
 - Tu as identifié au moins un artefact que tu serais incapable de justifier aujourd'hui
-- Tu as vérifié ta version de Claude Code (\`claude --version\`) et la compares à 2.1.284
+- Tu as vérifié ta version de Claude Code (\`claude --version\`) et la compares à 2.1.288
 :::
 
 :::memo
@@ -729,7 +729,7 @@ Le vetting n'est pas un événement, c'est un régime. Trois habitudes suffisent
 - **Les fichiers de mémoire sont nettoyés avant lecture** (2.1.284) : caractères invisibles et balises imitant le balisage de Claude Code y sont neutralisés avant d'arriver au modèle. C'est la suite logique du durcissement du 17 septembre, appliquée à une surface qu'on oublie : ce que l'agent a lui-même noté.
 - **Le texte collé a son propre balisage.** La doc d'Opus 5.5 décrit des balises à identifiant aléatoire pour séparer ce que l'utilisateur écrit de ce qu'il colle. Le gabarit est dans le parcours « Prompt Engineering pro », leçon 5.
 
-Repères de version au 29 septembre 2026 : Claude Code **2.1.284** · SDK TypeScript \`@anthropic-ai/claude-agent-sdk\` **0.3.284** · modèles par défaut **Opus 5.5** et **Sonnet 5.5**.
+Repères de version au 3 octobre 2026 : Claude Code **2.1.288** · SDK TypeScript \`@anthropic-ai/claude-agent-sdk\` **0.3.288** · modèles par défaut **Opus 5.5** et **Sonnet 5.5**.
 :::
 
 :::maj 6 au 18 août 2026 — trois nouveautés qui changent ton modèle de menace

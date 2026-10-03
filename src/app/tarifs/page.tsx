@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     ? "Prix de la formation Claude AI : 47 €, 497 € ou 1 497 €"
     : "Prix de la formation Claude AI : 47 € ou 497 € — sans CPF ni devis",
   description: ELITE_ENABLED
-    ? "Trois pass, un paiement unique et l'accès à vie : Starter à 47 €, Mastery à 497 € (ou 3× sans frais avec Klarna) pour tout le programme, et Accompagnement à 1 497 € avec des séances individuelles. Sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé."
+    ? "Trois pass, un paiement unique et l'accès à vie : Starter à 47 €, Mastery à 497 € (ou 3× sans frais avec Klarna) pour tout le programme, et Accompagnement à 1 497 € (ou 3 × 499 € sans frais) avec des séances individuelles. Sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé."
     : "Une formation Claude AI accessible : Pass Starter à 47 €, Pass Mastery à 497 € (ou 3× sans frais avec Klarna) pour tous les parcours complets. Paiement en ligne immédiat, sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé.",
   alternates: { canonical: "/tarifs" },
 };

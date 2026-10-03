@@ -180,6 +180,10 @@ function EliteCard() {
         <span className="text-base text-muted">€ une fois</span>
       </div>
 
+      <span className="mt-3 self-start inline-block bg-green-soft text-green text-[12px] font-bold px-3 py-1 rounded-full">
+        Ou 3 × 499 € sans frais avec Klarna
+      </span>
+
       <p className="mt-3 text-[13px] text-muted leading-relaxed">
         La limite de places n&apos;est pas un artifice : au-delà, les séances ne
         seraient plus tenables.

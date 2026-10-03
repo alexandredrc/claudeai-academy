@@ -56,8 +56,8 @@ export default function CgvPage() {
             </li>
             {ELITE_ENABLED && (
               <li>
-                <strong>Pass Accompagnement</strong>&nbsp;: 1&nbsp;497&nbsp;€,
-                paiement unique. Il comprend l&apos;intégralité du Pass
+                <strong>Pass Accompagnement</strong>&nbsp;: 1&nbsp;497&nbsp;€ en une
+                fois, ou 3&nbsp;×&nbsp;499&nbsp;€ sans frais avec Klarna. Il comprend l&apos;intégralité du Pass
                 Mastery, 3 séances individuelles d&apos;une heure en visio, un
                 audit de vos consignes et un accès direct par email pendant 90
                 jours. Places limitées à {ELITE_SEATS_PER_MONTH} par mois.

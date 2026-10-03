@@ -22,7 +22,7 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 export const metadata: Metadata = {
   title: "Certification Claude AI : ce qui existe, et ce qu'on délivre",
   description:
-    "Existe-t-il une certification Claude AI ou Anthropic ? Réponse honnête : aucun titre reconnu par l'État sur un outil. ClaudeAI Academy délivre un certificat de réussite, obtenu sur examen final et vérifiable en ligne par un code — pas une attestation de présence.",
+    "Existe-t-il une certification Claude AI ou Anthropic ? Réponse honnête : aucun titre reconnu par l'État sur un outil, et des examens Anthropic réservés aux partenaires. ClaudeAI Academy délivre un certificat de réussite, obtenu sur examen final et vérifiable en ligne par un code — pas une attestation de présence.",
   alternates: { canonical: "/certification-claude-ai" },
   keywords: [
     "certification claude",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Certification Claude AI : ce qui existe vraiment en 2026",
     description:
-      "Pas de titre d'État sur un outil, des cours gratuits en anglais chez Anthropic, des attestations privées sans valeur de preuve. Ce qui compte vraiment, et comment l'acquérir.",
+      "Pas de titre d'État sur un outil, des cours gratuits en anglais chez Anthropic, des examens officiels réservés aux partenaires, des attestations privées sans valeur de preuve. Ce qui compte vraiment, et comment l'acquérir.",
     url: "/certification-claude-ai",
     type: "article",
   },
@@ -50,7 +50,7 @@ type Option = {
   quoi: string;
   valeur: string;
   prix: string;
-  verdict: "oui" | "non" | "nuance";
+  verdict: "oui" | "non" | "nuance" | "partenaires";
 };
 
 const options: Option[] = [
@@ -71,6 +71,14 @@ const options: Option[] = [
     verdict: "oui",
   },
   {
+    nom: "Les examens officiels d'Anthropic (Claude Certification Program)",
+    quoi: "Depuis le 12 mars 2026, Anthropic fait passer quatre examens surveillés chez Pearson VUE, en ligne ou en centre : Claude Certified Associate (Foundations), Developer (Foundations), Architect (Foundations) et Architect (Professional). Deux heures, questions à choix multiples, en anglais, certificat valable douze mois (relevé le 3 octobre 2026).",
+    valeur:
+      "C'est, à ce jour, la seule certification signée Anthropic. Mais elle n'est ouverte qu'aux salariés d'organisations membres du Claude Partner Network, c'est-à-dire les cabinets et intégrateurs qui déploient Claude chez leurs clients. Un indépendant ou un salarié hors réseau ne peut pas s'y inscrire.",
+    prix: "Payant, de l'ordre de 100 à 175 $ selon l'examen d'après les sources tierces consultées ; Anthropic ne publie le tarif qu'à ses partenaires.",
+    verdict: "partenaires",
+  },
+  {
     nom: "Une « attestation » d'organisme privé",
     quoi: "N'importe quel organisme peut imprimer un certificat à son nom, avec un sceau et un numéro. Rien ne l'en empêche, et rien ne le valide.",
     valeur:
@@ -83,7 +91,7 @@ const options: Option[] = [
 const faq = [
   {
     q: "Existe-t-il une certification officielle Claude AI ?",
-    a: "Non, pas au sens d'un titre reconnu par l'État français. Le RNCP enregistre des certifications professionnelles rattachées à des métiers et à des blocs de compétences, pas à des outils logiciels : il n'existe pas plus de titre d'État « Claude » qu'il n'en existe un pour Excel ou Photoshop. Anthropic, de son côté, publie des cours gratuits sur academy.claude.com, dont la plupart délivrent un badge de fin de parcours : une preuve de suivi, pas une certification.",
+    a: "Non, pas au sens d'un titre reconnu par l'État français. Le RNCP enregistre des certifications professionnelles rattachées à des métiers et à des blocs de compétences, pas à des outils logiciels : il n'existe pas plus de titre d'État « Claude » qu'il n'en existe un pour Excel ou Photoshop. Anthropic publie des cours gratuits sur academy.claude.com, dont la plupart délivrent un badge de fin de parcours : une preuve de suivi, pas une certification. Depuis mars 2026, Anthropic fait aussi passer des examens officiels surveillés (Claude Certification Program), mais seuls les salariés d'organisations membres de son Claude Partner Network peuvent s'y inscrire.",
   },
   {
     q: "La formation Claude d'Anthropic est-elle gratuite ?",
@@ -199,7 +207,10 @@ export default function CertificationPage() {
               le RNCP enregistre des titres rattachés à des métiers, pas à des
               logiciels. Anthropic publie ses propres cours, gratuitement, sur
               academy.claude.com : ce sont des cours, en anglais, pas un diplôme.
-              Tout le reste relève de l’attestation d’organisme privé, que
+              Depuis mars 2026, Anthropic fait aussi passer des examens
+              officiels, mais ils sont réservés aux organisations de son réseau
+              de partenaires. Tout le reste relève de l’attestation d’organisme
+              privé, que
               n’importe qui peut imprimer et qui ne prouve rien d’autre que votre
               présence.
             </p>
@@ -215,15 +226,15 @@ export default function CertificationPage() {
         </Container>
       </section>
 
-      {/* Les trois choses qu'on appelle « certification » */}
+      {/* Les quatre choses qu'on appelle « certification » */}
       <section className="border-y border-line bg-cream-soft py-16 md:py-20">
         <Container size="narrow">
           <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-tight text-ink md:text-[2.5rem]">
-            Trois choses différentes portent le même mot.
+            Quatre choses différentes portent le même mot.
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-muted">
             La confusion est entretenue, parce qu’elle est rentable. Voici les
-            trois, séparées.
+            quatre, séparées.
           </p>
 
           <div className="mt-10 flex flex-col gap-5">
@@ -242,14 +253,18 @@ export default function CertificationPage() {
                         ? "bg-green-soft text-green"
                         : o.verdict === "non"
                           ? "bg-coral-soft text-coral-dark"
-                          : "bg-cream text-muted"
+                          : o.verdict === "partenaires"
+                            ? "bg-cream text-ink"
+                            : "bg-cream text-muted"
                     }`}
                   >
                     {o.verdict === "oui"
                       ? "Existe, et c’est gratuit"
                       : o.verdict === "non"
                         ? "N’existe pas sur un outil"
-                        : "Existe, mais ne prouve rien"}
+                        : o.verdict === "partenaires"
+                          ? "Existe, réservé aux partenaires"
+                          : "Existe, mais ne prouve rien"}
                   </span>
                 </div>
                 <p className="mt-4 leading-relaxed text-ink-soft">{o.quoi}</p>

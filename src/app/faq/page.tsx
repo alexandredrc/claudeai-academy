@@ -62,11 +62,11 @@ const groups: Group[] = [
       },
       {
         q: "L’accès est-il vraiment à vie ?",
-        a: "Oui. Vous payez une fois, vous gardez l’accès à vie — sans abonnement ni frais récurrents. Le Pass Mastery inclut en plus les mises à jour futures du contenu, à vie.",
+        a: "Oui. Vous payez une fois, vous gardez l’accès à vie, sans abonnement ni frais récurrents. Les mises à jour futures du contenu sont incluses, quel que soit votre pass.",
       },
       {
         q: "Quelle est la différence entre Pass Starter et Pass Mastery ?",
-        a: "Le Pass Starter (47 €) vous fait découvrir et couvre les fondamentaux. Le Pass Mastery (497 €, ou 3× sans frais avec Klarna) débloque tous les parcours complets, le Mentor IA et les mises à jour à vie. C’est l’offre cœur du programme.",
+        a: "Le Pass Starter (47 €) vous fait découvrir et couvre les fondamentaux. Le Pass Mastery (497 €, ou 3× sans frais avec Klarna) débloque tous les parcours complets et le Mentor IA ; les mises à jour à vie sont incluses quel que soit le pass. C’est l’offre cœur du programme.",
       },
     ],
   },
@@ -104,7 +104,7 @@ const groups: Group[] = [
       },
       {
         q: "J’ai une facture pro, c’est possible ?",
-        a: "Oui. Vous indiquez vos coordonnées de facturation lors du paiement Stripe et recevez automatiquement une facture. Pour la TVA intracommunautaire, l’exonération s’applique automatiquement avec un numéro valide.",
+        a: "Oui. Vous indiquez vos coordonnées de facturation lors du paiement Stripe et recevez automatiquement une facture. TVA non applicable, article 293 B du CGI : le prix affiché est le prix facturé, sans TVA à récupérer.",
       },
       {
         q: "La formation est-elle éligible au CPF ?",

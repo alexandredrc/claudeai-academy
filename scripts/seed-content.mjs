@@ -19,6 +19,7 @@ import { strategieConduiteIa } from "./content/strategie-ia.mjs";
 import { contenuEtMarketing } from "./content/marketing-contenu.mjs";
 import { claudeDataSql } from "./content/data-sql.mjs";
 import { promptEngineeringPro } from "./content/prompt-engineering.mjs";
+import { construireTonAgentIa } from "./content/agent-ia.mjs";
 
 // Client créé paresseusement : le module est aussi importé par gen-sql.mjs
 // (génération SQL hors-ligne) où les variables d'env Supabase sont absentes.
@@ -42,6 +43,7 @@ export const COURSES = [
   strategieConduiteIa,
   tradingClaudeCode,
   githubPromptsSecurite,
+  construireTonAgentIa,
 ];
 
 async function seed() {

@@ -94,6 +94,19 @@ const PRESENTATION: Record<string, Presentation> = {
       "La checklist de vetting + le sandbox",
     ],
   },
+  "construire-ton-agent-ia": {
+    emoji: "🤖",
+    role: "Pour construire un agent qui travaille seul, et le cadrer",
+    skills: [
+      "Workflow ou agent : décider avant d'écrire une ligne",
+      "Un agent personnel sur ta machine (OpenClaw, Hermes) sans porte ouverte",
+      "Claude Code en tâche planifiée, Claude dans n8n",
+      "Agent SDK : bornes, hooks, sortie structurée, sous-agents",
+      "Agents gérés : budget en dollars, planning, secrets en coffre",
+      "Modèle de menace et obligations du déployeur (AI Act, RGPD)",
+    ],
+    featured: true,
+  },
 };
 
 const DEFAULT_PRESENTATION: Presentation = {

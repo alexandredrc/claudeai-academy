@@ -540,6 +540,16 @@ export default async function FormationIAPage() {
                 </Link>{" "}
                 — choisir les bons cas d’usage, encadrer l’usage dans une équipe.
               </li>
+              <li>
+                <Link
+                  href="/courses/construire-ton-agent-ia"
+                  className="font-semibold text-coral hover:text-coral-dark"
+                >
+                  Construire ton agent IA
+                </Link>{" "}
+                — de l’agent personnel sur votre machine à l’agent de production
+                planifié et budgété, avec le cadre légal du déployeur.
+              </li>
             </ul>
             <div className="mt-7">
               <Button href="/courses" variant="ghost" size="md">

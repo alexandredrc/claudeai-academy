@@ -67,3 +67,34 @@ Autour de **« n8n »** : `claude code n8n` **+950 %**, `n8n claude` +190 %, `n8
 - **Keyword Planner** (compte Google Ads, navigateur Chrome connecté) : volumes absolus FR de `agent ia`, `créer un agent ia`, `formation agent ia`, `claude code skills`, `claude certified architect`, `claude ai gratuit`, `influenceur ia`. Trends ne donne pas de volume ; c'est le seul outil qui le fait sans payer.
 - **Attribution par canal** (PR 13) : chaque page d'entrée doit porter son `?src=`, sinon on ne saura pas laquelle vend.
 - **Règle** : 30 jours et 200 visiteurs mesurés par page avant de conclure.
+
+## 4. Volumes absolus, Keyword Planner (lu le 4 octobre 2026, France, septembre 2025 à août 2026)
+
+Source : Google Ads, outil de planification des mots clés, compte 537-199-3441, « Nombre moy. de recherches mensuelles ». La « variation sur trois mois » est négative sur presque tous les termes (de -18 % à -84 %) : effet d'été, à ne pas lire comme un retournement.
+
+| Mot clé | Rech./mois | Variation sur un an | Concurrence | Enchère haut de page |
+|---|---:|---:|---|---|
+| claude ai | **1 220 000** | +809 % | Faible | 0,28 à 1,77 € |
+| claude code | 90 500 | +83 % | Faible | 0,94 à 4,00 € |
+| n8n | 74 000 | -45 % | Moyen | 0,40 à 4,51 € |
+| openclaw | 40 500 | nouveau | Faible | 0,84 à 3,30 € |
+| claude cowork | 22 200 | nouveau | Faible | 0,55 à 4,78 € |
+| claude ai gratuit | 14 800 | +1 068 % | Faible | 0,23 à 0,84 € |
+| hermes agent | 12 100 | nouveau | Faible | 1,34 à 4,37 € |
+| formation ia | 9 900 | 0 % | Élevé | 2,63 à 6,60 € |
+| agent ia | 8 100 | +23 % | Moyen | 1,63 à 5,28 € |
+| prompt engineering | 3 600 | -47 % | Faible | 0,86 à 4,71 € |
+| formation intelligence artificielle | 1 900 | -62 % | Élevé | 2,69 à 7,27 € |
+| claude certified architect | 1 300 | nouveau | Faible | 0,57 à 2,40 € |
+| claude code skills | 1 300 | nouveau | Faible | 0,78 à 3,71 € |
+| formation claude | 1 000 | nouveau | Élevé | 2,05 à 4,97 € |
+| télécharger claude ai | 880 | +91 % | Faible | 0,27 à 1,43 € |
+| comment créer un agent ia | 590 | +321 % | Moyen | 1,13 à 4,43 € |
+| formation claude ai | 590 | nouveau | Élevé | 2,55 à 6,13 € |
+| formation agent ia | 480 | +129 % | Élevé | 3,63 à 11,82 € |
+| influenceur ia | 320 | -48 % | Faible | 0,55 à 2,02 € |
+| créer un agent ia | 320 | +136 % | Élevé | 1,50 à 6,22 € |
+
+**Ce que ça change par rapport à juillet** : la marque Claude est devenue une requête grand public en France (1,22 M, soit 123 fois « formation ia »). « formation claude » (1 000) et « formation claude ai » (590) n'existaient pas il y a un an. Les agents personnels open source (openclaw 40 500, hermes agent 12 100) pèsent plus que « agent ia » lui-même. « influenceur ia » : 320 recherches et en baisse, verdict confirmé.
+
+**Conséquences** : le SEO de marque (pages « claude ai gratuit », « télécharger », « cowork », « skills ») vise désormais des volumes à cinq chiffres avec une concurrence faible et des enchères sous 1 €. Le parcours agent IA doit nommer OpenClaw et Hermes dans ses titres. Les termes « formation » restent chers (jusqu'à 11,82 € l'enchère haute sur « formation agent ia ») et concurrencés : y aller en organique, pas en Ads.

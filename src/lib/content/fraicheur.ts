@@ -16,11 +16,11 @@
  */
 
 /** Date de la dernière passe de vérification appliquée aux leçons. */
-export const CONTENU_A_JOUR_AU = "3 octobre 2026";
+export const CONTENU_A_JOUR_AU = "4 octobre 2026";
 
 /** Ce que cette passe a intégré, dit en une ligne pour un visiteur. */
 export const DERNIERE_PASSE =
-  "Claude Code 2.1.288 et ses mods (1er octobre 2026), retrait de Sonnet 4.5 annoncé pour le 30 novembre";
+  "Nouveau parcours « Construire ton agent IA avec Claude » (4 octobre 2026), Claude Code 2.1.288 et ses mods, retrait de Sonnet 4.5 annoncé pour le 30 novembre";
 
 /** Notes de mise à jour datées (blocs `:::maj`) présentes dans les leçons. */
 export const NOTES_DE_MISE_A_JOUR = 89;

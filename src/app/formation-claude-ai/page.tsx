@@ -18,9 +18,9 @@ import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 // laboratoire de mesure de la pub. AdsBot ignore le noindex (il suit
 // robots.txt), donc le Quality Score n'est pas affecté.
 export const metadata: Metadata = {
-  title: "Formation Claude AI en français : 8 parcours, dès 47 €",
+  title: "Formation Claude AI en français : 9 parcours, dès 47 €",
   description:
-    "La formation Claude AI en français : 8 parcours, 50 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
+    "La formation Claude AI en français : 9 parcours, 57 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
   robots: { index: false, follow: true },
 };
 

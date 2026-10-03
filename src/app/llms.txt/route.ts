@@ -77,6 +77,7 @@ La première leçon de chaque parcours est en accès libre, sans compte.
 - [Claude ou ChatGPT ?](${SITE_URL}/claude-vs-chatgpt) — comparatif structurel et recommandation par cas d'usage
 - [Prompt engineering](${SITE_URL}/prompt-engineering) — la méthode en 5 points, avec avant/après commenté
 - [Claude Code skills](${SITE_URL}/claude-code-skills) — le format SKILL.md, où placer un skill, et la différence entre skill, hook, serveur MCP, plugin et mod
+- [Créer un agent IA](${SITE_URL}/creer-un-agent-ia) — workflow ou agent selon Anthropic, les six façons de construire avec Claude, ce que ça coûte, la fiche d'une page avant le code
 - [Claude AI gratuit ou Pro](${SITE_URL}/claude-ai-gratuit) — ce que le plan gratuit permet, où il s'arrête, ce que Pro ajoute (17 ou 20 $ par mois)
 - [Télécharger Claude](${SITE_URL}/telecharger-claude) — la seule adresse sûre (claude.com/download), plateformes, premier test utile
 - [Claude Cowork](${SITE_URL}/claude-cowork) — Cowork et le chat sont un seul Claude depuis le 16 septembre 2026 ; ce qui a changé, pour quels plans

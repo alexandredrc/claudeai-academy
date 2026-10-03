@@ -16,7 +16,7 @@ function welcomeContent(tier: PlanTier): WelcomeContent {
       intro:
         "Ton paiement est confirmé. Tu as maintenant accès à l'intégralité de ClaudeAI Academy, à vie, mises à jour comprises.",
       unlocked: [
-        { label: "Les 8 parcours complets (50 leçons)", href: `${SITE_URL}/courses` },
+        { label: "Les 9 parcours complets (57 leçons)", href: `${SITE_URL}/courses` },
         { label: "La bibliothèque de 170 prompts opérationnels", href: `${SITE_URL}/prompts` },
         { label: "Le Mentor IA, pour tes questions et la correction de tes exercices", href: `${SITE_URL}/mentor` },
       ],

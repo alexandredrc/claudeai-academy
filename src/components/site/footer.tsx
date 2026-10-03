@@ -11,6 +11,7 @@ const parcoursLinks = [
   { href: "/courses/strategie-conduite-ia", label: "Stratégie et conduite IA" },
   { href: "/courses/trading-claude-code", label: "Trading + Claude Code" },
   { href: "/courses/prompts-skills-github-securite", label: "Prompts & Skills : sécurité" },
+  { href: "/courses/construire-ton-agent-ia", label: "Construire ton agent IA" },
 ];
 
 const tarifsLinks = [
@@ -26,6 +27,7 @@ const ressourcesLinks = [
   { href: "/claude-vs-chatgpt", label: "Claude ou ChatGPT ?" },
   { href: "/prompt-engineering", label: "Le prompt engineering" },
   { href: "/claude-code-skills", label: "Claude Code : skills, plugins, mods" },
+  { href: "/creer-un-agent-ia", label: "Créer un agent IA" },
   { href: "/formation-ia-obligatoire-ai-act", label: "Formation IA et AI Act" },
   { href: "/prompts", label: "Bibliothèque de prompts" },
   { href: "/kit", label: "Kit gratuit, 15 prompts" },

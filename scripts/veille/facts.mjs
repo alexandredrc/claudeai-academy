@@ -71,12 +71,12 @@ export const FAITS = [
       "« aligné » quoi qu'il arrive. Ce sont les copies ÉCRITES À LA MAIN qu'il faut surveiller : " +
       "le jour où on ajoute une leçon, ce sont elles qui restent en arrière.",
     ou: [
-      { fichier: "src/app/layout.tsx", motif: /8 parcours, (\d+) leçons/ },
-      { fichier: "src/app/faq/page.tsx", motif: /8 parcours et (\d+) leçons/ },
-      { fichier: "src/app/tarifs/page.tsx", motif: /8 parcours, (\d+) leçons/ },
-      { fichier: "src/app/formation-claude-ai/page.tsx", motif: /8 parcours, (\d+) leçons/ },
-      { fichier: "src/app/account/page.tsx", motif: /8 parcours, soit (\d+) leçons/ },
-      { fichier: "src/components/landing/faq.tsx", motif: /8 parcours, (\d+) leçons\)/ },
+      { fichier: "src/app/layout.tsx", motif: /[0-9]+ parcours, (\d+) leçons/ },
+      { fichier: "src/app/faq/page.tsx", motif: /[0-9]+ parcours et (\d+) leçons/ },
+      { fichier: "src/app/tarifs/page.tsx", motif: /[0-9]+ parcours, (\d+) leçons/ },
+      { fichier: "src/app/formation-claude-ai/page.tsx", motif: /[0-9]+ parcours, (\d+) leçons/ },
+      { fichier: "src/app/account/page.tsx", motif: /[0-9]+ parcours, soit (\d+) leçons/ },
+      { fichier: "src/components/landing/faq.tsx", motif: /[0-9]+ parcours, (\d+) leçons\)/ },
       { fichier: "src/components/landing/founder.tsx", motif: /les (\d+) leçons/ },
       { fichier: "src/lib/email/welcome.ts", motif: /parcours complets \((\d+) leçons\)/ },
       { fichier: "src/lib/email/nurture.ts", motif: /\d+ € pour (\d+) leçons/ },

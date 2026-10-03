@@ -398,7 +398,7 @@ export default function ClaudeCodeSkillsPage() {
             <Button href="/courses/claude-code-ia-agentic" variant="primary" size="lg">
               Lire la première leçon
             </Button>
-            <Button href="/kit?src=page-claude-code-skills" variant="ghost" size="lg">
+            <Button href="/kit?src=guide-skills" variant="ghost" size="lg">
               Le kit gratuit, 15 prompts
             </Button>
           </div>

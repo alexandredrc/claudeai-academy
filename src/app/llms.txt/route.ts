@@ -77,6 +77,9 @@ La première leçon de chaque parcours est en accès libre, sans compte.
 - [Claude ou ChatGPT ?](${SITE_URL}/claude-vs-chatgpt) — comparatif structurel et recommandation par cas d'usage
 - [Prompt engineering](${SITE_URL}/prompt-engineering) — la méthode en 5 points, avec avant/après commenté
 - [Claude Code skills](${SITE_URL}/claude-code-skills) — le format SKILL.md, où placer un skill, et la différence entre skill, hook, serveur MCP, plugin et mod
+- [Claude AI gratuit ou Pro](${SITE_URL}/claude-ai-gratuit) — ce que le plan gratuit permet, où il s'arrête, ce que Pro ajoute (17 ou 20 $ par mois)
+- [Télécharger Claude](${SITE_URL}/telecharger-claude) — la seule adresse sûre (claude.com/download), plateformes, premier test utile
+- [Claude Cowork](${SITE_URL}/claude-cowork) — Cowork et le chat sont un seul Claude depuis le 16 septembre 2026 ; ce qui a changé, pour quels plans
 - [Certification Claude AI](${SITE_URL}/certification-claude-ai) — ce qui existe (cours gratuits d'Anthropic en anglais, examens officiels réservés aux partenaires), ce qui n'existe pas (titre d'État sur un outil), et ce qu'un recruteur regarde à la place
 - [Formation IA obligatoire (AI Act art. 4)](${SITE_URL}/formation-ia-obligatoire-ai-act) — ce qu'impose le règlement européen aux employeurs depuis le 2 février 2025
 - [Catalogue des parcours](${SITE_URL}/courses)

@@ -47,6 +47,9 @@ export function utmDepuisSrc(raw: string): Utm | null {
   if (!clean) return null;
   const connu = CANAUX[clean];
   if (connu) return { ...connu, campaign: clean };
+  // Liens des séquences email (`email-lead-b3`…) : canal email, et l'étape
+  // exacte en campagne pour savoir quel email a fait vendre.
+  if (clean.startsWith("email-")) return { source: "email", medium: "newsletter", campaign: clean };
   const [source] = clean.split("-");
   return { source: source || clean, medium: "referral", campaign: clean };
 }

@@ -48,3 +48,4 @@ scripts/veille/reports/
 # Local-only (agent state, backups)
 .claude/
 _archive/
+.preview/

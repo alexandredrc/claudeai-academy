@@ -96,6 +96,26 @@ export async function notifierVente(params: {
   return envoyer(texte);
 }
 
+/**
+ * Alerte « quelqu'un vient de prendre le kit gratuit ».
+ *
+ * Plus fréquente qu'une vente, donc plus sobre : trois lignes, sans pavé
+ * décoratif. Le prénom et la source suffisent ; l'adresse email ne part pas
+ * chez Telegram, comme pour les ventes.
+ */
+export async function notifierLead(params: {
+  prenom?: string | null;
+  /** Valeur de `leads.source` : `instagram-academy-kit`, `kit-direct`… */
+  source: string;
+  /** Nombre total de leads après celui-ci, quand on a pu le compter. */
+  total?: number | null;
+}): Promise<boolean> {
+  const qui = params.prenom?.trim() ? ` — ${params.prenom.trim()}` : "";
+  const lignes = [`🎁 NOUVEAU LEAD KIT GRATUIT${qui}`, "", `📣 Source : ${params.source}`];
+  if (params.total) lignes.push(`👥 Lead n° ${params.total.toLocaleString("fr-FR")}`);
+  return envoyer(lignes.join("\n"));
+}
+
 /** Alerte « un mail est arrivé dans la boîte support ». */
 export async function notifierMail(params: {
   de: string;

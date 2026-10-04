@@ -1,6 +1,7 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { after, NextResponse, type NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { sendLeadEmail } from "@/lib/email/lead-magnet";
+import { notifierLead } from "@/lib/notify/telegram";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
@@ -44,6 +45,15 @@ export async function POST(req: NextRequest) {
   const firstName = clean(data.first_name, 80);
   const source = clean(data.source, 60) ?? "kit-15-prompts";
 
+  // Lu AVANT l'upsert : c'est la seule façon de savoir si la personne est
+  // nouvelle. Quelqu'un qui reprend le kit avec la même adresse ne fait pas
+  // sonner le téléphone une deuxième fois.
+  const { data: dejaLa } = await supabaseAdmin
+    .from("leads")
+    .select("id")
+    .eq("email", email)
+    .maybeSingle();
+
   // Upsert du lead (idempotent sur lower(email) via l'index unique).
   const { data: lead, error: upsertErr } = await supabaseAdmin
     .from("leads")
@@ -71,6 +81,18 @@ export async function POST(req: NextRequest) {
     return await deliverMagnet(existing.id, existing.email, firstName);
   }
 
+  if (!dejaLa) {
+    // Après la réponse : le formulaire n'attend pas Telegram. `after` garde la
+    // fonction en vie le temps de l'envoi, ce qu'un appel lancé sans attendre
+    // ne garantit pas en serverless. notifierLead ne lève jamais.
+    after(async () => {
+      const { count } = await supabaseAdmin
+        .from("leads")
+        .select("id", { count: "exact", head: true });
+      await notifierLead({ prenom: firstName, source, total: count });
+    });
+  }
+
   return await deliverMagnet(lead.id, lead.email, firstName);
 }
 
@@ -89,7 +111,7 @@ async function deliverMagnet(leadId: string, email: string, firstName: string | 
   }
 
   try {
-    const sent = await sendLeadEmail({ kind: "lead_magnet", to: email, firstName });
+    const sent = await sendLeadEmail({ kind: "lead_magnet", to: email, firstName, leadId });
     if (sent) {
       await supabaseAdmin
         .from("lead_email_log")

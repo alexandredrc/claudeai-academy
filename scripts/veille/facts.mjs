@@ -181,7 +181,8 @@ export const FAITS = [
       { fichier: "src/app/courses/[slug]/[lesson]/page.tsx", motif: prixApres("Pass Starter — ") },
       { fichier: "src/app/llms.txt/route.ts", motif: prixApres("Pass Starter — ") },
       { fichier: "src/lib/email/activation.ts", motif: /(\d+) € pour les trois parcours/ },
-      { fichier: "src/lib/email/lead-magnet.ts", motif: /(?:métier\. |risqué : |")(\d+) €[.,]/ },
+      // Séquence réécrite le 04/10/2026 : le prix suit toujours « Pass Starter, ».
+      { fichier: "src/lib/email/lead-magnet.ts", motif: /Pass Starter, (\d+) €/ },
       { fichier: "src/lib/email/nurture.ts", motif: /tes (\d+) € sont déduits/ },
     ],
     canon: canonMontant,

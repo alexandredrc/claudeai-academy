@@ -36,6 +36,8 @@ export async function sendEmail(params: {
    * requête part en JSON, une pièce jointe lourde le fait gonfler d'un tiers.
    */
   attachments?: { filename: string; content: string }[];
+  /** En-têtes supplémentaires (List-Unsubscribe des emails aux leads). */
+  headers?: Record<string, string>;
 }): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
@@ -65,6 +67,7 @@ export async function sendEmail(params: {
       reply_to: params.replyTo ?? REPLY_TO,
       ...(kind ? { tags: [{ name: "kind", value: kind }] } : {}),
       ...(params.attachments?.length ? { attachments: params.attachments } : {}),
+      ...(params.headers && Object.keys(params.headers).length ? { headers: params.headers } : {}),
     }),
   });
 

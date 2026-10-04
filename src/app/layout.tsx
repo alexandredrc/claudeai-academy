@@ -32,7 +32,10 @@ export const metadata: Metadata = {
   // « | ClaudeAI Academy » tombait dans la troncature de Google. Le nom passe
   // donc en tete, et « en francais » porte le seul differenciateur reel face a
   // academy.claude.com, dont les cours sont gratuits mais en anglais.
-  title: "ClaudeAI Academy — formation Claude AI en français, dès 47 €",
+  // 04/10/2026, Search Console 28 j : « formation claude » = 2 798 impressions,
+  // position 5, CTR 2,9 % ; la page d'accueil porte 429 des 542 clics du site.
+  // La requête commerciale passe donc en tête du titre, le nom reste visible.
+  title: "Formation Claude AI en français, dès 47 € | ClaudeAI Academy",
   description:
     "La formation Claude AI en français, à votre rythme : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 9 parcours, 57 leçons, 170 prompts prêts à copier et un Mentor IA. Accès à vie dès 47 €, sans dossier CPF ni devis, garantie 14 jours.",
   metadataBase: new URL("https://www.claudeai-academy.com"),

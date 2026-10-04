@@ -20,6 +20,10 @@
 | Fiche Google Business | `https://www.claudeai-academy.com/?src=google-business` | google / referral (campagne `google-business`) |
 | Signature email | `https://www.claudeai-academy.com/?src=signature` | signature / referral |
 | Carte de visite, QR code | `https://www.claudeai-academy.com/?src=qr` | qr / referral |
+| Google Ads, groupe « Formation Claude » (URL finale) | `https://www.claudeai-academy.com/formation-claude-ai?utm_source=google&utm_medium=cpc&utm_campaign=formation-claude` | google / cpc (campagne `formation-claude`) |
+| Google Ads, groupe « Agent IA » (URL finale) | `https://www.claudeai-academy.com/creer-un-agent-ia?utm_source=google&utm_medium=cpc&utm_campaign=agent-ia` | google / cpc (campagne `agent-ia`) |
+| Landing Ads, lien kit sous les boutons | `https://www.claudeai-academy.com/kit?src=ads-formation-claude` | ads / referral (campagne `ads-formation-claude`) |
+| Page /formation-claude-code, bouton kit | `https://www.claudeai-academy.com/kit?src=guide-claude-code` | guide / referral (campagne `guide-claude-code`) |
 
 Un `src` qui n'est pas dans la liste n'est jamais perdu : il apparaît sous son propre nom. Pour un nouvel emplacement, inventer un nom court en minuscules avec des tirets (`webinaire-oct`, `podcast-x`) et l'utiliser partout pareil.
 

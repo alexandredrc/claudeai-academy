@@ -23,6 +23,10 @@ const staticRoutes: { path: string; priority: number; changeFrequency: Freq }[] 
   // « claude code skill » : la requête associée à Claude Code qui progresse le
   // plus en France (Trends, 12 mois au 02/10/2026). Personne n'y répond en français.
   { path: "/claude-code-skills", priority: 0.85, changeFrequency: "monthly" },
+  // « formation claude code » et ses variantes : positions 59 à 90 en Search
+  // Console (28 j au 04/10/2026) faute de page qui porte ces mots en titre ;
+  // « claude code » = 90 500 recherches par mois en France (Keyword Planner).
+  { path: "/formation-claude-code", priority: 0.9, changeFrequency: "monthly" },
   // « comment créer un agent ia » : 590 recherches par mois en France (+321 % sur
   // un an, Keyword Planner lu le 4 octobre 2026). La leçon 1 du parcours est libre.
   { path: "/creer-un-agent-ia", priority: 0.85, changeFrequency: "monthly" },

@@ -26,6 +26,7 @@ const ressourcesLinks = [
   { href: "/formation-intelligence-artificielle", label: "Formation intelligence artificielle" },
   { href: "/claude-vs-chatgpt", label: "Claude ou ChatGPT ?" },
   { href: "/prompt-engineering", label: "Le prompt engineering" },
+  { href: "/formation-claude-code", label: "Formation Claude Code" },
   { href: "/claude-code-skills", label: "Claude Code : skills, plugins, mods" },
   { href: "/creer-un-agent-ia", label: "Créer un agent IA" },
   { href: "/formation-ia-obligatoire-ai-act", label: "Formation IA et AI Act" },

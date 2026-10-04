@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
@@ -86,6 +87,18 @@ async function LandingHero() {
           <p className="mt-4 text-[13px] text-muted">
             ou 3 × 165,67 € sans frais avec Klarna · 🛡️ Garantie 14 jours
             satisfait ou remboursé · Accès immédiat
+          </p>
+          {/* Deuxième sortie pour le trafic payant : 19 visiteurs Ads sur 20
+              ouvraient le paiement et repartaient sans rien saisir (21/09/2026).
+              Un email vaut mieux qu'un départ. */}
+          <p className="mt-3 text-[14px] text-muted">
+            Pas encore décidé ?{" "}
+            <Link
+              href="/kit?src=ads-formation-claude"
+              className="font-semibold text-coral hover:text-coral-dark"
+            >
+              Recevez d&apos;abord le kit gratuit : 15 prompts, par email.
+            </Link>
           </p>
 
           <dl className="mt-12 pt-8 border-t border-line flex flex-wrap gap-x-12 gap-y-5">

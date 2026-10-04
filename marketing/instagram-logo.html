@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logo Instagram ClaudeAI Academy (1080×1080)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&display=swap" rel="stylesheet" />
+<style>
+  /* Charte : DESIGN.md. Un seul accent coral, pas de #000 ni #fff, pas de gradient texte. */
+  :root{
+    --cream:#F5F1EB; --cream-soft:#FAF7F2; --cream-dark:#EDE6D9;
+    --coral:#D97757; --coral-dark:#C2664A; --ink:#1F1F1E; --line:#E5DED0;
+    --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{ background:#d9d4cb; padding:40px; display:flex; flex-wrap:wrap; gap:40px; justify-content:center; font-family:var(--serif) }
+
+  /* Export : #logo-N isole une vignette, sans repère de coupe. */
+  body:has(.avatar:target){ padding:0; gap:0; background:var(--cream) }
+  body:has(.avatar:target) .avatar:not(:target){ display:none }
+  body:has(.avatar:target) .crop{ display:none }
+
+  /* Avatar carré 1080 ; Instagram rogne en cercle : tout tient dans le disque inscrit. */
+  .avatar{ position:relative; width:1080px; height:1080px; overflow:hidden; display:grid; place-items:center }
+  .crop{ position:absolute; inset:0; border-radius:50%; box-shadow:0 0 0 2000px rgba(31,31,30,.35); pointer-events:none }
+  /* Monogramme : C serif + a italique coral logé dans l'ouverture du C, sans contact.
+     C'est la signature typographique du site (Fraunces, accent italique coral). */
+  .mono{ position:relative; width:1080px; height:1080px; transform:scale(1.12) }
+  .mono span{ position:absolute; line-height:1; font-family:var(--serif); font-weight:500; font-variation-settings:"opsz" 144 }
+  .mono .c{ font-size:var(--c-size); left:var(--c-x); top:var(--c-y) }
+  .mono .a{ font-size:var(--a-size); left:var(--a-x); top:var(--a-y); font-style:italic; color:var(--coral) }
+  /* Positions mesurées au pixel sur le rendu : a centré verticalement dans le C, 34 px d'air,
+     ensemble centré dans le disque de coupe. Modifier une taille = re-mesurer. */
+  .avatar{ --c-size:760px; --c-x:296px; --c-y:152px; --a-size:400px; --a-x:576px; --a-y:284px }
+
+  /* V1 fond encre : ressort sur le blanc d'Instagram (mode clair, le plus courant). */
+  #logo-1{ background:var(--ink) }
+  #logo-1 .c{ color:var(--cream) }
+
+  /* V2 fond crème : version claire, identique au fond du site. */
+  #logo-2{ background:var(--cream) }
+  #logo-2 .c{ color:var(--ink) }
+</style>
+</head>
+<body>
+
+<div class="avatar" id="logo-1"><div class="mono"><span class="c">C</span><span class="a">a</span></div><div class="crop"></div></div>
+<div class="avatar" id="logo-2"><div class="mono"><span class="c">C</span><span class="a">a</span></div><div class="crop"></div></div>
+
+</body>
+</html>

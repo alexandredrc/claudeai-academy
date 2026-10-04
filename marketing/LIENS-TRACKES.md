@@ -9,6 +9,13 @@
 | Emplacement | Lien | Ce que le rapport affichera |
 |---|---|---|
 | Bio Instagram | `https://www.claudeai-academy.com/kit?src=instagram-bio` | instagram / bio |
+| Bio @official_claude_ai_academy, lien 1 (kit) | `https://www.claudeai-academy.com/kit?src=instagram-academy-kit` | instagram / referral (campagne `instagram-academy-kit`) |
+| Bio @official_claude_ai_academy, lien 1 en lien court (affiché sous la bio) | `https://www.claudeai-academy.com/ig` (redirige vers le lien 1) | instagram / referral (campagne `instagram-academy-kit`) |
+| Emails de la séquence leads (kit gratuit) | `…?src=email-lead-a1` à `email-lead-b8`, posés automatiquement par `lib/email/lead-magnet.ts` | email / newsletter (campagne = l'email exact) |
+| Bio @official_claude_ai_academy, lien 2 (accueil) | `https://www.claudeai-academy.com/?src=instagram-academy-site` | instagram / referral (campagne `instagram-academy-site`) |
+| Bio @official_claude_ai_academy, lien 3 (tarifs) | `https://www.claudeai-academy.com/tarifs?src=instagram-academy-tarifs` | instagram / referral (campagne `instagram-academy-tarifs`) |
+| Bio @official_claude_ai_academy, lien 4 (agent IA) | `https://www.claudeai-academy.com/creer-un-agent-ia?src=instagram-academy-agent` | instagram / referral (campagne `instagram-academy-agent`) |
+| Bio @official_claude_ai_academy, lien 5 (certification) | `https://www.claudeai-academy.com/certification-claude-ai?src=instagram-academy-certif` | instagram / referral (campagne `instagram-academy-certif`) |
 | Réponse automatique ManyChat (DM) | `https://www.claudeai-academy.com/kit?src=instagram-dm` | instagram / dm |
 | Story Instagram (sticker lien) | `https://www.claudeai-academy.com/kit?src=instagram-story` | instagram / story |
 | Post LinkedIn (1er commentaire) | `https://www.claudeai-academy.com/kit?src=linkedin-post` | linkedin / post |

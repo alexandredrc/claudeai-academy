@@ -99,8 +99,19 @@ function cta(label: string, href: string): string {
   return `<p style="margin:8px 0 24px;"><a href="${href}" style="display:inline-block;background:#D97757;color:#FFFFFF;text-decoration:none;padding:12px 24px;border-radius:6px;font-size:16px;">${label}</a></p>`;
 }
 
+/**
+ * Prénom tel que saisi dans le formulaire du kit. Au 04/10/2026, 11 leads sur
+ * 83 l'avaient tapé tout en minuscules : « Bonjour camille, » fait envoi de
+ * masse. On ne corrige que ce cas-là (un « McLean » saisi tel quel est gardé).
+ */
+function prenomPropre(prenom: string): string {
+  const p = prenom.trim();
+  if (p !== p.toLowerCase()) return p;
+  return p.replace(/(^|[\s'-])(\p{L})/gu, (_, sep: string, l: string) => sep + l.toUpperCase());
+}
+
 function greeting(firstName: string | null): string {
-  return firstName ? `Bonjour ${firstName},` : "Bonjour,";
+  return firstName?.trim() ? `Bonjour ${prenomPropre(firstName)},` : "Bonjour,";
 }
 
 /** Version texte : on retire le HTML des paragraphes déjà écrits pour le HTML. */
@@ -200,7 +211,7 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
       "40 % de temps en moins : ce que les études mesurent vraiment",
       [
         p(greeting(prenom)),
-        p("Pas de « facteur 10 » sorti de nulle part : voici ce qui a été mesuré, par qui, et avec quelles limites."),
+        p("Des chiffres plutôt que des promesses : voici ce qui a été mesuré, par qui, et avec quelles limites."),
         bullets([
           "<strong>Rédaction professionnelle</strong> : 453 diplômés, temps de rédaction <strong>−40 %</strong> et qualité <strong>+18 %</strong> (revue Science, 2023, avec ChatGPT).",
           "<strong>Conseil</strong> : 758 consultants du BCG, tâches bouclées <strong>25 % plus vite</strong> et qualité jugée supérieure de plus de 40 % (Harvard, 2023, avec GPT-4).",
@@ -292,7 +303,7 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
       "Cas n° 1 : la demi-journée d'admin que Qonto rend aux indépendants",
       [
         p(greeting(prenom)),
-        p("Premier cas concret, et il est français."),
+        p("Quand tu as pris le kit ClaudeAI Academy, je t'ai promis un usage concret de Claude par semaine. Voici le premier, et il est français : une vraie entreprise, ce que Claude y fait, et ce que ça vaut en heures et en euros."),
         h("Le cas"),
         p("Qonto, la banque en ligne des indépendants et des TPE, a intégré Claude dans ses outils d'administratif. Le constat de départ, mesuré par Forrester pour Qonto : ses clients passent <strong>jusqu'à 8 heures par mois</strong> sur l'admin financière. Avec les nouveaux outils, un entrepreneur seul récupère <strong>une demi-journée par mois</strong> ; les factures se créent 3 fois plus vite."),
         h("Le calcul"),

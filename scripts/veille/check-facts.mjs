@@ -26,6 +26,10 @@ const RACINE = join(HERE, "..", "..");
 const CHANGES_PATH = join(HERE, ".last-changes.json");
 const REVUES_PATH = join(HERE, "revues.json");
 const JSON_MODE = process.argv.includes("--json");
+// --telegram : une ligne par point, pas de « pourquoi », pas de liste des
+// alignés. C'est ce qui part sur le téléphone ; la version longue reste la
+// sortie normale, pour le terminal.
+const TELEGRAM_MODE = process.argv.includes("--telegram");
 
 // ── Vérifications locales : comparer la promesse à ce qu'on livre vraiment ──
 
@@ -139,6 +143,13 @@ async function mensualiteKlarnaMastery() {
   return (Math.ceil((mastery / 3) * 100) / 100).toFixed(2).replace(".", ",");
 }
 
+/** Idem pour l'Accompagnement (« 499 » quand il est à 1 497 €) : valeur à
+ *  ignorer quand on cherche la mensualité du Mastery dans les mêmes fichiers. */
+async function mensualiteKlarnaAccompagnement() {
+  const { elite } = await prixDesPass();
+  return (Math.ceil((elite / 3) * 100) / 100).toFixed(2).replace(".", ",").replace(/,00$/, "");
+}
+
 const LOCALES = {
   compterPrompts,
   compterLecons,
@@ -151,6 +162,7 @@ const LOCALES = {
   prixPassMastery,
   prixPassAccompagnement,
   mensualiteKlarnaMastery,
+  mensualiteKlarnaAccompagnement,
 };
 
 // ── Lecture de ce que le contenu affirme aujourd'hui ─────────────────────────
@@ -160,6 +172,11 @@ async function valeursAffirmees(fait) {
   // Une même valeur peut s'écrire de plusieurs façons (« 1 497 », « 1&nbsp;497 »,
   // « 1497 ») : le fait peut fournir `canon` pour les ramener à une forme unique.
   const canon = fait.canon ?? ((v) => v);
+  // Valeurs légitimes d'un AUTRE fait dans les mêmes fichiers (la mensualité
+  // de l'Accompagnement à côté de celle du Mastery) : on ne les lit pas.
+  const exclues = fait.exclureValeurs?.kind === "local"
+    ? [canon(String(await LOCALES[fait.exclureValeurs.fn]()))]
+    : [];
   for (const emplacement of fait.ou) {
     const chemin = join(RACINE, emplacement.fichier);
     if (!existsSync(chemin)) {
@@ -174,7 +191,8 @@ async function valeursAffirmees(fait) {
     const motif = new RegExp(emplacement.motif.source, emplacement.motif.flags.includes("g")
       ? emplacement.motif.flags
       : emplacement.motif.flags + "g");
-    const vues = [...texte.matchAll(motif)].map((m) => canon(m[1]));
+    const vues = [...texte.matchAll(motif)].map((m) => canon(m[1]))
+      .filter((v) => !exclues.includes(v));
     const lignes = [];
     texte.split("\n").forEach((l, i) => {
       if (new RegExp(emplacement.motif.source, emplacement.motif.flags).test(l)) lignes.push(i + 1);
@@ -223,8 +241,12 @@ async function marquerRevu(ids, changes) {
       console.error(`Fait inconnu : ${id}`);
       process.exit(2);
     }
-    revues[id] = { revuLe: quand, note: "confirmé exact à la source" };
-    console.log(`✅ ${id} — relu et confirmé au ${quand}`);
+    const fait = FAITS.find((f) => f.id === id);
+    const src = await valeurSource(fait, changes.sourcesModifiees || []);
+    // Pour un fait DATÉ (version courante…), on retient la valeur de la source
+    // au moment de la relecture : il ne ressortira que si elle change encore.
+    revues[id] = { revuLe: quand, note: "confirmé exact à la source", valeurSource: src.valeur ?? null };
+    console.log(`✅ ${id} — relu et confirmé au ${quand}${src.valeur ? ` (source : ${src.valeur})` : ""}`);
   }
   await writeFile(REVUES_PATH, JSON.stringify(revues, null, 2), "utf8");
 }
@@ -256,9 +278,15 @@ async function main() {
     if (src.auto) {
       const valeursDistinctes = [...new Set(affirme.map((a) => a.valeur).filter(Boolean))];
       const canon = fait.canon ?? ((v) => v);
-      const derive = src.valeur && valeursDistinctes.some((v) => v !== canon(src.valeur));
+      const derive = src.valeur && valeursDistinctes.some((v) =>
+        fait.accepte ? !fait.accepte(v, src.valeur) : v !== canon(src.valeur));
       const incoherent = valeursDistinctes.length > 1;
-      if (derive || incoherent) {
+      // Un fait non critique (DATÉ) déjà relu pour CETTE valeur de source ne
+      // ressort pas : « Claude Code 2.1.289 » signalé trois fois par semaine
+      // jusqu'à la prochaine passe, c'est ce qui fait ignorer le message.
+      const dejaVu = fait.gravite !== "critique" && src.valeur &&
+        revues[fait.id]?.valeurSource === src.valeur;
+      if ((derive || incoherent) && !dejaVu) {
         aCorriger.push({ fait, affirme, source: src, incoherent });
       } else {
         alignes.push({ fait, valeur: src.valeur ?? valeursDistinctes[0] });
@@ -270,7 +298,27 @@ async function main() {
     }
   }
 
-  if (JSON_MODE) {
+  if (TELEGRAM_MODE) {
+    // Une ligne par point. La commande d'acquittement est donnée une seule
+    // fois, en bas, pour les faits qui s'acquittent.
+    const court = (v) => String(v ?? "?").replace(/\s+/g, " ").slice(0, 40);
+    const fichiersDe = (x) => [...new Set(x.affirme.filter((a) => a.valeur).map((a) =>
+      a.fichier.replace(/^src\/(app|components|lib)\//, "").replace(/\/page\.tsx$/, "").replace(/\.(tsx|ts|mjs)$/, "")))]
+      .slice(0, 3).join(", ");
+    const L = [];
+    for (const x of aCorriger) {
+      const faux = x.fait.gravite === "critique";
+      const dit = [...new Set(x.affirme.map((a) => a.valeur).filter(Boolean))].join(" / ");
+      L.push(`${faux ? "🔴" : "🟠"} ${x.fait.libelle} : site « ${court(dit)} », source « ${court(x.source.valeur)} »${x.source.erreur ? ` (${x.source.erreur})` : ""} · ${fichiersDe(x)}`);
+    }
+    for (const x of aRelire) {
+      L.push(`🟡 À relire : ${x.fait.libelle} · ${x.bougees.join(", ")} a bougé`);
+    }
+    const acquittables = [...aCorriger.filter((x) => x.fait.gravite !== "critique"), ...aRelire].map((x) => x.fait.id);
+    if (acquittables.length) L.push(`Une fois relu : check-facts --revu ${acquittables.join(" ")}`);
+    L.push(`${alignes.length} fait${alignes.length > 1 ? "s" : ""} aligné${alignes.length > 1 ? "s" : ""} sur ${FAITS.length}`);
+    console.log(L.join("\n"));
+  } else if (JSON_MODE) {
     console.log(JSON.stringify({
       date: changes.date,
       aCorriger: aCorriger.map((x) => ({ id: x.fait.id, gravite: x.fait.gravite })),

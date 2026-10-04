@@ -41,6 +41,14 @@ const prixJsonLd = (nom) => new RegExp(String.raw`name: "${nom}",\s*price: "(\d+
 const MOTIF_KLARNA = new RegExp(String.raw`3${ESP}*(?:×|versements de)${ESP}*(\d+(?:,\d+)?)${ESP}*€`);
 /** « 1 497 », « 1&nbsp;497 » et « 1497 » sont le même prix : on compare sans espaces. */
 const canonMontant = (v) => v.replace(/&nbsp;|\s/g, "");
+/** « 4 octobre 2026 » → 20261004, pour comparer deux dates affichées. 0 si illisible. */
+const MOIS_FR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+const dateCle = (v) => {
+  const m = String(v || "").match(/(\d{1,2})(?:er)?\s+(\p{L}+)\s+(\d{4})/u);
+  if (!m) return 0;
+  const mois = MOIS_FR.indexOf(m[2].toLowerCase());
+  return mois < 0 ? 0 : Number(m[3]) * 10000 + (mois + 1) * 100 + Number(m[1]);
+};
 /** Le gros prix d'une carte de la vitrine : « <h3>Pass Mastery</h3> … 497</span><span>€ une fois ».
  *  Ancré sur le titre de la carte : les trois cartes partagent la même structure, et le
  *  « 47 » de la carte Starter ressemble trait pour trait au « 497 » de la carte Mastery. */
@@ -135,6 +143,11 @@ export const FAITS = [
     ],
     canon: canonMontant,
     verif: { kind: "local", fn: "mensualiteKlarnaMastery" },
+    // Les mêmes fichiers portent la mensualité de l'Accompagnement (3 × 499 €) :
+    // ce n'est pas une contradiction, c'est un autre pass. Sans cette
+    // exclusion, le vérificateur a crié « FAUX » tous les deux jours à partir
+    // du 04/10/2026, le jour où le 3 × 499 € a été affiché.
+    exclureValeurs: { kind: "local", fn: "mensualiteKlarnaAccompagnement" },
   },
   {
     id: "prix-pass-starter",
@@ -244,6 +257,12 @@ export const FAITS = [
       "et le Mentor croit sa connaissance plus vieille qu'elle ne l'est.",
     ou: [{ fichier: "src/lib/content/fraicheur.ts", motif: /CONTENU_A_JOUR_AU = "([^"]+)"/ }],
     verif: { kind: "local", fn: "dernierBlocMaj" },
+    // La constante doit être AU MOINS aussi récente que le dernier bloc :::maj,
+    // pas égale : une passe qui ajoute un parcours entier (le 04/10/2026) ne
+    // laisse aucun bloc :::maj et date pourtant le contenu. Comparer en
+    // égalité stricte faisait ressortir « FAUX » pour un contenu plus à jour
+    // que ce que le vérificateur savait mesurer.
+    accepte: (contenu, source) => dateCle(contenu) >= dateCle(source),
   },
   {
     id: "notes-de-mise-a-jour",

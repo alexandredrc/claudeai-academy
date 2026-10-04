@@ -229,7 +229,7 @@ Laisser la campagne crypto en veille.
 
 ## Étape 6 : le compteur (3 min)
 
-Le script « Rapport quotidien Telegram » (Outils > Actions groupées > Scripts, id 11937896) compte les clics depuis `DEBUT_DU_TEST`. La version du dépôt (`pipeline/google-ads-script.js`) est à jour : début au 2026-10-05, alerte à 150 clics (lire le taux de saisie d'email), stop à 1 100. Si la réactivation a lieu un autre jour, changer la date en ligne 32 avant de coller. Coller avec `Get-Content -Raw -Encoding UTF8 | Set-Clipboard` puis Ctrl+A, Ctrl+V dans l'éditeur, Enregistrer, Aperçu.
+Le script « Rapport quotidien Telegram » (Outils > Actions groupées > Scripts, id 11937896) compte les clics depuis `DEBUT_DU_TEST`. La version du dépôt (`pipeline/google-ads-script.js`) est à jour : début au 2026-10-05, alerte à 150 clics (lire le taux de saisie d'email), stop à 1 100. Si la réactivation a lieu un autre jour, changer la date en ligne 32 avant de coller. Avant de coller, remplir les trois placeholders en tête du fichier : `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` et, nouveau, `CRON_SECRET` (même valeur que la variable `CRON_SECRET` de Vercel). Avec ce secret, le script dépose ses chiffres sur `/api/ads/compteur` et ne parle plus sur Telegram : le rapport de 8 h affiche la ligne « Pub » avec le verdict. Sans le secret, il retombe sur un message Telegram court. Coller avec `Get-Content -Raw -Encoding UTF8 | Set-Clipboard` puis Ctrl+A, Ctrl+V dans l'éditeur, Enregistrer, Aperçu : le journal doit afficher « Depot compteur HTTP 200 ».
 
 ## Les trois décisions, et quand elles tombent
 

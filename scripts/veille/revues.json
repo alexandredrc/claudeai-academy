@@ -18,5 +18,10 @@
   "comparatif-claude-chatgpt": {
     "revuLe": "2026-09-28",
     "note": "confirmé exact à la source"
+  },
+  "claude-code-version": {
+    "revuLe": "2026-10-02",
+    "note": "confirmé exact à la source",
+    "valeurSource": "2.1.289"
   }
 }

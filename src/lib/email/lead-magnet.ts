@@ -175,8 +175,9 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
       "Ton kit : 15 prompts Claude prêts à l'emploi",
       [
         p(greeting(prenom)),
-        p("Voici ton accès. Les 15 prompts sont sur cette page, prêts à copier :"),
+        p("Voici ton accès. Le kit est sur cette page, prêt à copier :"),
         cta("Ouvrir le kit (15 prompts)", KIT_URL),
+        p("Il a trois parties. D'abord ce que je fais avec Claude Code tous les jours en dirigeant un restaurant : la carte, le food cost, les prix, les menus, les emails. Ensuite les 15 prompts, classés par situation de travail (restauration et commerce, indépendants, recherche d'emploi, dev, data, marketing, management), avec pour chacun la tâche qu'il remplace. Enfin la frontière entre un prompt et un vrai système, celle que la plupart des gens ne franchissent jamais."),
         p("Un conseil pour qu'il te serve vraiment : choisis <strong>un seul</strong> prompt aujourd'hui, celui qui colle à une tâche que tu fais cette semaine. Applique-le, garde le résultat."),
         p("Dans deux jours, je t'écris pour te montrer comment passer d'un prompt isolé à un vrai gain de temps. Ensuite, comme promis, un cas concret par semaine : ce que des gens font réellement avec Claude, et ce que ça vaut en heures et en euros, sources à l'appui."),
         p("À bientôt,<br />Alexandre, fondateur de ClaudeAI Academy"),

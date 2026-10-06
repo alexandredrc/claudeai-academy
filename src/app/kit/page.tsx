@@ -8,14 +8,14 @@ import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
 export const metadata: Metadata = {
   title: "Comment utiliser Claude AI : le kit de démarrage gratuit (15 prompts)",
   description:
-    "Apprends comment utiliser Claude AI à son plein potentiel : 15 prompts gratuits prêts à l'emploi, en français, pour développeurs, data analysts, marketers et managers. Les 80 % que tu n'exploites pas encore.",
+    "Apprends comment utiliser Claude AI à son plein potentiel : 15 prompts gratuits prêts à l'emploi, en français, pour restaurateurs, indépendants, développeurs, data analysts, marketers et managers. Les 80 % que tu n'exploites pas encore.",
   alternates: { canonical: "/kit" },
 };
 
 const benefits = [
-  "15 prompts prêts à copier, classés par métier (dev, data, marketing, management).",
-  "La règle en 3 points qui sépare l'amateur du pro sur Claude.",
-  "Un usage concret de Claude par semaine, ensuite, dans ta boîte mail.",
+  "15 prompts prêts à copier, classés par situation : restauration et commerce, indépendants, recherche d'emploi, dev, data, marketing, management.",
+  "Ce que je fais avec Claude Code tous les jours en dirigeant un restaurant : carte, food cost, prix, menus, emails.",
+  "La frontière entre un prompt et un vrai système, et un usage concret de Claude par semaine ensuite, dans ta boîte mail.",
 ];
 
 // Attribution : on lit ?src= (ou ?utm_source=) pour savoir quel canal a amené
@@ -67,8 +67,9 @@ export default async function KitPage({
             <p className="mt-7 text-lg leading-relaxed text-muted max-w-[520px]">
               Tu utilises déjà Claude ou ChatGPT. Mais tu en tires sûrement une
               fraction du potentiel. Récupère 15 prompts opérationnels, prêts à
-              copier, pour passer de &laquo; je teste &raquo; à &laquo; je gagne
-              du temps tous les jours &raquo;.
+              copier, et vois ce que Claude fait dans une vraie journée de
+              travail, la mienne, pour passer de &laquo; je teste &raquo; à
+              &laquo; je gagne du temps tous les jours &raquo;.
             </p>
 
             <ul className="mt-8 flex flex-col gap-3">

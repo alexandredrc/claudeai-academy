@@ -12,7 +12,9 @@
 // ce business : un tarif faux dans une formation payante est pire qu'un
 // tarif vieux de deux semaines.
 //
-// Sortie : code 0 si tout est aligné, 1 s'il y a du critique à corriger.
+// Sortie : code 0 si rien n'est prouvé faux, 1 si une phrase du site contredit
+// sa source (à corriger), 2 si le vérificateur lui-même a échoué. Une simple
+// relecture demandée (la source a bougé) ne vaut jamais un code 1.
 // =========================================
 
 import { readFile } from "node:fs/promises";
@@ -20,6 +22,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FAITS } from "./facts.mjs";
+import { SOURCES } from "./sources.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const RACINE = join(HERE, "..", "..");
@@ -299,24 +302,38 @@ async function main() {
   }
 
   if (TELEGRAM_MODE) {
-    // Une ligne par point. La commande d'acquittement est donnée une seule
-    // fois, en bas, pour les faits qui s'acquittent.
+    // Lu sur un téléphone par quelqu'un qui n'a pas le code sous les yeux.
+    // Une phrase par point, qui dit ce qui est faux (ou pas), et où. Les
+    // identifiants techniques ne servent qu'à la commande d'acquittement, en bas.
     const court = (v) => String(v ?? "?").replace(/\s+/g, " ").slice(0, 40);
+    const labelSource = (id) => SOURCES.find((x) => x.id === id)?.label ?? id;
     const fichiersDe = (x) => [...new Set(x.affirme.filter((a) => a.valeur).map((a) =>
-      a.fichier.replace(/^src\/(app|components|lib)\//, "").replace(/\/page\.tsx$/, "").replace(/\.(tsx|ts|mjs)$/, "")))]
+      a.fichier.replace(/^src\/(app|components|lib)\//, "").replace(/^scripts\/content\//, "leçons ").replace(/\/page\.tsx$/, "").replace(/\.(tsx|ts|mjs)$/, "")))]
       .slice(0, 3).join(", ");
+    const ditPar = (x) => [...new Set(x.affirme.map((a) => a.valeur).filter(Boolean))].join(" / ");
+    const faux = aCorriger.filter((x) => x.fait.gravite === "critique");
+    const dates = aCorriger.filter((x) => x.fait.gravite !== "critique");
     const L = [];
-    for (const x of aCorriger) {
-      const faux = x.fait.gravite === "critique";
-      const dit = [...new Set(x.affirme.map((a) => a.valeur).filter(Boolean))].join(" / ");
-      L.push(`${faux ? "🔴" : "🟠"} ${x.fait.libelle} : site « ${court(dit)} », source « ${court(x.source.valeur)} »${x.source.erreur ? ` (${x.source.erreur})` : ""} · ${fichiersDe(x)}`);
+    for (const x of faux) {
+      L.push(`🔴 FAUX sur le site : ${x.fait.libelle}. Le site dit « ${court(ditPar(x))} », la source dit « ${court(x.source.valeur)} »${x.source.erreur ? ` (${x.source.erreur})` : ""}. Où : ${fichiersDe(x)}.`);
     }
-    for (const x of aRelire) {
-      L.push(`🟡 À relire : ${x.fait.libelle} · ${x.bougees.join(", ")} a bougé`);
+    for (const x of dates) {
+      L.push(`🟠 Daté, pas faux : ${x.fait.libelle}. Le site dit « ${court(ditPar(x))} », la source est à « ${court(x.source.valeur)} ». À rafraîchir à la prochaine passe.`);
     }
-    const acquittables = [...aCorriger.filter((x) => x.fait.gravite !== "critique"), ...aRelire].map((x) => x.fait.id);
-    if (acquittables.length) L.push(`Une fois relu : check-facts --revu ${acquittables.join(" ")}`);
-    L.push(`${alignes.length} fait${alignes.length > 1 ? "s" : ""} aligné${alignes.length > 1 ? "s" : ""} sur ${FAITS.length}`);
+    // Une page qui bouge = une ligne, avec tout ce qu'elle oblige à relire.
+    const parSource = new Map();
+    for (const x of aRelire) for (const id of x.bougees) {
+      if (!parSource.has(id)) parSource.set(id, []);
+      parSource.get(id).push(x.fait.libelle);
+    }
+    for (const [id, libelles] of parSource) {
+      L.push(`🟡 La page « ${labelSource(id)} » a changé. Rien de prouvé faux, mais à relire : ${libelles.join(" ; ")}.`);
+    }
+    if (!L.length) L.push("✅ Rien à corriger dans le contenu.");
+    const acquittables = [...new Set([...dates, ...aRelire].map((x) => x.fait.id))];
+    if (acquittables.length) L.push(`\nQuand c'est relu, pour ne plus le voir : check-facts --revu ${acquittables.join(" ")}`);
+    const n = alignes.length;
+    L.push(`${n} fait${n > 1 ? "s" : ""} sur ${FAITS.length} vérifié${n > 1 ? "s" : ""} et exact${n > 1 ? "s" : ""}.`);
     console.log(L.join("\n"));
   } else if (JSON_MODE) {
     console.log(JSON.stringify({
@@ -326,7 +343,8 @@ async function main() {
       alignes: alignes.length,
     }, null, 2));
   } else {
-    const critiques = [...aCorriger, ...aRelire].filter((x) => x.fait.gravite === "critique");
+    const critiques = aCorriger.filter((x) => x.fait.gravite === "critique");
+    const relecturesPrioritaires = aRelire.filter((x) => x.fait.gravite === "critique");
     console.log(`\n🔎 Faits périssables — ${FAITS.length} suivis`);
     if (changes.date) console.log(`   (dernière détection de sources : ${changes.date})`);
 
@@ -358,12 +376,16 @@ async function main() {
     }
     console.log(
       critiques.length
-        ? `\n🔴 ${critiques.length} point(s) CRITIQUE(s) à traiter avant de laisser le contenu en l'état.\n`
-        : `\n(aucun point critique)\n`,
+        ? `\n🔴 ${critiques.length} phrase(s) FAUSSE(s) sur le site, à corriger avant de laisser le contenu en l'état.\n`
+        : relecturesPrioritaires.length
+          ? `\n(rien de prouvé faux ; ${relecturesPrioritaires.length} relecture(s) prioritaire(s) : un tarif périmé rendrait le contenu faux)\n`
+          : `\n(aucun point critique)\n`,
     );
   }
 
-  process.exit([...aCorriger, ...aRelire].some((x) => x.fait.gravite === "critique") ? 1 : 0);
+  // Code 1 = une phrase du site contredit sa source, rien d'autre. Une
+  // relecture demandée n'est pas une erreur : la source a bougé, c'est tout.
+  process.exit(aCorriger.some((x) => x.fait.gravite === "critique") ? 1 : 0);
 }
 
 main().catch((e) => {

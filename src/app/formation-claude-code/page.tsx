@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Formation Claude Code en français : 8 leçons, dès 47 €",
     description:
-      "Du premier CLAUDE.md à l'agent qui tourne sans vous : skills, hooks, MCP, sous-agents, plugins et mods, Agent SDK. En français, vérifié sur Claude Code 2.1.288.",
+      "Du premier CLAUDE.md à l'agent qui tourne sans vous : skills, hooks, MCP, sous-agents, plugins et mods, Agent SDK. En français, vérifié sur Claude Code 2.1.295.",
     url: "/formation-claude-code",
     type: "website",
   },
@@ -156,7 +156,7 @@ const faq = [
   },
   {
     q: "La formation est-elle à jour de la dernière version de Claude Code ?",
-    a: "Les huit leçons ont été vérifiées sur Claude Code 2.1.288 le 3 octobre 2026, avec Opus 5.5 comme modèle par défaut. Claude Code publie plusieurs versions par semaine : la veille du site relit les changelogs officiels et chaque leçon porte une note datée quand un point a changé. Le prix comprend ces mises à jour.",
+    a: "Les huit leçons ont été vérifiées sur Claude Code 2.1.295 le 9 octobre 2026, avec Opus 5.5 comme modèle par défaut. Claude Code publie plusieurs versions par semaine : la veille du site relit les changelogs officiels et chaque leçon porte une note datée quand un point a changé. Le prix comprend ces mises à jour.",
   },
   {
     q: "Peut-on lire une leçon avant de payer ?",
@@ -284,7 +284,7 @@ export default function FormationClaudeCodePage() {
 
           <p className="mt-8 text-lg leading-relaxed text-muted">
             Huit leçons, {dureeTotale} minutes, un exercice à cocher par leçon.
-            Vérifiées sur Claude Code 2.1.288 le 3 octobre 2026. La première
+            Vérifiées sur Claude Code 2.1.295 le 9 octobre 2026. La première
             leçon est en accès libre, sans compte.
           </p>
 

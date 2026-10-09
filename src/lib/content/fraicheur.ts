@@ -16,14 +16,14 @@
  */
 
 /** Date de la dernière passe de vérification appliquée aux leçons. */
-export const CONTENU_A_JOUR_AU = "4 octobre 2026";
+export const CONTENU_A_JOUR_AU = "9 octobre 2026";
 
 /** Ce que cette passe a intégré, dit en une ligne pour un visiteur. */
 export const DERNIERE_PASSE =
-  "Nouveau parcours « Construire ton agent IA avec Claude » (4 octobre 2026), Claude Code 2.1.288 et ses mods, retrait de Sonnet 4.5 annoncé pour le 30 novembre";
+  "Claude Haiku 5.5 (7 octobre 2026) dans toutes les grilles de modèles et de tarifs, crédits API inclus dans Max et Team, lecture de cache Sonnet 5.5 à 0,10 $, Claude Code 2.1.295 et le blocage des hooks en panne";
 
 /** Notes de mise à jour datées (blocs `:::maj`) présentes dans les leçons. */
-export const NOTES_DE_MISE_A_JOUR = 89;
+export const NOTES_DE_MISE_A_JOUR = 96;
 
 /** Sources de référence surveillées par la veille (`scripts/veille/sources.mjs`). */
 export const SOURCES_SURVEILLEES = 11;

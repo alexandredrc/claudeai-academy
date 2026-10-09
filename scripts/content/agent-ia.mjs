@@ -94,7 +94,7 @@ Le parcours Claude Code t'a donné la grille à la leçon 7 : pour construire un
 
 ## Chiffrer avant d'écrire
 
-Un agent coûte sur trois lignes : les **tokens**, le **temps de machine**, et les **outils facturés à l'usage**. Au 4 octobre 2026, sur l'API Anthropic, par million de tokens : Fable 5.1 à 10 $ en entrée et 50 $ en sortie, Opus 5.5 à 4 $ et 20 $, Sonnet 5.5 à 2 $ et 10 $, Haiku 4.5 à 1 $ et 5 $. Une lecture de cache coûte 0,25 $ sur Fable 5.1, 0,20 $ sur Opus 5.5, 0,20 $ sur Sonnet 5.5 et 0,10 $ sur Haiku 4.5. La recherche web facturée côté serveur coûte 10 $ pour 1 000 recherches. Un agent géré ajoute 0,08 $ par heure de session, comptée seulement pendant qu'elle tourne.
+Un agent coûte sur trois lignes : les **tokens**, le **temps de machine**, et les **outils facturés à l'usage**. Au 9 octobre 2026, sur l'API Anthropic, par million de tokens : Fable 5.1 à 10 $ en entrée et 50 $ en sortie, Opus 5.5 à 4 $ et 20 $, Sonnet 5.5 à 2 $ et 10 $, Haiku 5.5 à 0,10 $ et 0,50 $ tant que la requête reste sous 100 000 tokens (0,50 $ et 2,50 $ au-delà). Une lecture de cache coûte 0,25 $ sur Fable 5.1, 0,20 $ sur Opus 5.5, 0,10 $ sur Sonnet 5.5 et 0,01 $ sur Haiku 5.5. La recherche web facturée côté serveur coûte 10 $ pour 1 000 recherches. Un agent géré ajoute 0,08 $ par heure de session, comptée seulement pendant qu'elle tourne.
 
 :::chiffres
 0,08 $ | l'heure de session d'un agent géré, comptée pendant que la session tourne, pas pendant qu'elle attend
@@ -102,9 +102,13 @@ Un agent coûte sur trois lignes : les **tokens**, le **temps de machine**, et l
 10 $ | pour 1 000 recherches web côté serveur, quel que soit le modèle
 :::
 
+:::maj 9 octobre 2026
+Deux nouveautés du 7 octobre changent le chiffrage d'un agent. **Haiku 5.5** sort à 0,10 $ / 0,50 $ par million de tokens (jusqu'à 100 000 tokens par requête), avec 1 million de tokens de contexte et le réglage d'effort : c'est le modèle des sous-agents de classement, d'extraction et de routage, et il coûte dix fois moins que Haiku 4.5. Et les plans **Max et Team incluent des crédits API mensuels** (100 $ sur Max 5×, 200 $ sur Max 20×, 20 $ ou 100 $ par siège Team, plafonnés à 500 $) qui couvrent précisément ce parcours : l'API, l'Agent SDK et les agents gérés. Ils ne couvrent pas Claude Code. Ils se réclament depuis Réglages → Facturation sur claude.ai, en liant une organisation Console, après sept jours d'abonnement, et expirent chaque mois sans report.
+:::
+
 La documentation d'hébergement de l'Agent SDK le dit sans détour : « le coût des tokens Anthropic domine typiquement le coût de l'infrastructure d'un ordre de grandeur ou plus ». Un conteneur minimal coûte environ 0,05 $ de l'heure, « tandis qu'une seule longue session d'agent peut dépenser des dollars en tokens ». Autrement dit : ne négocie pas ton hébergeur, négocie ton contexte.
 
-Trois leviers font la différence, et tu les as déjà vus dans le parcours Prompt Engineering : **le modèle** (Haiku 4.5 pour classer, Sonnet 5.5 pour la plupart des tâches, Opus 5.5 pour le raisonnement long), **le cache** (tout ce qui se répète d'un appel à l'autre, consignes système et définitions d'outils, est mis en cache automatiquement par le SDK), et **la taille des sorties d'outils** (lire un gros fichier entier coûte des milliers de tokens à chaque tour qui suit).
+Trois leviers font la différence, et tu les as déjà vus dans le parcours Prompt Engineering : **le modèle** (Haiku 5.5 pour classer, Sonnet 5.5 pour la plupart des tâches, Opus 5.5 pour le raisonnement long), **le cache** (tout ce qui se répète d'un appel à l'autre, consignes système et définitions d'outils, est mis en cache automatiquement par le SDK), et **la taille des sorties d'outils** (lire un gros fichier entier coûte des milliers de tokens à chaque tour qui suit).
 
 :::astuce Fais le calcul sur un seul passage, puis multiplie
 Avant de lancer un agent, fais-le tourner une fois à la main et lis le coût réel dans le résultat (le SDK renvoie un total estimé, les agents gérés une ligne de coût par session). Puis multiplie par la cadence : un agent qui coûte 0,30 $ et tourne toutes les heures, c'est 216 $ par mois. Le même, une fois par nuit, c'est 9 $. La cadence est un paramètre de coût au même titre que le modèle.
@@ -545,10 +549,10 @@ La progression de « claude code n8n » vient d'un usage précis : faire écrire
 
 ## Coût et choix du modèle
 
-Un workflow n8n facture des tokens à chaque exécution, et le nombre d'exécutions est souvent élevé (chaque email, chaque ticket). Au 4 octobre 2026, par million de tokens : Haiku 4.5 à 1 $ en entrée et 5 $ en sortie, Sonnet 5.5 à 2 $ et 10 $, Opus 5.5 à 4 $ et 20 $. Pour classer et extraire, Haiku 4.5 suffit presque toujours. Pour rédiger une réponse à un client, Sonnet 5.5. Opus 5.5 n'a sa place que sur une étape de raisonnement rare et coûteuse en erreur.
+Un workflow n8n facture des tokens à chaque exécution, et le nombre d'exécutions est souvent élevé (chaque email, chaque ticket). Au 9 octobre 2026, par million de tokens : Haiku 5.5 à 0,10 $ en entrée et 0,50 $ en sortie tant que la requête reste sous 100 000 tokens, Sonnet 5.5 à 2 $ et 10 $, Opus 5.5 à 4 $ et 20 $. Pour classer et extraire, Haiku 5.5 suffit presque toujours, à effort \`low\` ou \`medium\`. Pour rédiger une réponse à un client, Sonnet 5.5. Opus 5.5 n'a sa place que sur une étape de raisonnement rare et coûteuse en erreur.
 
 :::chiffres
-0,20 $ | le million de tokens lus en cache sur Sonnet 5.5, contre 2 $ sans cache : active « Prompt Caching » dans le nœud
+0,10 $ | le million de tokens lus en cache sur Sonnet 5.5 depuis le 7 octobre 2026, contre 2 $ sans cache : active « Prompt Caching » dans le nœud
 3 | états du cache dans le nœud Anthropic Chat Model : désactivé, 5 minutes, 1 heure
 1.82.0 | version de n8n depuis laquelle tout nœud AI Agent fonctionne en « Tools Agent »
 :::
@@ -574,7 +578,7 @@ La réponse proposée fait 8 lignes maximum, tutoiement interdit, pas de promess
 :::defi 45 min — Un tri d'emails qui ne fait que ce qu'on lui a permis
 Construis dans n8n un workflow de tri avec Claude, et vérifie qu'il refuse ce qu'il doit refuser.
 - L'identifiant Anthropic utilise une clé dédiée au workflow, avec une limite de dépense
-- Le nœud Anthropic Chat Model a le cache de prompt activé et le modèle est Haiku 4.5 ou Sonnet 5.5, avec la raison écrite dans une note du workflow
+- Le nœud Anthropic Chat Model a le cache de prompt activé et le modèle est Haiku 5.5 ou Sonnet 5.5, avec la raison écrite dans une note du workflow
 - La classification passe par un Structured Output Parser avec un schéma écrit à la main, qui contient un champ de confiance
 - Un nœud IF envoie les cas sous 0,7 et les actions sur compte vers une branche « humain » au lieu de répondre
 - Si tu as un outil MCP, « Tools to Include » est en « Selected » avec les seuls outils de lecture

@@ -287,11 +287,11 @@ R: Non, ils sont listés dans le plan Pro au 20 septembre 2026.
       slug: "choisir-le-bon-modele-effort-reflexion",
       title: "Choisir le bon modèle (et régler l'effort et la réflexion)",
       description:
-        "La famille de modèles au 29 septembre 2026 (Opus 5.5 et Sonnet 5.5 viennent d'arriver), le sélecteur à côté du bouton d'envoi, et le niveau d'effort devenu le vrai levier de qualité.",
+        "La famille de modèles au 9 octobre 2026 (la génération 5.5 est complète depuis Haiku 5.5), le sélecteur à côté du bouton d'envoi, et le niveau d'effort devenu le vrai levier de qualité.",
       duration_min: 18,
       is_free_preview: false,
       content_md: `:::objectifs
-- Situer Fable 5.1, Opus 5.5, Sonnet 5.5 et Haiku 4.5 sans confondre les générations
+- Situer Fable 5.1, Opus 5.5, Sonnet 5.5 et Haiku 5.5 sans confondre les générations
 - Comprendre pourquoi la réflexion étendue n'est plus un interrupteur depuis Opus 5
 - Régler le **niveau d'effort** selon la tâche — le vrai levier de 2026
 - Reconnaître un modèle « Legacy » et savoir quand il sert encore
@@ -304,15 +304,15 @@ Depuis Opus 5 (24 juillet 2026), et c'est toujours vrai sur **Opus 5.5** et **So
 
 ## Il n'y a pas « un » Claude
 
-Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche reste le premier levier de qualité — avant même le prompt. État de la gamme au **29 septembre 2026** :
+Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche reste le premier levier de qualité — avant même le prompt. État de la gamme au **9 octobre 2026** :
 
 | Modèle | Statut | Pour quoi | Contexte |
 | --- | --- | --- | --- |
 | **Claude Fable 5.1** | Actuel — le plus capable, sorti le 01/09/2026 | Les tâches les plus exigeantes, le travail long sans supervision, quand le coût passe après | 1M tokens |
 | **Claude Opus 5.5** | Actuel, sorti le 22/09/2026 | Le **point de départ recommandé par Anthropic** pour la plupart des travaux : code, tâches agentiques longues, travail de fond sur documents, tableurs et présentations | 1M tokens |
 | **Claude Sonnet 5.5** | Actuel, sorti le 28/09/2026 | L'équilibré, et le plus rapide des deux : rédaction, analyse, usage d'outils, travail quotidien | 1M tokens |
-| **Claude Haiku 4.5** | Actuel | Le plus rapide et le plus économe : questions simples, gros volumes | 200k tokens |
-| Claude Opus 5, Sonnet 5, Fable 5 | Génération précédente, **toujours servie** | Workflows déjà calés dessus, comparaisons | 1M tokens |
+| **Claude Haiku 5.5** | Actuel, sorti le 07/10/2026 | Le plus rapide et le plus économe : classement, extraction, routage, gros volumes. Premier Haiku avec le réglage d'effort | 1M tokens |
+| Claude Opus 5, Sonnet 5, Fable 5, Haiku 4.5 | Génération précédente, **toujours servie** | Workflows déjà calés dessus, comparaisons | 1M tokens (200k pour Haiku 4.5) |
 | Opus 4.8 / 4.7 / 4.6, Sonnet 4.6 / 4.5, Opus 4.5 | **Legacy** | Reproductibilité, comparaisons, workflows déjà calés dessus | — |
 
 :::maj 24 juillet 2026
@@ -329,6 +329,12 @@ Pour toi, dans l'application, le régime d'accès ne change pas : Fable 5.1 suit
 **Claude Opus 5.5** ouvre la génération 5.5 et remplace Opus 5 comme modèle Opus de référence. Trois faits à retenir. **Il coûte moins cher** : 4 $ / 20 $ par million de tokens, contre 5 $ / 25 $ pour Opus 5. **Il va plus vite** : Anthropic annonce plus de 30 % de tokens de sortie en plus par seconde, et moins de tokens pour finir la même tâche. **Il se trompe moins sur les chiffres et les sources**, et lit nettement mieux les graphiques, schémas et captures d'écran. Ses connaissances s'arrêtent à **juin 2026**.
 
 Ce qui ne change pas : tes habitudes. La doc officielle précise que les prompts écrits pour Opus 5 fonctionnent tels quels. Tout ce que ce parcours dit d'Opus 5 (réflexion par défaut, effort comme levier, consignes de vérification à retirer) vaut pour Opus 5.5.
+:::
+
+:::maj 9 octobre 2026
+**Claude Haiku 5.5 est sorti le 7 octobre** et complète la génération 5.5. C'est le **premier Haiku avec le réglage d'effort** (réflexion adaptative, \`medium\` par défaut sur l'API et dans Claude Code), avec **1 million de tokens de contexte** et **128 000 tokens de sortie**, contre 200k et 64k pour Haiku 4.5. Son tarif dépend de la taille de la requête : **0,10 $ / 0,50 $ par million de tokens** jusqu'à 100 000 tokens de prompt, **0,50 $ / 2,50 $** au-delà. Comme tous les modèles depuis Claude 4.7, il compte environ **30 % de tokens de plus** que Haiku 4.5 pour le même texte : compare des factures, pas des prix affichés. Haiku 4.5 passe dans la génération précédente, toujours servie.
+
+Le même jour, deux changements qui te concernent si tu passes par les crédits : la **lecture de cache de Sonnet 5.5 passe de 0,20 $ à 0,10 $** par million de tokens, et les plans **Max et Team incluent désormais des crédits API mensuels** (100 $ sur Max 5×, 200 $ sur Max 20×, 20 $ par siège Team standard et 100 $ par siège premium, plafonnés à 500 $ par équipe). Ces crédits se réclament depuis Réglages → Facturation en liant une organisation Console ; ils couvrent l'API, l'Agent SDK et les agents gérés, **pas Claude Code ni l'usage supplémentaire de l'application**, et ne se reportent pas d'un mois sur l'autre.
 :::
 
 :::maj 3 octobre 2026
@@ -352,7 +358,7 @@ Le sélecteur se trouve **à côté du bouton d'envoi**. Il affiche le modèle a
 1. **Le modèle** : clique sur son nom, choisis dans la liste.
 2. **L'effort** : l'intensité de traitement de chaque réponse.
 
-Au 29 septembre 2026, le sélecteur de l'application propose les modèles actuels (**Fable 5.1, Opus 5.5, Sonnet 5.5**) puis les générations précédentes encore servies (**Opus 5, Sonnet 5, Fable 5** et plusieurs modèles 4.x). Haiku 4.5 est bien un modèle actuel, mais il ne figure pas dans cette liste : on l'utilise via l'API et les outils qui l'appellent, pas depuis le sélecteur du chat.
+Au 29 septembre 2026, le sélecteur de l'application propose les modèles actuels (**Fable 5.1, Opus 5.5, Sonnet 5.5**) puis les générations précédentes encore servies (**Opus 5, Sonnet 5, Fable 5** et plusieurs modèles 4.x). Haiku n'y figurait pas : on l'utilise via l'API et les outils qui l'appellent, pas depuis le sélecteur du chat. Haiku 5.5, sorti le 7 octobre, est présenté par Anthropic comme le modèle des tâches à gros volume (classement, extraction, routage), donc d'abord un modèle d'API : vérifie ton propre sélecteur avant d'en déduire quoi que ce soit.
 
 Deux autres raisons possibles si tu ne vois pas un modèle cité ici : ton plan (Fable 5 dépend de crédits d'usage sur Pro, voir leçon 2), ou une politique d'entreprise — sur les comptes Team et Enterprise, les administrateurs peuvent restreindre par rôle les modèles et les niveaux d'effort accessibles. Ce n'est pas un bug.
 
@@ -406,8 +412,9 @@ Les tarifs API comptent pour toi dès que tu utilises des crédits ou des bundle
 | --- | --- |
 | Claude Fable 5.1 | 10 $ / 50 $ — **lecture de cache à 0,25 $** |
 | Claude Opus 5.5 | **4 $ / 20 $** |
-| Claude Sonnet 5.5 | **2 $ / 10 $** |
-| Claude Haiku 4.5 | 1 $ / 5 $ |
+| Claude Sonnet 5.5 | **2 $ / 10 $**, lecture de cache à 0,10 $ depuis le 7 octobre |
+| Claude Haiku 5.5 | **0,10 $ / 0,50 $** jusqu'à 100 000 tokens par requête, 0,50 $ / 2,50 $ au-delà |
+| Claude Haiku 4.5 (génération précédente) | 1 $ / 5 $ |
 | Claude Opus 5 (génération précédente) | 5 $ / 25 $ |
 | Claude Sonnet 5 (génération précédente) | 2 $ / 10 $ |
 | Claude Fable 5 (génération précédente) | 10 $ / 50 $ |
@@ -426,7 +433,7 @@ Le tarif de **Sonnet 5** (2 $ / 10 $ par million de tokens), annoncé au lanceme
 
 ## La règle pratique
 
-> Tâche simple → Sonnet 5.5, effort bas (Haiku 4.5 si tu passes par l'API).
+> Tâche simple → Sonnet 5.5, effort bas (Haiku 5.5 si tu passes par l'API).
 > Tâche sérieuse → Opus 5.5 à \`medium\`, puis \`high\` si la rigueur manque encore.
 > Tâche vraiment difficile → Opus 5.5 à \`xhigh\`, et seulement là.
 > Tâche que tu confies pour des heures sans la surveiller → Fable 5.1, en sachant ce que ça coûte.
@@ -1062,6 +1069,8 @@ L'écosystème avance vite, et une partie de ce que tu liras ailleurs sur Claude
 | 16 septembre 2026 | **Cowork fusionne avec le chat** ; Docs et Slides arrivent | « Il faut choisir entre le chat et Cowork » |
 | 22 septembre 2026 | **Opus 5.5** : plus capable, et moins cher (4 $ / 20 $) | « Le dernier Opus est le 5 », « le meilleur modèle est forcément le plus cher » |
 | 28 septembre 2026 | **Sonnet 5.5**, au tarif de Sonnet 5 | « Le dernier Sonnet est le 5 » |
+| 30 septembre 2026 | Retrait de **Sonnet 4.5** fixé au 30 novembre 2026 | « Sonnet 4.5 restera servi » |
+| 7 octobre 2026 | **Haiku 5.5** (1M de contexte, réglage d'effort, 0,10 $ / 0,50 $), cache Sonnet 5.5 à 0,10 $, crédits API inclus dans Max et Team | « Le dernier Haiku est le 4.5 », « Haiku n'a pas de réglage d'effort » |
 
 :::astuce Prends le réflexe de dater ce que tu apprends
 Quand tu lis un tutoriel sur Claude, cherche d'abord sa date. Sans date, ou plus vieux que trois mois, traite-le comme une hypothèse à vérifier — pas comme un fait. La documentation officielle est sur \`platform.claude.com/docs/en/\` et le centre d'aide sur \`support.claude.com\` : ce sont les deux seules sources qui bougent en même temps que le produit.

@@ -377,10 +377,15 @@ Le coût récurrent, celui qui dure tant que le service vit.
 
 ## L'économie du poste « abonnements »
 
-Beaucoup d'usages professionnels ne passent pas par l'API mais par des abonnements. Grille Anthropic au **3 octobre 2026** : **Pro** à **17 $ par mois en engagement annuel** (200 $ payés d'avance) ou **20 $ par mois** en mensuel ; **Max** à partir de **100 $ par mois** (deux paliers d'usage, 5× ou 20×) ; **Team** à **20 $ par siège et par mois** en annuel (25 $ en mensuel) pour un siège standard, **100 $** en annuel (125 $ en mensuel) pour un siège premium ; **Enterprise** en abonnement annuel uniquement, avec un prix de siège affiché à **20 $ par siège et par mois** auquel s'ajoute l'usage facturé aux tarifs API. Au-delà des limites incluses, les plans payants peuvent activer des **crédits d'usage** facturés aux tarifs API, et acheter des **bundles d'usage** pré-payés qui donnent **jusqu'à 30 % de remise** (paliers de 10, 20 et 30 %), **plafonnés à 2 000 $ par mois** pour un particulier Pro ou Max.
+Beaucoup d'usages professionnels ne passent pas par l'API mais par des abonnements. Grille Anthropic au **9 octobre 2026** : **Pro** à **17 $ par mois en engagement annuel** (200 $ payés d'avance) ou **20 $ par mois** en mensuel ; **Max** à partir de **100 $ par mois** (deux paliers d'usage, 5× ou 20×) ; **Team** à **20 $ par siège et par mois** en annuel (25 $ en mensuel) pour un siège standard, **100 $** en annuel (125 $ en mensuel) pour un siège premium ; **Enterprise** en abonnement annuel uniquement, avec un prix de siège affiché à **20 $ par siège et par mois** auquel s'ajoute l'usage facturé aux tarifs API. Au-delà des limites incluses, les plans payants peuvent activer des **crédits d'usage** facturés aux tarifs API, et acheter des **bundles d'usage** pré-payés qui donnent **jusqu'à 30 % de remise** (paliers de 10, 20 et 30 %), **plafonnés à 2 000 $ par mois** pour un particulier Pro ou Max.
+
+:::maj 9 octobre 2026
+Depuis le **7 octobre 2026**, les plans **Max et Team incluent des crédits API mensuels** : **100 $** sur Max 5×, **200 $** sur Max 20×, **20 $ par siège standard** et **100 $ par siège premium** sur Team, mis en commun et **plafonnés à 500 $ par mois** par équipe. Ils couvrent l'API, les agents gérés et l'Agent SDK, **pas Claude Code** ni l'usage supplémentaire de l'application, et **expirent chaque mois sans report**. Pour un budget, ça change deux choses : un siège Team premium à 100 $ par mois se « rembourse » en crédits API si l'équipe fait tourner des agents, et le poste « API » d'un prototype interne peut tomber à zéro tant qu'il tient dans l'enveloppe. Pro, Free et Enterprise n'y ont pas droit. Les crédits se réclament sur claude.ai (Réglages → Facturation) en liant **une seule** organisation Console, après sept jours d'abonnement.
+:::
 
 :::chiffres
 17 $/mois | Claude Pro en engagement annuel (20 $ en mensuel) au 20/09/2026
+100 $/mois | crédits API inclus dans Max 5× depuis le 7 octobre 2026 (200 $ sur Max 20×, jusqu'à 500 $ par équipe Team)
 30 % | remise maximale des bundles d'usage pré-payés
 2 000 $/mois | plafond de bundles pour un compte particulier Pro ou Max
 :::

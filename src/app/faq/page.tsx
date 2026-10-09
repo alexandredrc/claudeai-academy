@@ -37,7 +37,7 @@ const groups: Group[] = [
       },
       {
         q: "Quel est le meilleur modèle Claude en 2026 ?",
-        a: "Il n'y a pas un meilleur modèle, mais un bon modèle par usage. Au 29 septembre 2026 : Haiku 4.5 pour la vitesse et les questions simples, Sonnet 5.5 (sorti le 28 septembre) pour le travail quotidien, Opus 5.5 (sorti le 22 septembre, 1 M de tokens de contexte) pour le code et le travail de fond, et Fable 5.1 pour les tâches les plus complexes. Opus 5.5 est le point de départ que recommande Anthropic, et il coûte moins cher qu'Opus 5. Le parcours « Bien démarrer avec Claude » consacre une leçon entière au choix du modèle et au réglage de l'effort, devenu le vrai levier depuis que Claude réfléchit par défaut.",
+        a: "Il n'y a pas un meilleur modèle, mais un bon modèle par usage. Au 9 octobre 2026 : Haiku 5.5 (sorti le 7 octobre) pour la vitesse, les gros volumes et les questions simples, Sonnet 5.5 (sorti le 28 septembre) pour le travail quotidien, Opus 5.5 (sorti le 22 septembre, 1 M de tokens de contexte) pour le code et le travail de fond, et Fable 5.1 pour les tâches les plus complexes. Opus 5.5 est le point de départ que recommande Anthropic, et il coûte moins cher qu'Opus 5. Le parcours « Bien démarrer avec Claude » consacre une leçon entière au choix du modèle et au réglage de l'effort, devenu le vrai levier depuis que Claude réfléchit par défaut.",
       },
       {
         q: "Comment bien prompter Claude ?",

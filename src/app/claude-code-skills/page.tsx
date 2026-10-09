@@ -391,7 +391,7 @@ export default function ClaudeCodeSkillsPage() {
           <p className="mt-5 max-w-[620px] text-lg leading-relaxed text-muted">
             CLAUDE.md, skills et boucles de vérification, hooks, MCP,
             sous-agents, plugins et mods, puis l’Agent SDK pour sortir du
-            terminal. Contenu vérifié sur Claude Code 2.1.288, en français, avec
+            terminal. Contenu vérifié sur Claude Code 2.1.295, en français, avec
             un exercice cochable par leçon.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">

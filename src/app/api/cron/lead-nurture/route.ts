@@ -105,6 +105,10 @@ export async function GET(req: NextRequest) {
     .from("leads")
     .select("id, email, first_name, created_at")
     .is("unsubscribed_at", null)
+    // Les leads anglophones (source « en-… », page /en/kit) ne reçoivent pas la
+    // séquence française. Un simple `not like` exclurait aussi les sources
+    // nulles des premiers leads : d'où le `or`.
+    .or("source.is.null,source.not.like.en-%")
     .gte("created_at", LEAD_EPOCH)
     .order("created_at", { ascending: true })
     .limit(2000);

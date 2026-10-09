@@ -20,7 +20,7 @@ export const CONTENU_A_JOUR_AU = "9 octobre 2026";
 
 /** Ce que cette passe a intégré, dit en une ligne pour un visiteur. */
 export const DERNIERE_PASSE =
-  "Claude Haiku 5.5 (7 octobre 2026) dans toutes les grilles de modèles et de tarifs, crédits API inclus dans Max et Team, lecture de cache Sonnet 5.5 à 0,10 $, Claude Code 2.1.295 et le blocage des hooks en panne";
+  "Nouvelle leçon « Claude là où tu travailles déjà : Excel, PowerPoint, Word, Outlook et Chrome » (9 octobre 2026), Claude Haiku 5.5 dans toutes les grilles de modèles et de tarifs, crédits API inclus dans Max et Team, Claude Code 2.1.295";
 
 /** Notes de mise à jour datées (blocs `:::maj`) présentes dans les leçons. */
 export const NOTES_DE_MISE_A_JOUR = 96;

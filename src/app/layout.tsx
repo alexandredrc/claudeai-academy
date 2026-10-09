@@ -8,7 +8,9 @@ import { Analytics } from "@vercel/analytics/next";
 import { GoogleTag, GOOGLE_TAG_ENABLED } from "@/components/site/google-tag";
 import { ConsentBanner } from "@/components/site/consent-banner";
 import { AuthHashGuard } from "@/components/site/auth-hash-guard";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+import { EnHeader, EnFooter } from "@/components/site/en-chrome";
 import { INSTAGRAM_URL } from "@/components/site/instagram";
 
 const inter = Inter({
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
   // La requête commerciale passe donc en tête du titre, le nom reste visible.
   title: "Formation Claude AI en français, dès 47 € | ClaudeAI Academy",
   description:
-    "La formation Claude AI en français, à votre rythme : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 9 parcours, 57 leçons, 170 prompts prêts à copier et un Mentor IA. Accès à vie dès 47 €, sans dossier CPF ni devis, garantie 14 jours.",
+    "La formation Claude AI en français, à votre rythme : bien démarrer, prompt engineering, Claude Code, data, marketing, stratégie. 9 parcours, 58 leçons, 170 prompts prêts à copier et un Mentor IA. Accès à vie dès 47 €, sans dossier CPF ni devis, garantie 14 jours.",
   metadataBase: new URL("https://www.claudeai-academy.com"),
   keywords: [
     "claude academy",
@@ -78,7 +80,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Formation Claude AI en ligne, en français — dès 47 €",
     description:
-      "9 parcours, 57 leçons, 170 prompts et un Mentor IA pour maîtriser Claude AI en pratique. À votre rythme, sans CPF ni dossier.",
+      "9 parcours, 58 leçons, 170 prompts et un Mentor IA pour maîtriser Claude AI en pratique. À votre rythme, sans CPF ni dossier.",
     images: ["/og.png"],
   },
 };
@@ -144,10 +146,14 @@ export default async function RootLayout({
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  // Pages anglaises du test d'octobre 2026 (/en/…) : langue du document et
+  // habillage anglais. Le chemin vient du proxy (en-tête x-pathname).
+  const pathname = (await headers()).get("x-pathname") ?? "";
+  const en = pathname === "/en" || pathname.startsWith("/en/");
 
   return (
     <html
-      lang="fr"
+      lang={en ? "en" : "fr"}
       className={`${inter.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">
@@ -161,9 +167,9 @@ export default async function RootLayout({
         />
         <GoogleTag />
         <AuthHashGuard />
-        <Header isLoggedIn={!!user} />
+        {en ? <EnHeader /> : <Header isLoggedIn={!!user} />}
         <main className="flex-1">{children}</main>
-        <Footer />
+        {en ? <EnFooter /> : <Footer />}
         {/* Barre de prix : n'apparait qu'apres un debut de lecture, et jamais
             dans le tunnel ni dans l'espace membre. */}
         <PriceBar />

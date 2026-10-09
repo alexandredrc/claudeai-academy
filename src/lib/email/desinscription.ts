@@ -47,10 +47,11 @@ export function jetonValide(leadId: unknown, jeton: unknown): leadId is string {
   return crypto.timingSafeEqual(Buffer.from(jeton), Buffer.from(attendu));
 }
 
-/** Page de confirmation (lien visible dans l'email). */
-export function lienDesinscription(leadId: string): string | null {
+/** Page de confirmation (lien visible dans l'email). `lang=en` affiche la page en anglais. */
+export function lienDesinscription(leadId: string, lang: "fr" | "en" = "fr"): string | null {
   const t = signer(leadId);
-  return t ? `${SITE_URL}/desinscription?l=${leadId}&t=${t}` : null;
+  if (!t) return null;
+  return `${SITE_URL}/desinscription?l=${leadId}&t=${t}${lang === "en" ? "&lang=en" : ""}`;
 }
 
 /**

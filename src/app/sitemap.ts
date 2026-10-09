@@ -30,6 +30,10 @@ const staticRoutes: { path: string; priority: number; changeFrequency: Freq }[] 
   // « comment créer un agent ia » : 590 recherches par mois en France (+321 % sur
   // un an, Keyword Planner lu le 4 octobre 2026). La leçon 1 du parcours est libre.
   { path: "/creer-un-agent-ia", priority: 0.85, changeFrequency: "monthly" },
+  // « claude excel », « claude powerpoint » : Claude for Microsoft 365 est
+  // disponible sur tous les plans payants depuis 2026 et aucune page française
+  // sérieuse n'explique quoi installer, ce que ça fait et ce que ça refuse.
+  { path: "/claude-excel-powerpoint", priority: 0.85, changeFrequency: "monthly" },
   // Pages d'entrée sur les requêtes de marque les plus fréquentes en France
   // (« claude ai gratuit », « télécharger claude ai », « claude cowork »).
   { path: "/claude-ai-gratuit", priority: 0.8, changeFrequency: "monthly" },
@@ -41,6 +45,8 @@ const staticRoutes: { path: string; priority: number; changeFrequency: Freq }[] 
   // Le kit gratuit est la porte d'entrée organique la plus large : il doit
   // être découvrable, il ne l'était pas.
   { path: "/kit", priority: 0.7, changeFrequency: "monthly" },
+  // Test anglophone d'octobre 2026 : la version anglaise du kit.
+  { path: "/en/kit", priority: 0.5, changeFrequency: "monthly" },
   { path: "/faq", priority: 0.6, changeFrequency: "monthly" },
   { path: "/a-propos", priority: 0.5, changeFrequency: "yearly" },
   { path: "/contact", priority: 0.4, changeFrequency: "yearly" },

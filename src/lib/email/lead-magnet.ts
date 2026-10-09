@@ -1,5 +1,6 @@
 import { SITE_URL, sendEmail } from "@/lib/email/send";
 import { enTetesDesinscription, lienDesinscription } from "@/lib/email/desinscription";
+import { renderLeadMagnetEn } from "@/lib/email/lead-magnet-en";
 import {
   CONTENU_A_JOUR_AU,
   NOTES_DE_MISE_A_JOUR,
@@ -225,7 +226,7 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
           "Avec les −40 % mesurés, tu en récupères 2.",
           "Au salaire brut moyen du privé en France (3 602 € par mois, soit ≈ 24 € de l'heure), ces 2 heures valent ≈ <strong>47 €</strong>. Par semaine.",
         ]),
-        p("47 €, c'est justement le prix du Pass Starter : 3 parcours, 23 leçons, accès à vie. On y apprend la méthode qui fait la différence : contexte, structure, vérification."),
+        p("47 €, c'est justement le prix du Pass Starter : 3 parcours, 24 leçons, accès à vie. On y apprend la méthode qui fait la différence : contexte, structure, vérification."),
         cta("Voir le Pass Starter", lien("/tarifs", "lead_a2")),
         sources([SRC.noyZhang, SRC.bcg, SRC.anthropicGains, SRC.insee]),
         p("Alexandre"),
@@ -263,11 +264,11 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
         p(greeting(prenom)),
         p("Pas de promesse floue : voici exactement ce que débloque le Pass Starter."),
         bullets([
-          "<strong>Bien démarrer avec Claude</strong> (8 leçons) : choisir son plan et son modèle, régler Claude, lui dire qui tu es, mémoire et projets pour un contexte durable.",
+          "<strong>Bien démarrer avec Claude</strong> (9 leçons) : choisir son plan et son modèle, régler Claude, lui dire qui tu es, mémoire et projets pour un contexte durable.",
           "<strong>Prompt Engineering pro</strong> (7 leçons) : clarté, contexte, exemples, structure XML, rôle, raisonnement et auto-correction.",
           "<strong>Claude Code et l'IA agentique</strong> (8 leçons) : faire travailler Claude sur tes fichiers et tes outils, skills, hooks, MCP, sous-agents.",
         ]),
-        p("23 leçons, accès à vie, mises à jour comprises. Claude Code est inclus dans l'abonnement Claude Pro (20 $ par mois) : pas d'outil de plus à payer pour suivre le troisième parcours."),
+        p("24 leçons, accès à vie, mises à jour comprises. Claude Code est inclus dans l'abonnement Claude Pro (20 $ par mois) : pas d'outil de plus à payer pour suivre le troisième parcours."),
         p(GARANTIE),
         cta("Commencer avec le Pass Starter", lien("/tarifs", "lead_a4")),
         sources([SRC.pricing]),
@@ -290,7 +291,7 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
         ]),
         p("Autrement dit, la formation est rentabilisée dès la première ou la deuxième heure récupérée. Le reste, c'est du temps rendu, chaque semaine."),
         cta("Voir le Pass Starter", lien("/tarifs", "lead_a5")),
-        p(`Et si tu veux tout de suite le chemin complet (data, contenu et marketing, stratégie, agents IA), le Pass Mastery couvre les 9 parcours et 57 leçons, avec le Mentor IA : ${MASTERY_PRIX}.`),
+        p(`Et si tu veux tout de suite le chemin complet (data, contenu et marketing, stratégie, agents IA), le Pass Mastery couvre les 9 parcours et 58 leçons, avec le Mentor IA : ${MASTERY_PRIX}.`),
         p("À partir de la semaine prochaine, je change de format : <strong>un cas concret par semaine</strong>. Une vraie entreprise ou un vrai métier, ce que Claude y fait, et ce que ça vaut en heures et en euros. Tu peux te désinscrire en un clic en bas de chaque email."),
         sources([SRC.malt, SRC.insee]),
         p("Alexandre"),
@@ -479,8 +480,8 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
         p("Le point commun : aucun de ces résultats ne vient d'un prompt magique. Ils viennent d'une méthode (contexte, procédure, vérification) appliquée à un vrai problème."),
         h("Les deux façons de l'apprendre"),
         bullets([
-          `<strong>Pass Starter, 47 €</strong> : les 3 parcours fondateurs, 23 leçons. Pour poser la méthode.`,
-          `<strong>Pass Mastery, ${MASTERY_PRIX}</strong> : les 9 parcours, 57 leçons, 170 prompts, le Mentor IA et l'examen de certification. Pour aller jusqu'aux agents, à la data et au business.`,
+          `<strong>Pass Starter, 47 €</strong> : les 3 parcours fondateurs, 24 leçons. Pour poser la méthode.`,
+          `<strong>Pass Mastery, ${MASTERY_PRIX}</strong> : les 9 parcours, 58 leçons, 170 prompts, le Mentor IA et l'examen de certification. Pour aller jusqu'aux agents, à la data et au business.`,
         ]),
         p(GARANTIE),
         cta("Choisir mon pass", lien("/tarifs", "lead_b8")),
@@ -504,8 +505,13 @@ export async function sendLeadEmail(params: {
   to: string;
   firstName: string | null;
   leadId: string;
+  /** « en » : livraison du kit en anglais (test anglophone d'octobre 2026). Seul le magnet existe en anglais. */
+  lang?: "fr" | "en";
 }): Promise<boolean> {
-  const r = renderLeadEmail(params.kind, params.firstName, params.leadId);
+  const r =
+    params.lang === "en" && params.kind === "lead_magnet"
+      ? renderLeadMagnetEn(params.firstName, lienDesinscription(params.leadId, "en"))
+      : renderLeadEmail(params.kind, params.firstName, params.leadId);
   return sendEmail({
     to: params.to,
     subject: r.subject,

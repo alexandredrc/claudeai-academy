@@ -81,6 +81,7 @@ La première leçon de chaque parcours est en accès libre, sans compte.
 - [Créer un agent IA](${SITE_URL}/creer-un-agent-ia) — workflow ou agent selon Anthropic, les six façons de construire avec Claude, ce que ça coûte, la fiche d'une page avant le code
 - [Claude AI gratuit ou Pro](${SITE_URL}/claude-ai-gratuit) — ce que le plan gratuit permet, où il s'arrête, ce que Pro ajoute (17 ou 20 $ par mois)
 - [Télécharger Claude](${SITE_URL}/telecharger-claude) — la seule adresse sûre (claude.com/download), plateformes, premier test utile
+- [Claude dans Excel, PowerPoint, Word et Chrome](${SITE_URL}/claude-excel-powerpoint) — l'add-in Claude for Microsoft 365 (tous plans payants) et l'extension Claude in Chrome : installer, ce que ça fait, ce que ça refuse, les deux risques
 - [Claude Cowork](${SITE_URL}/claude-cowork) — Cowork et le chat sont un seul Claude depuis le 16 septembre 2026 ; ce qui a changé, pour quels plans
 - [Certification Claude AI](${SITE_URL}/certification-claude-ai) — ce qui existe (cours gratuits d'Anthropic en anglais, examens officiels réservés aux partenaires), ce qui n'existe pas (titre d'État sur un outil), et ce qu'un recruteur regarde à la place
 - [Formation IA obligatoire (AI Act art. 4)](${SITE_URL}/formation-ia-obligatoire-ai-act) — ce qu'impose le règlement européen aux employeurs depuis le 2 février 2025

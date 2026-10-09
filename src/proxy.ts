@@ -110,6 +110,10 @@ function poserProvenance(request: NextRequest, response: NextResponse) {
 export async function proxy(request: NextRequest) {
   const attribution = redirectionAttribution(request);
   if (attribution) return attribution;
+  // Le layout racine ne connaît pas le chemin demandé ; il lui faut ce
+  // repère pour servir l'habillage anglais des pages /en/… (lang, en-tête,
+  // pied de page). `updateSession` renvoie les en-têtes de requête tels quels.
+  request.headers.set("x-pathname", request.nextUrl.pathname);
   const response = await updateSession(request);
   poserProvenance(request, response);
   return response;

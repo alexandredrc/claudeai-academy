@@ -34,12 +34,18 @@ export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
     return (
       <header className="sticky top-0 z-50 backdrop-blur-md bg-cream/85 border-b border-line">
         <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-[72px]">
-          <div className="flex items-center gap-4">
-            <InstagramBadge />
-            <Logo />
+          {/* À 375 px, la version longue chevauchait le logo (audit du
+              10/10/2026) : sur mobile, pas de badge Instagram (une sortie de
+              moins pour un visiteur payé) et garantie en version courte. */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            <span className="hidden sm:inline-flex">
+              <InstagramBadge />
+            </span>
+            <Logo className="whitespace-nowrap" />
           </div>
-          <span className="text-[13px] font-medium text-muted">
-            🛡️ Garantie 14 jours satisfait ou remboursé
+          <span className="shrink-0 whitespace-nowrap text-[12px] font-medium text-muted sm:text-[13px]">
+            <span className="sm:hidden">🛡️ Garantie 14 j</span>
+            <span className="hidden sm:inline">🛡️ Garantie 14 jours satisfait ou remboursé</span>
           </span>
         </div>
       </header>

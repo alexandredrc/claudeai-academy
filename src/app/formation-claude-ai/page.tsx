@@ -63,12 +63,15 @@ async function LandingHero() {
             Formation 100 % en ligne · En français · À votre rythme
           </Eyebrow>
 
-          <h1 className="mt-5 font-serif text-[clamp(2.5rem,5.5vw,4rem)] font-medium leading-[1.05] tracking-[-0.025em] text-ink">
+          {/* Taille mobile réduite : à 375 px, 80 % du trafic payé, le titre
+              faisait quatre lignes et repoussait le bouton d'achat sous la
+              bannière cookies (audit du 10/10/2026). */}
+          <h1 className="mt-5 font-serif text-[clamp(2.125rem,5.5vw,4rem)] font-medium leading-[1.05] tracking-[-0.025em] text-ink">
             La formation <span className="accent-serif">Claude AI</span> qui
-            vous rend opérationnel — pas juste curieux.
+            vous rend opérationnel, pas juste curieux.
           </h1>
 
-          <p className="mt-7 text-lg leading-relaxed text-muted max-w-[620px]">
+          <p className="mt-5 text-base md:text-lg leading-relaxed text-muted max-w-[620px]">
             Vous cherchez une formation Claude AI sérieuse, en français ? La
             voici : {stats.courseCount} parcours structurés,{" "}
             {stats.lessonCount} leçons concrètes et {PROMPT_COUNT}{" "}
@@ -76,7 +79,7 @@ async function LandingHero() {
             la première semaine. Paiement unique, accès à vie.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-7 flex flex-wrap items-center gap-3">
             <CheckoutButton tier="mastery" variant="primary" size="lg">
               Rejoindre Mastery · 497 €
             </CheckoutButton>
@@ -135,7 +138,7 @@ function PainBridge() {
     },
     {
       title: "Les tutos YouTube ne suffisent plus",
-      body: "Des astuces en vrac, souvent en anglais, jamais reliées à votre métier. Ce qu'il vous manque, c'est une méthode progressive — pas plus de vidéos.",
+      body: "Des astuces en vrac, souvent en anglais, jamais reliées à votre métier. Ce qu'il vous manque, c'est une méthode progressive, pas plus de vidéos.",
     },
     {
       title: "Pendant ce temps, d'autres prennent l'avance",
@@ -170,7 +173,7 @@ function PainBridge() {
         <p className="mt-12 text-center text-lg leading-relaxed text-ink-soft max-w-[680px] mx-auto">
           ClaudeAI Academy est le pont entre les deux : une méthode structurée,
           leçon par leçon, du premier réglage jusqu&apos;aux workflows
-          d&apos;expert — avec un QCM et des prompts à appliquer à chaque
+          d&apos;expert, avec un QCM et des prompts à appliquer à chaque
           étape.
         </p>
       </Container>
@@ -185,7 +188,7 @@ async function WhatYouGet() {
   const stats = await getCatalogStats();
   const tracks = [
     { emoji: "🚦", label: "Bien démarrer avec Claude (zéro prérequis)" },
-    { emoji: "💬", label: "Prompt engineering pro — le socle" },
+    { emoji: "💬", label: "Prompt engineering pro, le socle" },
     { emoji: "⌨️", label: "Claude Code & IA agentic pour les devs" },
     { emoji: "📊", label: "Data & SQL assistés par l'IA" },
     { emoji: "🚀", label: "Contenu & marketing" },
@@ -246,11 +249,11 @@ function LandingFAQ() {
   const items = [
     {
       q: "« Je peux apprendre tout ça gratuitement sur YouTube. »",
-      a: "Oui — comme on peut apprendre le piano sur YouTube. Ce que vous achetez ici, ce n'est pas de l'information : c'est l'ordre dans lequel l'apprendre, les erreurs à éviter, et des prompts déjà testés sur des cas réels. Vous échangez des semaines de tri contre quelques heures de méthode.",
+      a: "Oui, comme on peut apprendre le piano sur YouTube. Ce que vous achetez ici, ce n'est pas de l'information : c'est l'ordre dans lequel l'apprendre, les erreurs à éviter, et des prompts déjà testés sur des cas réels. Vous échangez des semaines de tri contre quelques heures de méthode.",
     },
     {
       q: "« Je n'ai pas le temps pour une formation. »",
-      a: "Les leçons durent 8 à 15 minutes et chaque parcours est indépendant. L'accès est à vie : il n'y a ni cohorte, ni deadline, ni rythme imposé. Une leçon par jour suffit — et dès la première semaine, la formation vous fait gagner plus de temps qu'elle n'en prend.",
+      a: "Les leçons durent 8 à 15 minutes et chaque parcours est indépendant. L'accès est à vie : il n'y a ni cohorte, ni deadline, ni rythme imposé. Une leçon par jour suffit. Et dès la première semaine, la formation vous fait gagner plus de temps qu'elle n'en prend.",
     },
     {
       q: "« Comment je sais que ça marchera pour moi ? »",
@@ -258,7 +261,7 @@ function LandingFAQ() {
     },
     {
       q: "« Pourquoi Claude plutôt que ChatGPT ? »",
-      a: "La méthode (structurer une demande, donner du contexte, itérer) se transfère à tous les outils d'IA. Mais Claude est aujourd'hui la référence pour le travail sérieux — texte long, code, analyse — et c'est le seul outil couvert ici en profondeur, en français.",
+      a: "La méthode (structurer une demande, donner du contexte, itérer) se transfère à tous les outils d'IA. Mais Claude est aujourd'hui la référence pour le travail sérieux (texte long, code, analyse), et c'est le seul outil couvert ici en profondeur, en français.",
     },
     {
       q: "« Est-ce finançable par le CPF ? »",
@@ -349,7 +352,7 @@ function LastCall() {
             <span className="accent-serif">soit les mêmes tâtonnements</span>.
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-muted max-w-[560px] mx-auto">
-            L&apos;accès complet coûte 497 € — ou 3 × 165,67 € sans frais. Il
+            L&apos;accès complet coûte 497 €, ou 3 × 165,67 € sans frais. Il
             est immédiat, définitif, et la garantie 14 jours porte tout le
             risque à notre place. Le Pass Starter à 47 € reste là si vous
             préférez commencer petit.

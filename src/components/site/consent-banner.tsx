@@ -39,27 +39,33 @@ export function ConsentBanner() {
     setVisible(false);
   };
 
+  // Compacte sur mobile : à 375 px, l'ancienne version couvrait le tiers bas
+  // de l'écran et cachait le bouton d'achat de la page de vente (audit Ads du
+  // 10/10/2026). Les deux boutons ont le même poids visuel : c'est ce que
+  // demande la CNIL, et le corail reste réservé au bouton d'achat.
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 p-4 sm:p-6">
-      <div className="mx-auto flex max-w-[720px] flex-col gap-4 rounded-[16px] border border-line bg-white p-5 shadow-[0_8px_30px_rgba(26,22,18,0.12)] sm:flex-row sm:items-center">
-        <p className="flex-1 text-[13px] leading-relaxed text-ink-soft">
-          On utilise un cookie de mesure publicitaire (Google) pour savoir
-          quelles campagnes amènent de vrais élèves — rien d&apos;autre. Vous
-          pouvez refuser : le site fonctionne exactement pareil.{" "}
+    <div className="fixed inset-x-0 bottom-0 z-50 p-3 sm:p-6">
+      <div className="mx-auto flex max-w-[720px] flex-col gap-3 rounded-[14px] border border-line bg-white px-4 py-3 shadow-[0_8px_30px_rgba(26,22,18,0.12)] sm:flex-row sm:items-center sm:gap-4 sm:p-5">
+        <p className="flex-1 text-[12px] leading-snug text-ink-soft sm:text-[13px] sm:leading-relaxed">
+          Un cookie de mesure publicitaire (Google), pour savoir quelles
+          campagnes amènent de vrais élèves, rien d&apos;autre.
+          <span className="hidden sm:inline">
+            {" "}Vous pouvez refuser : le site fonctionne exactement pareil.
+          </span>{" "}
           <a href="/confidentialite" className="underline hover:text-ink">
             En savoir plus
           </a>
         </p>
-        <div className="flex shrink-0 gap-3">
+        <div className="flex shrink-0 gap-2 sm:gap-3">
           <button
             onClick={() => choose(false)}
-            className="rounded-[12px] border border-line bg-white px-4 py-2.5 text-[13px] font-semibold text-ink transition-colors hover:border-coral"
+            className="flex-1 rounded-[10px] border border-ink/30 bg-white px-4 py-2 text-[13px] font-semibold text-ink transition-colors hover:border-ink sm:flex-none"
           >
             Refuser
           </button>
           <button
             onClick={() => choose(true)}
-            className="rounded-[12px] bg-coral px-4 py-2.5 text-[13px] font-semibold text-cream transition-colors hover:bg-coral-dark"
+            className="flex-1 rounded-[10px] border border-ink/30 bg-white px-4 py-2 text-[13px] font-semibold text-ink transition-colors hover:border-ink sm:flex-none"
           >
             Accepter
           </button>

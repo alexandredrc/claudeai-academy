@@ -8,7 +8,7 @@ import { PROMPT_COUNT } from "@/lib/prompts/library";
 // Les 3 parcours fondateurs du Pass Starter. Sert à afficher l'écart réel
 // entre les deux pass — un badge qui chiffre la différence aide à choisir,
 // là où « le plus complet » sur le pass le plus complet n'apprend rien.
-const STARTER_LESSON_COUNT = 22;
+const STARTER_LESSON_COUNT = 24;
 
 export async function PricingTeaser() {
   const stats = await getCatalogStats();
@@ -48,10 +48,12 @@ export async function PricingTeaser() {
 
 function StarterCard() {
   const features = [
-    "Les 3 parcours fondateurs : Bien démarrer + Prompt Engineering pro + Claude Code (23 leçons)",
+    // Audit du 10/10/2026 : le Mentor IA exige le niveau Mastery (route
+    // /api/mentor), il ne doit pas être promis ici.
+    "Les 3 parcours fondateurs : Bien démarrer + Prompt Engineering pro + Claude Code (24 leçons)",
     "Bibliothèque de prompts essentiels",
+    "QCM d'auto-évaluation à chaque leçon",
     "Accès permanent et mises à jour",
-    "Mentor IA Claude inclus",
     "Garantie 14 jours satisfait ou remboursé",
   ];
 
@@ -72,7 +74,7 @@ function StarterCard() {
       </p>
 
       <CheckoutButton tier="starter" variant="ghost" size="md" className="mt-7 w-full">
-        Commencer — 47 €
+        Commencer · 47 €
       </CheckoutButton>
 
       <ul className="mt-7 pt-7 border-t border-line space-y-3 flex-1">
@@ -90,11 +92,12 @@ function StarterCard() {
 function MasteryCard({ stats }: { stats: CatalogStats }) {
   const features = [
     `Les ${stats.courseCount} parcours complets (${stats.lessonCount} leçons)`,
+    // Audit du 10/10/2026 : « templates téléchargeables » et « communauté
+    // privée » n'existent pas dans l'app ; on ne promet que ce qui se vérifie.
     `Bibliothèque complète de ${PROMPT_COUNT} prompts`,
-    "Templates et cheat sheets téléchargeables",
-    "Mentor IA Claude 24/7",
+    "Mentor IA Claude 24/7, qui corrige vos exercices",
+    "Examen de certification et certificat vérifiable",
     "Accès à vie et mises à jour permanentes",
-    "Communauté privée des membres",
     "Garantie 14 jours satisfait ou remboursé",
   ];
 
@@ -123,12 +126,12 @@ function MasteryCard({ stats }: { stats: CatalogStats }) {
           n'était annoncé nulle part : un acheteur Starter ne pouvait pas
           savoir qu'il ne repaierait pas deux fois. */}
       <p className="mt-3 text-[13px] text-cream/70 leading-relaxed">
-        Déjà membre Starter&nbsp;? Vos 47&nbsp;€ sont déduits automatiquement —
+        Déjà membre Starter&nbsp;? Vos 47&nbsp;€ sont déduits automatiquement,
         connectez-vous avant de payer.
       </p>
 
       <CheckoutButton tier="mastery" variant="primary" size="md" className="mt-7 w-full">
-        Rejoindre Mastery — 497 €
+        Rejoindre Mastery · 497 €
       </CheckoutButton>
 
       <ul className="mt-7 pt-7 border-t border-cream/15 space-y-3 flex-1">
@@ -190,7 +193,7 @@ function EliteCard() {
       </p>
 
       <CheckoutButton tier="elite" variant="primary" size="md" className="mt-7 w-full">
-        Réserver ma place — 1 497 €
+        Réserver ma place · 1 497 €
       </CheckoutButton>
 
       <ul className="mt-7 pt-7 border-t border-line space-y-3 flex-1">

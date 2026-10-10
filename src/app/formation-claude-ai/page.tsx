@@ -9,7 +9,9 @@ import { PricingTeaser } from "@/components/landing/pricing-teaser";
 import { ValueStack } from "@/components/landing/value-stack";
 import { Guarantee } from "@/components/landing/guarantee";
 import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
+import { Founder } from "@/components/landing/founder";
 import { getCatalogStats } from "@/lib/courses/stats";
+import { createClient } from "@/lib/supabase/server";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 
@@ -21,7 +23,7 @@ import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 export const metadata: Metadata = {
   title: "Formation Claude AI en français : 9 parcours, dès 47 €",
   description:
-    "La formation Claude AI en français : 9 parcours, 57 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
+    "La formation Claude AI en français : 9 parcours, 58 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
   robots: { index: false, follow: true },
 };
 
@@ -31,6 +33,10 @@ export default function FormationClaudeAI() {
       <LandingHero />
       <PainBridge />
       <WhatYouGet />
+      {/* Audit du 10/10/2026 : un visiteur payé ne savait pas qui vend. Le
+          bloc fondateur (métier réel, visage, compte Instagram) est le signal
+          d'autorité qui manquait avant les avis et les tarifs. */}
+      <Founder />
       <Testimonials pricingHref="#tarifs" />
       <PricingTeaser />
       <ValueStack />
@@ -184,18 +190,50 @@ function PainBridge() {
 // =========================================
 // Ce que vous obtenez — programme condensé
 // =========================================
+// Emoji par parcours (clé = slug en base). Un parcours sans entrée ici reçoit
+// 📘 : la liste suit le catalogue réel, elle ne peut plus retarder sur lui
+// (audit du 10/10/2026 : 8 parcours écrits en dur pour 9 en base).
+const TRACK_EMOJI: Record<string, string> = {
+  "bien-demarrer-avec-claude": "🚦",
+  "prompt-engineering-pro": "💬",
+  "claude-code-ia-agentic": "⌨️",
+  "claude-data-sql": "📊",
+  "contenu-et-marketing": "🚀",
+  "strategie-conduite-ia": "🧭",
+  "trading-claude-code": "📈",
+  "prompts-skills-github-securite": "🔐",
+  "construire-ton-agent-ia": "🤖",
+};
+
+const TRACKS_FALLBACK = [
+  { emoji: "🚦", label: "Bien démarrer avec Claude (zéro prérequis)" },
+  { emoji: "💬", label: "Prompt engineering pro, le socle" },
+  { emoji: "⌨️", label: "Claude Code et l'IA agentique" },
+  { emoji: "📊", label: "Claude pour data et SQL" },
+  { emoji: "🚀", label: "Contenu et marketing avec Claude" },
+  { emoji: "🧭", label: "Stratégie et conduite IA en entreprise" },
+  { emoji: "📈", label: "Trading + Claude Code" },
+  { emoji: "🔐", label: "Prompts, skills, MCP et GitHub : sécuriser" },
+  { emoji: "🤖", label: "Construire ton agent IA avec Claude" },
+];
+
+async function listerParcours(): Promise<{ emoji: string; label: string }[]> {
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("courses")
+      .select("slug, title, display_order")
+      .order("display_order");
+    if (!data || data.length === 0) return TRACKS_FALLBACK;
+    return data.map((c) => ({ emoji: TRACK_EMOJI[c.slug] ?? "📘", label: c.title }));
+  } catch {
+    return TRACKS_FALLBACK;
+  }
+}
+
 async function WhatYouGet() {
   const stats = await getCatalogStats();
-  const tracks = [
-    { emoji: "🚦", label: "Bien démarrer avec Claude (zéro prérequis)" },
-    { emoji: "💬", label: "Prompt engineering pro, le socle" },
-    { emoji: "⌨️", label: "Claude Code & IA agentic pour les devs" },
-    { emoji: "📊", label: "Data & SQL assistés par l'IA" },
-    { emoji: "🚀", label: "Contenu & marketing" },
-    { emoji: "🧭", label: "Stratégie & conduite de l'IA en entreprise" },
-    { emoji: "📈", label: "Trading assisté par Claude Code" },
-    { emoji: "🔐", label: "Prompts avancés, GitHub & sécurité" },
-  ];
+  const tracks = await listerParcours();
   return (
     <section className="py-20 md:py-28">
       <Container>

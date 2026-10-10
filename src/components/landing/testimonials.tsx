@@ -207,7 +207,7 @@ export function Testimonials({ pricingHref = "/tarifs" }: { pricingHref?: string
           <p className="mt-6 text-lg leading-relaxed text-muted">
             Le premier retour ci-dessous vient d&apos;un membre qui a payé sa
             formation. Les suivants viennent de personnes à qui l&apos;accès a
-            été offert en échange de leur avis — c&apos;est indiqué, parce que
+            été offert en échange de leur avis, c&apos;est indiqué, parce que
             ça change ce que vaut un avis. Et vous pouvez vérifier par
             vous-même : le programme complet est public, et la première leçon
             de chaque parcours est en accès libre.
@@ -256,8 +256,8 @@ export function Testimonials({ pricingHref = "/tarifs" }: { pricingHref?: string
           <strong className="text-ink">Comment ces avis sont recueillis.</strong>{" "}
           Le premier émane d&apos;un membre dont l&apos;achat du Pass Starter est
           enregistré au 4 août 2026. Les autres émanent de personnes disposant
-          d&apos;un accès nominatif qui leur a été offert — accès fondateur ou
-          accès anticipé — en contrepartie d&apos;un retour d&apos;expérience ;
+          d&apos;un accès nominatif qui leur a été offert (accès fondateur ou
+          accès anticipé) en contrepartie d&apos;un retour d&apos;expérience ;
           elles n&apos;ont pas acheté la formation. Aucun avis n&apos;est écarté
           en raison de son caractère négatif. Vous faites partie des{" "}
           <strong className="text-ink">premiers membres</strong> : votre retour

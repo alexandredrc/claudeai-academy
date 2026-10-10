@@ -46,11 +46,11 @@ export function Founder() {
               </p>
               <p>
                 Cette pratique quotidienne m&apos;a mené à développer plusieurs
-                applications — dont une destinée aux hôtels et restaurants, un
+                applications, dont une destinée aux hôtels et restaurants, un
                 outil de pilotage pour aider les directeurs et les patrons
                 d&apos;établissement à mieux gérer leur affaire. Cette académie
                 est sortie du même mouvement : le site que vous lisez, le Mentor
-                IA qui répond à vos questions, les 57 leçons.
+                IA qui répond à vos questions, les 58 leçons.
               </p>
               <p>
                 Le constat de départ est simple : la majorité des contenus sur
@@ -63,7 +63,7 @@ export function Founder() {
             </div>
 
             <p className="mt-6 font-serif text-xl italic text-ink">
-              — Alexandre, fondateur
+              Alexandre, fondateur
             </p>
 
             {/*
@@ -86,7 +86,7 @@ export function Founder() {
                 </span>
                 <span className="mt-1 block text-[15px] leading-relaxed text-muted">
                   Mon compte Instagram personnel. Vous y voyez mon quotidien, mon
-                  travail et mon visage — de quoi vérifier par vous-même qu&apos;il
+                  travail et mon visage, de quoi vérifier par vous-même qu&apos;il
                   y a bien quelqu&apos;un de réel derrière cette académie. Écrivez-moi
                   en message privé, je réponds.
                 </span>

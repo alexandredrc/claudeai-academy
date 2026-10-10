@@ -38,7 +38,7 @@ export async function ValueStack() {
 
   const extraPriced: Row[] = [
     { label: `📚 Bibliothèque de ${PROMPT_COUNT} prompts`, value: eur(97) },
-    { label: "🛠️ Templates et cheat sheets téléchargeables", value: eur(67) },
+    { label: "🎓 Examen de certification et certificat vérifiable", value: eur(67) },
   ];
 
   const included: Row[] = [

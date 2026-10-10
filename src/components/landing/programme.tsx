@@ -273,9 +273,10 @@ function ParcoursCard({ p }: { p: Parcours }) {
 
 function BonusBlock({ courseCount }: { courseCount: number }) {
   const bonus = [
+    // Audit du 10/10/2026 : seulement ce qui existe dans l'app.
     "Bibliothèque de prompts prêts à l'emploi",
-    "Templates de skills Claude Code",
-    "Cheat sheets et mémos PDF",
+    "QCM d'auto-évaluation à chaque leçon",
+    "Examen de certification et certificat vérifiable",
     "Mentor IA Claude 24/7",
   ];
 

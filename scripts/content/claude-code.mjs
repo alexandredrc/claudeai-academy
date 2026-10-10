@@ -37,7 +37,7 @@ export const claudeCodeIaAgentic = {
 :::
 
 :::flash
-Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 3 octobre 2026, la version courante est **2.1.288**, et **Opus 5.5** est le modèle Opus par défaut depuis le 22 septembre.
+Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 9 octobre 2026, la version courante est **2.1.295**, et **Opus 5.5** est le modèle Opus par défaut depuis le 22 septembre.
 :::
 
 ## Le saut : du chatbot à l'agent
@@ -100,6 +100,19 @@ Un mot sur le modèle, puisqu'il pilote la facture. **Claude Opus 5.5 est le mod
 
 :::maj 6 août 2026
 Entre le 18 juillet et le 6 août 2026 (version **2.1.223**), le changelog documente **au moins cinq corrections de contournement du système de permissions Bash** : contournement en PowerShell 5.1, conditionnels regex zsh, mauvaise gestion des guillemets PowerShell, hooks pré-outil qui court-circuitaient les restrictions d'outils, et commande masquant une partie d'elle-même via des tabulations ou de l'Unicode invisible.
+:::
+
+:::maj 9 octobre 2026
+Claude Code est passé de **2.1.288 à 2.1.295** en six jours. Ce qui compte pour ce parcours :
+
+- **Haiku 5.5 devient le modèle Haiku par défaut** sur l'API Anthropic (2.1.293), le jour de sa sortie. C'est le modèle à viser pour les sous-agents de tri et d'extraction (leçon 6) : 0,10 $ / 0,50 $ par million de tokens, 1 million de tokens de contexte, et un réglage d'effort, le premier sur un Haiku.
+- **L'outil Agent accepte un paramètre \`effort\`** (2.1.292) : un sous-agent de recherche peut tourner à \`low\` pendant que le travail principal reste à \`high\`.
+- **\`onFailure: "block"\`** pour les hooks de commande et HTTP (2.1.295) : un hook qui ne démarre pas, expire ou sort avec un code inattendu **bloque l'action** au lieu de la laisser passer. Détail en leçon 4.
+- **\`claude plugin install --marketplace\`** (2.1.292) choisit la place de marché quand un même nom de plugin existe dans plusieurs.
+- **Protocole d'état du programme** (OSC 7501, 2.1.295) : un terminal compatible affiche si Claude Code travaille, attend ta réponse ou a fini, sans que tu aies à regarder l'onglet.
+- Les serveurs MCP distants qui retombaient en boucle après une coupure reviennent proprement, avec un délai croissant jusqu'à 30 secondes (2.1.295).
+
+Côté sécurité : un problème de sécurité lié aux chemins UNC sous Windows est corrigé (2.1.292), et les hooks \`prompt\` et \`agent\` rédigés sous forme d'instruction bloquent de nouveau ce qu'ils doivent bloquer (2.1.294).
 :::
 
 :::maj 3 octobre 2026
@@ -185,8 +198,8 @@ R: Rassembler le contexte, agir, observer, corriger.
 Q: Quel critère pratique dit si une tâche est déléguable à l'agent ?
 R: S'il existe une commande qui vérifie le résultat automatiquement, elle est déléguable.
 ===
-Q: Quelle est la version de Claude Code au 3 octobre 2026, et sur quel modèle Opus tourne-t-elle par défaut ?
-R: 2.1.288, sur Opus 5.5 (par défaut depuis le 22 septembre 2026).
+Q: Quelle est la version de Claude Code au 9 octobre 2026, et sur quel modèle Opus tourne-t-elle par défaut ?
+R: 2.1.295, sur Opus 5.5 (par défaut depuis le 22 septembre 2026).
 ===
 Q: Une liste d'autorisations Bash est-elle une frontière de sécurité fiable ?
 R: Non. Au moins cinq contournements ont été corrigés entre le 18 juillet et le 6 août 2026. C'est de la défense en profondeur.
@@ -511,6 +524,10 @@ R: Non. Le lancement automatique de /verify et /code-review a été retiré le 1
 
 :::flash
 Un hook est une commande shell que **le harnais** exécute automatiquement à un événement — pas le modèle. C'est la seule façon de rendre un invariant **déterministe**. Revers de la médaille : un hook tourne avec tes droits, et le changelog du 4 août 2026 documente un cas où des hooks pré-outil **contournaient les restrictions d'outils**. Puissant, donc à relire.
+:::
+
+:::maj 9 octobre 2026
+**\`onFailure: "block"\`** (Claude Code 2.1.295) répond à la question que cette leçon posait : que se passe-t-il quand le hook lui-même tombe en panne ? Par défaut, un hook de commande ou HTTP qui ne démarre pas, qui expire ou qui sort avec un code inattendu laisse passer l'action. Avec \`"onFailure": "block"\` dans sa définition, la panne du hook **bloque** l'action. À mettre sur tout hook qui protège quelque chose (fichiers sensibles, commandes interdites) : un garde-fou qui s'efface quand il casse n'est pas un garde-fou. À ne pas mettre sur un hook de confort (formatage, notification), qui bloquerait tout ton travail le jour où l'outil qu'il appelle n'est pas installé. Depuis 2.1.294, les hooks \`prompt\` et \`agent\` rédigés comme une instruction bloquent de nouveau correctement, et les hooks Stop sont jugés avec plus de retenue : Claude s'arrête moins souvent trop tôt.
 :::
 
 ## L'idée : ne pas compter sur la bonne volonté du modèle

@@ -91,8 +91,8 @@ export default async function AccountPage({
                 </h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
                   {hasMastery
-                    ? "Tu as accès aux 9 parcours, soit 57 leçons."
-                    : "Tu as accès aux 3 parcours fondamentaux, soit 23 leçons."}
+                    ? "Tu as accès aux 9 parcours, soit 58 leçons."
+                    : "Tu as accès aux 3 parcours fondamentaux, soit 24 leçons."}
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 self-start sm:self-auto">

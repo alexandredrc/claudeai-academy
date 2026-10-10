@@ -44,6 +44,9 @@ export async function POST(req: NextRequest) {
   const email = (data.email as string).trim().toLowerCase();
   const firstName = clean(data.first_name, 80);
   const source = clean(data.source, 60) ?? "kit-15-prompts";
+  // Un lead venu de /en/kit porte une source « en-… » : il reçoit le kit en
+  // anglais, et le cron de la séquence française l'ignore.
+  const lang: "fr" | "en" = source.startsWith("en-") ? "en" : "fr";
 
   // Lu AVANT l'upsert : c'est la seule façon de savoir si la personne est
   // nouvelle. Quelqu'un qui reprend le kit avec la même adresse ne fait pas
@@ -78,7 +81,7 @@ export async function POST(req: NextRequest) {
         { status: 500 },
       );
     }
-    return await deliverMagnet(existing.id, existing.email, firstName);
+    return await deliverMagnet(existing.id, existing.email, firstName, lang);
   }
 
   if (!dejaLa) {
@@ -93,11 +96,16 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return await deliverMagnet(lead.id, lead.email, firstName);
+  return await deliverMagnet(lead.id, lead.email, firstName, lang);
 }
 
 // Envoie le magnet une seule fois par lead (idempotence via lead_email_log).
-async function deliverMagnet(leadId: string, email: string, firstName: string | null) {
+async function deliverMagnet(
+  leadId: string,
+  email: string,
+  firstName: string | null,
+  lang: "fr" | "en" = "fr",
+) {
   const { data: already } = await supabaseAdmin
     .from("lead_email_log")
     .select("id")
@@ -111,7 +119,7 @@ async function deliverMagnet(leadId: string, email: string, firstName: string | 
   }
 
   try {
-    const sent = await sendLeadEmail({ kind: "lead_magnet", to: email, firstName, leadId });
+    const sent = await sendLeadEmail({ kind: "lead_magnet", to: email, firstName, leadId, lang });
     if (sent) {
       await supabaseAdmin
         .from("lead_email_log")

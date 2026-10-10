@@ -316,6 +316,16 @@ export function Challenge({
         ))}
       </ul>
 
+      {/* Le réflexe de discernement, le même sur chaque défi. D'après l'AI
+          Fluency Index d'Anthropic (50 000 conversations), la capacité à
+          évaluer ce que Claude rend ne progresse pas avec l'ancienneté : elle
+          s'enseigne, en terminant chaque exercice par « maintenant, mets-le
+          en doute ». */}
+      <p className="mt-4 border-t border-line/70 pt-3 text-[13px] leading-relaxed text-muted">
+        <span className="font-semibold text-ink-soft">Avant de cocher la dernière case :</span>{" "}
+        demande à Claude ce qu&apos;il a supposé sans te le dire, et vérifie une de ces suppositions toi-même.
+      </p>
+
       {complete && (
         <p className="mt-4 text-[14px] font-semibold text-green">
           Bien joué — tu as fait le travail, pas seulement la lecture.

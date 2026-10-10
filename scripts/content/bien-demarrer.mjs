@@ -12,16 +12,16 @@ const FOOTER = `
 
 ---
 
-**Sources** · Vérifié le **3 octobre 2026**. Documentation officielle : *What's new in Claude Opus 5.5*, *What's new in Claude Sonnet 5.5*, *Choosing the right model*, *Pricing*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable models on your plan*, *Claude Cowork and chat are now one Claude*, *Get started with Claude in Chrome*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
+**Sources** · Vérifié le **9 octobre 2026**. Documentation officielle : *What's new in Claude Opus 5.5*, *What's new in Claude Sonnet 5.5*, *Choosing the right model*, *Pricing*, *Models overview*, *Model deprecations*, *Release notes* — \`platform.claude.com/docs/en/\`. Claude for Microsoft 365 : *Use Claude for Excel*, *Use Claude for PowerPoint*, *Use Claude for Word*, *Use Claude for Outlook* — \`claude.com/docs/office-agents\`. Centre d'aide (Tier 1) : *Get started with Claude*, *Install Claude Desktop*, *Understanding Claude's personalization features*, *Change the model, effort, and thinking settings*, *Usage limit best practices*, *Buy usage bundles*, *Claude Fable models on your plan*, *Claude Cowork and chat are now one Claude*, *Get started with Claude in Chrome*, *Use Claude in Chrome safely*, *Using skills in Claude*, *Use Claude's chat search and memory*, *What are projects?* — \`support.claude.com\`. Tarifs : \`claude.com/pricing\`. Anthropic ne publie aucun quota d'usage chiffré : les limites se lisent dans Réglages → Usage. L'interface évolue vite : en cas de doute, la doc officielle fait foi.`;
 
 export const bienDemarrerAvecClaude = {
   slug: "bien-demarrer-avec-claude",
   title: "Bien démarrer avec Claude",
   description:
-    "Tout ce qu'il faut mettre en place avant ta première vraie session : compte, applications, bon plan, bon modèle (génération 5.5 depuis septembre 2026), réglages essentiels — et surtout la personnalisation qui fait que Claude te répond comme TOI tu le veux.",
+    "Tout ce qu'il faut mettre en place avant ta première vraie session : compte, applications, bon plan, bon modèle (génération 5.5 depuis septembre 2026), réglages essentiels — et surtout la personnalisation qui fait que Claude te répond comme TOI tu le veux. Puis Claude là où tu travailles déjà : Excel, PowerPoint, Word, Outlook et Chrome.",
   tier_required: "starter",
   display_order: 1,
-  estimated_duration_min: 139,
+  estimated_duration_min: 161,
   lessons: [
     {
       slug: "creer-son-compte-et-installer-claude-partout",
@@ -287,11 +287,11 @@ R: Non, ils sont listés dans le plan Pro au 20 septembre 2026.
       slug: "choisir-le-bon-modele-effort-reflexion",
       title: "Choisir le bon modèle (et régler l'effort et la réflexion)",
       description:
-        "La famille de modèles au 29 septembre 2026 (Opus 5.5 et Sonnet 5.5 viennent d'arriver), le sélecteur à côté du bouton d'envoi, et le niveau d'effort devenu le vrai levier de qualité.",
+        "La famille de modèles au 9 octobre 2026 (la génération 5.5 est complète depuis Haiku 5.5), le sélecteur à côté du bouton d'envoi, et le niveau d'effort devenu le vrai levier de qualité.",
       duration_min: 18,
       is_free_preview: false,
       content_md: `:::objectifs
-- Situer Fable 5.1, Opus 5.5, Sonnet 5.5 et Haiku 4.5 sans confondre les générations
+- Situer Fable 5.1, Opus 5.5, Sonnet 5.5 et Haiku 5.5 sans confondre les générations
 - Comprendre pourquoi la réflexion étendue n'est plus un interrupteur depuis Opus 5
 - Régler le **niveau d'effort** selon la tâche — le vrai levier de 2026
 - Reconnaître un modèle « Legacy » et savoir quand il sert encore
@@ -304,15 +304,15 @@ Depuis Opus 5 (24 juillet 2026), et c'est toujours vrai sur **Opus 5.5** et **So
 
 ## Il n'y a pas « un » Claude
 
-Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche reste le premier levier de qualité — avant même le prompt. État de la gamme au **29 septembre 2026** :
+Claude est une **famille de modèles**, et choisir le bon pour la bonne tâche reste le premier levier de qualité — avant même le prompt. État de la gamme au **9 octobre 2026** :
 
 | Modèle | Statut | Pour quoi | Contexte |
 | --- | --- | --- | --- |
 | **Claude Fable 5.1** | Actuel — le plus capable, sorti le 01/09/2026 | Les tâches les plus exigeantes, le travail long sans supervision, quand le coût passe après | 1M tokens |
 | **Claude Opus 5.5** | Actuel, sorti le 22/09/2026 | Le **point de départ recommandé par Anthropic** pour la plupart des travaux : code, tâches agentiques longues, travail de fond sur documents, tableurs et présentations | 1M tokens |
 | **Claude Sonnet 5.5** | Actuel, sorti le 28/09/2026 | L'équilibré, et le plus rapide des deux : rédaction, analyse, usage d'outils, travail quotidien | 1M tokens |
-| **Claude Haiku 4.5** | Actuel | Le plus rapide et le plus économe : questions simples, gros volumes | 200k tokens |
-| Claude Opus 5, Sonnet 5, Fable 5 | Génération précédente, **toujours servie** | Workflows déjà calés dessus, comparaisons | 1M tokens |
+| **Claude Haiku 5.5** | Actuel, sorti le 07/10/2026 | Le plus rapide et le plus économe : classement, extraction, routage, gros volumes. Premier Haiku avec le réglage d'effort | 1M tokens |
+| Claude Opus 5, Sonnet 5, Fable 5, Haiku 4.5 | Génération précédente, **toujours servie** | Workflows déjà calés dessus, comparaisons | 1M tokens (200k pour Haiku 4.5) |
 | Opus 4.8 / 4.7 / 4.6, Sonnet 4.6 / 4.5, Opus 4.5 | **Legacy** | Reproductibilité, comparaisons, workflows déjà calés dessus | — |
 
 :::maj 24 juillet 2026
@@ -329,6 +329,12 @@ Pour toi, dans l'application, le régime d'accès ne change pas : Fable 5.1 suit
 **Claude Opus 5.5** ouvre la génération 5.5 et remplace Opus 5 comme modèle Opus de référence. Trois faits à retenir. **Il coûte moins cher** : 4 $ / 20 $ par million de tokens, contre 5 $ / 25 $ pour Opus 5. **Il va plus vite** : Anthropic annonce plus de 30 % de tokens de sortie en plus par seconde, et moins de tokens pour finir la même tâche. **Il se trompe moins sur les chiffres et les sources**, et lit nettement mieux les graphiques, schémas et captures d'écran. Ses connaissances s'arrêtent à **juin 2026**.
 
 Ce qui ne change pas : tes habitudes. La doc officielle précise que les prompts écrits pour Opus 5 fonctionnent tels quels. Tout ce que ce parcours dit d'Opus 5 (réflexion par défaut, effort comme levier, consignes de vérification à retirer) vaut pour Opus 5.5.
+:::
+
+:::maj 9 octobre 2026
+**Claude Haiku 5.5 est sorti le 7 octobre** et complète la génération 5.5. C'est le **premier Haiku avec le réglage d'effort** (réflexion adaptative, \`medium\` par défaut sur l'API et dans Claude Code), avec **1 million de tokens de contexte** et **128 000 tokens de sortie**, contre 200k et 64k pour Haiku 4.5. Son tarif dépend de la taille de la requête : **0,10 $ / 0,50 $ par million de tokens** jusqu'à 100 000 tokens de prompt, **0,50 $ / 2,50 $** au-delà. Comme tous les modèles depuis Claude 4.7, il compte environ **30 % de tokens de plus** que Haiku 4.5 pour le même texte : compare des factures, pas des prix affichés. Haiku 4.5 passe dans la génération précédente, toujours servie.
+
+Le même jour, deux changements qui te concernent si tu passes par les crédits : la **lecture de cache de Sonnet 5.5 passe de 0,20 $ à 0,10 $** par million de tokens, et les plans **Max et Team incluent désormais des crédits API mensuels** (100 $ sur Max 5×, 200 $ sur Max 20×, 20 $ par siège Team standard et 100 $ par siège premium, plafonnés à 500 $ par équipe). Ces crédits se réclament depuis Réglages → Facturation en liant une organisation Console ; ils couvrent l'API, l'Agent SDK et les agents gérés, **pas Claude Code ni l'usage supplémentaire de l'application**, et ne se reportent pas d'un mois sur l'autre.
 :::
 
 :::maj 3 octobre 2026
@@ -352,7 +358,7 @@ Le sélecteur se trouve **à côté du bouton d'envoi**. Il affiche le modèle a
 1. **Le modèle** : clique sur son nom, choisis dans la liste.
 2. **L'effort** : l'intensité de traitement de chaque réponse.
 
-Au 29 septembre 2026, le sélecteur de l'application propose les modèles actuels (**Fable 5.1, Opus 5.5, Sonnet 5.5**) puis les générations précédentes encore servies (**Opus 5, Sonnet 5, Fable 5** et plusieurs modèles 4.x). Haiku 4.5 est bien un modèle actuel, mais il ne figure pas dans cette liste : on l'utilise via l'API et les outils qui l'appellent, pas depuis le sélecteur du chat.
+Au 29 septembre 2026, le sélecteur de l'application propose les modèles actuels (**Fable 5.1, Opus 5.5, Sonnet 5.5**) puis les générations précédentes encore servies (**Opus 5, Sonnet 5, Fable 5** et plusieurs modèles 4.x). Haiku n'y figurait pas : on l'utilise via l'API et les outils qui l'appellent, pas depuis le sélecteur du chat. Haiku 5.5, sorti le 7 octobre, est présenté par Anthropic comme le modèle des tâches à gros volume (classement, extraction, routage), donc d'abord un modèle d'API : vérifie ton propre sélecteur avant d'en déduire quoi que ce soit.
 
 Deux autres raisons possibles si tu ne vois pas un modèle cité ici : ton plan (Fable 5 dépend de crédits d'usage sur Pro, voir leçon 2), ou une politique d'entreprise — sur les comptes Team et Enterprise, les administrateurs peuvent restreindre par rôle les modèles et les niveaux d'effort accessibles. Ce n'est pas un bug.
 
@@ -406,8 +412,9 @@ Les tarifs API comptent pour toi dès que tu utilises des crédits ou des bundle
 | --- | --- |
 | Claude Fable 5.1 | 10 $ / 50 $ — **lecture de cache à 0,25 $** |
 | Claude Opus 5.5 | **4 $ / 20 $** |
-| Claude Sonnet 5.5 | **2 $ / 10 $** |
-| Claude Haiku 4.5 | 1 $ / 5 $ |
+| Claude Sonnet 5.5 | **2 $ / 10 $**, lecture de cache à 0,10 $ depuis le 7 octobre |
+| Claude Haiku 5.5 | **0,10 $ / 0,50 $** jusqu'à 100 000 tokens par requête, 0,50 $ / 2,50 $ au-delà |
+| Claude Haiku 4.5 (génération précédente) | 1 $ / 5 $ |
 | Claude Opus 5 (génération précédente) | 5 $ / 25 $ |
 | Claude Sonnet 5 (génération précédente) | 2 $ / 10 $ |
 | Claude Fable 5 (génération précédente) | 10 $ / 50 $ |
@@ -426,7 +433,7 @@ Le tarif de **Sonnet 5** (2 $ / 10 $ par million de tokens), annoncé au lanceme
 
 ## La règle pratique
 
-> Tâche simple → Sonnet 5.5, effort bas (Haiku 4.5 si tu passes par l'API).
+> Tâche simple → Sonnet 5.5, effort bas (Haiku 5.5 si tu passes par l'API).
 > Tâche sérieuse → Opus 5.5 à \`medium\`, puis \`high\` si la rigueur manque encore.
 > Tâche vraiment difficile → Opus 5.5 à \`xhigh\`, et seulement là.
 > Tâche que tu confies pour des heures sans la surveiller → Fable 5.1, en sachant ce que ça coûte.
@@ -819,9 +826,17 @@ C'est un document vivant : chaque fois que tu te surprends à re-corriger Claude
 
 ## Les skills : la personnalisation par contexte
 
-Les instructions de profil définissent ton défaut permanent. Pour des **modes** ponctuels — un ton spécifique, un format récurrent — Claude propose les **skills** (qui remplacent progressivement les anciens « styles » ; pendant la transition, tu verras peut-être encore un menu de styles) : des paquets de consignes activables à la demande, via **Customize > Skills** ou une commande **« / »** dans le chat. Exemple : le skill « Learning » fait adopter à Claude une posture de pédagogue qui te fait travailler au lieu de donner la réponse (à installer une fois : Customize > Skills > « + » > Browse skills > « Learning »).
+Les instructions de profil définissent ton défaut permanent. Pour une **façon de faire qui revient** (un format de compte rendu, un ton pour répondre aux avis clients, une check-list de relecture), Claude propose les **skills** : un paquet de consignes, d'exemples et de fichiers de référence que Claude charge tout seul quand la tâche correspond au nom et à la description du skill. Ils ont remplacé les anciens « styles ». Disponibles sur tous les plans, Free compris, à une condition : activer **Réglages → Capacités → Exécution de code et création de fichiers** (sur Team et Enterprise, c'est l'administrateur qui l'active). La liste se gère dans **Customize → Skills** : les skills d'Anthropic pour Excel, Word, PowerPoint et PDF y sont déjà et se déclenchent sans que tu les appelles. Exemple : le skill « Learning » fait adopter à Claude une posture de pédagogue qui te fait travailler au lieu de donner la réponse (Customize → Skills → « + » → Browse skills).
 
-Et quand tu seras à l'aise, sache que tu peux **créer tes propres skills** : un fichier de consignes \`SKILL.md\` (un nom, une description, tes instructions), éventuellement accompagné de ressources, chargé via Customize > Skills — disponible sur tous les plans quand l'exécution de code est activée. La méthode pas-à-pas est dans l'article officiel « How to create custom skills » du centre d'aide, et deux parcours de cette formation la mettent en pratique : **Claude Code et IA agentic** (créer ses skills de travail) et **Prompts & Skills GitHub** (installer ceux des autres sans risque).
+Tu peux **créer tes propres skills** sans écrire un fichier à la main : décris la tâche à Claude dans une conversation et demande-lui d'en faire un skill. Donne-lui trois choses : **le format** attendu (« trois sections, trois puces maximum chacune »), **le ton et le destinataire**, et **un exemple** de résultat dont tu étais content. Techniquement, un skill est un dossier avec un fichier \`SKILL.md\` (un nom, une description, tes instructions), chargé en ZIP via Customize → Skills → « + » → Create skill → Upload a skill. Puis teste-le dans une **nouvelle conversation** : si Claude écrit « Reading [nom du skill] » en début de réponse, il l'a chargé. S'il ne le charge pas, c'est presque toujours la description qui est trop vague ; tu peux aussi le nommer dans ta demande (« utilise mon skill compte rendu »). Un skill créé sur claude.ai se synchronise avec Claude Code (depuis la version 2.1.273, commande \`/skills\`), et dans Excel, Word ou PowerPoint il se lance en tapant « / » dans le panneau de Claude. Deux parcours de cette formation vont plus loin : **Claude Code et IA agentic** (créer ses skills de travail) et **Prompts & Skills GitHub** (installer ceux des autres sans risque).
+
+:::prompt Faire créer un skill par Claude à partir d'une tâche que tu fais déjà
+Crée un skill à partir de la tâche suivante, que je t'ai déjà demandée plusieurs fois : [décris la tâche].
+Format attendu : [ex. trois sections (Décisions, Points ouverts, Prochaines étapes), trois puces maximum par section].
+Ton et destinataire : [ex. sobre, pour mon équipe de salle, tutoiement].
+Voici un résultat dont j'étais satisfait, à imiter : [colle].
+Écris une description qui me permette de retrouver ce skill et qui te dise clairement quand l'utiliser, puis donne-moi le fichier SKILL.md complet.
+:::
 
 La hiérarchie à retenir :
 
@@ -829,7 +844,7 @@ La hiérarchie à retenir :
 | --- | --- | --- |
 | **Profil** | Toutes tes conversations, toujours | Qui tu es, comment répondre et ne pas répondre |
 | **Projet** (leçon suivante) | Un sujet | Les règles et le contexte de CE dossier |
-| **Skill** | À la demande | Un mode ponctuel : un ton, un format, une posture |
+| **Skill** | Quand la tâche correspond à sa description | Une façon de faire qui revient : format, ton, check-list, exemples |
 
 :::piege N'écris pas ta biographie
 L'erreur classique : un roman de 2 000 mots sur sa vie. Les instructions de profil ne sont pas un CV, ce sont des **consignes opérationnelles**. Test de tri, phrase par phrase : « est-ce que ça change quelque chose dans une réponse ? » « J'aime la mer » ne change rien. « Ne me propose jamais de solution qui nécessite de coder » change tout.
@@ -848,6 +863,7 @@ La seule façon de mesurer ce que tu viens de gagner.
 - Les instructions sont collées dans Settings > Instructions for Claude
 - Tu as reposé **exactement** la même question dans une nouvelle conversation et comparé les deux réponses
 - Tu as noté la différence en une phrase : c'est ton gain sur toutes tes conversations futures
+- Bonus : un skill créé à partir d'une tâche que tu as déjà expliquée deux fois à Claude, testé dans une nouvelle conversation (« Reading … » visible)
 :::
 
 :::memo
@@ -1062,6 +1078,8 @@ L'écosystème avance vite, et une partie de ce que tu liras ailleurs sur Claude
 | 16 septembre 2026 | **Cowork fusionne avec le chat** ; Docs et Slides arrivent | « Il faut choisir entre le chat et Cowork » |
 | 22 septembre 2026 | **Opus 5.5** : plus capable, et moins cher (4 $ / 20 $) | « Le dernier Opus est le 5 », « le meilleur modèle est forcément le plus cher » |
 | 28 septembre 2026 | **Sonnet 5.5**, au tarif de Sonnet 5 | « Le dernier Sonnet est le 5 » |
+| 30 septembre 2026 | Retrait de **Sonnet 4.5** fixé au 30 novembre 2026 | « Sonnet 4.5 restera servi » |
+| 7 octobre 2026 | **Haiku 5.5** (1M de contexte, réglage d'effort, 0,10 $ / 0,50 $), cache Sonnet 5.5 à 0,10 $, crédits API inclus dans Max et Team | « Le dernier Haiku est le 4.5 », « Haiku n'a pas de réglage d'effort » |
 
 :::astuce Prends le réflexe de dater ce que tu apprends
 Quand tu lis un tutoriel sur Claude, cherche d'abord sa date. Sans date, ou plus vieux que trois mois, traite-le comme une hypothèse à vérifier — pas comme un fait. La documentation officielle est sur \`platform.claude.com/docs/en/\` et le centre d'aide sur \`support.claude.com\` : ce sont les deux seules sources qui bougent en même temps que le produit.
@@ -1117,6 +1135,149 @@ R: Une fois par mois : « View and edit memory » pour la mémoire, Settings > U
 ===
 Q: Où trouver la documentation officielle à jour ?
 R: Sur platform.claude.com/docs/en/ et support.claude.com — et toujours vérifier la date de ce qu'on lit ailleurs.
+:::` + FOOTER,
+    },
+    {
+      slug: "claude-dans-excel-powerpoint-word-et-chrome",
+      title: "Claude là où tu travailles déjà : Excel, PowerPoint, Word, Outlook et Chrome",
+      description:
+        "Un seul add-in Microsoft 365 et une extension Chrome : Claude lit ton classeur, ta présentation, ton document et ta boîte mail, agit dedans, et attend ta validation. Ce qui marche, ce qui est interdit, ce qui est risqué.",
+      duration_min: 22,
+      is_free_preview: true,
+      content_md: `:::objectifs
+- Installer l'add-in « Claude for Microsoft 365 » et l'extension Claude in Chrome, et savoir sur quel plan ils tournent
+- Faire lire et modifier un classeur Excel par Claude sans casser une formule, et relire ce qu'il a changé
+- Construire ou corriger une présentation dans ton propre modèle PowerPoint
+- Choisir entre le chat, l'add-in, Chrome et Claude Code selon la tâche
+- Reconnaître les deux risques qui comptent : le fichier piégé et le site piégé
+:::
+
+:::flash
+Claude ne vit plus seulement dans une fenêtre de chat. **Claude for Microsoft 365** est un add-in unique pour Excel, PowerPoint, Word et Outlook, inclus dans tous les plans payants (Pro, Max, Team, Enterprise) : il lit le fichier ouvert, agit dedans et attend ta validation. **Claude in Chrome** fait pareil dans ton navigateur : il lit la page, clique, remplit, enchaîne des étapes et s'arrête avant ce qui est risqué. Rien de tout ça ne coûte un abonnement de plus, et tout compte dans tes limites d'usage habituelles.
+:::
+
+## Un add-in, quatre applications
+
+Jusqu'ici, pour faire travailler Claude sur un tableur, tu copiais des cellules dans le chat et tu recollais le résultat. Ce va-et-vient a disparu : l'add-in **Claude for Microsoft 365** s'installe une fois depuis la boutique Microsoft AppSource (fiche « Claude for Microsoft 365 », bouton « Get it now »), puis s'active dans chaque application : **Accueil → Compléments** sur Windows, **Outils → Compléments** sur Mac. Tu te connectes avec ton compte Claude, et un panneau latéral s'ouvre à côté de ton fichier.
+
+État au **9 octobre 2026**, d'après la documentation officielle :
+
+| Application | Statut | Ce qu'il fait de mieux |
+| --- | --- | --- |
+| **Excel** | Disponible, tous plans payants | Répondre sur ton classeur en citant la cellule, changer une hypothèse sans casser les formules, trouver la cause d'un \`#REF!\`, construire un modèle |
+| **PowerPoint** | Disponible | Construire des diapositives dans ton modèle, retoucher une seule diapo, transformer des puces en schéma ou en graphique natif |
+| **Word** | Disponible | Modifier une sélection sans toucher aux styles, travailler en suivi des modifications, traiter les commentaires un par un |
+| **Outlook** | Bêta | Trier la boîte, rédiger des brouillons qui restent non envoyés, résumer un fil en citant chaque email source |
+
+Trois choses à savoir avant d'installer. **Les versions** : Excel, PowerPoint et Word sur le web, sur Windows avec un abonnement Microsoft 365 (build 16.0.13127.20296 ou plus récent ; Word demande la version 2205), sur Mac à partir de 16.46 (Word : 16.61). Les éditions perpétuelles 2016 et 2019, l'iPad et Android ne sont pas pris en charge. Outlook exige une boîte Exchange Online ; dans une entreprise, un administrateur doit accorder une fois le consentement Microsoft Graph, sinon chaque utilisateur voit « approbation de l'administrateur requise ». **Les modèles** : l'add-in propose une liste plus courte que l'application, celle des modèles qui marchent le mieux sur les tâches Office. **La mémoire** : l'historique des conversations est stocké dans ton navigateur, pas chez Anthropic, et ne se synchronise pas entre appareils ; côté serveur, entrées et sorties sont supprimées sous 30 jours.
+
+:::cle Le champ Instructions de l'add-in, à remplir une fois par application
+Dans les réglages du panneau, un champ **Instructions** s'applique à toutes tes conversations dans cette application, et seulement celle-là. Excel : « sépare les milliers, mets les en-têtes en gras, montants en CHF ». PowerPoint : « une ligne par puce, l'accent de la marque pour les surlignages ». C'est le pendant local des instructions de profil de la leçon 6, qui ne s'appliquent pas ici.
+:::
+
+## Excel : le cas du food cost
+
+C'est l'application où le gain se voit le plus vite, parce qu'un tableur est fait de dépendances que personne ne garde en tête. Ce que Claude fait dans Excel, d'après la documentation :
+
+- **Répondre en citant la cellule.** « Comment est calculée la marge en C42 ? » renvoie une explication et un lien qui t'amène sur la cellule.
+- **Changer une hypothèse sans casser la suite.** « Passe le prix du beurre à 14,50 et mets à jour ce qui en dépend » : les cellules en aval se recalculent, la structure des formules reste.
+- **Trouver l'origine d'une erreur.** \`#REF!\`, \`#DIV/0\` : il remonte la chaîne et propose la correction.
+- **Construire ou remplir un modèle** à partir d'une description ou d'un gabarit existant, et sur plusieurs onglets.
+- **Les gestes Excel natifs** : trier, filtrer, modifier un tableau croisé dynamique, poser une mise en forme conditionnelle, créer une liste déroulante de validation.
+
+Deux limites écrites noir sur blanc : pas de **tables de données** (les analyses de scénarios), pas de **macros ni de VBA**. Et une protection utile : Claude **prévient avant d'écraser** des données existantes.
+
+:::prompt Recalculer un coût matière sans casser le classeur
+Dans l'onglet « Fiches », la colonne D contient le prix d'achat au kilo et la colonne F le coût matière par portion. Mon fournisseur de [ingrédient] passe de [ancien prix] à [nouveau prix].
+Mets à jour la cellule concernée sans toucher aux formules.
+Puis dis-moi quels plats de l'onglet « Carte » dépassent un food cost de 30 % après ce changement, en citant les cellules.
+Ne modifie rien d'autre : si tu vois une erreur ailleurs, signale-la, ne la corrige pas.
+:::
+
+:::astuce Travaille sur une copie, relis cellule par cellule
+La documentation d'Anthropic le dit elle-même : pas de livrable client ni de calcul d'audit sans relecture humaine. Le bon réflexe : dupliquer le fichier, laisser Claude travailler sur la copie, comparer. Dans Excel comme dans Word, la relecture passe par les outils natifs (cellules surlignées, suivi des modifications), pas par la confiance.
+:::
+
+## PowerPoint : dans ton modèle, pas dans le sien
+
+La force de l'add-in PowerPoint tient en une phrase de la documentation : Claude lit **le masque, les dispositions, les polices et les couleurs** de ta présentation, et s'en sert. Tu pars d'un fichier où ton modèle est déjà appliqué, tu décris, il produit des diapositives conformes. Trois usages :
+
+1. **Retoucher une seule diapositive.** Tu la sélectionnes, tu dis « simplifie le texte » ou « ajoute un graphique de la tendance trimestrielle », il ne touche à rien d'autre.
+2. **Construire une section ou une présentation complète** à partir d'un plan en langage courant.
+3. **Transformer des puces en visuels** : schéma de processus, graphique en barres, camembert, tous **modifiables dans PowerPoint**, pas des images figées.
+
+:::prompt Une offre de groupe en trois diapositives, dans le modèle de la maison
+Dans ce modèle, crée une section de 3 diapositives pour une offre « repas de groupe » : 1) le menu en trois formules avec le prix par personne, 2) les conditions (acompte, délai, allergènes, annulation), 3) un graphique simple des créneaux disponibles sur le mois. Utilise les dispositions existantes, aucune couleur hors du modèle, une ligne par puce. Ne touche pas aux autres diapositives.
+:::
+
+## Word et Outlook, en deux paragraphes
+
+**Word** répond sur ton document en citant la section, modifie une sélection en gardant styles et numérotation, travaille en **suivi des modifications** (chaque retouche devient une révision à accepter ou refuser dans le volet de révision de Word), traite tes **commentaires** un par un en répondant dans le fil, résume les modifications d'une contrepartie et signale celles qui méritent discussion. Les vieux fichiers \`.doc\` doivent d'abord être enregistrés en \`.docx\`.
+
+**Outlook**, encore en bêta, trie ta boîte en trois tas (ce qui te demande, ce que Claude peut préparer, le bruit), rédige des réponses dans ton ton en apprenant de tes messages envoyés, lit les pièces jointes Word et Excel sans les ouvrir, résume un fil en citant chaque email, et cherche un créneau dans les agendas. Le point qui compte : **il ne peut pas envoyer**. L'add-in ne demande pas la permission d'envoi ; chaque brouillon atterrit non envoyé dans la fenêtre de rédaction, et c'est toi qui cliques.
+
+:::piege Le fichier téléchargé qui donne des ordres à Claude
+C'est l'avertissement le plus net de toute la documentation Office : **n'utilise ces add-ins qu'avec des fichiers de confiance**. Un modèle téléchargé, un fichier fournisseur, un document reçu par email, un commentaire ou un en-tête de page peut contenir des instructions cachées (du texte blanc sur blanc suffit) qui tentent de faire extraire, modifier ou supprimer des données. Les tests d'Anthropic ont montré que ça marche parfois. Claude demande confirmation avant une opération risquée : lis ces confirmations, surtout sur un fichier qui vient de l'extérieur.
+:::
+
+## Chrome : Claude qui clique à ta place
+
+**Claude in Chrome** est une extension pour Google Chrome (pas les autres navigateurs, pas le mobile), disponible sur tous les plans payants. Installée depuis le Chrome Web Store, épinglée, elle ouvre un panneau latéral dans lequel Claude **lit la page, clique, tape, remplit des formulaires et navigue** dans les onglets que tu lui confies. Sur Max et Team, et progressivement sur Pro, ce panneau est une **session Cowork** : la conversation est enregistrée dans ton historique, se synchronise avec le web et le mobile, et tes skills, plugins et connecteurs y marchent.
+
+Ce qui en fait un outil de travail, et pas un gadget :
+
+- **Les raccourcis** : un prompt qui marche se sauvegarde et se relance en tapant \`/\` dans le panneau. L'enregistrement d'un parcours en te regardant faire n'existe que dans le panneau « classique ».
+- **Les tâches planifiées** : l'icône horloge programme un raccourci chaque jour, semaine, mois ou année. Chrome doit rester ouvert.
+- **Le fond** : une tâche longue continue pendant que tu changes d'onglet, et Claude te prévient quand il a besoin de toi.
+
+Le mode par défaut est **« Approbation automatique »** : Claude évalue chaque action, et s'arrête pour te demander quand quelque chose l'exige. Tu peux passer en **« Approbation manuelle »** pour tout valider, le réglage est mémorisé.
+
+:::piege Le navigateur voit tout, et Claude aussi
+Claude in Chrome travaille par captures d'écran de ses onglets : tout ce qui est affiché entre dans la conversation, et il **ne peut pas filtrer** ce qui est sensible. La documentation de sécurité d'Anthropic recommande un **profil Chrome séparé**, sans banque, santé ni administration. Elle liste ce qui est interdit (transactions boursières, contournement de captcha, saisie de données sensibles, collecte de visages), ce qui est bloqué (sites adultes, sites de piratage), ce qui demande ta permission (les sites financiers) et ce qu'elle déconseille (comptes financiers, documents juridiques, données médicales, comptes pro à données sensibles). Et une règle simple : si Claude se met à parler d'autre chose, ouvre un site inattendu ou te demande une information sensible, **arrête la tâche**. C'est le signe d'une instruction cachée dans une page.
+:::
+
+:::prompt Un raccourci pour les avis en attente
+Ouvre [l'outil où arrivent mes avis clients], liste les avis des 7 derniers jours restés sans réponse, et pour chacun propose une réponse de 60 mots maximum dans ce ton : [ton]. Ne publie rien et ne clique sur aucun bouton d'envoi : affiche-moi les réponses, je les collerai moi-même.
+:::
+
+## Quel outil pour quelle tâche
+
+| Tu veux… | Le bon outil | Pourquoi |
+| --- | --- | --- |
+| Réfléchir, rédiger, comparer des options | Le chat (ou le travail de fond, leçon 4) | Rien à installer, tout le contexte de ton profil et de tes projets |
+| Agir dans un fichier Office précis | L'add-in Microsoft 365 | Il voit le fichier ouvert, cite les cellules ou sections, et tu relis dans l'application |
+| Faire une suite d'actions sur des sites web, derrière tes connexions | Claude in Chrome | Il clique et remplit à ta place, et tu peux programmer la répétition |
+| Travailler sur un dossier entier, tes fichiers et tes outils, sans relancer | Claude Code (parcours 3) | Il lit le dossier, écrit, lance, corrige, et devient une tâche planifiée |
+
+:::cle La règle du périmètre
+L'add-in ne voit que le fichier ouvert, Chrome ne voit que les onglets de son groupe, Claude Code voit tout ton dossier. Plus l'outil voit large, plus tu relis. Et plus la source est extérieure (fichier reçu, site inconnu), plus tu te méfies.
+:::
+
+:::defi 30 min — Claude dans ton tableur
+Un vrai fichier à toi, une copie, et la relecture qui va avec.
+- L'add-in est installé et connecté dans Excel (ou dans Word ou PowerPoint si tu n'as pas Excel)
+- Tu travailles sur une **copie** du fichier, pas l'original
+- Tu as posé une question sur le fichier et obtenu une réponse qui cite la cellule (ou la section), et tu as vérifié la cellule citée
+- Tu as demandé une modification et relu chaque cellule changée avant d'enregistrer
+- Tu as posé une consigne de format dans le champ Instructions de l'add-in, et vérifié qu'elle s'applique dans une nouvelle conversation
+- Bonus Chrome : un raccourci sauvegardé pour une tâche que tu fais chaque semaine, lancé une première fois en approbation manuelle
+:::
+
+:::memo
+Q: Quels plans donnent accès à Claude dans Excel, PowerPoint et Word ?
+R: Tous les plans payants : Pro, Max, Team et Enterprise. Pas le plan gratuit. L'usage compte dans tes limites habituelles.
+===
+Q: Que refuse de faire Claude for Excel ?
+R: Les tables de données (analyses de scénarios) et les macros VBA. Et il demande confirmation avant une opération risquée, comme écraser des données.
+===
+Q: Claude for Outlook peut-il envoyer un email tout seul ?
+R: Non. L'add-in ne demande pas la permission d'envoi : chaque brouillon atterrit non envoyé dans Outlook, et c'est toi qui cliques.
+===
+Q: Pourquoi utiliser un profil Chrome séparé pour Claude in Chrome ?
+R: Claude voit tout ce qui est affiché dans ses onglets, par capture d'écran, et ne peut pas en filtrer les données sensibles. Un profil sans banque, santé ni administration limite ce qu'il peut voir.
+===
+Q: Comment lancer une tâche Chrome chaque semaine sans y penser ?
+R: Sauvegarde le prompt en raccourci, puis programme-le avec l'icône horloge du panneau : quotidien, hebdomadaire, mensuel ou annuel. Chrome doit rester ouvert.
 :::` + FOOTER,
     },
   ],

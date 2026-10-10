@@ -23,7 +23,7 @@ const items: Item[] = [
   },
   {
     q: "Combien de temps faut-il pour terminer le programme ?",
-    a: "Comptez plus de 26 heures de contenu structuré (9 parcours, 57 leçons). La majorité des membres terminent en 4 à 8 semaines à raison de 2 sessions par semaine. Vous gardez l'accès à vie, donc rien ne vous oblige à courir.",
+    a: "Comptez plus de 26 heures de contenu structuré (9 parcours, 58 leçons). La majorité des membres terminent en 4 à 8 semaines à raison de 2 sessions par semaine. Vous gardez l'accès à vie, donc rien ne vous oblige à courir.",
   },
   {
     q: "Le contenu sera-t-il dépassé dans 6 mois ?",

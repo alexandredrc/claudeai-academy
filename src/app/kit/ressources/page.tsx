@@ -307,7 +307,7 @@ const PROFILS: { qui: string; quoi: string }[] = [
 
 /** Le programme complet, parcours par parcours. Les titres sont ceux des leçons en ligne. */
 const PARCOURS: { nom: string; lecons: number; pour: string }[] = [
-  { nom: "Bien démarrer avec Claude", lecons: 8, pour: "plan, modèle, réglages, mémoire et projets : Claude sait qui tu es" },
+  { nom: "Bien démarrer avec Claude", lecons: 9, pour: "plan, modèle, réglages, mémoire, projets, et Claude dans Excel, PowerPoint et Chrome" },
   { nom: "Prompt Engineering pro", lecons: 7, pour: "clarté, contexte, exemples, structure, rôle, raisonnement" },
   { nom: "Claude Code et l'IA agentique", lecons: 8, pour: "Claude sur tes fichiers et tes outils, commandes, hooks, MCP, sous-agents" },
   { nom: "Claude pour data et SQL", lecons: 6, pour: "SQL fiable, anomalies, vérification, synthèses qui parlent" },
@@ -573,7 +573,7 @@ export default function KitRessourcesPage() {
           </div>
           <p className="mt-6 text-[13.5px] leading-relaxed text-cream/60">
             Tu veux juste poser la méthode avant d&apos;aller plus loin ? Le Pass
-            Starter, 47 €, couvre les trois premiers parcours (23 leçons), et
+            Starter, 47 €, couvre les trois premiers parcours (24 leçons), et
             son montant est déduit si tu passes ensuite au Mastery.
           </p>
         </section>

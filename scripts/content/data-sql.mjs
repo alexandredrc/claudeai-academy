@@ -315,14 +315,18 @@ La liste d'hypothèses est ta checklist de relecture : tu valides chaque point c
 
 ## Ce que ça coûte quand tu passes par l'API
 
-Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du modèle se chiffre. Tarifs par million de tokens relevés au **29 septembre 2026** :
+Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du modèle se chiffre. Tarifs par million de tokens relevés au **9 octobre 2026** :
 
 | Modèle | Entrée | Sortie | Bon pour |
 | --- | --- | --- | --- |
-| Haiku 4.5 | 1 $ | 5 $ | contrôles répétitifs, reformatage, classification |
+| Haiku 5.5 | **0,10 $** | **0,50 $** | contrôles répétitifs, reformatage, classification (tarif jusqu'à 100 000 tokens par requête ; 0,50 $ / 2,50 $ au-delà) |
 | Sonnet 5.5 | **2 $** | **10 $** | l'essentiel de la génération SQL |
 | Opus 5.5 | **4 $** | **20 $** | schémas énormes, requêtes analytiques tordues |
 | Fable 5.1 | 10 $ | 50 $ | rarement justifié ici — voir ci-dessous |
+
+:::maj 9 octobre 2026
+**Haiku 5.5** (7 octobre) remplace Haiku 4.5 dans ce tableau et change l'ordre de grandeur du bas de gamme : **0,10 $ / 0,50 $** par million de tokens, dix fois moins que Haiku 4.5, pour un modèle qui a maintenant **1 million de tokens de contexte** et le réglage d'effort. Deux réserves pour un chiffrage data. Le tarif grimpe à **0,50 $ / 2,50 $** dès que la requête dépasse 100 000 tokens, cache compris : un schéma de plusieurs milliers de tables renvoyé à chaque appel peut te faire basculer dans le palier cher. Et le tokenizer compte environ 30 % de tokens de plus que Haiku 4.5 pour le même texte. Le même jour, la **lecture de cache de Sonnet 5.5 passe à 0,10 $** par million (un vingtième du prix d'entrée, comme Opus 5.5) : la boucle qui renvoie le même schéma coûte deux fois moins qu'en septembre.
+:::
 
 :::maj 28 septembre 2026
 **Opus 5.5** (22 septembre) et **Sonnet 5.5** (28 septembre) remplacent Opus 5 et Sonnet 5 dans ce tableau. Trois conséquences pour un chiffrage data. **Sonnet 5.5 garde le tarif de Sonnet 5** (2 $ / 10 $) : un budget bâti dessus ne bouge pas. **Opus 5.5 baisse** à 4 $ / 20 $, et sa lecture de cache tombe à **0,20 $ par million**, soit un vingtième du prix d'entrée au lieu d'un dixième : sur une boucle qui renvoie le même gros schéma, monter en gamme coûte moins qu'avant. Enfin, **le seuil de mise en cache de Sonnet passe de 1 024 à 512 tokens** : un petit schéma de deux ou trois tables devient cacheable sur le modèle le moins cher des deux. Opus 5 (5 $ / 25 $) et Sonnet 5 restent servis.
@@ -383,7 +387,7 @@ Q: Combien coûte Sonnet 5.5 par million de tokens ?
 R: 2 $ en entrée et 10 $ en sortie, le tarif de Sonnet 5, devenu permanent le 11 août 2026. Opus 5.5 est à 4 $ / 20 $.
 ===
 Q: À partir de quelle taille un préfixe de prompt est-il cacheable sur Opus 5.5 et Sonnet 5.5 ?
-R: 512 tokens. La lecture depuis le cache coûte un dixième du prix d'entrée sur Sonnet 5.5, un vingtième sur Opus 5.5.
+R: 512 tokens. La lecture depuis le cache coûte un vingtième du prix d'entrée sur les deux : 0,10 $ par million sur Sonnet 5.5 (depuis le 7 octobre 2026), 0,20 $ sur Opus 5.5.
 :::` + FOOTER,
     },
     {

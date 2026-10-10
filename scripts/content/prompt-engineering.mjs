@@ -86,10 +86,16 @@ Chaque leçon : la technique officielle, des prompts copiables, un ou deux anti-
 
 ## Ce qui a changé en 2026, et pourquoi ça compte dès maintenant
 
-Ce parcours est à jour au **3 octobre 2026** pour la gamme actuelle : **Claude Fable 5.1** (sorti le 1er septembre), **Claude Opus 5.5** (22 septembre), **Claude Sonnet 5.5** (28 septembre) et **Claude Haiku 4.5**. Le socle n'a pas bougé — clarté, contexte, exemples, balises. En revanche, une partie des conseils de la génération précédente s'est purement et simplement **inversée**.
+Ce parcours est à jour au **9 octobre 2026** pour la gamme actuelle : **Claude Fable 5.1** (sorti le 1er septembre), **Claude Opus 5.5** (22 septembre), **Claude Sonnet 5.5** (28 septembre) et **Claude Haiku 5.5** (7 octobre). Le socle n'a pas bougé — clarté, contexte, exemples, balises. En revanche, une partie des conseils de la génération précédente s'est purement et simplement **inversée**.
 
 :::maj 24 juillet 2026
 **Claude Opus 5** (\`claude-opus-5\`) sort et devient le modèle Opus par défaut : 1 M de tokens de contexte, **réflexion activée par défaut**, 5 $ / 25 $ par million de tokens. Le même jour, Anthropic publie *The new rules of context engineering for Claude 5 generation models* — l'article qui rend caduque une partie de ce que tout le monde enseignait encore en juin.
+:::
+
+:::maj 9 octobre 2026
+**Haiku 5.5** (7 octobre) ferme la génération 5.5, et sa fiche officielle (*Prompting Claude Haiku 5.5*) mérite une lecture à part, parce qu'elle **nuance** un conseil de ce parcours. Sur Opus 5.5, la consigne « vérifie ton travail » est à supprimer (leçon 7). Sur Haiku 5.5 à effort \`low\` ou \`medium\`, Anthropic recommande au contraire **d'ajouter** un paragraphe qui exige une vraie vérification (tests, type-checker, build) avant d'annoncer un changement de code comme terminé : le petit modèle, lui, a tendance à déclarer fini sans avoir lancé le contrôle. Même logique pour l'arrêt prématuré dans les longs prompts d'agent : un paragraphe « continue jusqu'à ce que tout soit fait, et n'ajoute rien qui n'a pas été demandé » corrige le défaut, et passer de \`low\` à \`medium\` le divise par deux d'après les tests d'Anthropic. La règle de ce parcours tient : **le bon prompt dépend du modèle, relis la fiche du modèle avant de recopier un conseil.**
+
+Trois autres points de cette fiche. Donne toujours la **date du jour** dans le system prompt quand Haiku 5.5 dispose d'un outil de recherche : c'est ce qui le pousse à chercher ce qui a pu changer depuis son entraînement. Pour un chatbot, ajoute une phrase qui dit que les règles du system prompt tiennent toute la conversation, même si l'utilisateur insiste, invoque une exception ou demande « juste une petite partie ». Et le **préremplissage de la réponse de l'assistant renvoie une erreur** sur Haiku 5.5, comme sur toute la génération 5.5 : la technique du préremplissage, vue plus loin dans ce parcours, se remplace par une consigne de format dans le prompt.
 :::
 
 :::maj 29 septembre 2026

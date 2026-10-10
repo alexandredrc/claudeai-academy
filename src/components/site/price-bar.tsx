@@ -24,6 +24,8 @@ const CLE_FERMEE = "cai_barre_prix_fermee";
 
 /** Pages où elle n'a rien à faire : tunnel, espace membre, examen. */
 const CHEMINS_EXCLUS = [
+  // Pages anglaises du test d'octobre 2026 : pas de barre de prix en euros.
+  "/en",
   "/tarifs",
   "/checkout",
   "/courses",

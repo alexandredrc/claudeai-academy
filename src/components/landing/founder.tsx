@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { InstagramIcon, INSTAGRAM_URL, INSTAGRAM_HANDLE } from "@/components/site/instagram";
@@ -15,20 +16,17 @@ export function Founder() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 md:gap-12 items-start max-w-[760px] mx-auto">
-          {/*
-            Photo du fondateur. En attendant le fichier réel, on affiche un
-            monogramme propre. Pour mettre la vraie photo : déposer l'image dans
-            /public (ex. /alexandre.jpg) et remplacer ce bloc par
-            <Image src="/alexandre.jpg" alt="Alexandre Dos Reis Caetano" width={200} height={200} className="rounded-[22px] object-cover w-full aspect-square" />
-          */}
-          <div
-            aria-hidden="true"
-            className="mx-auto md:mx-0 w-[160px] h-[160px] md:w-full md:h-auto md:aspect-square rounded-[22px] bg-gradient-to-br from-coral to-[#E8A87C] flex items-center justify-center shadow-[0_12px_32px_rgba(217,119,87,0.25)]"
-          >
-            <span className="font-serif text-5xl font-semibold text-cream">
-              A
-            </span>
-          </div>
+          {/* Photo réelle du fondateur (public/alexandre.jpg, 800 × 800,
+              recadrée buste et visage). Un visage vaut plus qu'un monogramme
+              pour un visiteur qui ne connaît personne derrière le site. */}
+          <Image
+            src="/alexandre.jpg"
+            alt="Alexandre Dos Reis Caetano, fondateur de ClaudeAI Academy"
+            width={400}
+            height={400}
+            sizes="(min-width: 768px) 200px, 160px"
+            className="mx-auto md:mx-0 w-[160px] h-[160px] md:w-full md:h-auto md:aspect-square rounded-[22px] object-cover shadow-[0_12px_32px_rgba(31,31,30,0.18)]"
+          />
 
           <div>
             <div className="space-y-5 text-[17px] leading-[1.75] text-ink-soft">

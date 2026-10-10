@@ -16,7 +16,7 @@ import { ELITE_ENABLED } from "@/lib/stripe/plans";
 export const metadata: Metadata = {
   title: ELITE_ENABLED
     ? "Prix de la formation Claude AI : 47 €, 497 € ou 1 497 €"
-    : "Prix de la formation Claude AI : 47 € ou 497 € — sans CPF ni devis",
+    : "Prix de la formation Claude AI : 47 € ou 497 €, sans CPF ni devis",
   description: ELITE_ENABLED
     ? "Trois pass, un paiement unique et l'accès à vie : Starter à 47 €, Mastery à 497 € (ou 3× sans frais avec Klarna) pour tout le programme, et Accompagnement à 1 497 € (ou 3 × 499 € sans frais) avec des séances individuelles. Sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé."
     : "Une formation Claude AI accessible : Pass Starter à 47 €, Pass Mastery à 497 € (ou 3× sans frais avec Klarna) pour tous les parcours complets. Paiement en ligne immédiat, sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé.",
@@ -156,7 +156,7 @@ function PricingHero() {
           <span className="accent-serif">vous payez une fois, vous gardez l&apos;accès à vie</span>
         </h1>
         <p className="mt-6 text-lg leading-relaxed text-muted max-w-[640px]">
-          Pas d&apos;abonnement, pas d&apos;engagement, pas de frais cachés —
+          Pas d&apos;abonnement, pas d&apos;engagement, pas de frais cachés,
           et pas de dossier CPF ni de devis à attendre : vous commencez dans
           les 5 minutes. Vous testez 14 jours, et si le programme ne vous va
           pas, vous êtes remboursé sans avoir à vous justifier.

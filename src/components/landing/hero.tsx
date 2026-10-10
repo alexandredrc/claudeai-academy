@@ -44,7 +44,7 @@ export async function Hero() {
 
             <div className="mt-9 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
               <Button href="/tarifs" variant="primary" size="lg">
-                Commencer — à partir de 47 €
+                Commencer · à partir de 47 €
               </Button>
               <a
                 href="#programme"

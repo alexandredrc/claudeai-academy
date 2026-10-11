@@ -116,6 +116,23 @@ export async function notifierLead(params: {
   return envoyer(lignes.join("\n"));
 }
 
+/**
+ * Alerte « plafond d'envoi du kit atteint ». Soit un vrai succès (beaucoup
+ * d'inscrits : passer Resend en payant), soit un robot qui remplit le
+ * formulaire. Dans les deux cas, les emails d'accès des acheteurs restent
+ * protégés.
+ */
+export async function notifierPlafondKit(params: { plafond: number }): Promise<boolean> {
+  return envoyer(
+    [
+      `🚧 KIT : plafond de ${params.plafond} envois sur 24 h atteint`,
+      "",
+      "Les nouveaux inscrits sont enregistrés mais ne reçoivent pas le kit par email.",
+      "Afflux réel : passer Resend en offre payante. Robot : regarder les derniers leads.",
+    ].join("\n"),
+  );
+}
+
 /** Alerte « un mail est arrivé dans la boîte support ». */
 export async function notifierMail(params: {
   de: string;

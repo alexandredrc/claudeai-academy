@@ -23,16 +23,28 @@ export default async function CheckoutSuccessPage({
   let conversionValue = 0;
   let conversionCurrency = "EUR";
   let boughtStarter = false;
+  // Ni le badge « Paiement confirmé » ni la conversion Google Ads ne partent
+  // sans un paiement réellement encaissé : une URL forgée avec un identifiant
+  // quelconque, ou un paiement différé pas encore arrivé, ne compte pas.
+  let paid = false;
+  let pending = false;
   try {
     const session = await getStripe().checkout.sessions.retrieve(session_id);
+    paid =
+      session.payment_status === "paid" ||
+      session.payment_status === "no_payment_required";
+    pending = !paid && session.status === "complete";
     const tier = session.metadata?.tier;
+    const planCode = session.metadata?.plan_code;
     boughtStarter = tier === "starter";
     tierName =
-      tier === "mastery"
-        ? "Pass Mastery"
-        : tier === "starter"
-          ? "Pass Starter"
-          : "votre pass";
+      planCode === "elite"
+        ? "Pass Accompagnement"
+        : tier === "mastery"
+          ? "Pass Mastery"
+          : tier === "starter"
+            ? "Pass Starter"
+            : "votre pass";
     conversionValue = (session.amount_total ?? 0) / 100;
     conversionCurrency = (session.currency ?? "eur").toUpperCase();
     amountFormatted = new Intl.NumberFormat("fr-FR", {
@@ -56,15 +68,21 @@ export default async function CheckoutSuccessPage({
 
   return (
     <section className="bg-cream-soft">
-      <PurchaseConversion
-        value={conversionValue}
-        currency={conversionCurrency}
-        transactionId={session_id}
-      />
+      {paid && (
+        <PurchaseConversion
+          value={conversionValue}
+          currency={conversionCurrency}
+          transactionId={session_id}
+        />
+      )}
       <div className="mx-auto flex min-h-[calc(100vh-81px-145px)] max-w-[640px] flex-col justify-center px-6 py-16 text-center">
         <span className="inline-flex items-center justify-center gap-2 self-center rounded-full bg-green-soft px-4 py-2 text-[13px] font-semibold text-green">
           <span className="h-1.5 w-1.5 rounded-full bg-green" />
-          Paiement confirmé
+          {paid
+            ? "Paiement confirmé"
+            : pending
+              ? "Paiement en cours de confirmation"
+              : "Commande reçue"}
         </span>
         <h1 className="mt-6 font-serif text-4xl font-medium leading-[1.1] tracking-tight text-ink md:text-5xl">
           Bienvenue dans{" "}
@@ -157,9 +175,8 @@ export default async function CheckoutSuccessPage({
  * sur 8 ; les 5 autres n'étaient jamais proposés ailleurs que dans un email
  * envoyé deux semaines plus tard.
  *
- * Le montant déjà payé est déduit à la main sur demande : tant qu'aucun code
- * de remise « upgrade » n'existe côté Stripe, mieux vaut une phrase honnête
- * qu'une promesse que le tunnel ne tient pas.
+ * Les 47 € déjà payés sont déduits automatiquement (coupon starter-credit-47,
+ * checkout/actions.ts) à condition d'être connecté au moment de payer.
  */
 function StarterUpgrade() {
   return (
@@ -168,13 +185,13 @@ function StarterUpgrade() {
         Pendant qu&apos;on y est
       </p>
       <h2 className="mt-3 font-serif text-2xl font-medium leading-snug tracking-tight text-ink">
-        Il te reste 5 parcours à ouvrir
+        Il te reste 6 parcours à ouvrir
       </h2>
       <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
-        Le Starter couvre les 3 parcours fondateurs. Les 5 autres — data,
-        marketing, stratégie, trading, prompts avancés — et les 27 leçons qui
-        vont avec sont dans le Pass Mastery, avec la bibliothèque complète de
-        prompts et le Mentor IA.
+        Le Starter couvre les 3 parcours fondateurs. Les 6 autres (data,
+        marketing, stratégie, trading, sécurité GitHub, agents IA) et les 34
+        leçons qui vont avec sont dans le Pass Mastery, avec la bibliothèque
+        complète de prompts et le Mentor IA.
       </p>
       <div className="mt-6">
         <CheckoutButton tier="mastery" variant="primary" size="md">
@@ -182,8 +199,9 @@ function StarterUpgrade() {
         </CheckoutButton>
       </div>
       <p className="mt-3 text-[13px] leading-relaxed text-muted">
-        ou 3 × 165,67 € sans frais avec Klarna. Tu viens de payer 47 € :
-        écris-nous avant de basculer et on déduit ce montant.
+        ou 3 × 165,67 € sans frais avec Klarna. Les 47 € que tu viens de
+        payer sont déduits automatiquement si tu es connecté à ton compte au
+        moment de payer.
       </p>
     </aside>
   );

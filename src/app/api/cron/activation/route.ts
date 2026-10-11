@@ -204,6 +204,17 @@ export async function GET(req: NextRequest) {
       const message = err instanceof Error ? err.message : String(err);
       console.error(`[cron-activation] send failed (${c.id}/${step.kind}):`, message);
       report.failed++;
+      // Adresse refusée par Resend (422 : format invalide, domaine de test) :
+      // elle le sera demain aussi. On clôt l'étape pour ne pas réessayer
+      // chaque jour à vide (gillet..louis@…, test-inexistant@example.com).
+      if (message.includes("Resend 422")) {
+        await supabaseAdmin
+          .from("email_log")
+          .upsert(
+            { user_id: c.id, email: c.email, kind: step.kind },
+            { onConflict: "user_id,kind", ignoreDuplicates: true },
+          );
+      }
     }
   }
 

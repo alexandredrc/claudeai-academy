@@ -41,6 +41,9 @@ export async function POST(req: NextRequest) {
   try {
     switch (event.type) {
       case "checkout.session.completed":
+      // Paiement différé (SEPA, virement…) : `completed` arrive « unpaid » et
+      // est ignoré ; l'accès s'ouvre quand l'argent est réellement arrivé.
+      case "checkout.session.async_payment_succeeded":
         await handleCheckoutCompleted(event.data.object);
         break;
 
@@ -144,9 +147,15 @@ async function handleCheckoutCompleted(
   // pour n'envoyer l'email de bienvenue qu'au premier passage.
   const { data: existingPurchase } = await supabaseAdmin
     .from("purchases")
-    .select("id")
+    .select("id, status")
     .eq("stripe_session_id", session.id)
     .maybeSingle();
+
+  // Un rejeu tardif de l'évènement ne doit pas rouvrir un achat remboursé.
+  if (existingPurchase?.status === "refunded") {
+    console.info(`[stripe-webhook] rejeu ignoré : achat remboursé (session=${session.id})`);
+    return;
+  }
 
   // Provenance : le canal de com qui a amené l'acheteur, recopié du cookie
   // dans la metadata par /checkout. C'est la seule trace qui survit jusqu'ici.
@@ -498,6 +507,14 @@ async function handleCheckoutExpired(
 
 async function handleChargeRefunded(charge: Stripe.Charge): Promise<void> {
   if (!charge.payment_intent) return;
+  // Un remboursement partiel (geste commercial) ne retire pas l'accès : seul
+  // un remboursement total le fait.
+  if (!charge.refunded) {
+    console.info(
+      `[stripe-webhook] remboursement partiel (${charge.amount_refunded}/${charge.amount}) : accès conservé`,
+    );
+    return;
+  }
   const pi =
     typeof charge.payment_intent === "string"
       ? charge.payment_intent

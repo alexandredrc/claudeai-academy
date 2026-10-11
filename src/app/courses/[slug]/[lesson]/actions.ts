@@ -18,12 +18,14 @@ export async function markLessonCompleteAction(formData: FormData) {
     redirect(`/login?next=${encodeURIComponent("/courses")}`);
   }
 
-  // upsert : ré-appui sans planter (unique sur user_id, lesson_id)
+  // Ré-appui sans planter (unique sur user_id, lesson_id). ignoreDuplicates :
+  // un upsert classique tente un UPDATE au second clic, refusé par la RLS
+  // (aucune règle UPDATE sur lesson_progress, et il n'en faut pas).
   const { error } = await supabase
     .from("lesson_progress")
     .upsert(
       { user_id: user.id, lesson_id: lessonId },
-      { onConflict: "user_id,lesson_id" },
+      { onConflict: "user_id,lesson_id", ignoreDuplicates: true },
     );
 
   if (error) {

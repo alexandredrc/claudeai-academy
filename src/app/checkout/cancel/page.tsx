@@ -2,22 +2,23 @@ import Link from "next/link";
 import { startCheckoutAction } from "../actions";
 import { isValidPlanCode } from "@/lib/stripe/plans";
 
-type SearchParams = Promise<{ plan?: string }>;
+type SearchParams = Promise<{ plan?: string; err?: string }>;
 
 export default async function CheckoutCancelPage({
   searchParams,
 }: {
   searchParams: SearchParams;
 }) {
-  const { plan } = await searchParams;
+  const { plan, err } = await searchParams;
+  const echec = err === "1";
   const tier = isValidPlanCode(plan) ? plan : null;
   const planLabel =
     tier === "elite"
-      ? "Pass Accompagnement — 1 497 €"
+      ? "Pass Accompagnement · 1 497 €"
       : tier === "mastery"
-        ? "Pass Mastery — 497 €"
+        ? "Pass Mastery · 497 €"
         : tier === "starter"
-          ? "Pass Starter — 47 €"
+          ? "Pass Starter · 47 €"
           : null;
 
   return (
@@ -31,8 +32,9 @@ export default async function CheckoutCancelPage({
           .
         </h1>
         <p className="mx-auto mt-6 max-w-[480px] text-[15px] leading-relaxed text-ink-soft">
-          Aucun montant n&apos;a été débité. Tu peux reprendre quand tu veux,
-          la page Stripe n&apos;est qu&apos;à un clic.
+          {echec
+            ? "La page de paiement n'a pas pu s'ouvrir. Aucun montant n'a été débité : réessaie dans un instant, ou écris à contact@claudeai-academy.com si ça recommence."
+            : "Aucun montant n'a été débité. Tu peux reprendre quand tu veux, la page Stripe n'est qu'à un clic."}
         </p>
 
         <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">

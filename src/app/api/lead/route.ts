@@ -1,10 +1,17 @@
 import { after, NextResponse, type NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { sendLeadEmail } from "@/lib/email/lead-magnet";
-import { notifierLead } from "@/lib/notify/telegram";
+import { notifierLead, notifierPlafondKit } from "@/lib/notify/telegram";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
+
+// Resend gratuit = 100 emails/jour pour TOUT le site, y compris le lien
+// d'accès d'un acheteur. Au 11/10/2026 le site en envoie 8 à 43 par jour hors
+// kit : au-delà de 40 kits sur 24 h, on enregistre le lead sans lui envoyer
+// l'email, pour que 100 inscriptions de robot ne privent jamais un client de
+// son accès.
+const PLAFOND_KIT_24H = 40;
 
 // Validation email simple et robuste (pas de regex exotique).
 function isValidEmail(value: unknown): value is string {
@@ -116,6 +123,20 @@ async function deliverMagnet(
   if (already) {
     // Déjà livré : on renvoie OK (l'utilisateur s'est réinscrit), pas de doublon.
     return NextResponse.json({ ok: true, alreadySent: true });
+  }
+
+  const { count: envoyes24h } = await supabaseAdmin
+    .from("lead_email_log")
+    .select("id", { count: "exact", head: true })
+    .eq("kind", "lead_magnet")
+    .gte("sent_at", new Date(Date.now() - 24 * 3600 * 1000).toISOString());
+  if ((envoyes24h ?? 0) >= PLAFOND_KIT_24H) {
+    console.warn(`[api/lead] plafond kit atteint (${envoyes24h}/24 h) : email non envoyé`);
+    // Une seule alerte, au moment où le plafond est franchi.
+    if (envoyes24h === PLAFOND_KIT_24H) {
+      after(() => notifierPlafondKit({ plafond: PLAFOND_KIT_24H }).then(() => undefined));
+    }
+    return NextResponse.json({ ok: true, emailSent: false });
   }
 
   try {

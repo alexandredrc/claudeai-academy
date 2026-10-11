@@ -150,53 +150,65 @@ export async function startCheckoutAction(formData: FormData) {
     existingCustomerId = previous?.stripe_customer_id ?? null;
   }
 
-  const session = await getStripe().checkout.sessions.create({
-    mode: "payment",
-    line_items: [{ price: plan.priceId, quantity: 1 }],
-    ...(existingCustomerId
-      ? {
-          customer: existingCustomerId,
-          // Autorise Checkout à compléter la fiche existante (nom, adresse).
-          customer_update: { name: "auto", address: "auto" },
-        }
-      : {
-          customer_creation: "always",
-          ...(user?.email ? { customer_email: user.email } : {}),
-        }),
-    ...(user?.id ? { client_reference_id: user.id } : {}),
-    metadata,
-    payment_intent_data: { metadata },
-    locale: "fr",
-    success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/checkout/cancel?plan=${plan.code}`,
-    // « required » impose le bloc nom + adresse de facturation. En « auto »,
-    // Stripe le sautait : aucun nom n'était collecté, d'où des paiements
-    // impossibles à retrouver autrement que par email, et des emails de
-    // bienvenue qui disaient « Bonjour, » au lieu du prénom.
-    billing_address_collection: "required",
-    // Facture Stripe pour chaque achat : obligation comptable, et le client
-    // peut la récupérer seul au lieu de l'écrire au support.
-    invoice_creation: { enabled: true },
-    // Rattrapage des paniers abandonnés. Le 19/08, un Pass Mastery à 497 €
-    // a échoué sur une authentification 3DS et la session a expiré en
-    // silence : ni relance, ni alerte, la vente s'est simplement évaporée.
-    // Stripe fabrique désormais une URL de reprise, que le webhook
-    // `checkout.session.expired` envoie au client.
-    after_expiration: {
-      recovery: {
-        enabled: true,
-        // Cumuler une reprise avec un coupon d'ascension est refusé par
-        // Stripe : on ne rouvre le champ code promo que hors ascension.
-        allow_promotion_codes: !upgradeCoupon,
+  // Stripe injoignable ou refus (prix inconnu, coupon invalide…) : le visiteur
+  // retombe sur une page qui lui propose de réessayer, au lieu de l'écran
+  // générique « Application error ».
+  let session: Awaited<ReturnType<ReturnType<typeof getStripe>["checkout"]["sessions"]["create"]>>;
+  try {
+    session = await getStripe().checkout.sessions.create({
+      mode: "payment",
+      line_items: [{ price: plan.priceId, quantity: 1 }],
+      ...(existingCustomerId
+        ? {
+            customer: existingCustomerId,
+            // Autorise Checkout à compléter la fiche existante (nom, adresse).
+            customer_update: { name: "auto", address: "auto" },
+          }
+        : {
+            customer_creation: "always",
+            ...(user?.email ? { customer_email: user.email } : {}),
+          }),
+      ...(user?.id ? { client_reference_id: user.id } : {}),
+      metadata,
+      payment_intent_data: { metadata },
+      locale: "fr",
+      success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/checkout/cancel?plan=${plan.code}`,
+      // « required » impose le bloc nom + adresse de facturation. En « auto »,
+      // Stripe le sautait : aucun nom n'était collecté, d'où des paiements
+      // impossibles à retrouver autrement que par email, et des emails de
+      // bienvenue qui disaient « Bonjour, » au lieu du prénom.
+      billing_address_collection: "required",
+      // Facture Stripe pour chaque achat : obligation comptable, et le client
+      // peut la récupérer seul au lieu de l'écrire au support.
+      invoice_creation: { enabled: true },
+      // Rattrapage des paniers abandonnés. Le 19/08, un Pass Mastery à 497 €
+      // a échoué sur une authentification 3DS et la session a expiré en
+      // silence : ni relance, ni alerte, la vente s'est simplement évaporée.
+      // Stripe fabrique désormais une URL de reprise, que le webhook
+      // `checkout.session.expired` envoie au client.
+      after_expiration: {
+        recovery: {
+          enabled: true,
+          // Cumuler une reprise avec un coupon d'ascension est refusé par
+          // Stripe : on ne rouvre le champ code promo que hors ascension.
+          allow_promotion_codes: !upgradeCoupon,
+        },
       },
-    },
-    ...(upgradeCoupon
-      ? { discounts: [{ coupon: upgradeCoupon }] }
-      : { allow_promotion_codes: true }),
-  });
+      ...(upgradeCoupon
+        ? { discounts: [{ coupon: upgradeCoupon }] }
+        : { allow_promotion_codes: true }),
+    });
+  } catch (err) {
+    console.error(
+      "[checkout] création de session Stripe échouée:",
+      err instanceof Error ? err.message : String(err),
+    );
+    redirect(`/checkout/cancel?plan=${plan.code}&err=1`);
+  }
 
   if (!session.url) {
-    throw new Error("Stripe Checkout: pas d'URL de session retournée.");
+    redirect(`/checkout/cancel?plan=${plan.code}&err=1`);
   }
 
   redirect(session.url);

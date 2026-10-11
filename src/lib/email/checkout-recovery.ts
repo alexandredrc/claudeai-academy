@@ -49,7 +49,7 @@ function renderHtml(params: {
         <a href="${params.recoveryUrl}" style="display:inline-block;background:#D97757;color:#FFFFFF;text-decoration:none;padding:13px 26px;border-radius:6px;font-size:16px;">Reprendre mon paiement</a>
       </p>
       <div style="border-left:3px solid #D97757;padding:2px 0 2px 16px;margin:0 0 28px;">
-        <p style="font-size:15px;line-height:1.7;margin:0;"><strong>Un conseil qui règle le problème neuf fois sur dix&nbsp;:</strong> choisissez <strong>« Carte bancaire »</strong> et saisissez les numéros à la main, plutôt que de passer par le paiement enregistré (Link). La validation 3D&nbsp;Secure se déroule alors directement avec votre banque, sans intermédiaire — c'est là que ça coince habituellement.</p>
+        <p style="font-size:15px;line-height:1.7;margin:0;"><strong>Un conseil qui règle le problème neuf fois sur dix&nbsp;:</strong> choisissez <strong>« Carte bancaire »</strong> et saisissez les numéros à la main, plutôt que de passer par le paiement enregistré (Link). La validation 3D&nbsp;Secure se déroule alors directement avec votre banque, sans intermédiaire : c'est là que ça coince habituellement.</p>
       </div>
       <p style="font-size:14px;line-height:1.7;color:#5A5750;margin:0 0 8px;">Si ça bloque encore, répondez simplement à cet email&nbsp;: on vous envoie un lien de paiement sur mesure, ou une facture à régler par virement.</p>
       <p style="font-size:14px;line-height:1.7;color:#5A5750;margin:0;">Garantie 14 jours&nbsp;: si la formation ne vous convient pas, on vous rembourse sans question. <a href="${SITE_URL}/tarifs" style="color:#5A5750;">Revoir le détail des pass</a></p>
@@ -86,7 +86,7 @@ export async function sendCheckoutRecoveryEmail(params: {
 }): Promise<boolean> {
   return sendEmail({
     to: params.to,
-    subject: "Votre paiement n'est pas allé au bout — on vous remet le lien",
+    subject: "Votre paiement n'est pas allé au bout : on vous remet le lien",
     html: renderHtml(params),
     text: renderText(params),
     kind: "checkout_recovery",

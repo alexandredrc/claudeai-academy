@@ -303,6 +303,6 @@ export async function certificateByCode(
 /** Intitulé du programme, tel qu'il est imprimé sur le certificat. */
 export function programmeLabel(tier: PlanTier): string {
   return tier === "mastery"
-    ? "Programme complet — Formation Claude AI"
-    : "Parcours fondateurs — Formation Claude AI";
+    ? "Programme complet, Formation Claude AI"
+    : "Parcours fondateurs, Formation Claude AI";
 }

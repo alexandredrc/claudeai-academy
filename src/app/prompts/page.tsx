@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: `${PROMPT_COUNT} prompts Claude en français, classés par métier`,
-  description: `Les meilleurs prompts Claude : ${PROMPT_COUNT} modèles en français, prêts à copier-coller, classés par cas d'usage — prompt engineering, Claude Code, business, marketing, data, trading, sécurité, design.`,
+  description: `Les meilleurs prompts Claude : ${PROMPT_COUNT} modèles en français, prêts à copier-coller, classés par cas d'usage (prompt engineering, Claude Code, business, marketing, data, trading, sécurité, design).`,
   alternates: { canonical: "/prompts" },
 };
 
@@ -44,7 +44,7 @@ export default async function PromptsPage() {
           adaptez, gagnez du temps.{" "}
           {unlocked
             ? "Vous avez accès à l'intégralité."
-            : `${FREE_PROMPTS.length} sont en accès libre — le reste est inclus dans le Pass Mastery.`}
+            : `${FREE_PROMPTS.length} sont en accès libre. Le reste est inclus dans le Pass Mastery.`}
         </p>
 
         {/* Navigation par catégorie */}

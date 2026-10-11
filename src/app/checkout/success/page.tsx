@@ -92,7 +92,15 @@ export default async function CheckoutSuccessPage({
           .
         </h1>
 
-        {loggedIn ? (
+        {!paid ? (
+          // Paiement différé pas encore arrivé, ou Stripe momentanément
+          // injoignable : on ne promet pas un accès qui n'existe pas encore.
+          <p className="mx-auto mt-6 max-w-[500px] text-[15px] leading-relaxed text-ink-soft">
+            Ta commande est bien reçue. Dès que le paiement est confirmé, tu
+            reçois un email avec ton lien d&apos;accès et ta facture. Pas
+            d&apos;email sous 15 minutes ? Écris-nous, on vérifie tout de suite.
+          </p>
+        ) : loggedIn ? (
           <>
             <p className="mx-auto mt-6 max-w-[480px] text-[15px] leading-relaxed text-ink-soft">
               Ton {tierName}
@@ -150,7 +158,7 @@ export default async function CheckoutSuccessPage({
           </>
         )}
 
-        {boughtStarter ? <StarterUpgrade /> : null}
+        {paid && boughtStarter ? <StarterUpgrade /> : null}
 
         <p className="mt-10 text-[13px] text-muted">
           Un souci ?{" "}

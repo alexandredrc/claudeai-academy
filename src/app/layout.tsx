@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     "IA générative entreprise",
   ],
   openGraph: {
-    title: "Formation Claude AI en ligne, en français — dès 47 €",
+    title: "Formation Claude AI en ligne, en français, dès 47 €",
     description:
       "La formation francophone pour maîtriser Claude AI en pratique : prompt engineering, Claude Code, data, marketing, stratégie. Mentor IA inclus. À votre rythme, dès 47 €.",
     type: "website",
@@ -72,13 +72,13 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "ClaudeAI Academy — la formation francophone pour maîtriser Claude AI",
+        alt: "ClaudeAI Academy, la formation francophone pour maîtriser Claude AI",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Formation Claude AI en ligne, en français — dès 47 €",
+    title: "Formation Claude AI en ligne, en français, dès 47 €",
     description:
       "9 parcours, 58 leçons, 170 prompts et un Mentor IA pour maîtriser Claude AI en pratique. À votre rythme, sans CPF ni dossier.",
     images: ["/og.png"],

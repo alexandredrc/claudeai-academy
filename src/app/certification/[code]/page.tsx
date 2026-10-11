@@ -19,7 +19,7 @@ import { certificateByCode, programmeLabel } from "@/lib/certification/core";
  * personne.
  */
 export const metadata: Metadata = {
-  title: "Vérification d'un certificat — ClaudeAI Academy",
+  title: "Vérification d'un certificat | ClaudeAI Academy",
   robots: { index: false, follow: false },
 };
 
@@ -111,7 +111,7 @@ export default async function CertificatPage({
                   Examen final
                 </dt>
                 <dd className="mt-1.5 text-[15px] text-ink">
-                  {cert.score} / {cert.total} — {pct} %
+                  {cert.score} / {cert.total} ({pct} %)
                 </dd>
               </div>
               <div>

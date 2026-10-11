@@ -90,7 +90,7 @@ export async function GET(req: NextRequest) {
   if (!motDePasse) {
     return NextResponse.json({
       ok: true,
-      ignore: "MAIL_IMAP_PASSWORD non défini — relevé désactivé.",
+      ignore: "MAIL_IMAP_PASSWORD non défini : relevé désactivé.",
     });
   }
 

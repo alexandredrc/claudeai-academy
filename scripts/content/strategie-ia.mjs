@@ -17,7 +17,7 @@ export const strategieConduiteIa = {
   slug: "strategie-conduite-ia",
   title: "Stratégie et conduite IA en entreprise",
   description:
-    "Choisir les bons cas d'usage, les prioriser, en connaître le vrai coût, les gouverner (RGPD + AI Act à jour au 6 août 2026), les faire adopter et les sécuriser — la méthode complète pour passer du POC à la valeur.",
+    "Choisir les bons cas d'usage, les prioriser, en connaître le vrai coût, les gouverner (RGPD + AI Act à jour au 6 août 2026), les faire adopter et les sécuriser : la méthode complète pour passer du POC à la valeur.",
   tier_required: "mastery",
   display_order: 6,
   estimated_duration_min: 138,

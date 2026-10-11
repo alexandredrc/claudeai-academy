@@ -58,21 +58,21 @@ function renderD1(tier: PlanTier, firstName: string | null): Rendered {
   const mentorLine =
     tier === "mastery"
       ? p(
-          `Et garde ça en tête : le <a href="${SITE_URL}/mentor" style="color:#1F1F1E;">Mentor IA</a> est là dès que tu bloques — il répond à tes questions et corrige tes exercices.`,
+          `Et garde ça en tête : le <a href="${SITE_URL}/mentor" style="color:#1F1F1E;">Mentor IA</a> est là dès que tu bloques : il répond à tes questions et corrige tes exercices.`,
         )
       : "";
 
   const inner = [
     p(greeting(firstName)),
     p(
-      "Hier, tu as rejoint ClaudeAI Academy. Le meilleur moment pour transformer cet achat en vraie compétence, c'est <strong>maintenant</strong> — avant que le quotidien ne reprenne le dessus.",
+      "Hier, tu as rejoint ClaudeAI Academy. Le meilleur moment pour transformer cet achat en vraie compétence, c'est <strong>maintenant</strong>, avant que le quotidien ne reprenne le dessus.",
     ),
     p(
       "Un seul conseil pour aujourd'hui : ne vise pas tout le programme. Vise <strong>une</strong> leçon, faite à fond.",
     ),
     p("Ta première session, concrètement :"),
     bullets([
-      "Ouvre le Parcours 1, leçon 1 — 8 minutes de lecture.",
+      "Ouvre le Parcours 1, leçon 1 : 8 minutes de lecture.",
       "Applique le prompt d'exemple dans ta propre conversation Claude.",
       "Réponds au QCM en bas de la leçon pour ancrer l'essentiel.",
     ]),
@@ -84,12 +84,12 @@ function renderD1(tier: PlanTier, firstName: string | null): Rendered {
   const text = [
     greeting(firstName),
     "",
-    "Hier, tu as rejoint ClaudeAI Academy. Le meilleur moment pour transformer cet achat en vraie compétence, c'est maintenant — avant que le quotidien ne reprenne le dessus.",
+    "Hier, tu as rejoint ClaudeAI Academy. Le meilleur moment pour transformer cet achat en vraie compétence, c'est maintenant, avant que le quotidien ne reprenne le dessus.",
     "",
     "Un seul conseil pour aujourd'hui : ne vise pas tout le programme. Vise UNE leçon, faite à fond.",
     "",
     "Ta première session, concrètement :",
-    "- Ouvre le Parcours 1, leçon 1 — 8 minutes de lecture.",
+    "- Ouvre le Parcours 1, leçon 1 : 8 minutes de lecture.",
     "- Applique le prompt d'exemple dans ta propre conversation Claude.",
     "- Réponds au QCM en bas de la leçon pour ancrer l'essentiel.",
     "",
@@ -103,7 +103,7 @@ function renderD1(tier: PlanTier, firstName: string | null): Rendered {
     "",
     "À demain dans tes leçons.",
     "",
-    "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+    "Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
   ].join("\n");
 
   return { subject, html: shell(inner), text };
@@ -113,17 +113,17 @@ function renderD1(tier: PlanTier, firstName: string | null): Rendered {
 // J+7 — point d'étape + ressources sous-utilisées
 // =========================================
 function renderD7(tier: PlanTier, firstName: string | null): Rendered {
-  const subject = "Une semaine avec Claude — on fait le point ?";
+  const subject = "Une semaine avec Claude : on fait le point ?";
 
   const resources =
     tier === "mastery"
       ? bullets([
-          `La <a href="${SITE_URL}/prompts" style="color:#1F1F1E;">bibliothèque de 170 prompts</a> — prêts à copier, classés par usage (engineering, data, marketing, sécurité…).`,
-          `Le <a href="${SITE_URL}/mentor" style="color:#1F1F1E;">Mentor IA en mode correction</a> — colle ton travail, il te renvoie une version améliorée et un verdict.`,
+          `La <a href="${SITE_URL}/prompts" style="color:#1F1F1E;">bibliothèque de 170 prompts</a>, prêts à copier, classés par usage (engineering, data, marketing, sécurité…).`,
+          `Le <a href="${SITE_URL}/mentor" style="color:#1F1F1E;">Mentor IA en mode correction</a> : colle ton travail, il te renvoie une version améliorée et un verdict.`,
         ])
       : bullets([
-          `Les <a href="${SITE_URL}/prompts" style="color:#1F1F1E;">prompts gratuits</a> — déjà prêts à copier dans ton espace.`,
-          "Le QCM en fin de leçon — la façon la plus rapide de vérifier que ça rentre vraiment.",
+          `Les <a href="${SITE_URL}/prompts" style="color:#1F1F1E;">prompts gratuits</a>, déjà prêts à copier dans ton espace.`,
+          "Le QCM en fin de leçon : la façon la plus rapide de vérifier que ça rentre vraiment.",
         ]);
 
   const ctaBlock =
@@ -135,12 +135,12 @@ function renderD7(tier: PlanTier, firstName: string | null): Rendered {
     tier === "starter"
       ? [
           p(
-            "Tu as fait le tour des trois parcours du Pass Starter ? Les cinq autres — Data &amp; SQL, Marketing, Stratégie, Trading &amp; Sécurité des prompts — et le Mentor IA sont dans le <strong>Pass Mastery</strong>. La différence se paie une seule fois, l'accès est à vie.",
+            "Tu as fait le tour des trois parcours du Pass Starter ? Les cinq autres (Data &amp; SQL, Marketing, Stratégie, Trading &amp; Sécurité des prompts) et le Mentor IA sont dans le <strong>Pass Mastery</strong>. La différence se paie une seule fois, l'accès est à vie.",
           ),
           cta("Voir le Pass Mastery", `${SITE_URL}/tarifs`),
         ].join("\n")
       : p(
-          "Continue à ton rythme — l'accès est à vie, et les parcours se complètent. Le plus dur, c'est de garder l'élan : une leçon par jour suffit.",
+          "Continue à ton rythme : l'accès est à vie, et les parcours se complètent. Le plus dur, c'est de garder l'élan : une leçon par jour suffit.",
         );
 
   const inner = [
@@ -176,7 +176,7 @@ function renderD7(tier: PlanTier, firstName: string | null): Rendered {
         ]
       : [
           "",
-          "Continue à ton rythme — l'accès est à vie. Le plus dur, c'est de garder l'élan : une leçon par jour suffit.",
+          "Continue à ton rythme : l'accès est à vie. Le plus dur, c'est de garder l'élan : une leçon par jour suffit.",
         ];
 
   const text = [
@@ -188,7 +188,7 @@ function renderD7(tier: PlanTier, firstName: string | null): Rendered {
     ...textResources,
     ...textUpsell,
     "",
-    "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+    "Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
   ].join("\n");
 
   return { subject, html: shell(inner), text };
@@ -201,7 +201,7 @@ function renderD7(tier: PlanTier, firstName: string | null): Rendered {
 function renderD14(tier: PlanTier, firstName: string | null): Rendered {
   // Garde-fou : si jamais appelé pour un Mastery, message de fond sobre.
   if (tier === "mastery") {
-    const subject = "Deux semaines avec le Mastery — un cap utile";
+    const subject = "Deux semaines avec le Mastery : un cap utile";
     const inner = [
       p(greeting(firstName)),
       p(
@@ -216,7 +216,7 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
       "",
       `Reprendre où tu en es : ${SITE_URL}/courses`,
       "",
-      "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+      "Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
     ].join("\n");
     return { subject, html: shell(inner), text };
   }
@@ -257,7 +257,7 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
     "",
     "Une question avant de décider ? Réponds à cet email, il arrive directement à moi.",
     "",
-    "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+    "Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
   ].join("\n");
 
   return { subject, html: shell(inner), text };
@@ -269,14 +269,14 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
 // frontalement : reframe coût/leçon, crédit Starter, 3× Klarna, garantie.
 // =========================================
 function renderD21(tier: PlanTier, firstName: string | null): Rendered {
-  const subject = "« 497 €, c'est cher » — parlons-en franchement";
+  const subject = "« 497 €, c'est cher » : parlons-en franchement";
   const inner = [
     p(greeting(firstName)),
     p(
       "Si tu n'es pas passé au Mastery, il y a de fortes chances que ce soit pour une seule raison : le prix. C'est une objection légitime, alors traitons-la franchement.",
     ),
     p(
-      "497 € pour 58 leçons, c'est moins de 9 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
+      "497 € pour 58 leçons, c'est moins de 9 € la leçon, le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
     ),
     p("Trois choses qui réduisent encore le risque :"),
     bullets([
@@ -286,7 +286,7 @@ function renderD21(tier: PlanTier, firstName: string | null): Rendered {
     ]),
     cta("Passer au Mastery (crédit déduit)", `${SITE_URL}/tarifs`),
     p(
-      "Et si ce n'est simplement pas le bon moment, aucun problème — le Starter reste à toi à vie, et cette proposition ne disparaît pas.",
+      "Et si ce n'est simplement pas le bon moment, aucun problème : le Starter reste à toi à vie, et cette proposition ne disparaît pas.",
     ),
   ].join("\n");
 
@@ -295,7 +295,7 @@ function renderD21(tier: PlanTier, firstName: string | null): Rendered {
     "",
     "Si tu n'es pas passé au Mastery, il y a de fortes chances que ce soit pour une seule raison : le prix. C'est une objection légitime, alors traitons-la franchement.",
     "",
-    "497 € pour 58 leçons, c'est moins de 9 € la leçon — le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
+    "497 € pour 58 leçons, c'est moins de 9 € la leçon, le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
     "",
     "Trois choses qui réduisent encore le risque :",
     "- Ton Starter est déduit : connecté à ton espace, le Mastery passe automatiquement à 450 €.",
@@ -304,9 +304,9 @@ function renderD21(tier: PlanTier, firstName: string | null): Rendered {
     "",
     `Passer au Mastery (crédit déduit) : ${SITE_URL}/tarifs`,
     "",
-    "Et si ce n'est simplement pas le bon moment, aucun problème — le Starter reste à toi à vie, et cette proposition ne disparaît pas.",
+    "Et si ce n'est simplement pas le bon moment, aucun problème : le Starter reste à toi à vie, et cette proposition ne disparaît pas.",
     "",
-    "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+    "Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
   ].join("\n");
 
   return { subject, html: shell(inner), text };
@@ -321,29 +321,29 @@ function renderD30(tier: PlanTier, firstName: string | null): Rendered {
   const inner = [
     p(greeting(firstName)),
     p(
-      "C'est le dernier email de cette série — après celui-ci, je te laisse tranquille.",
+      "C'est le dernier email de cette série : après celui-ci, je te laisse tranquille.",
     ),
     p(
-      "Un mois après ton Pass Starter, deux situations possibles. Soit tu as trouvé ton rythme avec Claude : dans ce cas, continue, tu n'as besoin de rien d'autre. Soit tu sens qu'il y a plus à aller chercher — pour ton marketing, tes données, ta stratégie — et dans ce cas le Mastery t'attend, avec ton Starter déduit (450 € au lieu de 497 €) et la garantie 14 jours.",
+      "Un mois après ton Pass Starter, deux situations possibles. Soit tu as trouvé ton rythme avec Claude : dans ce cas, continue, tu n'as besoin de rien d'autre. Soit tu sens qu'il y a plus à aller chercher (pour ton marketing, tes données, ta stratégie) et dans ce cas le Mastery t'attend, avec ton Starter déduit (450 € au lieu de 497 €) et la garantie 14 jours.",
     ),
     cta("Voir le Pass Mastery", `${SITE_URL}/tarifs`),
     p(
-      "Dans les deux cas : merci d'avoir fait partie des premiers. Si tu as une question, une remarque, ou un retour sur la formation (bon ou mauvais), réponds à cet email — je lis tout, et ça m'aide vraiment.",
+      "Dans les deux cas : merci d'avoir fait partie des premiers. Si tu as une question, une remarque, ou un retour sur la formation (bon ou mauvais), réponds à cet email : je lis tout, et ça m'aide vraiment.",
     ),
   ].join("\n");
 
   const text = [
     greeting(firstName),
     "",
-    "C'est le dernier email de cette série — après celui-ci, je te laisse tranquille.",
+    "C'est le dernier email de cette série : après celui-ci, je te laisse tranquille.",
     "",
-    "Un mois après ton Pass Starter, deux situations possibles. Soit tu as trouvé ton rythme avec Claude : dans ce cas, continue, tu n'as besoin de rien d'autre. Soit tu sens qu'il y a plus à aller chercher — pour ton marketing, tes données, ta stratégie — et dans ce cas le Mastery t'attend, avec ton Starter déduit (450 € au lieu de 497 €) et la garantie 14 jours.",
+    "Un mois après ton Pass Starter, deux situations possibles. Soit tu as trouvé ton rythme avec Claude : dans ce cas, continue, tu n'as besoin de rien d'autre. Soit tu sens qu'il y a plus à aller chercher (pour ton marketing, tes données, ta stratégie) et dans ce cas le Mastery t'attend, avec ton Starter déduit (450 € au lieu de 497 €) et la garantie 14 jours.",
     "",
     `Voir le Pass Mastery : ${SITE_URL}/tarifs`,
     "",
-    "Dans les deux cas : merci d'avoir fait partie des premiers. Si tu as une question, une remarque, ou un retour sur la formation (bon ou mauvais), réponds à cet email — je lis tout, et ça m'aide vraiment.",
+    "Dans les deux cas : merci d'avoir fait partie des premiers. Si tu as une question, une remarque, ou un retour sur la formation (bon ou mauvais), réponds à cet email : je lis tout, et ça m'aide vraiment.",
     "",
-    "— Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
+    "Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
   ].join("\n");
 
   return { subject, html: shell(inner), text };

@@ -18,7 +18,7 @@ export const bienDemarrerAvecClaude = {
   slug: "bien-demarrer-avec-claude",
   title: "Bien démarrer avec Claude",
   description:
-    "Tout ce qu'il faut mettre en place avant ta première vraie session : compte, applications, bon plan, bon modèle (génération 5.5 depuis septembre 2026), réglages essentiels — et surtout la personnalisation qui fait que Claude te répond comme TOI tu le veux. Puis Claude là où tu travailles déjà : Excel, PowerPoint, Word, Outlook et Chrome.",
+    "Tout ce qu'il faut mettre en place avant ta première vraie session : compte, applications, bon plan, bon modèle (génération 5.5 depuis septembre 2026), réglages essentiels, et surtout la personnalisation qui fait que Claude te répond comme TOI tu le veux. Puis Claude là où tu travailles déjà : Excel, PowerPoint, Word, Outlook et Chrome.",
   tier_required: "starter",
   display_order: 1,
   estimated_duration_min: 161,

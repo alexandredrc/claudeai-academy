@@ -55,7 +55,7 @@ const faq = [
   },
   {
     q: "Que risque-t-on si on ne fait rien ?",
-    a: "L'article 4 n'est pas assorti d'une amende administrative qui lui soit propre. Le risque est ailleurs, et il est réel : le régime de surveillance et de sanctions de l'AI Act est entré en application le 2 août 2025, et l'absence de formation devient un élément défavorable en cas de dommage causé par un usage mal maîtrisé de l'IA — fuite de données, décision erronée, contenu diffamatoire ou contrefaisant. En pratique, le registre de formation sert autant à se défendre qu'à se conformer.",
+    a: "L'article 4 n'est pas assorti d'une amende administrative qui lui soit propre. Le risque est ailleurs, et il est réel : le régime de surveillance et de sanctions de l'AI Act est entré en application le 2 août 2025, et l'absence de formation devient un élément défavorable en cas de dommage causé par un usage mal maîtrisé de l'IA : fuite de données, décision erronée, contenu diffamatoire ou contrefaisant. En pratique, le registre de formation sert autant à se défendre qu'à se conformer.",
   },
   {
     q: "Que doit couvrir la formation pour être « suffisante » ?",
@@ -67,7 +67,7 @@ const faq = [
   },
   {
     q: "ClaudeAI Academy délivre-t-elle une attestation ?",
-    a: "Nous ne sommes pas un organisme certifié Qualiopi et la formation n'est pas éligible au CPF. En revanche, la progression de chaque compte est enregistrée : vous savez qui a suivi quoi et quand, ce qui est exactement la matière d'un registre de formation. Pour un besoin de conformité formalisé avec certification, il faut vous tourner vers un organisme certifié — nous préférons le dire que le laisser croire.",
+    a: "Nous ne sommes pas un organisme certifié Qualiopi et la formation n'est pas éligible au CPF. En revanche, la progression de chaque compte est enregistrée : vous savez qui a suivi quoi et quand, ce qui est exactement la matière d'un registre de formation. Pour un besoin de conformité formalisé avec certification, il faut vous tourner vers un organisme certifié. Nous préférons le dire que le laisser croire.",
   },
 ];
 
@@ -95,7 +95,7 @@ const etapes = [
   {
     titre: "Tenez le registre, dès le premier jour",
     texte:
-      "Qui a été formé, à quoi, quand, sur quel support. C'est la seule pièce qui vaudra quelque chose le jour où on vous le demandera. Un tableur suffit — l'absence de registre, non.",
+      "Qui a été formé, à quoi, quand, sur quel support. C'est la seule pièce qui vaudra quelque chose le jour où on vous le demandera. Un tableur suffit. L'absence de registre, non.",
   },
 ];
 
@@ -127,7 +127,7 @@ export default async function AiActPage() {
     citation: [
       {
         "@type": "Legislation",
-        name: "Règlement (UE) 2024/1689 du Parlement européen et du Conseil, article 4 — Maîtrise de l'IA",
+        name: "Règlement (UE) 2024/1689 du Parlement européen et du Conseil, article 4 : Maîtrise de l'IA",
         url: "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:L_202401689",
       },
     ],
@@ -213,7 +213,7 @@ export default async function AiActPage() {
               moyens, pas de résultat, et elle est supervisée par les autorités
               nationales depuis le <strong>2 août 2026</strong>. Il n’y a{" "}
               <strong>ni seuil d’effectif, ni seuil de chiffre d’affaires</strong>{" "}
-              — une entreprise de cinq personnes dont un salarié utilise ChatGPT
+              : une entreprise de cinq personnes dont un salarié utilise ChatGPT
               est concernée. Aucune certification n’est exigée : un registre des
               actions de formation suffit à documenter la conformité.
             </p>
@@ -333,7 +333,7 @@ export default async function AiActPage() {
               l’IA générative de façon fiable, à repérer une réponse fausse, à
               savoir ce qui ne doit jamais être saisi dans un outil, et à
               encadrer l’usage dans une équipe. La progression de chaque compte
-              est enregistrée : vous savez qui a suivi quoi et quand — la matière
+              est enregistrée : vous savez qui a suivi quoi et quand, la matière
               exacte d’un registre de formation.
             </p>
             <p>

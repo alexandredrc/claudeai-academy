@@ -813,7 +813,7 @@ R: Sur Opus 5 la réflexion est active par défaut et max_tokens plafonne réfle
     },
     {
       slug: "faire-raisonner-chainer-auto-corriger",
-      title: "Régler l'effort, chaîner — et arrêter de demander une vérification",
+      title: "Régler l'effort, chaîner, et arrêter de demander une vérification",
       description:
         "La leçon qui a le plus changé : sur Opus 5 la réflexion est active par défaut, l'effort remplace tous les autres réglages, et les instructions d'auto-vérification sont devenues contre-productives.",
       duration_min: 24,

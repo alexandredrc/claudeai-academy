@@ -67,6 +67,10 @@ export function LeadCaptureForm({
         setError(data.error ?? labels.errorGeneric);
         return;
       }
+      // Milieu du tunnel mesuré dans GA4 (événement recommandé par Google,
+      // importable comme conversion secondaire dans Ads). Sans consentement,
+      // Consent Mode le réduit à un signal anonyme.
+      window.gtag?.("event", "generate_lead", { lead_source: source });
       router.push(redirectTo);
     } catch {
       setStatus("error");

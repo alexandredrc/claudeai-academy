@@ -65,8 +65,8 @@ function greeting(firstName: string | null): string {
 // =========================================
 function renderJ3(hasAccess: boolean, firstName: string | null): Rendered {
   const subject = hasAccess
-    ? "Ta première leçon fait 12 minutes"
-    : "Tu as un compte — voici par où commencer";
+    ? "Ta première leçon fait 17 minutes"
+    : "Tu as un compte : voici par où commencer";
 
   const inner = hasAccess
     ? [
@@ -74,11 +74,11 @@ function renderJ3(hasAccess: boolean, firstName: string | null): Rendered {
         p(
           "Ton accès est ouvert, mais aucune leçon n'a encore été validée. C'est normal : on remet toujours à demain ce qui n'a pas de point d'entrée évident.",
         ),
-        p("Alors je te donne le point d'entrée. Une seule leçon, 12 minutes :"),
+        p("Alors je te donne le point d'entrée. Une seule leçon, 17 minutes :"),
         cta("Commencer la leçon 1", FIRST_LESSON),
         LOGIN_HINT,
         p(
-          "Elle ne parle pas de théorie. Elle installe Claude là où tu travailles déjà — navigateur, téléphone, bureau — pour que l'outil soit à portée de main au moment où tu en as besoin. Le reste du parcours en découle.",
+          "Elle ne parle pas de théorie. Elle installe Claude là où tu travailles déjà (navigateur, téléphone, bureau) pour que l'outil soit à portée de main au moment où tu en as besoin. Le reste du parcours en découle.",
         ),
         p("À tout de suite,<br />Alexandre"),
       ].join("")
@@ -89,13 +89,13 @@ function renderJ3(hasAccess: boolean, firstName: string | null): Rendered {
         ),
         cta("Lire la leçon d'ouverture", FIRST_LESSON),
         p(
-          `Si le format te parle, les formules sont sur <a href="${SITE_URL}/tarifs" style="color:#D97757;">la page tarifs</a> — 47 € pour les trois parcours fondateurs, 497 € pour les huit. Garantie 14 jours dans les deux cas.`,
+          `Si le format te parle, les formules sont sur <a href="${SITE_URL}/tarifs" style="color:#D97757;">la page tarifs</a> : 47 € pour les trois parcours fondateurs, 497 € pour les neuf. Garantie 14 jours dans les deux cas.`,
         ),
         p("Bonne lecture,<br />Alexandre"),
       ].join("");
 
   const text = hasAccess
-    ? `${greeting(firstName)}\n\nTon accès est ouvert, mais aucune leçon n'a encore été validée.\n\nUne seule leçon, 12 minutes : ${FIRST_LESSON}\n\nSi l'accès te redemande de te connecter : ${SITE_URL}/login t'envoie un lien d'accès par email.\n\nÀ tout de suite,\nAlexandre`
+    ? `${greeting(firstName)}\n\nTon accès est ouvert, mais aucune leçon n'a encore été validée.\n\nUne seule leçon, 17 minutes : ${FIRST_LESSON}\n\nSi l'accès te redemande de te connecter : ${SITE_URL}/login t'envoie un lien d'accès par email.\n\nÀ tout de suite,\nAlexandre`
     : `${greeting(firstName)}\n\nTu as créé un compte mais pas encore de pass. Commence par lire une leçon complète, en accès libre : ${FIRST_LESSON}\n\nLes formules : ${SITE_URL}/tarifs\n\nBonne lecture,\nAlexandre`;
 
   return { subject, html: shell(inner), text };
@@ -141,8 +141,8 @@ function renderJ21(hasAccess: boolean, firstName: string | null): Rendered {
     p(greeting(firstName)),
     p(
       hasAccess
-        ? "Trois semaines que ton accès est ouvert, et aucune leçon validée. Je ne vais pas te relancer une quatrième fois — je préfère comprendre."
-        : "Trois semaines que ton compte existe, sans que rien ne se passe. Je ne vais pas te relancer une quatrième fois — je préfère comprendre.",
+        ? "Trois semaines que ton accès est ouvert, et aucune leçon validée. Je ne vais pas te relancer une quatrième fois. Je préfère comprendre."
+        : "Trois semaines que ton compte existe, sans que rien ne se passe. Je ne vais pas te relancer une quatrième fois. Je préfère comprendre.",
     ),
     p(
       "Réponds à cet email en une ligne, même brutale. Le manque de temps ? Un contenu qui ne correspond pas à ton métier ? Un problème d'accès ? Un achat regretté ?",
@@ -152,7 +152,7 @@ function renderJ21(hasAccess: boolean, firstName: string | null): Rendered {
     ),
     hasAccess
       ? p(
-          "Et si la réponse est « je ne l'utiliserai pas » : la garantie 14 jours est passée, mais dis-le quand même — je préfère un remboursement à un client fâché.",
+          "Et si la réponse est « je ne l'utiliserai pas » : la garantie 14 jours est passée, mais dis-le quand même : je préfère un remboursement à un client fâché.",
         )
       : "",
     p("Merci d'avance,<br />Alexandre"),

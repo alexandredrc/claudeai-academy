@@ -14,7 +14,7 @@ import {
 import { ExamClient } from "./ExamClient";
 
 export const metadata: Metadata = {
-  title: "Examen de certification — ClaudeAI Academy",
+  title: "Examen de certification | ClaudeAI Academy",
   robots: { index: false, follow: false },
 };
 
@@ -48,7 +48,7 @@ export default async function ExamenPage() {
 
         {status.tier && (
           <p className="mt-5 text-lg leading-relaxed text-muted">
-            {programmeLabel(status.tier)} — {status.lessonsCompleted} leçon
+            {programmeLabel(status.tier)} : {status.lessonsCompleted} leçon
             {status.lessonsCompleted > 1 ? "s" : ""} terminée
             {status.lessonsCompleted > 1 ? "s" : ""} sur {status.lessonsTotal}.
           </p>
@@ -88,7 +88,7 @@ export default async function ExamenPage() {
                 pour le passer.
               </p>
               <Button href="/tarifs" variant="primary" className="mt-7">
-                Voir les pass — à partir de 47 €
+                Voir les pass, à partir de 47 €
               </Button>
             </div>
           ) : !status.lessonsDone ? (
@@ -100,7 +100,7 @@ export default async function ExamenPage() {
               </h2>
               <p className="mt-4 leading-relaxed text-ink-soft">
                 Le certificat atteste que vous avez suivi <em>tout</em> le
-                programme. C’est ce qui lui donne sa valeur — et c’est pour ça que
+                programme. C’est ce qui lui donne sa valeur, et c’est pour ça que
                 l’examen ne s’ouvre qu’une fois la dernière leçon validée.
               </p>
 

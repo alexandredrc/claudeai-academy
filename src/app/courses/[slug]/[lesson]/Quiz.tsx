@@ -59,7 +59,7 @@ export function LessonQuiz({ questions }: { questions: QuizQuestion[] }) {
             ? "Sans faute. Tu peux passer à la suite les yeux fermés."
             : good
               ? "Solide. Relis les explications des questions ratées avant d'enchaîner."
-              : "La leçon n'est pas encore acquise — relis-la, puis refais le quiz. C'est normal, et c'est le moment de le faire."}
+              : "La leçon n'est pas encore acquise : relis-la, puis refais le quiz. C'est normal, et c'est le moment de le faire."}
         </p>
 
         <ol className="mx-auto mt-8 max-w-[520px] space-y-2 text-left">

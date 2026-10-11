@@ -328,7 +328,7 @@ export function Challenge({
 
       {complete && (
         <p className="mt-4 text-[14px] font-semibold text-green">
-          Bien joué — tu as fait le travail, pas seulement la lecture.
+          Bien joué, tu as fait le travail, pas seulement la lecture.
         </p>
       )}
     </section>

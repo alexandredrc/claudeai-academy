@@ -3,7 +3,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — ClaudeAI Academy",
+  title: "Politique de confidentialité | ClaudeAI Academy",
   description:
     "Comment ClaudeAI Academy collecte, utilise et protège vos données personnelles, conformément au RGPD.",
   alternates: { canonical: "/confidentialite" },
@@ -28,7 +28,7 @@ export default function ConfidentialitePage() {
 
           <h2>1. Responsable du traitement</h2>
           <p>
-            ADRC Group — Alexandre Dos Reis Caetano, entrepreneur individuel,
+            ADRC Group, Alexandre Dos Reis Caetano, entrepreneur individuel,
             SIREN 892&nbsp;303&nbsp;082, 99 avenue Achille Peretti, 92200
             Neuilly-sur-Seine. Contact&nbsp;:{" "}
             <a href="mailto:contact@claudeai-academy.com">
@@ -63,18 +63,18 @@ export default function ConfidentialitePage() {
           <h2>3. Finalités et bases légales</h2>
           <ul>
             <li>
-              Fournir l’accès aux formations et gérer votre compte —{" "}
+              Fournir l’accès aux formations et gérer votre compte :{" "}
               <em>exécution du contrat</em>.
             </li>
             <li>
-              Traiter les paiements et la facturation —{" "}
+              Traiter les paiements et la facturation :{" "}
               <em>obligation légale et contractuelle</em>.
             </li>
             <li>
-              Améliorer le service et le contenu — <em>intérêt légitime</em>.
+              Améliorer le service et le contenu : <em>intérêt légitime</em>.
             </li>
             <li>
-              Communications liées à votre compte — <em>exécution du contrat</em>.
+              Communications liées à votre compte : <em>exécution du contrat</em>.
             </li>
           </ul>
 
@@ -85,19 +85,19 @@ export default function ConfidentialitePage() {
           </p>
           <ul>
             <li>
-              <strong>Supabase</strong> — authentification et base de données.
+              <strong>Supabase</strong> : authentification et base de données.
             </li>
             <li>
-              <strong>Stripe</strong> — traitement des paiements.
+              <strong>Stripe</strong> : traitement des paiements.
             </li>
             <li>
-              <strong>Anthropic</strong> — fourniture du Mentor IA (modèle Claude).
+              <strong>Anthropic</strong> : fourniture du Mentor IA (modèle Claude).
             </li>
             <li>
-              <strong>Resend</strong> — envoi des emails transactionnels.
+              <strong>Resend</strong> : envoi des emails transactionnels.
             </li>
             <li>
-              <strong>Vercel</strong> — hébergement du site.
+              <strong>Vercel</strong> : hébergement du site.
             </li>
           </ul>
           <p>

@@ -26,14 +26,14 @@ export const claudeDataSql = {
   slug: "claude-data-sql",
   title: "Claude pour data et SQL",
   description:
-    "Faire de Claude ton bras droit data — générer, debugger et optimiser du SQL, profiler des données, brancher tes sources et bâtir des dashboards — en vérifiant systématiquement chaque sortie. À jour au 29 septembre 2026 (Opus 5.5 et Sonnet 5.5, contexte 1M, connecteurs MCP, confidentialité des données).",
+    "Faire de Claude ton bras droit data : générer, debugger et optimiser du SQL, profiler des données, brancher tes sources et bâtir des dashboards, en vérifiant systématiquement chaque sortie. À jour au 29 septembre 2026 (Opus 5.5 et Sonnet 5.5, contexte 1M, connecteurs MCP, confidentialité des données).",
   tier_required: "mastery",
   display_order: 4,
   estimated_duration_min: 152,
   lessons: [
     {
       slug: "data-bras-droit-pas-remplacant",
-      title: "Claude, bras droit data — pas remplaçant",
+      title: "Claude, bras droit data, pas remplaçant",
       description:
         "Cadrer l'usage de Claude sur la data, installer la règle d'or — ses sorties se vérifient toujours — et savoir quelles données tu as le droit de lui coller.",
       duration_min: 16,

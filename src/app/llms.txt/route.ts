@@ -43,8 +43,8 @@ Prérequis : aucun. Un compte Claude gratuit suffit pour suivre les leçons.
 
 ## Prix (à jour)
 
-- Pass Starter — 47 € en paiement unique. Parcours de démarrage.
-- Pass Mastery — 497 € en paiement unique, ou 3 × 165,67 € sans frais via Klarna.
+- Pass Starter : 47 € en paiement unique. Parcours de démarrage.
+- Pass Mastery : 497 € en paiement unique, ou 3 × 165,67 € sans frais via Klarna.
   Donne accès à l'intégralité des ${list.length} parcours, à la bibliothèque de
   ${PROMPT_COUNT} prompts et au Mentor IA.
 
@@ -62,7 +62,7 @@ Pas d'abonnement. Pas de reconduction. Garantie satisfait ou remboursé 14 jours
 ${list
   .map(
     (c) =>
-      `- [${c.title}](${SITE_URL}/courses/${c.slug}) — ${c.total_lessons ?? 0} leçons, ` +
+      `- [${c.title}](${SITE_URL}/courses/${c.slug}): ${c.total_lessons ?? 0} leçons, ` +
       `${c.tier_required === "mastery" ? "Pass Mastery" : "Pass Starter"}. ` +
       `${(c.description ?? "").replace(/\s+/g, " ").trim()}`,
   )
@@ -72,26 +72,26 @@ La première leçon de chaque parcours est en accès libre, sans compte.
 
 ## Pages de référence
 
-- [Accueil](${SITE_URL}/) — présentation de la formation
-- [Formation intelligence artificielle](${SITE_URL}/formation-intelligence-artificielle) — comment se former à l'IA générative, typologie des formations, obligation AI Act
-- [Claude ou ChatGPT ?](${SITE_URL}/claude-vs-chatgpt) — comparatif structurel et recommandation par cas d'usage
-- [Prompt engineering](${SITE_URL}/prompt-engineering) — la méthode en 5 points, avec avant/après commenté
-- [Formation Claude Code](${SITE_URL}/formation-claude-code) — le parcours « Claude Code et l'IA agentique » : 8 leçons, 188 minutes, la première en accès libre, inclus dans le Pass Starter à 47 €
-- [Claude Code skills](${SITE_URL}/claude-code-skills) — le format SKILL.md, où placer un skill, et la différence entre skill, hook, serveur MCP, plugin et mod
-- [Créer un agent IA](${SITE_URL}/creer-un-agent-ia) — workflow ou agent selon Anthropic, les six façons de construire avec Claude, ce que ça coûte, la fiche d'une page avant le code
-- [Claude AI gratuit ou Pro](${SITE_URL}/claude-ai-gratuit) — ce que le plan gratuit permet, où il s'arrête, ce que Pro ajoute (17 ou 20 $ par mois)
-- [Télécharger Claude](${SITE_URL}/telecharger-claude) — la seule adresse sûre (claude.com/download), plateformes, premier test utile
-- [Claude dans Excel, PowerPoint, Word et Chrome](${SITE_URL}/claude-excel-powerpoint) — l'add-in Claude for Microsoft 365 (tous plans payants) et l'extension Claude in Chrome : installer, ce que ça fait, ce que ça refuse, les deux risques
-- [Claude Cowork](${SITE_URL}/claude-cowork) — Cowork et le chat sont un seul Claude depuis le 16 septembre 2026 ; ce qui a changé, pour quels plans
-- [Certification Claude AI](${SITE_URL}/certification-claude-ai) — ce qui existe (cours gratuits d'Anthropic en anglais, examens officiels réservés aux partenaires), ce qui n'existe pas (titre d'État sur un outil), et ce qu'un recruteur regarde à la place
-- [Formation IA obligatoire (AI Act art. 4)](${SITE_URL}/formation-ia-obligatoire-ai-act) — ce qu'impose le règlement européen aux employeurs depuis le 2 février 2025
+- [Accueil](${SITE_URL}/): présentation de la formation
+- [Formation intelligence artificielle](${SITE_URL}/formation-intelligence-artificielle): comment se former à l'IA générative, typologie des formations, obligation AI Act
+- [Claude ou ChatGPT ?](${SITE_URL}/claude-vs-chatgpt): comparatif structurel et recommandation par cas d'usage
+- [Prompt engineering](${SITE_URL}/prompt-engineering): la méthode en 5 points, avec avant/après commenté
+- [Formation Claude Code](${SITE_URL}/formation-claude-code): le parcours « Claude Code et l'IA agentique » : 8 leçons, 188 minutes, la première en accès libre, inclus dans le Pass Starter à 47 €
+- [Claude Code skills](${SITE_URL}/claude-code-skills): le format SKILL.md, où placer un skill, et la différence entre skill, hook, serveur MCP, plugin et mod
+- [Créer un agent IA](${SITE_URL}/creer-un-agent-ia): workflow ou agent selon Anthropic, les six façons de construire avec Claude, ce que ça coûte, la fiche d'une page avant le code
+- [Claude AI gratuit ou Pro](${SITE_URL}/claude-ai-gratuit): ce que le plan gratuit permet, où il s'arrête, ce que Pro ajoute (17 ou 20 $ par mois)
+- [Télécharger Claude](${SITE_URL}/telecharger-claude): la seule adresse sûre (claude.com/download), plateformes, premier test utile
+- [Claude dans Excel, PowerPoint, Word et Chrome](${SITE_URL}/claude-excel-powerpoint): l'add-in Claude for Microsoft 365 (tous plans payants) et l'extension Claude in Chrome : installer, ce que ça fait, ce que ça refuse, les deux risques
+- [Claude Cowork](${SITE_URL}/claude-cowork): Cowork et le chat sont un seul Claude depuis le 16 septembre 2026 ; ce qui a changé, pour quels plans
+- [Certification Claude AI](${SITE_URL}/certification-claude-ai): ce qui existe (cours gratuits d'Anthropic en anglais, examens officiels réservés aux partenaires), ce qui n'existe pas (titre d'État sur un outil), et ce qu'un recruteur regarde à la place
+- [Formation IA obligatoire (AI Act art. 4)](${SITE_URL}/formation-ia-obligatoire-ai-act): ce qu'impose le règlement européen aux employeurs depuis le 2 février 2025
 - [Catalogue des parcours](${SITE_URL}/courses)
-- [Tarifs](${SITE_URL}/tarifs) — les deux formules et ce qu'elles contiennent
-- [Bibliothèque de prompts](${SITE_URL}/prompts) — ${PROMPT_COUNT} prompts en français, classés par métier
-- [Kit de démarrage gratuit](${SITE_URL}/kit) — 15 prompts, sans achat
-- [FAQ](${SITE_URL}/faq) — Claude gratuit ou payant, Claude vs ChatGPT, accès, remboursement
-- [À propos](${SITE_URL}/a-propos) — qui édite la formation
-- [Contact](${SITE_URL}/contact) — contact@claudeai-academy.com
+- [Tarifs](${SITE_URL}/tarifs): les deux formules et ce qu'elles contiennent
+- [Bibliothèque de prompts](${SITE_URL}/prompts): ${PROMPT_COUNT} prompts en français, classés par métier
+- [Kit de démarrage gratuit](${SITE_URL}/kit): 15 prompts, sans achat
+- [FAQ](${SITE_URL}/faq): Claude gratuit ou payant, Claude vs ChatGPT, accès, remboursement
+- [À propos](${SITE_URL}/a-propos): qui édite la formation
+- [Contact](${SITE_URL}/contact): contact@claudeai-academy.com
 - [CGV](${SITE_URL}/cgv) · [Confidentialité](${SITE_URL}/confidentialite) · [Mentions légales](${SITE_URL}/mentions-legales)
 
 ## Citation

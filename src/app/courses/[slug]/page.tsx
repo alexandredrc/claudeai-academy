@@ -40,11 +40,11 @@ export async function generateMetadata({
 
   return {
     title:
-      seoTitles[slug] ?? `${course.title}, formation Claude AI — ClaudeAI Academy`,
+      seoTitles[slug] ?? `${course.title}, formation Claude AI | ClaudeAI Academy`,
     description,
     alternates: { canonical: `/courses/${slug}` },
     openGraph: {
-      title: `${course.title} — ClaudeAI Academy`,
+      title: `${course.title} | ClaudeAI Academy`,
       description,
     },
   };
@@ -330,9 +330,9 @@ function PaywallBlock({
 }) {
   const planLabel =
     tierRequired === "mastery"
-      ? "Pass Mastery — 497 €"
+      ? "Pass Mastery (497 €)"
       : tierRequired === "starter"
-        ? "Pass Starter — 47 €"
+        ? "Pass Starter (47 €)"
         : "Pass";
 
   const tierKey: "starter" | "mastery" =
@@ -344,7 +344,7 @@ function PaywallBlock({
         Accès restreint
       </span>
       <h2 className="mt-2 font-serif text-2xl font-semibold text-ink">
-        Débloque ce parcours avec le {planLabel.split(" — ")[0]}
+        Débloque ce parcours avec le {planLabel.split(" (")[0]}
       </h2>
       <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
         Tu peux lire la première leçon en aperçu gratuit ci-dessous. Pour

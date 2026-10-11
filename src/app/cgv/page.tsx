@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { ELITE_ENABLED, ELITE_SEATS_PER_MONTH } from "@/lib/stripe/plans";
 
 export const metadata: Metadata = {
-  title: "Conditions Générales de Vente — ClaudeAI Academy",
+  title: "Conditions Générales de Vente | ClaudeAI Academy",
   description:
     "Conditions générales de vente des formations ClaudeAI Academy : prix, paiement, accès à vie, garantie 14 jours, rétractation.",
   alternates: { canonical: "/cgv" },

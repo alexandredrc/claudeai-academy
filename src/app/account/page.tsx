@@ -241,7 +241,7 @@ export default async function AccountPage({
                   <strong className="font-semibold text-ink">
                     Pass Mastery
                   </strong>{" "}
-                  pour accéder aux 3 parcours supplémentaires et au mentor IA.
+                  pour accéder aux 6 parcours supplémentaires et au mentor IA.
                 </p>
                 <form action={startCheckoutAction} className="mt-4">
                   <input type="hidden" name="plan" value="mastery" />
@@ -262,7 +262,7 @@ export default async function AccountPage({
 }
 
 function PurchasePrompt({ tier }: { tier: "starter" | "mastery" }) {
-  const label = tier === "mastery" ? "Pass Mastery — 497 €" : "Pass Starter — 47 €";
+  const label = tier === "mastery" ? "Pass Mastery (497 €)" : "Pass Starter (47 €)";
   return (
     <div className="mt-10 rounded-[22px] border border-coral-soft bg-coral-soft/30 p-6 md:p-8">
       <span className="inline-block text-[12px] font-semibold uppercase tracking-[0.12em] text-coral">

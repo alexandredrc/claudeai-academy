@@ -11,7 +11,7 @@ import {
 } from "@/lib/content/fraicheur";
 
 export const metadata: Metadata = {
-  title: "Claude AI : gratuit ou payant, Claude vs ChatGPT, formation — la FAQ",
+  title: "Claude AI : gratuit ou payant, Claude vs ChatGPT, formation, la FAQ",
   description:
     "Claude AI est-il gratuit ? Claude ou ChatGPT ? Quel modèle choisir en 2026 ? Existe-t-il une formation Claude en français ? Plus garantie 14 jours, accès à vie, Pass Starter vs Mastery : toutes les réponses.",
   alternates: { canonical: "/faq" },
@@ -29,7 +29,7 @@ const groups: Group[] = [
       },
       {
         q: "Claude AI est-il gratuit ou payant ?",
-        a: "Les deux. Le plan gratuit permet d'utiliser Claude avec des limites d'usage (enveloppes de 5 heures). Le plan Pro (17 $/mois en facturation annuelle, sinon 20 $/mois) multiplie l'usage et donne accès aux modèles les plus capables, à Claude Code et à Cowork. Le plan Max (dès 100 $/mois) s'adresse aux usages intensifs. La formation vous apprend à tirer le maximum de chaque plan — y compris du gratuit.",
+        a: "Les deux. Le plan gratuit permet d'utiliser Claude avec des limites d'usage (enveloppes de 5 heures). Le plan Pro (17 $/mois en facturation annuelle, sinon 20 $/mois) multiplie l'usage et donne accès aux modèles les plus capables, à Claude Code et à Cowork. Le plan Max (dès 100 $/mois) s'adresse aux usages intensifs. La formation vous apprend à tirer le maximum de chaque plan, y compris du gratuit.",
       },
       {
         q: "Claude ou ChatGPT : lequel choisir en 2026 ?",
@@ -49,7 +49,7 @@ const groups: Group[] = [
       },
       {
         q: "Claude Code, faut-il savoir coder pour s'y mettre ?",
-        a: "Pas besoin d'être développeur professionnel : Claude Code écrit le code pour vous et le parcours vous apprend à le piloter (contexte, plans, garde-fous). Des bases de programmation aident cependant à relire et vérifier ce qu'il produit — c'est pourquoi le parcours enseigne aussi la méthode de vérification, pas seulement les commandes.",
+        a: "Pas besoin d'être développeur professionnel : Claude Code écrit le code pour vous et le parcours vous apprend à le piloter (contexte, plans, garde-fous). Des bases de programmation aident cependant à relire et vérifier ce qu'il produit : c'est pourquoi le parcours enseigne aussi la méthode de vérification, pas seulement les commandes.",
       },
     ],
   },
@@ -108,7 +108,7 @@ const groups: Group[] = [
       },
       {
         q: "La formation est-elle éligible au CPF ?",
-        a: "Non, et c'est un choix : les formations Claude éligibles au CPF coûtent généralement 1 500 € et plus, avec dossier, délais et sessions imposées. Ici, c'est 47 € (ou 497 € pour tout le programme), un paiement en ligne, un accès immédiat et à vie — sans paperasse. La garantie 14 jours remplace le filet de sécurité administratif.",
+        a: "Non, et c'est un choix : les formations Claude éligibles au CPF coûtent généralement 1 500 € et plus, avec dossier, délais et sessions imposées. Ici, c'est 47 € (ou 497 € pour tout le programme), un paiement en ligne, un accès immédiat et à vie, sans paperasse. La garantie 14 jours remplace le filet de sécurité administratif.",
       },
     ],
   },
@@ -147,7 +147,7 @@ export default function FaqPage() {
           <Eyebrow>Questions fréquentes</Eyebrow>
           <h1 className="mt-4 font-serif text-[clamp(2.25rem,5vw,3.5rem)] font-medium leading-[1.05] tracking-tight text-ink">
             Vos questions sur Claude AI{" "}
-            <span className="accent-serif">— et sur la formation</span>
+            <span className="accent-serif">et sur la formation</span>
           </h1>
         </Container>
       </section>

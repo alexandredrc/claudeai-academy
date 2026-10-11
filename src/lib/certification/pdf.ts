@@ -182,7 +182,7 @@ export async function renderCertificatePdf(
   page.drawText(ascii("Alexandre Dos Reis Caetano"), {
     x: 76, y: baseY - 17, size: 11.5, font: serifBold, color: INK,
   });
-  page.drawText(ascii("Fondateur — ClaudeAI Academy"), {
+  page.drawText(ascii("Fondateur, ClaudeAI Academy"), {
     x: 76, y: baseY - 31, size: 9.5, font: sans, color: MUTED,
   });
 

@@ -83,7 +83,7 @@ export function ExamClient({
             `Il faut ${passPercent} % de bonnes réponses pour obtenir le certificat.`,
             "Aucune correction pendant l'épreuve : vous verrez votre score à la fin.",
             "Pas de limite de temps, mais une tentative se termine en une seule fois.",
-            "En cas d'échec, vous pouvez repasser l'examen — le tirage sera différent.",
+            "En cas d'échec, vous pouvez repasser l'examen : le tirage sera différent.",
           ].map((t) => (
             <li key={t} className="relative pl-7 text-[15px] leading-relaxed text-ink-soft">
               <span className="absolute left-0 top-0 font-bold text-coral">✓</span>

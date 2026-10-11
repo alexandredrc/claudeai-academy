@@ -19,6 +19,12 @@ export function PurchaseConversion({
   transactionId: string;
 }) {
   useEffect(() => {
+    // GA4 : fin du tunnel (begin_checkout → purchase), même transaction_id
+    // que la conversion Ads pour dédoublonner les rechargements.
+    window.gtag?.("event", "purchase", {
+      transaction_id: transactionId,
+      ...(Number.isFinite(value) && value > 0 ? { value, currency } : {}),
+    });
     if (!GADS_ID || !CONVERSION_LABEL) return;
     // Si l'appel Stripe a échoué côté serveur, `value` vaut 0. Envoyer 0 €
     // enregistrerait la vente à zéro dans Ads (ROAS faussé, et une stratégie

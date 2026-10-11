@@ -47,11 +47,11 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "Quelle formation en intelligence artificielle choisir en 2026 ?",
-    a: "Cela dépend de ce que vous voulez pouvoir faire lundi matin. Pour utiliser l'IA générative dans votre métier — rédiger, analyser, coder, décider — une formation courte et pratique en ligne suffit, et coûte entre 40 € et 600 €. Pour concevoir des modèles d'IA, il faut un cursus long en machine learning, généralement diplômant, et le budget se compte en milliers d'euros. La confusion entre ces deux besoins est une cause fréquente d'abandon : on cherche le premier et on s'inscrit au second.",
+    a: "Cela dépend de ce que vous voulez pouvoir faire lundi matin. Pour utiliser l'IA générative dans votre métier (rédiger, analyser, coder, décider), une formation courte et pratique en ligne suffit, et coûte entre 40 € et 600 €. Pour concevoir des modèles d'IA, il faut un cursus long en machine learning, généralement diplômant, et le budget se compte en milliers d'euros. La confusion entre ces deux besoins est une cause fréquente d'abandon : on cherche le premier et on s'inscrit au second.",
   },
   {
     q: "La formation à l'IA est-elle obligatoire en entreprise ?",
-    a: "Oui, en partie. L'article 4 du règlement européen sur l'IA (AI Act) est applicable depuis le 2 février 2025 et impose à tout « déployeur » d'un système d'IA de prendre des mesures pour soutenir le développement d'un niveau suffisant de maîtrise de l'IA chez les personnes qui l'utilisent pour son compte. Attention à la formulation : depuis le 27 juillet 2026 et le règlement (UE) 2026/1744, le texte ne dit plus « garantir » mais « prendre des mesures » — c'est une obligation de moyens, et la plupart des sites en ligne citent encore l'ancienne rédaction. Ce qui a changé le 2 août 2026, c'est que les autorités nationales supervisent désormais cette obligation. Il n'y a ni seuil d'effectif ni seuil de chiffre d'affaires : une TPE dont un salarié utilise ChatGPT est concernée. Aucune certification n'est exigée — la Commission européenne accepte un simple registre des actions de formation et de sensibilisation.",
+    a: "Oui, en partie. L'article 4 du règlement européen sur l'IA (AI Act) est applicable depuis le 2 février 2025 et impose à tout « déployeur » d'un système d'IA de prendre des mesures pour soutenir le développement d'un niveau suffisant de maîtrise de l'IA chez les personnes qui l'utilisent pour son compte. Attention à la formulation : depuis le 27 juillet 2026 et le règlement (UE) 2026/1744, le texte ne dit plus « garantir » mais « prendre des mesures » : c'est une obligation de moyens, et la plupart des sites en ligne citent encore l'ancienne rédaction. Ce qui a changé le 2 août 2026, c'est que les autorités nationales supervisent désormais cette obligation. Il n'y a ni seuil d'effectif ni seuil de chiffre d'affaires : une TPE dont un salarié utilise ChatGPT est concernée. Aucune certification n'est exigée : la Commission européenne accepte un simple registre des actions de formation et de sensibilisation.",
   },
   {
     q: "Faut-il savoir coder pour se former à l'intelligence artificielle ?",
@@ -63,15 +63,15 @@ const faq = [
   },
   {
     q: "Combien de temps faut-il pour se former à l'IA générative ?",
-    a: "Comptez 4 à 6 heures pour être autonome sur les usages courants — rédaction, synthèse, analyse de documents — et une vingtaine d'heures pour couvrir un programme complet incluant prompt engineering avancé, automatisation et données. Nos leçons durent 10 à 20 minutes et se suivent dans l'ordre ou à la carte, sans horaire imposé.",
+    a: "Comptez 4 à 6 heures pour être autonome sur les usages courants (rédaction, synthèse, analyse de documents) et une vingtaine d'heures pour couvrir un programme complet incluant prompt engineering avancé, automatisation et données. Nos leçons durent 15 à 35 minutes et se suivent dans l'ordre ou à la carte, sans horaire imposé.",
   },
   {
     q: "Pourquoi une formation IA centrée sur Claude plutôt que sur ChatGPT ?",
-    a: "Parce que les compétences se transfèrent, pas les boutons. La structure d'un prompt, la gestion du contexte, la vérification des réponses et l'automatisation fonctionnent de la même façon sur Claude, ChatGPT ou Gemini. Nous entraînons sur Claude parce qu'il est le plus exigeant sur la rigueur des consignes — ce qui marche sur Claude marche partout ailleurs. Chaque leçon signale les différences quand elles existent.",
+    a: "Parce que les compétences se transfèrent, pas les boutons. La structure d'un prompt, la gestion du contexte, la vérification des réponses et l'automatisation fonctionnent de la même façon sur Claude, ChatGPT ou Gemini. Nous entraînons sur Claude parce qu'il est le plus exigeant sur la rigueur des consignes : ce qui marche sur Claude marche partout ailleurs. Chaque leçon signale les différences quand elles existent.",
   },
   {
     q: "Quelle différence entre IA générative et machine learning ?",
-    a: "Le machine learning est la discipline qui consiste à entraîner des modèles à partir de données ; c'est un métier d'ingénieur. L'IA générative désigne l'usage de modèles déjà entraînés — Claude, ChatGPT, Gemini — pour produire du texte, du code ou des analyses. Se former à l'IA générative, c'est apprendre à piloter un outil ; se former au machine learning, c'est apprendre à en construire un.",
+    a: "Le machine learning est la discipline qui consiste à entraîner des modèles à partir de données ; c'est un métier d'ingénieur. L'IA générative désigne l'usage de modèles déjà entraînés (Claude, ChatGPT, Gemini) pour produire du texte, du code ou des analyses. Se former à l'IA générative, c'est apprendre à piloter un outil ; se former au machine learning, c'est apprendre à en construire un.",
   },
 ];
 
@@ -110,7 +110,7 @@ const criteres = [
   {
     titre: "Elle date de moins de six mois",
     texte:
-      "Les modèles changent tous les trimestres. Une formation IA enregistrée en 2024 enseigne des limites qui n'existent plus et ignore des capacités devenues centrales. Demandez la date de dernière révision du contenu — pas la date de mise en ligne.",
+      "Les modèles changent tous les trimestres. Une formation IA enregistrée en 2024 enseigne des limites qui n'existent plus et ignore des capacités devenues centrales. Demandez la date de dernière révision du contenu, pas la date de mise en ligne.",
   },
   {
     titre: "Elle vous fait produire, pas regarder",
@@ -169,7 +169,7 @@ export default async function FormationIAPage() {
       },
       {
         "@type": "CreativeWork",
-        name: "Règlement (UE) 2024/1689 sur l'intelligence artificielle, article 4 — Maîtrise de l'IA",
+        name: "Règlement (UE) 2024/1689 sur l'intelligence artificielle, article 4 : Maîtrise de l'IA",
         url: "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:L_202401689",
       },
     ],
@@ -245,7 +245,7 @@ export default async function FormationIAPage() {
             </strong>{" "}
             {stats.courseCount} parcours, {stats.lessonCount} leçons et{" "}
             {PROMPT_COUNT} prompts prêts à l’emploi pour utiliser l’IA dans votre
-            métier — pas pour en parler. Paiement unique dès 47 €, accès à vie,
+            métier, pas pour en parler. Paiement unique dès 47 €, accès à vie,
             garantie 14 jours.
           </p>
 
@@ -283,7 +283,7 @@ export default async function FormationIAPage() {
             />
             <Stat
               value="58 %"
-              label="chez les entreprises de 250 salariés et plus — contre 15 % chez celles de 10 à 49 salariés."
+              label="chez les entreprises de 250 salariés et plus, contre 15 % chez celles de 10 à 49 salariés."
             />
             <Stat
               value="2 févr. 2025"
@@ -297,7 +297,7 @@ export default async function FormationIAPage() {
               Mais la moyenne cache l’essentiel : une entreprise de plus de 250
               salariés a près de quatre fois plus de chances d’utiliser l’IA
               qu’une PME de moins de 50. Autrement dit, l’avantage n’est pas
-              encore acquis par les gros — il est simplement pris plus vite.
+              encore acquis par les gros : il est simplement pris plus vite.
             </p>
             <p>
               À cela s’ajoute une contrainte que beaucoup découvrent tard.
@@ -306,9 +306,9 @@ export default async function FormationIAPage() {
               équipes utilisent un système d’IA à prendre des mesures pour
               soutenir le développement d’un niveau suffisant de
               « maîtrise de l’IA » chez les personnes qui l’utilisent pour son
-              compte — la rédaction issue du règlement (UE) 2026/1744, en
+              compte (la rédaction issue du règlement (UE) 2026/1744, en
               vigueur depuis le 27 juillet 2026, qui a remplacé le « garantir »
-              de 2024 par une obligation de moyens. Il n’existe ni seuil d’effectif, ni seuil de
+              de 2024 par une obligation de moyens). Il n’existe ni seuil d’effectif, ni seuil de
               chiffre d’affaires : une entreprise de cinq personnes dont un
               salarié rédige ses e-mails avec ChatGPT entre dans le champ. Aucune
               certification n’est exigée ; un registre des actions de formation
@@ -461,15 +461,15 @@ export default async function FormationIAPage() {
               faisons l’inverse : nous entraînons sur{" "}
               <strong>Claude, le modèle d’Anthropic</strong>, et nous signalons
               les différences quand elles comptent. Ce choix n’est pas une
-              question de préférence — c’est une question de transfert.
+              question de préférence : c’est une question de transfert.
             </p>
             <p>
               Ce qui s’apprend est indépendant de l’outil : structurer une
               consigne, fournir le bon contexte, découper une tâche complexe,
               repérer une réponse fausse, automatiser ce qui se répète. Ces
               compétences fonctionnent à l’identique sur ChatGPT et Gemini. Ce
-              qui change d’un modèle à l’autre — l’emplacement d’un bouton, le
-              nom d’une fonctionnalité — s’apprend en dix minutes.
+              qui change d’un modèle à l’autre (l’emplacement d’un bouton, le
+              nom d’une fonctionnalité) s’apprend en dix minutes.
             </p>
             <p>
               Claude est le terrain d’entraînement le plus exigeant sur la rigueur
@@ -492,7 +492,7 @@ export default async function FormationIAPage() {
                 >
                   Bien démarrer avec l’IA générative
                 </Link>{" "}
-                — installer, comprendre ce que le modèle sait et ignore, premiers
+                : installer, comprendre ce que le modèle sait et ignore, premiers
                 usages fiables.
               </li>
               <li>
@@ -502,7 +502,7 @@ export default async function FormationIAPage() {
                 >
                   Prompt engineering
                 </Link>{" "}
-                — obtenir un résultat reproductible plutôt qu’un coup de chance.
+                : obtenir un résultat reproductible plutôt qu’un coup de chance.
               </li>
               <li>
                 <Link
@@ -511,7 +511,7 @@ export default async function FormationIAPage() {
                 >
                   Développement assisté par IA
                 </Link>{" "}
-                — écrire, relire et déboguer du code avec un agent.
+                : écrire, relire et déboguer du code avec un agent.
               </li>
               <li>
                 <Link
@@ -520,7 +520,7 @@ export default async function FormationIAPage() {
                 >
                   Données et SQL
                 </Link>{" "}
-                — interroger, nettoyer et expliquer un jeu de données.
+                : interroger, nettoyer et expliquer un jeu de données.
               </li>
               <li>
                 <Link
@@ -529,7 +529,7 @@ export default async function FormationIAPage() {
                 >
                   Contenu et marketing
                 </Link>{" "}
-                — produire sans que ça sente le texte généré.
+                : produire sans que ça sente le texte généré.
               </li>
               <li>
                 <Link
@@ -538,7 +538,7 @@ export default async function FormationIAPage() {
                 >
                   Stratégie et conduite du changement
                 </Link>{" "}
-                — choisir les bons cas d’usage, encadrer l’usage dans une équipe.
+                : choisir les bons cas d’usage, encadrer l’usage dans une équipe.
               </li>
               <li>
                 <Link
@@ -547,7 +547,7 @@ export default async function FormationIAPage() {
                 >
                   Construire ton agent IA
                 </Link>{" "}
-                — de l’agent personnel sur votre machine à l’agent de production
+                : de l’agent personnel sur votre machine à l’agent de production
                 planifié et budgété, avec le cadre légal du déployeur.
               </li>
             </ul>
@@ -633,7 +633,7 @@ export default async function FormationIAPage() {
           </h2>
           <p className="mt-5 max-w-[620px] text-lg leading-relaxed text-cream/70">
             Le deuxième meilleur, c’est maintenant. Commencez par le kit gratuit
-            si vous voulez juger sur pièce — 15 prompts, aucune carte bancaire.
+            si vous voulez juger sur pièce : 15 prompts, aucune carte bancaire.
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Button href="/tarifs" variant="primary" size="lg">

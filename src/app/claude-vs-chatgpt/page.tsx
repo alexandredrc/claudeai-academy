@@ -18,7 +18,7 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 export const metadata: Metadata = {
   title: "Claude ou ChatGPT : lequel choisir en 2026 ? Comparaison honnête",
   description:
-    "Claude vs ChatGPT : les vraies différences en 2026 — style de rédaction, code, documents longs, écosystème, prix, confidentialité. Un tableau comparatif et une recommandation par cas d'usage, sans parti pris marketing.",
+    "Claude vs ChatGPT : les vraies différences en 2026 : style de rédaction, code, documents longs, écosystème, prix, confidentialité. Un tableau comparatif et une recommandation par cas d'usage, sans parti pris marketing.",
   alternates: { canonical: "/claude-vs-chatgpt" },
   keywords: [
     "claude vs chatgpt",
@@ -81,7 +81,7 @@ const comparaison: Row[] = [
   {
     critere: "Suivi strict des consignes",
     claude:
-      "Plus littéral : si la consigne est floue, le résultat est visiblement moyen — ce qui vous force à préciser.",
+      "Plus littéral : si la consigne est floue, le résultat est visiblement moyen, ce qui vous force à préciser.",
     chatgpt:
       "Plus complaisant : comble les trous de la consigne, ce qui masque les instructions mal écrites.",
     verdict: "claude",
@@ -129,7 +129,7 @@ const recommandations = [
     profil: "Vous travaillez sur du code existant",
     outil: "Claude",
     pourquoi:
-      "Sur une base de code réelle — comprendre, modifier, déboguer — Claude Code opère directement dans le dépôt.",
+      "Sur une base de code réelle (comprendre, modifier, déboguer), Claude Code opère directement dans le dépôt.",
   },
   {
     profil: "Vous dépouillez des documents",
@@ -148,11 +148,11 @@ const recommandations = [
 const faq = [
   {
     q: "Claude est-il meilleur que ChatGPT ?",
-    a: "Non, pas dans l'absolu — et se poser la question dans ces termes mène à une mauvaise décision. Claude est plus régulier en rédaction française et sur les documents longs ; ChatGPT dispose d'un écosystème bien plus large (images, voix, agents, intégrations). Sur le code, les deux sont au même niveau. En 2026, l'écart entre les deux modèles est plus faible que l'écart entre un utilisateur qui sait formuler une consigne et un utilisateur qui n'a jamais appris à le faire.",
+    a: "Non, pas dans l'absolu, et se poser la question dans ces termes mène à une mauvaise décision. Claude est plus régulier en rédaction française et sur les documents longs ; ChatGPT dispose d'un écosystème bien plus large (images, voix, agents, intégrations). Sur le code, les deux sont au même niveau. En 2026, l'écart entre les deux modèles est plus faible que l'écart entre un utilisateur qui sait formuler une consigne et un utilisateur qui n'a jamais appris à le faire.",
   },
   {
     q: "Quelle est la principale différence entre Claude et ChatGPT ?",
-    a: "Le rapport à la consigne. ChatGPT comble les trous d'une instruction incomplète et rend une réponse plaisante ; Claude suit plus littéralement ce qui est écrit et rend un résultat visiblement moyen quand la consigne est floue. C'est moins confortable, mais cela révèle immédiatement les instructions mal écrites — ce qui en fait un meilleur terrain d'apprentissage.",
+    a: "Le rapport à la consigne. ChatGPT comble les trous d'une instruction incomplète et rend une réponse plaisante ; Claude suit plus littéralement ce qui est écrit et rend un résultat visiblement moyen quand la consigne est floue. C'est moins confortable, mais cela révèle immédiatement les instructions mal écrites, ce qui en fait un meilleur terrain d'apprentissage.",
   },
   {
     q: "Claude est-il gratuit ?",
@@ -164,11 +164,11 @@ const faq = [
   },
   {
     q: "Si j'apprends sur Claude, mes compétences servent-elles sur ChatGPT ?",
-    a: "Oui, presque intégralement. Ce qui s'apprend — structurer une consigne, fournir le bon contexte, découper une tâche complexe, repérer une réponse fausse, automatiser ce qui se répète — est indépendant du modèle. Ce qui change d'un outil à l'autre relève de l'interface et s'apprend en quelques minutes.",
+    a: "Oui, presque intégralement. Ce qui s'apprend (structurer une consigne, fournir le bon contexte, découper une tâche complexe, repérer une réponse fausse, automatiser ce qui se répète) est indépendant du modèle. Ce qui change d'un outil à l'autre relève de l'interface et s'apprend en quelques minutes.",
   },
   {
     q: "Ce comparatif est-il à jour ?",
-    a: "Il porte volontairement sur des différences structurelles, pas sur des numéros de version ni sur des scores de benchmark : ces valeurs changent tous les trimestres et rendraient la page fausse en quelques semaines. Les écarts décrits ici — style de rédaction, rapport à la consigne, largeur de l'écosystème, traitement des documents longs — sont stables depuis plusieurs générations de modèles chez les deux éditeurs.",
+    a: "Il porte volontairement sur des différences structurelles, pas sur des numéros de version ni sur des scores de benchmark : ces valeurs changent tous les trimestres et rendraient la page fausse en quelques semaines. Les écarts décrits ici (style de rédaction, rapport à la consigne, largeur de l'écosystème, traitement des documents longs) sont stables depuis plusieurs générations de modèles chez les deux éditeurs.",
   },
 ];
 
@@ -258,7 +258,7 @@ export default function ClaudeVsChatGPTPage() {
               <strong>Réponse courte :</strong> prenez <strong>Claude</strong> si
               votre travail consiste surtout à écrire, à analyser des documents
               longs ou à intervenir sur du code existant. Prenez{" "}
-              <strong>ChatGPT</strong> s’il vous faut un outil polyvalent —
+              <strong>ChatGPT</strong> s’il vous faut un outil polyvalent :
               images, voix, agents, intégrations. Sur le fond, les deux sont
               excellents : en 2026, l’écart entre les deux modèles est plus
               faible que l’écart entre quelqu’un qui sait formuler une consigne
@@ -270,7 +270,7 @@ export default function ClaudeVsChatGPTPage() {
             Ce comparatif est publié par une académie qui forme sur Claude. Nous
             le disons d’emblée, et nous avons choisi d’écrire une comparaison
             qui reste utile même si vous concluez que ChatGPT vous convient
-            mieux — c’est la seule façon qu’elle ait une valeur.
+            mieux : c’est la seule façon qu’elle ait une valeur.
           </p>
         </Container>
       </section>

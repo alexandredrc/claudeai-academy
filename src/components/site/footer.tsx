@@ -71,7 +71,7 @@ export function Footer() {
               className="mt-3 inline-flex items-center gap-2 text-[13px] text-cream/50 hover:text-coral transition-colors"
             >
               <InstagramIcon className="w-[18px] h-[18px]" />
-              <span>{INSTAGRAM_HANDLE} — posez vos questions en DM</span>
+              <span>{INSTAGRAM_HANDLE} : posez vos questions en DM</span>
             </a>
           </div>
 

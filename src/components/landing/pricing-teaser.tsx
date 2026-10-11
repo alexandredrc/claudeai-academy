@@ -52,7 +52,7 @@ function StarterCard() {
     // /api/mentor), il ne doit pas être promis ici.
     "Les 3 parcours fondateurs : Bien démarrer + Prompt Engineering pro + Claude Code (24 leçons)",
     "Bibliothèque de prompts essentiels",
-    "QCM d'auto-évaluation à chaque leçon",
+    "QCM d'auto-évaluation sur les leçons",
     "Accès permanent et mises à jour",
     "Garantie 14 jours satisfait ou remboursé",
   ];

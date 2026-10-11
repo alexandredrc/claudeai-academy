@@ -11,7 +11,7 @@ type SearchParams = Promise<{
 }>;
 
 export const metadata = {
-  title: "Retrouver mon accès — ClaudeAI Academy",
+  title: "Retrouver mon accès | ClaudeAI Academy",
   description:
     "Ton lien de connexion ne fonctionne plus ? Reçois-en un nouveau en quelques secondes.",
   robots: { index: false, follow: false },
@@ -66,7 +66,7 @@ export default async function AccesPage({
                 ) : (
                   " ton adresse"
                 )}
-                . Il arrive en moins de deux minutes — pense à vérifier tes
+                . Il arrive en moins de deux minutes. Pense à vérifier tes
                 courriers indésirables.
               </p>
             </div>

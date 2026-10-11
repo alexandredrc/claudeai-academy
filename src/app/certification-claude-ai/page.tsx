@@ -22,7 +22,7 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 export const metadata: Metadata = {
   title: "Certification Claude AI : ce qui existe, et ce qu'on délivre",
   description:
-    "Existe-t-il une certification Claude AI ou Anthropic ? Réponse honnête : aucun titre reconnu par l'État sur un outil, et des examens Anthropic réservés aux partenaires. ClaudeAI Academy délivre un certificat de réussite, obtenu sur examen final et vérifiable en ligne par un code — pas une attestation de présence.",
+    "Existe-t-il une certification Claude AI ou Anthropic ? Réponse honnête : aucun titre reconnu par l'État sur un outil, et des examens Anthropic réservés aux partenaires. ClaudeAI Academy délivre un certificat de réussite, obtenu sur examen final et vérifiable en ligne par un code, pas une attestation de présence.",
   alternates: { canonical: "/certification-claude-ai" },
   keywords: [
     "certification claude",
@@ -56,7 +56,7 @@ type Option = {
 const options: Option[] = [
   {
     nom: "Un titre reconnu par l'État (RNCP, CPF)",
-    quoi: "Le Répertoire national des certifications professionnelles enregistre des titres liés à des métiers et à des blocs de compétences — « développeur », « chargé de communication ». Il n'enregistre pas de logiciels.",
+    quoi: "Le Répertoire national des certifications professionnelles enregistre des titres liés à des métiers et à des blocs de compétences (« développeur », « chargé de communication »). Il n'enregistre pas de logiciels.",
     valeur:
       "Réelle, mais sur un métier entier. Aucun titre de ce type ne porte sur un assistant IA en particulier.",
     prix: "Plusieurs milliers d'euros, plusieurs mois, dossier de financement.",
@@ -82,7 +82,7 @@ const options: Option[] = [
     nom: "Une « attestation » d'organisme privé",
     quoi: "N'importe quel organisme peut imprimer un certificat à son nom, avec un sceau et un numéro. Rien ne l'en empêche, et rien ne le valide.",
     valeur:
-      "Tout dépend de ce qu'il faut faire pour l'obtenir. Une attestation qui se déclenche à la fin de la dernière vidéo ne prouve qu'une présence. Un certificat conditionné à un examen corrigé et vérifiable en ligne prouve au moins qu'on a répondu juste — c'est le choix que nous avons fait.",
+      "Tout dépend de ce qu'il faut faire pour l'obtenir. Une attestation qui se déclenche à la fin de la dernière vidéo ne prouve qu'une présence. Un certificat conditionné à un examen corrigé et vérifiable en ligne prouve au moins qu'on a répondu juste : c'est le choix que nous avons fait.",
     prix: "Souvent le prix de la formation, parfois un supplément.",
     verdict: "nuance",
   },
@@ -99,7 +99,7 @@ const faq = [
   },
   {
     q: "Une attestation de formation a-t-elle de la valeur sur un CV ?",
-    a: "Une valeur faible et décroissante. Depuis que des milliers d'organismes en délivrent, un recruteur averti sait qu'une attestation prouve une présence, pas une compétence. Ce qui pèse à sa place : une réalisation concrète que vous pouvez montrer et expliquer — un processus que vous avez automatisé, un document de travail que vous produisez en un quart du temps, une bibliothèque de consignes qui tourne dans votre équipe.",
+    a: "Une valeur faible et décroissante. Depuis que des milliers d'organismes en délivrent, un recruteur averti sait qu'une attestation prouve une présence, pas une compétence. Ce qui pèse à sa place : une réalisation concrète que vous pouvez montrer et expliquer : un processus que vous avez automatisé, un document de travail que vous produisez en un quart du temps, une bibliothèque de consignes qui tourne dans votre équipe.",
   },
   {
     q: "Que délivrez-vous à la fin de vos parcours ?",
@@ -111,11 +111,11 @@ const faq = [
   },
   {
     q: "Comment se passe l'examen de certification ?",
-    a: "Vingt questions à choix multiple, tirées au hasard dans les quiz de l'ensemble de vos parcours — le sujet couvre donc tout le programme, pas un chapitre. Aucune correction n'apparaît pendant l'épreuve, et les bonnes réponses ne quittent jamais nos serveurs : la correction est faite côté serveur. Il faut 80 % pour valider. En cas d'échec, vous pouvez repasser l'examen, avec un tirage différent.",
+    a: "Vingt questions à choix multiple, tirées au hasard dans les quiz de l'ensemble de vos parcours : le sujet couvre donc tout le programme, pas un chapitre. Aucune correction n'apparaît pendant l'épreuve, et les bonnes réponses ne quittent jamais nos serveurs : la correction est faite côté serveur. Il faut 80 % pour valider. En cas d'échec, vous pouvez repasser l'examen, avec un tirage différent.",
   },
   {
     q: "Comment prouver qu'on sait utiliser l'IA, alors ?",
-    a: "En le montrant. Gardez trois exemples avant/après tirés de votre propre travail : la tâche, le temps qu'elle prenait, la consigne que vous avez écrite, le résultat obtenu. Ce format tient en une page, il se raconte en deux minutes en entretien, et il est infalsifiable — contrairement à une attestation.",
+    a: "En le montrant. Gardez trois exemples avant/après tirés de votre propre travail : la tâche, le temps qu'elle prenait, la consigne que vous avez écrite, le résultat obtenu. Ce format tient en une page, il se raconte en deux minutes en entretien, et il est infalsifiable, contrairement à une attestation.",
   },
 ];
 
@@ -203,7 +203,7 @@ export default function CertificationPage() {
           <div className="mt-8 rounded-[18px] border-l-[3px] border-coral bg-cream-soft p-7">
             <p className="text-lg leading-relaxed text-ink">
               <strong>Réponse courte :</strong> il n’existe{" "}
-              <strong>aucune certification Claude reconnue par l’État</strong> —
+              <strong>aucune certification Claude reconnue par l’État</strong> :
               le RNCP enregistre des titres rattachés à des métiers, pas à des
               logiciels. Anthropic publie ses propres cours, gratuitement, sur
               academy.claude.com : ce sont des cours, en anglais, pas un diplôme.
@@ -300,7 +300,7 @@ export default function CertificationPage() {
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-muted">
             Posez-vous la question dans l’autre sens : pourquoi voulez-vous une
-            certification ? Presque toujours pour la même raison — avoir quelque
+            certification ? Presque toujours pour la même raison : avoir quelque
             chose à montrer qui prouve que vous ne bluffez pas. C’est un besoin
             légitime. Simplement, le document n’est pas ce qui le satisfait le
             mieux.
@@ -315,7 +315,7 @@ export default function CertificationPage() {
               Pour chacun : la tâche, le temps qu’elle prenait avant, la consigne
               exacte que vous avez écrite, et le résultat obtenu. Ça se lit en
               une minute, ça se raconte en deux en entretien, et c’est
-              infalsifiable — personne ne peut vous acheter votre avant/après.
+              infalsifiable : personne ne peut vous acheter votre avant/après.
             </p>
             <p className="mt-4 leading-relaxed text-ink-soft">
               Un candidat qui pose ça sur la table passe devant un candidat qui
@@ -357,7 +357,7 @@ export default function CertificationPage() {
             elle s’appelle Claude Academy, elle est publiée par l’équipe
             éducation d’Anthropic, et elle est gratuite. Si votre anglais est
             confortable et que vous avez le temps de vous auto-organiser,
-            commencez par là — c’est la source.
+            commencez par là, c’est la source.
           </p>
           <p className="mt-5 text-lg leading-relaxed text-muted">
             Ce que nous ajoutons est précis, et c’est tout ce que nous
@@ -370,7 +370,7 @@ export default function CertificationPage() {
 
           <div className="mt-9 flex flex-wrap gap-3">
             <Button href="/tarifs" variant="primary" size="lg">
-              Voir les parcours — à partir de 47 €
+              Voir les parcours, à partir de 47 €
             </Button>
             <Button href="/kit" variant="ghost" size="lg">
               Essayer d’abord le kit gratuit
@@ -387,8 +387,8 @@ export default function CertificationPage() {
             La certification ClaudeAI Academy
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-muted">
-            Nous en délivrons une. Pas un titre d’État — nous venons d’expliquer
-            pourquoi ça n’existe pas — mais un certificat de réussite nominatif,
+            Nous en délivrons une. Pas un titre d’État (nous venons d’expliquer
+            pourquoi ça n’existe pas), mais un certificat de réussite nominatif,
             qui se mérite et qui se vérifie.
           </p>
 
@@ -430,7 +430,7 @@ export default function CertificationPage() {
 
           <div className="mt-9 flex flex-wrap gap-3">
             <Button href="/tarifs" variant="primary" size="lg">
-              Commencer le programme — dès 47 €
+              Commencer le programme, dès 47 €
             </Button>
             <Button href="/certification/examen" variant="ghost" size="lg">
               J’ai fini mon parcours, passer l’examen

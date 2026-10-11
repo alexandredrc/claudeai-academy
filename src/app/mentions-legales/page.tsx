@@ -3,7 +3,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — ClaudeAI Academy",
+  title: "Mentions légales | ClaudeAI Academy",
   description: "Mentions légales du site ClaudeAI Academy, édité par ADRC Group.",
   alternates: { canonical: "/mentions-legales" },
 };
@@ -24,7 +24,7 @@ export default function MentionsLegalesPage() {
             <strong>Alexandre Dos Reis Caetano</strong>, entrepreneur individuel
             exerçant sous le nom commercial <strong>ADRC Group</strong>.
             <br />
-            SIREN&nbsp;: <strong>892&nbsp;303&nbsp;082</strong> — SIRET du
+            SIREN&nbsp;: <strong>892&nbsp;303&nbsp;082</strong>, SIRET du
             siège&nbsp;: <strong>892&nbsp;303&nbsp;082&nbsp;00028</strong>.
             <br />
             Siège social&nbsp;: 99 avenue Achille Peretti, 92200
@@ -46,7 +46,7 @@ export default function MentionsLegalesPage() {
           <h2>Hébergement du site</h2>
           <p>
             Le site est hébergé par <strong>Vercel Inc.</strong>, 440 N Barranca
-            Ave #4133, Covina, CA 91723, États-Unis —{" "}
+            Ave #4133, Covina, CA 91723, États-Unis,{" "}
             <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">
               vercel.com
             </a>
@@ -54,7 +54,7 @@ export default function MentionsLegalesPage() {
           </p>
           <p>
             Le nom de domaine est enregistré auprès de{" "}
-            <strong>OVH SAS</strong>, 2 rue Kellermann, 59100 Roubaix, France —{" "}
+            <strong>OVH SAS</strong>, 2 rue Kellermann, 59100 Roubaix, France,{" "}
             <a href="https://www.ovhcloud.com" target="_blank" rel="noopener noreferrer">
               ovhcloud.com
             </a>

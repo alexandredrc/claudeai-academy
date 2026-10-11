@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 
 export const metadata: Metadata = {
-  title: "C'est bon — ton Kit t'attend",
+  title: "C'est bon, ton Kit t'attend",
   description: "Ton Kit de 15 prompts Claude est en route. Voici comment en tirer le maximum.",
   robots: { index: false, follow: false },
 };

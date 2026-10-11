@@ -39,7 +39,7 @@ export function renderCertificationEmail(cert: PublicCertificate): {
   const verifUrl = `${SITE_URL}/certification/${cert.code}`;
   const pdfUrl = `${verifUrl}/certificat.pdf`;
 
-  const subject = `Votre certificat de réussite — ${programmeLabel(cert.tier)}`;
+  const subject = `Votre certificat de réussite : ${programmeLabel(cert.tier)}`;
 
   const inner = `
     <h1 style="font-size:27px;line-height:1.2;margin:0 0 22px;font-weight:500;">C'est fait, ${firstName}.</h1>
@@ -51,8 +51,8 @@ export function renderCertificationEmail(cert: PublicCertificate): {
     </p>
 
     <p style="font-size:16px;line-height:1.75;margin:0 0 28px;">
-      Il porte un code de vérification. Toute personne à qui vous le montrez — un recruteur, un client, votre
-      direction — peut le contrôler en ligne&nbsp;: la page affiche le programme suivi, la date et le résultat.
+      Il porte un code de vérification. Toute personne à qui vous le montrez (un recruteur, un client, votre
+      direction) peut le contrôler en ligne&nbsp;: la page affiche le programme suivi, la date et le résultat.
       C'est ce qui le distingue d'une attestation qu'on imprime soi-même.
     </p>
 
@@ -89,7 +89,7 @@ export function renderCertificationEmail(cert: PublicCertificate): {
 
     <p style="font-size:15px;line-height:1.7;margin:0;color:#3A3833;">
       Bravo, sincèrement.<br />
-      — Alexandre
+      Alexandre
     </p>
   `;
 
@@ -104,14 +104,14 @@ export function renderCertificationEmail(cert: PublicCertificate): {
     `Code de vérification : ${cert.code}`,
     `Page de vérification : ${verifUrl}`,
     "",
-    "Ce qui vaut le coup maintenant : un certificat ouvre une conversation, il ne la gagne pas. Prenez vingt minutes pour écrire trois avant/après tirés de votre travail réel — la tâche, le temps qu'elle prenait, la consigne que vous avez écrite, le résultat. Une page. Posée à côté du certificat, elle fait la différence.",
+    "Ce qui vaut le coup maintenant : un certificat ouvre une conversation, il ne la gagne pas. Prenez vingt minutes pour écrire trois avant/après tirés de votre travail réel : la tâche, le temps qu'elle prenait, la consigne que vous avez écrite, le résultat. Une page. Posée à côté du certificat, elle fait la différence.",
     "",
     "Et si le programme vous a été utile, répondez-moi en une ligne pour me dire ce qui a changé. Je lis tout.",
     "",
     "Bravo, sincèrement.",
-    "— Alexandre",
+    "Alexandre",
     "",
-    "— ClaudeAI Academy est un organisme de formation privé et indépendant. Ce certificat atteste de la réussite de son programme ; il ne constitue pas un titre reconnu par l'État. ClaudeAI Academy n'est ni affiliée à Anthropic, éditeur de Claude, ni approuvée par elle.",
+    "ClaudeAI Academy est un organisme de formation privé et indépendant. Ce certificat atteste de la réussite de son programme ; il ne constitue pas un titre reconnu par l'État. ClaudeAI Academy n'est ni affiliée à Anthropic, éditeur de Claude, ni approuvée par elle.",
   ].join("\n");
 
   return { subject, html: shell(inner), text };

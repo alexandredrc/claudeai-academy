@@ -49,7 +49,7 @@ export async function sendSignupConfirmationEmail(params: {
 }): Promise<boolean> {
   return sendEmail({
     to: params.to,
-    subject: "Confirme ton adresse — ClaudeAI Academy",
+    subject: "Confirme ton adresse | ClaudeAI Academy",
     html: renderHtml(params.confirmLink, params.firstName),
     text: renderText(params.confirmLink, params.firstName),
     // Tag d'envoi : sans lui, les évènements Resend de cet email

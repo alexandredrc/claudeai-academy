@@ -44,11 +44,11 @@ function contenu(
 
   if (kind === "acces_relance_1") {
     return {
-      subject: `Ton ${pass} t'attend — voici ton accès en un clic`,
+      subject: `Ton ${pass} t'attend : voici ton accès en un clic`,
       paragraphes: [
         paye
-          ? `Ton paiement est bien enregistré et ton ${pass} est actif depuis ${jours} jour${jours > 1 ? "s" : ""}. Mais ton compte n'a encore jamais été ouvert — il se peut que l'email d'accès se soit perdu en route.`
-          : `Ton ${pass} est actif depuis ${jours} jour${jours > 1 ? "s" : ""}. Mais ton compte n'a encore jamais été ouvert — il se peut que l'email d'accès se soit perdu en route.`,
+          ? `Ton paiement est bien enregistré et ton ${pass} est actif depuis ${jours} jour${jours > 1 ? "s" : ""}. Mais ton compte n'a encore jamais été ouvert. Il se peut que l'email d'accès se soit perdu en route.`
+          : `Ton ${pass} est actif depuis ${jours} jour${jours > 1 ? "s" : ""}. Mais ton compte n'a encore jamais été ouvert. Il se peut que l'email d'accès se soit perdu en route.`,
         "Le bouton ci-dessous te connecte directement, sans mot de passe.",
       ],
       cta: "Ouvrir ma formation",
@@ -68,7 +68,7 @@ function contenu(
       cta: "Accéder à ma formation",
       apres: [
         "Si ça ne marche toujours pas, réponds simplement à cet email en décrivant ce que tu vois : on te débloque à la main.",
-        "Vérifie aussi tes indésirables — nos emails s'y glissent parfois.",
+        "Vérifie aussi tes indésirables : nos emails s'y glissent parfois.",
       ],
     };
   }
@@ -79,7 +79,7 @@ function contenu(
     return {
       subject: `Ton ${pass} est toujours là si tu le veux`,
       paragraphes: [
-        `Ton ${pass} t'a été ouvert il y a ${jours} jours et tu ne t'en es jamais servi. Aucun souci — ce message est le dernier, on ne va pas te relancer indéfiniment.`,
+        `Ton ${pass} t'a été ouvert il y a ${jours} jours et tu ne t'en es jamais servi. Aucun souci, ce message est le dernier, on ne va pas te relancer indéfiniment.`,
         "Si tu veux y jeter un œil un jour, le lien ci-dessous te connecte en un clic, et ton accès reste valable sans limite de temps.",
       ],
       cta: "Ouvrir ma formation",
@@ -90,10 +90,10 @@ function contenu(
   }
 
   return {
-    subject: `Ton ${pass} — on te débloque, ou on te rembourse`,
+    subject: `Ton ${pass} : on te débloque, ou on te rembourse`,
     paragraphes: [
       `Ton ${pass} est payé depuis ${jours} jours et ton compte n'a jamais été ouvert. Deux possibilités, et les deux nous vont.`,
-      "Soit tu entres — le lien ci-dessous te connecte en un clic. Soit tu préfères annuler : réponds « remboursement » à cet email et on te rembourse intégralement, sans justification à donner.",
+      "Soit tu entres : le lien ci-dessous te connecte en un clic. Soit tu préfères annuler : réponds « remboursement » à cet email et on te rembourse intégralement, sans justification à donner.",
     ],
     cta: "Entrer dans ma formation",
     apres: [
@@ -122,7 +122,7 @@ function renderHtml(c: Contenu, lien: string, prenom: string | null): string {
         <a href="${lien}" style="display:inline-block;background:#D97757;color:#FFFFFF;text-decoration:none;padding:12px 24px;border-radius:6px;font-size:16px;">${c.cta}</a>
       </p>
       ${apres}
-      <p style="font-size:14px;line-height:1.7;color:#5A5750;margin:8px 0 0;">Secours : <a href="${SITE_URL}/acces" style="color:#5A5750;">claudeai-academy.com/acces</a> — une question : <a href="mailto:contact@claudeai-academy.com" style="color:#5A5750;">contact@claudeai-academy.com</a></p>
+      <p style="font-size:14px;line-height:1.7;color:#5A5750;margin:8px 0 0;">Secours : <a href="${SITE_URL}/acces" style="color:#5A5750;">claudeai-academy.com/acces</a>. Une question : <a href="mailto:contact@claudeai-academy.com" style="color:#5A5750;">contact@claudeai-academy.com</a></p>
     </div>
   </body>
 </html>`;
@@ -137,7 +137,7 @@ function renderText(c: Contenu, lien: string, prenom: string | null): string {
     "",
     ...c.apres,
     "",
-    `Secours : ${SITE_URL}/acces — une question : contact@claudeai-academy.com`,
+    `Secours : ${SITE_URL}/acces. Une question : contact@claudeai-academy.com`,
   ].join("\n");
 }
 

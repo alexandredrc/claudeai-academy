@@ -12,7 +12,7 @@ type WelcomeContent = {
 function welcomeContent(tier: PlanTier): WelcomeContent {
   if (tier === "mastery") {
     return {
-      subject: "Ton Pass Mastery est actif — tout est débloqué",
+      subject: "Ton Pass Mastery est actif, tout est débloqué",
       intro:
         "Ton paiement est confirmé. Tu as maintenant accès à l'intégralité de ClaudeAI Academy, à vie, mises à jour comprises.",
       unlocked: [
@@ -29,9 +29,9 @@ function welcomeContent(tier: PlanTier): WelcomeContent {
     intro:
       "Ton paiement est confirmé. Tu as maintenant accès aux trois premiers parcours, à vie, mises à jour comprises.",
     unlocked: [
-      { label: "Parcours 1 — Bien démarrer avec Claude (9 leçons)", href: `${SITE_URL}/courses/bien-demarrer-avec-claude` },
-      { label: "Parcours 2 — Prompt Engineering pro (7 leçons)", href: `${SITE_URL}/courses/prompt-engineering-pro` },
-      { label: "Parcours 3 — Claude Code et IA agentique (7 leçons)", href: `${SITE_URL}/courses/claude-code-ia-agentic` },
+      { label: "Parcours 1 : Bien démarrer avec Claude (9 leçons)", href: `${SITE_URL}/courses/bien-demarrer-avec-claude` },
+      { label: "Parcours 2 : Prompt Engineering pro (7 leçons)", href: `${SITE_URL}/courses/prompt-engineering-pro` },
+      { label: "Parcours 3 : Claude Code et IA agentique (8 leçons)", href: `${SITE_URL}/courses/claude-code-ia-agentic` },
     ],
     ctaLabel: "Commencer le premier parcours",
     ctaHref: `${SITE_URL}/courses/bien-demarrer-avec-claude`,
@@ -100,7 +100,7 @@ export async function sendPurchaseWelcomeEmail(params: {
     // le lien magique pour une première connexion en un clic, sans mot de passe.
     content.ctaHref = params.accessLink;
     content.ctaLabel = "Activer mon accès et commencer";
-    content.intro = `${content.intro} Ton compte a été créé automatiquement avec cet email — clique sur le bouton ci-dessous pour l'activer et tout débloquer.`;
+    content.intro = `${content.intro} Ton compte a été créé automatiquement avec cet email : clique sur le bouton ci-dessous pour l'activer et tout débloquer.`;
   }
   // Le booléen remonte jusqu'au webhook Stripe, qui journalise l'envoi :
   // c'est le seul email qui porte l'accès, et c'était le seul dont on ne

@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 
 export const metadata: Metadata = {
-  title: "À propos — ClaudeAI Academy",
+  title: "À propos | ClaudeAI Academy",
   description:
     "Pourquoi ClaudeAI Academy existe : une référence francophone rigoureuse et opérationnelle pour maîtriser Claude, portée par Alexandre Dos Reis Caetano, Restaurant Manager en Suisse qui utilise Claude au quotidien.",
   alternates: { canonical: "/a-propos" },
@@ -66,8 +66,8 @@ export default function AProposPage() {
               Claude évolue vite, le contenu suit.
             </p>
             <p>
-              Tout est pensé pour un public francophone — particuliers,
-              indépendants, équipes — qui veut passer de «&nbsp;je teste&nbsp;» à
+              Tout est pensé pour un public francophone (particuliers,
+              indépendants, équipes) qui veut passer de «&nbsp;je teste&nbsp;» à
               «&nbsp;je livre des résultats&nbsp;».
             </p>
 
@@ -84,7 +84,7 @@ export default function AProposPage() {
               applications, dont un outil de pilotage destiné aux hôtels et aux
               restaurants, pour aider les directeurs et les patrons
               d’établissement à mieux gérer leur affaire. ClaudeAI Academy est
-              née du même mouvement&nbsp;: bâtir la ressource qui manquait —
+              née du même mouvement&nbsp;: bâtir la ressource qui manquait,
               rigoureuse, opérationnelle, et honnête sur ce que l’IA permet (et
               ne permet pas).
             </p>

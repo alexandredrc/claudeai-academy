@@ -12,7 +12,7 @@ type SearchParams = Promise<{
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Activer mon accès — ClaudeAI Academy",
+  title: "Activer mon accès | ClaudeAI Academy",
   robots: { index: false, follow: false },
 };
 
@@ -72,7 +72,7 @@ export default async function ConfirmPage({
             </button>
           </form>
           <p className="mt-5 text-[13px] leading-relaxed text-muted">
-            Le lien ne fonctionne plus ? Pas de panique — on t&apos;en renvoie
+            Le lien ne fonctionne plus ? Pas de panique, on t&apos;en renvoie
             un neuf automatiquement.
           </p>
         </div>

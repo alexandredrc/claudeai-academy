@@ -79,7 +79,7 @@ const methode = [
 const faq = [
   {
     q: "Qu'est-ce que le prompt engineering ?",
-    a: "Le prompt engineering est la discipline qui consiste à formuler des consignes à un modèle de langage de façon à obtenir un résultat fiable et reproductible, plutôt qu'un résultat correct une fois sur trois. Ce n'est ni une astuce ni une liste de formules magiques : c'est une manière d'expliciter le contexte, le format attendu et les critères de réussite — exactement ce qu'on ferait en confiant une tâche à un stagiaire compétent mais qui ne connaît rien à votre dossier.",
+    a: "Le prompt engineering est la discipline qui consiste à formuler des consignes à un modèle de langage de façon à obtenir un résultat fiable et reproductible, plutôt qu'un résultat correct une fois sur trois. Ce n'est ni une astuce ni une liste de formules magiques : c'est une manière d'expliciter le contexte, le format attendu et les critères de réussite, exactement ce qu'on ferait en confiant une tâche à un stagiaire compétent mais qui ne connaît rien à votre dossier.",
   },
   {
     q: "Faut-il savoir coder pour faire du prompt engineering ?",
@@ -99,7 +99,7 @@ const faq = [
   },
   {
     q: "Où trouver des prompts déjà écrits ?",
-    a: `Nous en publions ${PROMPT_COUNT} en accès libre, en français, classés par métier — développement, data, marketing, gestion, sécurité. Ils servent autant de point de départ que d'exemples de structure : en les lisant, on voit la méthode appliquée plutôt que décrite.`,
+    a: `Nous en publions ${PROMPT_COUNT} en accès libre, en français, classés par métier : développement, data, marketing, gestion, sécurité. Ils servent autant de point de départ que d'exemples de structure : en les lisant, on voit la méthode appliquée plutôt que décrite.`,
   },
 ];
 
@@ -223,7 +223,7 @@ export default function PromptEngineeringPage() {
               à formuler une consigne de façon à obtenir un résultat{" "}
               <strong>reproductible</strong> plutôt que correct une fois sur
               trois. Ce n’est pas une collection de formules magiques : c’est le
-              fait de rendre explicite ce que le modèle ne peut pas deviner — le
+              fait de rendre explicite ce que le modèle ne peut pas deviner : le
               contexte, le format attendu, les critères de réussite. Tout ce que
               vous laissez implicite est laissé au hasard.
             </p>
@@ -257,7 +257,7 @@ export default function PromptEngineeringPage() {
               <p className="mt-5 text-[15px] leading-relaxed text-muted">
                 Le modèle invente un secteur, un ton, un historique et une
                 relation. Vous recevez un e-mail générique qu’il faut réécrire
-                entièrement — donc vous n’avez rien gagné.
+                entièrement, donc vous n’avez rien gagné.
               </p>
             </div>
 
@@ -323,7 +323,7 @@ export default function PromptEngineeringPage() {
             </h3>
             <p className="mt-3 leading-relaxed text-muted">
               Relire. Un modèle qui se trompe le fait avec exactement la même
-              assurance que lorsqu’il a raison — il n’existe aucun signal dans le
+              assurance que lorsqu’il a raison : il n’existe aucun signal dans le
               texte qui vous prévienne. Décidez à l’avance de ce que vous
               vérifierez systématiquement : les chiffres, les noms propres, les
               citations, les références. Le reste peut passer.

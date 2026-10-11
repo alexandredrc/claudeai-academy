@@ -10,6 +10,30 @@ declare global {
   }
 }
 
+// Microsoft Clarity (enregistrements de sessions, cartes de clics) : seul
+// outil qui montre POURQUOI un visiteur repart. Il pose des cookies de mesure,
+// donc il ne se charge qu'après un « Accepter », et jamais sans identifiant
+// de projet (NEXT_PUBLIC_CLARITY_ID, créé sur clarity.microsoft.com).
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
+
+function loadClarity() {
+  if (!CLARITY_ID || document.getElementById("ms-clarity")) return;
+  const w = window as unknown as { clarity?: { (...args: unknown[]): void; q?: unknown[][] } };
+  w.clarity =
+    w.clarity ||
+    Object.assign(
+      (...args: unknown[]) => {
+        (w.clarity!.q = w.clarity!.q || []).push(args);
+      },
+      { q: [] as unknown[][] },
+    );
+  const s = document.createElement("script");
+  s.id = "ms-clarity";
+  s.async = true;
+  s.src = `https://www.clarity.ms/tag/${CLARITY_ID}`;
+  document.head.appendChild(s);
+}
+
 function applyConsent(granted: boolean) {
   window.gtag?.("consent", "update", {
     ad_storage: granted ? "granted" : "denied",
@@ -17,6 +41,7 @@ function applyConsent(granted: boolean) {
     ad_personalization: granted ? "granted" : "denied",
     analytics_storage: granted ? "granted" : "denied",
   });
+  if (granted) loadClarity();
 }
 
 // Bannière de consentement (RGPD / Consent Mode v2). Ne s'affiche que si le

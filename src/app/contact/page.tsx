@@ -5,7 +5,7 @@ import { Button } from "@/components/site/button";
 import { InstagramIcon, INSTAGRAM_URL, INSTAGRAM_HANDLE } from "@/components/site/instagram";
 
 export const metadata: Metadata = {
-  title: "Contact — ClaudeAI Academy",
+  title: "Contact | ClaudeAI Academy",
   description:
     "Une question sur les parcours, un problème d’accès, une demande de facture ou de remboursement ? Écrivez-nous, réponse sous 48 h ouvrées.",
   alternates: { canonical: "/contact" },
@@ -53,7 +53,7 @@ export default function ContactPage() {
           <p className="mt-4 text-[15px] leading-relaxed text-muted">
             Réponse sous <strong className="text-ink">48 h ouvrées</strong>. Pour
             une demande de remboursement (garantie 14 jours), précisez l’email
-            utilisé lors de l’achat — aucune justification ne vous sera demandée.
+            utilisé lors de l’achat : aucune justification ne vous sera demandée.
           </p>
           <div className="mt-6">
             <Button href={`mailto:${CONTACT_EMAIL}`} external variant="primary">
@@ -78,7 +78,7 @@ export default function ContactPage() {
           <p className="mt-4 text-[15px] leading-relaxed text-muted">
             Pour les questions rapides ou juste voir qui est derrière
             l&apos;académie : mon compte perso, mes projets, mon quotidien avec
-            l&apos;IA. Les DM sont ouverts — je réponds moi-même.
+            l&apos;IA. Les DM sont ouverts, je réponds moi-même.
           </p>
         </div>
 

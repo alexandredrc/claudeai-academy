@@ -19,9 +19,9 @@ export default async function SignupPage({
 
   const planLabel =
     plan === "starter"
-      ? "Pass Starter — 47 €"
+      ? "Pass Starter (47 €)"
       : plan === "mastery"
-        ? "Pass Mastery — 497 €"
+        ? "Pass Mastery (497 €)"
         : null;
 
   if (sent === "1") {
@@ -30,7 +30,7 @@ export default async function SignupPage({
         <p className="text-[15px] leading-[1.7] text-ink-soft">
           On vient de t&apos;envoyer un email de confirmation. Clique sur le
           bouton qu&apos;il contient et tu arrives directement dans ton espace
-          — rien d&apos;autre à saisir.
+          : rien d&apos;autre à saisir.
         </p>
         <p className="mt-6 text-[13px] leading-relaxed text-muted">
           Pas reçu ? Vérifie tes spams. L&apos;email peut prendre 1 à 2 minutes

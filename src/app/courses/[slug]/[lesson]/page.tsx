@@ -63,7 +63,7 @@ export async function generateMetadata({
   if (!lesson) return {};
 
   return {
-    title: `${lesson.title} — ${course.title} | ClaudeAI Academy`,
+    title: `${lesson.title} (${course.title}) | ClaudeAI Academy`,
     description:
       lesson.description ??
       `Leçon du parcours ${course.title} de ClaudeAI Academy, la formation francophone pour maîtriser Claude AI.`,
@@ -491,7 +491,7 @@ function LessonPaywall({
 }) {
   const tierKey: "starter" | "mastery" =
     tierRequired === "mastery" ? "mastery" : "starter";
-  const planLabel = tierRequired === "mastery" ? "Pass Mastery — 497 €" : "Pass Starter — 47 €";
+  const planLabel = tierRequired === "mastery" ? "Pass Mastery (497 €)" : "Pass Starter (47 €)";
 
   return (
     <div className="mt-12 rounded-[22px] border border-coral-soft bg-coral-soft/30 p-8 text-center">
@@ -499,7 +499,7 @@ function LessonPaywall({
         Leçon verrouillée
       </span>
       <h2 className="mt-3 font-serif text-2xl font-semibold text-ink">
-        Le {planLabel.split(" — ")[0]} débloque ce contenu
+        Le {planLabel.split(" (")[0]} débloque ce contenu
       </h2>
       <p className="mx-auto mt-3 max-w-[480px] text-[15px] leading-relaxed text-ink-soft">
         Garantie 14 jours satisfait ou remboursé. Paiement sécurisé via Stripe.

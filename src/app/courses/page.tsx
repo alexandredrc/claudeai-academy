@@ -51,7 +51,7 @@ export default async function CoursesPage() {
   const catalogJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: `Catalogue ClaudeAI Academy — ${courseCount} parcours de formation`,
+    name: `Catalogue ClaudeAI Academy : ${courseCount} parcours de formation`,
     numberOfItems: courseCount,
     itemListOrder: "https://schema.org/ItemListOrderAscending",
     itemListElement: list.map((c, i) => ({

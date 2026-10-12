@@ -296,6 +296,18 @@ export const FAITS = [
       url: "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       motif: /^##\s*\[?v?([\d]+\.[\d]+\.[\d]+)/m,
     },
+    // Claude Code publie un correctif tous les un ou deux jours : en égalité
+    // stricte, la veille sonnait trois fois par semaine pour « 2.1.295 → 2.1.296 »,
+    // et un message qui répète la même chose finit par ne plus être lu
+    // (12/10/2026). On ne signale qu'un vrai décalage : autre version
+    // majeure ou mineure, ou 10 correctifs de retard.
+    accepte: (contenu, source) => {
+      const [a, b, c] = String(contenu).split(".").map(Number);
+      const [x, y, z] = String(source).split(".").map(Number);
+      if ([a, b, c, x, y, z].some(Number.isNaN)) return contenu === source;
+      if (a !== x || b !== y) return a > x || (a === x && b > y);
+      return z - c < 10;
+    },
   },
 
   // ── Faits sous revue humaine : la source bouge, on relit ─────────────────

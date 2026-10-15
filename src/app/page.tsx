@@ -21,11 +21,14 @@ export default function Home() {
   return (
     <>
       <Hero />
+      {/* Le public est nommé tout de suite (indépendants et TPE, décision du
+          15/10/2026) : un artisan qui lit d'abord quatre sections pensées
+          pour des profils techniques ne se reconnaît pas. */}
+      <Profiles />
       <Problem />
       <Method />
       <Programme />
       <PromptTeaser />
-      <Profiles />
       <Founder />
       <Testimonials />
       <PricingTeaser />

@@ -87,7 +87,7 @@ const groups: Group[] = [
       },
       {
         q: "En quoi c’est différent des cours gratuits sur YouTube ?",
-        a: "La structure (un programme cohérent, pas des tutos isolés), la densité (on va à l’essentiel, sans remplissage) et l’écosystème (bibliothèque de prompts, templates, Mentor IA, mises à jour). Le tout dans un cadre francophone qui n’existe pas ailleurs.",
+        a: "La structure (un programme cohérent, pas des tutos isolés), la densité (on va à l’essentiel, sans remplissage) et l’écosystème (bibliothèque de prompts, Mentor IA, QCM, mises à jour). Le tout dans un cadre francophone qui n’existe pas ailleurs.",
       },
       {
         q: "Qu’est-ce que le Mentor IA ?",

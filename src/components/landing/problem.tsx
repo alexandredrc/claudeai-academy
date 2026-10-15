@@ -1,30 +1,36 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 
+// Réécrit le 15/10/2026 pour le public choisi (indépendants et TPE non
+// techniques). L'ancienne version parlait de RAG, de tool use et de « prod »,
+// et avançait « 20 % du potentiel » et « 10× » sans source. Chaque symptôme
+// correspond à une leçon qui le traite : Personnaliser Claude, Être clair et
+// direct, la bibliothèque de prompts, Paramétrer Claude (données personnelles,
+// mode incognito) et Gouvernance et conformité (RGPD).
 const symptoms = [
   {
     n: "01",
-    title: "Vous tâtonnez à chaque tâche",
+    title: "Des réponses qui ne parlent pas de vous",
     body:
-      "Pas de méthode reproductible, pas de bibliothèque de prompts qui marchent. Chaque mission redémarre de zéro.",
+      "Claude ne connaît ni votre métier, ni vos clients, ni votre façon d'écrire. Tant que vous ne le lui dites pas, il répond comme à n'importe qui.",
   },
   {
     n: "02",
-    title: "Vous restez en surface",
+    title: "Plus de temps à corriger qu'à écrire",
     body:
-      "System prompt, tool use, RAG, chain-of-thought. Vous savez que ça existe, mais pas comment vraiment l'utiliser.",
+      "Une demande vague donne un texte vague. Vous le réécrivez entièrement, et vous en concluez que l'IA ne fait pas gagner de temps.",
   },
   {
     n: "03",
-    title: "Vos résultats sont aléatoires",
+    title: "La page blanche à chaque fois",
     body:
-      "Parfois excellents, parfois décevants. Sans cadre, vous ne savez pas pourquoi ça marche, ou pas.",
+      "Vous ne savez pas comment formuler la demande, alors vous ne demandez pas. Chaque tâche repart de zéro.",
   },
   {
     n: "04",
-    title: "Vous ne sécurisez pas",
+    title: "Le doute sur ce que vous pouvez lui confier",
     body:
-      "Prompt injection, fuite de données, garde-fous. Une zone aveugle qui devient critique en prod.",
+      "Coordonnées de clients, chiffres, contrats : vous ne savez pas ce qui est sans risque. Dans le doute, vous ne l'utilisez pas.",
   },
 ];
 
@@ -35,15 +41,15 @@ export function Problem() {
         <div className="text-center mb-16">
           <Eyebrow align="center">Le constat</Eyebrow>
           <h2 className="mt-4 font-serif text-3xl md:text-5xl font-medium leading-[1.15] tracking-tight text-ink">
-            Vous utilisez Claude depuis des mois.
+            Vous avez déjà essayé.
             <br />
-            <span className="accent-serif">Vous n&apos;en tirez que 20 % du potentiel.</span>
+            <span className="accent-serif">Et vous êtes revenu à la main.</span>
           </h2>
           <p className="mt-7 text-lg leading-relaxed text-muted max-w-[640px] mx-auto">
-            Les tutos YouTube tournent en rond, la doc est dense, et personne
-            dans votre entourage n&apos;a vraiment industrialisé son usage.
-            Résultat : vous avancez par tâtonnements, vous ratez les meilleures
-            pratiques, et vous sentez que vos prompts pourraient être 10× meilleurs.
+            La réponse était générique, il fallait tout reprendre, et au final
+            c&apos;était plus rapide de le faire soi-même. Ce n&apos;est ni
+            l&apos;outil ni vous : personne ne vous a montré quoi lui donner pour
+            qu&apos;il réponde juste.
           </p>
         </div>
 

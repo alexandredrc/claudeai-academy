@@ -10,7 +10,7 @@
   {
     "slug": "marketing-email-bienvenue",
     "category": "marketing",
-    "title": "Email de bienvenue (free)",
+    "title": "Email de bienvenue",
     "useCase": "Écrire le premier email reçu après une inscription à une liste ou un lead magnet.",
     "tier": "free",
     "prompt": "Tu es expert en email marketing. Rédige un email de bienvenue pour une personne qui vient de s'inscrire à [NOM_LISTE_OU_LEAD_MAGNET] proposé par [MARQUE]. Objectif : confirmer la livraison de [RESSOURCE_PROMISE], poser le ton de la relation et inciter à un premier petit pas. Audience : [AUDIENCE]. Ton : [TON], chaleureux et humain. Contraintes : objet de 6 mots maximum (propose 3 variantes), première phrase qui crée une connexion sans flatterie creuse, lien clair vers la ressource, une seule action principale, signature au prénom. Longueur : 120 à 160 mots. Évite les formules robotiques type « Nous sommes ravis de vous compter parmi nous » et les remerciements vides. Écris en français. Termine en annonçant en une phrase ce que la personne recevra dans le prochain email, et à quand."

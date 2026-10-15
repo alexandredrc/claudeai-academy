@@ -23,7 +23,7 @@ const items: Item[] = [
   },
   {
     q: "Combien de temps faut-il pour terminer le programme ?",
-    a: "Les 58 leçons des 9 parcours représentent 22 heures de lecture, et environ 27 heures avec la mise en pratique. À raison de 2 sessions par semaine, comptez 2 à 3 mois pour tout faire. Vous gardez l'accès à vie, donc rien ne vous oblige à courir.",
+    a: "Pour commencer à vous en servir : une heure, avec les trois leçons conseillées (Personnaliser Claude, Être clair et direct, Claude dans Word, Excel et Outlook). Pour tout faire : les 58 leçons des 9 parcours représentent 22 heures de lecture, et environ 27 heures avec la mise en pratique, soit 2 à 3 mois à raison de 2 sessions par semaine. Rien ne vous oblige à tout suivre : vous gardez l'accès à vie.",
   },
   {
     q: "Le contenu sera-t-il dépassé dans 6 mois ?",
@@ -33,7 +33,7 @@ const items: Item[] = [
   },
   {
     q: "En quoi c'est différent des cours gratuits sur YouTube ?",
-    a: "Trois différences. La structure d'abord : les leçons sont conçues comme un programme cohérent, pas une succession de tutos isolés. La densité ensuite : on vous épargne l'exposition et on va à l'essentiel. Et l'écosystème : bibliothèque de prompts, templates, mentor IA, mises à jour. Le tout dans un cadre francophone qui n'existe pas ailleurs.",
+    a: "Trois différences. La structure d'abord : les leçons sont conçues comme un programme cohérent, pas une succession de tutos isolés. La densité ensuite : on vous épargne l'exposition et on va à l'essentiel. Et l'écosystème : bibliothèque de prompts, mentor IA, QCM, mises à jour. Le tout dans un cadre francophone qui n'existe pas ailleurs.",
   },
   {
     q: "Et si je ne suis pas convaincu après l'achat ?",
@@ -52,7 +52,8 @@ export function FAQ() {
         <div className="text-center mb-14">
           <Eyebrow align="center">Questions fréquentes</Eyebrow>
           <h2 className="mt-4 font-serif text-3xl md:text-5xl font-medium leading-[1.15] tracking-tight text-ink">
-            Les <span className="accent-serif">objections</span> qu&apos;on nous remonte le plus
+            Les <span className="accent-serif">objections</span>{" "}
+            qu&apos;on nous remonte le plus
           </h2>
         </div>
 

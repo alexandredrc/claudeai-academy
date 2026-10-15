@@ -23,9 +23,9 @@ export function Method() {
               pas une accumulation de vidéos.
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-muted max-w-[540px]">
-              L&apos;académie est conçue pour vous faire passer du tâtonnement à
-              la maîtrise en quelques semaines. Chaque parcours est dense, court,
-              100 % orienté pratique. Pas de théorie pour la théorie.
+              Les trois premières leçons prennent une heure. Le reste se suit à
+              votre rythme, parcours par parcours : court, pratique, sans
+              théorie pour la théorie.
             </p>
 
             <ul className="mt-8 space-y-4">

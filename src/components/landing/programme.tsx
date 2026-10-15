@@ -18,6 +18,9 @@ const PRESENTATION: Record<string, Presentation> = {
   "bien-demarrer-avec-claude": {
     emoji: "🚦",
     role: "Le point de départ, même sans aucune base",
+    // Parcours mis en avant depuis le 15/10/2026 : le public visé est non
+    // technique, il commence ici (avant : Claude Code, « pour les devs »).
+    featured: true,
     skills: [
       "Installer Claude partout : web, ordinateur, mobile",
       "Choisir son plan et le bon modèle sans se tromper",
@@ -39,17 +42,16 @@ const PRESENTATION: Record<string, Presentation> = {
   },
   "claude-code-ia-agentic": {
     emoji: "⌨️",
-    role: "Pour les devs qui veulent passer en mode 10×",
+    role: "Pour que Claude agisse sur vos fichiers, pas seulement qu'il réponde",
     skills: [
       "Ce qui change vraiment avec un agent dans le terminal",
       "Hooks, MCP et sub-agents",
       "Architecturer un workflow agentic qui tient la route",
     ],
-    featured: true,
   },
   "claude-data-sql": {
     emoji: "📊",
-    role: "Pour les analystes qui veulent un facteur 5 à 10",
+    role: "Pour ceux qui interrogent des bases de données en SQL",
     skills: [
       "Pourquoi Claude marche si bien pour le SQL",
       "Prompts pour requêtes analytiques",
@@ -105,7 +107,6 @@ const PRESENTATION: Record<string, Presentation> = {
       "Agents gérés : budget en dollars, planning, secrets en coffre",
       "Modèle de menace et obligations du déployeur (AI Act, RGPD)",
     ],
-    featured: true,
   },
 };
 
@@ -198,7 +199,7 @@ function FeaturedParcoursCard({ p }: { p: Parcours }) {
   return (
     <article className="relative bg-gradient-to-br from-ink to-[#2D2A26] text-cream rounded-[22px] p-9 md:p-12 border border-ink overflow-hidden">
       <span className="absolute top-7 right-7 inline-flex items-center gap-1.5 bg-coral text-cream text-[12px] font-semibold px-3 py-1.5 rounded-full">
-        ★ Le préféré
+        ★ Commencez ici
       </span>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16">

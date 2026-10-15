@@ -10,6 +10,7 @@ import { ValueStack } from "@/components/landing/value-stack";
 import { Guarantee } from "@/components/landing/guarantee";
 import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
 import { Founder } from "@/components/landing/founder";
+import { Profiles } from "@/components/landing/profiles";
 import { getCatalogStats } from "@/lib/courses/stats";
 import { createClient } from "@/lib/supabase/server";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
@@ -31,6 +32,9 @@ export default function FormationClaudeAI() {
   return (
     <>
       <LandingHero />
+      {/* Public nommé dès le deuxième écran, comme sur l'accueil
+          (indépendants et TPE, décision du 15/10/2026). */}
+      <Profiles />
       <PainBridge />
       <WhatYouGet />
       {/* Audit du 10/10/2026 : un visiteur payé ne savait pas qui vend. Le
@@ -81,8 +85,9 @@ async function LandingHero() {
             Vous cherchez une formation Claude AI sérieuse, en français ? La
             voici : {stats.courseCount} parcours structurés,{" "}
             {stats.lessonCount} leçons concrètes et {PROMPT_COUNT}{" "}
-            prompts prêts à l&apos;emploi pour appliquer l&apos;IA à votre métier dès
-            la première semaine. Paiement unique, accès à vie.
+            prompts prêts à l&apos;emploi pour appliquer l&apos;IA à votre métier.
+            Les trois premières leçons prennent une heure. Paiement unique,
+            accès à vie.
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -111,7 +116,7 @@ async function LandingHero() {
           </p>
 
           <dl className="mt-12 pt-8 border-t border-line flex flex-wrap gap-x-12 gap-y-5">
-            <HeroStat value={String(stats.courseCount)} label="Parcours métiers" />
+            <HeroStat value={String(stats.courseCount)} label="Parcours" />
             <HeroStat value={String(stats.lessonCount)} label="Leçons structurées" />
             <HeroStat value={String(PROMPT_COUNT)} label="Prompts opérationnels" />
             <HeroStat value="14 j" label="Satisfait ou remboursé" />
@@ -147,8 +152,11 @@ function PainBridge() {
       body: "Des astuces en vrac, souvent en anglais, jamais reliées à votre métier. Ce qu'il vous manque, c'est une méthode progressive, pas plus de vidéos.",
     },
     {
-      title: "Pendant ce temps, d'autres prennent l'avance",
-      body: "Dans votre secteur, certains livrent déjà en 2 heures ce qui leur prenait 2 jours. La différence n'est pas le talent : c'est la méthode.",
+      // Avant le 15/10/2026 : « certains livrent déjà en 2 heures ce qui leur
+      // prenait 2 jours », affirmation sans source. Remplacé par un constat
+      // que la leçon « Être clair et direct » traite.
+      title: "Vous corrigez plus que vous ne gagnez",
+      body: "Une demande vague donne un texte vague. Vous le réécrivez, et l'IA finit par vous coûter du temps au lieu d'en faire gagner. La différence n'est pas le talent : c'est la méthode.",
     },
   ];
   return (
@@ -291,7 +299,9 @@ function LandingFAQ() {
     },
     {
       q: "« Je n'ai pas le temps pour une formation. »",
-      a: "Les leçons durent 8 à 15 minutes et chaque parcours est indépendant. L'accès est à vie : il n'y a ni cohorte, ni deadline, ni rythme imposé. Une leçon par jour suffit. Et dès la première semaine, la formation vous fait gagner plus de temps qu'elle n'en prend.",
+      // Durées lues en base le 15/10/2026 : 15 à 35 min, 23 en moyenne (le
+      // texte disait « 8 à 15 minutes », faux).
+      a: "Les leçons durent de 15 à 35 minutes et chaque parcours est indépendant. Les trois leçons conseillées pour démarrer prennent une heure en tout. L'accès est à vie : il n'y a ni cohorte, ni deadline, ni rythme imposé.",
     },
     {
       q: "« Comment je sais que ça marchera pour moi ? »",

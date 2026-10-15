@@ -8,13 +8,25 @@ import {
   categoryLabel,
 } from "@/lib/prompts/library";
 
-// Un échantillon : le 1er prompt gratuit de 6 domaines différents, pour
-// donner un aperçu concret du contenu (et donner envie d'aller voir le reste).
+// Un échantillon de prompts gratuits choisis pour le public visé depuis le
+// 15/10/2026 (indépendants et TPE) : avant, c'était le premier prompt de
+// chaque catégorie, donc du code, du SQL et du trading. Un slug absent est
+// ignoré plutôt que d'afficher une carte vide.
+const ECHANTILLON = [
+  "business-email-difficile",
+  "marketing-script-video-courte",
+  "business-compte-rendu-reunion",
+  "prompt-engineering-role-contexte-format",
+  "business-priorisation-taches",
+  "marketing-email-bienvenue",
+];
+
 function sample() {
   const out = [];
-  for (const c of PROMPT_CATEGORIES.slice(0, 6)) {
-    const p = FREE_PROMPTS.find((x) => x.category === c.key);
-    if (p) out.push({ ...p, emoji: c.emoji });
+  for (const slug of ECHANTILLON) {
+    const p = FREE_PROMPTS.find((x) => x.slug === slug);
+    const c = p ? PROMPT_CATEGORIES.find((x) => x.key === p.category) : null;
+    if (p && c) out.push({ ...p, emoji: c.emoji });
   }
   return out;
 }

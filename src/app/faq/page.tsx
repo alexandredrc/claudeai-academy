@@ -9,13 +9,14 @@ import {
   NOTES_DE_MISE_A_JOUR,
   SOURCES_SURVEILLEES,
 } from "@/lib/content/fraicheur";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Claude AI : gratuit ou payant, Claude vs ChatGPT, formation, la FAQ",
+export const metadata: Metadata = pageMetadata({
+  path: "/faq",
+  title: "FAQ Claude AI : gratuit ou payant, Claude vs ChatGPT, formation",
   description:
-    "Claude AI est-il gratuit ? Claude ou ChatGPT ? Quel modèle choisir en 2026 ? Existe-t-il une formation Claude en français ? Plus garantie 14 jours, accès à vie, Pass Starter vs Mastery : toutes les réponses.",
-  alternates: { canonical: "/faq" },
-};
+    "Claude AI est-il gratuit ? Claude ou ChatGPT ? Quelle formation Claude en français ? Garantie 14 jours, accès à vie, Starter ou Mastery : les réponses.",
+});
 
 type Group = { title: string; items: Item[] };
 

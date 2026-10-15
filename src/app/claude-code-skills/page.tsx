@@ -4,6 +4,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Satellite du pilier /formation-intelligence-artificielle, côté Claude Code.
 // Requêtes visées : « claude code skills », « skill claude code »,
@@ -17,11 +18,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // cinq briques d'extension et donne la procédure de relecture avant
 // installation. Le parcours vend la pratique guidée, pas l'information.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/claude-code-skills",
   title: "Claude Code skills : créer un skill, l'installer, et les plugins",
   description:
-    "Un skill Claude Code est un fichier SKILL.md que Claude charge quand c'est pertinent. Le format complet, où le placer, comment l'invoquer, la différence avec un plugin et un mod, et ce qu'il faut lire avant d'installer un skill trouvé sur GitHub.",
-  alternates: { canonical: "/claude-code-skills" },
+    "Un skill Claude Code est un fichier SKILL.md. Le format complet, où le placer, la différence avec un plugin et un mod, et quoi lire avant d'installer.",
   keywords: [
     "claude code skills",
     "skill claude code",
@@ -32,14 +33,11 @@ export const metadata: Metadata = {
     "claude code slash command",
     "formation claude code",
   ],
-  openGraph: {
-    title: "Claude Code skills : le guide complet en français",
-    description:
-      "Le format SKILL.md, où placer un skill, comment l'invoquer, et la différence avec un plugin et un mod. Avec la procédure de relecture avant installation.",
-    url: "/claude-code-skills",
-    type: "article",
-  },
-};
+  ogTitle: "Claude Code skills : le guide complet en français",
+  ogDescription:
+    "Le format SKILL.md, où placer un skill, comment l'invoquer, et la différence avec un plugin et un mod. Avec la procédure de relecture avant installation.",
+  type: "article",
+});
 
 const etapes = [
   {
@@ -150,7 +148,10 @@ export default function ClaudeCodeSkillsPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
-    dateModified: "2026-10-03",
+    image: OG_IMAGE_URL,
+    // Dates du dépôt (git log) : création, puis passe de veille du 9 octobre 2026.
+    datePublished: "2026-10-03",
+    dateModified: "2026-10-09",
     about: [
       { "@type": "Thing", name: "Claude Code" },
       { "@type": "Thing", name: "Agents de programmation" },

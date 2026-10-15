@@ -4,6 +4,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Page d'entrée. Requête visée : « claude cowork », en progression record
 // autour de « Claude AI », « Claude Code » et « n8n » (Trends FR, 12 mois au
@@ -15,11 +16,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // claude.com/blog/cowork-is-now-claude, 16 septembre 2026, et claude.com/pricing
 // au 3 octobre 2026.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/claude-cowork",
   title: "Claude Cowork : ce que c'est devenu depuis le 16 septembre 2026",
   description:
-    "Claude Cowork n'existe plus comme produit séparé : depuis le 16 septembre 2026, le chat et Cowork sont un seul Claude. Ce que Cowork faisait, où ces fonctions vivent maintenant, pour quels plans, et ce que ça change pour vous.",
-  alternates: { canonical: "/claude-cowork" },
+    "Claude Cowork n'existe plus : depuis le 16 septembre 2026, le chat et Cowork sont un seul Claude. Où ses fonctions sont passées, et pour quels plans.",
   keywords: [
     "claude cowork",
     "cowork claude",
@@ -27,14 +28,11 @@ export const metadata: Metadata = {
     "claude cowork gratuit",
     "cowork anthropic",
   ],
-  openGraph: {
-    title: "Claude Cowork : ce que c'est devenu",
-    description:
-      "Depuis le 16 septembre 2026, le chat et Cowork sont un seul Claude. Ce qui a changé, pour quels plans.",
-    url: "/claude-cowork",
-    type: "article",
-  },
-};
+  ogTitle: "Claude Cowork : ce que c'est devenu",
+  ogDescription:
+    "Depuis le 16 septembre 2026, le chat et Cowork sont un seul Claude. Ce qui a changé, pour quels plans.",
+  type: "article",
+});
 
 const faq = [
   {
@@ -79,6 +77,8 @@ export default function ClaudeCoworkPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
+    image: OG_IMAGE_URL,
+    datePublished: "2026-10-03",
     dateModified: "2026-10-03",
     about: [{ "@type": "Thing", name: "Claude (Anthropic)" }],
   };

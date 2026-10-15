@@ -5,6 +5,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { getCatalogStats } from "@/lib/courses/stats";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Satellite du pilier /formation-intelligence-artificielle.
 // Requêtes visées : « formation ia obligatoire », « ai act article 4
@@ -16,12 +17,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // conseil juridique — une page commerciale qui joue au cabinet d'avocats
 // perdrait exactement la confiance qu'elle cherche à gagner.
 
-export const metadata: Metadata = {
-  title:
-    "Formation IA obligatoire : ce qu'exige l'AI Act en entreprise",
+export const metadata: Metadata = pageMetadata({
+  path: "/formation-ia-obligatoire-ai-act",
+  title: "Formation IA obligatoire : ce qu'exige l'AI Act en entreprise",
   description:
-    "L'article 4 de l'AI Act impose depuis le 2 février 2025 un niveau suffisant de « maîtrise de l'IA » aux salariés qui utilisent l'IA. Aucun seuil d'effectif, aucune certification exigée. Ce que dit le texte, qui est concerné, et comment documenter la conformité.",
-  alternates: { canonical: "/formation-ia-obligatoire-ai-act" },
+    "L'article 4 de l'AI Act s'applique depuis le 2 février 2025, sans seuil d'effectif ni certificat. Qui est visé, ce que dit le texte, comment le prouver.",
   keywords: [
     "formation IA obligatoire",
     "AI Act article 4 formation",
@@ -31,14 +31,13 @@ export const metadata: Metadata = {
     "formation IA entreprise obligatoire",
     "conformité AI Act PME",
   ],
-  openGraph: {
-    title: "Formation IA obligatoire : ce qu'exige l'article 4 de l'AI Act",
-    description:
-      "Depuis le 2 février 2025, tout employeur dont les équipes utilisent l'IA doit garantir leur « maîtrise de l'IA ». Sans seuil d'effectif. Ce que ça implique concrètement.",
-    url: "/formation-ia-obligatoire-ai-act",
-    type: "article",
-  },
-};
+  ogTitle: "Formation IA obligatoire : ce qu'exige l'article 4 de l'AI Act",
+  // « prendre des mesures », pas « garantir » : rédaction en vigueur depuis le
+  // règlement (UE) 2026/1744 (27/07/2026), comme l'explique le corps de page.
+  ogDescription:
+    "Depuis le 2 février 2025, tout employeur dont les équipes utilisent l'IA doit prendre des mesures pour leur « maîtrise de l'IA ». Sans seuil d'effectif. Ce que ça implique concrètement.",
+  type: "article",
+});
 
 const faq = [
   {
@@ -118,7 +117,10 @@ export default async function AiActPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
-    dateModified: new Date().toISOString().slice(0, 10),
+    image: OG_IMAGE_URL,
+    // Dates du dépôt (git log) : création de la page, dernier commit de contenu.
+    datePublished: "2026-08-24",
+    dateModified: "2026-10-11",
     about: [
       { "@type": "Thing", name: "Règlement européen sur l'intelligence artificielle" },
       { "@type": "Thing", name: "Maîtrise de l'IA" },

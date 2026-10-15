@@ -4,6 +4,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Page « certification » — requêtes « certification claude », « certification
 // anthropic », « formation certifiante claude ai », « claude ai certification ».
@@ -19,11 +20,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // en France (RNCP, France Compétences). On explique ce qui existe, on dit ce
 // qu'on ne délivre pas, et on propose ce qui a réellement de la valeur.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/certification-claude-ai",
   title: "Certification Claude AI : ce qui existe, et ce qu'on délivre",
   description:
-    "Existe-t-il une certification Claude AI ou Anthropic ? Réponse honnête : aucun titre reconnu par l'État sur un outil, et des examens Anthropic réservés aux partenaires. ClaudeAI Academy délivre un certificat de réussite, obtenu sur examen final et vérifiable en ligne par un code, pas une attestation de présence.",
-  alternates: { canonical: "/certification-claude-ai" },
+    "Certification Claude AI ou Anthropic : aucun titre reconnu par l'État sur un outil, examens Anthropic réservés aux partenaires. Ce qui existe en 2026.",
   keywords: [
     "certification claude",
     "certification claude ai",
@@ -36,14 +37,11 @@ export const metadata: Metadata = {
     "formation Claude AI certifiante",
     "examen certification IA",
   ],
-  openGraph: {
-    title: "Certification Claude AI : ce qui existe vraiment en 2026",
-    description:
-      "Pas de titre d'État sur un outil, des cours gratuits en anglais chez Anthropic, des examens officiels réservés aux partenaires, des attestations privées sans valeur de preuve. Ce qui compte vraiment, et comment l'acquérir.",
-    url: "/certification-claude-ai",
-    type: "article",
-  },
-};
+  ogTitle: "Certification Claude AI : ce qui existe vraiment en 2026",
+  ogDescription:
+    "Pas de titre d'État sur un outil, des cours gratuits en anglais chez Anthropic, des examens officiels réservés aux partenaires, des attestations privées sans valeur de preuve. Ce qui compte vraiment, et comment l'acquérir.",
+  type: "article",
+});
 
 type Option = {
   nom: string;
@@ -135,7 +133,10 @@ export default function CertificationPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
-    dateModified: new Date().toISOString().slice(0, 10),
+    image: OG_IMAGE_URL,
+    // Dates du dépôt (git log) : création de la page, dernier commit de contenu.
+    datePublished: "2026-09-21",
+    dateModified: "2026-10-11",
     about: [
       { "@type": "Thing", name: "Certification professionnelle" },
       { "@type": "Thing", name: "Claude (Anthropic)" },

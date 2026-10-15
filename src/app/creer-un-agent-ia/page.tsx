@@ -4,6 +4,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Satellite du pilier /formation-intelligence-artificielle, côté agents.
 // Requêtes visées : « comment créer un agent ia », « créer un agent ia »,
@@ -16,11 +17,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // façons de construire avec Claude, et la fiche d'une page. Le parcours vend
 // la pratique guidée ; la première leçon est en accès libre.
 
-export const metadata: Metadata = {
-  title: "Comment créer un agent IA : la méthode, les 6 options, les pièges",
+export const metadata: Metadata = pageMetadata({
+  path: "/creer-un-agent-ia",
+  title: "Comment créer un agent IA : la méthode, 6 options, les pièges",
   description:
-    "Créer un agent IA en 2026 : la différence entre workflow et agent selon Anthropic, les six façons de construire avec Claude (agent personnel OpenClaw ou Hermes, Claude Code planifié, n8n, Agent SDK, agents gérés), ce que ça coûte, et la fiche d'une page à écrire avant le code.",
-  alternates: { canonical: "/creer-un-agent-ia" },
+    "Créer un agent IA en 2026 : workflow ou agent selon Anthropic, six façons de construire avec Claude, ce que ça coûte, la fiche d'une page avant le code.",
   keywords: [
     "comment créer un agent ia",
     "créer un agent ia",
@@ -31,14 +32,10 @@ export const metadata: Metadata = {
     "hermes agent",
     "agent sdk claude",
   ],
-  openGraph: {
-    title: "Comment créer un agent IA : la méthode, les 6 options, les pièges",
-    description:
-      "Workflow ou agent, les six façons de construire avec Claude, ce que ça coûte, et la fiche d'une page à écrire avant le code.",
-    url: "/creer-un-agent-ia",
-    type: "article",
-  },
-};
+  ogDescription:
+    "Workflow ou agent, les six façons de construire avec Claude, ce que ça coûte, et la fiche d'une page à écrire avant le code.",
+  type: "article",
+});
 
 const options = [
   {
@@ -131,7 +128,11 @@ export default function CreerUnAgentIaPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
-    dateModified: "2026-10-04",
+    image: OG_IMAGE_URL,
+    // Dates du dépôt (git log) : création, puis passe de veille du 9 octobre
+    // 2026 (prix des modèles cités dans la FAQ).
+    datePublished: "2026-10-04",
+    dateModified: "2026-10-09",
     about: [
       { "@type": "Thing", name: "Agents IA" },
       { "@type": "Thing", name: "Claude (Anthropic)" },

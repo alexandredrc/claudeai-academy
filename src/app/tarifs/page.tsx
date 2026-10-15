@@ -3,6 +3,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { PricingTeaser } from "@/components/landing/pricing-teaser";
+import { ProofMeasures } from "@/components/landing/proof-measures";
 import { ValueStack } from "@/components/landing/value-stack";
 import { Guarantee } from "@/components/landing/guarantee";
 import { FAQ } from "@/components/landing/faq";
@@ -119,6 +120,9 @@ export default function TarifsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offersJsonLd) }}
       />
       <PricingHero />
+      {/* Le coût du problème avant le prix (Hormozi, principe 5) : les temps
+          mesurés du fondateur et le calcul « si », juste avant les cartes. */}
+      <ProofMeasures />
       <PricingTeaser />
       <ValueStack />
       <Guarantee />

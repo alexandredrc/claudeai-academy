@@ -9,20 +9,21 @@ import { Guarantee } from "@/components/landing/guarantee";
 import { FAQ } from "@/components/landing/faq";
 import { FinalCTA } from "@/components/landing/final-cta";
 import { ELITE_ENABLED } from "@/lib/stripe/plans";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
 // Le titre et le balisage doivent suivre le catalogue RÉELLEMENT ouvert :
 // ouvrir ou fermer le Pass Accompagnement sans les mettre à jour laisserait une
 // page qui annonce des prix qu'elle n'affiche plus — et un balisage que Google
 // reprend tel quel dans ses résultats.
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/tarifs",
   title: ELITE_ENABLED
     ? "Prix de la formation Claude AI : 47 €, 497 € ou 1 497 €"
     : "Prix de la formation Claude AI : 47 € ou 497 €, sans CPF ni devis",
   description: ELITE_ENABLED
     ? "Trois pass, un paiement unique et l'accès à vie : Starter à 47 €, Mastery à 497 € (ou 3× sans frais avec Klarna) pour tout le programme, et Accompagnement à 1 497 € (ou 3 × 499 € sans frais) avec des séances individuelles. Sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé."
     : "Une formation Claude AI accessible : Pass Starter à 47 €, Pass Mastery à 497 € (ou 3× sans frais avec Klarna) pour tous les parcours complets. Paiement en ligne immédiat, sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé.",
-  alternates: { canonical: "/tarifs" },
-};
+});
 
 // Produit numérique : aucune livraison physique (accès en ligne immédiat) et
 // garantie « satisfait ou remboursé » 14 jours. On déclare malgré tout
@@ -56,12 +57,14 @@ const shippingDetails = {
   },
 };
 
+// Pas de `returnMethod` : un accès en ligne ne se renvoie pas par la poste
+// (la valeur « retour par courrier » déclarée avant le 15/10/2026 était fausse).
+// Le champ est recommandé par Google, pas obligatoire.
 const hasMerchantReturnPolicy = {
   "@type": "MerchantReturnPolicy",
   applicableCountry: "FR",
   returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
   merchantReturnDays: 14,
-  returnMethod: "https://schema.org/ReturnByMail",
   returnFees: "https://schema.org/FreeReturn",
 };
 

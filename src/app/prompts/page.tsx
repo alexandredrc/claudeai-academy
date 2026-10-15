@@ -10,14 +10,15 @@ import {
   promptsByCategory,
   type Prompt,
 } from "@/lib/prompts/library";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/prompts",
   title: `${PROMPT_COUNT} prompts Claude en français, classés par métier`,
-  description: `Les meilleurs prompts Claude : ${PROMPT_COUNT} modèles en français, prêts à copier-coller, classés par cas d'usage (prompt engineering, Claude Code, business, marketing, data, trading, sécurité, design).`,
-  alternates: { canonical: "/prompts" },
-};
+  description: `${PROMPT_COUNT} prompts Claude en français, prêts à copier, classés par usage : prompt engineering, Claude Code, marketing, data, sécurité. Une partie en accès libre.`,
+});
 
 export default async function PromptsPage() {
   const supabase = await createClient();

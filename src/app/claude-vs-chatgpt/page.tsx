@@ -4,6 +4,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Page de comparaison — requêtes « claude vs chatgpt », « claude ou chatgpt »,
 // « différence claude chatgpt », « quel est le meilleur ia ».
@@ -15,11 +16,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // rendraient la page fausse en quelques semaines. On compare ce qui est
 // structurel, pas ce qui est conjoncturel.
 
-export const metadata: Metadata = {
-  title: "Claude ou ChatGPT : lequel choisir en 2026 ? Comparaison honnête",
+export const metadata: Metadata = pageMetadata({
+  path: "/claude-vs-chatgpt",
+  title: "Claude ou ChatGPT : lequel choisir en 2026 ? Comparatif honnête",
   description:
-    "Claude vs ChatGPT : les vraies différences en 2026 : style de rédaction, code, documents longs, écosystème, prix, confidentialité. Un tableau comparatif et une recommandation par cas d'usage, sans parti pris marketing.",
-  alternates: { canonical: "/claude-vs-chatgpt" },
+    "Claude vs ChatGPT : les vraies différences en 2026, rédaction, code, documents longs, écosystème, prix. Comparatif et recommandation par cas d'usage.",
   keywords: [
     "claude vs chatgpt",
     "claude ou chatgpt",
@@ -29,14 +30,11 @@ export const metadata: Metadata = {
     "claude ai avis",
     "quel assistant IA choisir",
   ],
-  openGraph: {
-    title: "Claude ou ChatGPT : lequel choisir en 2026 ?",
-    description:
-      "Les vraies différences entre Claude et ChatGPT : rédaction, code, documents longs, écosystème, prix. Comparatif honnête et recommandation par cas d'usage.",
-    url: "/claude-vs-chatgpt",
-    type: "article",
-  },
-};
+  ogTitle: "Claude ou ChatGPT : lequel choisir en 2026 ?",
+  ogDescription:
+    "Les vraies différences entre Claude et ChatGPT : rédaction, code, documents longs, écosystème, prix. Comparatif honnête et recommandation par cas d'usage.",
+  type: "article",
+});
 
 type Row = {
   critere: string;
@@ -188,7 +186,10 @@ export default function ClaudeVsChatGPTPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
-    dateModified: new Date().toISOString().slice(0, 10),
+    image: OG_IMAGE_URL,
+    // Dates du dépôt (git log) : création de la page, dernier commit de contenu.
+    datePublished: "2026-08-24",
+    dateModified: "2026-10-11",
     about: [
       { "@type": "Thing", name: "Claude (Anthropic)" },
       { "@type": "Thing", name: "ChatGPT (OpenAI)" },

@@ -4,6 +4,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Page d'entrée. Requêtes visées : « télécharger claude ai », « télécharger
 // claude ai gratuit », « claude ai pc », « claude ai app », « claude windows ».
@@ -15,11 +16,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 //
 // Plateformes relevées sur claude.com/download le 3 octobre 2026.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/telecharger-claude",
   title: "Télécharger Claude sur PC, Mac et mobile : la seule adresse sûre",
   description:
-    "Claude se télécharge gratuitement sur Windows, macOS, Linux (bêta), iPhone et Android, uniquement depuis claude.com/download ou les boutiques officielles. Ce que l'application de bureau ajoute par rapport au navigateur, et comment démarrer sans carte bancaire. Relevé le 3 octobre 2026.",
-  alternates: { canonical: "/telecharger-claude" },
+    "Claude se télécharge gratuitement sur Windows, macOS, Linux, iPhone et Android, uniquement depuis claude.com/download. Relevé le 3 octobre 2026.",
   keywords: [
     "télécharger claude ai",
     "télécharger claude ai gratuit",
@@ -29,14 +30,11 @@ export const metadata: Metadata = {
     "claude ai mac",
     "installer claude",
   ],
-  openGraph: {
-    title: "Télécharger Claude sur PC, Mac et mobile",
-    description:
-      "La seule adresse sûre, les plateformes disponibles, et ce que l'application ajoute. Relevé le 3 octobre 2026.",
-    url: "/telecharger-claude",
-    type: "article",
-  },
-};
+  ogTitle: "Télécharger Claude sur PC, Mac et mobile",
+  ogDescription:
+    "La seule adresse sûre, les plateformes disponibles, et ce que l'application ajoute. Relevé le 3 octobre 2026.",
+  type: "article",
+});
 
 const plateformes = [
   { nom: "Windows", detail: "Application de bureau, versions x64 et arm64" },
@@ -111,6 +109,8 @@ export default function TelechargerClaudePage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
+    image: OG_IMAGE_URL,
+    datePublished: "2026-10-03",
     dateModified: "2026-10-03",
     about: [{ "@type": "Thing", name: "Claude (Anthropic)" }],
   };
@@ -299,7 +299,7 @@ export default function TelechargerClaudePage() {
               ce qu’est devenu Claude Cowork
             </Link>{" "}
             ·{" "}
-            <Link href="/formation-claude-ai" className="font-semibold text-coral hover:text-coral-dark">
+            <Link href="/tarifs" className="font-semibold text-coral hover:text-coral-dark">
               la formation Claude AI
             </Link>
             .

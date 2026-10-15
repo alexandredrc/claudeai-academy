@@ -5,6 +5,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { CheckoutButton } from "@/components/site/checkout-button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Page de vente du parcours « Claude Code et l'IA agentique », côté requête.
 // Search Console, 28 jours au 4 octobre 2026 : « formation claude code »,
@@ -19,11 +20,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // d'Anthropic, ni une certification). Les chiffres viennent du contenu du
 // dépôt (scripts/content/claude-code.mjs) : 8 leçons, 188 minutes, Starter.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/formation-claude-code",
   title: "Formation Claude Code en français : 8 leçons, dès 47 €",
   description:
-    "La formation Claude Code en français : CLAUDE.md, skills et boucles de vérification, hooks, MCP, sous-agents, plugins et mods, puis l'Agent SDK pour sortir du terminal. 8 leçons, 188 minutes, la première en accès libre. Incluse dans le Pass Starter à 47 €, accès à vie, garantie 14 jours. Vérifiée sur Claude Code 2.1.288.",
-  alternates: { canonical: "/formation-claude-code" },
+    "Formation Claude Code en français : CLAUDE.md, skills, hooks, MCP, Agent SDK. 8 leçons, la première en accès libre, vérifiées sur Claude Code 2.1.295.",
   keywords: [
     "formation claude code",
     "claude code formation",
@@ -35,14 +36,10 @@ export const metadata: Metadata = {
     "claude code CLAUDE.md",
     "claude code MCP",
   ],
-  openGraph: {
-    title: "Formation Claude Code en français : 8 leçons, dès 47 €",
-    description:
-      "Du premier CLAUDE.md à l'agent qui tourne sans vous : skills, hooks, MCP, sous-agents, plugins et mods, Agent SDK. En français, vérifié sur Claude Code 2.1.295.",
-    url: "/formation-claude-code",
-    type: "website",
-  },
-};
+  ogDescription:
+    "Du premier CLAUDE.md à l'agent qui tourne sans vous : skills, hooks, MCP, sous-agents, plugins et mods, Agent SDK. En français, vérifié sur Claude Code 2.1.295.",
+  type: "website",
+});
 
 const lecons = [
   {
@@ -174,6 +171,7 @@ export default function FormationClaudeCodePage() {
     name: "Formation Claude Code et IA agentique",
     description: metadata.description,
     url: `${SITE_URL}/formation-claude-code`,
+    image: OG_IMAGE_URL,
     inLanguage: "fr-FR",
     provider: { "@id": ORG_ID },
     educationalLevel: "Intermédiaire",
@@ -197,12 +195,17 @@ export default function FormationClaudeCodePage() {
       "@type": "Offer",
       price: "47",
       priceCurrency: "EUR",
-      category: "Pass Starter",
+      // Valeurs admises par Google pour Course : Free, Partially Free,
+      // Subscription, Paid. Le nom du pass va dans `url`, pas ici.
+      category: "Paid",
       availability: "https://schema.org/InStock",
       url: `${SITE_URL}/tarifs#starter`,
     },
     isPartOf: { "@id": `${SITE_URL}/#website` },
-    dateModified: "2026-10-04",
+    // Dates du dépôt (git log) : création de la page, dernier commit de contenu
+    // (vérification sur Claude Code 2.1.295 le 9 octobre 2026).
+    datePublished: "2026-10-04",
+    dateModified: "2026-10-09",
   };
 
   const faqJsonLd = {

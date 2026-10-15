@@ -7,6 +7,7 @@ import { Guarantee } from "@/components/landing/guarantee";
 import { getCatalogStats } from "@/lib/courses/stats";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Page pilier organique sur la requête de tête « formation intelligence
 // artificielle » et sa famille (« formation IA », « se former à l'IA »,
@@ -18,12 +19,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // Elle est indexable et distincte de /formation-claude-ai, qui est la landing
 // publicitaire en noindex.
 
-export const metadata: Metadata = {
-  title:
-    "Formation intelligence artificielle en français, dès 47 €",
+export const metadata: Metadata = pageMetadata({
+  path: "/formation-intelligence-artificielle",
+  title: "Formation intelligence artificielle en français, dès 47 €",
   description:
-    "Formation à l'intelligence artificielle générative en ligne, en français, à votre rythme : prompt engineering, IA au travail, automatisation, données. Sans CPF ni dossier, accès à vie, garantie 14 jours. Dès 47 €.",
-  alternates: { canonical: "/formation-intelligence-artificielle" },
+    "Formation à l'intelligence artificielle générative en français : prompt engineering, IA au travail, automatisation. Sans CPF, accès à vie, dès 47 €.",
   keywords: [
     "formation intelligence artificielle",
     "formation IA",
@@ -35,14 +35,11 @@ export const metadata: Metadata = {
     "apprendre l'intelligence artificielle",
     "formation prompt engineering",
   ],
-  openGraph: {
-    title: "Formation intelligence artificielle en ligne, en français",
-    description:
-      "Se former à l'IA générative en pratique : prompt engineering, IA au travail, automatisation, données. À votre rythme, dès 47 €.",
-    url: "/formation-intelligence-artificielle",
-    type: "article",
-  },
-};
+  ogTitle: "Formation intelligence artificielle en ligne, en français",
+  ogDescription:
+    "Se former à l'IA générative en pratique : prompt engineering, IA au travail, automatisation, données. À votre rythme, dès 47 €.",
+  type: "article",
+});
 
 const faq = [
   {
@@ -153,7 +150,10 @@ export default async function FormationIAPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
-    dateModified: new Date().toISOString().slice(0, 10),
+    image: OG_IMAGE_URL,
+    // Dates du dépôt (git log) : création de la page, dernier commit de contenu.
+    datePublished: "2026-08-24",
+    dateModified: "2026-10-11",
     about: [
       { "@type": "Thing", name: "Intelligence artificielle générative" },
       { "@type": "Thing", name: "Formation professionnelle" },

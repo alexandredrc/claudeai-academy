@@ -5,6 +5,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Satellite du pilier /formation-intelligence-artificielle.
 // Requêtes visées : « prompt engineering », « prompt engineering c'est quoi »,
@@ -14,12 +15,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // vérifiable. Une page qui se contente de vendre la formation sur cette
 // requête ne serait citée par personne — ici le contenu doit tenir seul.
 
-export const metadata: Metadata = {
-  title:
-    "Prompt engineering : la méthode en 5 points + un avant/après",
+export const metadata: Metadata = pageMetadata({
+  path: "/prompt-engineering",
+  title: "Prompt engineering : la méthode en 5 points + un avant/après",
   description:
-    "Le prompt engineering expliqué simplement : ce que c'est, pourquoi vos prompts donnent des résultats irréguliers, et la méthode en 5 points qui transforme un coup de chance en résultat reproductible. Avec un avant/après commenté.",
-  alternates: { canonical: "/prompt-engineering" },
+    "Prompt engineering expliqué simplement : pourquoi vos prompts donnent des résultats irréguliers, et la méthode en 5 points pour un résultat reproductible.",
   keywords: [
     "prompt engineering",
     "prompt engineering c'est quoi",
@@ -29,14 +29,11 @@ export const metadata: Metadata = {
     "formation prompt engineering",
     "améliorer ses prompts IA",
   ],
-  openGraph: {
-    title: "Prompt engineering : la méthode en 5 points",
-    description:
-      "Pourquoi vos prompts donnent des résultats irréguliers, et la méthode qui transforme un coup de chance en résultat reproductible.",
-    url: "/prompt-engineering",
-    type: "article",
-  },
-};
+  ogTitle: "Prompt engineering : la méthode en 5 points",
+  ogDescription:
+    "Pourquoi vos prompts donnent des résultats irréguliers, et la méthode qui transforme un coup de chance en résultat reproductible.",
+  type: "article",
+});
 
 const methode = [
   {
@@ -120,7 +117,10 @@ export default function PromptEngineeringPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
-    dateModified: new Date().toISOString().slice(0, 10),
+    image: OG_IMAGE_URL,
+    // Dates du dépôt (git log) : création de la page, dernier commit de contenu.
+    datePublished: "2026-08-24",
+    dateModified: "2026-10-11",
     about: [
       { "@type": "Thing", name: "Prompt engineering" },
       { "@type": "Thing", name: "Intelligence artificielle générative" },

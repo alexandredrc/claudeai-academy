@@ -3,13 +3,14 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { InstagramIcon, INSTAGRAM_URL, INSTAGRAM_HANDLE } from "@/components/site/instagram";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/contact",
   title: "Contact | ClaudeAI Academy",
   description:
-    "Une question sur les parcours, un problème d’accès, une demande de facture ou de remboursement ? Écrivez-nous, réponse sous 48 h ouvrées.",
-  alternates: { canonical: "/contact" },
-};
+    "Une question sur les parcours, un problème d'accès, une facture ou un remboursement ? Écrivez à contact@claudeai-academy.com, réponse sous 48 h ouvrées.",
+});
 
 const CONTACT_EMAIL = "contact@claudeai-academy.com";
 

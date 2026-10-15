@@ -4,6 +4,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Satellite du pilier /formation-intelligence-artificielle, côté usage au
 // bureau. Requêtes visées : « claude excel », « claude pour excel », « claude
@@ -20,11 +21,10 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 const LECON = "/courses/bien-demarrer-avec-claude/claude-dans-excel-powerpoint-word-et-chrome";
 const DATE = "9 octobre 2026";
 
-export const metadata: Metadata = {
-  title: "Claude dans Excel, PowerPoint, Word et Chrome : installer, utiliser, éviter les pièges",
-  description:
-    "Claude for Microsoft 365 est inclus dans tous les plans payants Claude : un add-in pour Excel, PowerPoint, Word et Outlook, plus l'extension Claude in Chrome. Ce qu'il faut installer, ce que chaque outil fait et refuse, les deux risques à connaître. Vérifié le 9 octobre 2026.",
-  alternates: { canonical: "/claude-excel-powerpoint" },
+export const metadata: Metadata = pageMetadata({
+  path: "/claude-excel-powerpoint",
+  title: "Claude dans Excel, PowerPoint, Word et Chrome : le guide",
+  description: `Claude for Microsoft 365 : add-in Excel, PowerPoint, Word, Outlook et Claude in Chrome. Installer, utiliser, éviter les pièges. Vérifié le ${DATE}.`,
   keywords: [
     "claude excel",
     "claude pour excel",
@@ -37,14 +37,10 @@ export const metadata: Metadata = {
     "claude in chrome",
     "extension chrome claude",
   ],
-  openGraph: {
-    title: "Claude dans Excel, PowerPoint, Word et Chrome : le guide",
-    description:
-      "Un add-in pour Excel, PowerPoint, Word et Outlook, une extension pour Chrome, inclus dans les plans payants. Installer, utiliser, éviter les pièges.",
-    url: "/claude-excel-powerpoint",
-    type: "article",
-  },
-};
+  ogDescription:
+    "Un add-in pour Excel, PowerPoint, Word et Outlook, une extension pour Chrome, inclus dans les plans payants. Installer, utiliser, éviter les pièges.",
+  type: "article",
+});
 
 const outils = [
   {
@@ -134,6 +130,8 @@ export default function ClaudeExcelPowerPointPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
+    image: OG_IMAGE_URL,
+    datePublished: "2026-10-09",
     dateModified: "2026-10-09",
     about: [
       { "@type": "Thing", name: "Claude for Microsoft 365" },

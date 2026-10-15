@@ -4,13 +4,16 @@ import { Container } from "@/components/site/container";
 import { PROVENANCE_COOKIE, decoderProvenance } from "@/lib/attribution";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Comment utiliser Claude AI : le kit de démarrage gratuit (15 prompts)",
+export const metadata: Metadata = pageMetadata({
+  path: "/kit",
+  title: "Comment utiliser Claude AI : le kit gratuit de 15 prompts",
   description:
-    "Apprends comment utiliser Claude AI à son plein potentiel : 15 prompts gratuits prêts à l'emploi, en français, pour restaurateurs, indépendants, développeurs, data analysts, marketers et managers. Les 80 % que tu n'exploites pas encore.",
-  alternates: { canonical: "/kit" },
-};
+    "Comment utiliser Claude AI : 15 prompts gratuits, en français, pour restaurateurs, indépendants, développeurs, marketers et managers. Sans carte bancaire.",
+  // hreflang réciproque avec /en/kit ; x-default = la version française.
+  languages: { "fr-FR": "/kit", en: "/en/kit", "x-default": "/kit" },
+});
 
 const benefits = [
   "15 prompts prêts à copier, classés par situation : restauration et commerce, indépendants, recherche d'emploi, dev, data, marketing, management.",

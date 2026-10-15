@@ -4,6 +4,7 @@ import { Container } from "@/components/site/container";
 import { PROVENANCE_COOKIE, decoderProvenance } from "@/lib/attribution";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
 /**
  * English landing for the free kit. Smoke test, October 2026.
@@ -14,23 +15,18 @@ import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
  * makes the count a one-line SQL query. The paid course is in French today
  * and the page says so: a sale here would be a refund.
  */
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/en/kit",
   title: "How to use Claude AI: the free starter kit (15 prompts)",
   description:
-    "15 ready-to-use Claude prompts for restaurant owners, freelancers, developers, data analysts, marketers and managers, plus what Claude Code does in a real workday. Free, no card.",
-  alternates: {
-    canonical: "/en/kit",
-    languages: { fr: "/kit", en: "/en/kit" },
-  },
-  openGraph: {
-    title: "How to use Claude AI: the free starter kit (15 prompts)",
-    description:
-      "15 ready-to-use Claude prompts sorted by work situation, and what Claude Code does in a real workday.",
-    url: "/en/kit",
-    locale: "en_US",
-    type: "website",
-  },
-};
+    "15 Claude prompts for restaurant owners, freelancers, developers, marketers and managers, plus what Claude Code does in a real workday. Free, no card.",
+  ogDescription:
+    "15 ready-to-use Claude prompts sorted by work situation, and what Claude Code does in a real workday.",
+  locale: "en_US",
+  imageAlt: "ClaudeAI Academy, French-language training to master Claude AI",
+  // Reciprocal hreflang with /kit; x-default points to the French page.
+  languages: { "fr-FR": "/kit", en: "/en/kit", "x-default": "/kit" },
+});
 
 const benefits = [
   "15 prompts ready to copy, sorted by situation: restaurants and shops, freelancers, job search, developers, data, marketing, management.",

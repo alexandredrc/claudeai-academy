@@ -4,6 +4,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
 
 // Page d'entrée. Requêtes visées : « claude ai gratuit », « claude gratuit »,
 // « claude ai prix », « claude pro prix », « claude ai free ».
@@ -15,11 +16,11 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 // chiffré est daté dans le texte : un tarif change, une page datée ne
 // devient pas fausse, seulement à rafraîchir.
 
-export const metadata: Metadata = {
-  title: "Claude AI gratuit ou Pro : ce que le plan gratuit permet vraiment",
+export const metadata: Metadata = pageMetadata({
+  path: "/claude-ai-gratuit",
+  title: "Claude AI gratuit ou Pro : ce que le gratuit permet vraiment",
   description:
-    "Claude AI est gratuit, sans carte bancaire, avec les modèles Sonnet et Haiku, la recherche web, les projets et les applications. Ce que le plan gratuit permet, où il s'arrête, ce que Pro ajoute à 17 ou 20 $ par mois, et comment décider. Relevé le 3 octobre 2026.",
-  alternates: { canonical: "/claude-ai-gratuit" },
+    "Claude AI est gratuit, sans carte bancaire : Sonnet et Haiku, recherche web, projets. Où le gratuit s'arrête, ce que Pro ajoute. Relevé le 3 octobre 2026.",
   keywords: [
     "claude ai gratuit",
     "claude gratuit",
@@ -29,14 +30,10 @@ export const metadata: Metadata = {
     "claude ai abonnement",
     "claude gratuit ou payant",
   ],
-  openGraph: {
-    title: "Claude AI gratuit ou Pro : ce que le plan gratuit permet vraiment",
-    description:
-      "Ce que le plan gratuit de Claude permet, où il s'arrête, et ce que Pro ajoute. Relevé le 3 octobre 2026.",
-    url: "/claude-ai-gratuit",
-    type: "article",
-  },
-};
+  ogDescription:
+    "Ce que le plan gratuit de Claude permet, où il s'arrête, et ce que Pro ajoute. Relevé le 3 octobre 2026.",
+  type: "article",
+});
 
 const gratuit = [
   "Discuter sur le web, dans l'application de bureau (Windows, macOS, Linux en bêta) et sur mobile (iOS, Android)",
@@ -101,6 +98,8 @@ export default function ClaudeAiGratuitPage() {
       name: "Alexandre Dos Reis Caetano",
       url: `${SITE_URL}/a-propos`,
     },
+    image: OG_IMAGE_URL,
+    datePublished: "2026-10-03",
     dateModified: "2026-10-03",
     about: [{ "@type": "Thing", name: "Claude (Anthropic)" }],
   };

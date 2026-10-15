@@ -39,6 +39,46 @@ type LessonMeta = {
 
 type LessonContent = LessonMeta & { content_md: string };
 
+// Title = titre de la leçon seul, marque ajoutée seulement si l'ensemble reste
+// sous 65 caractères. L'ancien gabarit « leçon (parcours) | ClaudeAI Academy »
+// donnait 84 à 132 caractères, tronqués par Google (audit SEO du 15/10/2026,
+// point 14).
+const BRAND_SUFFIX = " | ClaudeAI Academy";
+const TITLE_MAX = 65;
+
+function withBrand(base: string): string {
+  const full = `${base}${BRAND_SUFFIX}`;
+  return full.length < TITLE_MAX ? full : base;
+}
+
+/**
+ * Guide public lié à une leçon. Le guide est la page primaire pour la requête
+ * Google ; la leçon reste du contenu de cours et renvoie vers lui (audit SEO
+ * du 15/10/2026, point 2). Les libellés reprennent les titres réels des guides.
+ */
+const GUIDE_PAR_LECON: Record<string, { href: string; label: string }> = {
+  "claude-dans-excel-powerpoint-word-et-chrome": {
+    href: "/claude-excel-powerpoint",
+    label: "Claude dans Excel, PowerPoint, Word et Chrome",
+  },
+  "creer-son-compte-et-installer-claude-partout": {
+    href: "/telecharger-claude",
+    label: "Télécharger Claude sur PC, Mac et mobile",
+  },
+  "un-agent-c-est-quoi-et-lequel-il-te-faut": {
+    href: "/creer-un-agent-ia",
+    label: "Comment créer un agent IA",
+  },
+  "intro-pourquoi-le-prompt-est-de-l-ingenierie": {
+    href: "/prompt-engineering",
+    label: "Prompt engineering : la méthode en 5 points",
+  },
+  "gratuit-pro-ou-max-choisir-son-plan": {
+    href: "/claude-ai-gratuit",
+    label: "Claude AI gratuit ou Pro",
+  },
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -63,7 +103,7 @@ export async function generateMetadata({
   if (!lesson) return {};
 
   return {
-    title: `${lesson.title} (${course.title}) | ClaudeAI Academy`,
+    title: withBrand(lesson.title),
     description:
       lesson.description ??
       `Leçon du parcours ${course.title} de ClaudeAI Academy, la formation francophone pour maîtriser Claude AI.`,
@@ -176,6 +216,10 @@ export default async function LessonPage({ params }: { params: Params }) {
 
   // 9) Sommaire, construit sur les titres de niveau 2 du contenu.
   const headings = content ? extractHeadings(content.content_md) : [];
+
+  // 9b) Guide public lié, affiché sous le contenu quand la leçon est lisible
+  // (aperçu gratuit ou pass acquis).
+  const guide = GUIDE_PAR_LECON[lessonMeta.slug] ?? null;
 
   // 10) Balisage structuré. Seules les leçons en aperçu gratuit sont
   // indexables : leur baliser en `LearningResource` est ce qui les rend
@@ -295,6 +339,18 @@ export default async function LessonPage({ params }: { params: Params }) {
                 lessonSlug={lessonMeta.slug}
               />
             </div>
+
+            {guide && (
+              <p className="mt-8 text-[14px] leading-relaxed text-ink-soft">
+                Guide complet :{" "}
+                <Link
+                  href={guide.href}
+                  className="font-semibold text-coral hover:text-coral-dark"
+                >
+                  {guide.label} →
+                </Link>
+              </p>
+            )}
 
             {quiz && <LessonQuiz questions={quiz} />}
 

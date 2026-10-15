@@ -38,9 +38,10 @@ export async function Hero() {
 
             <p className="order-4 lg:order-none mt-6 lg:mt-7 text-base md:text-lg leading-relaxed text-muted max-w-[540px]">
               Ce n&apos;est pas l&apos;outil qui était mauvais : c&apos;est la
-              question. {stats.courseCount} parcours et {stats.lessonCount} leçons
-              en français, {PROMPT_COUNT} prompts prêts à copier, et dans le
-              Mastery un mentor IA qui corrige les vôtres.
+              question. Emails clients, relances, comptes rendus, publications :
+              vous apprenez quoi demander à Claude pour que ce travail-là vous
+              prenne moins de temps. {stats.lessonCount} leçons en français et{" "}
+              {PROMPT_COUNT} prompts prêts à copier.
               <strong className="text-ink-soft"> Sans prérequis technique, sans
               jargon, à votre rythme.</strong>
             </p>
@@ -97,15 +98,15 @@ export async function Hero() {
               </div>
               <div className="p-7 space-y-3">
                 <p className="px-4 py-3 rounded-[10px] bg-cream font-mono text-[14px] text-ink-soft leading-relaxed">
-                  &gt; Comment industrialiser nos prompts en équipe ?
+                  &gt; Un client conteste ma facture. Aide-moi à lui répondre.
                 </p>
                 <div className="px-4 py-3 rounded-[10px] bg-coral-soft text-ink leading-relaxed text-[15px]">
                   <span className="inline-block font-bold text-coral-dark text-[13px] mr-1.5">
                     Claude
                   </span>
-                  Bonne question. La leçon 4 du parcours Prompt Engineering
-                  couvre exactement ça : versioning, bibliothèque partagée,
-                  tests de régression. Je te résume ?
+                  D&apos;accord. Donnez-moi le montant, ce qui a été fait et ce
+                  qu&apos;il reproche : je vous propose une réponse ferme et
+                  polie, à relire avant d&apos;envoyer.
                 </div>
                 <div
                   className="w-2 h-4 bg-coral rounded-sm mt-2"

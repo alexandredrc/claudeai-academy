@@ -1,54 +1,54 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { CheckoutButton } from "@/components/site/checkout-button";
-import { createClient } from "@/lib/supabase/server";
+import { getCatalogStats } from "@/lib/courses/stats";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 
-type Row = { label: string; value: string; muted?: boolean };
+// Avant le 15/10/2026, ce bloc additionnait des « valeurs » par parcours
+// (197 €, 147 €) jamais pratiquées, affichées barrées face à 497 €. Un prix
+// barré se lit comme une réduction, et une réduction doit se référer à un
+// prix réellement pratiqué (art. L112-1-1 du Code de la consommation) :
+// retiré. À la place, chaque élément dit quel obstacle il lève (Hormozi,
+// « empiler la valeur »), et le prix est ramené à des heures de travail,
+// ce qui est un calcul et non une promesse.
+const PRIX_MASTERY = 497;
+const TAUX_HORAIRE_EXEMPLE = 50;
+// 497 / 50 = 9,94 : « moins de 10 heures » est exact tant que la division
+// ne tombe pas juste.
+const HEURES = Math.ceil(PRIX_MASTERY / TAUX_HORAIRE_EXEMPLE);
 
-// Valeur notionnelle d'un parcours selon son tier — sert d'ancrage de prix,
-// ce n'est pas un tarif de vente à l'unité. Le détail reste synchronisé avec
-// le vrai catalogue en base (comme la section Programme).
-const PARCOURS_VALUE: Record<string, number> = {
-  free: 0,
-  starter: 197,
-  mastery: 147,
-};
-
-function eur(n: number): string {
-  return `${new Intl.NumberFormat("fr-FR").format(n)} €`;
-}
+type Row = { item: string; obstacle: string };
 
 export async function ValueStack() {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("courses")
-    .select("title, tier_required, display_order")
-    .order("display_order");
+  const stats = await getCatalogStats();
 
-  const courses = (data ?? []) as {
-    title: string;
-    tier_required: "free" | "starter" | "mastery";
-  }[];
-
-  const courseRows: Row[] = courses.map((c) => ({
-    label: `📘 Parcours ${c.title}`,
-    value: eur(PARCOURS_VALUE[c.tier_required] ?? 147),
-  }));
-
-  const extraPriced: Row[] = [
-    { label: `📚 Bibliothèque de ${PROMPT_COUNT} prompts`, value: eur(97) },
-    { label: "🎓 Examen de certification et certificat vérifiable", value: eur(67) },
+  const rows: Row[] = [
+    {
+      item: `Les ${stats.courseCount} parcours, ${stats.lessonCount} leçons en français`,
+      obstacle:
+        "Vous arrêtez de chercher sur YouTube : tout est au même endroit, et daté.",
+    },
+    {
+      item: `La bibliothèque de ${PROMPT_COUNT} prompts prêts à copier`,
+      obstacle: "Vous ne partez jamais d'une page blanche.",
+    },
+    {
+      item: "Le Mentor IA Claude, qui corrige vos exercices",
+      obstacle: "Votre cas ne ressemble pas à l'exemple : vous lui soumettez le vôtre.",
+    },
+    {
+      item: "L'examen de certification et son certificat vérifiable",
+      obstacle: "Vous pouvez montrer ce que vous savez faire.",
+    },
+    {
+      item: "Les mises à jour, à vie",
+      obstacle: "Claude évolue sans arrêt, la formation suit sans que vous repayiez.",
+    },
+    {
+      item: "La garantie 14 jours satisfait ou remboursé",
+      obstacle: "Si ce n'est pas pour vous, vous écrivez et vous êtes remboursé.",
+    },
   ];
-
-  const included: Row[] = [
-    { label: "🤖 Mentor IA Claude 24/7", value: "Inclus", muted: true },
-    { label: "♾️ Mises à jour à vie", value: "Inclus", muted: true },
-  ];
-
-  const priced = [...courseRows, ...extraPriced];
-  const total = priced.reduce((sum, r) => sum + parseInt(r.value, 10), 0);
-  const rows = [...priced, ...included];
 
   return (
     <section className="bg-white py-24 md:py-32">
@@ -61,40 +61,34 @@ export async function ValueStack() {
         </div>
 
         <div className="mt-12 bg-cream-soft border border-line rounded-[22px] p-8 md:p-10">
-          <table className="w-full text-[15px]">
-            <tbody>
-              {rows.map((r) => (
-                <tr key={r.label} className="border-b border-line">
-                  <td className="py-4 text-ink-soft">{r.label}</td>
-                  <td
-                    className={`py-4 text-right ${
-                      r.muted ? "text-muted" : "text-muted line-through"
-                    }`}
-                  >
-                    {r.value}
-                  </td>
-                </tr>
-              ))}
-              <tr className="border-b-2 border-ink">
-                <td className="py-4 font-semibold text-ink-soft">Valeur totale</td>
-                <td className="py-4 text-right font-semibold text-ink">
-                  {eur(total)}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-5 font-bold font-serif text-xl text-ink">
-                  Votre prix
-                </td>
-                <td className="py-5 text-right font-bold font-serif text-2xl text-coral">
-                  497 €
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <dl className="divide-y divide-line">
+            {rows.map((r) => (
+              <div key={r.item} className="py-4 first:pt-0">
+                <dt className="text-[15px] font-semibold text-ink">{r.item}</dt>
+                <dd className="mt-1 text-[14px] leading-relaxed text-muted">
+                  {r.obstacle}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="mt-6 border-t-2 border-ink pt-6">
+            <p className="text-[15px] leading-relaxed text-ink-soft">
+              Si votre heure de travail vaut {TAUX_HORAIRE_EXEMPLE} €, le Pass
+              Mastery représente moins de {HEURES} heures de votre temps. Payé
+              une fois, gardé à vie.
+            </p>
+            <div className="mt-5 flex items-baseline justify-between gap-4">
+              <span className="font-bold font-serif text-xl text-ink">Votre prix</span>
+              <span className="font-bold font-serif text-2xl text-coral">
+                {PRIX_MASTERY} €
+              </span>
+            </div>
+          </div>
 
           <div className="mt-7 text-center">
             <CheckoutButton tier="mastery" variant="primary" size="lg">
-              Rejoindre Mastery, 497 €
+              Rejoindre Mastery, {PRIX_MASTERY} €
             </CheckoutButton>
             <p className="mt-3 text-[13px] text-muted">
               ou 3 × 165,67 € sans frais avec Klarna · Garantie 14 jours

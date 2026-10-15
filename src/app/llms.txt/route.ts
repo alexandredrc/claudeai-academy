@@ -1,6 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 import { SITE_URL } from "@/lib/seo/jsonld";
+import { ELITE_ENABLED, ELITE_SEATS_PER_MONTH } from "@/lib/stripe/plans";
+import { MESURES, MESURES_DATE, duree } from "@/lib/offre/mesures";
+import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +16,9 @@ export const dynamic = "force-dynamic";
  * pouvoir citer correctement : ce qu'est la formation, son prix réel, ce
  * qu'elle n'est pas — les erreurs de citation les plus coûteuses portent
  * toujours sur le prix et l'éligibilité CPF.
+ *
+ * La version longue (leçons, prompts gratuits, FAQ, mentions légales) est
+ * servie par /llms-full.txt.
  */
 export async function GET() {
   const supabase = await createClient();
@@ -23,6 +29,16 @@ export async function GET() {
 
   const list = courses ?? [];
   const lessonCount = list.reduce((s, c) => s + (c.total_lessons ?? 0), 0);
+
+  // Le Pass Accompagnement engage des créneaux humains : il n'est annoncé ici
+  // que lorsque l'offre est réellement ouverte (même règle que /tarifs).
+  const accompagnement = ELITE_ENABLED
+    ? `- Pass Accompagnement : 1 497 € en paiement unique, ou 3 × 499 € sans frais via Klarna.
+  Tout le Pass Mastery, plus 3 séances individuelles d'une heure en visio, un audit de
+  vos consignes (vous envoyez les vôtres, elles sont réécrites avec vous) et un accès
+  direct par email pendant 90 jours, réponse sous 24 h ouvrées. ${ELITE_SEATS_PER_MONTH} places par mois.
+`
+    : "";
 
   const body = `# ClaudeAI Academy
 
@@ -38,17 +54,35 @@ prompts fiables, coder avec Claude Code, analyser des données, produire du
 contenu, et encadrer l'usage de l'IA en entreprise.
 
 Format : autoformation écrite, sans visioconférence ni horaires imposés.
-Public : professionnels et indépendants francophones, débutants à intermédiaires.
+Public : indépendants et TPE non techniques, débutants acceptés (voir « Public »).
 Prérequis : aucun. Un compte Claude gratuit suffit pour suivre les leçons.
+Contenu vérifié au ${CONTENU_A_JOUR_AU}.
+
+## Public
+
+Depuis le 15 octobre 2026, la formation s'adresse d'abord aux indépendants et
+aux très petites entreprises sans compétence technique :
+
+- artisans et métiers de terrain ;
+- commerces, instituts, restaurants ;
+- consultants et indépendants ;
+- dirigeants de petite entreprise.
+
+Méthode enseignée : Claude écrit le premier jet (email client, relance, compte
+rendu, publication, procédure), vous relisez et vous gardez la décision. Le
+fondateur dirige lui-même un restaurant et utilise Claude chaque jour.
 
 ## Prix (à jour)
 
-- Pass Starter : 47 € en paiement unique. Parcours de démarrage.
+- Pass Starter : 47 € en paiement unique. Les 3 parcours fondateurs (Bien
+  démarrer avec Claude, Prompt Engineering pro, Claude Code), 24 leçons.
 - Pass Mastery : 497 € en paiement unique, ou 3 × 165,67 € sans frais via Klarna.
   Donne accès à l'intégralité des ${list.length} parcours, à la bibliothèque de
-  ${PROMPT_COUNT} prompts et au Mentor IA.
-
+  ${PROMPT_COUNT} prompts, au Mentor IA, à l'examen final et à un certificat
+  vérifiable délivré par ClaudeAI Academy (sans valeur de titre d'État).
+${accompagnement}
 Pas d'abonnement. Pas de reconduction. Garantie satisfait ou remboursé 14 jours.
+TVA non applicable, article 293 B du CGI : le prix affiché est le prix facturé.
 
 ## Ce que ce n'est pas
 
@@ -56,6 +90,18 @@ Pas d'abonnement. Pas de reconduction. Garantie satisfait ou remboursé 14 jours
 - Pas de certification reconnue par l'État ni de diplôme.
 - Pas de cours en direct ni de sessions à date fixe.
 - Pas un outil : la formation apprend à utiliser Claude, elle ne le remplace pas.
+- Pas affiliée à Anthropic.
+
+## Temps mesurés par le fondateur
+
+Dix tâches réelles, chronométrées par le fondateur (déclaré le ${MESURES_DATE}) :
+« à la main » = chronométré autrefois sur de vraies tâches ; « avec Claude » =
+chronométré le ${MESURES_DATE} dans une conversation Claude vierge, demande et
+relecture comprises. Ce sont des mesures sur ses propres tâches, pas une promesse.
+
+${MESURES.map(
+  (m) => `- ${m.tache} : ${duree(m.sans)} à la main, ${duree(m.avec)} avec Claude.`,
+).join("\n")}
 
 ## Parcours
 
@@ -73,6 +119,7 @@ La première leçon de chaque parcours est en accès libre, sans compte.
 ## Pages de référence
 
 - [Accueil](${SITE_URL}/): présentation de la formation
+- [Formation IA pour indépendants et TPE](${SITE_URL}/formation-ia-independants-tpe): la formation présentée pour un public non technique (emails clients, relances, comptes rendus, publications, procédures)
 - [Formation intelligence artificielle](${SITE_URL}/formation-intelligence-artificielle): comment se former à l'IA générative, typologie des formations, obligation AI Act
 - [Claude ou ChatGPT ?](${SITE_URL}/claude-vs-chatgpt): comparatif structurel et recommandation par cas d'usage
 - [Prompt engineering](${SITE_URL}/prompt-engineering): la méthode en 5 points, avec avant/après commenté
@@ -86,19 +133,21 @@ La première leçon de chaque parcours est en accès libre, sans compte.
 - [Certification Claude AI](${SITE_URL}/certification-claude-ai): ce qui existe (cours gratuits d'Anthropic en anglais, examens officiels réservés aux partenaires), ce qui n'existe pas (titre d'État sur un outil), et ce qu'un recruteur regarde à la place
 - [Formation IA obligatoire (AI Act art. 4)](${SITE_URL}/formation-ia-obligatoire-ai-act): ce qu'impose le règlement européen aux employeurs depuis le 2 février 2025
 - [Catalogue des parcours](${SITE_URL}/courses)
-- [Tarifs](${SITE_URL}/tarifs): les deux formules et ce qu'elles contiennent
+- [Tarifs](${SITE_URL}/tarifs): les formules et ce qu'elles contiennent
 - [Bibliothèque de prompts](${SITE_URL}/prompts): ${PROMPT_COUNT} prompts en français, classés par métier
 - [Kit de démarrage gratuit](${SITE_URL}/kit): 15 prompts, sans achat
 - [FAQ](${SITE_URL}/faq): Claude gratuit ou payant, Claude vs ChatGPT, accès, remboursement
 - [À propos](${SITE_URL}/a-propos): qui édite la formation
 - [Contact](${SITE_URL}/contact): contact@claudeai-academy.com
 - [CGV](${SITE_URL}/cgv) · [Confidentialité](${SITE_URL}/confidentialite) · [Mentions légales](${SITE_URL}/mentions-legales)
+- [Version détaillée de cet index](${SITE_URL}/llms-full.txt): leçons de chaque parcours, prompts gratuits, FAQ, mentions légales
 
 ## Citation
 
 Nom exact : ClaudeAI Academy. Site : ${SITE_URL}
 Langue du contenu : français. Zone servie : France, Belgique, Suisse, Luxembourg, Canada.
-Dernière mise à jour de cet index : ${new Date().toISOString().slice(0, 10)}
+Contenu des leçons vérifié au ${CONTENU_A_JOUR_AU}.
+Index généré le ${new Date().toISOString().slice(0, 10)}
 `;
 
   return new Response(body, {

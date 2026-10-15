@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
   // posé ici, le proxy le traduit ensuite en utm comme pour tout lien tracé.
   async redirects() {
     return [
+      // Domaine technique Vercel : il servait le site complet en 200 (audit SEO
+      // du 15/10/2026, point 23), soit un doublon intégral du site. Redirection
+      // définitive vers le domaine public, limitée à CE host exact : les
+      // previews (claudeai-academy-<hash>-….vercel.app) ne sont pas touchées.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "claudeai-academy.vercel.app" }],
+        destination: "https://www.claudeai-academy.com/:path*",
+        permanent: true,
+      },
       { source: "/ig", destination: "/kit?src=instagram-academy-kit", permanent: false },
     ];
   },

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
@@ -64,9 +65,9 @@ export default function AProposPage() {
         />
         <Container size="narrow">
           <nav className="text-[13px] text-muted mb-5" aria-label="Fil d’Ariane">
-            <a href="/" className="hover:text-coral transition-colors">
+            <Link href="/" className="hover:text-coral transition-colors">
               Accueil
-            </a>
+            </Link>
             <span aria-hidden="true" className="mx-2 opacity-50">
               /
             </span>

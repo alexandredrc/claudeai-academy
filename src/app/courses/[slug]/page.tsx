@@ -8,6 +8,26 @@ import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json
 
 export const dynamic = "force-dynamic";
 
+// Le title d'un parcours décrit son PROGRAMME, jamais « formation X » : les
+// pages guides (/formation-claude-code, /prompt-engineering…) portent déjà ces
+// requêtes, et un parcours titré pareil entrait en concurrence avec elles sur
+// Google (audit SEO du 15/10/2026, point 2). La marque n'est ajoutée que si le
+// title entier reste sous 65 caractères (au-delà, Google tronque).
+const BRAND_SUFFIX = " | ClaudeAI Academy";
+const TITLE_MAX = 65;
+
+function withBrand(base: string): string {
+  const full = `${base}${BRAND_SUFFIX}`;
+  return full.length < TITLE_MAX ? full : base;
+}
+
+/** « 188 » minutes → « 3,1 h » (même arrondi que la puce visible de la page). */
+function formatHours(minutes: number | null): string | null {
+  if (!minutes) return null;
+  const hours = Math.round((minutes / 60) * 10) / 10;
+  return `${String(hours).replace(".", ",")} h`;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -17,30 +37,32 @@ export async function generateMetadata({
   const supabase = await createClient();
   const { data: course } = await supabase
     .from("courses")
-    .select("title, description, total_lessons")
+    .select("title, total_lessons, tier_required, estimated_duration_min")
     .eq("slug", slug)
-    .single<Pick<Course, "title" | "description" | "total_lessons">>();
+    .single<
+      Pick<
+        Course,
+        "title" | "total_lessons" | "tier_required" | "estimated_duration_min"
+      >
+    >();
 
   if (!course) return {};
 
-  const description =
-    course.description ??
-    `Parcours ${course.title} : ${course.total_lessons} leçons pour maîtriser Claude AI en pratique.`;
+  const title = withBrand(
+    `Programme : ${course.title} (${course.total_lessons} leçons)`,
+  );
 
-  // Titles SEO dédiés pour les parcours à fort volume de recherche
-  // (requêtes exactes relevées sur les SERP FR, juillet 2026).
-  const seoTitles: Record<string, string> = {
-    "bien-demarrer-avec-claude":
-      "Apprendre Claude AI : le parcours débutant complet en français",
-    "claude-code-ia-agentic":
-      "Formation Claude Code en ligne : codez avec l'IA, en français",
-    "prompt-engineering-pro":
-      "Formation prompt engineering pour Claude : techniques et modèles",
-  };
+  const duration = formatHours(course.estimated_duration_min);
+  const pass =
+    course.tier_required === "mastery"
+      ? "inclus dans le Pass Mastery (497 €)"
+      : course.tier_required === "starter"
+        ? "inclus dans le Pass Starter (47 €)"
+        : "en accès libre";
+  const description = `Programme détaillé du parcours « ${course.title} » : ${course.total_lessons} leçons${duration ? `, ${duration}` : ""}, ${pass}.`;
 
   return {
-    title:
-      seoTitles[slug] ?? `${course.title}, formation Claude AI | ClaudeAI Academy`,
+    title,
     description,
     alternates: { canonical: `/courses/${slug}` },
     openGraph: {

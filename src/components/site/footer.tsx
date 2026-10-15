@@ -14,27 +14,37 @@ const parcoursLinks = [
   { href: "/courses/construire-ton-agent-ia", label: "Construire ton agent IA" },
 ];
 
-const tarifsLinks = [
-  { href: "/tarifs#starter", label: "Pass Starter, 47 €" },
-  { href: "/tarifs#mastery", label: "Pass Mastery, 497 €" },
-  { href: "/faq", label: "FAQ et objections" },
-];
-
 // Pages piliers organiques : elles ont besoin d'un lien depuis chaque page du
 // site pour recevoir de l'autorité interne. C'est ce qui les fait remonter.
-const ressourcesLinks = [
+// Audit SEO du 15/10/2026 : cinq pages indexables n'avaient aucun lien entrant
+// crawlable (certification, Excel, gratuit, télécharger, Cowork). Elles sont
+// réparties ici en deux colonnes pour rester lisibles : les guides de
+// formation, puis les guides d'usage de Claude.
+const guidesLinks = [
   { href: "/formation-intelligence-artificielle", label: "Formation intelligence artificielle" },
-  { href: "/claude-vs-chatgpt", label: "Claude ou ChatGPT ?" },
-  { href: "/prompt-engineering", label: "Le prompt engineering" },
+  { href: "/formation-ia-independants-tpe", label: "IA pour indépendants et TPE" },
   { href: "/formation-claude-code", label: "Formation Claude Code" },
-  { href: "/claude-code-skills", label: "Claude Code : skills, plugins, mods" },
+  { href: "/prompt-engineering", label: "Le prompt engineering" },
   { href: "/creer-un-agent-ia", label: "Créer un agent IA" },
+  { href: "/certification-claude-ai", label: "Certification Claude AI" },
   { href: "/formation-ia-obligatoire-ai-act", label: "Formation IA et AI Act" },
+];
+
+const pratiqueLinks = [
+  { href: "/claude-vs-chatgpt", label: "Claude ou ChatGPT ?" },
+  { href: "/claude-ai-gratuit", label: "Claude AI gratuit ou Pro" },
+  { href: "/telecharger-claude", label: "Télécharger Claude" },
+  { href: "/claude-excel-powerpoint", label: "Claude dans Excel et PowerPoint" },
+  { href: "/claude-cowork", label: "Claude Cowork" },
+  { href: "/claude-code-skills", label: "Claude Code : skills, plugins, mods" },
   { href: "/prompts", label: "Bibliothèque de prompts" },
   { href: "/kit", label: "Kit gratuit, 15 prompts" },
 ];
 
 const academieLinks = [
+  { href: "/tarifs#starter", label: "Pass Starter, 47 €" },
+  { href: "/tarifs#mastery", label: "Pass Mastery, 497 €" },
+  { href: "/faq", label: "FAQ et objections" },
   { href: "/a-propos", label: "À propos" },
   { href: "/contact", label: "Contact" },
   { href: "/login", label: "Mon espace" },
@@ -76,12 +86,20 @@ export function Footer() {
           </div>
 
           <FooterColumn title="Parcours" links={parcoursLinks} />
-          <FooterColumn title="Ressources" links={ressourcesLinks} />
-          <FooterColumn title="Tarifs" links={tarifsLinks} />
+          <FooterColumn title="Guides" links={guidesLinks} />
+          <FooterColumn title="Claude en pratique" links={pratiqueLinks} />
           <FooterColumn title="L'académie" links={academieLinks} />
         </div>
 
-        <div className="pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[13px] text-cream/55">
+        {/* Désambiguïsation de la marque : le nom est proche de « Claude
+            Academy », la plateforme d'Anthropic. La même mention existe déjà
+            sur le pied anglais et les pages certification. */}
+        <p className="pt-6 text-[12px] leading-relaxed text-cream/45">
+          ClaudeAI Academy est un organisme de formation indépendant, non
+          affilié à Anthropic. Claude est une marque d&apos;Anthropic PBC.
+        </p>
+
+        <div className="pt-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[13px] text-cream/55">
           <p>
             © {new Date().getFullYear()} ClaudeAI Academy. Édité par ADRC Group, RCS Nanterre 892 303 082.
           </p>
@@ -103,9 +121,11 @@ export function Footer() {
 function FooterColumn({ title, links }: { title: string; links: { href: string; label: string }[] }) {
   return (
     <div>
-      <h4 className="text-cream text-[13px] font-semibold uppercase tracking-[0.08em] mb-4">
+      {/* Un paragraphe, pas un h4 : le pied suit des h2 sur toutes les pages,
+          un h4 créait un saut de niveau dans la hiérarchie des titres. */}
+      <p className="text-cream text-[13px] font-semibold uppercase tracking-[0.08em] mb-4">
         {title}
-      </h4>
+      </p>
       <ul className="space-y-2.5">
         {links.map((l) => (
           <li key={l.href}>

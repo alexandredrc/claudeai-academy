@@ -85,10 +85,18 @@ export const metadata: Metadata = {
   },
 };
 
+// Compte Instagram de marque (le compte personnel du fondateur reste dans
+// `instagram.tsx`, il porte le pied de page et l'en-tête). Les deux figurent
+// dans `sameAs` : l'un prouve la personne, l'autre la marque.
+const INSTAGRAM_ACADEMY_URL = "https://www.instagram.com/official_claude_ai_academy/";
+
 // `EducationalOrganization` plutôt que `Organization` : c'est le type que
 // Google et les moteurs génératifs relient aux requêtes « formation … ».
-// `sameAs` et l'identité de l'éditeur alimentent l'E-E-A-T (Trust) — sans
+// `sameAs` et l'identité de l'éditeur alimentent l'E-E-A-T (Trust), sans
 // quoi un site marchand récent reste une entité inconnue.
+// Audit SEO du 15/10/2026 : logo carré (Google demande un carré lisible sur
+// fond blanc, pas la bannière Open Graph), désambiguïsation face à « Claude
+// Academy » d'Anthropic, politique de retour portée par l'organisation.
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": ["EducationalOrganization", "Organization"],
@@ -98,23 +106,35 @@ const organizationJsonLd = {
   url: "https://www.claudeai-academy.com",
   logo: {
     "@type": "ImageObject",
-    url: "https://www.claudeai-academy.com/og.png",
-    width: 1200,
-    height: 630,
+    url: "https://www.claudeai-academy.com/logo-1024.png",
+    width: 1024,
+    height: 1024,
   },
   image: "https://www.claudeai-academy.com/og.png",
   email: "contact@claudeai-academy.com",
   inLanguage: "fr-FR",
   areaServed: ["FR", "BE", "CH", "LU", "CA"],
   knowsLanguage: "fr-FR",
-  sameAs: [INSTAGRAM_URL],
+  sameAs: [INSTAGRAM_URL, INSTAGRAM_ACADEMY_URL],
   founder: {
     "@type": "Person",
+    "@id": "https://www.claudeai-academy.com/a-propos#alexandre-dos-reis-caetano",
     name: "Alexandre Dos Reis Caetano",
     jobTitle: "Fondateur, ClaudeAI Academy",
     url: "https://www.claudeai-academy.com/a-propos",
   },
   parentOrganization: { "@type": "Organization", name: "ADRC Group" },
+  disambiguatingDescription:
+    "Organisme de formation indépendant, non affilié à Anthropic PBC, l'entreprise qui édite Claude. Claude est une marque d'Anthropic PBC. À ne pas confondre avec Claude Academy, la plateforme d'Anthropic.",
+  // Garantie 14 jours satisfait ou remboursé (CGV). Produit numérique : pas
+  // de returnMethod, un accès en ligne ne se renvoie pas par la poste.
+  hasMerchantReturnPolicy: {
+    "@type": "MerchantReturnPolicy",
+    applicableCountry: "FR",
+    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+    merchantReturnDays: 14,
+    returnFees: "https://schema.org/FreeReturn",
+  },
   knowsAbout: [
     "Intelligence artificielle générative",
     "Claude (Anthropic)",

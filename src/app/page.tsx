@@ -5,6 +5,7 @@ import { Method } from "@/components/landing/method";
 import { Programme } from "@/components/landing/programme";
 import { PromptTeaser } from "@/components/landing/prompt-teaser";
 import { Profiles } from "@/components/landing/profiles";
+import { ProofMeasures } from "@/components/landing/proof-measures";
 import { Founder } from "@/components/landing/founder";
 import { Testimonials } from "@/components/landing/testimonials";
 import { PricingTeaser } from "@/components/landing/pricing-teaser";
@@ -25,6 +26,8 @@ export default function Home() {
           15/10/2026) : un artisan qui lit d'abord quatre sections pensées
           pour des profils techniques ne se reconnaît pas. */}
       <Profiles />
+      {/* Preuve chiffrée du fondateur (temps mesurés, lib/offre/mesures.ts). */}
+      <ProofMeasures />
       <Problem />
       <Method />
       <Programme />

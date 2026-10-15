@@ -8,6 +8,7 @@ import {
   BONUS_AUDIT_PLACES,
   placesBonusRestantes,
 } from "@/lib/offre/bonus-audit";
+import { PRIX_MASTERY, TAUX_HORAIRE_EXEMPLE } from "@/lib/offre/mesures";
 
 // Avant le 15/10/2026, ce bloc additionnait des « valeurs » par parcours
 // (197 €, 147 €) jamais pratiquées, affichées barrées face à 497 €. Un prix
@@ -15,9 +16,8 @@ import {
 // prix réellement pratiqué (art. L112-1-1 du Code de la consommation) :
 // retiré. À la place, chaque élément dit quel obstacle il lève (Hormozi,
 // « empiler la valeur »), et le prix est ramené à des heures de travail,
-// ce qui est un calcul et non une promesse.
-const PRIX_MASTERY = 497;
-const TAUX_HORAIRE_EXEMPLE = 50;
+// ce qui est un calcul et non une promesse. Prix et taux partagés avec la
+// section des temps mesurés (lib/offre/mesures.ts).
 // 497 / 50 = 9,94 : « moins de 10 heures » est exact tant que la division
 // ne tombe pas juste.
 const HEURES = Math.ceil(PRIX_MASTERY / TAUX_HORAIRE_EXEMPLE);

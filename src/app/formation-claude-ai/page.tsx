@@ -11,6 +11,7 @@ import { Guarantee } from "@/components/landing/guarantee";
 import { LeadCaptureForm } from "@/components/landing/lead-capture-form";
 import { Founder } from "@/components/landing/founder";
 import { Profiles } from "@/components/landing/profiles";
+import { ProofMeasures } from "@/components/landing/proof-measures";
 import { getCatalogStats } from "@/lib/courses/stats";
 import { createClient } from "@/lib/supabase/server";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
@@ -35,6 +36,7 @@ export default function FormationClaudeAI() {
       {/* Public nommé dès le deuxième écran, comme sur l'accueil
           (indépendants et TPE, décision du 15/10/2026). */}
       <Profiles />
+      <ProofMeasures />
       <PainBridge />
       <WhatYouGet />
       {/* Audit du 10/10/2026 : un visiteur payé ne savait pas qui vend. Le

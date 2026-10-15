@@ -44,8 +44,14 @@ export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
             <Logo className="whitespace-nowrap" />
           </div>
           <span className="shrink-0 whitespace-nowrap text-[12px] font-medium text-muted sm:text-[13px]">
-            <span className="sm:hidden">🛡️ Garantie 14 j</span>
-            <span className="hidden sm:inline">🛡️ Garantie 14 jours satisfait ou remboursé</span>
+            <span className="sm:hidden">
+              <span aria-hidden="true">🛡️</span>{" "}
+              Garantie 14 j
+            </span>
+            <span className="hidden sm:inline">
+              <span aria-hidden="true">🛡️</span>{" "}
+              Garantie 14 jours satisfait ou remboursé
+            </span>
           </span>
         </div>
       </header>

@@ -6,6 +6,12 @@ import { useRouter } from "next/navigation";
 type Labels = {
   firstName: string;
   email: string;
+  /**
+   * Nom accessible du champ email. Le placeholder est un exemple d'adresse,
+   * pas un libellé : sans ce nom, un lecteur d'écran annonce « email@exemple.com ».
+   * Optionnel pour ne pas casser les appelants existants (page anglaise).
+   */
+  emailLabel?: string;
   submit: string;
   sending: string;
   errorGeneric: string;
@@ -16,6 +22,7 @@ type Labels = {
 const FR: Labels = {
   firstName: "Prénom (optionnel)",
   email: "email@exemple.com",
+  emailLabel: "Adresse email",
   submit: "Recevoir le Kit gratuitement",
   sending: "Envoi…",
   errorGeneric: "Une erreur est survenue. Réessaie.",
@@ -86,6 +93,7 @@ export function LeadCaptureForm({
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           placeholder={labels.firstName}
+          aria-label={labels.firstName}
           autoComplete="given-name"
           className="w-full rounded-[12px] border border-line bg-white px-4 py-3.5 text-[15px] text-ink placeholder:text-muted focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20 transition-colors"
         />
@@ -95,6 +103,7 @@ export function LeadCaptureForm({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={labels.email}
+          aria-label={labels.emailLabel ?? "Email"}
           autoComplete="email"
           className="w-full rounded-[12px] border border-line bg-white px-4 py-3.5 text-[15px] text-ink placeholder:text-muted focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20 transition-colors"
         />
@@ -123,7 +132,7 @@ export function LeadCaptureForm({
       </div>
 
       {status === "error" && (
-        <p className="mt-3 text-[14px] text-[#C0392B]">{error}</p>
+        <p role="alert" className="mt-3 text-[14px] text-[#C0392B]">{error}</p>
       )}
 
       <p className="mt-3 text-[13px] leading-relaxed text-muted">{labels.footnote}</p>

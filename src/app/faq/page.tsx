@@ -79,7 +79,11 @@ const groups: Group[] = [
       },
       {
         q: "Combien de temps faut-il pour terminer le programme ?",
-        a: "Comptez plusieurs heures de contenu structuré par parcours. La majorité des membres avancent en 3 à 6 semaines à raison de 2 sessions par semaine. Vous gardez l’accès à vie, donc rien ne vous oblige à courir.",
+        // Avant le 15/10/2026 : « la majorité des membres avancent en 3 à 6
+        // semaines », contredit par lesson_progress (aucun acheteur n'avait
+        // terminé un pass, la moitié n'avait ouvert aucune leçon). Mêmes
+        // chiffres que la FAQ de l'accueil, vérifiés en base le même jour.
+        a: "Pour commencer à vous en servir : une heure, avec les trois leçons conseillées (Personnaliser Claude, Être clair et direct, Claude dans Word, Excel et Outlook). Pour tout faire : les 58 leçons des 9 parcours se lisent en une dizaine d’heures (8 à 15 minutes par leçon), et demandent environ 22 heures avec la mise en pratique, soit 2 à 3 mois à raison de 2 sessions par semaine. Vous gardez l’accès à vie, donc rien ne vous oblige à courir.",
       },
       {
         q: "Le contenu sera-t-il dépassé dans 6 mois ?",

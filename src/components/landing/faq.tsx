@@ -23,7 +23,10 @@ const items: Item[] = [
   },
   {
     q: "Combien de temps faut-il pour terminer le programme ?",
-    a: "Pour commencer à vous en servir : une heure, avec les trois leçons conseillées (Personnaliser Claude, Être clair et direct, Claude dans Word, Excel et Outlook). Pour tout faire : les 58 leçons des 9 parcours représentent 22 heures de lecture, et environ 27 heures avec la mise en pratique, soit 2 à 3 mois à raison de 2 sessions par semaine. Rien ne vous oblige à tout suivre : vous gardez l'accès à vie.",
+    // Chiffres vérifiés en base le 15/10/2026 : 128 249 mots au total, soit
+    // 8 h 30 à 10 h 40 de lecture (250 à 200 mots/min) ; somme des durées
+    // affichées sur les leçons (pratique comprise) = 1 341 min, 22 h 21.
+    a: "Pour commencer à vous en servir : une heure, avec les trois leçons conseillées (Personnaliser Claude, Être clair et direct, Claude dans Word, Excel et Outlook). Pour tout faire : les 58 leçons des 9 parcours se lisent en une dizaine d'heures (8 à 15 minutes par leçon), et demandent environ 22 heures avec la mise en pratique, soit 2 à 3 mois à raison de 2 sessions par semaine. Rien ne vous oblige à tout suivre : vous gardez l'accès à vie.",
   },
   {
     q: "Le contenu sera-t-il dépassé dans 6 mois ?",

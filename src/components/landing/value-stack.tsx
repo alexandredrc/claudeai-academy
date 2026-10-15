@@ -3,6 +3,11 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { CheckoutButton } from "@/components/site/checkout-button";
 import { getCatalogStats } from "@/lib/courses/stats";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
+import {
+  BONUS_AUDIT_FIN_LIBELLE,
+  BONUS_AUDIT_PLACES,
+  placesBonusRestantes,
+} from "@/lib/offre/bonus-audit";
 
 // Avant le 15/10/2026, ce bloc additionnait des « valeurs » par parcours
 // (197 €, 147 €) jamais pratiquées, affichées barrées face à 497 €. Un prix
@@ -20,9 +25,25 @@ const HEURES = Math.ceil(PRIX_MASTERY / TAUX_HORAIRE_EXEMPLE);
 type Row = { item: string; obstacle: string };
 
 export async function ValueStack() {
-  const stats = await getCatalogStats();
+  const [stats, placesBonus] = await Promise.all([
+    getCatalogStats(),
+    placesBonusRestantes(),
+  ]);
+
+  // Bonus réel à places comptées : la ligne n'existe que tant qu'il reste
+  // des places et que la date n'est pas passée (lib/offre/bonus-audit).
+  const bonus: Row[] =
+    placesBonus !== null
+      ? [
+          {
+            item: `Bonus jusqu'au ${BONUS_AUDIT_FIN_LIBELLE} : l'audit vidéo de vos prompts par Alexandre (15 min)`,
+            obstacle: `Vous savez quoi corriger, sur vos propres demandes. Réservé aux ${BONUS_AUDIT_PLACES} premiers : encore ${placesBonus} place${placesBonus > 1 ? "s" : ""}.`,
+          },
+        ]
+      : [];
 
   const rows: Row[] = [
+    ...bonus,
     {
       item: `Les ${stats.courseCount} parcours, ${stats.lessonCount} leçons en français`,
       obstacle:

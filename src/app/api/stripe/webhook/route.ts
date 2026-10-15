@@ -5,6 +5,7 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
 import { isValidTier, isValidPlanCode } from "@/lib/stripe/plans";
 import { notifierVente } from "@/lib/notify/telegram";
 import { sendPurchaseWelcomeEmail } from "@/lib/email/welcome";
+import { rangBonusAudit } from "@/lib/offre/bonus-audit";
 import { sendCheckoutRecoveryEmail } from "@/lib/email/checkout-recovery";
 import { buildAccessLink } from "@/lib/auth/access-link";
 import { libelleCanal, provenanceDepuisMetadata } from "@/lib/attribution";
@@ -206,6 +207,10 @@ async function handleCheckoutCompleted(
   // Alerte de vente, immédiate. Placée juste après l'enregistrement pour que
   // le téléphone sonne même si la suite du webhook échoue — et conditionnée à
   // `existingPurchase` pour qu'un rejeu Stripe ne fasse pas sonner deux fois.
+  // Bonus des 10 premiers Mastery jusqu'au 31/10/2026 (audit vidéo de 15 min
+  // par le fondateur). Calculé une seule fois, au premier passage.
+  const rangBonus = existingPurchase ? null : await rangBonusAudit(session.id);
+
   if (!existingPurchase) {
     await notifierVente({
       planCode,
@@ -213,6 +218,7 @@ async function handleCheckoutCompleted(
       amountTotal: session.amount_total ?? 0,
       prenom: session.customer_details?.name?.trim().split(/\s+/)[0] ?? null,
       canal,
+      bonusAuditRang: rangBonus,
     });
   }
 
@@ -265,6 +271,7 @@ async function handleCheckoutCompleted(
         tier,
         firstName: profile?.first_name ?? null,
         accessLink,
+        bonusAuditRang: rangBonus,
       });
 
       // Journaliser l'email de bienvenue. C'est le seul message qui porte

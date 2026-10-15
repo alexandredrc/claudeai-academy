@@ -1,5 +1,6 @@
 import type { PlanTier } from "@/lib/stripe/plans";
 import { SITE_URL, sendEmail } from "@/lib/email/send";
+import { BONUS_AUDIT_DELAI_JOURS, BONUS_AUDIT_PLACES } from "@/lib/offre/bonus-audit";
 
 type WelcomeContent = {
   subject: string;
@@ -7,7 +8,13 @@ type WelcomeContent = {
   unlocked: { label: string; href: string }[];
   ctaLabel: string;
   ctaHref: string;
+  /** Consigne du bonus audit vidéo, pour les 10 premiers Mastery d'octobre. */
+  bonus?: string;
 };
+
+function consigneBonus(rang: number): string {
+  return `Bonus : tu fais partie des ${BONUS_AUDIT_PLACES} premiers (place ${rang}/${BONUS_AUDIT_PLACES}). Réponds à cet email avec 3 prompts que tu utilises, ou 3 tâches que tu voudrais confier à Claude. Alexandre t'enregistre une vidéo de 15 minutes avec ses corrections, sous ${BONUS_AUDIT_DELAI_JOURS} jours après ta réponse.`;
+}
 
 function welcomeContent(tier: PlanTier): WelcomeContent {
   if (tier === "mastery") {
@@ -56,6 +63,7 @@ function renderHtml(c: WelcomeContent, firstName: string | null): string {
       <p style="font-size:16px;line-height:1.7;margin:0 0 16px;">${c.intro}</p>
       <p style="font-size:16px;line-height:1.7;margin:0 0 8px;">Ce qui est débloqué sur ton compte :</p>
       <ul style="font-size:16px;line-height:1.7;margin:0 0 24px;padding-left:20px;">${items}</ul>
+      ${c.bonus ? `<p style="font-size:16px;line-height:1.7;margin:0 0 24px;padding:16px;background:#FFFFFF;border-left:3px solid #D97757;">${c.bonus}</p>` : ""}
       <p style="margin:0 0 32px;">
         <a href="${c.ctaHref}" style="display:inline-block;background:#D97757;color:#FFFFFF;text-decoration:none;padding:12px 24px;border-radius:6px;font-size:16px;">${c.ctaLabel}</a>
       </p>
@@ -78,6 +86,7 @@ function renderText(c: WelcomeContent, firstName: string | null): string {
     "Ce qui est débloqué sur ton compte :",
     items,
     "",
+    ...(c.bonus ? [c.bonus, ""] : []),
     `${c.ctaLabel} : ${c.ctaHref}`,
     "",
     `Le bouton ne fonctionne plus ? Redemande un accès en 10 secondes : ${SITE_URL}/acces`,
@@ -93,8 +102,13 @@ export async function sendPurchaseWelcomeEmail(params: {
   firstName: string | null;
   /** Lien de connexion magique pour les comptes créés après paiement (pay-first). */
   accessLink?: string | null;
+  /** Place dans le bonus audit vidéo (1 à 10), sinon null. */
+  bonusAuditRang?: number | null;
 }): Promise<boolean> {
   const content = welcomeContent(params.tier);
+  if (params.bonusAuditRang && params.tier === "mastery") {
+    content.bonus = consigneBonus(params.bonusAuditRang);
+  }
   if (params.accessLink) {
     // Achat pay-first : le compte vient d'être créé. Le CTA principal devient
     // le lien magique pour une première connexion en un clic, sans mot de passe.

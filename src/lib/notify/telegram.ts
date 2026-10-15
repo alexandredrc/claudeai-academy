@@ -71,6 +71,8 @@ export async function notifierVente(params: {
   prenom?: string | null;
   /** « instagram / bio », « google / organic »… ou null quand on ne sait pas. */
   canal?: string | null;
+  /** Place (1 à 10) dans le bonus audit vidéo d'octobre 2026, sinon null. */
+  bonusAuditRang?: number | null;
 }): Promise<boolean> {
   const pass = NOM_DU_PASS[params.planCode ?? params.tier] ?? "PASS";
   const montant = euros(params.amountTotal);
@@ -89,6 +91,15 @@ export async function notifierVente(params: {
     `À ${montant}`,
     "",
     `📣 Canal : ${canal}`,
+    // Le fondateur doit savoir tout de suite qu'il doit une vidéo : la
+    // promesse affichée est « sous 7 jours ».
+    ...(params.bonusAuditRang
+      ? [
+          "",
+          `🎁 BONUS AUDIT : place ${params.bonusAuditRang}/10`,
+          "Vidéo de 15 min à envoyer sous 7 jours, dès que l'acheteur a répondu avec ses prompts.",
+        ]
+      : []),
     "",
     "🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢",
   ].join("\n");

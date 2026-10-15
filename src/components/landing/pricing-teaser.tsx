@@ -4,6 +4,11 @@ import { CheckoutButton } from "@/components/site/checkout-button";
 import { getCatalogStats, type CatalogStats } from "@/lib/courses/stats";
 import { ELITE_ENABLED, ELITE_SEATS_PER_MONTH } from "@/lib/stripe/plans";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
+import {
+  BONUS_AUDIT_FIN_LIBELLE,
+  BONUS_AUDIT_PLACES,
+  placesBonusRestantes,
+} from "@/lib/offre/bonus-audit";
 
 // Les 3 parcours fondateurs du Pass Starter. Sert à afficher l'écart réel
 // entre les deux pass — un badge qui chiffre la différence aide à choisir,
@@ -11,7 +16,10 @@ import { PROMPT_COUNT } from "@/lib/prompts/library";
 const STARTER_LESSON_COUNT = 24;
 
 export async function PricingTeaser() {
-  const stats = await getCatalogStats();
+  const [stats, placesBonus] = await Promise.all([
+    getCatalogStats(),
+    placesBonusRestantes(),
+  ]);
   return (
     <section id="tarifs" className="scroll-mt-24 bg-cream py-24 md:py-32">
       <Container>
@@ -36,7 +44,7 @@ export async function PricingTeaser() {
           }`}
         >
           <StarterCard />
-          <MasteryCard stats={stats} />
+          <MasteryCard stats={stats} placesBonus={placesBonus} />
           {ELITE_ENABLED && <EliteCard />}
         </div>
 
@@ -89,7 +97,13 @@ function StarterCard() {
   );
 }
 
-function MasteryCard({ stats }: { stats: CatalogStats }) {
+function MasteryCard({
+  stats,
+  placesBonus,
+}: {
+  stats: CatalogStats;
+  placesBonus: number | null;
+}) {
   const features = [
     `Les ${stats.courseCount} parcours complets (${stats.lessonCount} leçons)`,
     // Audit du 10/10/2026 : « templates téléchargeables » et « communauté
@@ -129,6 +143,21 @@ function MasteryCard({ stats }: { stats: CatalogStats }) {
         Déjà membre Starter&nbsp;? Vos 47&nbsp;€ sont déduits automatiquement,
         connectez-vous avant de payer.
       </p>
+
+      {/* Bonus réel à places comptées (lib/offre/bonus-audit) : absent après
+          le 31/10, quand les 10 places sont prises, ou si la base ne répond
+          pas. */}
+      {placesBonus !== null ? (
+        <p className="mt-5 rounded-[12px] border border-coral/40 bg-coral/10 px-4 py-3 text-[13px] leading-relaxed text-cream/90">
+          <strong className="text-cream">Bonus jusqu&apos;au {BONUS_AUDIT_FIN_LIBELLE}</strong>
+          {" "}: Alexandre enregistre une vidéo de 15 minutes sur vos propres
+          prompts. Réservé aux {BONUS_AUDIT_PLACES} premiers, encore{" "}
+          <strong className="text-cream">
+            {placesBonus} place{placesBonus > 1 ? "s" : ""}
+          </strong>
+          .
+        </p>
+      ) : null}
 
       <CheckoutButton tier="mastery" variant="primary" size="md" className="mt-7 w-full">
         Rejoindre Mastery · 497 €

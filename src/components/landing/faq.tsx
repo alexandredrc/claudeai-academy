@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
@@ -82,6 +82,10 @@ export function FAQ() {
 
 function FAQItem({ item }: { item: Item }) {
   const [open, setOpen] = useState(false);
+  // Motif « disclosure » WAI-ARIA : le bouton annonce le panneau qu'il
+  // commande, et la réponse repliée est retirée de l'arbre d'accessibilité
+  // (sinon un lecteur d'écran lit toutes les réponses, ouvertes ou non).
+  const panelId = useId();
 
   return (
     <li
@@ -93,6 +97,7 @@ function FAQItem({ item }: { item: Item }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
+        aria-controls={panelId}
         className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
       >
         <span className="text-[16px] font-semibold text-ink leading-snug">
@@ -108,6 +113,8 @@ function FAQItem({ item }: { item: Item }) {
         </span>
       </button>
       <div
+        id={panelId}
+        aria-hidden={open ? undefined : true}
         className="grid transition-[grid-template-rows] duration-300 ease-out"
         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
       >

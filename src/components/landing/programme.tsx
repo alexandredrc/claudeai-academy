@@ -199,7 +199,10 @@ function FeaturedParcoursCard({ p }: { p: Parcours }) {
   return (
     <article className="relative bg-gradient-to-br from-ink to-[#2D2A26] text-cream rounded-[22px] p-9 md:p-12 border border-ink overflow-hidden">
       <span className="absolute top-7 right-7 inline-flex items-center gap-1.5 bg-coral text-cream text-[12px] font-semibold px-3 py-1.5 rounded-full">
-        ★ Commencez ici
+        <span>
+          <span aria-hidden="true">★</span>{" "}
+          Commencez ici
+        </span>
       </span>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16">
@@ -208,7 +211,7 @@ function FeaturedParcoursCard({ p }: { p: Parcours }) {
             {p.meta}
           </div>
           <h3 className="mt-5 font-serif text-3xl md:text-4xl font-semibold leading-tight">
-            <span className="mr-2 align-middle">{p.emoji}</span>
+            <span aria-hidden="true" className="mr-2 align-middle">{p.emoji}</span>
             {p.title}
           </h3>
           <p className="mt-2 text-coral font-medium text-[15px]">{p.role}</p>
@@ -246,7 +249,7 @@ function ParcoursCard({ p }: { p: Parcours }) {
         {p.meta}
       </div>
       <h3 className="mt-5 font-serif text-2xl font-semibold text-ink leading-tight">
-        <span className="mr-2 align-middle">{p.emoji}</span>
+        <span aria-hidden="true" className="mr-2 align-middle">{p.emoji}</span>
         {p.title}
       </h3>
       <p className="mt-1.5 text-coral font-medium text-[14px]">{p.role}</p>
@@ -285,7 +288,8 @@ function BonusBlock({ courseCount }: { courseCount: number }) {
     <div className="mt-14 max-w-[880px] mx-auto bg-cream-soft border border-dashed border-coral rounded-[22px] p-8 md:p-10 text-center">
       <Eyebrow align="center">Bonus inclus dans Mastery</Eyebrow>
       <h3 className="mt-3 font-serif text-2xl font-semibold text-ink">
-        📚 Bibliothèque et toolkit complets
+        <span aria-hidden="true">📚</span>{" "}
+        Bibliothèque et toolkit complets
       </h3>
       <p className="mt-3 text-ink-soft max-w-[560px] mx-auto leading-relaxed">
         En plus des {courseCount} parcours, votre Pass Mastery donne accès à une
@@ -294,7 +298,7 @@ function BonusBlock({ courseCount }: { courseCount: number }) {
       <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 max-w-[520px] mx-auto text-left">
         {bonus.map((b) => (
           <li key={b} className="relative pl-6 text-[14px] text-ink-soft">
-            <span className="absolute left-0 top-0 text-coral font-bold">✓</span>
+            <span aria-hidden="true" className="absolute left-0 top-0 text-coral font-bold">✓</span>
             {b}
           </li>
         ))}

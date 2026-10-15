@@ -176,7 +176,7 @@ function Attribution({
 
 function Stars() {
   return (
-    <div className="flex gap-0.5 text-coral" aria-label="5 étoiles sur 5">
+    <div role="img" aria-label="5 étoiles sur 5" className="flex gap-0.5 text-coral">
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}

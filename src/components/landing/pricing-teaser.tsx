@@ -88,7 +88,7 @@ function StarterCard() {
       <ul className="mt-7 pt-7 border-t border-line space-y-3 flex-1">
         {features.map((f) => (
           <li key={f} className="relative pl-7 text-[14px] leading-[1.55] text-ink-soft">
-            <span className="absolute left-0 top-0 text-coral font-bold text-base">✓</span>
+            <span aria-hidden="true" className="absolute left-0 top-0 text-coral font-bold text-base">✓</span>
             {f}
           </li>
         ))}
@@ -121,7 +121,10 @@ function MasteryCard({
       className="scroll-mt-24 relative bg-gradient-to-br from-ink to-[#2D2A26] text-cream border border-ink rounded-[22px] p-9 md:p-10 flex flex-col"
     >
       <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-coral text-cream text-[12px] font-bold tracking-wider px-3.5 py-1.5 rounded-full">
-        ★ {stats.lessonCount - STARTER_LESSON_COUNT} LEÇONS DE PLUS
+        <span>
+          <span aria-hidden="true">★</span>{" "}
+          {stats.lessonCount - STARTER_LESSON_COUNT} LEÇONS DE PLUS
+        </span>
       </span>
 
       <h3 className="font-serif text-2xl font-semibold">Pass Mastery</h3>
@@ -166,7 +169,7 @@ function MasteryCard({
       <ul className="mt-7 pt-7 border-t border-cream/15 space-y-3 flex-1">
         {features.map((f) => (
           <li key={f} className="relative pl-7 text-[14px] leading-[1.55] text-cream/85">
-            <span className="absolute left-0 top-0 text-coral-soft font-bold text-base">✓</span>
+            <span aria-hidden="true" className="absolute left-0 top-0 text-coral-soft font-bold text-base">✓</span>
             {f}
           </li>
         ))}
@@ -228,7 +231,7 @@ function EliteCard() {
       <ul className="mt-7 pt-7 border-t border-line space-y-3 flex-1">
         {features.map((f) => (
           <li key={f} className="relative pl-7 text-[14px] leading-[1.55] text-ink-soft">
-            <span className="absolute left-0 top-0 text-coral font-bold text-base">✓</span>
+            <span aria-hidden="true" className="absolute left-0 top-0 text-coral font-bold text-base">✓</span>
             {f}
           </li>
         ))}
@@ -248,7 +251,10 @@ function PaymentMethods() {
   return (
     <div className="mt-12 max-w-[760px] mx-auto bg-white border border-line rounded-[22px] p-7 md:p-8 flex flex-col items-center gap-4 text-center">
       <span className="inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-muted">
-        🔒 Paiement 100 % sécurisé
+        <span>
+          <span aria-hidden="true">🔒</span>{" "}
+          Paiement 100 % sécurisé
+        </span>
       </span>
       <div className="flex flex-wrap gap-2.5 justify-center">
         {pills.map((p) => (

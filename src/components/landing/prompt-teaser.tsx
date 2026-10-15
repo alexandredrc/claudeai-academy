@@ -57,7 +57,8 @@ export function PromptTeaser() {
               className="flex flex-col rounded-[18px] border border-line bg-cream-soft p-6"
             >
               <span className="text-[12px] font-semibold uppercase tracking-[0.08em] text-coral">
-                {p.emoji} {categoryLabel(p.category)}
+                <span aria-hidden="true">{p.emoji}</span>{" "}
+                {categoryLabel(p.category)}
               </span>
               <h3 className="mt-3 text-[16px] font-semibold leading-snug text-ink">
                 {p.title}

@@ -61,8 +61,8 @@ export default function AProposPage() {
             <p>
               Un programme structuré, pas une succession de tutos isolés. De la
               densité plutôt que du remplissage&nbsp;: chaque leçon vise un
-              résultat concret et actionnable, avec des prompts prêts à
-              l’emploi. Et une exigence d’actualité&nbsp;: l’écosystème
+              résultat concret et actionnable, avec des prompts et des templates
+              prêts à l’emploi. Et une exigence d’actualité&nbsp;: l’écosystème
               Claude évolue vite, le contenu suit.
             </p>
             <p>

@@ -1,36 +1,30 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 
-// Réécrit le 15/10/2026 pour le public choisi (indépendants et TPE non
-// techniques). L'ancienne version parlait de RAG, de tool use et de « prod »,
-// et avançait « 20 % du potentiel » et « 10× » sans source. Chaque symptôme
-// correspond à une leçon qui le traite : Personnaliser Claude, Être clair et
-// direct, la bibliothèque de prompts, Paramétrer Claude (données personnelles,
-// mode incognito) et Gouvernance et conformité (RGPD).
 const symptoms = [
   {
     n: "01",
-    title: "Des réponses qui ne parlent pas de vous",
+    title: "Vous tâtonnez à chaque tâche",
     body:
-      "Claude ne connaît ni votre métier, ni vos clients, ni votre façon d'écrire. Tant que vous ne le lui dites pas, il répond comme à n'importe qui.",
+      "Pas de méthode reproductible, pas de bibliothèque de prompts qui marchent. Chaque mission redémarre de zéro.",
   },
   {
     n: "02",
-    title: "Plus de temps à corriger qu'à écrire",
+    title: "Vous restez en surface",
     body:
-      "Une demande vague donne un texte vague. Vous le réécrivez entièrement, et vous en concluez que l'IA ne fait pas gagner de temps.",
+      "System prompt, tool use, RAG, chain-of-thought. Vous savez que ça existe, mais pas comment vraiment l'utiliser.",
   },
   {
     n: "03",
-    title: "La page blanche à chaque fois",
+    title: "Vos résultats sont aléatoires",
     body:
-      "Vous ne savez pas comment formuler la demande, alors vous ne demandez pas. Chaque tâche repart de zéro.",
+      "Parfois excellents, parfois décevants. Sans cadre, vous ne savez pas pourquoi ça marche, ou pas.",
   },
   {
     n: "04",
-    title: "Le doute sur ce que vous pouvez lui confier",
+    title: "Vous ne sécurisez pas",
     body:
-      "Coordonnées de clients, chiffres, contrats : vous ne savez pas ce qui est sans risque. Dans le doute, vous ne l'utilisez pas.",
+      "Prompt injection, fuite de données, garde-fous. Une zone aveugle qui devient critique en prod.",
   },
 ];
 
@@ -41,15 +35,15 @@ export function Problem() {
         <div className="text-center mb-16">
           <Eyebrow align="center">Le constat</Eyebrow>
           <h2 className="mt-4 font-serif text-3xl md:text-5xl font-medium leading-[1.15] tracking-tight text-ink">
-            Vous avez déjà essayé.
+            Vous utilisez Claude depuis des mois.
             <br />
-            <span className="accent-serif">Et vous êtes revenu à la main.</span>
+            <span className="accent-serif">Vous n&apos;en tirez que 20 % du potentiel.</span>
           </h2>
           <p className="mt-7 text-lg leading-relaxed text-muted max-w-[640px] mx-auto">
-            La réponse était générique, il fallait tout reprendre, et au final
-            c&apos;était plus rapide de le faire soi-même. Ce n&apos;est ni
-            l&apos;outil ni vous : personne ne vous a montré quoi lui donner pour
-            qu&apos;il réponde juste.
+            Les tutos YouTube tournent en rond, la doc est dense, et personne
+            dans votre entourage n&apos;a vraiment industrialisé son usage.
+            Résultat : vous avancez par tâtonnements, vous ratez les meilleures
+            pratiques, et vous sentez que vos prompts pourraient être 10× meilleurs.
           </p>
         </div>
 

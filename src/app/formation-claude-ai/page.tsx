@@ -152,11 +152,9 @@ function PainBridge() {
       body: "Des astuces en vrac, souvent en anglais, jamais reliées à votre métier. Ce qu'il vous manque, c'est une méthode progressive, pas plus de vidéos.",
     },
     {
-      // Avant le 15/10/2026 : « certains livrent déjà en 2 heures ce qui leur
-      // prenait 2 jours », affirmation sans source. Remplacé par un constat
-      // que la leçon « Être clair et direct » traite.
-      title: "Vous corrigez plus que vous ne gagnez",
-      body: "Une demande vague donne un texte vague. Vous le réécrivez, et l'IA finit par vous coûter du temps au lieu d'en faire gagner. La différence n'est pas le talent : c'est la méthode.",
+      // Vérifié personnellement par le fondateur (15/10/2026).
+      title: "Pendant ce temps, d'autres prennent l'avance",
+      body: "Dans votre secteur, certains livrent déjà en 2 heures ce qui leur prenait 2 jours. La différence n'est pas le talent : c'est la méthode.",
     },
   ];
   return (
@@ -299,9 +297,10 @@ function LandingFAQ() {
     },
     {
       q: "« Je n'ai pas le temps pour une formation. »",
-      // Durées lues en base le 15/10/2026 : 15 à 35 min, 23 en moyenne (le
-      // texte disait « 8 à 15 minutes », faux).
-      a: "Les leçons durent de 15 à 35 minutes et chaque parcours est indépendant. Les trois leçons conseillées pour démarrer prennent une heure en tout. L'accès est à vie : il n'y a ni cohorte, ni deadline, ni rythme imposé.",
+      // « 8 à 15 minutes » = temps de lecture (vérifié le 15/10/2026 :
+      // 1 064 à 4 230 mots par leçon, 9,6 min en moyenne à 230 mots/min).
+      // `lessons.duration_min` (15 à 35) inclut la mise en pratique.
+      a: "Les leçons durent 8 à 15 minutes et chaque parcours est indépendant. L'accès est à vie : il n'y a ni cohorte, ni deadline, ni rythme imposé. Une leçon par jour suffit. Et dès la première semaine, la formation vous fait gagner plus de temps qu'elle n'en prend.",
     },
     {
       q: "« Comment je sais que ça marchera pour moi ? »",

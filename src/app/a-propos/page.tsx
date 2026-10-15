@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
+import { INSTAGRAM_URL } from "@/components/site/instagram";
 
 export const metadata: Metadata = {
   title: "À propos | ClaudeAI Academy",
@@ -10,9 +12,47 @@ export const metadata: Metadata = {
   alternates: { canonical: "/a-propos" },
 };
 
+// Compte Instagram de marque. Le compte personnel vient de `instagram.tsx` ;
+// la même constante existe dans `src/app/layout.tsx` (un layout ne peut pas
+// exporter autre chose que ses champs Next).
+const INSTAGRAM_ACADEMY_URL = "https://www.instagram.com/official_claude_ai_academy/";
+
+// Page auteur (E-E-A-T) : `ProfilePage` dont l'entité principale est le
+// fondateur. Le même `@id` est utilisé par `founder` dans l'Organization du
+// layout, pour que les moteurs relient les deux blocs à une seule personne.
+// La fonction reprend celle affichée dans la page ; aucun parcours chiffré ni
+// profil LinkedIn (aucune URL connue), rien n'est inventé.
+const profilePageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "https://www.claudeai-academy.com/a-propos#profilepage",
+  url: "https://www.claudeai-academy.com/a-propos",
+  name: "À propos de ClaudeAI Academy",
+  inLanguage: "fr-FR",
+  isPartOf: { "@id": "https://www.claudeai-academy.com/#website" },
+  about: { "@id": "https://www.claudeai-academy.com/#organization" },
+  mainEntity: {
+    "@type": "Person",
+    "@id": "https://www.claudeai-academy.com/a-propos#alexandre-dos-reis-caetano",
+    name: "Alexandre Dos Reis Caetano",
+    jobTitle: "Restaurant Manager en Suisse",
+    description:
+      "Restaurant Manager en Suisse, fondateur d'ADRC Group et de ClaudeAI Academy. Utilise Claude au quotidien dans un métier de terrain.",
+    url: "https://www.claudeai-academy.com/a-propos",
+    image: "https://www.claudeai-academy.com/alexandre.jpg",
+    sameAs: [INSTAGRAM_URL, INSTAGRAM_ACADEMY_URL],
+    affiliation: { "@id": "https://www.claudeai-academy.com/#organization" },
+  },
+};
+
 export default function AProposPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
+      />
+
       <section className="relative overflow-hidden pt-16 pb-12 md:pt-24 md:pb-16">
         <div
           aria-hidden="true"
@@ -72,6 +112,29 @@ export default function AProposPage() {
             </p>
 
             <h2>Qui porte le projet</h2>
+
+            {/* Photo réelle du fondateur (public/alexandre.jpg, 800 × 800, la
+                même que sur l'accueil). Une page auteur sans visage reste une
+                entité anonyme pour un visiteur comme pour un moteur. */}
+            <div className="not-prose flex items-center gap-5">
+              <Image
+                src="/alexandre.jpg"
+                alt="Portrait d'Alexandre Dos Reis Caetano, fondateur de ClaudeAI Academy"
+                width={400}
+                height={400}
+                sizes="(min-width: 768px) 136px, 112px"
+                className="h-[112px] w-[112px] shrink-0 rounded-[18px] object-cover shadow-[0_10px_28px_rgba(31,31,30,0.18)] md:h-[136px] md:w-[136px]"
+              />
+              <div>
+                <p className="font-serif text-xl font-medium leading-tight text-ink">
+                  Alexandre Dos Reis Caetano
+                </p>
+                <p className="mt-1 text-[15px] text-muted">
+                  Fondateur de ClaudeAI Academy
+                </p>
+              </div>
+            </div>
+
             <p>
               ClaudeAI Academy est portée par{" "}
               <strong>Alexandre Dos Reis Caetano</strong>,{" "}
@@ -87,6 +150,10 @@ export default function AProposPage() {
               née du même mouvement&nbsp;: bâtir la ressource qui manquait,
               rigoureuse, opérationnelle, et honnête sur ce que l’IA permet (et
               ne permet pas).
+            </p>
+            <p>
+              ClaudeAI Academy est un organisme de formation indépendant, non
+              affilié à Anthropic, l’entreprise qui édite Claude.
             </p>
 
             <h2>Notre engagement contenu</h2>

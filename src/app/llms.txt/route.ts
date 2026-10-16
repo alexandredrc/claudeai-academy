@@ -4,8 +4,46 @@ import { SITE_URL } from "@/lib/seo/jsonld";
 import { ELITE_ENABLED, ELITE_SEATS_PER_MONTH } from "@/lib/stripe/plans";
 import { MESURES, MESURES_DATE, duree } from "@/lib/offre/mesures";
 import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
+import {
+  MASTERY_HAUSSE_LE,
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  hausseMasteryAppliquee,
+  maintenant,
+  mensualiteKlarna3x,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 export const dynamic = "force-dynamic";
+
+/**
+ * Phrase d'annonce de la hausse du Pass Mastery, tant qu'elle est à venir :
+ * « Le Pass Mastery passe à 697 € (3 × 232,34 €) le 1er novembre 2026 à 0 h,
+ * heure de Paris. » Chaîne vide une fois la hausse appliquée.
+ */
+function phraseHausseMastery(at: Date): string {
+  if (hausseMasteryAppliquee(at)) return "";
+  const annee = MASTERY_HAUSSE_LE.toLocaleDateString("fr-FR", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+  });
+  return `Le Pass Mastery passe à ${PRIX_MASTERY_APRES} € (3 × ${mensualiteKlarna3x(PRIX_MASTERY_APRES)} €) le ${MASTERY_HAUSSE_LIBELLE} ${annee} à 0 h, heure de Paris.`;
+}
+
+/**
+ * Cache CDN. Après la hausse : une heure, plus un jour de
+ * stale-while-revalidate pour absorber les rafales de crawl IA. Avant : la
+ * durée est plafonnée au temps qui reste jusqu'au 01/11/2026 à 0 h (Paris), et
+ * sans stale-while-revalidate, qui servirait encore une fois l'ancien prix
+ * à la première requête après minuit, même des jours plus tard.
+ */
+function cacheControl(at: Date): string {
+  if (hausseMasteryAppliquee(at)) {
+    return "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400";
+  }
+  const restant = Math.floor((MASTERY_HAUSSE_LE.getTime() - at.getTime()) / 1000);
+  return `public, max-age=0, s-maxage=${Math.max(0, Math.min(3600, restant))}`;
+}
 
 /**
  * /llms.txt — la carte du site écrite pour les moteurs génératifs.
@@ -29,6 +67,11 @@ export async function GET() {
 
   const list = courses ?? [];
   const lessonCount = list.reduce((s, c) => s + (c.total_lessons ?? 0), 0);
+
+  // Prix du Pass Mastery à l'instant de la requête (lib/offre/prix.ts).
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const hausse = phraseHausseMastery(at);
 
   // Le Pass Accompagnement engage des créneaux humains : il n'est annoncé ici
   // que lorsque l'offre est réellement ouverte (même règle que /tarifs).
@@ -76,10 +119,10 @@ fondateur dirige lui-même un restaurant et utilise Claude chaque jour.
 
 - Pass Starter : 47 € en paiement unique. Les 3 parcours fondateurs (Bien
   démarrer avec Claude, Prompt Engineering pro, Claude Code), 24 leçons.
-- Pass Mastery : 497 € en paiement unique, ou 3 × 165,67 € sans frais via Klarna.
+- Pass Mastery : ${prix} € en paiement unique, ou 3 × ${mensualiteKlarna3x(prix)} € sans frais via Klarna.
   Donne accès à l'intégralité des ${list.length} parcours, à la bibliothèque de
   ${PROMPT_COUNT} prompts, au Mentor IA, à l'examen final et à un certificat
-  vérifiable délivré par ClaudeAI Academy (sans valeur de titre d'État).
+  vérifiable délivré par ClaudeAI Academy (sans valeur de titre d'État).${hausse ? `\n  ${hausse}` : ""}
 ${accompagnement}
 Pas d'abonnement. Pas de reconduction. Garantie satisfait ou remboursé 14 jours.
 TVA non applicable, article 293 B du CGI : le prix affiché est le prix facturé.
@@ -155,8 +198,9 @@ Index généré le ${new Date().toISOString().slice(0, 10)}
   return new Response(body, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      // Court, mais suffisant pour absorber les rafales de crawl IA.
-      "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+      // Court, mais suffisant pour absorber les rafales de crawl IA ; jamais
+      // au-delà du 01/11/2026 à 0 h tant que le prix Mastery doit changer.
+      "Cache-Control": cacheControl(at),
     },
   });
 }

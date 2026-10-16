@@ -4,6 +4,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { userHasTier, type CourseTier } from "@/lib/courses/access";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { maintenant, parentheseHausseMastery, prixMastery } from "@/lib/offre/prix";
 
 export const dynamic = "force-dynamic";
 
@@ -48,6 +49,11 @@ export default async function CoursesPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // Prix du Pass Mastery du jour et annonce de la hausse tant qu'elle est à
+  // venir : « 497 € (697 € à partir du 1er novembre) », puis « 697 € ».
+  const at = maintenant();
+  const prixMasteryAffiche = `${prixMastery(at)} €${parentheseHausseMastery(at)}`;
 
   // `ItemList` de `Course` : c'est la forme que Google et les moteurs
   // génératifs savent restituer sous forme de liste quand la question est
@@ -128,8 +134,7 @@ export default async function CoursesPage() {
               Prêt à débloquer l&apos;intégralité ?
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
-              Pass Mastery à 497 € pour les {courseCount} parcours, mentor IA,
-              mises à jour à vie. Garantie 14 jours.
+              {`Pass Mastery à ${prixMasteryAffiche} pour les ${courseCount} parcours, mentor IA, mises à jour à vie. Garantie 14 jours.`}
             </p>
             <Link
               href="/#tarifs"

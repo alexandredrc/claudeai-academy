@@ -6,6 +6,7 @@ import { Button } from "@/components/site/button";
 import { CheckoutButton } from "@/components/site/checkout-button";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
 import { pageMetadata, OG_IMAGE_URL } from "@/lib/seo/page-metadata";
+import { prixMastery } from "@/lib/offre/prix";
 
 // Page de vente du parcours « Claude Code et l'IA agentique », côté requête.
 // Search Console, 28 jours au 4 octobre 2026 : « formation claude code »,
@@ -126,44 +127,49 @@ const profils = [
   },
 ];
 
-const faq = [
-  {
-    q: "Faut-il savoir coder pour suivre cette formation Claude Code ?",
-    a: "Pas au sens d'écrire un programme de A à Z. Il faut être à l'aise avec un terminal, c'est-à-dire ouvrir une invite de commandes, se déplacer dans un dossier et lancer une commande. Les leçons expliquent chaque commande qu'elles utilisent. En revanche, si vous n'avez jamais ouvert un terminal, commencez par le parcours « Bien démarrer avec Claude », inclus dans le même Pass Starter.",
-  },
-  {
-    q: "Claude Code est-il gratuit ?",
-    a: "L'outil lui-même est gratuit à installer, mais il consomme votre abonnement Claude. Il est inclus dans les plans payants de claude.ai (Pro, Max) ou se facture à l'usage par clé d'API. Le plan gratuit de Claude ne donne pas accès à Claude Code. La leçon 1 détaille ce que coûte une session typique et comment plafonner la dépense.",
-  },
-  {
-    q: "Sur quel système fonctionne Claude Code ?",
-    a: "Sur macOS, Linux et Windows, dans le terminal, et aussi dans l'application de bureau Claude et dans les extensions pour VS Code et les éditeurs JetBrains. Le parcours travaille dans le terminal parce que c'est là que toutes les fonctions sont disponibles ; ce que vous y apprenez vaut partout ailleurs.",
-  },
-  {
-    q: "Est-ce une formation officielle d'Anthropic ?",
-    a: "Non. ClaudeAI Academy est indépendante d'Anthropic. Anthropic publie ses propres cours, gratuits et en anglais, sur academy.claude.com. Cette formation est en français, construite autour d'exercices à cocher et d'un Mentor IA (dans le Pass Mastery), et elle est vérifiée contre la documentation officielle à chaque passe de veille.",
-  },
-  {
-    q: "Délivre-t-elle une certification Claude Code ?",
-    a: "Il n'existe pas de certification officielle Claude Code. ClaudeAI Academy délivre un certificat de réussite nominatif, après avoir terminé le programme et réussi un examen final de 20 questions avec 80 % de bonnes réponses, vérifiable en ligne par son code. C'est un certificat d'organisme privé : ni un titre reconnu par l'État, ni un document d'Anthropic.",
-  },
-  {
-    q: "Que contient le Pass Starter à 47 € ?",
-    a: "Les trois parcours de base : « Bien démarrer avec Claude », « Prompt Engineering pro » et « Claude Code et l'IA agentique », avec leurs exercices. Paiement unique, accès à vie, garantie 14 jours satisfait ou remboursé. Le Pass Mastery à 497 € ajoute les six autres parcours, dont « Construire ton agent IA avec Claude », et le Mentor IA.",
-  },
-  {
-    q: "La formation est-elle à jour de la dernière version de Claude Code ?",
-    a: "Les huit leçons ont été vérifiées sur Claude Code 2.1.301 le 16 octobre 2026, avec Opus 5.5 comme modèle par défaut. Claude Code publie plusieurs versions par semaine : la veille du site relit les changelogs officiels et chaque leçon porte une note datée quand un point a changé. Le prix comprend ces mises à jour.",
-  },
-  {
-    q: "Peut-on lire une leçon avant de payer ?",
-    a: "Oui. La leçon 1, « Ce qui change vraiment avec Claude Code », est en accès libre, sans compte. Elle suffit pour savoir si l'outil et la pédagogie vous conviennent.",
-  },
-];
+// Construite au rendu : la réponse sur le Pass Starter cite le prix du Pass
+// Mastery du jour (497 € jusqu'au 31/10/2026, 697 € ensuite, lib/offre/prix.ts).
+function construireFaq(prixMasteryDuJour: number): { q: string; a: string }[] {
+  return [
+    {
+      q: "Faut-il savoir coder pour suivre cette formation Claude Code ?",
+      a: "Pas au sens d'écrire un programme de A à Z. Il faut être à l'aise avec un terminal, c'est-à-dire ouvrir une invite de commandes, se déplacer dans un dossier et lancer une commande. Les leçons expliquent chaque commande qu'elles utilisent. En revanche, si vous n'avez jamais ouvert un terminal, commencez par le parcours « Bien démarrer avec Claude », inclus dans le même Pass Starter.",
+    },
+    {
+      q: "Claude Code est-il gratuit ?",
+      a: "L'outil lui-même est gratuit à installer, mais il consomme votre abonnement Claude. Il est inclus dans les plans payants de claude.ai (Pro, Max) ou se facture à l'usage par clé d'API. Le plan gratuit de Claude ne donne pas accès à Claude Code. La leçon 1 détaille ce que coûte une session typique et comment plafonner la dépense.",
+    },
+    {
+      q: "Sur quel système fonctionne Claude Code ?",
+      a: "Sur macOS, Linux et Windows, dans le terminal, et aussi dans l'application de bureau Claude et dans les extensions pour VS Code et les éditeurs JetBrains. Le parcours travaille dans le terminal parce que c'est là que toutes les fonctions sont disponibles ; ce que vous y apprenez vaut partout ailleurs.",
+    },
+    {
+      q: "Est-ce une formation officielle d'Anthropic ?",
+      a: "Non. ClaudeAI Academy est indépendante d'Anthropic. Anthropic publie ses propres cours, gratuits et en anglais, sur academy.claude.com. Cette formation est en français, construite autour d'exercices à cocher et d'un Mentor IA (dans le Pass Mastery), et elle est vérifiée contre la documentation officielle à chaque passe de veille.",
+    },
+    {
+      q: "Délivre-t-elle une certification Claude Code ?",
+      a: "Il n'existe pas de certification officielle Claude Code. ClaudeAI Academy délivre un certificat de réussite nominatif, après avoir terminé le programme et réussi un examen final de 20 questions avec 80 % de bonnes réponses, vérifiable en ligne par son code. C'est un certificat d'organisme privé : ni un titre reconnu par l'État, ni un document d'Anthropic.",
+    },
+    {
+      q: "Que contient le Pass Starter à 47 € ?",
+      a: `Les trois parcours de base : « Bien démarrer avec Claude », « Prompt Engineering pro » et « Claude Code et l'IA agentique », avec leurs exercices. Paiement unique, accès à vie, garantie 14 jours satisfait ou remboursé. Le Pass Mastery à ${prixMasteryDuJour} € ajoute les six autres parcours, dont « Construire ton agent IA avec Claude », et le Mentor IA.`,
+    },
+    {
+      q: "La formation est-elle à jour de la dernière version de Claude Code ?",
+      a: "Les huit leçons ont été vérifiées sur Claude Code 2.1.301 le 16 octobre 2026, avec Opus 5.5 comme modèle par défaut. Claude Code publie plusieurs versions par semaine : la veille du site relit les changelogs officiels et chaque leçon porte une note datée quand un point a changé. Le prix comprend ces mises à jour.",
+    },
+    {
+      q: "Peut-on lire une leçon avant de payer ?",
+      a: "Oui. La leçon 1, « Ce qui change vraiment avec Claude Code », est en accès libre, sans compte. Elle suffit pour savoir si l'outil et la pédagogie vous conviennent.",
+    },
+  ];
+}
 
 const dureeTotale = lecons.reduce((somme, l) => somme + l.duree, 0);
 
 export default function FormationClaudeCodePage() {
+  const faq = construireFaq(prixMastery());
   const courseJsonLd = {
     "@context": "https://schema.org",
     "@type": "Course",

@@ -11,6 +11,7 @@ import {
   mesure,
   type Mesure,
 } from "@/lib/offre/mesures";
+import { prixMastery } from "@/lib/offre/prix";
 
 // Preuve (Hormozi, principe 2), coût du problème (5) et valeur face au prix
 // (1), avec les temps mesurés par le fondateur. Tous les chiffres sont
@@ -73,7 +74,9 @@ export function ProofMeasures({ pricingHref = "#tarifs" }: { pricingHref?: strin
           </p>
         </div>
 
-        <TimeCalculator taches={semaine} />
+        {/* Prix du jour lu ici, côté serveur, à chaque rendu : le calculateur
+            (composant client) le reçoit tel quel (lib/offre/prix.ts). */}
+        <TimeCalculator taches={semaine} prix={prixMastery()} />
 
         <p className="mt-6 text-[13px] leading-relaxed text-muted">
           Ce sont mes temps, après des mois d&apos;usage quotidien. Les vôtres

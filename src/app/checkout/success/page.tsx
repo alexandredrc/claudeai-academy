@@ -4,6 +4,13 @@ import { getStripe } from "@/lib/stripe/server";
 import { createClient } from "@/lib/supabase/server";
 import { PurchaseConversion } from "@/components/site/purchase-conversion";
 import { CheckoutButton } from "@/components/site/checkout-button";
+import {
+  MASTERY_DERNIER_JOUR_LIBELLE,
+  annonceHausseMastery,
+  maintenant,
+  mensualiteKlarna3x,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 type SearchParams = Promise<{ session_id?: string }>;
 
@@ -185,8 +192,14 @@ export default async function CheckoutSuccessPage({
  *
  * Les 47 € déjà payés sont déduits automatiquement (coupon starter-credit-47,
  * checkout/actions.ts) à condition d'être connecté au moment de payer.
+ *
+ * Prix du jour calculé au rendu (497 € puis 697 € dès le 01/11/2026), avec
+ * l'annonce de la hausse tant qu'elle est à venir (lib/offre/prix.ts).
  */
 function StarterUpgrade() {
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const annonce = annonceHausseMastery(at);
   return (
     <aside className="mx-auto mt-14 max-w-[520px] border-t border-line pt-10 text-left">
       <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-coral">
@@ -202,15 +215,20 @@ function StarterUpgrade() {
         complète de prompts et le Mentor IA.
       </p>
       <div className="mt-6">
-        <CheckoutButton tier="mastery" variant="primary" size="md">
-          Passer au Mastery · 497 €
+        <CheckoutButton tier="mastery" prixAffiche={prix} variant="primary" size="md">
+          {`Passer au Mastery · ${prix} €`}
         </CheckoutButton>
       </div>
       <p className="mt-3 text-[13px] leading-relaxed text-muted">
-        ou 3 × 165,67 € sans frais avec Klarna. Les 47 € que tu viens de
-        payer sont déduits automatiquement si tu es connecté à ton compte au
-        moment de payer.
+        {`ou 3 × ${mensualiteKlarna3x(prix)} € sans frais avec Klarna.`}{" "}
+        Les 47 € que tu viens de payer sont déduits automatiquement si tu es
+        connecté à ton compte au moment de payer.
       </p>
+      {annonce ? (
+        <p className="mt-2 text-[13px] leading-relaxed text-muted">
+          {`${prix} € jusqu'au ${MASTERY_DERNIER_JOUR_LIBELLE} inclus. ${annonce}.`}
+        </p>
+      ) : null}
     </aside>
   );
 }

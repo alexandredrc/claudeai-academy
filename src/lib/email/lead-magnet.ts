@@ -6,6 +6,15 @@ import {
   NOTES_DE_MISE_A_JOUR,
   SOURCES_SURVEILLEES,
 } from "@/lib/content/fraicheur";
+import {
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  PRIX_STARTER,
+  hausseMasteryAppliquee,
+  maintenant,
+  mensualiteKlarna3x,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 /**
  * Emails envoyés aux leads du kit gratuit (prospects, pas encore clients).
@@ -139,7 +148,29 @@ function rendre(subject: string, blocs: string[], desinscription: string | null)
 }
 
 // Faits produit, une seule copie (vérifiés sur le site et en base le 04/10/2026).
-const MASTERY_PRIX = "497 €, ou 3 × 165,67 € sans frais";
+/**
+ * Prix du Mastery À L'INSTANT DE L'ENVOI, mensualité Klarna comprise : 497 €
+ * jusqu'au 31/10/2026, 697 € ensuite (décision du 16/10/2026, lib/offre/prix.ts).
+ * Jamais une constante de module : une instance réutilisée peut franchir la
+ * date de la hausse. (Pas de mensualité écrite en chiffres dans ce commentaire :
+ * la veille lit les « 3 × N € » de ce fichier.)
+ */
+function masteryPrix(at: Date): string {
+  const prix = prixMastery(at);
+  return `${prix} €, ou 3 × ${mensualiteKlarna3x(prix)} € sans frais`;
+}
+
+/**
+ * Avant la hausse seulement : la date, et ce qu'elle ne change pas pour qui
+ * commence par le Starter (le crédit de 47 € reste déduit du Mastery). Chaîne
+ * vide à partir du 1er novembre. Commence par une espace : se colle en fin de
+ * paragraphe.
+ */
+function hausseMastery(at: Date): string {
+  if (hausseMasteryAppliquee(at)) return "";
+  return ` Le Pass Mastery passe à ${PRIX_MASTERY_APRES} € le ${MASTERY_HAUSSE_LIBELLE} ; si tu commences par le Starter, tes ${PRIX_STARTER} € sont déduits du Mastery quand tu paies connecté à ton espace, avant comme après cette date.`;
+}
+
 const GARANTIE =
   "Garantie 14 jours : un email à contact@claudeai-academy.com dans ce délai et tu es remboursé intégralement, sans justification.";
 
@@ -167,7 +198,8 @@ const SRC = {
   gcai: { label: "cas GC AI, Anthropic", url: "https://claude.com/customers/gc-ai" },
 };
 
-type Rendu = (prenom: string | null, d: string | null) => Rendered;
+/** `at` : l'instant du rendu, un seul pour tout l'email (prix et annonce de hausse). */
+type Rendu = (prenom: string | null, d: string | null, at: Date) => Rendered;
 
 const EMAILS: Record<LeadEmailKind, Rendu> = {
   // ── J0 · livraison ────────────────────────────────────────────────────────
@@ -278,7 +310,7 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
     ),
 
   // ── A5 · J+10 · le calcul, puis la suite ──────────────────────────────────
-  lead_a5: (prenom, d) =>
+  lead_a5: (prenom, d, at) =>
     rendre(
       "47 €, rentabilisés en 2 heures (ou moins)",
       [
@@ -291,7 +323,7 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
         ]),
         p("Autrement dit, la formation est rentabilisée dès la première ou la deuxième heure récupérée. Le reste, c'est du temps rendu, chaque semaine."),
         cta("Voir le Pass Starter", lien("/tarifs", "lead_a5")),
-        p(`Et si tu veux tout de suite le chemin complet (data, contenu et marketing, stratégie, agents IA), le Pass Mastery couvre les 9 parcours et 58 leçons, avec le Mentor IA : ${MASTERY_PRIX}.`),
+        p(`Et si tu veux tout de suite le chemin complet (data, contenu et marketing, stratégie, agents IA), le Pass Mastery couvre les 9 parcours et 58 leçons, avec le Mentor IA : ${masteryPrix(at)}.${hausseMastery(at)}`),
         p("À partir de la semaine prochaine, je change de format : <strong>un cas concret par semaine</strong>. Une vraie entreprise ou un vrai métier, ce que Claude y fait, et ce que ça vaut en heures et en euros. Tu peux te désinscrire en un clic en bas de chaque email."),
         sources([SRC.malt, SRC.insee]),
         p("Alexandre"),
@@ -462,7 +494,7 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
     ),
 
   // ── B8 · récapitulatif et offre ───────────────────────────────────────────
-  lead_b8: (prenom, d) =>
+  lead_b8: (prenom, d, at) =>
     rendre(
       "Les 7 cas en une page (et la suite)",
       [
@@ -481,8 +513,9 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
         h("Les deux façons de l'apprendre"),
         bullets([
           `<strong>Pass Starter, 47 €</strong> : les 3 parcours fondateurs, 24 leçons. Pour poser la méthode.`,
-          `<strong>Pass Mastery, ${MASTERY_PRIX}</strong> : les 9 parcours, 58 leçons, 170 prompts, le Mentor IA et l'examen de certification. Pour aller jusqu'aux agents, à la data et au business.`,
+          `<strong>Pass Mastery, ${masteryPrix(at)}</strong> : les 9 parcours, 58 leçons, 170 prompts, le Mentor IA et l'examen de certification. Pour aller jusqu'aux agents, à la data et au business.`,
         ]),
+        ...(hausseMasteryAppliquee(at) ? [] : [p(hausseMastery(at).trim())]),
         p(GARANTIE),
         cta("Choisir mon pass", lien("/tarifs", "lead_b8")),
         p("C'était le dernier email de cette série. Merci de m'avoir lu jusqu'ici ; si une question te bloque, réponds simplement à cet email, je lis tout."),
@@ -497,7 +530,8 @@ export function renderLeadEmail(
   firstName: string | null,
   leadId?: string,
 ): Rendered {
-  return EMAILS[kind](firstName, leadId ? lienDesinscription(leadId) : null);
+  // Prix du Mastery lu à l'envoi (lib/offre/prix.ts) : 497 € puis 697 € le 01/11/2026.
+  return EMAILS[kind](firstName, leadId ? lienDesinscription(leadId) : null, maintenant());
 }
 
 export async function sendLeadEmail(params: {

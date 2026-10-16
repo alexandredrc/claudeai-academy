@@ -6,8 +6,18 @@ import { userHasTier, type CourseTier } from "@/lib/courses/access";
 import { startCheckoutAction } from "@/app/checkout/actions";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import {
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  hausseMasteryAppliquee,
+  maintenant,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 export const dynamic = "force-dynamic";
+
+/** Dernier jour du prix à 497 € (veille de MASTERY_HAUSSE_LE, heure de Paris). */
+const MASTERY_PRIX_VALABLE_JUSQU_AU = "2026-10-31";
 
 // Titre abrégé pour le title des parcours dont le titre en base dépasse ce
 // qu'un title de 65 caractères peut contenir ; le H1 visible garde le titre
@@ -63,7 +73,7 @@ export async function generateMetadata({
   const duration = formatHours(course.estimated_duration_min);
   const pass =
     course.tier_required === "mastery"
-      ? "inclus dans le Pass Mastery (497 €)"
+      ? `inclus dans le Pass Mastery (${prixMastery()} €)`
       : course.tier_required === "starter"
         ? "inclus dans le Pass Starter (47 €)"
         : "en accès libre";
@@ -78,8 +88,15 @@ export async function generateMetadata({
   });
 }
 
-function courseJsonLd(course: Course, lessons: LessonMeta[]) {
-  const price = course.tier_required === "mastery" ? "497" : "47";
+// Le prix du Pass Mastery passe de 497 € à 697 € le 01/11/2026 à 0 h (Paris) :
+// avant la bascule, `priceValidUntil` dit à Google jusqu'à quand il tient.
+function courseJsonLd(course: Course, lessons: LessonMeta[], at: Date) {
+  const mastery = course.tier_required === "mastery";
+  const price = mastery ? String(prixMastery(at)) : "47";
+  const validite =
+    mastery && !hausseMasteryAppliquee(at)
+      ? { priceValidUntil: MASTERY_PRIX_VALABLE_JUSQU_AU }
+      : {};
   return {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -109,6 +126,7 @@ function courseJsonLd(course: Course, lessons: LessonMeta[]) {
       "@type": "Offer",
       price,
       priceCurrency: "EUR",
+      ...validite,
       category: "Paid",
       availability: "https://schema.org/InStock",
       url: `${SITE_URL}/tarifs`,
@@ -202,12 +220,14 @@ export default async function CoursePage({ params }: { params: Params }) {
       : course.tier_required === "starter"
         ? "Pass Starter"
         : "Gratuit";
+  // Un seul instant de référence pour le schéma et le paywall.
+  const at = maintenant();
 
   return (
     <section className="bg-cream-soft">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLdScript(courseJsonLd(course, lessonList))}
+        dangerouslySetInnerHTML={jsonLdScript(courseJsonLd(course, lessonList, at))}
       />
       <script
         type="application/ld+json"
@@ -261,6 +281,7 @@ export default async function CoursePage({ params }: { params: Params }) {
           <PaywallBlock
             tierRequired={course.tier_required}
             loggedIn={!!user}
+            at={at}
           />
         )}
 
@@ -352,19 +373,27 @@ function LessonRow({
 function PaywallBlock({
   tierRequired,
   loggedIn,
+  at,
 }: {
   tierRequired: CourseTier;
   loggedIn: boolean;
+  at: Date;
 }) {
   const planLabel =
     tierRequired === "mastery"
-      ? "Pass Mastery (497 €)"
+      ? `Pass Mastery (${prixMastery(at)} €)`
       : tierRequired === "starter"
         ? "Pass Starter (47 €)"
         : "Pass";
 
   const tierKey: "starter" | "mastery" =
     tierRequired === "mastery" ? "mastery" : "starter";
+
+  // Annonce de la hausse sur un parcours Mastery, tant qu'elle est à venir.
+  const hausse =
+    tierRequired === "mastery" && !hausseMasteryAppliquee(at)
+      ? `Son prix passe à ${PRIX_MASTERY_APRES} € le ${MASTERY_HAUSSE_LIBELLE}.`
+      : null;
 
   return (
     <div className="mt-10 rounded-[22px] border border-coral-soft bg-coral-soft/30 p-6 md:p-8">
@@ -377,7 +406,7 @@ function PaywallBlock({
       <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
         Tu peux lire la première leçon en aperçu gratuit ci-dessous. Pour
         accéder à l&apos;intégralité, prends le <strong className="font-semibold text-ink">{planLabel}</strong>.
-        Garantie 14 jours.
+        {hausse ? ` ${hausse}` : null}{" "}Garantie 14 jours.
       </p>
       <form action={startCheckoutAction} className="mt-5">
         <input type="hidden" name="plan" value={tierKey} />

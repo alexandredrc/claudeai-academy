@@ -6,6 +6,7 @@ import { isValidTier, isValidPlanCode } from "@/lib/stripe/plans";
 import { notifierVente } from "@/lib/notify/telegram";
 import { sendPurchaseWelcomeEmail } from "@/lib/email/welcome";
 import { rangBonusAudit } from "@/lib/offre/bonus-audit";
+import { TOUS_LES_PRIX_MASTERY_697 } from "@/lib/offre/prix";
 import { sendCheckoutRecoveryEmail } from "@/lib/email/checkout-recovery";
 import { buildAccessLink } from "@/lib/auth/access-link";
 import { libelleCanal, provenanceDepuisMetadata } from "@/lib/attribution";
@@ -363,12 +364,38 @@ async function journaliserBienvenue(
  * L'ordre de test compte : l'offre Accompagnement partage son niveau d'accès
  * avec le Mastery, elle doit donc être reconnue AVANT lui pour que le code
  * d'offre enregistré soit le bon.
+ *
+ * Chaque offre est comparée à TOUS ses ID de prix connus, pas au premier
+ * trouvé : le Mastery en a plusieurs depuis la hausse du 01/11/2026 (497 € en
+ * variables d'environnement, 697 € écrits dans src/lib/offre/prix.ts ou
+ * surchargés par STRIPE_PRICE_MASTERY_697), et une session à 497 € rouverte
+ * après la bascule doit rester reconnue.
  */
 const PRICE_ENV_BY_PLAN = {
   elite: ["STRIPE_PRICE_ELITE_LIVE", "STRIPE_PRICE_ELITE"],
-  mastery: ["STRIPE_PRICE_MASTERY_LIVE", "STRIPE_PRICE_MASTERY"],
+  mastery: [
+    "STRIPE_PRICE_MASTERY_LIVE",
+    "STRIPE_PRICE_MASTERY",
+    "STRIPE_PRICE_MASTERY_697",
+  ],
   starter: ["STRIPE_PRICE_STARTER_LIVE", "STRIPE_PRICE_STARTER"],
 } as const;
+
+/** ID de prix fixes (hors variables d'environnement), par offre. */
+const PRICE_IDS_FIXES_BY_PLAN: Record<keyof typeof PRICE_ENV_BY_PLAN, readonly string[]> = {
+  elite: [],
+  mastery: TOUS_LES_PRIX_MASTERY_697,
+  starter: [],
+};
+
+function priceIdsConnus(plan: keyof typeof PRICE_ENV_BY_PLAN): Set<string> {
+  const ids = new Set<string>(PRICE_IDS_FIXES_BY_PLAN[plan]);
+  for (const key of PRICE_ENV_BY_PLAN[plan]) {
+    const id = process.env[key];
+    if (id) ids.add(id);
+  }
+  return ids;
+}
 
 const TIER_BY_PLAN = {
   elite: "mastery",
@@ -387,10 +414,8 @@ async function planFromLineItems(
       items.data.map((i) => i.price?.id).filter((id): id is string => Boolean(id)),
     );
     for (const plan of ["elite", "mastery", "starter"] as const) {
-      const configured = PRICE_ENV_BY_PLAN[plan]
-        .map((key) => process.env[key])
-        .find(Boolean);
-      if (configured && priceIds.has(configured)) {
+      const connus = priceIdsConnus(plan);
+      if (Array.from(priceIds).some((id) => connus.has(id))) {
         return { tier: TIER_BY_PLAN[plan], planCode: plan };
       }
     }

@@ -4,6 +4,12 @@
 //
 // Usage : node scripts/veille/check-facts.mjs [--json]
 //
+// Prix du Pass Mastery : lus dans src/lib/offre/prix.ts (497 € jusqu'au
+// 31/10/2026, 697 € dès le 01/11/2026, heure de Paris), au jour de l'exécution.
+// Pour simuler un autre jour (comme le site en développement) :
+//   PowerShell : $env:OFFRE_DATE_TEST = "2026-11-01T09:00:00+01:00"; node scripts/veille/check-facts.mjs
+//   (puis Remove-Item Env:OFFRE_DATE_TEST)
+//
 // Répond à la seule question qui compte avant de toucher au contenu :
 //   « quelle phrase, dans quel fichier, est devenue fausse ? »
 //
@@ -128,39 +134,138 @@ async function compterSources() {
   return String(SOURCES.length);
 }
 
-/** Les prix que Stripe facture, lus dans « src/lib/stripe/plans.ts » (amountEur).
- *  Lus par regex plutôt qu'importés : le fichier est en TypeScript et getPlan()
- *  exige les identifiants de prix Stripe en variables d'environnement, alors
- *  que ce vérificateur doit tourner sans .env.local. */
+/** L'instant de référence, comme `maintenant()` dans src/lib/offre/prix.ts :
+ *  `OFFRE_DATE_TEST` (date ISO) simule un autre jour, pour vérifier la bascule
+ *  du 01/11/2026 avant qu'elle arrive. */
+function instantDeReference() {
+  const force = process.env.OFFRE_DATE_TEST;
+  if (force) {
+    const d = new Date(force);
+    if (Number.isNaN(d.getTime())) throw new Error(`OFFRE_DATE_TEST illisible : « ${force} »`);
+    return d;
+  }
+  return new Date();
+}
+
+/** Le prix daté du Pass Mastery, lu dans « src/lib/offre/prix.ts » (décision du
+ *  16/10/2026 : 497 € jusqu'au 31/10/2026 inclus, 697 € dès le 01/11/2026 à
+ *  minuit, heure de Paris). Jusqu'au 16/10/2026, il était lu dans `amountEur`
+ *  de plans.ts ; c'est désormais une expression (`prixMastery(at)`), plus un
+ *  littéral. Lu par regex, comme plans.ts : le fichier est en TypeScript et ce
+ *  vérificateur doit tourner sans compilation ni .env.local. */
+async function offreMastery() {
+  const src = await readFile(join(RACINE, "src/lib/offre/prix.ts"), "utf8");
+  const lire = (motif, nom) => {
+    const m = src.match(motif);
+    if (!m) throw new Error(`${nom} introuvable dans src/lib/offre/prix.ts`);
+    return m[1];
+  };
+  const avant = Number(lire(/PRIX_MASTERY_AVANT = (\d+);/, "PRIX_MASTERY_AVANT"));
+  const apres = Number(lire(/PRIX_MASTERY_APRES = (\d+);/, "PRIX_MASTERY_APRES"));
+  const hausseLe = new Date(lire(/MASTERY_HAUSSE_LE = new Date\("([^"]+)"\)/, "MASTERY_HAUSSE_LE"));
+  if (Number.isNaN(hausseLe.getTime())) throw new Error("MASTERY_HAUSSE_LE illisible dans src/lib/offre/prix.ts");
+  const appliquee = instantDeReference() >= hausseLe;
+  return { avant, apres, hausseLe, appliquee, duJour: appliquee ? apres : avant };
+}
+
+/** « 1er novembre », « 31 octobre » : un jour tel que le site l'écrit, à Paris. */
+function jourLibelle(date) {
+  const parts = new Intl.DateTimeFormat("fr-FR", { timeZone: "Europe/Paris", day: "numeric", month: "long" })
+    .formatToParts(date);
+  const jour = Number(parts.find((p) => p.type === "day").value);
+  const mois = parts.find((p) => p.type === "month").value;
+  return `${jour === 1 ? "1er" : jour} ${mois}`;
+}
+
+/** Valeur du jour, plus la valeur future tant que la hausse n'est qu'annoncée :
+ *  avant le 01/11/2026, « 697 € à partir du 1er novembre » est exact et ne doit
+ *  pas ressortir FAUX. Après, seul 697 est accepté : un 497 oublié ressort. */
+function avecHausseAnnoncee(o, duJour, futur, ancien) {
+  // `periodes` : les deux prix d'une clause DATÉE (CGV : « 497 € jusqu'au
+  // 31 octobre 2026 inclus ; 697 € à partir du 1er novembre »). Une telle
+  // clause reste exacte après la bascule et doit citer les deux, toujours.
+  const periodes = [ancien, futur];
+  if (o.appliquee || duJour === futur) return { valeur: duJour, acceptees: [duJour], periodes };
+  return {
+    valeur: duJour,
+    acceptees: [duJour, futur],
+    periodes,
+    note: `${futur} accepté, hausse annoncée pour le ${jourLibelle(o.hausseLe)}`,
+  };
+}
+
+/** Le tiers d'un prix, arrondi au centime SUPÉRIEUR, écrit à la française :
+ *  497 → « 165,67 », 697 → « 232,34 ». Même formule que `mensualiteKlarna3x()`
+ *  du module (l'arrondi intermédiaire au millionième évite qu'une erreur de
+ *  virgule flottante fasse monter d'un centime un tiers exact). */
+function tiersAuCentimeSuperieur(prix) {
+  return (Math.ceil(Math.round((prix / 3) * 1e6) / 1e4) / 100).toFixed(2).replace(".", ",");
+}
+
+/** Les prix que Stripe facture pour le Starter et l'Accompagnement, lus dans
+ *  « src/lib/stripe/plans.ts » (amountEur). Lus par regex plutôt qu'importés :
+ *  le fichier est en TypeScript et getPlan() exige les identifiants de prix
+ *  Stripe en variables d'environnement. Le motif est borné à son `case` : un
+ *  motif paresseux non borné avait lu, le 16/10/2026, le 1497 de l'Accompagnement
+ *  comme prix du Mastery dès que celui-ci est devenu une expression. */
 async function prixDesPass() {
   const src = await readFile(join(RACINE, "src/lib/stripe/plans.ts"), "utf8");
   const prix = {};
-  for (const m of src.matchAll(/case "(\w+)":[\s\S]*?amountEur: (\d+)/g)) prix[m[1]] = Number(m[2]);
-  for (const code of ["starter", "mastery", "elite"]) {
-    if (!prix[code]) throw new Error(`amountEur introuvable pour « ${code} » dans plans.ts`);
+  for (const code of ["starter", "elite"]) {
+    const m = src.match(new RegExp(String.raw`case "${code}":(?:(?!case ")[\s\S])*?amountEur: (\d+)`));
+    if (!m) throw new Error(`amountEur introuvable pour « ${code} » dans plans.ts`);
+    prix[code] = Number(m[1]);
   }
+  prix.mastery = (await offreMastery()).duJour;
   return prix;
 }
 
 // Chaînes sans séparateur de milliers (« 1497 ») : la forme canonique vers
 // laquelle le registre ramène « 1 497 » et « 1&nbsp;497 » avant de comparer.
 const prixPassStarter = async () => String((await prixDesPass()).starter);
-const prixPassMastery = async () => String((await prixDesPass()).mastery);
 const prixPassAccompagnement = async () => String((await prixDesPass()).elite);
 
-/** Ce que Klarna prélève trois fois pour le Mastery : le tiers du prix, arrondi
- *  au centime supérieur, écrit à la française (« 165,67 »). Dérivé du prix
- *  réel plutôt qu'écrit en dur : si le Mastery change, la mensualité suit. */
+/** Prix du Mastery du jour (497 puis 697), et 697 accepté tant qu'il est annoncé. */
+async function prixPassMastery() {
+  const o = await offreMastery();
+  return avecHausseAnnoncee(o, String(o.duJour), String(o.apres), String(o.avant));
+}
+
+/** Ce que Klarna prélève trois fois pour le Mastery : le tiers du prix du jour,
+ *  au centime supérieur (« 165,67 », puis « 232,34 »). Dérivé du module plutôt
+ *  qu'écrit en dur : si le Mastery change, la mensualité suit. */
 async function mensualiteKlarnaMastery() {
-  const { mastery } = await prixDesPass();
-  return (Math.ceil((mastery / 3) * 100) / 100).toFixed(2).replace(".", ",");
+  const o = await offreMastery();
+  return avecHausseAnnoncee(
+    o,
+    tiersAuCentimeSuperieur(o.duJour),
+    tiersAuCentimeSuperieur(o.apres),
+    tiersAuCentimeSuperieur(o.avant),
+  );
 }
 
 /** Idem pour l'Accompagnement (« 499 » quand il est à 1 497 €) : valeur à
  *  ignorer quand on cherche la mensualité du Mastery dans les mêmes fichiers. */
 async function mensualiteKlarnaAccompagnement() {
   const { elite } = await prixDesPass();
-  return (Math.ceil((elite / 3) * 100) / 100).toFixed(2).replace(".", ",").replace(/,00$/, "");
+  return tiersAuCentimeSuperieur(elite).replace(/,00$/, "");
+}
+
+/** Ce que le checkout facture pour le Mastery : `amountEur` de plans.ts doit
+ *  appeler le module (`prixMastery(at)`). Un littéral n'est accepté que s'il
+ *  vaut le prix DU JOUR : 697 avant le 01/11 ferait payer la hausse trop tôt,
+ *  497 après la ferait oublier. */
+async function montantFactureMastery() {
+  const o = await offreMastery();
+  return { valeur: String(o.duJour), acceptees: [String(o.duJour), "prixMastery()"] };
+}
+
+/** Les libellés du module doivent dire la même date que MASTERY_HAUSSE_LE. */
+async function libelleHausseMastery() {
+  return jourLibelle((await offreMastery()).hausseLe);
+}
+async function dernierJourPrixMastery() {
+  return jourLibelle(new Date((await offreMastery()).hausseLe.getTime() - 1));
 }
 
 const LOCALES = {
@@ -177,7 +282,18 @@ const LOCALES = {
   prixPassAccompagnement,
   mensualiteKlarnaMastery,
   mensualiteKlarnaAccompagnement,
+  montantFactureMastery,
+  libelleHausseMastery,
+  dernierJourPrixMastery,
 };
+
+/** Une vérification locale rend une chaîne, ou { valeur, acceptees, note }
+ *  quand plusieurs valeurs sont exactes en même temps (prix du jour et hausse
+ *  annoncée). Ramène les deux formes à la seconde. */
+async function valeurLocale(fn) {
+  const r = await LOCALES[fn]();
+  return r !== null && typeof r === "object" ? r : { valeur: r };
+}
 
 // ── Lecture de ce que le contenu affirme aujourd'hui ─────────────────────────
 
@@ -189,7 +305,7 @@ async function valeursAffirmees(fait) {
   // Valeurs légitimes d'un AUTRE fait dans les mêmes fichiers (la mensualité
   // de l'Accompagnement à côté de celle du Mastery) : on ne les lit pas.
   const exclues = fait.exclureValeurs?.kind === "local"
-    ? [canon(String(await LOCALES[fait.exclureValeurs.fn]()))]
+    ? [canon(String((await valeurLocale(fait.exclureValeurs.fn)).valeur))]
     : [];
   for (const emplacement of fait.ou) {
     const chemin = join(RACINE, emplacement.fichier);
@@ -211,9 +327,19 @@ async function valeursAffirmees(fait) {
     texte.split("\n").forEach((l, i) => {
       if (new RegExp(emplacement.motif.source, emplacement.motif.flags).test(l)) lignes.push(i + 1);
     });
+    // Plus de littéral, mais le prix est lu dans le module daté (src/lib/offre/prix.ts) :
+    // l'emplacement n'est pas muet, il ne peut plus diverger. Un littéral restant
+    // est, lui, toujours lu et comparé ci-dessus.
+    if (!vues.length && emplacement.dynamique?.test(texte)) {
+      trouvees.push({ fichier: emplacement.fichier, valeur: null, valeurs: [], lignes: [], note: "dynamique" });
+      continue;
+    }
+    const valeurs = [...new Set(vues)];
     trouvees.push({
       fichier: emplacement.fichier,
-      valeur: vues.length ? [...new Set(vues)].join(", ") : null,
+      valeur: valeurs.length ? valeurs.join(", ") : null,
+      valeurs,
+      periodes: Boolean(emplacement.periodes),
       lignes,
       note: vues.length ? null : "motif non trouvé — le contenu a peut-être été reformulé",
     });
@@ -225,7 +351,7 @@ async function valeursAffirmees(fait) {
 
 async function valeurSource(fait, sourcesModifiees) {
   const v = fait.verif;
-  if (v.kind === "local") return { valeur: await LOCALES[v.fn](), auto: true };
+  if (v.kind === "local") return { ...(await valeurLocale(v.fn)), auto: true };
   if (v.kind === "http-regex") {
     try {
       const res = await fetch(v.url, { signal: AbortSignal.timeout(20000) });
@@ -292,13 +418,17 @@ async function main() {
   // faits attendaient des sources (« claude-blog », « eu-ai-act ») qui
   // n'existent pas dans sources.mjs : ils ne pouvaient jamais être relus.
   const muets = [];
+  // Emplacements dont le prix est désormais lu dans src/lib/offre/prix.ts
+  // (plus de littéral à comparer) : comptés et affichés, jamais cachés.
+  const dynamiques = [];
   const idsSources = new Set(SOURCES.map((s) => s.id));
   const sourcesInconnues = [];
 
   for (const fait of FAITS) {
     const affirme = await valeursAffirmees(fait);
     for (const a of affirme) {
-      if (a.valeur === null && a.note !== "revue humaine") muets.push({ fait, fichier: a.fichier, note: a.note });
+      if (a.note === "dynamique") dynamiques.push({ fait, fichier: a.fichier });
+      else if (a.valeur === null && a.note !== "revue humaine") muets.push({ fait, fichier: a.fichier, note: a.note });
     }
     for (const id of fait.verif.sources || []) {
       if (!idsSources.has(id)) sourcesInconnues.push({ fait, id });
@@ -306,20 +436,40 @@ async function main() {
     const src = await valeurSource(fait, modifiees);
 
     if (src.auto) {
-      const valeursDistinctes = [...new Set(affirme.map((a) => a.valeur).filter(Boolean))];
+      // Valeurs une à une (un fichier peut en porter deux : « 497 € », puis
+      // « 697 € à partir du 1er novembre »), comparées à TOUTES les valeurs
+      // exactes du moment, pas seulement à celle du jour.
       const canon = fait.canon ?? ((v) => v);
-      const derive = src.valeur && valeursDistinctes.some((v) =>
-        fait.accepte ? !fait.accepte(v, src.valeur) : v !== canon(src.valeur));
-      const incoherent = valeursDistinctes.length > 1;
+      // Clause datée (`periodes: true`, les CGV) : elle cite l'ancien ET le
+      // nouveau prix, chacun avec sa période, et reste exacte après la bascule.
+      // Elle n'est donc pas comparée au prix du jour : elle doit citer les deux.
+      const periodes = (src.periodes ?? []).map((v) => canon(String(v)));
+      const clausesFausses = affirme.filter((a) => a.periodes && a.valeurs?.length &&
+        !(periodes.length && a.valeurs.length === periodes.length && periodes.every((v) => a.valeurs.includes(v))));
+      const valeursDistinctes = [...new Set(affirme.filter((a) => !a.periodes).flatMap((a) => a.valeurs ?? []))];
+      const acceptees = (src.acceptees ?? (src.valeur != null ? [src.valeur] : [])).map((v) => canon(String(v)));
+      const derive = clausesFausses.length > 0 || (src.valeur && valeursDistinctes.some((v) =>
+        fait.accepte ? !fait.accepte(v, src.valeur) : !acceptees.includes(v)));
+      // Le prix du jour et la hausse annoncée côte à côte ne sont pas une contradiction.
+      const incoherent = fait.accepte
+        ? valeursDistinctes.length > 1
+        : valeursDistinctes.length > 1 && valeursDistinctes.some((v) => !acceptees.includes(v));
       // Un fait non critique (DATÉ) déjà relu pour CETTE valeur de source ne
       // ressort pas : « Claude Code 2.1.289 » signalé trois fois par semaine
       // jusqu'à la prochaine passe, c'est ce qui fait ignorer le message.
       const dejaVu = fait.gravite !== "critique" && src.valeur &&
         revues[fait.id]?.valeurSource === src.valeur;
       if ((derive || incoherent) && !dejaVu) {
-        aCorriger.push({ fait, affirme, source: src, incoherent });
+        // Les emplacements en cause, et eux seuls : un message qui cite aussi les
+        // fichiers justes (le prix du jour bien écrit, une clause datée complète)
+        // envoie relire ce qui n'a pas à l'être.
+        const estFautif = (a) => a.periodes
+          ? clausesFausses.includes(a)
+          : (a.valeurs ?? []).some((v) => (fait.accepte ? !fait.accepte(v, src.valeur) : !acceptees.includes(v)));
+        const fautifs = affirme.filter(estFautif);
+        aCorriger.push({ fait, affirme, fautifs: fautifs.length ? fautifs : affirme, source: src, incoherent, clausesFausses, periodes });
       } else {
-        alignes.push({ fait, valeur: src.valeur ?? valeursDistinctes[0] });
+        alignes.push({ fait, valeur: src.valeur ?? valeursDistinctes[0], note: src.note });
       }
     } else if (src.bougees.length && (revues[fait.id]?.revuLe ?? "") < (changes.date ?? "")) {
       aRelire.push({ fait, affirme, bougees: src.bougees });
@@ -334,15 +484,18 @@ async function main() {
     // identifiants techniques ne servent qu'à la commande d'acquittement, en bas.
     const court = (v) => String(v ?? "?").replace(/\s+/g, " ").slice(0, 40);
     const labelSource = (id) => SOURCES.find((x) => x.id === id)?.label ?? id;
-    const fichiersDe = (x) => [...new Set(x.affirme.filter((a) => a.valeur).map((a) =>
+    const fichiersDe = (x) => [...new Set((x.fautifs ?? x.affirme).filter((a) => a.valeur).map((a) =>
       a.fichier.replace(/^src\/(app|components|lib)\//, "").replace(/^scripts\/content\//, "leçons ").replace(/\/page\.tsx$/, "").replace(/\.(tsx|ts|mjs)$/, "")))]
       .slice(0, 3).join(", ");
-    const ditPar = (x) => [...new Set(x.affirme.map((a) => a.valeur).filter(Boolean))].join(" / ");
+    const ditPar = (x) => [...new Set((x.fautifs ?? x.affirme).map((a) => a.valeur).filter(Boolean))].join(" / ");
     const faux = aCorriger.filter((x) => x.fait.gravite === "critique");
     const dates = aCorriger.filter((x) => x.fait.gravite !== "critique");
     const L = [];
     for (const x of faux) {
-      L.push(`🔴 FAUX sur le site : ${x.fait.libelle}. Le site dit « ${court(ditPar(x))} », la source dit « ${court(x.source.valeur)} »${x.source.erreur ? ` (${x.source.erreur})` : ""}. Où : ${fichiersDe(x)}.`);
+      const clause = x.clausesFausses?.length
+        ? ` Clause datée (CGV) : elle doit citer ${x.periodes.join(" et ")}, chacun avec sa période.`
+        : "";
+      L.push(`🔴 FAUX sur le site : ${x.fait.libelle}. Le site dit « ${court(ditPar(x))} », la source dit « ${court(x.source.valeur)} »${x.source.erreur ? ` (${x.source.erreur})` : ""}. Où : ${fichiersDe(x)}.${clause}`);
     }
     for (const x of dates) {
       L.push(`🟠 Daté, pas faux : ${x.fait.libelle}. Le site dit « ${court(ditPar(x))} », la source est à « ${court(x.source.valeur)} ». À rafraîchir à la prochaine passe.`);
@@ -374,6 +527,7 @@ async function main() {
       aCorriger: aCorriger.map((x) => ({ id: x.fait.id, gravite: x.fait.gravite })),
       aRelire: aRelire.map((x) => ({ id: x.fait.id, gravite: x.fait.gravite, sources: x.bougees })),
       muets: muets.map((m) => ({ id: m.fait.id, fichier: m.fichier, note: m.note })),
+      dynamiques: dynamiques.map((d) => ({ id: d.fait.id, fichier: d.fichier })),
       sourcesInconnues: sourcesInconnues.map((s) => ({ id: s.fait.id, source: s.id })),
       alignes: alignes.length,
     }, null, 2));
@@ -399,11 +553,18 @@ async function main() {
     for (const x of aCorriger) {
       const t = x.fait.gravite === "critique" ? "🔴 FAUX" : "🟠 DATÉ";
       console.log(`\n${t} — ${x.fait.libelle}`);
-      console.log(`   source dit  : ${x.source.valeur ?? "?"}${x.source.erreur ? ` (${x.source.erreur})` : ""}`);
-      for (const a of x.affirme) {
-        console.log(`   contenu dit : ${a.valeur ?? a.note} — ${a.fichier}${a.lignes?.length ? ` (l. ${a.lignes.join(", ")})` : ""}`);
+      const aussi = (x.source.acceptees ?? []).filter((v) => v !== x.source.valeur);
+      console.log(`   source dit  : ${x.source.valeur ?? "?"}${aussi.length ? ` (ou ${aussi.join(", ")} : ${x.source.note ?? "accepté"})` : ""}${x.source.erreur ? ` (${x.source.erreur})` : ""}`);
+      for (const a of x.affirme.filter((a) => a.note !== "dynamique")) {
+        const marque = x.fautifs?.includes(a) && x.fautifs !== x.affirme ? "  ← à corriger" : "";
+        console.log(`   contenu dit : ${a.valeur ?? a.note} — ${a.fichier}${a.lignes?.length ? ` (l. ${a.lignes.join(", ")})` : ""}${marque}`);
       }
+      const nDyn = x.affirme.filter((a) => a.note === "dynamique").length;
+      if (nDyn) console.log(`   (+ ${nDyn} emplacement(s) qui lisent src/lib/offre/prix.ts, rien à corriger)`);
       if (x.incoherent) console.log(`   ⚠️ le contenu se contredit d'un fichier à l'autre`);
+      for (const c of x.clausesFausses ?? []) {
+        console.log(`   ⚠️ clause datée de ${c.fichier} : doit citer ${x.periodes.join(" et ")} (chacun avec sa période), elle cite ${c.valeur}`);
+      }
       console.log(`   pourquoi    : ${x.fait.pourquoi}`);
     }
 
@@ -415,8 +576,14 @@ async function main() {
       console.log(`   une fois relu   : node scripts/veille/check-facts.mjs --revu ${x.fait.id}`);
     }
 
+    if (dynamiques.length) {
+      const parFait = new Map();
+      for (const d of dynamiques) parFait.set(d.fait.id, (parFait.get(d.fait.id) ?? 0) + 1);
+      console.log(`\n🔗 Prix lus dans src/lib/offre/prix.ts (plus de littéral à comparer) : ${dynamiques.length} emplacement(s) — ${[...parFait].map(([id, n]) => `${id} ×${n}`).join(" · ")}`);
+    }
+
     if (alignes.length) {
-      console.log(`\n✅ Alignés : ${alignes.map((a) => `${a.fait.id}${a.valeur && a.valeur !== "—" ? `=${a.valeur}` : ""}`).join(" · ")}`);
+      console.log(`\n✅ Alignés : ${alignes.map((a) => `${a.fait.id}${a.valeur && a.valeur !== "—" ? `=${a.valeur}` : ""}${a.note ? ` (${a.note})` : ""}`).join(" · ")}`);
     }
     console.log(
       critiques.length

@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { startCheckoutAction } from "../actions";
 import { isValidPlanCode } from "@/lib/stripe/plans";
+import {
+  MASTERY_DERNIER_JOUR_LIBELLE,
+  annonceHausseMastery,
+  maintenant,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 type SearchParams = Promise<{ plan?: string; err?: string }>;
 
@@ -12,11 +18,17 @@ export default async function CheckoutCancelPage({
   const { plan, err } = await searchParams;
   const echec = err === "1";
   const tier = isValidPlanCode(plan) ? plan : null;
+  // Prix du jour, calculé au rendu : le Mastery passe de 497 € à 697 € le
+  // 01/11/2026 (lib/offre/prix.ts), et « Reprendre » ouvre une session neuve
+  // au prix du jour.
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const annonce = tier === "mastery" ? annonceHausseMastery(at) : null;
   const planLabel =
     tier === "elite"
       ? "Pass Accompagnement · 1 497 €"
       : tier === "mastery"
-        ? "Pass Mastery · 497 €"
+        ? `Pass Mastery · ${prix} €`
         : tier === "starter"
           ? "Pass Starter · 47 €"
           : null;
@@ -41,6 +53,9 @@ export default async function CheckoutCancelPage({
           {tier && (
             <form action={startCheckoutAction}>
               <input type="hidden" name="plan" value={tier} />
+              {tier === "mastery" ? (
+                <input type="hidden" name="prix_affiche" value={prix} />
+              ) : null}
               <button
                 type="submit"
                 className="rounded-[14px] bg-coral px-8 py-4 text-base font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
@@ -56,6 +71,13 @@ export default async function CheckoutCancelPage({
             Retour à mon espace
           </Link>
         </div>
+        {/* Le visiteur le plus proche de l'achat : il doit savoir que le prix
+            change bientôt (décision du 16/10/2026, lib/offre/prix.ts). */}
+        {annonce ? (
+          <p className="mt-6 text-[13px] leading-relaxed text-muted">
+            {`${prix} € jusqu'au ${MASTERY_DERNIER_JOUR_LIBELLE} inclus. ${annonce}.`}
+          </p>
+        ) : null}
       </div>
     </section>
   );

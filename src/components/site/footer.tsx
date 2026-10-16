@@ -41,15 +41,20 @@ const pratiqueLinks = [
   { href: "/kit", label: "Kit gratuit, 15 prompts" },
 ];
 
-const academieLinks = [
-  { href: "/tarifs#starter", label: "Pass Starter, 47 €" },
-  { href: "/tarifs#mastery", label: "Pass Mastery, 497 €" },
-  { href: "/faq", label: "FAQ et objections" },
-  { href: "/changelog", label: "Journal des mises à jour" },
-  { href: "/a-propos", label: "À propos" },
-  { href: "/contact", label: "Contact" },
-  { href: "/login", label: "Mon espace" },
-];
+// Pas de prix Mastery dans le pied de page : il change le 01/11/2026
+// (lib/offre/prix.ts) et le layout racine n'est pas re-rendu lors d'une
+// navigation interne, le montant y resterait périmé jusqu'au rechargement.
+function academieLinks() {
+  return [
+    { href: "/tarifs#starter", label: "Pass Starter, 47 €" },
+    { href: "/tarifs#mastery", label: "Pass Mastery, le programme complet" },
+    { href: "/faq", label: "FAQ et objections" },
+    { href: "/changelog", label: "Journal des mises à jour" },
+    { href: "/a-propos", label: "À propos" },
+    { href: "/contact", label: "Contact" },
+    { href: "/login", label: "Mon espace" },
+  ];
+}
 
 const legalLinks = [
   { href: "/mentions-legales", label: "Mentions légales" },
@@ -89,7 +94,7 @@ export function Footer() {
           <FooterColumn title="Parcours" links={parcoursLinks} />
           <FooterColumn title="Guides" links={guidesLinks} />
           <FooterColumn title="Claude en pratique" links={pratiqueLinks} />
-          <FooterColumn title="L'académie" links={academieLinks} />
+          <FooterColumn title="L'académie" links={academieLinks()} />
         </div>
 
         {/* Désambiguïsation de la marque : le nom est proche de « Claude

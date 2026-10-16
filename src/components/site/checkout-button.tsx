@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { startCheckoutAction } from "@/app/checkout/actions";
 import type { PlanCode } from "@/lib/stripe/plans";
+import { PRIX_STARTER, prixMastery } from "@/lib/offre/prix";
 import { Button } from "./button";
 
 type CheckoutButtonProps = {
@@ -11,11 +12,30 @@ type CheckoutButtonProps = {
   variant?: "primary" | "ghost" | "ghost-light";
   size?: "md" | "lg";
   className?: string;
+  /**
+   * Prix écrit sur la page, calculé par le composant SERVEUR parent (jamais
+   * avec l'horloge du navigateur : une horloge fausse renverrait le visiteur
+   * en boucle). Le checkout compare : s'il diffère du prix du moment (page
+   * chargée avant la hausse du 01/11, clic après), il renvoie sur /tarifs
+   * avec une explication au lieu d'ouvrir Stripe à un autre prix.
+   */
+  prixAffiche?: number;
 };
 
-// Prix affichés, pour la valeur de l'événement `begin_checkout` seulement :
-// le prix facturé reste fixé côté serveur (lib/stripe/plans.ts).
-const PRIX: Record<PlanCode, number> = { starter: 47, mastery: 497, elite: 1497 };
+// Prix, pour la valeur de l'événement `begin_checkout` seulement : le prix
+// facturé reste fixé côté serveur (lib/stripe/plans.ts). Calculé au clic et
+// jamais affiché : le Mastery passe de 497 € à 697 € le 01/11/2026
+// (lib/offre/prix.ts), une constante de module resterait sur l'ancien prix.
+function prixDuPlan(tier: PlanCode): number {
+  switch (tier) {
+    case "starter":
+      return PRIX_STARTER;
+    case "mastery":
+      return prixMastery();
+    case "elite":
+      return 1497;
+  }
+}
 
 /**
  * Bouton d'achat de la vitrine. Soumet `plan` au server action
@@ -31,20 +51,25 @@ export function CheckoutButton({
   variant = "primary",
   size = "md",
   className = "",
+  prixAffiche,
 }: CheckoutButtonProps) {
   return (
     <form
       action={startCheckoutAction}
       className="contents"
-      onSubmit={() =>
+      onSubmit={() => {
+        const prix = prixDuPlan(tier);
         window.gtag?.("event", "begin_checkout", {
           currency: "EUR",
-          value: PRIX[tier],
-          items: [{ item_id: tier, price: PRIX[tier], quantity: 1 }],
-        })
-      }
+          value: prix,
+          items: [{ item_id: tier, price: prix, quantity: 1 }],
+        });
+      }}
     >
       <input type="hidden" name="plan" value={tier} />
+      {prixAffiche ? (
+        <input type="hidden" name="prix_affiche" value={prixAffiche} />
+      ) : null}
       <Button type="submit" variant={variant} size={size} className={className}>
         {children}
       </Button>

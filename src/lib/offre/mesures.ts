@@ -11,8 +11,11 @@
  */
 export const MESURES_DATE = "15 octobre 2026";
 
-/** Prix public du Pass Mastery (src/lib/stripe/plans.ts) et taux horaire d'exemple du site. */
-export const PRIX_MASTERY = 497;
+/**
+ * Taux horaire d'exemple du site. Le prix du Pass Mastery n'est plus ici : il
+ * change le 01/11/2026 et se lit à l'instant du rendu dans lib/offre/prix.ts
+ * (`prixMastery()`), jamais dans une constante de module.
+ */
 export const TAUX_HORAIRE_EXEMPLE = 50;
 
 export type Mesure = {

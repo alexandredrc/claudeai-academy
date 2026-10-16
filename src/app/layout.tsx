@@ -12,6 +12,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { EnHeader, EnFooter } from "@/components/site/en-chrome";
 import { INSTAGRAM_URL } from "@/components/site/instagram";
+import { annonceHausseMastery, maintenant, prixMastery } from "@/lib/offre/prix";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -172,6 +173,9 @@ export default async function RootLayout({
   // habillage anglais. Le chemin vient du proxy (en-tête x-pathname).
   const pathname = (await headers()).get("x-pathname") ?? "";
   const en = pathname === "/en" || pathname.startsWith("/en/");
+  // Prix daté du Pass Mastery (lib/offre/prix.ts), lu à chaque requête et
+  // passé à la barre de prix, composant client qui ne lit pas l'heure.
+  const at = maintenant();
 
   return (
     <html
@@ -194,7 +198,10 @@ export default async function RootLayout({
         {en ? <EnFooter /> : <Footer />}
         {/* Barre de prix : n'apparait qu'apres un debut de lecture, et jamais
             dans le tunnel ni dans l'espace membre. */}
-        <PriceBar />
+        <PriceBar
+          prixMastery={prixMastery(at)}
+          annonce={annonceHausseMastery(at)}
+        />
         {GOOGLE_TAG_ENABLED ? <ConsentBanner /> : null}
         <Analytics />
       </body>

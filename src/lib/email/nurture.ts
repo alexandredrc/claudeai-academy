@@ -1,5 +1,41 @@
 import type { PlanTier } from "@/lib/stripe/plans";
 import { SITE_URL, sendEmail } from "@/lib/email/send";
+import {
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  PRIX_STARTER,
+  hausseMasteryAppliquee,
+  maintenant,
+  prixMastery,
+  prixMasteryApresCreditStarter,
+} from "@/lib/offre/prix";
+
+/**
+ * Nombre de leçons du catalogue complet, pour le calcul « prix par leçon » de
+ * l'email J+21. Suivi par la veille (scripts/veille/facts.mjs, « nombre-lecons ») :
+ * il doit rester égal au nombre de leçons réellement publiées.
+ */
+const NB_LECONS_MASTERY = 58;
+
+/**
+ * Prix par leçon, dit honnêtement : 497 / 58 = 8,57 → « moins de 9 € » ;
+ * 697 / 58 = 12,02 → « environ 12 € » (jamais « moins de 12 », ce serait faux).
+ */
+function prixParLecon(prix: number, lecons: number): string {
+  const r = prix / lecons;
+  const proche = Math.round(r);
+  return Math.abs(r - proche) < 0.1 ? `environ ${proche} €` : `moins de ${Math.ceil(r)} €`;
+}
+
+/**
+ * Avant le 1er novembre 2026 seulement : la hausse du Mastery, et ce qu'elle
+ * ne change pas pour un acheteur Starter. Chaîne vide une fois la hausse
+ * appliquée (décision du 16/10/2026, lib/offre/prix.ts).
+ */
+function phraseHausse(at: Date): string {
+  if (hausseMasteryAppliquee(at)) return "";
+  return `Le prix du Mastery passe à ${PRIX_MASTERY_APRES} € le ${MASTERY_HAUSSE_LIBELLE} ; ton crédit de ${PRIX_STARTER} € reste acquis, avant comme après cette date.`;
+}
 
 export type NurtureKind =
   | "nurture_d1"
@@ -198,7 +234,7 @@ function renderD7(tier: PlanTier, firstName: string | null): Rendered {
 // J+14 — ascension Starter -> Mastery (séquence B)
 // Envoyé uniquement aux acheteurs Starter (filtre tier dans le cron).
 // =========================================
-function renderD14(tier: PlanTier, firstName: string | null): Rendered {
+function renderD14(tier: PlanTier, firstName: string | null, at: Date): Rendered {
   // Garde-fou : si jamais appelé pour un Mastery, message de fond sobre.
   if (tier === "mastery") {
     const subject = "Deux semaines avec le Mastery : un cap utile";
@@ -222,6 +258,9 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
   }
 
   const subject = "Tu as ouvert une porte. Voici la pièce entière.";
+  // Prix lus à l'envoi : 450 € avec le crédit Starter jusqu'au 31/10/2026, 650 € ensuite.
+  const apresCredit = prixMasteryApresCreditStarter(at);
+  const hausse = phraseHausse(at);
   const inner = [
     p(greeting(firstName)),
     p(
@@ -235,12 +274,15 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
     ),
     cta("Voir le Pass Mastery", `${SITE_URL}/tarifs`),
     p(
-      "Et parce que tu as déjà le Starter : <strong>tes 47 € sont déduits automatiquement</strong> au paiement quand tu es connecté à ton espace. Le Mastery te revient à 450 €. Le 3× sans frais avec Klarna existe aussi, et la garantie 14 jours s'applique toujours.",
+      `Et parce que tu as déjà le Starter : <strong>tes 47 € sont déduits automatiquement</strong> au paiement quand tu es connecté à ton espace. Le Mastery te revient à ${apresCredit} €. Le 3× sans frais avec Klarna existe aussi, et la garantie 14 jours s'applique toujours.`,
     ),
+    hausse ? p(hausse) : "",
     p(
       "Une question avant de décider ? Réponds à cet email, il arrive directement à moi.",
     ),
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const text = [
     greeting(firstName),
@@ -253,7 +295,8 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
     "",
     `Voir le Pass Mastery : ${SITE_URL}/tarifs`,
     "",
-    "Et parce que tu as déjà le Starter : tes 47 € sont déduits automatiquement au paiement quand tu es connecté à ton espace. Le Mastery te revient à 450 €. Le 3× sans frais avec Klarna existe aussi, et la garantie 14 jours s'applique toujours.",
+    `Et parce que tu as déjà le Starter : tes 47 € sont déduits automatiquement au paiement quand tu es connecté à ton espace. Le Mastery te revient à ${apresCredit} €. Le 3× sans frais avec Klarna existe aussi, et la garantie 14 jours s'applique toujours.`,
+    ...(hausse ? ["", hausse] : []),
     "",
     "Une question avant de décider ? Réponds à cet email, il arrive directement à moi.",
     "",
@@ -265,46 +308,59 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
 
 // =========================================
 // J+21 — objection prix (séquence B, Starter uniquement)
-// L'objection dominante à ce stade : « 497 €, c'est cher ». On la traite
+// L'objection dominante à ce stade : « c'est cher ». On la traite
 // frontalement : reframe coût/leçon, crédit Starter, 3× Klarna, garantie.
+// Tous les montants sont lus à l'envoi (497 € puis 697 € le 01/11/2026).
 // =========================================
-function renderD21(tier: PlanTier, firstName: string | null): Rendered {
-  const subject = "« 497 €, c'est cher » : parlons-en franchement";
+function renderD21(tier: PlanTier, firstName: string | null, at: Date): Rendered {
+  const prix = prixMastery(at);
+  const apresCredit = prixMasteryApresCreditStarter(at);
+  // Cet email ne part qu'aux acheteurs Starter : la mensualité porte sur ce
+  // qu'ils paieront, crédit déduit (450 / 3 = 150 € ; 650 / 3 = 216,67 →
+  // « environ 217 € »). Arrondi à l'euro SUPÉRIEUR, jamais sous-estimé.
+  const mensualite = Math.ceil(apresCredit / 3);
+  const parLecon = prixParLecon(prix, NB_LECONS_MASTERY);
+  const hausse = phraseHausse(at);
+  const subject = `« ${prix} €, c'est cher » : parlons-en franchement`;
   const inner = [
     p(greeting(firstName)),
     p(
       "Si tu n'es pas passé au Mastery, il y a de fortes chances que ce soit pour une seule raison : le prix. C'est une objection légitime, alors traitons-la franchement.",
     ),
     p(
-      "497 € pour 58 leçons, c'est moins de 9 € la leçon, le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
+      `${prix} € pour ${NB_LECONS_MASTERY} leçons, c'est ${parLecon} la leçon, le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.`,
     ),
     p("Trois choses qui réduisent encore le risque :"),
     bullets([
-      "<strong>Ton Starter est déduit</strong> : connecté à ton espace, le Mastery passe automatiquement à 450 €.",
-      "<strong>Le 3× sans frais avec Klarna</strong> : environ 166 € par mois, sans dossier, directement au paiement.",
+      `<strong>Ton Starter est déduit</strong> : connecté à ton espace, le Mastery te revient automatiquement à ${apresCredit} €.`,
+      `<strong>Le 3× sans frais avec Klarna</strong> : environ ${mensualite} € par mois avec ton crédit déduit, sans dossier, directement au paiement.`,
       "<strong>La garantie 14 jours</strong> : si le contenu ne tient pas la promesse, tu es intégralement remboursé, sans justification.",
     ]),
+    hausse ? p(hausse) : "",
     cta("Passer au Mastery (crédit déduit)", `${SITE_URL}/tarifs`),
     p(
-      "Et si ce n'est simplement pas le bon moment, aucun problème : le Starter reste à toi à vie, et cette proposition ne disparaît pas.",
+      "Et si ce n'est simplement pas le bon moment, aucun problème : le Starter reste à toi à vie, et ton crédit de 47 € ne disparaît pas.",
     ),
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const text = [
     greeting(firstName),
     "",
     "Si tu n'es pas passé au Mastery, il y a de fortes chances que ce soit pour une seule raison : le prix. C'est une objection légitime, alors traitons-la franchement.",
     "",
-    "497 € pour 58 leçons, c'est moins de 9 € la leçon, le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.",
+    `${prix} € pour ${NB_LECONS_MASTERY} leçons, c'est ${parLecon} la leçon, le prix d'un déjeuner pour une compétence que tu gardes à vie. Et si tu factures ton temps, une seule tâche automatisée par semaine rembourse le programme en quelques semaines.`,
     "",
     "Trois choses qui réduisent encore le risque :",
-    "- Ton Starter est déduit : connecté à ton espace, le Mastery passe automatiquement à 450 €.",
-    "- Le 3× sans frais avec Klarna : environ 166 € par mois, sans dossier, directement au paiement.",
+    `- Ton Starter est déduit : connecté à ton espace, le Mastery te revient automatiquement à ${apresCredit} €.`,
+    `- Le 3× sans frais avec Klarna : environ ${mensualite} € par mois avec ton crédit déduit, sans dossier, directement au paiement.`,
     "- La garantie 14 jours : remboursement intégral, sans justification.",
+    ...(hausse ? ["", hausse] : []),
     "",
     `Passer au Mastery (crédit déduit) : ${SITE_URL}/tarifs`,
     "",
-    "Et si ce n'est simplement pas le bon moment, aucun problème : le Starter reste à toi à vie, et cette proposition ne disparaît pas.",
+    "Et si ce n'est simplement pas le bon moment, aucun problème : le Starter reste à toi à vie, et ton crédit de 47 € ne disparaît pas.",
     "",
     "Pour ne plus recevoir ces conseils, réponds « STOP ». Une question ? contact@claudeai-academy.com",
   ].join("\n");
@@ -316,28 +372,36 @@ function renderD21(tier: PlanTier, firstName: string | null): Rendered {
 // J+30 — win-back (séquence B, Starter uniquement)
 // Dernier email de la série : court, humain, sans discount agressif.
 // =========================================
-function renderD30(tier: PlanTier, firstName: string | null): Rendered {
+function renderD30(tier: PlanTier, firstName: string | null, at: Date): Rendered {
   const subject = "Dernier email de cette série (promis)";
+  // Lus à l'envoi : 450/497 € jusqu'au 31/10/2026, 650/697 € ensuite (crédit Starter / prix public).
+  // Pas de montant entre guillemets dans ce commentaire : la veille lit « N € » dans ce fichier.
+  const prix = prixMastery(at);
+  const apresCredit = prixMasteryApresCreditStarter(at);
+  const hausse = phraseHausse(at);
+  const situations = `Un mois après ton Pass Starter, deux situations possibles. Soit tu as trouvé ton rythme avec Claude : dans ce cas, continue, tu n'as besoin de rien d'autre. Soit tu sens qu'il y a plus à aller chercher (pour ton marketing, tes données, ta stratégie) et dans ce cas le Mastery t'attend, avec ton Starter déduit (${apresCredit} € au lieu de ${prix} €) et la garantie 14 jours.`;
   const inner = [
     p(greeting(firstName)),
     p(
       "C'est le dernier email de cette série : après celui-ci, je te laisse tranquille.",
     ),
-    p(
-      "Un mois après ton Pass Starter, deux situations possibles. Soit tu as trouvé ton rythme avec Claude : dans ce cas, continue, tu n'as besoin de rien d'autre. Soit tu sens qu'il y a plus à aller chercher (pour ton marketing, tes données, ta stratégie) et dans ce cas le Mastery t'attend, avec ton Starter déduit (450 € au lieu de 497 €) et la garantie 14 jours.",
-    ),
+    p(situations),
+    hausse ? p(hausse) : "",
     cta("Voir le Pass Mastery", `${SITE_URL}/tarifs`),
     p(
       "Dans les deux cas : merci d'avoir fait partie des premiers. Si tu as une question, une remarque, ou un retour sur la formation (bon ou mauvais), réponds à cet email : je lis tout, et ça m'aide vraiment.",
     ),
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const text = [
     greeting(firstName),
     "",
     "C'est le dernier email de cette série : après celui-ci, je te laisse tranquille.",
     "",
-    "Un mois après ton Pass Starter, deux situations possibles. Soit tu as trouvé ton rythme avec Claude : dans ce cas, continue, tu n'as besoin de rien d'autre. Soit tu sens qu'il y a plus à aller chercher (pour ton marketing, tes données, ta stratégie) et dans ce cas le Mastery t'attend, avec ton Starter déduit (450 € au lieu de 497 €) et la garantie 14 jours.",
+    situations,
+    ...(hausse ? ["", hausse] : []),
     "",
     `Voir le Pass Mastery : ${SITE_URL}/tarifs`,
     "",
@@ -354,17 +418,20 @@ export function renderNurture(
   tier: PlanTier,
   firstName: string | null,
 ): Rendered {
+  // Un seul instant par email : le prix et l'annonce de hausse ne peuvent pas
+  // diverger. Lu à l'envoi, jamais au chargement du module.
+  const at = maintenant();
   switch (kind) {
     case "nurture_d1":
       return renderD1(tier, firstName);
     case "nurture_d7":
       return renderD7(tier, firstName);
     case "nurture_d14":
-      return renderD14(tier, firstName);
+      return renderD14(tier, firstName, at);
     case "nurture_d21":
-      return renderD21(tier, firstName);
+      return renderD21(tier, firstName, at);
     case "nurture_d30":
-      return renderD30(tier, firstName);
+      return renderD30(tier, firstName, at);
   }
 }
 

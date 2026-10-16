@@ -13,6 +13,12 @@ import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 import { MESURES, MESURES_DATE, duree, mesure, type Mesure } from "@/lib/offre/mesures";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import {
+  annonceHausseMastery,
+  maintenant,
+  mensualiteKlarna3x,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 // Page métier du pilier /formation-intelligence-artificielle, pour le public
 // fixé le 15/10/2026 : indépendants et TPE non techniques. Requêtes visées :
@@ -137,39 +143,49 @@ const neFaitPas = [
 
 type FaqItem = { q: string; a: string; lien?: { href: string; label: string } };
 
-const faq: FaqItem[] = [
-  {
-    q: "Claude ou ChatGPT pour une TPE ?",
-    a: `Les deux savent rédiger un email ou un compte rendu. Nous formons sur Claude parce que la méthode enseignée (décrire son activité, donner le contexte, relire) s'y applique avec le plus de rigueur, et qu'elle se transfère ensuite à ChatGPT ou Gemini sans réapprendre. Pour une petite entreprise équipée de Microsoft 365, Claude s'utilise aussi directement dans Excel, Word et PowerPoint, et dans Outlook en bêta, avec un plan Claude payant et sans licence supplémentaire (vérifié le ${CONTENU_A_JOUR_AU}). La comparaison critère par critère est sur notre page dédiée.`,
-    lien: { href: "/claude-vs-chatgpt", label: "Lire la comparaison Claude ou ChatGPT" },
-  },
-  {
-    q: "Faut-il savoir coder ?",
-    a: "Non. Écrire une demande à Claude, c'est écrire en français. Les parcours Bien démarrer avec Claude, Prompt Engineering pro, Contenu et marketing et Stratégie et conduite IA ne demandent d'écrire aucune ligne de code, et ce sont ceux qui servent à un indépendant ou à une TPE. Les parcours Claude Code, Data et SQL, Trading, Prompts, skills, MCP et GitHub, et Construire ton agent IA supposent une culture technique : ils sont signalés comme tels et vous pouvez les laisser de côté.",
-  },
-  {
-    q: "Mes données clients sont-elles en sécurité ?",
-    a: "Cela dépend de ce que vous collez dans Claude et des réglages de votre compte, et la formation traite les deux. La leçon « Paramétrer Claude : les réglages qui comptent » (parcours Bien démarrer avec Claude, 16 minutes) fait le tour des paramètres : mémoire, connecteurs, données, et le choix conscient de contribuer ou non à l'amélioration des modèles. Le parcours Stratégie et conduite IA en entreprise consacre une leçon à la gouvernance (RGPD et AI Act) et une autre à la sécurité, avec une règle simple : ne jamais envoyer dans un prompt ce que vous n'accepteriez pas de voir conservé. Aucune formation ne peut garantir la sécurité à votre place : vous restez responsable du traitement des données de vos clients.",
-    lien: { href: PARCOURS_STRATEGIE, label: "Voir le parcours Stratégie et conduite IA" },
-  },
-  {
-    q: "Combien de temps avant un premier résultat utile ?",
-    a: "Une heure. Les trois leçons conseillées (Personnaliser Claude, Être clair et direct, Claude là où tu travailles déjà) totalisent 60 minutes et vous laissent avec un profil rempli, une méthode de demande et la marche à suivre pour vous en servir dans Word, Excel ou Outlook. Pour tout le programme : les 58 leçons des 9 parcours se lisent en une dizaine d'heures (8 à 15 minutes par leçon) et demandent environ 22 heures avec la mise en pratique. Rien ne vous oblige à tout suivre : l'accès est à vie.",
-  },
-  {
-    q: "La formation est-elle éligible au CPF ?",
-    a: "Non. ClaudeAI Academy n'est pas certifiée Qualiopi et la formation n'est éligible ni au CPF ni à un financement OPCO. En contrepartie : pas de dossier, pas de délai, pas de session à date fixe. Vous payez une fois (47 € ou 497 €), vous recevez une facture professionnelle, TVA non applicable au titre de l'article 293 B du CGI, et vous gardez l'accès à vie. Si le financement CPF est indispensable pour vous, un organisme certifié sera plus adapté.",
-  },
-];
+// Construite au rendu : la réponse CPF cite le prix du Pass Mastery du jour
+// (497 € jusqu'au 31/10/2026, 697 € ensuite, lib/offre/prix.ts).
+function construireFaq(prixMasteryDuJour: number): FaqItem[] {
+  return [
+    {
+      q: "Claude ou ChatGPT pour une TPE ?",
+      a: `Les deux savent rédiger un email ou un compte rendu. Nous formons sur Claude parce que la méthode enseignée (décrire son activité, donner le contexte, relire) s'y applique avec le plus de rigueur, et qu'elle se transfère ensuite à ChatGPT ou Gemini sans réapprendre. Pour une petite entreprise équipée de Microsoft 365, Claude s'utilise aussi directement dans Excel, Word et PowerPoint, et dans Outlook en bêta, avec un plan Claude payant et sans licence supplémentaire (vérifié le ${CONTENU_A_JOUR_AU}). La comparaison critère par critère est sur notre page dédiée.`,
+      lien: { href: "/claude-vs-chatgpt", label: "Lire la comparaison Claude ou ChatGPT" },
+    },
+    {
+      q: "Faut-il savoir coder ?",
+      a: "Non. Écrire une demande à Claude, c'est écrire en français. Les parcours Bien démarrer avec Claude, Prompt Engineering pro, Contenu et marketing et Stratégie et conduite IA ne demandent d'écrire aucune ligne de code, et ce sont ceux qui servent à un indépendant ou à une TPE. Les parcours Claude Code, Data et SQL, Trading, Prompts, skills, MCP et GitHub, et Construire ton agent IA supposent une culture technique : ils sont signalés comme tels et vous pouvez les laisser de côté.",
+    },
+    {
+      q: "Mes données clients sont-elles en sécurité ?",
+      a: "Cela dépend de ce que vous collez dans Claude et des réglages de votre compte, et la formation traite les deux. La leçon « Paramétrer Claude : les réglages qui comptent » (parcours Bien démarrer avec Claude, 16 minutes) fait le tour des paramètres : mémoire, connecteurs, données, et le choix conscient de contribuer ou non à l'amélioration des modèles. Le parcours Stratégie et conduite IA en entreprise consacre une leçon à la gouvernance (RGPD et AI Act) et une autre à la sécurité, avec une règle simple : ne jamais envoyer dans un prompt ce que vous n'accepteriez pas de voir conservé. Aucune formation ne peut garantir la sécurité à votre place : vous restez responsable du traitement des données de vos clients.",
+      lien: { href: PARCOURS_STRATEGIE, label: "Voir le parcours Stratégie et conduite IA" },
+    },
+    {
+      q: "Combien de temps avant un premier résultat utile ?",
+      a: "Une heure. Les trois leçons conseillées (Personnaliser Claude, Être clair et direct, Claude là où tu travailles déjà) totalisent 60 minutes et vous laissent avec un profil rempli, une méthode de demande et la marche à suivre pour vous en servir dans Word, Excel ou Outlook. Pour tout le programme : les 58 leçons des 9 parcours se lisent en une dizaine d'heures (8 à 15 minutes par leçon) et demandent environ 22 heures avec la mise en pratique. Rien ne vous oblige à tout suivre : l'accès est à vie.",
+    },
+    {
+      q: "La formation est-elle éligible au CPF ?",
+      a: `Non. ClaudeAI Academy n'est pas certifiée Qualiopi et la formation n'est éligible ni au CPF ni à un financement OPCO. En contrepartie : pas de dossier, pas de délai, pas de session à date fixe. Vous payez une fois (47 € ou ${prixMasteryDuJour} €), vous recevez une facture professionnelle, TVA non applicable au titre de l'article 293 B du CGI, et vous gardez l'accès à vie. Si le financement CPF est indispensable pour vous, un organisme certifié sera plus adapté.`,
+    },
+  ];
+}
 
 export default async function FormationIAIndependantsTPEPage() {
   const stats = await getCatalogStats();
+  // Un seul instant de référence pour tout le rendu (tableau, FAQ, schéma).
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const faq = construireFaq(prix);
 
   const lignes = ORDRE.map(mesure).filter((m): m is Mesure => Boolean(m));
   const totalSans = MESURES.reduce((s, m) => s + m.sans, 0);
   const totalAvec = MESURES.reduce((s, m) => s + m.avec, 0);
 
-  const passes = [
+  // `annonce` : la hausse du Pass Mastery, affichée sous son prix tant qu'elle
+  // est à venir (« Puis 697 € à partir du 1er novembre »), null ensuite.
+  const passes: { nom: string; prix: string; annonce?: string | null; contenu: string; href: string }[] = [
     {
       nom: "Pass Starter",
       prix: "47 € une fois",
@@ -178,7 +194,8 @@ export default async function FormationIAIndependantsTPEPage() {
     },
     {
       nom: "Pass Mastery",
-      prix: "497 € une fois, ou 3 × 165,67 € sans frais avec Klarna",
+      prix: `${prix} € une fois, ou 3 × ${mensualiteKlarna3x(prix)} € sans frais avec Klarna`,
+      annonce: annonceHausseMastery(at),
       contenu: `Les ${stats.courseCount} parcours (${stats.lessonCount} leçons), les ${PROMPT_COUNT} prompts, le Mentor IA qui répond à vos questions et corrige vos exercices, l'examen et le certificat vérifiable, accès à vie. Vos 47 € de Starter sont déduits si vous commencez petit.`,
       href: "/tarifs#mastery",
     },
@@ -465,7 +482,14 @@ export default async function FormationIAIndependantsTPEPage() {
                         {p.nom}
                       </Link>
                     </td>
-                    <td className="py-4 pr-4 text-ink">{p.prix}</td>
+                    <td className="py-4 pr-4 text-ink">
+                      {p.prix}
+                      {p.annonce ? (
+                        <span className="mt-1 block text-[13px] font-semibold text-ink-soft">
+                          {`${p.annonce}.`}
+                        </span>
+                      ) : null}
+                    </td>
                     <td className="py-4 text-muted">{p.contenu}</td>
                   </tr>
                 ))}
@@ -569,8 +593,8 @@ export default async function FormationIAIndependantsTPEPage() {
           </h2>
           <p className="mt-5 max-w-[620px] text-lg leading-relaxed text-cream/70">
             La leçon « Claude là où tu travailles déjà » se lit en 22 minutes, sans carte
-            bancaire. Si la méthode vous convient, le Pass Starter coûte 47 €, le Pass Mastery
-            497 €, et vous avez 14 jours pour changer d’avis.
+            bancaire.{" "}
+            {`Si la méthode vous convient, le Pass Starter coûte 47 €, le Pass Mastery ${prix} €, et vous avez 14 jours pour changer d’avis.`}
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Button href="/tarifs" variant="primary" size="lg">

@@ -12,20 +12,42 @@ import { FAQ } from "@/components/landing/faq";
 import { FinalCTA } from "@/components/landing/final-cta";
 import { ELITE_ENABLED } from "@/lib/stripe/plans";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import {
+  MASTERY_HAUSSE_LIBELLE,
+  hausseMasteryAppliquee,
+  maintenant,
+  mensualiteKlarna3x,
+  parentheseHausseMastery,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 // Le titre et le balisage doivent suivre le catalogue RÉELLEMENT ouvert :
 // ouvrir ou fermer le Pass Accompagnement sans les mettre à jour laisserait une
-// page qui annonce des prix qu'elle n'affiche plus — et un balisage que Google
+// page qui annonce des prix qu'elle n'affiche plus, et un balisage que Google
 // reprend tel quel dans ses résultats.
-export const metadata: Metadata = pageMetadata({
-  path: "/tarifs",
-  title: ELITE_ENABLED
-    ? "Prix de la formation Claude AI : 47 €, 497 € ou 1 497 €"
-    : "Prix de la formation Claude AI : 47 € ou 497 €, sans CPF ni devis",
-  description: ELITE_ENABLED
-    ? "Starter 47 €, Mastery 497 € (ou 3 × 165,67 € sans frais) et Accompagnement 1 497 € : paiement unique, accès à vie, sans CPF. Garantie 14 jours."
-    : "Pass Starter 47 €, Pass Mastery 497 € (ou 3 × 165,67 € sans frais) : paiement unique, accès à vie, sans CPF ni devis. Garantie 14 jours.",
-});
+//
+// Prix du Pass Mastery calculé à chaque requête (lib/offre/prix.ts) : 497 €
+// jusqu'au 31/10/2026 inclus, 697 € dès le 01/11/2026 (décision du 16/10/2026).
+// Avant la bascule, la description annonce la hausse à la place de la
+// mensualité Klarna, pour rester sous les 155 caractères.
+export async function generateMetadata(): Promise<Metadata> {
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const detailMastery =
+    parentheseHausseMastery(at) || ` (ou 3 × ${mensualiteKlarna3x(prix)} € sans frais)`;
+  return pageMetadata({
+    path: "/tarifs",
+    title: ELITE_ENABLED
+      ? `Prix de la formation Claude AI : 47 €, ${prix} € ou 1 497 €`
+      : `Prix de la formation Claude AI : 47 € ou ${prix} €, sans CPF ni devis`,
+    description: ELITE_ENABLED
+      ? `Starter 47 €, Mastery ${prix} €${detailMastery} et Accompagnement 1 497 € : paiement unique, accès à vie, sans CPF. Garantie 14 jours.`
+      : `Pass Starter 47 €, Pass Mastery ${prix} €${detailMastery} : paiement unique, accès à vie, sans CPF ni devis. Garantie 14 jours.`,
+  });
+}
+
+/** Dernier jour du prix à 497 € (veille de MASTERY_HAUSSE_LE, heure de Paris). */
+const MASTERY_PRIX_VALABLE_JUSQU_AU = "2026-10-31";
 
 // Produit numérique : aucune livraison physique (accès en ligne immédiat) et
 // garantie « satisfait ou remboursé » 14 jours. On déclare malgré tout
@@ -70,60 +92,85 @@ const hasMerchantReturnPolicy = {
   returnFees: "https://schema.org/FreeReturn",
 };
 
-const offersJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name: "Formation ClaudeAI Academy",
-  description:
-    "Formation en ligne francophone pour maîtriser Claude AI : 9 parcours, 58 leçons, 170 prompts, mentor IA. Paiement unique, accès à vie, garantie 14 jours.",
-  url: "https://www.claudeai-academy.com/tarifs",
-  image: "https://www.claudeai-academy.com/og.png",
-  brand: { "@type": "Brand", name: "ClaudeAI Academy" },
-  offers: [
-    {
-      "@type": "Offer",
-      name: "Pass Starter",
-      price: "47",
-      priceCurrency: "EUR",
-      url: "https://www.claudeai-academy.com/tarifs#starter",
-      availability: "https://schema.org/InStock",
-      shippingDetails,
-      hasMerchantReturnPolicy,
-    },
-    {
-      "@type": "Offer",
-      name: "Pass Mastery",
-      price: "497",
-      priceCurrency: "EUR",
-      url: "https://www.claudeai-academy.com/tarifs#mastery",
-      availability: "https://schema.org/InStock",
-      shippingDetails,
-      hasMerchantReturnPolicy,
-    },
-    ...(ELITE_ENABLED
-      ? [
-          {
-            "@type": "Offer",
-            name: "Pass Accompagnement",
-            price: "1497",
-            priceCurrency: "EUR",
-            url: "https://www.claudeai-academy.com/tarifs#accompagnement",
-            availability: "https://schema.org/InStock",
-            shippingDetails,
-            hasMerchantReturnPolicy,
-          },
-        ]
-      : []),
-  ],
-};
+// Construit à chaque rendu : le prix Mastery change le 01/11/2026 à 0 h (Paris)
+// et une instance serveur réutilisée peut franchir minuit. Avant la bascule,
+// `priceValidUntil` dit à Google jusqu'à quand le prix affiché tient.
+function offersJsonLd(at: Date) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Formation ClaudeAI Academy",
+    description:
+      "Formation en ligne francophone pour maîtriser Claude AI : 9 parcours, 58 leçons, 170 prompts, mentor IA. Paiement unique, accès à vie, garantie 14 jours.",
+    url: "https://www.claudeai-academy.com/tarifs",
+    image: "https://www.claudeai-academy.com/og.png",
+    brand: { "@type": "Brand", name: "ClaudeAI Academy" },
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Pass Starter",
+        price: "47",
+        priceCurrency: "EUR",
+        url: "https://www.claudeai-academy.com/tarifs#starter",
+        availability: "https://schema.org/InStock",
+        shippingDetails,
+        hasMerchantReturnPolicy,
+      },
+      {
+        "@type": "Offer",
+        name: "Pass Mastery",
+        price: String(prixMastery(at)),
+        priceCurrency: "EUR",
+        ...(hausseMasteryAppliquee(at)
+          ? {}
+          : { priceValidUntil: MASTERY_PRIX_VALABLE_JUSQU_AU }),
+        url: "https://www.claudeai-academy.com/tarifs#mastery",
+        availability: "https://schema.org/InStock",
+        shippingDetails,
+        hasMerchantReturnPolicy,
+      },
+      ...(ELITE_ENABLED
+        ? [
+            {
+              "@type": "Offer",
+              name: "Pass Accompagnement",
+              price: "1497",
+              priceCurrency: "EUR",
+              url: "https://www.claudeai-academy.com/tarifs#accompagnement",
+              availability: "https://schema.org/InStock",
+              shippingDetails,
+              hasMerchantReturnPolicy,
+            },
+          ]
+        : []),
+    ],
+  };
+}
 
-export default function TarifsPage() {
+export default async function TarifsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ prix?: string }>;
+}) {
+  const at = maintenant();
+  // `?prix=maj` : renvoi du checkout quand le visiteur a cliqué sur un prix
+  // devenu périmé (page chargée avant la hausse du 01/11, clic après).
+  // Seulement une fois la hausse faite : avant, le message serait faux.
+  const prixMisAJour =
+    (await searchParams).prix === "maj" && hausseMasteryAppliquee(at);
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersJsonLd(at)) }}
       />
+      {prixMisAJour ? (
+        <div role="status" className="bg-ink text-cream">
+          <p className="mx-auto max-w-[1140px] px-4 py-3 text-center text-[14px] leading-snug">
+            {`Le Pass Mastery est passé à ${prixMastery(at)} € le ${MASTERY_HAUSSE_LIBELLE} à 0 h (heure de Paris). La page que vous aviez ouverte affichait l'ancien prix : voici les tarifs à jour.`}
+          </p>
+        </div>
+      ) : null}
       <BonusBar />
       <PricingHero />
       {/* Le coût du problème avant le prix (Hormozi, principe 5) : les temps

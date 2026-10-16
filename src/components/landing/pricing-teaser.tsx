@@ -9,6 +9,12 @@ import {
   BONUS_AUDIT_PLACES,
   placesBonusRestantes,
 } from "@/lib/offre/bonus-audit";
+import {
+  annonceHausseMastery,
+  maintenant,
+  mensualiteKlarna3x,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 // Les 3 parcours fondateurs du Pass Starter. Sert à afficher l'écart réel
 // entre les deux pass — un badge qui chiffre la différence aide à choisir,
@@ -20,6 +26,11 @@ export async function PricingTeaser() {
     getCatalogStats(),
     placesBonusRestantes(),
   ]);
+  // Prix daté (décision du 16/10/2026) : lu à chaque rendu, sur un seul
+  // instant, pour que prix, mensualité et annonce ne se contredisent jamais.
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const annonce = annonceHausseMastery(at);
   return (
     <section id="tarifs" className="scroll-mt-24 bg-cream py-24 md:py-32">
       <Container>
@@ -44,7 +55,12 @@ export async function PricingTeaser() {
           }`}
         >
           <StarterCard />
-          <MasteryCard stats={stats} placesBonus={placesBonus} />
+          <MasteryCard
+            stats={stats}
+            placesBonus={placesBonus}
+            prix={prix}
+            annonce={annonce}
+          />
           {ELITE_ENABLED && <EliteCard />}
         </div>
 
@@ -100,9 +116,15 @@ function StarterCard() {
 function MasteryCard({
   stats,
   placesBonus,
+  prix,
+  annonce,
 }: {
   stats: CatalogStats;
   placesBonus: number | null;
+  /** Prix du jour (lib/offre/prix.ts) : 497 € puis 697 € dès le 01/11/2026. */
+  prix: number;
+  /** « Puis 697 € à partir du 1er novembre », ou null une fois la hausse faite. */
+  annonce: string | null;
 }) {
   const features = [
     `Les ${stats.courseCount} parcours complets (${stats.lessonCount} leçons)`,
@@ -131,12 +153,20 @@ function MasteryCard({
       <p className="mt-1.5 text-cream/65 text-[14px]">L&apos;intégralité du programme</p>
 
       <div className="mt-7 flex items-baseline gap-2">
-        <span className="font-serif text-5xl font-semibold leading-none">497</span>
+        <span className="font-serif text-5xl font-semibold leading-none">{prix}</span>
         <span className="text-base text-cream/65">€ une fois</span>
       </div>
 
+      {/* Hausse réelle annoncée à l'avance, jamais de prix barré (décision du
+          16/10/2026, lib/offre/prix.ts). La ligne disparaît seule le 01/11. */}
+      {annonce ? (
+        <p className="mt-2.5 text-[14px] font-semibold text-coral-soft">
+          {annonce}
+        </p>
+      ) : null}
+
       <span className="mt-3 self-start inline-block bg-green-soft text-green text-[12px] font-bold px-3 py-1 rounded-full">
-        Ou 3 × 165,67 € sans frais avec Klarna
+        {`Ou 3 × ${mensualiteKlarna3x(prix)} € sans frais avec Klarna`}
       </span>
 
       {/* Le crédit d'ascension existe depuis toujours côté checkout, mais
@@ -162,8 +192,8 @@ function MasteryCard({
         </p>
       ) : null}
 
-      <CheckoutButton tier="mastery" variant="primary" size="md" className="mt-7 w-full">
-        Rejoindre Mastery · 497 €
+      <CheckoutButton tier="mastery" prixAffiche={prix} variant="primary" size="md" className="mt-7 w-full">
+        {`Rejoindre Mastery · ${prix} €`}
       </CheckoutButton>
 
       <ul className="mt-7 pt-7 border-t border-cream/15 space-y-3 flex-1">

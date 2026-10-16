@@ -26,7 +26,10 @@ const liens = [
   {
     href: "/tarifs",
     label: "Les tarifs",
-    detail: "Pass Starter 47 €, Pass Mastery 497 €, garantie 14 jours",
+    // Sans le prix du Pass Mastery : il change le 01/11/2026
+    // (lib/offre/prix.ts), et cette page peut être rendue au build, ce qui
+    // figerait le chiffre. « Dès 47 € » reste vrai quel que soit le jour.
+    detail: "Accès à vie dès 47 €, garantie 14 jours",
   },
 ];
 

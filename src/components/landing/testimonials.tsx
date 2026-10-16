@@ -5,7 +5,8 @@ import Link from "next/link";
 // Décision du fondateur le 16/10/2026, risque juridique assumé par écrit :
 // aucune mention du statut des avis (acheteur ou accès offert) sur la page.
 // Avant cette date, chaque avis portait son origine (directive Omnibus,
-// art. D111-17 du Code de la consommation). Voir la mémoire du projet.
+// art. L111-7-2 et D111-10 du Code de la consommation, ex-D111-17 renuméroté
+// par le décret 2024-753). Voir la mémoire du projet.
 //
 // Pas de schema Review/aggregateRating : les avis auto-collectés sur sa
 // propre page produit sont exclus des rich results Google — les baliser

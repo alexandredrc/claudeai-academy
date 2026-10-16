@@ -3,6 +3,15 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
+import {
+  MASTERY_DERNIER_JOUR_LIBELLE,
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  hausseMasteryAppliquee,
+  maintenant,
+  mensualiteKlarna3x,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 export const metadata: Metadata = {
   title: "Le Kit : 15 prompts Claude, et ce que Claude Code change dans une journée",
@@ -320,6 +329,13 @@ const PARCOURS: { nom: string; lecons: number; pour: string }[] = [
 
 export default function KitRessourcesPage() {
   const totalLecons = PARCOURS.reduce((n, p) => n + p.lecons, 0);
+  // Prix du Pass Mastery calculé au rendu (497 € jusqu'au 31/10/2026, 697 €
+  // ensuite, lib/offre/prix.ts) et annonce de la hausse tant qu'elle est à venir.
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const hausse = hausseMasteryAppliquee(at)
+    ? null
+    : `Ce prix vaut jusqu'au ${MASTERY_DERNIER_JOUR_LIBELLE} inclus : le Pass Mastery passe à ${PRIX_MASTERY_APRES} € le ${MASTERY_HAUSSE_LIBELLE}.`;
   return (
     <article className="pt-12 pb-24 md:pt-16 md:pb-32">
       <Container size="narrow">
@@ -558,9 +574,14 @@ export default function KitRessourcesPage() {
           </ol>
           <div className="rounded-[12px] border border-cream/15 p-5 mb-7">
             <p className="text-[15px] leading-relaxed text-cream/90 mb-2">
-              <strong className="text-cream">497 €</strong>, une fois, ou 3 × 165,67 € sans frais.
-              Accès à vie, mises à jour comprises. Pas d&apos;abonnement.
+              <strong className="text-cream">{`${prix} €`}</strong>
+              {`, une fois, ou 3 × ${mensualiteKlarna3x(prix)} € sans frais. Accès à vie, mises à jour comprises. Pas d'abonnement.`}
             </p>
+            {hausse ? (
+              <p className="text-[14px] font-semibold leading-relaxed text-cream mb-2">
+                {hausse}
+              </p>
+            ) : null}
             <p className="text-[14px] leading-relaxed text-cream/70">
               Garantie 14 jours : un email dans ce délai et tu es remboursé
               intégralement, sans justification. Le risque est de mon côté.

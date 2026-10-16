@@ -1,12 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import {
-  PRIX_MASTERY,
-  TAUX_HORAIRE_EXEMPLE,
-  duree,
-  type Mesure,
-} from "@/lib/offre/mesures";
+import { TAUX_HORAIRE_EXEMPLE, duree, type Mesure } from "@/lib/offre/mesures";
 
 // Même hypothèse que le calcul statique qu'il remplace : 4 semaines par mois.
 const SEMAINES_PAR_MOIS = 4;
@@ -18,8 +13,12 @@ const MAX_PAR_SEMAINE = 20;
  * chronométrés par le fondateur (lib/offre/mesures.ts). Valeurs initiales =
  * l'ancien texte fixe (1 de chaque par semaine, 50 €/h), donc le rendu
  * serveur et le premier affichage disent exactement la même chose.
+ *
+ * `prix` (Pass Mastery du jour) vient du parent serveur (lib/offre/prix.ts) :
+ * calculé ici, le serveur et le navigateur pourraient ne pas lire le même
+ * instant autour du 01/11 et l'hydratation échouerait.
  */
-export function TimeCalculator({ taches }: { taches: Mesure[] }) {
+export function TimeCalculator({ taches, prix }: { taches: Mesure[]; prix: number }) {
   const baseId = useId();
   const [taux, setTaux] = useState<number>(TAUX_HORAIRE_EXEMPLE);
   const [freq, setFreq] = useState<number[]>(() => taches.map(() => 1));
@@ -31,7 +30,7 @@ export function TimeCalculator({ taches }: { taches: Mesure[] }) {
   const gainMin = moisSans - moisAvec;
   const gainEur = Math.round((gainMin / 60) * taux);
   // Au-delà de deux ans, « remboursé en 30 mois » n'aide personne à décider.
-  const brut = gainEur > 0 ? PRIX_MASTERY / ((gainMin / 60) * taux) : null;
+  const brut = gainEur > 0 ? prix / ((gainMin / 60) * taux) : null;
   const moisRemb = brut !== null && brut <= 24 ? brut : null;
   const remb =
     moisRemb === null
@@ -111,7 +110,7 @@ export function TimeCalculator({ taches }: { taches: Mesure[] }) {
             <strong className="text-ink">
               {duree(gainMin)} gagnées, soit {gainEur} € par mois
             </strong>
-            {remb ? <> : le Pass Mastery ({PRIX_MASTERY} €) est remboursé {remb}.</> : "."}
+            {remb ? <> : le Pass Mastery ({prix} €) est remboursé {remb}.</> : "."}
           </>
         ) : (
           <>Indiquez au moins une tâche par semaine pour voir le calcul.</>

@@ -17,6 +17,14 @@ import { createClient } from "@/lib/supabase/server";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import {
+  MASTERY_DERNIER_JOUR_LIBELLE,
+  annonceHausseMastery,
+  maintenant,
+  mensualiteKlarna3x,
+  parentheseHausseMastery,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 // Landing dédiée au trafic Google Ads (requêtes « formation claude ai » et
 // proches). Volontairement hors nav, hors sitemap et noindex : elle ne doit
@@ -33,16 +41,20 @@ export const metadata: Metadata = pageMetadata({
   robots: { index: false, follow: true },
 });
 
+// Prix du Pass Mastery : un seul instant de référence par rendu, transmis aux
+// blocs, pour qu'une requête servie à minuit le 31/10 n'affiche pas 497 € dans
+// le hero et 697 € plus bas (lib/offre/prix.ts, décision du 16/10/2026).
 export default function FormationClaudeAI() {
+  const at = maintenant();
   return (
     <>
-      <LandingHero />
+      <LandingHero at={at} />
       {/* Public nommé dès le deuxième écran, comme sur l'accueil
           (indépendants et TPE, décision du 15/10/2026). */}
       <Profiles />
       <ProofMeasures />
       <PainBridge />
-      <WhatYouGet />
+      <WhatYouGet at={at} />
       {/* Audit du 10/10/2026 : un visiteur payé ne savait pas qui vend. Le
           bloc fondateur (métier réel, visage, compte Instagram) est le signal
           d'autorité qui manquait avant les avis et les tarifs. */}
@@ -51,18 +63,34 @@ export default function FormationClaudeAI() {
       <PricingTeaser />
       <ValueStack />
       <Guarantee />
-      <LandingFAQ />
+      <LandingFAQ at={at} />
       <NotTodayCapture />
-      <LastCall />
+      <LastCall at={at} />
     </>
   );
 }
 
+/**
+ * Annonce de la hausse sous les boutons Mastery, une fois par bloc, tant
+ * qu'elle est à venir : « Pass Mastery à 497 € jusqu'au 31 octobre inclus.
+ * Puis 697 € à partir du 1er novembre. » Rien une fois la hausse appliquée.
+ */
+function AnnonceHausse({ at }: { at: Date }) {
+  const annonce = annonceHausseMastery(at);
+  if (!annonce) return null;
+  return (
+    <p className="mt-2 text-[13px] font-semibold text-ink-soft">
+      {`Pass Mastery à ${prixMastery(at)} € jusqu'au ${MASTERY_DERNIER_JOUR_LIBELLE} inclus. ${annonce}.`}
+    </p>
+  );
+}
+
 // =========================================
-// Hero — miroir de la requête « formation claude ai »
+// Hero : miroir de la requête « formation claude ai »
 // =========================================
-async function LandingHero() {
+async function LandingHero({ at }: { at: Date }) {
   const stats = await getCatalogStats();
+  const prix = prixMastery(at);
   return (
     <section className="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-28">
       <div
@@ -97,17 +125,17 @@ async function LandingHero() {
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <CheckoutButton tier="mastery" variant="primary" size="lg">
-              Rejoindre Mastery · 497 €
+            <CheckoutButton tier="mastery" prixAffiche={prix} variant="primary" size="lg">
+              {`Rejoindre Mastery · ${prix} €`}
             </CheckoutButton>
             <Button href="#tarifs" variant="ghost" size="lg">
               Ou commencer à 47 €
             </Button>
           </div>
           <p className="mt-4 text-[13px] text-muted">
-            ou 3 × 165,67 € sans frais avec Klarna · 🛡️ Garantie 14 jours
-            satisfait ou remboursé · Accès immédiat
+            {`ou 3 × ${mensualiteKlarna3x(prix)} € sans frais avec Klarna · 🛡️ Garantie 14 jours satisfait ou remboursé · Accès immédiat`}
           </p>
+          <AnnonceHausse at={at} />
           {/* Deuxième sortie pour le trafic payant : 19 visiteurs Ads sur 20
               ouvraient le paiement et repartaient sans rien saisir (21/09/2026).
               Un email vaut mieux qu'un départ. */}
@@ -243,9 +271,10 @@ async function listerParcours(): Promise<{ emoji: string; label: string }[]> {
   }
 }
 
-async function WhatYouGet() {
+async function WhatYouGet({ at }: { at: Date }) {
   const stats = await getCatalogStats();
   const tracks = await listerParcours();
+  const prix = prixMastery(at);
   return (
     <section className="py-20 md:py-28">
       <Container>
@@ -265,12 +294,13 @@ async function WhatYouGet() {
               et Sonnet 5.5).
             </p>
             <div className="mt-8">
-              <CheckoutButton tier="mastery" variant="primary" size="lg">
-                Accéder aux {stats.courseCount} parcours · 497 €
+              <CheckoutButton tier="mastery" prixAffiche={prix} variant="primary" size="lg">
+                {`Accéder aux ${stats.courseCount} parcours · ${prix} €`}
               </CheckoutButton>
               <p className="mt-3 text-[13px] text-muted">
-                ou 3 × 165,67 € sans frais avec Klarna · Garantie 14 jours
+                {`ou 3 × ${mensualiteKlarna3x(prix)} € sans frais avec Klarna · Garantie 14 jours`}
               </p>
+              <AnnonceHausse at={at} />
             </div>
           </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -293,9 +323,11 @@ async function WhatYouGet() {
 }
 
 // =========================================
-// FAQ — objections spécifiques au trafic Ads
+// FAQ : objections spécifiques au trafic Ads
 // =========================================
-function LandingFAQ() {
+// Construite au rendu : la réponse CPF cite le prix du Pass Mastery du jour.
+function LandingFAQ({ at }: { at: Date }) {
+  const prix = prixMastery(at);
   const items = [
     {
       q: "« Je peux apprendre tout ça gratuitement sur YouTube. »",
@@ -318,7 +350,7 @@ function LandingFAQ() {
     },
     {
       q: "« Est-ce finançable par le CPF ? »",
-      a: "Non, et c'est un choix : pas de dossier, pas de délai, pas d'organisme intermédiaire. Vous payez 47 € ou 497 € en direct (ou en 3× sans frais avec Klarna), vous accédez au contenu dans la minute, et la garantie 14 jours remplace la paperasse.",
+      a: `Non, et c'est un choix : pas de dossier, pas de délai, pas d'organisme intermédiaire. Vous payez 47 € ou ${prix} € en direct (ou en 3× sans frais avec Klarna), vous accédez au contenu dans la minute, et la garantie 14 jours remplace la paperasse.`,
     },
   ];
   return (
@@ -395,7 +427,8 @@ function NotTodayCapture() {
 // =========================================
 // Dernier push
 // =========================================
-function LastCall() {
+function LastCall({ at }: { at: Date }) {
+  const prix = prixMastery(at);
   return (
     <section className="bg-cream py-20 md:py-24">
       <Container size="narrow">
@@ -404,15 +437,17 @@ function LastCall() {
             Dans 30 jours, vous aurez soit une méthode,{" "}
             <span className="accent-serif">soit les mêmes tâtonnements</span>.
           </h2>
+          {/* Annonce de la hausse dans la phrase du prix, une seule fois pour
+              ce bloc ; elle disparaît seule le 01/11/2026. */}
           <p className="mt-5 text-lg leading-relaxed text-muted max-w-[560px] mx-auto">
-            L&apos;accès complet coûte 497 €, ou 3 × 165,67 € sans frais. Il
-            est immédiat, définitif, et la garantie 14 jours porte tout le
+            {`L'accès complet coûte ${prix} €${parentheseHausseMastery(at)}, ou 3 × ${mensualiteKlarna3x(prix)} € sans frais.`}{" "}
+            Il est immédiat, définitif, et la garantie 14 jours porte tout le
             risque à notre place. Le Pass Starter à 47 € reste là si vous
             préférez commencer petit.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <CheckoutButton tier="mastery" variant="primary" size="lg">
-              Rejoindre Mastery · 497 € · Garantie 14 j
+            <CheckoutButton tier="mastery" prixAffiche={prix} variant="primary" size="lg">
+              {`Rejoindre Mastery · ${prix} € · Garantie 14 j`}
             </CheckoutButton>
             <Button href="#tarifs" variant="ghost" size="lg">
               Ou commencer à 47 €

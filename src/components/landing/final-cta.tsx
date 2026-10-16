@@ -3,6 +3,13 @@ import { Container } from "@/components/site/container";
 import { CheckoutButton } from "@/components/site/checkout-button";
 import { getCatalogStats } from "@/lib/courses/stats";
 import { MESURES_SEMAINE, duree, mesure, type Mesure } from "@/lib/offre/mesures";
+import {
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  hausseMasteryAppliquee,
+  maintenant,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 const SEMAINES_PAR_MOIS = 4;
 const LECON_LIBRE_HREF =
@@ -17,6 +24,10 @@ export async function FinalCTA() {
   const semaine = MESURES_SEMAINE.map(mesure).filter((m): m is Mesure => Boolean(m));
   const gainMin =
     semaine.reduce((s, m) => s + (m.sans - m.avec), 0) * SEMAINES_PAR_MOIS;
+  // Prix daté (lib/offre/prix.ts), lu à chaque rendu sur un seul instant.
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const hausseAVenir = !hausseMasteryAppliquee(at);
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-ink to-[#2D2A26] text-cream py-20 md:py-24">
@@ -42,13 +53,21 @@ export async function FinalCTA() {
           </div>
           <div className="flex flex-col gap-4">
             <div className="flex flex-wrap gap-3">
-              <CheckoutButton tier="mastery" variant="primary" size="lg">
-                Rejoindre Mastery, 497 €
+              <CheckoutButton tier="mastery" prixAffiche={prix} variant="primary" size="lg">
+                {`Rejoindre Mastery, ${prix} €`}
               </CheckoutButton>
               <CheckoutButton tier="starter" variant="ghost-light" size="lg">
                 Commencer avec Starter, 47 €
               </CheckoutButton>
             </div>
+            {/* Hausse annoncée là où le prix Mastery est mis en avant
+                (décision du 16/10/2026). Le sujet est nommé : à côté du
+                bouton Starter, un « Puis 697 € » seul serait ambigu. */}
+            {hausseAVenir ? (
+              <p className="text-[14px] font-semibold text-coral-soft">
+                {`Le Pass Mastery passe à ${PRIX_MASTERY_APRES} € le ${MASTERY_HAUSSE_LIBELLE}.`}
+              </p>
+            ) : null}
             <Link
               href={LECON_LIBRE_HREF}
               className="text-[15px] text-cream/70 underline underline-offset-4 decoration-cream/30 hover:text-coral-soft transition-colors"

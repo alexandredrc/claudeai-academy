@@ -1,4 +1,5 @@
 import { SITE_URL, sendEmail } from "@/lib/email/send";
+import { maintenant, parentheseHausseMastery, prixMastery } from "@/lib/offre/prix";
 
 /**
  * Séquence d'activation — le seul canal qui s'adresse aux comptes qui ne se
@@ -63,7 +64,7 @@ function greeting(firstName: string | null): string {
 // =========================================
 // J+3 — la première leçon, et rien d'autre
 // =========================================
-function renderJ3(hasAccess: boolean, firstName: string | null): Rendered {
+function renderJ3(hasAccess: boolean, firstName: string | null, at: Date): Rendered {
   const subject = hasAccess
     ? "Ta première leçon fait 17 minutes"
     : "Tu as un compte : voici par où commencer";
@@ -88,8 +89,10 @@ function renderJ3(hasAccess: boolean, firstName: string | null): Rendered {
           "Tu as créé un compte sur l'académie mais tu n'as pas encore de pass. Pas de relance commerciale ici : commence par lire une leçon complète, en accès libre, et juge sur pièces.",
         ),
         cta("Lire la leçon d'ouverture", FIRST_LESSON),
+        // Prix du Mastery lu à l'envoi : « 497 € pour les neuf (697 € à partir
+        // du 1er novembre) » jusqu'au 31/10/2026, « 697 € pour les neuf » ensuite.
         p(
-          `Si le format te parle, les formules sont sur <a href="${SITE_URL}/tarifs" style="color:#D97757;">la page tarifs</a> : 47 € pour les trois parcours fondateurs, 497 € pour les neuf. Garantie 14 jours dans les deux cas.`,
+          `Si le format te parle, les formules sont sur <a href="${SITE_URL}/tarifs" style="color:#D97757;">la page tarifs</a> : 47 € pour les trois parcours fondateurs, ${prixMastery(at)} € pour les neuf${parentheseHausseMastery(at)}. Garantie 14 jours dans les deux cas.`,
         ),
         p("Bonne lecture,<br />Alexandre"),
       ].join("");
@@ -170,7 +173,7 @@ export function renderActivation(
 ): Rendered {
   switch (kind) {
     case "activation_j3":
-      return renderJ3(hasAccess, firstName);
+      return renderJ3(hasAccess, firstName, maintenant());
     case "activation_j10":
       return renderJ10(hasAccess, firstName);
     case "activation_j21":

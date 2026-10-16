@@ -15,6 +15,13 @@ import { markLessonCompleteAction } from "./actions";
 import { startCheckoutAction } from "@/app/checkout/actions";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
 import { OG_IMAGE_URL, pageMetadata } from "@/lib/seo/page-metadata";
+import {
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  hausseMasteryAppliquee,
+  maintenant,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 export const dynamic = "force-dynamic";
 
@@ -572,7 +579,15 @@ function LessonPaywall({
 }) {
   const tierKey: "starter" | "mastery" =
     tierRequired === "mastery" ? "mastery" : "starter";
-  const planLabel = tierRequired === "mastery" ? "Pass Mastery (497 €)" : "Pass Starter (47 €)";
+  // Prix du Pass Mastery calculé au rendu (497 € jusqu'au 31/10/2026, 697 €
+  // ensuite, lib/offre/prix.ts), et annonce de la hausse tant qu'elle est à venir.
+  const at = maintenant();
+  const planLabel =
+    tierRequired === "mastery" ? `Pass Mastery (${prixMastery(at)} €)` : "Pass Starter (47 €)";
+  const hausse =
+    tierRequired === "mastery" && !hausseMasteryAppliquee(at)
+      ? `Pass Mastery : ${prixMastery(at)} € jusqu'au 31 octobre inclus, puis ${PRIX_MASTERY_APRES} € à partir du ${MASTERY_HAUSSE_LIBELLE} (heure de Paris). `
+      : "";
 
   return (
     <div className="mt-12 rounded-[22px] border border-coral-soft bg-coral-soft/30 p-8 text-center">
@@ -583,7 +598,7 @@ function LessonPaywall({
         Le {planLabel.split(" (")[0]} débloque ce contenu
       </h2>
       <p className="mx-auto mt-3 max-w-[480px] text-[15px] leading-relaxed text-ink-soft">
-        Garantie 14 jours satisfait ou remboursé. Paiement sécurisé via Stripe.
+        {`${hausse}Garantie 14 jours satisfait ou remboursé. Paiement sécurisé via Stripe.`}
       </p>
       <form action={startCheckoutAction} className="mt-6">
         <input type="hidden" name="plan" value={tierKey} />

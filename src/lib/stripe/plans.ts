@@ -16,6 +16,13 @@
  * Conséquence pratique : ajouter une offre ne touche ni l'énumération, ni les
  * règles de sécurité, ni la fonction d'accès.
  */
+import {
+  hausseMasteryAppliquee,
+  maintenant,
+  priceIdMastery697,
+  prixMastery,
+} from "@/lib/offre/prix";
+
 export type PlanTier = "starter" | "mastery";
 export type PlanCode = "starter" | "mastery" | "elite";
 
@@ -49,14 +56,27 @@ export function getPlan(code: PlanCode): Plan {
         priceId: priceIdOrThrow("STRIPE_PRICE_STARTER"),
         amountEur: 47,
       };
-    case "mastery":
+    case "mastery": {
+      // Prix daté (décision du 16/10/2026) : 497 € jusqu'au 31/10/2026 inclus,
+      // 697 € dès le 01/11/2026 00:00 heure de Paris. Calculé À L'APPEL, jamais
+      // dans une constante de module : une instance Vercel réutilisée peut
+      // franchir minuit. Un seul instant pour l'ID de prix et le montant, pour
+      // qu'ils ne divergent jamais.
+      // Vérificateur de la veille (scripts/veille/check-facts.mjs) : le montant
+      // du Mastery n'est plus un littéral dans ce fichier, il vient de
+      // prixMastery() dans src/lib/offre/prix.ts (PRIX_MASTERY_AVANT puis
+      // PRIX_MASTERY_APRES). Starter et Accompagnement restent des littéraux.
+      const at = maintenant();
       return {
         code: "mastery",
         tier: "mastery",
         name: "Pass Mastery",
-        priceId: priceIdOrThrow("STRIPE_PRICE_MASTERY"),
-        amountEur: 497,
+        priceId: hausseMasteryAppliquee(at)
+          ? priceIdMastery697()
+          : priceIdOrThrow("STRIPE_PRICE_MASTERY"),
+        amountEur: prixMastery(at),
       };
+    }
     case "elite":
       return {
         code: "elite",

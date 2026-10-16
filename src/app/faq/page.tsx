@@ -11,6 +11,15 @@ import {
   SOURCES_SURVEILLEES,
 } from "@/lib/content/fraicheur";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import {
+  MASTERY_DERNIER_JOUR_LIBELLE,
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  hausseMasteryAppliquee,
+  maintenant,
+  mensualiteKlarna3x,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 export const metadata: Metadata = pageMetadata({
   path: "/faq",
@@ -21,119 +30,132 @@ export const metadata: Metadata = pageMetadata({
 
 type Group = { title: string; items: Item[] };
 
-const groups: Group[] = [
-  {
-    title: "Claude AI en pratique",
-    items: [
-      {
-        q: "Claude AI, c'est quoi ?",
-        a: "Claude est un assistant d'intelligence artificielle développé par Anthropic. Il comprend et rédige parfaitement le français, analyse des documents (PDF, images, tableurs), écrit du code et automatise des tâches. Il est disponible sur le web (claude.ai), en application de bureau et sur mobile. Notre formation couvre toute la gamme d'usages, de la prise en main aux workflows avancés.",
-      },
-      {
-        q: "Claude AI est-il gratuit ou payant ?",
-        a: "Les deux. Le plan gratuit permet d'utiliser Claude avec des limites d'usage (enveloppes de 5 heures). Le plan Pro (17 $/mois en facturation annuelle, sinon 20 $/mois) multiplie l'usage et donne accès aux modèles les plus capables, à Claude Code et à Cowork. Le plan Max (dès 100 $/mois) s'adresse aux usages intensifs. La formation vous apprend à tirer le maximum de chaque plan, y compris du gratuit.",
-      },
-      {
-        q: "Claude ou ChatGPT : lequel choisir en 2026 ?",
-        a: "Cela dépend de vos usages. Claude excelle sur les documents longs (jusqu'à 1 million de tokens de contexte sur les modèles récents), la rédaction nuancée en français, le code (Claude Code est devenu une référence pour le développement assisté) et les workflows agentiques. ChatGPT dispose d'un écosystème plus large côté génération d'images et de vidéos. Beaucoup de professionnels utilisent les deux ; notre formation est dédiée à Claude.",
-      },
-      {
-        q: "Quel est le meilleur modèle Claude en 2026 ?",
-        a: "Il n'y a pas un meilleur modèle, mais un bon modèle par usage. Au 9 octobre 2026 : Haiku 5.5 (sorti le 7 octobre) pour la vitesse, les gros volumes et les questions simples, Sonnet 5.5 (sorti le 28 septembre) pour le travail quotidien, Opus 5.5 (sorti le 22 septembre, 1 M de tokens de contexte) pour le code et le travail de fond, et Fable 5.1 pour les tâches les plus complexes. Opus 5.5 est le point de départ que recommande Anthropic, et il coûte moins cher qu'Opus 5. Le parcours « Bien démarrer avec Claude » consacre une leçon entière au choix du modèle et au réglage de l'effort, devenu le vrai levier depuis que Claude réfléchit par défaut.",
-      },
-      {
-        q: "Comment bien prompter Claude ?",
-        a: "Trois règles font 80 % du résultat : donner le contexte et le pourquoi (pas seulement la consigne), montrer un exemple du résultat attendu, et préciser le format de sortie. Notre bibliothèque de 170 prompts prêts à l'emploi applique ces règles, et le parcours Prompt Engineering les enseigne en profondeur avec les techniques officielles d'Anthropic.",
-      },
-      {
-        q: "Existe-t-il une formation Claude AI en français ?",
-        a: "Oui : ClaudeAI Academy est une formation Claude AI 100 % en français et en ligne, accessible dès 47 €. 9 parcours et 58 leçons couvrent la prise en main, le prompt engineering, Claude Code, la data, le marketing, la stratégie IA en entreprise et la sécurité. Vous avancez à votre rythme, avec un accès à vie et la première leçon de chaque parcours en accès libre.",
-      },
-      {
-        q: "Claude Code, faut-il savoir coder pour s'y mettre ?",
-        a: "Pas besoin d'être développeur professionnel : Claude Code écrit le code pour vous et le parcours vous apprend à le piloter (contexte, plans, garde-fous). Des bases de programmation aident cependant à relire et vérifier ce qu'il produit : c'est pourquoi le parcours enseigne aussi la méthode de vérification, pas seulement les commandes.",
-      },
-    ],
-  },
-  {
-    title: "Accès & garantie",
-    items: [
-      {
-        q: "Et si je ne suis pas convaincu après l’achat ?",
-        a: "Garantie 14 jours satisfait ou remboursé. Vous testez, vous formez votre opinion, et si ça ne vous convient pas, vous nous écrivez à contact@claudeai-academy.com et nous procédons au remboursement intégral. Pas de question, pas de justification à fournir.",
-      },
-      {
-        q: "L’accès est-il vraiment à vie ?",
-        a: "Oui. Vous payez une fois, vous gardez l’accès à vie, sans abonnement ni frais récurrents. Les mises à jour futures du contenu sont incluses, quel que soit votre pass.",
-      },
-      {
-        q: "Quelle est la différence entre Pass Starter et Pass Mastery ?",
-        a: "Le Pass Starter (47 €) vous fait découvrir et couvre les fondamentaux. Le Pass Mastery (497 €, ou 3× sans frais avec Klarna) débloque tous les parcours complets et le Mentor IA ; les mises à jour à vie sont incluses quel que soit le pass. C’est l’offre cœur du programme.",
-      },
-    ],
-  },
-  {
-    title: "Contenu & niveau",
-    items: [
-      {
-        q: "Je n’ai jamais rien fait en IA, c’est pour moi ?",
-        a: "Oui. Le parcours Bien démarrer avec Claude part de zéro : créer son compte, installer les applications, choisir son plan et son modèle, paramétrer et personnaliser Claude. Puis Prompt Engineering pose tous les fondamentaux. Aucun prérequis technique pour ces parcours ni pour Marketing et Stratégie. Pour Claude Code et Data & SQL, des bases de programmation sont recommandées.",
-      },
-      {
-        q: "Combien de temps faut-il pour terminer le programme ?",
-        // Avant le 15/10/2026 : « la majorité des membres avancent en 3 à 6
-        // semaines », contredit par lesson_progress (aucun acheteur n'avait
-        // terminé un pass, la moitié n'avait ouvert aucune leçon). Mêmes
-        // chiffres que la FAQ de l'accueil, vérifiés en base le même jour.
-        a: "Pour commencer à vous en servir : une heure, avec les trois leçons conseillées (Personnaliser Claude, Être clair et direct, Claude dans Word, Excel et Outlook). Pour tout faire : les 58 leçons des 9 parcours se lisent en une dizaine d’heures (8 à 15 minutes par leçon), et demandent environ 22 heures avec la mise en pratique, soit 2 à 3 mois à raison de 2 sessions par semaine. Vous gardez l’accès à vie, donc rien ne vous oblige à courir.",
-      },
-      {
-        q: "Le contenu sera-t-il dépassé dans 6 mois ?",
-        a: `C’est le risque numéro un d’une formation sur l’IA, et nous le traitons comme tel. Une veille surveille ${SOURCES_SURVEILLEES} sources de référence (documentation et notes de version d’Anthropic, journal des versions de Claude Code, Commission européenne, CNIL) et signale chaque phrase de leçon qu’un changement peut rendre fausse. Dernière passe appliquée : ${CONTENU_A_JOUR_AU}, pour intégrer ${DERNIERE_PASSE}. Les leçons portent ${NOTES_DE_MISE_A_JOUR} notes de mise à jour datées depuis juillet 2026, et chaque chiffre qui bouge (prix, version, limite) est écrit avec sa date. Les mises à jour sont incluses, sans supplément.`,
-        lien: { href: "/changelog", label: "Voir ce qui a changé" },
-      },
-      {
-        q: "En quoi c’est différent des cours gratuits sur YouTube ?",
-        a: "La structure (un programme cohérent, pas des tutos isolés), la densité (on va à l’essentiel, sans remplissage) et l’écosystème (bibliothèque de prompts, QCM d’auto-évaluation, Mentor IA avec le Pass Mastery, mises à jour). Le tout dans un cadre francophone qui n’existe pas ailleurs.",
-      },
-      {
-        q: "Qu’est-ce que le Mentor IA ?",
-        a: "Un assistant propulsé par Claude, ancré sur le contenu de la formation, qui répond à vos questions et vous aide à progresser entre les sessions. Il est inclus dans le Pass Mastery.",
-      },
-    ],
-  },
-  {
-    title: "Paiement & facturation",
-    items: [
-      {
-        q: "Comment se passe le paiement ?",
-        a: "Le paiement est sécurisé via Stripe (carte bancaire). Vos coordonnées bancaires ne transitent jamais par nos serveurs. L’accès est débloqué automatiquement après le paiement.",
-      },
-      {
-        q: "J’ai une facture pro, c’est possible ?",
-        a: "Oui. Vous indiquez vos coordonnées de facturation lors du paiement Stripe et recevez automatiquement une facture. TVA non applicable, article 293 B du CGI : le prix affiché est le prix facturé, sans TVA à récupérer.",
-      },
-      {
-        q: "La formation est-elle éligible au CPF ?",
-        a: "Non, et c'est un choix : les formations Claude éligibles au CPF coûtent généralement 1 500 € et plus, avec dossier, délais et sessions imposées. Ici, c'est 47 € (ou 497 € pour tout le programme), un paiement en ligne, un accès immédiat et à vie, sans paperasse. La garantie 14 jours remplace le filet de sécurité administratif.",
-      },
-    ],
-  },
-];
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: groups.flatMap((g) =>
-    g.items.map((item) => ({
-      "@type": "Question",
-      name: item.q,
-      acceptedAnswer: { "@type": "Answer", text: item.a },
-    })),
-  ),
-};
+/**
+ * Les questions, construites à chaque rendu : deux réponses citent le prix du
+ * Pass Mastery, qui passe de 497 € à 697 € le 01/11/2026 à 0 h, heure de Paris
+ * (lib/offre/prix.ts). Le schéma FAQPage est dérivé du même tableau, donc
+ * toujours identique au texte affiché.
+ */
+function construireGroupes(at: Date): Group[] {
+  const prix = prixMastery(at);
+  const hausse = hausseMasteryAppliquee(at)
+    ? ""
+    : ` Il passe à ${PRIX_MASTERY_APRES} € le ${MASTERY_HAUSSE_LIBELLE} 2026 : le prix de ${prix} € vaut pour toute page de paiement ouverte jusqu’au ${MASTERY_DERNIER_JOUR_LIBELLE} inclus (heure de Paris).`;
+  return [
+    {
+      title: "Claude AI en pratique",
+      items: [
+        {
+          q: "Claude AI, c'est quoi ?",
+          a: "Claude est un assistant d'intelligence artificielle développé par Anthropic. Il comprend et rédige parfaitement le français, analyse des documents (PDF, images, tableurs), écrit du code et automatise des tâches. Il est disponible sur le web (claude.ai), en application de bureau et sur mobile. Notre formation couvre toute la gamme d'usages, de la prise en main aux workflows avancés.",
+        },
+        {
+          q: "Claude AI est-il gratuit ou payant ?",
+          a: "Les deux. Le plan gratuit permet d'utiliser Claude avec des limites d'usage (enveloppes de 5 heures). Le plan Pro (17 $/mois en facturation annuelle, sinon 20 $/mois) multiplie l'usage et donne accès aux modèles les plus capables, à Claude Code et à Cowork. Le plan Max (dès 100 $/mois) s'adresse aux usages intensifs. La formation vous apprend à tirer le maximum de chaque plan, y compris du gratuit.",
+        },
+        {
+          q: "Claude ou ChatGPT : lequel choisir en 2026 ?",
+          a: "Cela dépend de vos usages. Claude excelle sur les documents longs (jusqu'à 1 million de tokens de contexte sur les modèles récents), la rédaction nuancée en français, le code (Claude Code est devenu une référence pour le développement assisté) et les workflows agentiques. ChatGPT dispose d'un écosystème plus large côté génération d'images et de vidéos. Beaucoup de professionnels utilisent les deux ; notre formation est dédiée à Claude.",
+        },
+        {
+          q: "Quel est le meilleur modèle Claude en 2026 ?",
+          a: "Il n'y a pas un meilleur modèle, mais un bon modèle par usage. Au 9 octobre 2026 : Haiku 5.5 (sorti le 7 octobre) pour la vitesse, les gros volumes et les questions simples, Sonnet 5.5 (sorti le 28 septembre) pour le travail quotidien, Opus 5.5 (sorti le 22 septembre, 1 M de tokens de contexte) pour le code et le travail de fond, et Fable 5.1 pour les tâches les plus complexes. Opus 5.5 est le point de départ que recommande Anthropic, et il coûte moins cher qu'Opus 5. Le parcours « Bien démarrer avec Claude » consacre une leçon entière au choix du modèle et au réglage de l'effort, devenu le vrai levier depuis que Claude réfléchit par défaut.",
+        },
+        {
+          q: "Comment bien prompter Claude ?",
+          a: "Trois règles font 80 % du résultat : donner le contexte et le pourquoi (pas seulement la consigne), montrer un exemple du résultat attendu, et préciser le format de sortie. Notre bibliothèque de 170 prompts prêts à l'emploi applique ces règles, et le parcours Prompt Engineering les enseigne en profondeur avec les techniques officielles d'Anthropic.",
+        },
+        {
+          q: "Existe-t-il une formation Claude AI en français ?",
+          a: "Oui : ClaudeAI Academy est une formation Claude AI 100 % en français et en ligne, accessible dès 47 €. 9 parcours et 58 leçons couvrent la prise en main, le prompt engineering, Claude Code, la data, le marketing, la stratégie IA en entreprise et la sécurité. Vous avancez à votre rythme, avec un accès à vie et la première leçon de chaque parcours en accès libre.",
+        },
+        {
+          q: "Claude Code, faut-il savoir coder pour s'y mettre ?",
+          a: "Pas besoin d'être développeur professionnel : Claude Code écrit le code pour vous et le parcours vous apprend à le piloter (contexte, plans, garde-fous). Des bases de programmation aident cependant à relire et vérifier ce qu'il produit : c'est pourquoi le parcours enseigne aussi la méthode de vérification, pas seulement les commandes.",
+        },
+      ],
+    },
+    {
+      title: "Accès & garantie",
+      items: [
+        {
+          q: "Et si je ne suis pas convaincu après l’achat ?",
+          a: "Garantie 14 jours satisfait ou remboursé. Vous testez, vous formez votre opinion, et si ça ne vous convient pas, vous nous écrivez à contact@claudeai-academy.com et nous procédons au remboursement intégral. Pas de question, pas de justification à fournir.",
+        },
+        {
+          q: "L’accès est-il vraiment à vie ?",
+          a: "Oui. Vous payez une fois, vous gardez l’accès à vie, sans abonnement ni frais récurrents. Les mises à jour futures du contenu sont incluses, quel que soit votre pass.",
+        },
+        {
+          q: "Quelle est la différence entre Pass Starter et Pass Mastery ?",
+          a: `Le Pass Starter (47 €) vous fait découvrir et couvre les fondamentaux. Le Pass Mastery (${prix} €, ou 3 × ${mensualiteKlarna3x(prix)} € sans frais avec Klarna) débloque tous les parcours complets et le Mentor IA ; les mises à jour à vie sont incluses quel que soit le pass. C’est l’offre cœur du programme.${hausse}`,
+        },
+      ],
+    },
+    {
+      title: "Contenu & niveau",
+      items: [
+        {
+          q: "Je n’ai jamais rien fait en IA, c’est pour moi ?",
+          a: "Oui. Le parcours Bien démarrer avec Claude part de zéro : créer son compte, installer les applications, choisir son plan et son modèle, paramétrer et personnaliser Claude. Puis Prompt Engineering pose tous les fondamentaux. Aucun prérequis technique pour ces parcours ni pour Marketing et Stratégie. Pour Claude Code et Data & SQL, des bases de programmation sont recommandées.",
+        },
+        {
+          q: "Combien de temps faut-il pour terminer le programme ?",
+          // Avant le 15/10/2026 : « la majorité des membres avancent en 3 à 6
+          // semaines », contredit par lesson_progress (aucun acheteur n'avait
+          // terminé un pass, la moitié n'avait ouvert aucune leçon). Mêmes
+          // chiffres que la FAQ de l'accueil, vérifiés en base le même jour.
+          a: "Pour commencer à vous en servir : une heure, avec les trois leçons conseillées (Personnaliser Claude, Être clair et direct, Claude dans Word, Excel et Outlook). Pour tout faire : les 58 leçons des 9 parcours se lisent en une dizaine d’heures (8 à 15 minutes par leçon), et demandent environ 22 heures avec la mise en pratique, soit 2 à 3 mois à raison de 2 sessions par semaine. Vous gardez l’accès à vie, donc rien ne vous oblige à courir.",
+        },
+        {
+          q: "Le contenu sera-t-il dépassé dans 6 mois ?",
+          a: `C’est le risque numéro un d’une formation sur l’IA, et nous le traitons comme tel. Une veille surveille ${SOURCES_SURVEILLEES} sources de référence (documentation et notes de version d’Anthropic, journal des versions de Claude Code, Commission européenne, CNIL) et signale chaque phrase de leçon qu’un changement peut rendre fausse. Dernière passe appliquée : ${CONTENU_A_JOUR_AU}, pour intégrer ${DERNIERE_PASSE}. Les leçons portent ${NOTES_DE_MISE_A_JOUR} notes de mise à jour datées depuis juillet 2026, et chaque chiffre qui bouge (prix, version, limite) est écrit avec sa date. Les mises à jour sont incluses, sans supplément.`,
+          lien: { href: "/changelog", label: "Voir ce qui a changé" },
+        },
+        {
+          q: "En quoi c’est différent des cours gratuits sur YouTube ?",
+          a: "La structure (un programme cohérent, pas des tutos isolés), la densité (on va à l’essentiel, sans remplissage) et l’écosystème (bibliothèque de prompts, QCM d’auto-évaluation, Mentor IA avec le Pass Mastery, mises à jour). Le tout dans un cadre francophone qui n’existe pas ailleurs.",
+        },
+        {
+          q: "Qu’est-ce que le Mentor IA ?",
+          a: "Un assistant propulsé par Claude, ancré sur le contenu de la formation, qui répond à vos questions et vous aide à progresser entre les sessions. Il est inclus dans le Pass Mastery.",
+        },
+      ],
+    },
+    {
+      title: "Paiement & facturation",
+      items: [
+        {
+          q: "Comment se passe le paiement ?",
+          a: "Le paiement est sécurisé via Stripe (carte bancaire). Vos coordonnées bancaires ne transitent jamais par nos serveurs. L’accès est débloqué automatiquement après le paiement.",
+        },
+        {
+          q: "J’ai une facture pro, c’est possible ?",
+          a: "Oui. Vous indiquez vos coordonnées de facturation lors du paiement Stripe et recevez automatiquement une facture. TVA non applicable, article 293 B du CGI : le prix affiché est le prix facturé, sans TVA à récupérer.",
+        },
+        {
+          q: "La formation est-elle éligible au CPF ?",
+          a: `Non, et c'est un choix : les formations Claude éligibles au CPF coûtent généralement 1 500 € et plus, avec dossier, délais et sessions imposées. Ici, c'est 47 € (ou ${prix} € pour tout le programme), un paiement en ligne, un accès immédiat et à vie, sans paperasse. La garantie 14 jours remplace le filet de sécurité administratif.`,
+        },
+      ],
+    },
+  ];
+}
 
 export default function FaqPage() {
+  const groups = construireGroupes(maintenant());
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: groups.flatMap((g) =>
+      g.items.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    ),
+  };
+
   return (
     <>
       <script

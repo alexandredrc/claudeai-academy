@@ -3,6 +3,12 @@ import { createClient } from "@/lib/supabase/server";
 import { userHasTier } from "@/lib/courses/access";
 import { startCheckoutAction } from "@/app/checkout/actions";
 import { MENTOR_DAILY_LIMIT } from "@/lib/anthropic/client";
+import {
+  MASTERY_DERNIER_JOUR_LIBELLE,
+  annonceHausseMastery,
+  maintenant,
+  prixMastery,
+} from "@/lib/offre/prix";
 import { MentorChat } from "./Chat";
 
 export const dynamic = "force-dynamic";
@@ -28,6 +34,11 @@ export default async function MentorPage({
   const hasMastery = await userHasTier(supabase, "mastery");
 
   if (!hasMastery) {
+    // Prix du jour calculé au rendu (497 € puis 697 € dès le 01/11/2026), et
+    // annonce de la hausse tant qu'elle est à venir : lib/offre/prix.ts.
+    const at = maintenant();
+    const prix = prixMastery(at);
+    const annonce = annonceHausseMastery(at);
     return (
       <section className="bg-cream-soft">
         <div className="mx-auto flex min-h-[calc(100vh-81px-145px)] max-w-[640px] flex-col justify-center px-6 py-16 text-center">
@@ -48,13 +59,19 @@ export default async function MentorPage({
           </p>
           <form action={startCheckoutAction} className="mt-8">
             <input type="hidden" name="plan" value="mastery" />
+            <input type="hidden" name="prix_affiche" value={prix} />
             <button
               type="submit"
               className="rounded-[14px] bg-coral px-8 py-4 text-base font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
             >
-              Débloquer avec le Pass Mastery · 497 €
+              {`Débloquer avec le Pass Mastery · ${prix} €`}
             </button>
           </form>
+          {annonce ? (
+            <p className="mt-4 text-[13px] leading-relaxed text-muted">
+              {`${prix} € jusqu'au ${MASTERY_DERNIER_JOUR_LIBELLE} inclus. ${annonce}.`}
+            </p>
+          ) : null}
         </div>
       </section>
     );

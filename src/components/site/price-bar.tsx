@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { MASTERY_HAUSSE_LE, PRIX_MASTERY_APRES } from "@/lib/offre/prix";
 
 /**
  * Barre de prix collée en bas de l'écran.
@@ -14,6 +15,11 @@ import { usePathname } from "next/navigation";
  *
  * Elle n'apparaît qu'après un début de lecture : quelqu'un qui vient d'arriver
  * n'a pas encore de raison de regarder un prix.
+ *
+ * Le prix du Pass Mastery et l'annonce de sa hausse (497 € puis 697 € le
+ * 01/11/2026, lib/offre/prix.ts) arrivent en props depuis le layout, rendu
+ * côté serveur : calculés ici, serveur et navigateur pourraient lire deux
+ * instants différents et l'hydratation échouerait.
  */
 
 /** Hauteur de défilement à partir de laquelle la barre se montre. */
@@ -38,23 +44,40 @@ const CHEMINS_EXCLUS = [
   "/mentor",
 ];
 
-export function PriceBar() {
+export function PriceBar({
+  prixMastery,
+  annonce,
+}: {
+  /** Prix du Pass Mastery du jour, en euros. */
+  prixMastery: number;
+  /** « Puis 697 € à partir du 1er novembre », ou null une fois la hausse faite. */
+  annonce: string | null;
+}) {
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
-  const [fermee, setFermee] = useState(true); // fermée par défaut : pas de saut au chargement
-
-  // Lecture du choix précédent. sessionStorage peut lever (navigation privée,
-  // données de site bloquées) : la barre doit rester fonctionnelle sans.
-  useEffect(() => {
+  // Le layout racine n'est pas re-rendu lors d'une navigation interne : un
+  // onglet ouvert le 31/10 au soir garderait « 497 € » et l'annonce après
+  // minuit. L'horloge du navigateur ne peut que FAIRE passer à 697 € (jamais
+  // revenir à 497 € si le serveur dit 697 €), et elle n'est lue qu'une fois
+  // la barre visible : le rendu serveur (null) reste identique.
+  const [hausseVueParLeNavigateur, setHausseVueParLeNavigateur] = useState(false);
+  // Lecture du choix précédent dès le premier rendu. sessionStorage peut lever
+  // (navigation privée, données de site bloquées, rendu serveur où il n'existe
+  // pas) : la barre doit rester fonctionnelle sans. Pas d'écart d'hydratation :
+  // tant que `visible` est faux, serveur et navigateur rendent tous deux null.
+  const [fermee, setFermee] = useState(() => {
     try {
-      setFermee(sessionStorage.getItem(CLE_FERMEE) === "1");
+      return sessionStorage.getItem(CLE_FERMEE) === "1";
     } catch {
-      setFermee(false);
+      return false;
     }
-  }, []);
+  });
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > SEUIL_PX);
+    const onScroll = () => {
+      setVisible(window.scrollY > SEUIL_PX);
+      setHausseVueParLeNavigateur(Date.now() >= MASTERY_HAUSSE_LE.getTime());
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -64,6 +87,10 @@ export function PriceBar() {
     (c) => pathname === c || pathname.startsWith(c),
   );
   if (exclue || fermee || !visible) return null;
+
+  const hausseFaite = prixMastery === PRIX_MASTERY_APRES || hausseVueParLeNavigateur;
+  const prix = hausseFaite ? PRIX_MASTERY_APRES : prixMastery;
+  const annonceVisible = hausseFaite ? null : annonce;
 
   // Sur l'accueil, la grille est plus bas dans la page : on y glisse. Ailleurs,
   // on va sur /tarifs.
@@ -98,9 +125,19 @@ export function PriceBar() {
         <div className="min-w-0 flex-1">
           <p className="truncate text-[14px] leading-tight text-ink sm:text-[15px]">
             <strong className="font-semibold">Accès à vie dès 47 €</strong>
-            <span className="text-muted"> · Pass complet 497 €</span>
+            <span className="text-muted">{` · Pass complet ${prix} €`}</span>
           </p>
           <p className="mt-0.5 truncate text-[12px] leading-tight text-muted">
+            {/* Annonce de la hausse à partir de 640 px seulement : mesuré le
+                16/10/2026 à 375 px, la colonne de texte fait 148 px, la
+                première ligne y est déjà tronquée avant le prix Mastery, et
+                l'annonce en demande 212. Placée en tête de ligne, elle reste
+                visible même quand la suite est tronquée. */}
+            {annonceVisible ? (
+              <span className="hidden sm:inline font-semibold text-coral-dark">
+                {`${annonceVisible} · `}
+              </span>
+            ) : null}
             Sans dossier CPF ni devis · garantie 14 jours
           </p>
         </div>

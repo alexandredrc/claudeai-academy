@@ -13,8 +13,45 @@ import {
   NOTES_DE_MISE_A_JOUR,
   SOURCES_SURVEILLEES,
 } from "@/lib/content/fraicheur";
+import {
+  MASTERY_HAUSSE_LE,
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  hausseMasteryAppliquee,
+  maintenant,
+  mensualiteKlarna3x,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 export const dynamic = "force-dynamic";
+
+/**
+ * Phrase d'annonce de la hausse du Pass Mastery, tant qu'elle est à venir
+ * (même texte que /llms.txt) : « Le Pass Mastery passe à 697 € (3 × 232,34 €)
+ * le 1er novembre 2026 à 0 h, heure de Paris. » Chaîne vide ensuite.
+ */
+function phraseHausseMastery(at: Date): string {
+  if (hausseMasteryAppliquee(at)) return "";
+  const annee = MASTERY_HAUSSE_LE.toLocaleDateString("fr-FR", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+  });
+  return `Le Pass Mastery passe à ${PRIX_MASTERY_APRES} € (3 × ${mensualiteKlarna3x(PRIX_MASTERY_APRES)} €) le ${MASTERY_HAUSSE_LIBELLE} ${annee} à 0 h, heure de Paris.`;
+}
+
+/**
+ * Cache CDN, même règle que /llms.txt : une heure plus un jour de
+ * stale-while-revalidate après la hausse ; avant, plafonné au temps qui reste
+ * jusqu'au 01/11/2026 à 0 h (Paris) et sans stale-while-revalidate, pour
+ * qu'aucune copie à l'ancien prix ne soit servie après minuit.
+ */
+function cacheControl(at: Date): string {
+  if (hausseMasteryAppliquee(at)) {
+    return "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400";
+  }
+  const restant = Math.floor((MASTERY_HAUSSE_LE.getTime() - at.getTime()) / 1000);
+  return `public, max-age=0, s-maxage=${Math.max(0, Math.min(3600, restant))}`;
+}
 
 /**
  * /llms-full.txt : la version longue de /llms.txt (convention llmstxt.org).
@@ -115,6 +152,11 @@ export async function GET() {
   const courses = (coursesData ?? []) as Course[];
   const lessons = (lessonsData ?? []) as Lesson[];
   const lessonCount = courses.reduce((s, c) => s + (c.total_lessons ?? 0), 0);
+
+  // Prix du Pass Mastery à l'instant de la requête (lib/offre/prix.ts).
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const hausse = phraseHausseMastery(at);
 
   const lessonsByCourse = new Map<string, Lesson[]>();
   for (const l of lessons) {
@@ -238,10 +280,10 @@ le prix facturé. Page : ${SITE_URL}/tarifs
 - Accès permanent et mises à jour
 - Garantie 14 jours satisfait ou remboursé
 
-### Pass Mastery : 497 € en paiement unique
+### Pass Mastery : ${prix} € en paiement unique
 
-Ou 3 × 165,67 € sans frais avec Klarna. Déjà membre Starter ? Les 47 € sont
-déduits automatiquement (se connecter avant de payer).
+Ou 3 × ${mensualiteKlarna3x(prix)} € sans frais avec Klarna. Déjà membre Starter ? Les 47 € sont
+déduits automatiquement (se connecter avant de payer).${hausse ? `\n\n${hausse}` : ""}
 
 - Les ${courses.length} parcours complets (${lessonCount} leçons)
 - Bibliothèque complète de ${PROMPT_COUNT} prompts
@@ -321,8 +363,9 @@ Index généré le ${new Date().toISOString().slice(0, 10)}
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
       // Identique à /llms.txt : court, mais suffisant pour absorber les
-      // rafales de crawl IA.
-      "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+      // rafales de crawl IA ; jamais au-delà du 01/11/2026 à 0 h tant que le
+      // prix Mastery doit changer.
+      "Cache-Control": cacheControl(at),
     },
   });
 }

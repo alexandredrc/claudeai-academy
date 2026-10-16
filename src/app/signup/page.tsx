@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signupAction } from "./actions";
+import { prixMastery } from "@/lib/offre/prix";
 
 type SearchParams = Promise<{ plan?: string; error?: string; sent?: string }>;
 
@@ -17,11 +18,13 @@ export default async function SignupPage({
   } = await supabase.auth.getUser();
   if (user) redirect("/account");
 
+  // Prix du Mastery calculé au rendu : 497 € puis 697 € dès le 01/11/2026
+  // (lib/offre/prix.ts).
   const planLabel =
     plan === "starter"
       ? "Pass Starter (47 €)"
       : plan === "mastery"
-        ? "Pass Mastery (497 €)"
+        ? `Pass Mastery (${prixMastery()} €)`
         : null;
 
   if (sent === "1") {

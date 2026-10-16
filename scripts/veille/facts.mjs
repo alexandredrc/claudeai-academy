@@ -66,6 +66,27 @@ const dateCle = (v) => {
 const prixCarte = (pass) =>
   new RegExp(String.raw`Pass ${pass}\s*</h3>[\s\S]{0,400}?>\s*${MONTANT}\s*</span>\s*<span[^>]*>€ une fois`);
 
+// ── Prix daté du Pass Mastery (décision du 16/10/2026) ───────────────────────
+// 497 € jusqu'au 31/10/2026 inclus, 697 € dès le 01/11/2026 (heure de Paris).
+// La plupart des copies ne sont plus tapées à la main : elles appellent
+// src/lib/offre/prix.ts à l'instant du rendu. Leur motif littéral ne lit alors
+// plus rien. Sans `dynamique`, elles ressortiraient « muettes » à chaque passe ;
+// avec, l'emplacement est compté comme branché sur le module. Un littéral qui
+// reste (ou qui revient) est toujours lu et comparé au prix du jour : le 01/11,
+// un « 497 € » oublié ressort FAUX. Limite connue : le contrôle « dynamique »
+// porte sur le fichier, pas sur la phrase.
+/** Le fichier calcule le prix du Mastery avec le module, ou interpole le prix
+ *  reçu en props d'un parent serveur qui l'a calculé (`${prixMastery}`). */
+// PRIX_MASTERY_APRES : la barre de prix choisit entre le prix reçu du layout et
+// le prix d'après la hausse (horloge du navigateur), sans appeler prixMastery().
+const DYN_MASTERY = /\bprixMastery(?:ApresCreditStarter)?\(|\$\{prixMastery\}|\bPRIX_MASTERY_APRES\b/;
+/** Le fichier calcule la mensualité Klarna avec le module. */
+const DYN_KLARNA = /\bmensualiteKlarna3x\(/;
+/** Un emplacement du prix Mastery : littéral lu s'il existe, module sinon. */
+const mastery = (fichier, motif) => ({ fichier, motif, dynamique: DYN_MASTERY });
+/** Un emplacement de la mensualité Klarna du Mastery : idem. */
+const klarna = (fichier) => ({ fichier, motif: MOTIF_KLARNA, dynamique: DYN_KLARNA });
+
 export const FAITS = [
   // ── Produit : ce qu'on promet doit correspondre à ce qu'on livre ─────────
   {
@@ -104,7 +125,9 @@ export const FAITS = [
       { fichier: "src/components/landing/faq.tsx", motif: /les (\d+) leçons des [0-9]+ parcours/ },
       { fichier: "src/components/landing/founder.tsx", motif: /les (\d+) leçons/ },
       { fichier: "src/lib/email/welcome.ts", motif: /parcours complets \((\d+) leçons\)/ },
-      { fichier: "src/lib/email/nurture.ts", motif: /\d+ € pour (\d+) leçons/ },
+      // Depuis le 16/10/2026, l'email J+21 calcule le prix par leçon avec ce nombre
+      // (« moins de 9 € », puis « environ 12 € » à 697 €) : c'est lui qu'on suit.
+      { fichier: "src/lib/email/nurture.ts", motif: /NB_LECONS_MASTERY = (\d+);/ },
     ],
     verif: { kind: "local", fn: "compterLecons" },
   },
@@ -133,7 +156,8 @@ export const FAITS = [
     // écrivent le nombre en chiffres ou en lettres (« pour les neuf »).
     ou: [
       { fichier: "src/components/landing/faq.tsx", motif: /leçons des ([0-9]+) parcours/ },
-      { fichier: "src/lib/email/activation.ts", motif: /€ pour les (\p{L}+)\. Garantie/u },
+      // « … € pour les neuf${parentheseHausseMastery(at)}. Garantie » depuis le 16/10/2026.
+      { fichier: "src/lib/email/activation.ts", motif: /€ pour les (\p{L}+)(?:\$\{[^}]*\})?\. Garantie/u },
       { fichier: "src/lib/email/lead-magnet.ts", motif: /couvre les (\d+) parcours/ },
       { fichier: "src/lib/email/lead-magnet.ts", motif: /les (\d+) parcours, \d+ leçons, \d+ prompts/ },
       { fichier: "src/lib/email/lead-magnet-en.ts", motif: /\((\d+) tracks/ },
@@ -165,8 +189,12 @@ export const FAITS = [
   // Aucun prix n'était suivi. Résultat : de juin à septembre 2026, les CGV ont
   // annoncé « 3 versements de 179 € » (537 €) pour un pass vendu 497 €, et
   // aucun contrôle ne l'a vu. La source de vérité est `amountEur` dans
-  // `src/lib/stripe/plans.ts` — ce que le checkout facture réellement. Tout
-  // le reste est une copie tapée à la main : c'est elle qu'on surveille.
+  // `src/lib/stripe/plans.ts` pour le Starter et l'Accompagnement, et, depuis
+  // le 16/10/2026, le module daté `src/lib/offre/prix.ts` pour le Mastery
+  // (PRIX_MASTERY_AVANT, PRIX_MASTERY_APRES, MASTERY_HAUSSE_LE) : 497 € jusqu'au
+  // 31/10/2026, 697 € ensuite. Avant la bascule, 697 € (et 3 × 232,34 €) est
+  // accepté : c'est la hausse annoncée. Après, seul 697 € l'est.
+  // Tout le reste est une copie : c'est elle qu'on surveille.
   // Les commentaires de code qui racontent un incident passé (« un Pass
   // Mastery à 497 € a échoué le 19/08 ») restent volontairement hors registre :
   // un fait d'histoire ne devient pas faux quand le prix change.
@@ -178,14 +206,21 @@ export const FAITS = [
       "Promesse commerciale sur la vitrine, la page de vente, le reçu, llms.txt et les CGV, " +
       "calculée de tête à partir du prix Mastery. Si le prix bouge, ou si quelqu'un retape la " +
       "mensualité (179 € au lieu de 165,67 € dans les CGV, quatre mois durant), le site annonce " +
-      "un total faux — dans un document contractuel.",
+      "un total faux — dans un document contractuel. Le 01/11/2026, elle passe à 232,34 €.",
     ou: [
-      { fichier: "src/app/cgv/page.tsx", motif: MOTIF_KLARNA },
-      { fichier: "src/components/landing/pricing-teaser.tsx", motif: MOTIF_KLARNA },
-      { fichier: "src/components/landing/value-stack.tsx", motif: MOTIF_KLARNA },
-      { fichier: "src/app/formation-claude-ai/page.tsx", motif: MOTIF_KLARNA },
-      { fichier: "src/app/checkout/success/page.tsx", motif: MOTIF_KLARNA },
-      { fichier: "src/app/llms.txt/route.ts", motif: MOTIF_KLARNA },
+      // Clause FIXE des CGV depuis le 16/10/2026 : « 3 × 165,67 € … jusqu'au 31 octobre
+      // 2026 inclus ; … 3 × 232,34 € … à partir du 1er novembre ». Exacte avant comme
+      // après la bascule : elle doit citer les deux mensualités (`periodes`).
+      { fichier: "src/app/cgv/page.tsx", motif: MOTIF_KLARNA, periodes: true },
+      klarna("src/components/landing/pricing-teaser.tsx"),
+      klarna("src/components/landing/value-stack.tsx"),
+      klarna("src/app/formation-claude-ai/page.tsx"),
+      klarna("src/app/checkout/success/page.tsx"),
+      klarna("src/app/llms.txt/route.ts"),
+      klarna("src/app/tarifs/page.tsx"),
+      klarna("src/app/faq/page.tsx"),
+      // Emails aux leads (A5, B8) : « 497 €, ou 3 × 165,67 € sans frais », non suivi avant le 16/10/2026.
+      klarna("src/lib/email/lead-magnet.ts"),
     ],
     canon: canonMontant,
     verif: { kind: "local", fn: "mensualiteKlarnaMastery" },
@@ -223,13 +258,16 @@ export const FAITS = [
       { fichier: "src/app/signup/page.tsx", motif: passPrix("Starter") },
       { fichier: "src/app/account/page.tsx", motif: prixApres("Pass Starter (?:—|·) ") },
       { fichier: "src/app/courses/[slug]/page.tsx", motif: passPrix("Starter") },
-      { fichier: "src/app/courses/[slug]/page.tsx", motif: /"mastery" \? "\d+" : "(\d+)"/ },
+      // JSON-LD du parcours : « mastery ? "497" : "47" », puis « mastery ? String(prixMastery(at)) : "47" ».
+      { fichier: "src/app/courses/[slug]/page.tsx", motif: /(?:"mastery"|mastery) \? (?:"\d+"|String\(prixMastery\(\w*\)\)) : "(\d+)"/ },
       { fichier: "src/app/courses/[slug]/[lesson]/page.tsx", motif: passPrix("Starter") },
       { fichier: "src/app/llms.txt/route.ts", motif: passPrix("Starter") },
       { fichier: "src/lib/email/activation.ts", motif: /(\d+) € pour les trois parcours/ },
       // Séquence réécrite le 04/10/2026 : le prix suit toujours « Pass Starter, ».
       { fichier: "src/lib/email/lead-magnet.ts", motif: /Pass Starter, (\d+) €/ },
       { fichier: "src/lib/email/nurture.ts", motif: /tes (\d+) € sont déduits/ },
+      // Le crédit déduit du Mastery (450 € puis 650 €) part de cette constante.
+      { fichier: "src/lib/offre/prix.ts", motif: /PRIX_STARTER = (\d+);/ },
     ],
     canon: canonMontant,
     verif: { kind: "local", fn: "prixPassStarter" },
@@ -240,35 +278,85 @@ export const FAITS = [
     gravite: "critique",
     pourquoi:
       "Le pass qui fait l'essentiel du chiffre d'affaires, et la base de la mensualité Klarna. " +
-      "Écrit à la main dans une vingtaine d'endroits, du JSON-LD à l'email d'objection « c'est cher ».",
+      "Écrit à la main dans une vingtaine d'endroits jusqu'au 16/10/2026 ; depuis, lu dans " +
+      "src/lib/offre/prix.ts presque partout. 497 € jusqu'au 31/10/2026, 697 € ensuite : tout " +
+      "littéral « 497 » encore présent le 01/11 ressort ici.",
     ou: [
-      { fichier: "src/app/cgv/page.tsx", motif: prixApres(`Pass Mastery</strong>${ESP}*(?:—|:)${ESP}*`) },
-      { fichier: "src/app/tarifs/page.tsx", motif: prixApres(String.raw`Claude AI : \d+ €(?:,| ou) |Mastery à `) },
-      { fichier: "src/app/tarifs/page.tsx", motif: prixJsonLd("Pass Mastery") },
-      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixCarte("Mastery") },
-      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Rejoindre Mastery (?:—|·) ") },
-      // value-stack.tsx affiche PRIX_MASTERY : on suit la constante, pas son rendu.
-      { fichier: "src/lib/offre/mesures.ts", motif: /PRIX_MASTERY = (\d+);/ },
-      { fichier: "src/components/landing/final-cta.tsx", motif: prixApres("Rejoindre Mastery, ") },
-      { fichier: "src/components/site/price-bar.tsx", motif: prixApres("Pass complet ") },
-      { fichier: "src/components/site/footer.tsx", motif: prixApres("Pass Mastery, ") },
-      { fichier: "src/app/formation-claude-ai/page.tsx", motif: prixApres(String.raw`Mastery · |parcours · |\d+ € ou |coûte `) },
-      { fichier: "src/app/faq/page.tsx", motif: prixApres(String.raw`Pass Mastery \(|\(ou `) },
-      { fichier: "src/app/checkout/success/page.tsx", motif: prixApres("Mastery · ") },
-      { fichier: "src/app/checkout/cancel/page.tsx", motif: passPrix("Mastery") },
-      { fichier: "src/app/signup/page.tsx", motif: passPrix("Mastery") },
-      { fichier: "src/app/account/page.tsx", motif: prixApres("Mastery (?:—|·) ") },
-      { fichier: "src/app/mentor/page.tsx", motif: prixApres("Pass Mastery · ") },
-      { fichier: "src/app/courses/page.tsx", motif: prixApres("Pass Mastery à ") },
-      { fichier: "src/app/courses/[slug]/page.tsx", motif: passPrix("Mastery") },
-      { fichier: "src/app/courses/[slug]/page.tsx", motif: /"mastery" \? "(\d+)"/ },
-      { fichier: "src/app/courses/[slug]/[lesson]/page.tsx", motif: passPrix("Mastery") },
-      { fichier: "src/app/llms.txt/route.ts", motif: passPrix("Mastery") },
-      { fichier: "src/lib/email/activation.ts", motif: /(\d+) € pour les \p{L}+\. Garantie/u },
-      { fichier: "src/lib/email/nurture.ts", motif: prixApres(String.raw`« |au lieu de |"`) },
+      // Clause FIXE et datée des CGV (« 497 € … jusqu'au 31 octobre 2026 inclus ;
+      // 697 € … à partir du 1er novembre ») : elle doit citer les deux prix,
+      // avant comme après la bascule, jamais le seul prix du jour.
+      {
+        fichier: "src/app/cgv/page.tsx",
+        // « … rouverte ensuite par un lien de reprise ; 697 € … » depuis le
+        // 16/10/2026 (date ancrée sur l'ouverture de la page de paiement).
+        motif: prixApres(String.raw`Pass Mastery</strong>${ESP}*(?:—|:)${ESP}*|(?:inclus|reprise)${ESP}*;\s*`),
+        periodes: true,
+      },
+      mastery("src/app/tarifs/page.tsx", prixApres(String.raw`Claude AI : \d+ €(?:,| ou) |Mastery à `)),
+      mastery("src/app/tarifs/page.tsx", prixJsonLd("Pass Mastery")),
+      mastery("src/components/landing/pricing-teaser.tsx", prixCarte("Mastery")),
+      mastery("src/components/landing/pricing-teaser.tsx", prixApres("Rejoindre Mastery (?:—|·) ")),
+      // value-stack.tsx affichait PRIX_MASTERY de lib/offre/mesures.ts. La constante
+      // a été retirée le 16/10/2026 (un prix daté ne vit pas dans une constante de
+      // module) : on suit désormais le composant lui-même.
+      mastery("src/components/landing/value-stack.tsx", prixApres("Rejoindre Mastery, ")),
+      mastery("src/components/landing/final-cta.tsx", prixApres("Rejoindre Mastery, ")),
+      mastery("src/components/site/price-bar.tsx", prixApres("Pass complet ")),
+      // footer.tsx : plus de prix Mastery depuis le 16/10/2026 (layout racine
+      // non re-rendu en navigation interne, le montant y serait resté périmé).
+      mastery("src/app/formation-claude-ai/page.tsx", prixApres(String.raw`Mastery · |parcours · |\d+ € ou |coûte `)),
+      mastery("src/app/faq/page.tsx", prixApres(String.raw`Pass Mastery \(|\(ou `)),
+      mastery("src/app/checkout/success/page.tsx", prixApres("Mastery · ")),
+      mastery("src/app/checkout/cancel/page.tsx", passPrix("Mastery")),
+      mastery("src/app/signup/page.tsx", passPrix("Mastery")),
+      mastery("src/app/account/page.tsx", prixApres("Mastery (?:—|·) ")),
+      mastery("src/app/mentor/page.tsx", prixApres("Pass Mastery · ")),
+      mastery("src/app/courses/page.tsx", prixApres("Pass Mastery à ")),
+      mastery("src/app/courses/[slug]/page.tsx", passPrix("Mastery")),
+      mastery("src/app/courses/[slug]/page.tsx", /"mastery" \? "(\d+)"/),
+      mastery("src/app/courses/[slug]/[lesson]/page.tsx", passPrix("Mastery")),
+      mastery("src/app/llms.txt/route.ts", passPrix("Mastery")),
+      // Emails : montants calculés à l'envoi depuis le 16/10/2026 (lib/offre/prix.ts).
+      mastery("src/lib/email/activation.ts", /(\d+) € pour les \p{L}+(?:\$\{[^}]*\})?\. Garantie/u),
+      mastery("src/lib/email/nurture.ts", prixApres(String.raw`« |au lieu de |"`)),
+      mastery("src/lib/email/lead-magnet.ts", prixApres("Mentor IA : |Pass Mastery, ")),
     ],
     canon: canonMontant,
     verif: { kind: "local", fn: "prixPassMastery" },
+  },
+  {
+    id: "montant-facture-mastery",
+    libelle: "Montant du Pass Mastery dans le checkout (plans.ts)",
+    gravite: "critique",
+    pourquoi:
+      "Ce que getPlan(\"mastery\") déclare facturer. Il doit appeler prixMastery() du module daté : " +
+      "un littéral n'est exact qu'un seul jour sur deux périodes. 697 avant le 01/11/2026 ferait " +
+      "payer la hausse trop tôt ; 497 après la ferait oublier.",
+    ou: [
+      { fichier: "src/lib/stripe/plans.ts", motif: /case "mastery":(?:(?!case ")[\s\S])*?amountEur: (\d+|prixMastery\(\w*\))/ },
+    ],
+    canon: (v) => (/^prixMastery\(/.test(v) ? "prixMastery()" : v),
+    verif: { kind: "local", fn: "montantFactureMastery" },
+  },
+  {
+    id: "date-hausse-mastery",
+    libelle: "Date de la hausse du Mastery écrite en toutes lettres (« 1er novembre »)",
+    gravite: "critique",
+    pourquoi:
+      "Le libellé affiché partout (« 697 € à partir du 1er novembre ») est une chaîne à part de " +
+      "la date réelle de bascule (MASTERY_HAUSSE_LE). Si l'une bouge sans l'autre, le site annonce " +
+      "une hausse à une date où elle n'a pas lieu.",
+    ou: [{ fichier: "src/lib/offre/prix.ts", motif: /MASTERY_HAUSSE_LIBELLE = "([^"]+)"/ }],
+    verif: { kind: "local", fn: "libelleHausseMastery" },
+  },
+  {
+    id: "dernier-jour-prix-mastery",
+    libelle: "Dernier jour du Mastery à l'ancien prix (« 31 octobre »)",
+    gravite: "critique",
+    pourquoi:
+      "« 497 € jusqu'au 31 octobre inclus » : même risque, la veille de MASTERY_HAUSSE_LE à Paris.",
+    ou: [{ fichier: "src/lib/offre/prix.ts", motif: /MASTERY_DERNIER_JOUR_LIBELLE = "([^"]+)"/ }],
+    verif: { kind: "local", fn: "dernierJourPrixMastery" },
   },
   {
     id: "prix-pass-accompagnement",
@@ -279,7 +367,9 @@ export const FAITS = [
       "le plus élevé du catalogue. Écrit « 1 497 » en prose et « 1497 » dans le JSON-LD, d'où `canon`.",
     ou: [
       { fichier: "src/app/cgv/page.tsx", motif: prixApres(`Pass Accompagnement</strong>${ESP}*:${ESP}*`) },
-      { fichier: "src/app/tarifs/page.tsx", motif: prixApres(String.raw`\d+ €, \d+ € ou |Accompagnement à `) },
+      // « 47 €, ${prix} € ou 1 497 € » et « Accompagnement 1 497 € » depuis le 16/10/2026
+      // (le prix du Mastery au milieu est devenu dynamique, le motif était muet).
+      { fichier: "src/app/tarifs/page.tsx", motif: prixApres(String.raw`\d+ €, (?:\d+|\$\{\w+\}) € ou |Accompagnement(?: à)? `) },
       { fichier: "src/app/tarifs/page.tsx", motif: prixJsonLd("Pass Accompagnement") },
       { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixCarte("Accompagnement") },
       { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Réserver ma place (?:—|·) ") },

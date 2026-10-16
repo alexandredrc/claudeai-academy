@@ -4,6 +4,15 @@ import { createClient } from "@/lib/supabase/server";
 import { startCheckoutAction } from "../checkout/actions";
 import { setPasswordAction } from "./actions";
 import { isValidTier } from "@/lib/stripe/plans";
+import {
+  MASTERY_DERNIER_JOUR_LIBELLE,
+  MASTERY_HAUSSE_LIBELLE,
+  PRIX_MASTERY_APRES,
+  PRIX_STARTER,
+  annonceHausseMastery,
+  maintenant,
+  prixMastery,
+} from "@/lib/offre/prix";
 import { certificationStatus } from "@/lib/certification/core";
 import { CertificationProgress } from "@/components/site/certification-progress";
 
@@ -63,6 +72,18 @@ export default async function AccountPage({
     !(requestedTier === "mastery" && hasMastery) &&
     !(requestedTier === "starter" && (hasStarter || hasMastery));
 
+  // Prix du Mastery calculé au rendu (497 € puis 697 € dès le 01/11/2026) et
+  // annonce de la hausse tant qu'elle est à venir : lib/offre/prix.ts.
+  const at = maintenant();
+  const prixDuMastery = prixMastery(at);
+  const annonce = annonceHausseMastery(at);
+  const offreMastery: OffreMastery = {
+    prix: prixDuMastery,
+    hausse: annonce
+      ? `${prixDuMastery} € jusqu'au ${MASTERY_DERNIER_JOUR_LIBELLE} inclus. ${annonce}.`
+      : null,
+  };
+
   return (
     <section className="bg-cream-soft">
       <div className="mx-auto max-w-[860px] px-6 py-16 md:py-24">
@@ -79,7 +100,7 @@ export default async function AccountPage({
         </p>
 
         {showRequestedCta && requestedTier && (
-          <PurchasePrompt tier={requestedTier} />
+          <PurchasePrompt tier={requestedTier} offreMastery={offreMastery} />
         )}
 
         {!noPurchase && (
@@ -210,6 +231,7 @@ export default async function AccountPage({
           <NoPurchaseBlock
             requestedTier={requestedTier}
             showRequestedCta={!!showRequestedCta}
+            offreMastery={offreMastery}
           />
         ) : (
           <>
@@ -243,15 +265,24 @@ export default async function AccountPage({
                   </strong>{" "}
                   pour accéder aux 6 parcours supplémentaires et au mentor IA.
                 </p>
+                {/* Connecté et titulaire du Starter : le checkout déduit ses
+                    47 €. On affiche donc ce qu'il paiera (450 € puis 650 €),
+                    comme les emails J+14/J+21/J+30, pas le prix public. */}
                 <form action={startCheckoutAction} className="mt-4">
                   <input type="hidden" name="plan" value="mastery" />
+                  <input type="hidden" name="prix_affiche" value={offreMastery.prix} />
                   <button
                     type="submit"
                     className="rounded-[14px] bg-coral px-6 py-3 text-sm font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
                   >
-                    Passer à Mastery · 497 €
+                    {`Passer à Mastery · ${offreMastery.prix - PRIX_STARTER} € (tes 47 € déduits)`}
                   </button>
                 </form>
+                {offreMastery.hausse ? (
+                  <p className="mt-3 text-[13px] leading-relaxed text-muted">
+                    {`${offreMastery.prix - PRIX_STARTER} € jusqu'au ${MASTERY_DERNIER_JOUR_LIBELLE} inclus, puis ${PRIX_MASTERY_APRES - PRIX_STARTER} € à partir du ${MASTERY_HAUSSE_LIBELLE} (heure de Paris), tes 47 € toujours déduits.`}
+                  </p>
+                ) : null}
               </div>
             )}
           </>
@@ -261,8 +292,20 @@ export default async function AccountPage({
   );
 }
 
-function PurchasePrompt({ tier }: { tier: "starter" | "mastery" }) {
-  const label = tier === "mastery" ? "Pass Mastery (497 €)" : "Pass Starter (47 €)";
+/** Prix du Mastery au rendu de la page, et annonce de la hausse s'il y en a une. */
+type OffreMastery = { prix: number; hausse: string | null };
+
+function PurchasePrompt({
+  tier,
+  offreMastery,
+}: {
+  tier: "starter" | "mastery";
+  offreMastery: OffreMastery;
+}) {
+  const label =
+    tier === "mastery"
+      ? `Pass Mastery (${offreMastery.prix} €)`
+      : "Pass Starter (47 €)";
   return (
     <div className="mt-10 rounded-[22px] border border-coral-soft bg-coral-soft/30 p-6 md:p-8">
       <span className="inline-block text-[12px] font-semibold uppercase tracking-[0.12em] text-coral">
@@ -278,6 +321,9 @@ function PurchasePrompt({ tier }: { tier: "starter" | "mastery" }) {
       </p>
       <form action={startCheckoutAction} className="mt-6">
         <input type="hidden" name="plan" value={tier} />
+        {tier === "mastery" ? (
+          <input type="hidden" name="prix_affiche" value={offreMastery.prix} />
+        ) : null}
         <button
           type="submit"
           className="rounded-[14px] bg-coral px-6 py-3 text-sm font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
@@ -285,6 +331,11 @@ function PurchasePrompt({ tier }: { tier: "starter" | "mastery" }) {
           Procéder au paiement
         </button>
       </form>
+      {tier === "mastery" && offreMastery.hausse ? (
+        <p className="mt-3 text-[13px] leading-relaxed text-muted">
+          {offreMastery.hausse}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -292,9 +343,11 @@ function PurchasePrompt({ tier }: { tier: "starter" | "mastery" }) {
 function NoPurchaseBlock({
   requestedTier,
   showRequestedCta,
+  offreMastery,
 }: {
   requestedTier: "starter" | "mastery" | null;
   showRequestedCta: boolean;
+  offreMastery: OffreMastery;
 }) {
   // Si on a déjà affiché le PurchasePrompt en haut, on évite de dupliquer ici.
   if (showRequestedCta && requestedTier) {
@@ -322,15 +375,21 @@ function NoPurchaseBlock({
         </form>
         <form action={startCheckoutAction}>
           <input type="hidden" name="plan" value="mastery" />
+          <input type="hidden" name="prix_affiche" value={offreMastery.prix} />
           <button
             type="submit"
             className="w-full rounded-[14px] bg-coral px-6 py-3 text-sm font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
           >
-            Pass Mastery · 497 €
+            {`Pass Mastery · ${offreMastery.prix} €`}
           </button>
         </form>
       </div>
-      <p className="mt-4 text-[12px] text-muted">
+      {offreMastery.hausse ? (
+        <p className="mt-4 text-[12px] text-muted">
+          {`Pass Mastery : ${offreMastery.hausse}`}
+        </p>
+      ) : null}
+      <p className={`${offreMastery.hausse ? "mt-1" : "mt-4"} text-[12px] text-muted`}>
         Garantie 14 jours satisfait ou remboursé. Paiement sécurisé via Stripe.
       </p>
     </div>

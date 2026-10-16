@@ -22,7 +22,7 @@ export default function CgvPage() {
 
         <div className="prose-lesson mt-10">
           <p>
-            Dernière mise à jour&nbsp;: 30 septembre 2026. Les présentes
+            Dernière mise à jour&nbsp;: 16 octobre 2026. Les présentes
             conditions régissent la vente des formations en ligne proposées sur
             claudeai-academy.com par <strong>ADRC Group</strong>{" "}(ci-après «&nbsp;le
             Vendeur&nbsp;»).
@@ -51,9 +51,21 @@ export default function CgvPage() {
             <li>
               <strong>Pass Starter</strong>&nbsp;: 47&nbsp;€, paiement unique.
             </li>
+            {/* Clause FIXE, vraie avant comme après la hausse du 01/11/2026
+                (décision du fondateur, 16/10/2026) : elle ne dépend pas de la
+                date du jour. Montants écrits en clair, pour qu'une
+                modification de lib/offre/prix.ts ne change jamais le texte
+                contractuel sans relecture. */}
             <li>
               <strong>Pass Mastery</strong>&nbsp;: 497&nbsp;€ en une fois, ou
-              3&nbsp;×&nbsp;165,67&nbsp;€ sans frais avec Klarna.
+              3&nbsp;×&nbsp;165,67&nbsp;€ sans frais avec Klarna, pour toute
+              commande dont la page de paiement a été ouverte jusqu&apos;au
+              31 octobre 2026 inclus (heure de Paris), y compris lorsqu&apos;elle
+              est rouverte ensuite par un lien de reprise&nbsp;; 697&nbsp;€ en
+              une fois, ou 3&nbsp;×&nbsp;232,34&nbsp;€ sans frais avec Klarna,
+              pour toute page de paiement ouverte à partir du
+              1<sup>er</sup>&nbsp;novembre 2026 à 0&nbsp;h, heure de Paris. Le
+              prix applicable est celui affiché sur la page de paiement.
             </li>
             {ELITE_ENABLED && (
               <li>

@@ -8,7 +8,13 @@ import {
   BONUS_AUDIT_PLACES,
   placesBonusRestantes,
 } from "@/lib/offre/bonus-audit";
-import { PRIX_MASTERY, TAUX_HORAIRE_EXEMPLE } from "@/lib/offre/mesures";
+import { TAUX_HORAIRE_EXEMPLE } from "@/lib/offre/mesures";
+import {
+  annonceHausseMastery,
+  maintenant,
+  mensualiteKlarna3x,
+  prixMastery,
+} from "@/lib/offre/prix";
 
 // Avant le 15/10/2026, ce bloc additionnait des « valeurs » par parcours
 // (197 €, 147 €) jamais pratiquées, affichées barrées face à 497 €. Un prix
@@ -16,11 +22,20 @@ import { PRIX_MASTERY, TAUX_HORAIRE_EXEMPLE } from "@/lib/offre/mesures";
 // prix réellement pratiqué (art. L112-1-1 du Code de la consommation) :
 // retiré. À la place, chaque élément dit quel obstacle il lève (Hormozi,
 // « empiler la valeur »), et le prix est ramené à des heures de travail,
-// ce qui est un calcul et non une promesse. Prix et taux partagés avec la
-// section des temps mesurés (lib/offre/mesures.ts).
-// 497 / 50 = 9,94 : « moins de 10 heures » est exact tant que la division
-// ne tombe pas juste.
-const HEURES = Math.ceil(PRIX_MASTERY / TAUX_HORAIRE_EXEMPLE);
+// ce qui est un calcul et non une promesse. Le taux est partagé avec la
+// section des temps mesurés (lib/offre/mesures.ts), le prix est celui du
+// jour (lib/offre/prix.ts : 497 € puis 697 € dès le 01/11/2026).
+
+/**
+ * Le prix ramené à des heures au taux d'exemple : 497 / 50 = 9,94 donne
+ * « moins de 10 heures », 697 / 50 = 13,94 « moins de 14 heures ». Si la
+ * division tombe juste, « moins de » serait faux : on écrit le nombre exact.
+ */
+function heuresDeTravail(prix: number): string {
+  const h = prix / TAUX_HORAIRE_EXEMPLE;
+  if (Number.isInteger(h)) return `${h} heure${h > 1 ? "s" : ""}`;
+  return `moins de ${Math.ceil(h)} heures`;
+}
 
 type Row = { item: string; obstacle: string };
 
@@ -29,6 +44,12 @@ export async function ValueStack() {
     getCatalogStats(),
     placesBonusRestantes(),
   ]);
+
+  // Prix daté, lu à chaque rendu sur un seul instant (jamais en constante de
+  // module : une instance réutilisée peut franchir minuit le 31/10).
+  const at = maintenant();
+  const prix = prixMastery(at);
+  const annonce = annonceHausseMastery(at);
 
   // Bonus réel à places comptées : la ligne n'existe que tant qu'il reste
   // des places et que la date n'est pas passée (lib/offre/bonus-audit).
@@ -95,24 +116,29 @@ export async function ValueStack() {
 
           <div className="mt-6 border-t-2 border-ink pt-6">
             <p className="text-[15px] leading-relaxed text-ink-soft">
-              Si votre heure de travail vaut {TAUX_HORAIRE_EXEMPLE} €, le Pass
-              Mastery représente moins de {HEURES} heures de votre temps. Payé
-              une fois, gardé à vie.
+              {`Si votre heure de travail vaut ${TAUX_HORAIRE_EXEMPLE} €, le Pass Mastery représente ${heuresDeTravail(prix)} de votre temps. Payé une fois, gardé à vie.`}
             </p>
             <div className="mt-5 flex items-baseline justify-between gap-4">
               <span className="font-bold font-serif text-xl text-ink">Votre prix</span>
               <span className="font-bold font-serif text-2xl text-coral">
-                {PRIX_MASTERY} €
+                {`${prix} €`}
               </span>
             </div>
+            {/* Hausse annoncée près du prix, sans prix barré (décision du
+                16/10/2026). Disparaît seule le 01/11. */}
+            {annonce ? (
+              <p className="mt-1 text-right text-[14px] font-semibold text-coral-dark">
+                {annonce}
+              </p>
+            ) : null}
           </div>
 
           <div className="mt-7 text-center">
-            <CheckoutButton tier="mastery" variant="primary" size="lg">
-              Rejoindre Mastery, {PRIX_MASTERY} €
+            <CheckoutButton tier="mastery" prixAffiche={prix} variant="primary" size="lg">
+              {`Rejoindre Mastery, ${prix} €`}
             </CheckoutButton>
             <p className="mt-3 text-[13px] text-muted">
-              ou 3 × 165,67 € sans frais avec Klarna · Garantie 14 jours
+              {`ou 3 × ${mensualiteKlarna3x(prix)} € sans frais avec Klarna · Garantie 14 jours`}
             </p>
           </div>
         </div>

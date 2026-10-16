@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
@@ -10,6 +12,9 @@ const items = [
   "Un mentor IA Claude pour vos questions, 24/7",
   "Des mises à jour à chaque évolution majeure",
 ];
+
+const LESSON_HREF =
+  "/courses/prompt-engineering-pro/intro-pourquoi-le-prompt-est-de-l-ingenierie";
 
 export function Method() {
   return (
@@ -49,34 +54,32 @@ export function Method() {
             </div>
           </div>
 
-          {/* Mockup window — perspective subtle */}
+          {/* Vraie leçon en aperçu gratuit (capture : scripts/render-lecon-landing.mjs).
+              Remplace l'ancienne maquette sans contenu, lue comme une fenêtre vide. */}
           <div className="hidden lg:block" style={{ perspective: "1200px" }}>
-            <div
-              className="bg-white border border-line rounded-[22px] overflow-hidden shadow-[0_4px_8px_rgba(31,31,30,0.05),0_24px_48px_rgba(31,31,30,0.10)] transition-transform duration-500 hover:[transform:rotateY(0)_rotateX(0)]"
+            <Link
+              href={LESSON_HREF}
+              aria-label="Ouvrir la leçon gratuite : Pourquoi le prompt est de l'ingénierie, pas de l'art"
+              className="block bg-white border border-line rounded-[22px] overflow-hidden shadow-[0_4px_8px_rgba(31,31,30,0.05),0_24px_48px_rgba(31,31,30,0.10)] transition-transform duration-500 hover:[transform:rotateY(0)_rotateX(0)]"
               style={{ transform: "rotateY(-6deg) rotateX(4deg)" }}
             >
               <div className="flex items-center gap-2 px-5 py-3.5 bg-cream border-b border-line">
                 <span className="w-[11px] h-[11px] rounded-full bg-[#E76F51]" />
                 <span className="w-[11px] h-[11px] rounded-full bg-[#F4A261]" />
                 <span className="w-[11px] h-[11px] rounded-full bg-green" />
+                <span className="ml-auto text-[12px] text-muted font-mono">
+                  claudeai-academy.com/courses
+                </span>
               </div>
-              <div className="grid grid-cols-[80px_1fr] min-h-[340px]">
-                <div className="bg-cream p-4 border-r border-line space-y-2">
-                  <div className="h-9 rounded-md bg-coral" />
-                  <div className="h-9 rounded-md bg-cream-dark" />
-                  <div className="h-9 rounded-md bg-cream-dark" />
-                  <div className="h-9 rounded-md bg-cream-dark" />
-                </div>
-                <div className="p-6 space-y-3.5">
-                  <div className="h-2.5 rounded bg-cream-dark w-[90%]" />
-                  <div className="h-2.5 rounded bg-cream-dark w-[70%]" />
-                  <div className="h-2.5 rounded bg-coral-soft w-[50%]" />
-                  <div className="my-5 h-20 rounded-[10px] bg-gradient-to-br from-coral-soft to-cream-dark" />
-                  <div className="h-2.5 rounded bg-cream-dark w-[70%]" />
-                  <div className="h-2.5 rounded bg-cream-dark w-[90%]" />
-                </div>
-              </div>
-            </div>
+              <Image
+                src="/landing/lecon-apercu.png"
+                alt="Leçon 1 sur 7 du parcours Prompt Engineering pro : titre, durée, quiz et objectifs de la leçon"
+                width={1280}
+                height={1551}
+                sizes="540px"
+                className="block w-full h-auto"
+              />
+            </Link>
           </div>
         </div>
       </Container>

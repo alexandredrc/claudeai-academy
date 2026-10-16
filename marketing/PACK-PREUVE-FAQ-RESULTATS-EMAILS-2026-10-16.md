@@ -80,7 +80,7 @@ Le vrai trou n'est pas l'affichage des avis. C'est l'absence de **résultat mesu
 
 > **Comment ces avis sont recueillis.** Les retours de cette page viennent des premiers utilisateurs de la formation. Certains ont acheté leur accès, d'autres l'ont reçu gratuitement pour tester le programme avant son ouverture. Aucun avis n'a été rémunéré. Nous publions tous les retours reçus, positifs ou non, après accord écrit de leur auteur. Chaque avis porte le mois où il a été donné.
 
-Base légale (droit français) : art. L111-7-2 et D111-10 du Code de la consommation. Amende administrative jusqu'à 75 000 € pour une personne morale (L131-4). Un avocat en droit de la consommation tranche si un contrôle arrive.
+Base légale (droit français) : art. L111-7-2 et D111-10 du Code de la consommation. Sanction : amende administrative (L131-4), montant NON VÉRIFIÉ le 16/10/2026 (Légifrance bloque la lecture automatique). Plafond le plus souvent cité : 75 000 € pour une personne physique, 375 000 € pour une personne morale, à confirmer sur Légifrance. Un avocat en droit de la consommation tranche si un contrôle arrive.
 
 ### A3. Format d'un témoignage publié (dès la première réponse reçue)
 
@@ -319,7 +319,7 @@ La séquence d'accueil existe déjà (kit + 13 emails sur 63 jours). Ce qui manq
 | Cible | 95 leads actifs non acheteurs. Variante pour les 9 acheteurs Starter (passage à 450 €) |
 | Dates | Du dimanche 25/10 au samedi 31/10/2026, 1 email par jour, 11 h 30 heure de Paris |
 | Conflit | Mettre en pause la séquence d'accueil sur ces 7 jours pour les mêmes leads (1 email par jour maximum) |
-| Limite Resend | Plan gratuit : 100 emails par jour. 95 envois + les kits du jour peuvent dépasser. Option : passer Resend en payant pour le mois, ou envoyer en deux vagues |
+| Limite Resend | Plan gratuit : 100 emails par jour. **Décision d'Alexandre le 16/10/2026 : deux salves par email** (environ 48 leads chacune, à au moins une heure d'écart), Resend reste gratuit |
 | Chiffres dynamiques | Places du bonus lues en base au moment de l'envoi, jamais écrites à la main |
 | Lien de suivi | `?src=email-hausse-j1` à `j7` |
 | Désinscription | Lien en bas de chaque email + en-têtes List-Unsubscribe, comme la séquence actuelle |

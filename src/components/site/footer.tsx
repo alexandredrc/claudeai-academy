@@ -5,7 +5,7 @@ import { InstagramIcon, INSTAGRAM_URL, INSTAGRAM_HANDLE } from "./instagram";
 const parcoursLinks = [
   { href: "/courses/bien-demarrer-avec-claude", label: "Bien démarrer avec Claude" },
   { href: "/courses/prompt-engineering-pro", label: "Prompt Engineering pro" },
-  { href: "/courses/claude-code-ia-agentic", label: "Claude Code et IA agentic" },
+  { href: "/courses/claude-code-ia-agentic", label: "Claude Code et l'IA agentique" },
   { href: "/courses/claude-data-sql", label: "Claude pour data et SQL" },
   { href: "/courses/contenu-et-marketing", label: "Contenu et marketing" },
   { href: "/courses/strategie-conduite-ia", label: "Stratégie et conduite IA" },

@@ -77,10 +77,14 @@ const ENSEIGNE: Record<string, Enseigne> = {
   T2: { kind: "prompt", titre: "Email difficile à rédiger", gratuit: true, href: "/prompts#business" },
   T1: { kind: "prompt", titre: "Séquence de relance commerciale", gratuit: false, href: "/prompts#business" },
   T4: { kind: "prompt", titre: "Compte rendu de réunion structuré", gratuit: true, href: "/prompts#business" },
+  // Publication Instagram d'un produit : le prompt le plus proche dans la
+  // bibliothèque est celui des angles et accroches (aucun prompt de post
+  // organique n'existe ; « Script vidéo courte » décrit un Reel, pas une
+  // publication).
   T3: {
     kind: "prompt",
-    titre: "Script vidéo courte (Reels/TikTok/Shorts)",
-    gratuit: true,
+    titre: "Générateur d'angles et d'accroches",
+    gratuit: false,
     href: "/prompts#marketing",
   },
   T5: { kind: "prompt", titre: "Rédaction de fiche de poste", gratuit: false, href: "/prompts#business" },
@@ -109,7 +113,7 @@ const neFaitPas = [
   {
     titre: "Elle ne vous apprend pas à coder, et ne le demande pas",
     texte:
-      "Les parcours Bien démarrer avec Claude, Prompt Engineering pro, Contenu et marketing et Stratégie et conduite IA ne contiennent aucune ligne de code : ce sont ceux qui servent à une petite entreprise. Les parcours Claude Code, Data et SQL, Trading et Construire ton agent IA sont techniques, signalés comme tels, et facultatifs.",
+      "Les parcours Bien démarrer avec Claude, Prompt Engineering pro, Contenu et marketing et Stratégie et conduite IA ne demandent d'écrire aucune ligne de code : ce sont ceux qui servent à une petite entreprise. Les parcours Claude Code, Data et SQL, Trading, Prompts, skills, MCP et GitHub, et Construire ton agent IA sont techniques, signalés comme tels, et facultatifs.",
   },
   {
     titre: "Elle n'est pas finançable par le CPF ni par un OPCO",
@@ -138,12 +142,12 @@ type FaqItem = { q: string; a: string; lien?: { href: string; label: string } };
 const faq: FaqItem[] = [
   {
     q: "Claude ou ChatGPT pour une TPE ?",
-    a: "Les deux savent rédiger un email ou un compte rendu. Nous formons sur Claude parce que la méthode enseignée (décrire son activité, donner le contexte, relire) s'y applique avec le plus de rigueur, et qu'elle se transfère ensuite à ChatGPT ou Gemini sans réapprendre. Pour une petite entreprise équipée de Microsoft 365, Claude s'utilise aussi directement dans Excel, Word et PowerPoint, et dans Outlook en bêta, avec un plan Claude payant et sans licence supplémentaire (vérifié le 9 octobre 2026). La comparaison critère par critère est sur notre page dédiée.",
+    a: `Les deux savent rédiger un email ou un compte rendu. Nous formons sur Claude parce que la méthode enseignée (décrire son activité, donner le contexte, relire) s'y applique avec le plus de rigueur, et qu'elle se transfère ensuite à ChatGPT ou Gemini sans réapprendre. Pour une petite entreprise équipée de Microsoft 365, Claude s'utilise aussi directement dans Excel, Word et PowerPoint, et dans Outlook en bêta, avec un plan Claude payant et sans licence supplémentaire (vérifié le ${CONTENU_A_JOUR_AU}). La comparaison critère par critère est sur notre page dédiée.`,
     lien: { href: "/claude-vs-chatgpt", label: "Lire la comparaison Claude ou ChatGPT" },
   },
   {
     q: "Faut-il savoir coder ?",
-    a: "Non. Écrire une demande à Claude, c'est écrire en français. Les parcours Bien démarrer avec Claude, Prompt Engineering pro, Contenu et marketing et Stratégie et conduite IA ne contiennent aucune ligne de code, et ce sont ceux qui servent à un indépendant ou à une TPE. Les parcours Claude Code, Data et SQL, Trading et Construire ton agent IA supposent une culture technique : ils sont signalés comme tels et vous pouvez les laisser de côté.",
+    a: "Non. Écrire une demande à Claude, c'est écrire en français. Les parcours Bien démarrer avec Claude, Prompt Engineering pro, Contenu et marketing et Stratégie et conduite IA ne demandent d'écrire aucune ligne de code, et ce sont ceux qui servent à un indépendant ou à une TPE. Les parcours Claude Code, Data et SQL, Trading, Prompts, skills, MCP et GitHub, et Construire ton agent IA supposent une culture technique : ils sont signalés comme tels et vous pouvez les laisser de côté.",
   },
   {
     q: "Mes données clients sont-elles en sécurité ?",

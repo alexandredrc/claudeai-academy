@@ -1,12 +1,9 @@
 import "server-only";
 import { SITE_URL } from "@/lib/email/send";
 import { sendLoginLinkEmail } from "@/lib/email/login-link";
+import { safeNext } from "@/lib/auth/safe-next";
 
-/** N'accepte qu'un chemin interne — garde anti-open-redirect. */
-export function safeNext(raw: string | null | undefined, fallback = "/courses"): string {
-  if (!raw) return fallback;
-  return raw.startsWith("/") && !raw.startsWith("//") ? raw : fallback;
-}
+export { safeNext };
 
 /**
  * Construit le lien d'accès magique pointant vers notre page /auth/confirm.

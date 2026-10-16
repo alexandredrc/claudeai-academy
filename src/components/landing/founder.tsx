@@ -55,7 +55,7 @@ export function Founder() {
                 Le constat de départ est simple : la majorité des contenus sur
                 Claude sont soit superficiels, soit en anglais, soit produits par
                 des gens qui ne l&apos;utilisent pas vraiment. ClaudeAI Academy
-                comble ce vide : une référence francophone rigoureuse,
+                répond à ce constat : une formation en français, rigoureuse,
                 opérationnelle, tenue à jour des dernières évolutions (Opus 5.5,
                 Claude Code, skills, MCP).
               </p>

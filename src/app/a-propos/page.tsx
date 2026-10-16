@@ -12,13 +12,11 @@ export const metadata: Metadata = pageMetadata({
   path: "/a-propos",
   title: "À propos | ClaudeAI Academy",
   description:
-    "Pourquoi ClaudeAI Academy existe : une référence francophone et opérationnelle pour maîtriser Claude, portée par un fondateur qui l'utilise chaque jour.",
+    "Pourquoi ClaudeAI Academy existe : une formation en français, opérationnelle, pour maîtriser Claude, portée par un fondateur qui l'utilise chaque jour.",
 });
 
-// Compte Instagram de marque. Le compte personnel vient de `instagram.tsx` ;
-// la même constante existe dans `src/app/layout.tsx` (un layout ne peut pas
-// exporter autre chose que ses champs Next).
-const INSTAGRAM_ACADEMY_URL = "https://www.instagram.com/official_claude_ai_academy/";
+// Le compte Instagram de marque n'est pas déclaré dans `sameAs` : voir le
+// commentaire de `src/app/layout.tsx` (audit du 16/10/2026).
 
 // Page auteur (E-E-A-T) : `ProfilePage` dont l'entité principale est le
 // fondateur. Le même `@id` est utilisé par `founder` dans l'Organization du
@@ -44,7 +42,7 @@ const profilePageJsonLd = {
       "Restaurant Manager en Suisse, fondateur d'ADRC Group et de ClaudeAI Academy. Utilise Claude au quotidien dans un métier de terrain.",
     url: "https://www.claudeai-academy.com/a-propos",
     image: "https://www.claudeai-academy.com/alexandre.jpg",
-    sameAs: [INSTAGRAM_URL, INSTAGRAM_ACADEMY_URL],
+    sameAs: [INSTAGRAM_URL],
     affiliation: { "@id": "https://www.claudeai-academy.com/#organization" },
   },
 };
@@ -79,7 +77,7 @@ export default function AProposPage() {
 
           <Eyebrow>À l’origine du projet</Eyebrow>
           <h1 className="mt-4 font-serif text-[clamp(2.25rem,5vw,3.5rem)] font-medium leading-[1.05] tracking-tight text-ink">
-            Une référence francophone, <span className="accent-serif">pas un tuto de plus</span>
+            Une formation de terrain, <span className="accent-serif">pas un tuto de plus</span>
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted max-w-[640px]">
             ClaudeAI Academy est née d’un constat simple : la plupart des

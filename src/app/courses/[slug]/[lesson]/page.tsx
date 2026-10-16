@@ -433,10 +433,7 @@ export default async function LessonPage({ params }: { params: Params }) {
             )}
           </>
         ) : (
-          <LessonPaywall
-            tierRequired={course.tier_required}
-            loggedIn={!!user}
-          />
+          <LessonPaywall tierRequired={course.tier_required} />
         )}
 
         <nav className="mt-16 flex items-center justify-between gap-4 border-t border-line pt-8 text-[14px]">
@@ -570,13 +567,7 @@ function CompleteSection({
   );
 }
 
-function LessonPaywall({
-  tierRequired,
-  loggedIn,
-}: {
-  tierRequired: CourseTier;
-  loggedIn: boolean;
-}) {
+function LessonPaywall({ tierRequired }: { tierRequired: CourseTier }) {
   const tierKey: "starter" | "mastery" =
     tierRequired === "mastery" ? "mastery" : "starter";
   // Prix du Pass Mastery calculé au rendu (497 € jusqu'au 31/10/2026, 697 €
@@ -602,11 +593,18 @@ function LessonPaywall({
       </p>
       <form action={startCheckoutAction} className="mt-6">
         <input type="hidden" name="plan" value={tierKey} />
+        {/* Prix lu par le visiteur : si la hausse tombe entre l'affichage et le
+            clic, le serveur le renvoie sur /tarifs au lieu d'encaisser plus. */}
+        {tierKey === "mastery" ? (
+          <input type="hidden" name="prix_affiche" value={prixMastery(at)} />
+        ) : null}
         <button
           type="submit"
           className="rounded-[14px] bg-coral px-6 py-3 text-sm font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
         >
-          {loggedIn ? `Acheter le ${planLabel}` : `Créer un compte et acheter`}
+          {/* L'achat se fait sans compte (Stripe collecte l'email) : ne pas
+              annoncer une inscription qui n'existe pas (audit du 16/10/2026). */}
+          {`Acheter le ${planLabel}`}
         </button>
       </form>
     </div>

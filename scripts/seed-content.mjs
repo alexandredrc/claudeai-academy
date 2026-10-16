@@ -54,11 +54,15 @@ async function seed() {
   for (const c of COURSES) {
     const { lessons, ...courseInput } = c;
     const totalLessons = lessons.length;
+    // Durée du parcours = somme de ses leçons, jamais une valeur saisie à part :
+    // au 16/10/2026, trois parcours affichaient 230, 195 et 205 min pour 131,
+    // 94 et 120 min de leçons (27,1 h annoncées sur /courses contre 22,4 h).
+    const dureeTotale = lessons.reduce((s, l) => s + (l.duration_min ?? 0), 0);
 
     const { data: course, error: courseErr } = await supabase
       .from("courses")
       .upsert(
-        { ...courseInput, total_lessons: totalLessons },
+        { ...courseInput, estimated_duration_min: dureeTotale, total_lessons: totalLessons },
         { onConflict: "slug" },
       )
       .select()

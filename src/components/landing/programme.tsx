@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getCatalogStats } from "@/lib/courses/stats";
+import { QUIZ_LESSON_COUNT } from "@/lib/quizzes/library";
 import { dateFr, getDerniereMajParParcours } from "@/lib/content/changelog";
 
 // Présentation marketing par parcours (emoji, public cible, compétences).
@@ -378,7 +379,9 @@ function BonusBlock({ courseCount }: { courseCount: number }) {
   const bonus = [
     // Audit du 10/10/2026 : seulement ce qui existe dans l'app.
     "Bibliothèque de prompts prêts à l'emploi",
-    "QCM d'auto-évaluation à chaque leçon",
+    // Compté dans data.json, jamais « à chaque leçon » : 48 QCM pour 58
+    // leçons au 16/10/2026 (audit).
+    `QCM d'auto-évaluation sur ${QUIZ_LESSON_COUNT} leçons`,
     "Examen de certification et certificat vérifiable",
     "Mentor IA Claude 24/7",
   ];

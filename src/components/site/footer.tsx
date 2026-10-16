@@ -71,7 +71,7 @@ export function Footer() {
           <div>
             <Logo variant="light" />
             <p className="mt-4 text-[14px] leading-relaxed max-w-[280px] text-cream/65">
-              La référence francophone pour maîtriser Claude et l&apos;IA générative en pratique.
+              Formation en français pour maîtriser Claude et l&apos;IA générative en pratique.
             </p>
             <p className="mt-4 text-[13px] text-cream/50">
               <a

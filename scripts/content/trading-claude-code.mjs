@@ -24,7 +24,7 @@ export const tradingClaudeCode = {
     "Utiliser Claude Code comme pair-programmeur pour bâtir des backtests honnêtes, une gestion du risque codée proprement et une recherche automatisée, avec les coûts et les garde-fous réels. Outillage technique, aucun conseil financier.",
   tier_required: "mastery",
   display_order: 7,
-  estimated_duration_min: 195,
+  estimated_duration_min: 94,
   lessons: [
     {
       slug: "claude-code-outil-pas-oracle",

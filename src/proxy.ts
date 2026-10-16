@@ -5,6 +5,7 @@ import {
   PROVENANCE_MAX_AGE,
   decoderProvenance,
   encoderProvenance,
+  estNavigationInterne,
   provenanceDepuisRequete,
   utmDepuisSrc,
 } from "@/lib/attribution";
@@ -27,6 +28,10 @@ function redirectionAttribution(request: NextRequest) {
 
   const src = searchParams.get("src");
   if (!src || searchParams.get("utm_source")) return null;
+  // Lien interne (`/kit?src=…` depuis une page du site) : des utm ajoutés ici
+  // ouvriraient dans GA4 une nouvelle session sous une fausse campagne, à la
+  // place du vrai canal d'arrivée (pub, SEO…). Le `src` reste lu par /kit.
+  if (estNavigationInterne(request.headers.get("referer"))) return null;
 
   const utm = utmDepuisSrc(src);
   if (!utm) return null;
@@ -59,7 +64,8 @@ function aujourdHuiParis(): string {
  *  - seulement les navigations de page (pas les requêtes RSC ni les prefetch,
  *    qui porteraient un faux « landing ») ;
  *  - une marque de campagne explicite (utm, src, gclid) écrase toujours : le
- *    dernier clic sur un lien de com est le plus informatif ;
+ *    dernier clic sur un lien de com est le plus informatif. Sauf sur un lien
+ *    interne, qui ne dit rien du canal (voir `provenanceDepuisRequete`) ;
  *  - un référent ou une arrivée directe ne font que remplir un cookie absent.
  */
 function poserProvenance(request: NextRequest, response: NextResponse) {

@@ -18,7 +18,7 @@ export const promptEngineeringPro = {
     "Les techniques officielles Anthropic, traduites en méthode opérationnelle : clarté, contexte, exemples, balises XML, réglage de l'effort, chaînage. À jour de Claude Opus 5.5, Sonnet 5.5 et Fable 5.1, y compris les conseils qui se sont inversés en juillet 2026 et les consignes ajoutées fin septembre.",
   tier_required: "starter",
   display_order: 2,
-  estimated_duration_min: 230,
+  estimated_duration_min: 131,
   lessons: [
     {
       slug: "intro-pourquoi-le-prompt-est-de-l-ingenierie",

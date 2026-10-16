@@ -338,7 +338,7 @@ function LandingFAQ({ at }: { at: Date }) {
       // « 8 à 15 minutes » = temps de lecture (vérifié le 15/10/2026 :
       // 1 064 à 4 230 mots par leçon, 9,6 min en moyenne à 230 mots/min).
       // `lessons.duration_min` (15 à 35) inclut la mise en pratique.
-      a: "Les leçons durent 8 à 15 minutes et chaque parcours est indépendant. L'accès est à vie : il n'y a ni cohorte, ni deadline, ni rythme imposé. Une leçon par jour suffit. Et dès la première semaine, la formation vous fait gagner plus de temps qu'elle n'en prend.",
+      a: "Une leçon se lit en 8 à 15 minutes, et demande 15 à 35 minutes avec la mise en pratique. Chaque parcours est indépendant. L'accès est à vie : il n'y a ni cohorte, ni deadline, ni rythme imposé. Une leçon par jour suffit. Et dès la première semaine, la formation vous fait gagner plus de temps qu'elle n'en prend.",
     },
     {
       q: "« Comment je sais que ça marchera pour moi ? »",

@@ -22,7 +22,7 @@ export const githubPromptsSecurite = {
     "Où trouver les meilleurs prompts, skills, slash commands et serveurs MCP sur GitHub, comment les installer, et surtout comment ne pas se faire piller en le faisant. Modèle de menace à jour au 6 août 2026 : MCP stateless (spec 2026-07-28), correctif web_fetch, contournements de permissions Bash, skills de vérification.",
   tier_required: "mastery",
   display_order: 8,
-  estimated_duration_min: 205,
+  estimated_duration_min: 120,
   lessons: [
     {
       slug: "ecosysteme-prompts-skills-github",

@@ -410,11 +410,18 @@ function PaywallBlock({
       </p>
       <form action={startCheckoutAction} className="mt-5">
         <input type="hidden" name="plan" value={tierKey} />
+        {/* Prix lu par le visiteur : si la hausse tombe entre l'affichage et le
+            clic, le serveur le renvoie sur /tarifs au lieu d'encaisser plus. */}
+        {tierKey === "mastery" ? (
+          <input type="hidden" name="prix_affiche" value={prixMastery(at)} />
+        ) : null}
         <button
           type="submit"
           className="rounded-[14px] bg-coral px-6 py-3 text-sm font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"
         >
-          {loggedIn ? "Procéder au paiement" : "Créer un compte et acheter"}
+          {/* L'achat se fait sans compte (Stripe collecte l'email) : ne pas
+              annoncer une inscription qui n'existe pas (audit du 16/10/2026). */}
+          {loggedIn ? "Procéder au paiement" : `Acheter le ${planLabel}`}
         </button>
       </form>
     </div>

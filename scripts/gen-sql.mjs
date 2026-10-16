@@ -22,10 +22,12 @@ function q(text) {
 let out = [];
 for (const c of COURSES) {
   const { lessons, ...course } = c;
+  // Même règle que seed-content.mjs : durée du parcours = somme des leçons.
+  const dureeTotale = lessons.reduce((s, l) => s + (l.duration_min ?? 0), 0);
   out.push(`-- ===== Cours ${course.display_order} : ${course.slug} =====`);
   out.push(
     `insert into courses (slug, title, description, tier_required, display_order, estimated_duration_min, total_lessons)
-values (${q(course.slug)}, ${q(course.title)}, ${q(course.description)}, ${q(course.tier_required)}, ${course.display_order}, ${course.estimated_duration_min}, ${lessons.length})
+values (${q(course.slug)}, ${q(course.title)}, ${q(course.description)}, ${q(course.tier_required)}, ${course.display_order}, ${dureeTotale}, ${lessons.length})
 on conflict (slug) do update set title = excluded.title, description = excluded.description, tier_required = excluded.tier_required, display_order = excluded.display_order, estimated_duration_min = excluded.estimated_duration_min, total_lessons = excluded.total_lessons;`,
   );
   lessons.forEach((l, i) => {

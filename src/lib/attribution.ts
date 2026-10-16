@@ -104,15 +104,31 @@ const REFERENTS: Array<[RegExp, { source: string; medium: string }]> = [
   [/(^|\.)malt\.fr$/, { source: "malt", medium: "referral" }],
 ];
 
-function sourceDepuisReferent(referer: string | null): Utm & { referrer: string } | null {
+function hoteDuReferent(referer: string | null): string | null {
   if (!referer) return null;
-  let host: string;
   try {
-    host = new URL(referer).hostname.toLowerCase().replace(/^www\./, "");
+    return new URL(referer).hostname.toLowerCase().replace(/^www\./, "") || null;
   } catch {
     return null;
   }
-  if (!host || HOTES_INTERNES.some((h) => host === h || host.endsWith("." + h))) return null;
+}
+
+const estHoteInterne = (host: string) =>
+  HOTES_INTERNES.some((h) => host === h || host.endsWith("." + h));
+
+/**
+ * Vrai quand la page précédente est sur notre propre site : la requête vient
+ * d'un lien interne. Ses marques (`?src=`, utm) décrivent alors l'endroit du
+ * site où l'on a cliqué, pas le canal qui a amené le visiteur.
+ */
+export function estNavigationInterne(referer: string | null): boolean {
+  const host = hoteDuReferent(referer);
+  return host !== null && estHoteInterne(host);
+}
+
+function sourceDepuisReferent(referer: string | null): Utm & { referrer: string } | null {
+  const host = hoteDuReferent(referer);
+  if (!host || estHoteInterne(host)) return null;
   for (const [motif, canal] of REFERENTS) {
     if (motif.test(host)) {
       return { ...canal, campaign: `${canal.source}-${canal.medium}`, referrer: host };
@@ -127,8 +143,25 @@ function sourceDepuisReferent(referer: string | null): Utm & { referrer: string 
  * à écraser un cookie existant. Un référent ou une arrivée directe ne font
  * que compléter un visiteur encore inconnu : le premier contact reste le
  * premier contact.
+ *
+ * Une marque portée par un lien INTERNE n'est jamais explicite. Audit du
+ * 16/10/2026 : le lien `/kit?src=…` de la landing pub transformait un clic
+ * Google Ads (`google / cpc`) en `ads / referral`, et le contrôle de la pub
+ * comptait 0 inscrit venu des annonces sans pouvoir le savoir.
  */
 export function provenanceDepuisRequete(
+  url: URL,
+  referer: string | null,
+  aujourdHui: string,
+): { provenance: Provenance; explicite: boolean } {
+  const resultat = provenanceSansContexte(url, referer, aujourdHui);
+  if (resultat.explicite && estNavigationInterne(referer)) {
+    return { ...resultat, explicite: false };
+  }
+  return resultat;
+}
+
+function provenanceSansContexte(
   url: URL,
   referer: string | null,
   aujourdHui: string,

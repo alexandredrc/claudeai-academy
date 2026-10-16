@@ -93,10 +93,11 @@ export const metadata: Metadata = {
   },
 };
 
-// Compte Instagram de marque (le compte personnel du fondateur reste dans
-// `instagram.tsx`, il porte le pied de page et l'en-tête). Les deux figurent
-// dans `sameAs` : l'un prouve la personne, l'autre la marque.
-const INSTAGRAM_ACADEMY_URL = "https://www.instagram.com/official_claude_ai_academy/";
+// Le compte Instagram de marque (`official_claude_ai_academy`) n'est PAS
+// déclaré dans `sameAs` (audit du 16/10/2026) : « official » à côté de
+// « claude ai » laisse entendre un statut officiel auprès d'Anthropic, et les
+// moteurs génératifs reprennent ce qu'on leur déclare. Seul le compte
+// personnel du fondateur (`instagram.tsx`) y figure.
 
 // `EducationalOrganization` plutôt que `Organization` : c'est le type que
 // Google et les moteurs génératifs relient aux requêtes « formation … ».
@@ -110,7 +111,8 @@ const organizationJsonLd = {
   "@type": ["EducationalOrganization", "Organization"],
   "@id": "https://www.claudeai-academy.com/#organization",
   name: "ClaudeAI Academy",
-  alternateName: "Claude AI Academy",
+  // Pas d'`alternateName` « Claude AI Academy » : à un mot de « Claude
+  // Academy », la plateforme d'Anthropic (audit du 16/10/2026).
   url: "https://www.claudeai-academy.com",
   logo: {
     "@type": "ImageObject",
@@ -123,7 +125,7 @@ const organizationJsonLd = {
   inLanguage: "fr-FR",
   areaServed: ["FR", "BE", "CH", "LU", "CA"],
   knowsLanguage: "fr-FR",
-  sameAs: [INSTAGRAM_URL, INSTAGRAM_ACADEMY_URL],
+  sameAs: [INSTAGRAM_URL],
   founder: {
     "@type": "Person",
     "@id": "https://www.claudeai-academy.com/a-propos#alexandre-dos-reis-caetano",

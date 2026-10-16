@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { getCatalogStats } from "@/lib/courses/stats";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
+import { CONTENU_A_JOUR_AU, NOTES_DE_MISE_A_JOUR } from "@/lib/content/fraicheur";
 
 export async function Hero() {
   const stats = await getCatalogStats();
@@ -63,6 +64,14 @@ export async function Hero() {
             <p className="order-5 lg:order-none mt-4 text-[14px] text-muted">
               Sans dossier CPF ni devis à attendre : vous commencez dans les
               5&nbsp;minutes.
+            </p>
+
+            {/* Fraîcheur prouvée dès le premier écran (16/10/2026) : la date
+                vient de lib/content/fraicheur.ts, mise à jour à chaque passe
+                de veille, jamais de la date du jour. */}
+            <p className="order-5 lg:order-none mt-2 text-[13px] text-muted">
+              Contenu relu le {CONTENU_A_JOUR_AU} ·{" "}
+              {NOTES_DE_MISE_A_JOUR} notes de mise à jour datées dans les leçons
             </p>
 
             <dl className="order-6 lg:order-none mt-10 md:mt-14 pt-8 border-t border-line flex flex-wrap gap-x-12 gap-y-5">

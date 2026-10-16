@@ -1,5 +1,9 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
+import { Button } from "@/components/site/button";
+
+const LECON_LIBRE_HREF =
+  "/courses/bien-demarrer-avec-claude/claude-dans-excel-powerpoint-word-et-chrome";
 
 const symptoms = [
   {
@@ -73,6 +77,20 @@ export function Problem() {
             </li>
           ))}
         </ol>
+
+        {/* Sortie de la section (16/10/2026) : le constat se terminait sans
+            rien proposer. La leçon citée est en accès libre (is_free_preview). */}
+        <div className="mt-12 border-t border-line pt-10 text-center">
+          <p className="font-serif text-xl md:text-2xl font-medium text-ink leading-snug">
+            Ce n&apos;est pas vous, c&apos;est la méthode.{" "}
+            <span className="accent-serif">Et une méthode, ça s&apos;apprend.</span>
+          </p>
+          <div className="mt-6">
+            <Button href={LECON_LIBRE_HREF} variant="ghost">
+              Lire une leçon gratuite, sans inscription
+            </Button>
+          </div>
+        </div>
       </Container>
     </section>
   );

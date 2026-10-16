@@ -22,6 +22,12 @@ const items: Item[] = [
     a: "Oui. Le parcours Bien démarrer avec Claude part de zéro (créer son compte, installer, paramétrer, personnaliser), puis Prompt Engineering pro pose tous les fondamentaux. Aucun prérequis technique pour ces deux parcours, ni pour Contenu & marketing ou Stratégie & conduite IA. Pour Claude Code, Data & SQL, Trading et les Skills GitHub, des bases de programmation aident, mais chaque parcours démarre par l'essentiel.",
   },
   {
+    // Ajoutée le 16/10/2026 : l'objection du public TPE n'est pas « est-ce
+    // technique » mais « est-ce que ça vaut pour mon activité ».
+    q: "Est-ce que ça marche pour mon métier ?",
+    a: "Oui, si votre travail passe par l'écrit : emails, devis, relances, comptes rendus, publications, procédures. La méthode est la même dans tous les métiers : vous donnez une fois à Claude le contexte de votre activité, il écrit le premier jet, vous relisez et vous décidez. Avec le Pass Mastery, le Mentor IA répond sur votre cas précis. Le plus simple pour juger : lire la leçon gratuite sur Claude dans Word, Excel et Outlook, sans inscription.",
+  },
+  {
     q: "Combien de temps faut-il pour terminer le programme ?",
     // Chiffres vérifiés en base le 15/10/2026 : 128 249 mots au total, soit
     // 8 h 30 à 10 h 40 de lecture (250 à 200 mots/min) ; somme des durées
@@ -41,6 +47,10 @@ const items: Item[] = [
   {
     q: "Et si je ne suis pas convaincu après l'achat ?",
     a: "Garantie 14 jours satisfait ou remboursé. Vous testez, vous formez votre opinion, et si ça ne vous convient pas, vous nous écrivez à contact@claudeai-academy.com et nous procédons au remboursement intégral. Pas de question, pas de justification à fournir.",
+  },
+  {
+    q: "Que se passe-t-il juste après le paiement ?",
+    a: "Vous recevez un email avec un lien de connexion et l'accès est ouvert tout de suite : aucun compte à créer avant de payer, aucun dossier. Si l'email n'arrive pas, la page de connexion vous en envoie un nouveau à la même adresse.",
   },
   {
     q: "J'ai une facture pro, c'est possible ?",

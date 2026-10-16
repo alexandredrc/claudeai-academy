@@ -272,8 +272,9 @@ function PaymentMethods() {
         ))}
       </div>
       <p className="text-[13px] text-muted max-w-[540px] leading-relaxed">
-        Paiements traités par <strong className="text-ink">Stripe</strong>, leader
-        mondial certifié PCI-DSS niveau 1. Facture professionnelle générée
+        Paiements traités par <strong className="text-ink">Stripe</strong>,
+        certifié PCI-DSS niveau 1 : vos données de carte ne passent jamais par
+        ce site. Facture professionnelle générée
         automatiquement. TVA non applicable, article 293 B du CGI.
       </p>
     </div>

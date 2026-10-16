@@ -8,8 +8,11 @@ import { PROMPT_COUNT } from "@/lib/prompts/library";
 const items = [
   "Une méthodologie claire pour structurer vos prompts",
   "Des dizaines d'exemples concrets et de cas d'usage",
-  `Une bibliothèque de ${PROMPT_COUNT} prompts opérationnels`,
-  "Un mentor IA Claude pour vos questions, 24/7",
+  // « Pass Mastery » écrit ici (16/10/2026) : sans la mention, la liste
+  // laissait croire que le Starter à 47 € donne la bibliothèque complète et
+  // le Mentor, ce que le code refuse (/api/mentor exige Mastery).
+  `Une bibliothèque de ${PROMPT_COUNT} prompts opérationnels (Pass Mastery)`,
+  "Un mentor IA Claude pour vos questions, 24/7 (Pass Mastery)",
   "Des mises à jour à chaque évolution majeure",
 ];
 

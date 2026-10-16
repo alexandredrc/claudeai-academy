@@ -60,7 +60,7 @@ const PRESENTATION: Record<string, Presentation> = {
   },
   "contenu-et-marketing": {
     emoji: "🚀",
-    role: "Pour les marketers qui veulent industrialiser",
+    role: "Pour vos publications, emails et pages, sans texte générique",
     skills: [
       "Pourquoi Claude est souvent médiocre en marketing (et comment corriger)",
       "Construire un brief de voix réutilisable",
@@ -69,7 +69,7 @@ const PRESENTATION: Record<string, Presentation> = {
   },
   "strategie-conduite-ia": {
     emoji: "🧭",
-    role: "Pour les décideurs qui pilotent l'IA",
+    role: "Pour décider où l'IA vaut le coup dans votre entreprise",
     skills: [
       "Identifier un bon cas d'usage (et écarter les faux)",
       "Prioriser un portefeuille de cas d'usage",
@@ -109,6 +109,15 @@ const PRESENTATION: Record<string, Presentation> = {
     ],
   },
 };
+
+// Parcours sans prérequis technique, montrés juste après « Bien démarrer »
+// (16/10/2026) : sur 9 parcours, 5 visent des profils techniques, et le
+// public choisi le 15/10 (indépendants, TPE) les lisait avant les siens.
+const PARCOURS_QUOTIDIEN = [
+  "prompt-engineering-pro",
+  "contenu-et-marketing",
+  "strategie-conduite-ia",
+];
 
 const DEFAULT_PRESENTATION: Presentation = {
   emoji: "📚",
@@ -165,6 +174,10 @@ export async function Programme() {
 
   const featured = parcours.find((p) => p.featured) ?? parcours[0];
   const others = parcours.filter((p) => p.slug !== featured.slug);
+  // Un parcours absent des deux listes (nouveau slug en base) tombe dans
+  // « pour aller plus loin » plutôt que de disparaître.
+  const quotidien = others.filter((p) => PARCOURS_QUOTIDIEN.includes(p.slug));
+  const avances = others.filter((p) => !PARCOURS_QUOTIDIEN.includes(p.slug));
 
   return (
     <section id="programme" className="scroll-mt-24 bg-cream py-24 md:py-32">
@@ -172,22 +185,46 @@ export async function Programme() {
         <div className="text-center mb-14">
           <Eyebrow align="center">Le programme</Eyebrow>
           <h2 className="mt-4 font-serif text-3xl md:text-5xl font-medium leading-[1.1] tracking-tight text-ink">
-            {stats.courseCount} parcours pour <span className="accent-serif">tout couvrir</span>
+            {stats.courseCount} parcours :{" "}
+            <span className="accent-serif">
+              {quotidien.length + 1} pour votre quotidien
+            </span>
+            , {avances.length} pour aller plus loin
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-muted max-w-[640px] mx-auto">
-            Du prompt fondamental à l&apos;agent autonome, en passant par le code,
-            la data, le marketing, le trading et la sécurité. Chaque parcours est
-            indépendant, vous les suivez dans l&apos;ordre qui vous arrange.
+            Les {quotidien.length + 1} premiers servent à tout le monde, sans
+            une ligne de code : emails, devis, comptes rendus, publications,
+            décisions. Les {avances.length} autres sont optionnels, pour ceux
+            qui veulent aller vers le code, la data ou les agents.
           </p>
         </div>
 
         <FeaturedParcoursCard p={featured} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          {others.map((p) => (
+          {quotidien.map((p) => (
             <ParcoursCard key={p.slug} p={p} />
           ))}
         </div>
+
+        {avances.length > 0 && (
+          <>
+            <div className="mt-16 mb-8 text-center">
+              <h3 className="font-serif text-2xl md:text-3xl font-medium text-ink">
+                Pour aller plus loin, si vous le voulez
+              </h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted max-w-[580px] mx-auto">
+                Optionnels. Des bases de programmation aident, chaque parcours
+                démarre par l&apos;essentiel.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {avances.map((p) => (
+                <ParcoursCard key={p.slug} p={p} />
+              ))}
+            </div>
+          </>
+        )}
 
         <BonusBlock courseCount={stats.courseCount} />
       </Container>

@@ -1,12 +1,12 @@
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
+import { Button } from "@/components/site/button";
+import { TimeCalculator } from "@/components/landing/time-calculator";
 import {
   MESURES,
   MESURES_DATE,
   MESURES_SEMAINE,
   MESURES_VITRINE,
-  PRIX_MASTERY,
-  TAUX_HORAIRE_EXEMPLE,
   duree,
   mesure,
   type Mesure,
@@ -14,26 +14,15 @@ import {
 
 // Preuve (Hormozi, principe 2), coût du problème (5) et valeur face au prix
 // (1), avec les temps mesurés par le fondateur. Tous les chiffres sont
-// calculés depuis lib/offre/mesures.ts : rien n'est écrit en dur ici.
-const SEMAINES_PAR_MOIS = 4;
-
-export function ProofMeasures() {
+// calculés depuis lib/offre/mesures.ts : rien n'est écrit en dur ici. Le
+// calcul « si » est réglable par le visiteur depuis le 16/10/2026.
+export function ProofMeasures({ pricingHref = "#tarifs" }: { pricingHref?: string }) {
   const vitrine = MESURES_VITRINE.map(mesure).filter((m): m is Mesure => Boolean(m));
   const semaine = MESURES_SEMAINE.map(mesure).filter((m): m is Mesure => Boolean(m));
   if (vitrine.length === 0) return null;
 
   const totalSans = MESURES.reduce((s, m) => s + m.sans, 0);
   const totalAvec = MESURES.reduce((s, m) => s + m.avec, 0);
-
-  const moisSans = semaine.reduce((s, m) => s + m.sans, 0) * SEMAINES_PAR_MOIS;
-  const moisAvec = semaine.reduce((s, m) => s + m.avec, 0) * SEMAINES_PAR_MOIS;
-  const gainMin = moisSans - moisAvec;
-  const gainEur = Math.round((gainMin / 60) * TAUX_HORAIRE_EXEMPLE);
-  const moisRemb = PRIX_MASTERY / ((gainMin / 60) * TAUX_HORAIRE_EXEMPLE);
-  // « moins de N mois » n'est exact que si la division ne tombe pas juste.
-  const remb = Number.isInteger(moisRemb)
-    ? `${moisRemb} mois`
-    : `moins de ${Math.ceil(moisRemb)} mois`;
 
   return (
     <section className="bg-white py-24 md:py-32">
@@ -84,17 +73,7 @@ export function ProofMeasures() {
           </p>
         </div>
 
-        <div className="mt-8 rounded-[22px] border border-coral/40 bg-coral-soft/40 p-6 md:p-8">
-          <p className="text-[16px] leading-relaxed text-ink-soft">
-            <strong className="text-ink">Faites le calcul pour vous.</strong>{" "}
-            Une relance de facture, un compte rendu et une réponse à un client
-            mécontent par semaine : {duree(moisSans)} par mois à la main,{" "}
-            {duree(moisAvec)} avec Claude. Si votre heure vaut{" "}
-            {TAUX_HORAIRE_EXEMPLE} €, les {duree(gainMin)} gagnées valent{" "}
-            {gainEur} € par mois : le Pass Mastery ({PRIX_MASTERY} €) est
-            remboursé en {remb}.
-          </p>
-        </div>
+        <TimeCalculator taches={semaine} />
 
         <p className="mt-6 text-[13px] leading-relaxed text-muted">
           Ce sont mes temps, après des mois d&apos;usage quotidien. Les vôtres
@@ -111,6 +90,12 @@ export function ProofMeasures() {
           </a>
           ).
         </p>
+
+        <div className="mt-10 text-center">
+          <Button href={pricingHref} variant="primary">
+            Voir les tarifs, dès 47 €
+          </Button>
+        </div>
       </Container>
     </section>
   );

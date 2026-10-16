@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { BonusBar } from "@/components/landing/bonus-bar";
 import { Hero } from "@/components/landing/hero";
+import { KitCapture } from "@/components/landing/kit-capture";
 import { Problem } from "@/components/landing/problem";
 import { Method } from "@/components/landing/method";
 import { Programme } from "@/components/landing/programme";
@@ -32,6 +34,8 @@ export const metadata: Metadata = pageMetadata({
 export default function Home() {
   return (
     <>
+      {/* Seule offre limitée réelle (10 places, 31/10), compteur lu en base. */}
+      <BonusBar />
       <Hero />
       {/* Le public est nommé tout de suite (indépendants et TPE, décision du
           15/10/2026) : un artisan qui lit d'abord quatre sections pensées
@@ -43,6 +47,8 @@ export default function Home() {
       <Method />
       <Programme />
       <PromptTeaser />
+      {/* Le visiteur pas prêt à payer laisse son email au lieu de partir. */}
+      <KitCapture />
       <Founder />
       <Testimonials />
       <PricingTeaser />

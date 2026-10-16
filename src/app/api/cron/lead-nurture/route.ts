@@ -50,6 +50,27 @@ const STEPS: { kind: LeadEmailKind; ageJours: number; ecartJours: number }[] = [
   { kind: "lead_b8", ageJours: 63, ecartJours: 7 },
 ];
 
+/**
+ * Envoi unique hors chaîne : demande de retours sur le kit (décision du
+ * fondateur le 16/10/2026, « deux salves »). Le plan Resend gratuit plafonne à
+ * 100 emails par jour : les ~95 leads le reçoivent en deux passages du cron,
+ * deux matins de suite, 48 au plus par matin. Pendant la fenêtre, un lead dû
+ * pour la collecte la reçoit À LA PLACE de son email de chaîne du jour (un
+ * seul email par jour) ; elle compte ensuite comme « dernier email » pour
+ * l'écart de la chaîne. Fenêtre fermée avant la séquence de hausse du 25/10.
+ */
+const COLLECTE = {
+  kind: "lead_collecte" as LeadEmailKind,
+  debut: new Date("2026-10-17T00:00:00+02:00").getTime(),
+  fin: new Date("2026-10-24T00:00:00+02:00").getTime(),
+  // Un lead de moins d'une semaine n'a pas eu le temps d'essayer le kit.
+  ageMinJours: 7,
+  maxParPassage: 48,
+};
+// Plafond global les jours de collecte : 48 + les quelques emails A des
+// nouveaux leads. ~0,9 s par envoi (pause comprise) : reste sous les 60 s.
+const MAX_ENVOIS_COLLECTE = 52;
+
 type Lead = { id: string; email: string; first_name: string | null; created_at: string };
 
 /** `.in()` passe dans l'URL de l'API : au-delà de quelques centaines d'ids, elle casse. */
@@ -141,14 +162,33 @@ export async function GET(req: NextRequest) {
 
   const converted = await convertedEmails(leads.map((l) => l.email.toLowerCase()));
 
+  const collecteOuverte = now >= COLLECTE.debut && now < COLLECTE.fin;
+  // Rang de tri : les emails A (index 0 à 4) passent avant la collecte, la
+  // collecte avant la série hebdomadaire B.
+  const RANG_COLLECTE = 4.5;
+
   // 1. Qui est dû aujourd'hui, et pour quelle étape.
-  const dus: { lead: Lead; etape: (typeof STEPS)[number]; rang: number }[] = [];
+  const dus: { lead: Lead; etape: { kind: LeadEmailKind }; rang: number }[] = [];
   for (const lead of leads as Lead[]) {
     if (converted.has(lead.email.toLowerCase())) {
       report.convertis++;
       continue;
     }
     const h = historique.get(lead.id) ?? new Map<string, number>();
+    if (
+      collecteOuverte &&
+      !h.has(COLLECTE.kind) &&
+      now - new Date(lead.created_at).getTime() >= COLLECTE.ageMinJours * DAY_MS - MARGE_MS
+    ) {
+      const dernierEnvoi = h.size ? Math.max(...h.values()) : 0;
+      if (now - dernierEnvoi >= DAY_MS - MARGE_MS) {
+        dus.push({ lead, etape: { kind: COLLECTE.kind }, rang: RANG_COLLECTE });
+      } else {
+        report.attente++;
+      }
+      // Dû pour la collecte : pas d'email de chaîne en plus aujourd'hui.
+      continue;
+    }
     const rang = STEPS.findIndex((s) => !h.has(s.kind));
     if (rang === -1) {
       report.termines++;
@@ -170,10 +210,19 @@ export async function GET(req: NextRequest) {
   dus.sort((a, b) => a.rang - b.rang);
 
   // 3. Envoi : un seul email par lead et par passage, quoi qu'il arrive.
+  const plafond = collecteOuverte ? MAX_ENVOIS_COLLECTE : MAX_ENVOIS;
+  let collectesTentees = 0;
   for (const { lead, etape } of dus) {
-    if (report.envoyes + report.echecs >= MAX_ENVOIS) {
+    if (report.envoyes + report.echecs >= plafond) {
       report.attente++;
       continue;
+    }
+    if (etape.kind === COLLECTE.kind) {
+      if (collectesTentees >= COLLECTE.maxParPassage) {
+        report.attente++;
+        continue;
+      }
+      collectesTentees++;
     }
     if (report.envoyes + report.echecs > 0) await new Promise((r) => setTimeout(r, PAUSE_MS));
 

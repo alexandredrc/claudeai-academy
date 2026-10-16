@@ -171,6 +171,10 @@ Le vrai trou n'est pas l'affichage des avis. C'est l'absence de **résultat mesu
 
 **Avant l'envoi :** remplacer [mois] et les [lien] par les vraies valeurs, envoyer un par un depuis contact@, garder chaque accord écrit dans la boîte.
 
+#### Version C : leads du kit gratuit (demande d'Alexandre le 16/10/2026)
+
+Codée : `lead_collecte` dans `src/lib/email/lead-magnet.ts`, envoyée par le cron `lead-nurture` en deux salves, deux matins de suite (48 au plus par matin), entre le 17 et le 23/10/2026. Cible au 16/10 : 94 leads actifs non acheteurs, dont 87 de plus de 7 jours. Tutoiement, comme le reste de la séquence. Questions sur le kit, plus « ce qui t'a retenu ». Un avis de lead porte sur le **kit gratuit** : s'il est publié, il le dit.
+
 ### A2. Bloc « Comment ces avis sont recueillis » (à coller seulement si tu reviens sur ta décision du 16/10)
 
 > **Comment ces avis sont recueillis.** Les retours de cette page viennent des premiers utilisateurs de la formation. Certains ont acheté leur accès, d'autres l'ont reçu gratuitement pour tester le programme avant son ouverture. Aucun avis n'a été rémunéré. Nous publions tous les retours reçus, positifs ou non, après accord écrit de leur auteur. Chaque avis porte le mois où il a été donné.
@@ -414,7 +418,7 @@ La séquence d'accueil existe déjà (kit + 13 emails sur 63 jours). Ce qui manq
 | Cible | 95 leads actifs non acheteurs. Variante pour les 9 acheteurs Starter (passage à 450 €) |
 | Dates | Du dimanche 25/10 au samedi 31/10/2026, 1 email par jour, 11 h 30 heure de Paris |
 | Conflit | Mettre en pause la séquence d'accueil sur ces 7 jours pour les mêmes leads (1 email par jour maximum) |
-| Limite Resend | Plan gratuit : 100 emails par jour. **Décision d'Alexandre le 16/10/2026 : deux salves par email** (environ 48 leads chacune, à au moins une heure d'écart), Resend reste gratuit |
+| Limite Resend | Plan gratuit : 100 emails par jour. **Décision d'Alexandre le 16/10/2026 : deux salves par email**, sur DEUX JOURS différents (environ 48 leads chacune). Deux salves le même jour ne règlent rien : la limite de 100 est par jour. Pour 7 emails, cela veut dire commencer le 24/10 pour la première moitié des leads et le 25/10 pour la seconde, ou passer Resend en payant pour la semaine |
 | Chiffres dynamiques | Places du bonus lues en base au moment de l'envoi, jamais écrites à la main |
 | Lien de suivi | `?src=email-hausse-j1` à `j7` |
 | Désinscription | Lien en bas de chaque email + en-têtes List-Unsubscribe, comme la séquence actuelle |

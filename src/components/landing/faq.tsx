@@ -1,68 +1,95 @@
-"use client";
-
-import { useId, useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
-import {
-  CONTENU_A_JOUR_AU,
-  DERNIERE_PASSE,
-  NOTES_DE_MISE_A_JOUR,
-  SOURCES_SURVEILLEES,
-} from "@/lib/content/fraicheur";
+import { FAQItem, type FaqEntry } from "@/components/landing/faq-item";
+import { CONTENU_A_JOUR_AU, NOTES_DE_MISE_A_JOUR } from "@/lib/content/fraicheur";
+import { maintenant, mensualiteKlarna3x, prixMastery } from "@/lib/offre/prix";
 
-type Item = {
-  q: string;
-  a: string;
-  /** Lien affiché à la fin de la réponse. */
-  lien?: { href: string; label: string };
-};
-
-const items: Item[] = [
-  {
-    q: "Je n'ai jamais rien fait en IA, c'est pour moi ?",
-    a: "Oui. Le parcours Bien démarrer avec Claude part de zéro (créer son compte, installer, paramétrer, personnaliser), puis Prompt Engineering pro pose tous les fondamentaux. Aucun prérequis technique pour ces deux parcours, ni pour Contenu & marketing ou Stratégie & conduite IA. Pour Claude Code, Data & SQL, Trading et les Skills GitHub, des bases de programmation aident, mais chaque parcours démarre par l'essentiel.",
-  },
-  {
-    // Ajoutée le 16/10/2026 : l'objection du public TPE n'est pas « est-ce
-    // technique » mais « est-ce que ça vaut pour mon activité ».
-    q: "Est-ce que ça marche pour mon métier ?",
-    a: "Oui, si votre travail passe par l'écrit : emails, devis, relances, comptes rendus, publications, procédures. La méthode est la même dans tous les métiers : vous donnez une fois à Claude le contexte de votre activité, il écrit le premier jet, vous relisez et vous décidez. Avec le Pass Mastery, le Mentor IA répond sur votre cas précis. Le plus simple pour juger : lire la leçon gratuite sur Claude dans Word, Excel et Outlook, sans inscription.",
-  },
-  {
-    q: "Combien de temps faut-il pour terminer le programme ?",
-    // Chiffres vérifiés en base le 15/10/2026 : 128 249 mots au total, soit
-    // 8 h 30 à 10 h 40 de lecture (250 à 200 mots/min) ; somme des durées
-    // affichées sur les leçons (pratique comprise) = 1 341 min, 22 h 21.
-    a: "Pour commencer à vous en servir : une heure, avec les trois leçons conseillées (Personnaliser Claude, Être clair et direct, Claude dans Word, Excel et Outlook). Pour tout faire : les 58 leçons des 9 parcours se lisent en une dizaine d'heures (8 à 15 minutes par leçon), et demandent environ 22 heures avec la mise en pratique, soit 2 à 3 mois à raison de 2 sessions par semaine. Rien ne vous oblige à tout suivre : vous gardez l'accès à vie.",
-  },
-  {
-    q: "Le contenu sera-t-il dépassé dans 6 mois ?",
-    // L'objection nº1 d'une formation IA mérite une preuve, pas une promesse :
-    // la date de la dernière passe et ce qu'elle a intégré.
-    a: `C'est le risque numéro un d'une formation sur l'IA, et nous le traitons comme tel. Une veille surveille ${SOURCES_SURVEILLEES} sources de référence et signale chaque phrase de leçon qu'un changement peut rendre fausse. Dernière passe appliquée : ${CONTENU_A_JOUR_AU}, pour intégrer ${DERNIERE_PASSE}. Les leçons portent ${NOTES_DE_MISE_A_JOUR} notes de mise à jour datées depuis juillet 2026. Les mises à jour sont incluses, sans supplément.`,
-    // Journal public des notes (16/10/2026) : la preuve, pas seulement le chiffre.
-    lien: { href: "/changelog", label: "Voir ce qui a changé" },
-  },
-  {
-    q: "En quoi c'est différent des cours gratuits sur YouTube ?",
-    a: "Trois différences. La structure d'abord : les leçons sont conçues comme un programme cohérent, pas une succession de tutos isolés. La densité ensuite : on vous épargne l'exposition et on va à l'essentiel. Et l'écosystème : bibliothèque de prompts, QCM d'auto-évaluation, mentor IA (Pass Mastery), mises à jour. Le tout dans un cadre francophone qui n'existe pas ailleurs.",
-  },
-  {
-    q: "Et si je ne suis pas convaincu après l'achat ?",
-    a: "Garantie 14 jours satisfait ou remboursé. Vous testez, vous formez votre opinion, et si ça ne vous convient pas, vous nous écrivez à contact@claudeai-academy.com et nous procédons au remboursement intégral. Pas de question, pas de justification à fournir.",
-  },
-  {
-    q: "Que se passe-t-il juste après le paiement ?",
-    a: "Vous recevez un email avec un lien de connexion et l'accès est ouvert tout de suite : aucun compte à créer avant de payer, aucun dossier. Si l'email n'arrive pas, la page de connexion vous en envoie un nouveau à la même adresse.",
-  },
-  {
-    q: "J'ai une facture pro, c'est possible ?",
-    a: "Oui. Vous indiquez vos coordonnées de facturation lors du paiement Stripe et vous recevez automatiquement une facture professionnelle. TVA non applicable, article 293 B du CGI : le prix affiché est le prix facturé, sans TVA à récupérer.",
-  },
-];
+/**
+ * Les 15 questions rédigées par le fondateur le 16/10/2026, corrigées sur les
+ * faits vérifiés dans le code et en base le même jour :
+ *  - « 20 minutes par semaine » : 22 h de pratique en 6 mois font ~50 min ;
+ *  - « zéro ligne de code » : faux pour Claude Code (Starter), Data, Trading,
+ *    GitHub ; la réponse dit que ces parcours sont facultatifs ;
+ *  - certificat : Starter ET Mastery (lib/certification/core.ts), délivré par
+ *    ClaudeAI Academy, jamais « par Anthropic » ;
+ *  - Klarna : affiché sur Mastery et Accompagnement seulement ; non vérifié
+ *    sur le Starter à 47 €, donc pas promis ; absent en Suisse ;
+ *  - « pas de délai » au remboursement : la banque met quelques jours.
+ * Prix et date lus à l'instant du rendu, côté serveur (prix.ts, fraicheur.ts) :
+ * jamais l'horloge du navigateur, jamais une constante écrite à la main.
+ */
+function questions(): FaqEntry[] {
+  const at = maintenant();
+  const prix = prixMastery(at);
+  return [
+    {
+      q: "Je n'ai jamais utilisé Claude. C'est pour moi ?",
+      a: "Oui. La première leçon part de zéro : créer un compte, installer l'application, comprendre l'interface. Aucun prérequis technique. Les parcours métier sont écrits pour des gens qui n'ont jamais codé.",
+    },
+    {
+      q: "Combien de temps ça me prend ?",
+      a: "Une heure pour les 3 premières leçons : personnaliser Claude, être clair et direct, Claude dans Word, Excel et Outlook. Ensuite, à votre rythme : les 58 leçons demandent environ 22 heures avec la pratique. Accès à vie, vous pouvez étaler sur 6 mois si vous préférez.",
+    },
+    {
+      q: "Est-ce que ça marche pour mon métier ?",
+      a: "La méthode est la même dans tous les métiers : Claude écrit le premier jet, vous relisez, vous décidez. Quatre profils sont détaillés : artisans, commerces, consultants, dirigeants. Avec le Pass Mastery, le Mentor IA répond sur votre cas précis. Votre métier n'est pas dans la liste ? Écrivez-moi à contact@claudeai-academy.com, je réponds sous 24 h ouvrées.",
+    },
+    {
+      q: `Pourquoi ${prix} € et pas gratuit sur YouTube ?`,
+      a: `YouTube est gratuit, mais désorganisé, rarement daté et souvent en anglais. Ici, tout est structuré, en français, à jour au ${CONTENU_A_JOUR_AU}, avec 170 prompts prêts à copier. Vous arrêtez de chercher pendant des heures : tout est au même endroit.`,
+    },
+    {
+      q: "Et si Claude change dans 6 mois ?",
+      a: `Les mises à jour sont incluses à vie. Le contenu est vérifié et daté : ${NOTES_DE_MISE_A_JOUR} notes de mise à jour à ce jour. Chaque parcours porte sa propre date et change quand son sujet change.`,
+      lien: { href: "/changelog", label: "Voir ce qui a changé" },
+    },
+    {
+      q: "Puis-je payer en plusieurs fois ?",
+      a: `Oui, en 3 fois sans frais avec Klarna : 3 × ${mensualiteKlarna3x(prix)} € pour le Pass Mastery, 3 × 499 € pour le Pass Accompagnement. Klarna donne son accord au moment du paiement. Le paiement en 3 fois n'est pas proposé dans tous les pays, dont la Suisse.`,
+    },
+    {
+      q: "Y a-t-il un certificat ?",
+      a: "Oui, avec chaque pass. Une fois les leçons de votre pass terminées, vous passez un examen de 20 questions. Réussi, il vous donne un certificat en PDF et une page de vérification en ligne. Il est délivré par ClaudeAI Academy, pas par Anthropic. Vous pouvez le montrer à un client ou à un employeur.",
+    },
+    {
+      q: "Combien de temps ai-je accès ?",
+      a: "À vie. Une fois payé, c'est à vous, mises à jour incluses. Pas d'abonnement, pas de renouvellement.",
+    },
+    {
+      q: "Est-ce que je peux être remboursé ?",
+      a: "Oui, 14 jours satisfait ou remboursé, sans justification. Vous m'écrivez à contact@claudeai-academy.com, je vous rembourse intégralement. Pas de formulaire, pas de question. Votre banque met ensuite quelques jours à créditer votre compte.",
+    },
+    {
+      q: "Ça marche sur Mac, PC, mobile ?",
+      a: "Oui. Claude fonctionne dans le navigateur, sur ordinateur et sur mobile. La formation aussi. Vous pouvez suivre une leçon sur votre téléphone entre deux rendez-vous.",
+    },
+    {
+      q: "Je suis nul en informatique. C'est un problème ?",
+      a: "Non. Si vous savez utiliser Word et envoyer un email, vous savez utiliser Claude. Le but est justement de rendre ça simple, sans jargon. Quatre parcours vont plus loin (Claude Code, données, trading, GitHub) : ils sont facultatifs.",
+    },
+    {
+      q: "Est-ce que vous facturez la TVA ?",
+      a: "Non, TVA non applicable, article 293 B du CGI : le prix affiché est le prix payé. Vous indiquez vos coordonnées de facturation au paiement et recevez une facture professionnelle par email.",
+    },
+    {
+      q: "Puis-je offrir la formation ?",
+      a: "Oui. Écrivez-moi à contact@claudeai-academy.com et je vous prépare un accès cadeau au nom de la personne. Pour un collaborateur, un associé ou un proche qui lance son activité.",
+    },
+    {
+      q: "Que se passe-t-il après l'achat ?",
+      a: "Vous recevez tout de suite un email avec votre lien de connexion. Vous pouvez commencer dans les 5 minutes. Pas de dossier CPF, pas de devis à attendre, pas de validation à obtenir.",
+    },
+    {
+      q: "Qui est derrière ClaudeAI Academy ?",
+      a: "Alexandre Dos Reis Caetano, Restaurant Manager en Suisse. Il utilise Claude tous les jours dans un métier de terrain, où une heure gagnée se voit tout de suite. Il a développé plusieurs applications, dont un outil de pilotage pour les hôtels et restaurants.",
+      lien: { href: "/a-propos", label: "Voir sa bio complète" },
+    },
+  ];
+}
 
 export function FAQ() {
+  const items = questions();
   return (
     <section className="bg-cream py-24 md:py-32">
       <Container size="narrow">
@@ -76,7 +103,7 @@ export function FAQ() {
 
         <ul className="space-y-3">
           {items.map((item, i) => (
-            <FAQItem key={i} item={item} />
+            <FAQItem key={item.q} item={item} defaultOpen={i === 0} />
           ))}
         </ul>
 
@@ -91,67 +118,5 @@ export function FAQ() {
         </div>
       </Container>
     </section>
-  );
-}
-
-function FAQItem({ item }: { item: Item }) {
-  const [open, setOpen] = useState(false);
-  // Motif « disclosure » WAI-ARIA : le bouton annonce le panneau qu'il
-  // commande, et la réponse repliée est retirée de l'arbre d'accessibilité
-  // (sinon un lecteur d'écran lit toutes les réponses, ouvertes ou non).
-  const panelId = useId();
-
-  return (
-    <li
-      className={`bg-white border rounded-[18px] overflow-hidden transition-colors duration-200 ${
-        open ? "border-coral shadow-[0_1px_2px_rgba(31,31,30,0.04),0_8px_24px_rgba(31,31,30,0.06)]" : "border-line hover:border-coral-soft"
-      }`}
-    >
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls={panelId}
-        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
-      >
-        <span className="text-[16px] font-semibold text-ink leading-snug">
-          {item.q}
-        </span>
-        <span
-          aria-hidden="true"
-          className={`shrink-0 w-7 h-7 rounded-full inline-flex items-center justify-center text-lg transition-transform duration-200 ${
-            open ? "bg-coral text-cream rotate-45" : "bg-cream text-coral"
-          }`}
-        >
-          +
-        </span>
-      </button>
-      <div
-        id={panelId}
-        aria-hidden={open ? undefined : true}
-        className="grid transition-[grid-template-rows] duration-300 ease-out"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-      >
-        <div className="overflow-hidden">
-          <p className="px-6 pb-5 text-[15px] leading-[1.7] text-muted">
-            {item.a}
-            {item.lien && (
-              <>
-                {" "}
-                {/* Hors tabulation tant que la réponse est repliée : un lien
-                    focalisable dans un panneau caché piège le clavier. */}
-                <Link
-                  href={item.lien.href}
-                  tabIndex={open ? undefined : -1}
-                  className="font-semibold text-coral underline underline-offset-4 hover:text-coral-dark transition-colors"
-                >
-                  {item.lien.label}
-                </Link>
-              </>
-            )}
-          </p>
-        </div>
-      </div>
-    </li>
   );
 }

@@ -47,6 +47,8 @@ export const LEAD_EMAIL_KINDS = [
   "lead_b6",
   "lead_b7",
   "lead_b8",
+  // Envoi unique, hors chaîne : demande de retours sur le kit (octobre 2026).
+  "lead_collecte",
 ] as const;
 export type LeadEmailKind = (typeof LEAD_EMAIL_KINDS)[number];
 
@@ -520,6 +522,47 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
         cta("Choisir mon pass", lien("/tarifs", "lead_b8")),
         p("C'était le dernier email de cette série. Merci de m'avoir lu jusqu'ici ; si une question te bloque, réponds simplement à cet email, je lis tout."),
         p("Alexandre"),
+      ],
+      d,
+    ),
+
+  // ── Collecte · retours sur le kit (envoi unique, octobre 2026) ────────────
+  // Modèle écrit par le fondateur le 16/10/2026, adapté aux leads (tutoiement,
+  // questions sur le kit). Aucune contrepartie : un avis obtenu contre un
+  // avantage devrait l'afficher (art. D111-10 du Code de la consommation).
+  // Accord écrit en trois choix avant toute publication (RGPD, art. 6.1.a).
+  lead_collecte: (prenom, d) =>
+    rendre(
+      "Une faveur qui prend 3 minutes",
+      [
+        p(greeting(prenom)),
+        p("Tu as téléchargé le kit ClaudeAI Academy. Merci de m'avoir fait confiance."),
+        p("Je rassemble les premiers retours. Ils aideront d'autres indépendants à décider en connaissance de cause."),
+        p("Si tu as 3 minutes, tu peux m'aider de deux façons."),
+        h("1. Réponds à ces questions, directement à cet email"),
+        bullets([
+          "Quel prompt du kit as-tu essayé, et pour quelle tâche ?",
+          "Combien de temps prenait cette tâche avant, et combien avec Claude ?",
+          "Qu'est-ce qui a changé concrètement dans ta semaine ?",
+        ]),
+        p("Tu n'as rien essayé ? Dis-moi simplement ce qui t'a retenu. Une ligne suffit."),
+        h("2. Ou enregistre une vidéo de 60 secondes"),
+        bullets([
+          "Tiens ton téléphone à la verticale, en lumière naturelle, dans un endroit calme.",
+          "Regarde l'objectif et parle comme à un collègue.",
+          "Trois phrases suffisent : qui tu es, la tâche avant et après, ce qui t'a le plus servi.",
+          "Envoie-la par WeTransfer à contact@claudeai-academy.com.",
+        ]),
+        h("Ton accord avant tout"),
+        p("Je ne publie rien sans ton accord écrit. Termine ta réponse par l'une de ces phrases :"),
+        bullets([
+          "« Oui, avec mon prénom, mon métier et ma ville. »",
+          "« Oui, seulement avec mon métier. »",
+          "« Non, c'est pour toi seulement. »",
+        ]),
+        p("Si le kit ne t'a servi à rien, dis-le aussi. C'est ce qui m'aide le plus à l'améliorer."),
+        p("Aucune obligation, bien sûr.<br />Merci,"),
+        p("Alexandre<br />Fondateur, ClaudeAI Academy"),
       ],
       d,
     ),

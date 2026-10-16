@@ -1,11 +1,11 @@
 {
   "tarifs-api-anthropic": {
-    "revuLe": "2026-10-09",
+    "revuLe": "2026-10-16",
     "note": "confirmé exact à la source",
     "valeurSource": null
   },
   "abonnement-anthropic": {
-    "revuLe": "2026-10-09",
+    "revuLe": "2026-10-16",
     "note": "confirmé exact à la source",
     "valeurSource": null
   },
@@ -18,13 +18,23 @@
     "note": "confirmé exact à la source"
   },
   "comparatif-claude-chatgpt": {
-    "revuLe": "2026-10-09",
+    "revuLe": "2026-10-16",
     "note": "confirmé exact à la source",
     "valeurSource": null
   },
   "claude-code-version": {
-    "revuLe": "2026-10-09",
+    "revuLe": "2026-10-16",
     "note": "confirmé exact à la source",
-    "valeurSource": "2.1.295"
+    "valeurSource": "2.1.301"
+  },
+  "contenu-des-plans": {
+    "revuLe": "2026-10-16",
+    "note": "confirmé exact à la source",
+    "valeurSource": null
+  },
+  "statuts-apercu-et-beta": {
+    "revuLe": "2026-10-16",
+    "note": "confirmé exact à la source",
+    "valeurSource": null
   }
 }

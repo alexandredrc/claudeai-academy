@@ -27,7 +27,9 @@ const FR: Labels = {
   sending: "Envoi…",
   errorGeneric: "Une erreur est survenue. Réessaie.",
   errorNetwork: "Connexion impossible. Réessaie dans un instant.",
-  footnote: "Zéro spam. Un usage concret de Claude par semaine, désinscription en un clic.",
+  // Le rythme réel (cron lead-nurture) : 5 emails les 10 premiers jours,
+  // puis un par semaine. « Un par semaine » seul était faux (audit du 16/10).
+  footnote: "Zéro spam. 5 emails les 10 premiers jours, puis un cas concret par semaine. Désinscription en un clic.",
 };
 
 /**

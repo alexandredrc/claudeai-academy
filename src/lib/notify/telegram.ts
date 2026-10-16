@@ -128,6 +128,32 @@ export async function notifierLead(params: {
 }
 
 /**
+ * Nouveau témoignage reçu par /temoignage. Pas d'email ni de citation chez
+ * Telegram : le métier, le statut calculé et la mesure suffisent pour savoir
+ * qu'il faut aller lire la table `temoignages`.
+ */
+export async function notifierTemoignage(params: {
+  metier: string;
+  statut: "acheteur" | "kit" | "inconnu";
+  publication: "prenom_metier_ville" | "metier_seul" | "non";
+  minutesAvant: number | null;
+  minutesApres: number | null;
+}): Promise<boolean> {
+  const statut = { acheteur: "acheteur vérifié", kit: "lead du kit", inconnu: "email inconnu" }[params.statut];
+  const publication = {
+    prenom_metier_ville: "publiable avec prénom, métier, ville",
+    metier_seul: "publiable avec le métier seul",
+    non: "privé, ne pas publier",
+  }[params.publication];
+  const lignes = [`💬 NOUVEAU TÉMOIGNAGE (${params.metier})`, "", `🔎 ${statut}`, `📝 ${publication}`];
+  if (params.minutesAvant != null && params.minutesApres != null) {
+    lignes.push(`⏱️ ${params.minutesAvant} min avant, ${params.minutesApres} min après`);
+  }
+  lignes.push("", "À lire dans Supabase, table temoignages.");
+  return envoyer(lignes.join("\n"));
+}
+
+/**
  * Alerte « plafond d'envoi du kit atteint ». Soit un vrai succès (beaucoup
  * d'inscrits : passer Resend en payant), soit un robot qui remplit le
  * formulaire. Dans les deux cas, les emails d'accès des acheteurs restent

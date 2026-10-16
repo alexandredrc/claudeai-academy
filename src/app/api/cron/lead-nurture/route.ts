@@ -66,6 +66,11 @@ const COLLECTE = {
   // Un lead de moins d'une semaine n'a pas eu le temps d'essayer le kit.
   ageMinJours: 7,
   maxParPassage: 48,
+  // Relance unique 3 jours après, sauf pour qui a rempli /temoignage. Même
+  // fenêtre, même plafond de 48 par matin (partagé avec la collecte) : les
+  // salves du 17 et du 18/10 donnent des relances le 20 et le 21/10.
+  relance: "lead_collecte_relance" as LeadEmailKind,
+  relanceApresJours: 3,
 };
 // Plafond global les jours de collecte : 48 + les quelques emails A des
 // nouveaux leads. ~0,9 s par envoi (pause comprise) : reste sous les 60 s.
@@ -163,6 +168,15 @@ export async function GET(req: NextRequest) {
   const converted = await convertedEmails(leads.map((l) => l.email.toLowerCase()));
 
   const collecteOuverte = now >= COLLECTE.debut && now < COLLECTE.fin;
+
+  // Qui a déjà répondu par le formulaire : pas de relance. Table absente ou
+  // illisible = personne n'est exclu, mais on le dit dans les logs.
+  const ontRepondu = new Set<string>();
+  if (collecteOuverte) {
+    const { data: rep, error: repErr } = await supabaseAdmin.from("temoignages").select("email").limit(2000);
+    if (repErr) console.error("[cron-lead-nurture] select temoignages failed:", repErr.message);
+    for (const r of rep ?? []) ontRepondu.add(String(r.email).toLowerCase());
+  }
   // Rang de tri : les emails A (index 0 à 4) passent avant la collecte, la
   // collecte avant la série hebdomadaire B.
   const RANG_COLLECTE = 4.5;
@@ -187,6 +201,22 @@ export async function GET(req: NextRequest) {
         report.attente++;
       }
       // Dû pour la collecte : pas d'email de chaîne en plus aujourd'hui.
+      continue;
+    }
+    const collecteLe = h.get(COLLECTE.kind);
+    if (
+      collecteOuverte &&
+      collecteLe !== undefined &&
+      !h.has(COLLECTE.relance) &&
+      !ontRepondu.has(lead.email.toLowerCase()) &&
+      now - collecteLe >= COLLECTE.relanceApresJours * DAY_MS - MARGE_MS
+    ) {
+      const dernierEnvoi = Math.max(...h.values());
+      if (now - dernierEnvoi >= DAY_MS - MARGE_MS) {
+        dus.push({ lead, etape: { kind: COLLECTE.relance }, rang: RANG_COLLECTE });
+      } else {
+        report.attente++;
+      }
       continue;
     }
     const rang = STEPS.findIndex((s) => !h.has(s.kind));
@@ -217,7 +247,7 @@ export async function GET(req: NextRequest) {
       report.attente++;
       continue;
     }
-    if (etape.kind === COLLECTE.kind) {
+    if (etape.kind === COLLECTE.kind || etape.kind === COLLECTE.relance) {
       if (collectesTentees >= COLLECTE.maxParPassage) {
         report.attente++;
         continue;

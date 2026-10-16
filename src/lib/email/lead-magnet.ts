@@ -49,6 +49,8 @@ export const LEAD_EMAIL_KINDS = [
   "lead_b8",
   // Envoi unique, hors chaîne : demande de retours sur le kit (octobre 2026).
   "lead_collecte",
+  // Relance unique de la collecte, 3 jours après, à qui n'a pas rempli /temoignage.
+  "lead_collecte_relance",
 ] as const;
 export type LeadEmailKind = (typeof LEAD_EMAIL_KINDS)[number];
 
@@ -545,6 +547,7 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
           "Combien de temps prenait cette tâche avant, et combien avec Claude ?",
           "Qu'est-ce qui a changé concrètement dans ta semaine ?",
         ]),
+        p(`Tu préfères un formulaire ? <a href="${lien("/temoignage", "lead_collecte")}" style="color:#D97757;">Les mêmes questions ici</a>, en 2 minutes.`),
         p("Tu n'as rien essayé ? Dis-moi simplement ce qui t'a retenu. Une ligne suffit."),
         h("2. Ou enregistre une vidéo de 60 secondes"),
         bullets([
@@ -563,6 +566,23 @@ const EMAILS: Record<LeadEmailKind, Rendu> = {
         p("Si le kit ne t'a servi à rien, dis-le aussi. C'est ce qui m'aide le plus à l'améliorer."),
         p("Aucune obligation, bien sûr.<br />Merci,"),
         p("Alexandre<br />Fondateur, ClaudeAI Academy"),
+      ],
+      d,
+    ),
+
+  // ── Collecte · relance unique, 3 jours après (octobre 2026) ────────────────
+  // Ne part pas à qui a rempli le formulaire /temoignage. Une réponse par
+  // email ne se voit pas d'ici : d'où la phrase « si tu m'as déjà répondu ».
+  lead_collecte_relance: (prenom, d) =>
+    rendre(
+      "Une ligne suffit",
+      [
+        p(greeting(prenom)),
+        p("Je te relance une seule fois, au sujet de mon email d'il y a trois jours."),
+        p("Une ligne me suffit : ton métier, et une tâche que tu fais (ou pas) avec Claude. Réponds directement à cet email."),
+        cta("Répondre en 2 minutes", lien("/temoignage", "lead_collecte_relance")),
+        p("Si tu m'as déjà répondu, merci : ignore ce message. Et si tu n'as pas le temps, aucun souci, tu ne recevras pas d'autre rappel."),
+        p("Alexandre"),
       ],
       d,
     ),

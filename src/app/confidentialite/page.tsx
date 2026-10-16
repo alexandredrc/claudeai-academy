@@ -21,7 +21,9 @@ export default function ConfidentialitePage() {
 
         <div className="prose-lesson mt-10">
           <p>
-            Dernière mise à jour&nbsp;: 9 juin 2026. La présente politique
+            Dernière mise à jour&nbsp;: 16 octobre 2026 (ajout du kit gratuit,
+            des emails qui le suivent, des témoignages et des outils de mesure
+            d&apos;audience). La présente politique
             explique comment <strong>ADRC Group</strong> (éditeur de
             claudeai-academy.com) traite vos données personnelles, conformément
             au Règlement Général sur la Protection des Données (RGPD).
@@ -56,6 +58,23 @@ export default function ConfidentialitePage() {
               envoyez au Mentor, pour fournir et limiter le service.
             </li>
             <li>
+              <strong>Kit gratuit</strong>&nbsp;: adresse email, prénom
+              (facultatif), page sur laquelle vous vous êtes inscrit, et liste
+              des emails qui vous ont été envoyés.
+            </li>
+            <li>
+              <strong>Témoignages</strong>&nbsp;: adresse email, prénom
+              (facultatif), métier, ville (facultative), tâche décrite, temps
+              avant et après, texte de votre retour, votre choix de publication,
+              et votre statut (acheteur ou lecteur du kit), calculé à partir de
+              votre adresse email.
+            </li>
+            <li>
+              <strong>Emails</strong>&nbsp;: les clics sur les liens de nos
+              emails sont comptés par notre prestataire d’envoi, pour savoir
+              quels contenus servent.
+            </li>
+            <li>
               <strong>Données techniques</strong>&nbsp;: logs, statistiques d’usage
               agrégées.
             </li>
@@ -76,6 +95,27 @@ export default function ConfidentialitePage() {
             </li>
             <li>
               Communications liées à votre compte : <em>exécution du contrat</em>.
+            </li>
+            <li>
+              Envoyer le kit gratuit puis les emails qui le suivent (cinq emails
+              les dix premiers jours, puis un cas concret par semaine pendant
+              deux mois, et ponctuellement une demande de retour)&nbsp;:{" "}
+              <em>consentement</em>, donné en remplissant le formulaire du kit
+              et retirable en un clic par le lien présent dans chaque email.
+            </li>
+            <li>
+              Recueillir et publier des témoignages : <em>consentement</em>{" "}
+              explicite, donné dans le formulaire ou par écrit, et retirable à
+              tout moment. Un retour marqué «&nbsp;ne pas publier&nbsp;» ne
+              l’est jamais.
+            </li>
+            <li>
+              Mesure d’audience et X              Analytics, Microsoft Clarity) et mesure des campagnes (Google Ads)
+              : <em>consentement</em>, recueilli par la bannière du site.
+            </li>
+            <li>
+              Prévenir les abus des formulaires (envois automatisés) :{" "}
+              <em>intérêt légitime</em>.
             </li>
           </ul>
 
@@ -100,6 +140,17 @@ export default function ConfidentialitePage() {
             <li>
               <strong>Vercel</strong> : hébergement du site.
             </li>
+            <li>
+              <strong>Google</strong> (Analytics, Ads) et{" "}
+              <strong>Microsoft</strong> (Clarity) : mesure d’audience et de
+              campagnes, seulement après votre accord dans la bannière.
+            </li>
+            <li>
+              <strong>Telegram</strong> : alerte interne au fondateur lors
+              d’une inscription au kit ou d’un témoignage. Elle contient au plus
+              un prénom, un métier et la page d’origine, jamais l’adresse email
+              ni le texte d’un témoignage.
+            </li>
           </ul>
           <p>
             Certains prestataires peuvent être situés hors de l’Union européenne&nbsp;;
@@ -117,6 +168,16 @@ export default function ConfidentialitePage() {
             réponse, puis ne sont pas stockés au-delà du traitement de la requête.
             Seuls des compteurs d’usage (nombre de questions par jour) sont
             conservés afin d’appliquer les limites du service.
+          </p>
+          <p>
+            Les données du kit gratuit sont conservées tant que vous restez
+            inscrit. Après une désinscription, seule votre adresse est gardée,
+            avec la date de désinscription, pour ne plus jamais vous écrire. Un
+            témoignage publié reste en ligne tant que vous ne retirez pas votre
+            accord&nbsp;; un retour non publié est supprimé sur simple demande,
+            et au plus tard trois ans après sa réception. Les données de mesure
+            d’audience sont conservées selon les réglages des outils, au plus 14
+            mois pour Google Analytics.
           </p>
 
           <h2>6. Vos droits</h2>
@@ -150,10 +211,13 @@ export default function ConfidentialitePage() {
             votre navigateur.
           </p>
           <p>
-            Lorsque nous menons des campagnes publicitaires, le site peut en
-            outre utiliser un cookie de <strong>mesure de conversion Google
-            (Google Ads)</strong>, uniquement destiné à savoir quelles campagnes
-            aboutissent à une inscription. Ce cookie n’est déposé
+            Avec votre accord seulement, le site utilise aussi des cookies de{" "}
+            <strong>mesure d’audience (Google Analytics)</strong>, d’
+            <strong>enregistrement des visites (Microsoft
+            Clarity)</strong>, qui montre où un visiteur clique et s’arrête,
+            et de <strong>mesure de conversion Google (Google Ads)</strong>,
+            qui indique quelles campagnes aboutissent à une inscription. Ces
+            cookies ne sont déposés
             qu’<strong>avec votre consentement</strong>, recueilli via la
             bannière prévue à cet effet&nbsp;; vous pouvez refuser sans aucune
             conséquence sur votre navigation, et revenir sur votre choix en

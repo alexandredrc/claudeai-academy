@@ -173,8 +173,10 @@ export default function AProposPage() {
           </div>
 
           <div className="mt-12 flex flex-wrap justify-center gap-3">
+            {/* Le libellé disait « Découvrir les parcours » pour un lien vers
+                /tarifs : le bouton dit maintenant où il mène (16/10/2026). */}
             <Button href="/tarifs" variant="primary">
-              Découvrir les parcours
+              Voir les tarifs, dès 47 €
             </Button>
             <Button href="/contact" variant="ghost">
               Nous contacter

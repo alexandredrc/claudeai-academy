@@ -50,6 +50,7 @@ function academieLinks() {
     { href: "/tarifs#mastery", label: "Pass Mastery, le programme complet" },
     { href: "/faq", label: "FAQ et objections" },
     { href: "/changelog", label: "Journal des mises à jour" },
+    { href: "/resultats", label: "Résultats mesurés" },
     { href: "/a-propos", label: "À propos" },
     { href: "/contact", label: "Contact" },
     { href: "/login", label: "Mon espace" },

@@ -117,6 +117,36 @@ export default async function CoursesPage() {
             : "Aperçu de ce que tu débloques en achetant un pass. La première leçon de chaque parcours est en accès libre."}
         </p>
 
+        {/* « Par où commencer » (16/10/2026) : les trois leçons conseillées
+            ailleurs sur le site (FAQ, hero), 20 + 18 + 22 = 60 min lus en
+            base. Seule la troisième est en accès libre, c'est dit. */}
+        <div className="mt-10 rounded-[22px] border border-line bg-white p-6 md:p-8">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-coral">
+            Par où commencer
+          </p>
+          <p className="mt-2 font-serif text-2xl text-ink">
+            Trois leçons, une heure, pour vous en servir dès cette semaine.
+          </p>
+          <ol className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-3">
+            {[
+              { href: "/courses/bien-demarrer-avec-claude/personnaliser-claude-dites-lui-qui-vous-etes", titre: "Personnaliser Claude", note: "20 min · Pass Starter" },
+              { href: "/courses/prompt-engineering-pro/etre-clair-et-direct", titre: "Être clair et direct", note: "18 min · Pass Starter" },
+              { href: "/courses/bien-demarrer-avec-claude/claude-dans-excel-powerpoint-word-et-chrome", titre: "Claude dans Word, Excel et Outlook", note: "22 min · gratuite" },
+            ].map((l, i) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="flex h-full flex-col rounded-[14px] border border-line p-4 transition-colors hover:border-coral"
+                >
+                  <span className="text-[13px] font-semibold text-muted">{i + 1}.</span>
+                  <span className="mt-1 text-[15px] font-semibold text-ink">{l.titre}</span>
+                  <span className="mt-1 text-[13px] text-muted">{l.note}</span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+
         <div className="mt-14 space-y-5">
           {list.map((course, i) => (
             <CourseRow

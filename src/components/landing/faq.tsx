@@ -33,7 +33,7 @@ function questions(): FaqEntry[] {
     },
     {
       q: "Est-ce que ça marche pour mon métier ?",
-      a: "La méthode est la même dans tous les métiers : Claude écrit le premier jet, vous relisez, vous décidez. Quatre profils sont détaillés : artisans, commerces, consultants, dirigeants. Avec le Pass Mastery, le Mentor IA répond sur votre cas précis. Votre métier n'est pas dans la liste ? Écrivez-moi à contact@claudeai-academy.com, je réponds sous 24 h ouvrées.",
+      a: "La méthode est la même dans tous les métiers : Claude écrit le premier jet, vous relisez, vous décidez. Quatre profils sont détaillés : artisans, commerces, consultants, dirigeants. Avec le Pass Mastery, le Mentor IA répond sur votre cas précis. Votre métier n'est pas dans la liste ? Écrivez-moi à contact@claudeai-academy.com, je réponds sous 48 h ouvrées.",
     },
     {
       q: `Pourquoi ${prix} € et pas gratuit sur YouTube ?`,

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Turnstile } from "@/components/turnstile";
 
 type Labels = {
   firstName: string;
@@ -50,6 +51,7 @@ export function LeadCaptureForm({
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [company, setCompany] = useState(""); // honeypot
+  const [jeton, setJeton] = useState(""); // Turnstile, vide sans clé
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -68,6 +70,7 @@ export function LeadCaptureForm({
           first_name: firstName || null,
           company, // honeypot
           source,
+          turnstile: jeton,
         }),
       });
       const data = await res.json();
@@ -123,6 +126,8 @@ export function LeadCaptureForm({
             />
           </label>
         </div>
+
+        <Turnstile onJeton={setJeton} />
 
         <button
           type="submit"

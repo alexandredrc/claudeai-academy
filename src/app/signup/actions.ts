@@ -1,8 +1,10 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { buildAccessLink, safeNext, sendAccessLink } from "@/lib/auth/access-link";
+import { consommerQuotaEmail, ipDe, verifierTurnstile } from "@/lib/auth/quota-email";
 import { sendSignupConfirmationEmail } from "@/lib/email/confirm-signup";
 
 /**
@@ -45,6 +47,16 @@ export async function signupAction(formData: FormData) {
       : "/account?welcome=1",
     "/account?welcome=1",
   );
+
+  // Avant generateLink, qui crée le compte : un robot bloqué ne crée ni compte
+  // ni email. Réponse identique à un envoi réussi (pas d'énumération).
+  const ip = ipDe(await headers());
+  if (
+    !(await verifierTurnstile(formData.get("cf-turnstile-response"), ip)) ||
+    !(await consommerQuotaEmail({ formulaire: "signup", ip, email }))
+  ) {
+    redirect(`/signup?sent=1${planSuffix}`);
+  }
 
   const { data, error } = await supabaseAdmin.auth.admin.generateLink({
     type: "signup",

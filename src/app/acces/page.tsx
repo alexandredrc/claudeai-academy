@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requestAccessLinkAction } from "./actions";
 import { safeNext } from "@/lib/auth/access-link";
+import { Turnstile } from "@/components/turnstile";
 
 type SearchParams = Promise<{
   email?: string;
@@ -93,6 +94,7 @@ export default async function AccesPage({
                 className="w-full rounded-[10px] border border-line bg-cream-soft px-4 py-3 text-[15px] text-ink outline-none transition-colors focus:border-coral focus:bg-white focus:ring-2 focus:ring-coral/20"
               />
             </label>
+            <Turnstile />
             <button
               type="submit"
               className="w-full rounded-[14px] bg-coral px-6 py-4 text-base font-semibold text-cream shadow-[0_4px_12px_rgba(217,119,87,0.25)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-[0_8px_20px_rgba(217,119,87,0.35)]"

@@ -2,6 +2,7 @@ import { after, NextResponse, type NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { sendLeadEmail } from "@/lib/email/lead-magnet";
 import { notifierLead, notifierPlafondKit } from "@/lib/notify/telegram";
+import { consommerQuotaEmail, ipDe, verifierTurnstile } from "@/lib/auth/quota-email";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
@@ -48,6 +49,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Adresse email invalide." }, { status: 400 });
   }
 
+  // Captcha refusé : même réponse muette que le pot de miel.
+  const ip = ipDe(req.headers);
+  if (!(await verifierTurnstile(data.turnstile, ip))) {
+    return NextResponse.json({ ok: true });
+  }
+
   const email = (data.email as string).trim().toLowerCase();
   const firstName = clean(data.first_name, 80);
   const source = clean(data.source, 60) ?? "kit-15-prompts";
@@ -88,7 +95,7 @@ export async function POST(req: NextRequest) {
         { status: 500 },
       );
     }
-    return await deliverMagnet(existing.id, existing.email, firstName, lang);
+    return await deliverMagnet(existing.id, existing.email, firstName, ip, lang);
   }
 
   if (!dejaLa) {
@@ -103,7 +110,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return await deliverMagnet(lead.id, lead.email, firstName, lang);
+  return await deliverMagnet(lead.id, lead.email, firstName, ip, lang);
 }
 
 // Envoie le magnet une seule fois par lead (idempotence via lead_email_log).
@@ -111,6 +118,7 @@ async function deliverMagnet(
   leadId: string,
   email: string,
   firstName: string | null,
+  ip: string,
   lang: "fr" | "en" = "fr",
 ) {
   const { data: already } = await supabaseAdmin
@@ -136,6 +144,13 @@ async function deliverMagnet(
     if (envoyes24h === PLAFOND_KIT_24H) {
       after(() => notifierPlafondKit({ plafond: PLAFOND_KIT_24H }).then(() => undefined));
     }
+    return NextResponse.json({ ok: true, emailSent: false });
+  }
+
+  // Limite par IP (en base, partagée avec /signup et /acces) : un script qui
+  // tourne sur une seule machine ne consomme plus les 40 kits du jour. Même
+  // réponse que le plafond ci-dessus.
+  if (!(await consommerQuotaEmail({ formulaire: "lead", ip, email }))) {
     return NextResponse.json({ ok: true, emailSent: false });
   }
 

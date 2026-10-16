@@ -1,9 +1,11 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import { sendAccessLink, safeNext } from "@/lib/auth/access-link";
+import { consommerQuotaEmail, ipDe } from "@/lib/auth/quota-email";
 
 /**
  * Consomme le token du lien d'accès. Déclenchée par un clic humain (POST),
@@ -41,8 +43,13 @@ export async function confirmAccessAction(formData: FormData) {
   if (ok) redirect(next);
 
   // Token expiré ou déjà consommé : on renvoie immédiatement un lien frais
-  // plutôt que de renvoyer le membre vers un formulaire à re-remplir.
-  const resent = email ? await sendAccessLink({ email, next }) : false;
+  // plutôt que de renvoyer le membre vers un formulaire à re-remplir. Cette
+  // action est publique (un POST suffit) : même quota que /acces.
+  const resent =
+    email &&
+    (await consommerQuotaEmail({ formulaire: "acces", ip: ipDe(await headers()), email }))
+      ? await sendAccessLink({ email, next })
+      : false;
 
   const params = new URLSearchParams({ raison: "expire" });
   if (email) params.set("email", email);

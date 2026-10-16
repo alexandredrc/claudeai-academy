@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signupAction } from "./actions";
 import { prixMastery } from "@/lib/offre/prix";
+import { Turnstile } from "@/components/turnstile";
 
 type SearchParams = Promise<{ plan?: string; error?: string; sent?: string }>;
 
@@ -107,6 +108,8 @@ export default async function SignupPage({
           minLength={8}
           hint="Au moins 8 caractères."
         />
+
+        <Turnstile />
 
         <button
           type="submit"

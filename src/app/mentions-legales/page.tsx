@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/mentions-legales",
   title: "Mentions légales | ClaudeAI Academy",
-  description: "Mentions légales du site ClaudeAI Academy, édité par ADRC Group.",
-  alternates: { canonical: "/mentions-legales" },
-};
+  description:
+    "Mentions légales de claudeai-academy.com : éditeur ADRC Group (Alexandre Dos Reis Caetano), SIREN, siège, hébergeur, directeur de la publication, contact.",
+});
 
 export default function MentionsLegalesPage() {
   return (

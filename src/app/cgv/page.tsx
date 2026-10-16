@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { ELITE_ENABLED, ELITE_SEATS_PER_MONTH } from "@/lib/stripe/plans";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/cgv",
   title: "Conditions Générales de Vente | ClaudeAI Academy",
   description:
-    "Conditions générales de vente des formations ClaudeAI Academy : prix, paiement, accès à vie, garantie 14 jours, rétractation.",
-  alternates: { canonical: "/cgv" },
-};
+    "Conditions générales de vente des formations ClaudeAI Academy : prix, paiement unique, accès à vie, garantie 14 jours, droit de rétractation.",
+});
 
 export default function CgvPage() {
   return (

@@ -22,8 +22,8 @@ export const metadata: Metadata = pageMetadata({
     ? "Prix de la formation Claude AI : 47 €, 497 € ou 1 497 €"
     : "Prix de la formation Claude AI : 47 € ou 497 €, sans CPF ni devis",
   description: ELITE_ENABLED
-    ? "Trois pass, un paiement unique et l'accès à vie : Starter à 47 €, Mastery à 497 € (ou 3× sans frais avec Klarna) pour tout le programme, et Accompagnement à 1 497 € (ou 3 × 499 € sans frais) avec des séances individuelles. Sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé."
-    : "Une formation Claude AI accessible : Pass Starter à 47 €, Pass Mastery à 497 € (ou 3× sans frais avec Klarna) pour tous les parcours complets. Paiement en ligne immédiat, sans dossier CPF ni devis. Garantie 14 jours satisfait ou remboursé.",
+    ? "Starter 47 €, Mastery 497 € (ou 3 × 165,67 € sans frais) et Accompagnement 1 497 € : paiement unique, accès à vie, sans CPF. Garantie 14 jours."
+    : "Pass Starter 47 €, Pass Mastery 497 € (ou 3 × 165,67 € sans frais) : paiement unique, accès à vie, sans CPF ni devis. Garantie 14 jours.",
 });
 
 // Produit numérique : aucune livraison physique (accès en ligne immédiat) et

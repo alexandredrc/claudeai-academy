@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/confidentialite",
   title: "Politique de confidentialité | ClaudeAI Academy",
   description:
-    "Comment ClaudeAI Academy collecte, utilise et protège vos données personnelles, conformément au RGPD.",
-  alternates: { canonical: "/confidentialite" },
-};
+    "Comment ClaudeAI Academy collecte, utilise et protège vos données personnelles (compte, paiement, emails), conformément au RGPD, et vos droits.",
+});
 
 export default function ConfidentialitePage() {
   return (

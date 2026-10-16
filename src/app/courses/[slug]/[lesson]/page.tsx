@@ -14,10 +14,26 @@ import { CertificationProgress } from "@/components/site/certification-progress"
 import { markLessonCompleteAction } from "./actions";
 import { startCheckoutAction } from "@/app/checkout/actions";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
 export const dynamic = "force-dynamic";
 
 type Params = Promise<{ slug: string; lesson: string }>;
+
+// Title abrégé quand le titre de la leçon en base dépasse 65 caractères ; le
+// H1 visible garde le titre complet. « Leçon : » distingue la page du guide
+// public /claude-excel-powerpoint, qui est la page primaire sur cette requête
+// (audit SEO du 15/10/2026, points 2 et 14).
+const TITRE_COURT: Record<string, string> = {
+  "claude-dans-excel-powerpoint-word-et-chrome":
+    "Leçon : Claude dans Excel, PowerPoint, Word et Chrome",
+};
+
+/** Coupe une description à 155 caractères, sur un espace, pour la balise meta. */
+function metaDescription(text: string): string {
+  if (text.length <= 155) return text;
+  return `${text.slice(0, 152).replace(/\s+\S*$/, "")}…`;
+}
 
 type CourseRow = {
   id: string;
@@ -102,15 +118,17 @@ export async function generateMetadata({
     .single<Pick<LessonMeta, "title" | "description" | "is_free_preview">>();
   if (!lesson) return {};
 
-  return {
-    title: withBrand(lesson.title),
-    description:
+  // og:url et og:image propres à la page (audit SEO du 15/10/2026, point 7).
+  return pageMetadata({
+    path: `/courses/${slug}/${lessonSlug}`,
+    title: withBrand(TITRE_COURT[lessonSlug] ?? lesson.title),
+    description: metaDescription(
       lesson.description ??
-      `Leçon du parcours ${course.title} de ClaudeAI Academy, la formation francophone pour maîtriser Claude AI.`,
-    alternates: { canonical: `/courses/${slug}/${lessonSlug}` },
+        `Leçon du parcours ${course.title} de ClaudeAI Academy, la formation francophone pour maîtriser Claude AI.`,
+    ),
     // Les leçons verrouillées n'exposent qu'un paywall : on ne les indexe pas.
     robots: lesson.is_free_preview ? undefined : { index: false },
-  };
+  });
 }
 
 export default async function LessonPage({ params }: { params: Params }) {

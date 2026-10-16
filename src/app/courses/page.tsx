@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { userHasTier, type CourseTier } from "@/lib/courses/access";
@@ -9,12 +10,12 @@ export const dynamic = "force-dynamic";
 // Title 48 caractères, description 151 : sous les seuils de troncature Google
 // (65 / 155, audit SEO du 15/10/2026, points 14 et 15). 9 parcours, 58 leçons :
 // sommes relevées dans la table `courses` le 15/10/2026.
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/courses",
   title: "9 parcours pour maîtriser Claude AI, en français",
   description:
     "9 parcours, 58 leçons, de la prise en main de Claude aux agents IA (prompts, Claude Code, marketing). Première leçon de chaque parcours en accès libre.",
-  alternates: { canonical: "/courses" },
-};
+});
 
 type Course = {
   id: string;

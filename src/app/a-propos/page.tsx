@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/site/container";
@@ -6,12 +7,12 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { INSTAGRAM_URL } from "@/components/site/instagram";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/a-propos",
   title: "À propos | ClaudeAI Academy",
   description:
-    "Pourquoi ClaudeAI Academy existe : une référence francophone rigoureuse et opérationnelle pour maîtriser Claude, portée par Alexandre Dos Reis Caetano, Restaurant Manager en Suisse qui utilise Claude au quotidien.",
-  alternates: { canonical: "/a-propos" },
-};
+    "Pourquoi ClaudeAI Academy existe : une référence francophone et opérationnelle pour maîtriser Claude, portée par un fondateur qui l'utilise chaque jour.",
+});
 
 // Compte Instagram de marque. Le compte personnel vient de `instagram.tsx` ;
 // la même constante existe dans `src/app/layout.tsx` (un layout ne peut pas

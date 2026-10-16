@@ -5,8 +5,16 @@ import { createClient } from "@/lib/supabase/server";
 import { userHasTier, type CourseTier } from "@/lib/courses/access";
 import { startCheckoutAction } from "@/app/checkout/actions";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
 export const dynamic = "force-dynamic";
+
+// Titre abrégé pour le title des parcours dont le titre en base dépasse ce
+// qu'un title de 65 caractères peut contenir ; le H1 visible garde le titre
+// complet (audit SEO du 15/10/2026, point 14).
+const TITRE_COURT: Record<string, string> = {
+  "prompts-skills-github-securite": "Prompts, skills, MCP et GitHub",
+};
 
 // Le title d'un parcours décrit son PROGRAMME, jamais « formation X » : les
 // pages guides (/formation-claude-code, /prompt-engineering…) portent déjà ces
@@ -49,7 +57,7 @@ export async function generateMetadata({
   if (!course) return {};
 
   const title = withBrand(
-    `Programme : ${course.title} (${course.total_lessons} leçons)`,
+    `Programme : ${TITRE_COURT[slug] ?? course.title} (${course.total_lessons} leçons)`,
   );
 
   const duration = formatHours(course.estimated_duration_min);
@@ -61,15 +69,13 @@ export async function generateMetadata({
         : "en accès libre";
   const description = `Programme détaillé du parcours « ${course.title} » : ${course.total_lessons} leçons${duration ? `, ${duration}` : ""}, ${pass}.`;
 
-  return {
+  // og:url et og:image propres à la page (audit SEO du 15/10/2026, point 7).
+  return pageMetadata({
+    path: `/courses/${slug}`,
     title,
     description,
-    alternates: { canonical: `/courses/${slug}` },
-    openGraph: {
-      title: `${course.title} | ClaudeAI Academy`,
-      description,
-    },
-  };
+    ogTitle: `${course.title} | ClaudeAI Academy`,
+  });
 }
 
 function courseJsonLd(course: Course, lessons: LessonMeta[]) {

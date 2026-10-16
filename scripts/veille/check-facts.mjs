@@ -80,6 +80,16 @@ async function compterLeconsStarter() {
   return String(total);
 }
 
+/** Les parcours que seul le Pass Mastery ouvre : tout ce qui n'est pas au
+ *  palier Starter. C'est ce que l'upgrade promet (« les six autres »). */
+async function compterParcoursMastery() {
+  const { readdirSync, readFileSync } = await import("node:fs");
+  const dir = join(RACINE, "scripts/content");
+  const fichiers = readdirSync(dir).filter((f) => f.endsWith(".mjs"));
+  const starter = fichiers.filter((f) => /tier_required:\s*"starter"/.test(readFileSync(join(dir, f), "utf8")));
+  return String(fichiers.length - starter.length);
+}
+
 /** Tous les en-têtes de blocs `:::maj` des générateurs de contenu. */
 async function entetesMaj() {
   const { readdirSync, readFileSync } = await import("node:fs");
@@ -158,6 +168,7 @@ const LOCALES = {
   compterLecons,
   compterParcours,
   compterLeconsStarter,
+  compterParcoursMastery,
   compterBlocsMaj,
   dernierBlocMaj,
   compterSources,
@@ -273,9 +284,25 @@ async function main() {
   const aCorriger = [];
   const aRelire = [];
   const alignes = [];
+  // Ce que le registre croit surveiller et ne surveille plus. Jusqu'au
+  // 16/10/2026, un emplacement dont le motif ne trouvait plus rien était
+  // simplement sauté, et le fait ressortait « aligné » sur les emplacements
+  // restants : 20 copies de prix et de compteurs n'étaient plus contrôlées
+  // (le tiret cadratin retiré du copy avait rendu leurs motifs muets). Et trois
+  // faits attendaient des sources (« claude-blog », « eu-ai-act ») qui
+  // n'existent pas dans sources.mjs : ils ne pouvaient jamais être relus.
+  const muets = [];
+  const idsSources = new Set(SOURCES.map((s) => s.id));
+  const sourcesInconnues = [];
 
   for (const fait of FAITS) {
     const affirme = await valeursAffirmees(fait);
+    for (const a of affirme) {
+      if (a.valeur === null && a.note !== "revue humaine") muets.push({ fait, fichier: a.fichier, note: a.note });
+    }
+    for (const id of fait.verif.sources || []) {
+      if (!idsSources.has(id)) sourcesInconnues.push({ fait, id });
+    }
     const src = await valeurSource(fait, modifiees);
 
     if (src.auto) {
@@ -329,6 +356,12 @@ async function main() {
     for (const [id, libelles] of parSource) {
       L.push(`🟡 La page « ${labelSource(id)} » a changé. Rien de prouvé faux, mais à relire : ${libelles.join(" ; ")}.`);
     }
+    for (const m of muets) {
+      L.push(`🟡 Plus surveillé : ${m.fait.libelle}, dans ${m.fichier} (${m.note}). Le texte a changé ; à réancrer dans scripts/veille/facts.mjs.`);
+    }
+    for (const s of sourcesInconnues) {
+      L.push(`🟡 Registre : « ${s.fait.libelle} » attend la source « ${s.id} », absente de sources.mjs. Ce fait ne sera jamais relu.`);
+    }
     if (!L.length) L.push("✅ Rien à corriger dans le contenu.");
     const acquittables = [...new Set([...dates, ...aRelire].map((x) => x.fait.id))];
     if (acquittables.length) L.push(`\nQuand c'est relu, pour ne plus le voir : check-facts --revu ${acquittables.join(" ")}`);
@@ -340,6 +373,8 @@ async function main() {
       date: changes.date,
       aCorriger: aCorriger.map((x) => ({ id: x.fait.id, gravite: x.fait.gravite })),
       aRelire: aRelire.map((x) => ({ id: x.fait.id, gravite: x.fait.gravite, sources: x.bougees })),
+      muets: muets.map((m) => ({ id: m.fait.id, fichier: m.fichier, note: m.note })),
+      sourcesInconnues: sourcesInconnues.map((s) => ({ id: s.fait.id, source: s.id })),
       alignes: alignes.length,
     }, null, 2));
   } else {
@@ -348,8 +383,17 @@ async function main() {
     console.log(`\n🔎 Faits périssables — ${FAITS.length} suivis`);
     if (changes.date) console.log(`   (dernière détection de sources : ${changes.date})`);
 
-    if (!aCorriger.length && !aRelire.length) {
+    if (!aCorriger.length && !aRelire.length && !muets.length && !sourcesInconnues.length) {
       console.log(`\n✅ Tout est aligné. Rien à corriger dans le contenu.\n`);
+    }
+
+    if (muets.length) {
+      console.log(`\n🟡 PLUS SURVEILLÉ — ${muets.length} emplacement(s) dont le motif ne lit plus rien`);
+      for (const m of muets) console.log(`   ${m.fait.id} — ${m.fichier} : ${m.note}`);
+      console.log(`   à réancrer dans scripts/veille/facts.mjs (le fait ressort « aligné » sans les contrôler)`);
+    }
+    for (const s of sourcesInconnues) {
+      console.log(`\n🟡 REGISTRE — ${s.fait.id} attend la source « ${s.id} », absente de sources.mjs`);
     }
 
     for (const x of aCorriger) {

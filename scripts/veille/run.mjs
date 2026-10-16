@@ -131,7 +131,13 @@ function decodeXml(s) {
 // Réduit une page HTML à une empreinte STABLE du contenu textuel.
 // Objectif : détecter un vrai changement de contenu sans crier au loup à
 // cause du markup dynamique (build IDs, timestamps, nonces, compteurs).
-function htmlToText(html) {
+// Options (par source, dans sources.mjs) :
+//  - garderChiffres : ne pas effacer les nombres. Indispensable pour une page de
+//    prix : sans ça, « 0,20 $ » → « 0,10 $ » laisse l'empreinte identique, et la
+//    veille ne voit jamais une baisse de tarif (16/10/2026).
+//  - limite : nombre de caractères gardés (25 000 par défaut). Le comparatif
+//    des plans de claude.com/pricing est au-delà.
+function htmlToText(html, { garderChiffres = false, limite = 25000 } = {}) {
   let t = html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
@@ -147,16 +153,17 @@ function htmlToText(html) {
     .replace(/\b[0-9a-f]{8,}\b/g, " ")
     // dates ISO et horodatages
     .replace(/\d{4}-\d{2}-\d{2}t?[\d:.]*z?/g, " ")
-    // tous les nombres (compteurs, versions d'assets, etc.)
-    .replace(/\d+/g, " ")
-    // ne garder que lettres (a-z + accents) et espaces
-    .replace(/[^a-zàâäéèêëïîôöùûüç ]+/g, " ")
+    // tous les nombres (compteurs, versions d'assets, etc.), sauf sur une page de prix
+    .replace(garderChiffres ? /(?!)/g : /\d+/g, " ")
+    // ne garder que lettres (a-z + accents) et espaces, plus chiffres et
+    // séparateurs décimaux sur une page de prix
+    .replace(garderChiffres ? /[^a-zàâäéèêëïîôöùûüç0-9.,$€ ]+/g : /[^a-zàâäéèêëïîôöùûüç ]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 
   // Les release notes / articles ont leur substance dans les ~25k 1ers
   // caractères de texte ; on borne pour ignorer footer/nav répétitifs.
-  return t.slice(0, 25000);
+  return t.slice(0, limite);
 }
 
 async function loadState() {
@@ -244,7 +251,7 @@ async function main() {
           });
         }
       } else if (src.kind === "html-hash") {
-        const h = sha(htmlToText(raw));
+        const h = sha(htmlToText(raw, { garderChiffres: src.garderChiffres, limite: src.limite }));
         const prev = state[src.id]?.hash ?? null;
         nextState[src.id] = { hash: h, checkedAt: new Date().toISOString() };
         if (prev && h !== prev) {

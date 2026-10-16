@@ -24,7 +24,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/formation-claude-code",
   title: "Formation Claude Code en français : 8 leçons, dès 47 €",
   description:
-    "Formation Claude Code en français : CLAUDE.md, skills, hooks, MCP, Agent SDK. 8 leçons, la première en accès libre, vérifiées sur Claude Code 2.1.295.",
+    "Formation Claude Code en français : CLAUDE.md, skills, hooks, MCP, Agent SDK. 8 leçons, la première en accès libre, vérifiées sur Claude Code 2.1.301.",
   keywords: [
     "formation claude code",
     "claude code formation",
@@ -37,7 +37,7 @@ export const metadata: Metadata = pageMetadata({
     "claude code MCP",
   ],
   ogDescription:
-    "Du premier CLAUDE.md à l'agent qui tourne sans vous : skills, hooks, MCP, sous-agents, plugins et mods, Agent SDK. En français, vérifié sur Claude Code 2.1.295.",
+    "Du premier CLAUDE.md à l'agent qui tourne sans vous : skills, hooks, MCP, sous-agents, plugins et mods, Agent SDK. En français, vérifié sur Claude Code 2.1.301.",
   type: "website",
 });
 
@@ -153,7 +153,7 @@ const faq = [
   },
   {
     q: "La formation est-elle à jour de la dernière version de Claude Code ?",
-    a: "Les huit leçons ont été vérifiées sur Claude Code 2.1.295 le 9 octobre 2026, avec Opus 5.5 comme modèle par défaut. Claude Code publie plusieurs versions par semaine : la veille du site relit les changelogs officiels et chaque leçon porte une note datée quand un point a changé. Le prix comprend ces mises à jour.",
+    a: "Les huit leçons ont été vérifiées sur Claude Code 2.1.301 le 16 octobre 2026, avec Opus 5.5 comme modèle par défaut. Claude Code publie plusieurs versions par semaine : la veille du site relit les changelogs officiels et chaque leçon porte une note datée quand un point a changé. Le prix comprend ces mises à jour.",
   },
   {
     q: "Peut-on lire une leçon avant de payer ?",
@@ -203,7 +203,7 @@ export default function FormationClaudeCodePage() {
     },
     isPartOf: { "@id": `${SITE_URL}/#website` },
     // Dates du dépôt (git log) : création de la page, dernier commit de contenu
-    // (vérification sur Claude Code 2.1.295 le 9 octobre 2026).
+    // (vérification sur Claude Code 2.1.301 le 16 octobre 2026).
     datePublished: "2026-10-04",
     dateModified: "2026-10-09",
   };
@@ -287,7 +287,7 @@ export default function FormationClaudeCodePage() {
 
           <p className="mt-8 text-lg leading-relaxed text-muted">
             Huit leçons, {dureeTotale} minutes, un exercice à cocher par leçon.
-            Vérifiées sur Claude Code 2.1.295 le 9 octobre 2026. La première
+            Vérifiées sur Claude Code 2.1.301 le 16 octobre 2026. La première
             leçon est en accès libre, sans compte.
           </p>
 

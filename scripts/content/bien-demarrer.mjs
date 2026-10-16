@@ -63,6 +63,10 @@ C'est tout. Pas de carte bancaire : le plan gratuit permet de commencer immédia
 
 Et « gratuit » ne veut plus dire « vitrine ». Au 6 août 2026, la page tarifs officielle liste dans le plan Free : l'accès web, iOS, Android et bureau, **Claude Code**, la **recherche web**, la **mémoire**, la création de fichiers, l'exécution de code, les extensions de bureau, les connecteurs Slack et Google Workspace, et la **réflexion étendue** (extended thinking). Ce qui te limitera, ce n'est pas la liste des fonctions : c'est le volume d'usage (leçon 2).
 
+:::maj 16 octobre 2026
+**Claude Code n'est pas dans le plan Free.** Le comparatif de \`claude.com/pricing\`, relu le 16 octobre 2026, le réserve aux plans payants (Pro et au-dessus), comme Research, Claude Science, Claude dans Chrome et Microsoft 365. Le Free comprend en revanche la recherche web, la mémoire, la création de fichiers avec exécution de code, les connecteurs, les skills, les extensions de bureau, jusqu'à 5 projets, et **Claude Design, Docs et Slides**. Côté modèles : Sonnet et Haiku, pas Opus.
+:::
+
 :::maj 20 juillet 2026
 Le modèle **Claude Fable 5** n'est plus accessible sur le plan Free. La promotion qui l'incluait dans les limites hebdomadaires s'est terminée le 19 juillet 2026. Sur les plans payants, il reste accessible mais selon un régime particulier — détaillé en leçon 2.
 :::
@@ -148,7 +152,7 @@ Q: Faut-il choisir entre le chat et Cowork ?
 R: Non, plus depuis le 16 septembre 2026 : les deux ont fusionné. Tu écris dans Claude, il enclenche le travail de fond quand c'est nécessaire.
 ===
 Q: Le plan gratuit se limite-t-il au chat ?
-R: Non. Au 6 août 2026 il inclut notamment Claude Code, la recherche web, la mémoire et la réflexion étendue. C'est le volume d'usage qui est limité.
+R: Non. Au 16 octobre 2026 il inclut notamment la recherche web, la mémoire, la création de fichiers, les connecteurs, les skills et Claude Design, Docs et Slides. Claude Code, lui, demande un plan payant. C'est surtout le volume d'usage qui est limité.
 :::` + FOOTER,
     },
     {
@@ -176,8 +180,8 @@ Grille relevée sur \`claude.com/pricing\` le **6 août 2026** :
 
 | Plan | Prix affiché | Ce qui compte vraiment |
 | --- | --- | --- |
-| **Free** | 0 $ | Web, iOS, Android et bureau. **Claude Code**, recherche web, mémoire, création de fichiers, exécution de code, extensions de bureau, connecteurs Slack et Google Workspace, **réflexion étendue**. Limites d'usage serrées. |
-| **Pro** | **17 $/mois** en annuel (200 $ payés d'avance) ou **20 $/mois** au mois | Tout le Free, plus : usage augmenté, choix entre plusieurs modèles, **Research**, le **travail de fond** (l'ancien Cowork, fusionné dans Claude), **Claude Design**, **Claude Docs**, **Claude Slides**, **Claude Science**, **projets illimités**, intégration **Microsoft 365**. |
+| **Free** | 0 $ | Web, iOS, Android et bureau. Recherche web, mémoire, création de fichiers et exécution de code, connecteurs, skills, extensions de bureau, **Claude Design, Docs et Slides**, jusqu'à 5 projets. Modèles Sonnet et Haiku. **Pas de Claude Code.** Limites d'usage serrées. |
+| **Pro** | **17 $/mois** en annuel (200 $ payés d'avance) ou **20 $/mois** au mois | Tout le Free, plus : usage augmenté, **Opus** et le choix entre plusieurs modèles, **Claude Code**, **Research**, le **travail de fond** (l'ancien Cowork, fusionné dans Claude : déléguer et planifier des tâches), **Claude Science**, **projets illimités**, Claude dans Chrome et intégration **Microsoft 365**. |
 | **Max** | « à partir de 100 $/mois » | Usage 5× ou 20× celui de Pro, accès anticipé aux nouveautés. |
 | **Team** | **20 $/siège/mois** en annuel (25 $ au mois) ; siège premium **100 $** en annuel (125 $ au mois) | Facturation centralisée, administration, connexion via le compte d'entreprise (SSO). |
 | **Enterprise** | **20 $/siège** + usage aux tarifs API | Contrôles de sécurité et de conformité avancés : journaux d'audit, gestion automatique des comptes, conformité santé HIPAA. |
@@ -198,7 +202,7 @@ Trois de ces éléments reviendront constamment dans les parcours suivants :
 
 - **Le choix des modèles** (leçon suivante) — la différence de qualité est réelle sur les tâches complexes.
 - **Research** : Claude mène une vraie investigation multi-sources et rend un rapport structuré et sourcé.
-- **Claude Code** : l'agent en terminal, au cœur du parcours « Claude Code et IA agentic ». Il est désormais listé jusque dans le plan **Free** — ce qui change les limites, pas l'accès.
+- **Claude Code** : l'agent en terminal, au cœur du parcours « Claude Code et IA agentic ». Il demande un plan payant (Pro et au-dessus, au 16 octobre 2026) ou une clé d'API facturée à l'usage.
 
 ## Comprendre les limites d'usage (le vrai sujet)
 

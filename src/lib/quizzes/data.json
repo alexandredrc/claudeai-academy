@@ -66,7 +66,7 @@
     "Le fine-tuning de modèles personnalisés"
    ],
    "correct": 0,
-   "explanation": "Pro (17 $/mois en annuel, 20 $ au mois) ajoute au Free l'usage augmenté, le choix entre plusieurs modèles, Research, Cowork, Design, Science, les projets illimités et Microsoft 365. À noter : Claude Code, la mémoire, la recherche web et la réflexion étendue sont désormais listés jusque dans le plan Free — et Cowork, Design et Science ne sont plus réservés à Max."
+   "explanation": "Au 6 août 2026, Pro (17 $/mois en annuel, 20 $ au mois) ajoutait au Free l'usage augmenté, le choix entre plusieurs modèles, Research, Cowork, Design, Science, les projets illimités et Microsoft 365 : Cowork, Design et Science n'étaient plus réservés à Max. Au 16 octobre 2026, la page tarifs réserve Claude Code, Research et Claude Science aux plans payants, tandis que Claude Design, Docs et Slides figurent aussi dans le Free : vérifie toujours sur claude.com/pricing."
   },
   {
    "q": "Fable 5 est-il inclus dans un abonnement Pro au 6 août 2026 ?",
@@ -1109,7 +1109,7 @@
     "Il varie chaque mois selon la charge des serveurs"
    ],
    "correct": 0,
-   "explanation": "Les 2 $ / 10 $ de Sonnet 5 avaient été annoncés comme un tarif d'introduction expirant le 31 août 2026, avec une hausse à 3 $ / 15 $ au 1er septembre. Le 11 août 2026, ce tarif est devenu permanent et la hausse a été annulée : l'option 1 est exactement ce qu'il fallait croire une semaine plus tôt. C'est la leçon de fond : un chiffrage de coût porte toujours sa date, dans les deux sens. Un budget peut être faux parce qu'un prix monte, comme parce qu'une hausse annoncée n'arrive jamais. Sonnet 5.5, sorti le 28 septembre 2026, a repris ce même tarif de 2 $ / 10 $. Rappel utile : le batch coûte 50 % de moins et la lecture de cache un dixième du prix d'entrée sur Sonnet."
+   "explanation": "Les 2 $ / 10 $ de Sonnet 5 avaient été annoncés comme un tarif d'introduction expirant le 31 août 2026, avec une hausse à 3 $ / 15 $ au 1er septembre. Le 11 août 2026, ce tarif est devenu permanent et la hausse a été annulée : l'option 1 est exactement ce qu'il fallait croire une semaine plus tôt. C'est la leçon de fond : un chiffrage de coût porte toujours sa date, dans les deux sens. Un budget peut être faux parce qu'un prix monte, comme parce qu'une hausse annoncée n'arrive jamais. Sonnet 5.5, sorti le 28 septembre 2026, a repris ce même tarif de 2 $ / 10 $. Rappel utile : le batch coûte 50 % de moins, et la lecture de cache coûte un dixième du prix d'entrée sur Sonnet 5, un vingtième sur Sonnet 5.5 depuis le 7 octobre 2026."
   }
  ],
  "data-debugger-optimiser": [

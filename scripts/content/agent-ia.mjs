@@ -590,7 +590,7 @@ Q: Pourquoi dit-on que la plupart des « agents n8n » sont des workflows ?
 R: Parce que le chemin est dessiné en nœuds (routage par Switch, enchaînement de chaînes, branches parallèles) et que le modèle remplit des cases sans décider de l'étape suivante. Le nœud AI Agent n'est justifié que quand le nombre d'étapes dépend du contenu.
 ===
 Q: Quels sont les trois états du cache de prompt dans le nœud Anthropic Chat Model ?
-R: Désactivé (par défaut), 5 minutes, 1 heure. Une lecture en cache coûte un dixième du prix d'entrée ; le cache d'une heure coûte deux fois le prix d'entrée à l'écriture.
+R: Désactivé (par défaut), 5 minutes, 1 heure. Une lecture en cache coûte un dixième du prix d'entrée (un vingtième sur Opus 5.5 et Sonnet 5.5, un quarantième sur Fable 5.1) ; le cache d'une heure coûte deux fois le prix d'entrée à l'écriture.
 ===
 Q: Quelle limite a le schéma généré à partir d'un exemple JSON dans le Structured Output Parser ?
 R: Chaque champ devient obligatoire. Pour des champs optionnels, il faut écrire le JSON Schema à la main, sans références $ref, que n8n ne prend pas en charge.

@@ -135,7 +135,7 @@ function renderD7(tier: PlanTier, firstName: string | null): Rendered {
     tier === "starter"
       ? [
           p(
-            "Tu as fait le tour des trois parcours du Pass Starter ? Les cinq autres (Data &amp; SQL, Marketing, Stratégie, Trading &amp; Sécurité des prompts) et le Mentor IA sont dans le <strong>Pass Mastery</strong>. La différence se paie une seule fois, l'accès est à vie.",
+            "Tu as fait le tour des trois parcours du Pass Starter ? Les six autres (Data &amp; SQL, Marketing, Stratégie, Trading, Sécurité des prompts et Agent IA) et le Mentor IA sont dans le <strong>Pass Mastery</strong>. La différence se paie une seule fois, l'accès est à vie.",
           ),
           cta("Voir le Pass Mastery", `${SITE_URL}/tarifs`),
         ].join("\n")
@@ -171,7 +171,7 @@ function renderD7(tier: PlanTier, firstName: string | null): Rendered {
     tier === "starter"
       ? [
           "",
-          "Tu as fait le tour des trois parcours du Pass Starter ? Les cinq autres (Data & SQL, Marketing, Stratégie, Trading & Sécurité des prompts) et le Mentor IA sont dans le Pass Mastery. La différence se paie une seule fois, l'accès est à vie.",
+          "Tu as fait le tour des trois parcours du Pass Starter ? Les six autres (Data & SQL, Marketing, Stratégie, Trading, Sécurité des prompts et Agent IA) et le Mentor IA sont dans le Pass Mastery. La différence se paie une seule fois, l'accès est à vie.",
           `Voir le Pass Mastery : ${SITE_URL}/tarifs`,
         ]
       : [
@@ -228,7 +228,7 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
       "Ça fait deux semaines que tu as le Pass Starter. Si tu es arrivé jusqu'ici, tu as vu le retour sur le temps investi.",
     ),
     p(
-      "Le Starter, c'est trois parcours. Le <strong>Pass Mastery</strong>, ce sont les cinq autres en plus (Data &amp; SQL, Marketing, Stratégie, Trading &amp; Sécurité des prompts), la bibliothèque complète de 170 prompts, et le Mentor IA qui te débloque en continu.",
+      "Le Starter, c'est trois parcours. Le <strong>Pass Mastery</strong>, ce sont les six autres en plus (Data &amp; SQL, Marketing, Stratégie, Trading, Sécurité des prompts et Agent IA), la bibliothèque complète de 170 prompts, et le Mentor IA qui te débloque en continu.",
     ),
     p(
       "Ceux qui passent au Mastery ne le font pas pour « avoir plus de contenu ». Ils le font parce qu'ils veulent appliquer la même méthode à <strong>tout</strong> leur métier, pas juste à un coin.",
@@ -247,7 +247,7 @@ function renderD14(tier: PlanTier, firstName: string | null): Rendered {
     "",
     "Ça fait deux semaines que tu as le Pass Starter. Si tu es arrivé jusqu'ici, tu as vu le retour sur le temps investi.",
     "",
-    "Le Starter, c'est trois parcours. Le Pass Mastery, ce sont les cinq autres en plus (Data & SQL, Marketing, Stratégie, Trading & Sécurité des prompts), la bibliothèque complète de 170 prompts, et le Mentor IA qui te débloque en continu.",
+    "Le Starter, c'est trois parcours. Le Pass Mastery, ce sont les six autres en plus (Data & SQL, Marketing, Stratégie, Trading, Sécurité des prompts et Agent IA), la bibliothèque complète de 170 prompts, et le Mentor IA qui te débloque en continu.",
     "",
     "Ceux qui passent au Mastery ne le font pas pour « avoir plus de contenu ». Ils le font parce qu'ils veulent appliquer la même méthode à tout leur métier, pas juste à un coin.",
     "",

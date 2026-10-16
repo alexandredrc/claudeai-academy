@@ -893,6 +893,10 @@ L'effort règle **combien le modèle réfléchit**. Le mode rapide ne touche pas
 Le mode rapide est disponible sur **Opus 5.5**, à **8 $ / 40 $** par million de tokens au lieu de 4 $ / 20 $. Le rapport reste le même (le double), les trois pièges aussi.
 :::
 
+:::maj 15 octobre 2026
+**Le mode rapide d'Opus 5.5 sort de l'aperçu de recherche.** Plus besoin de demander l'accès ni d'envoyer l'en-tête bêta \`fast-mode-2026-02-01\` (une requête qui l'envoie encore fonctionne). Anthropic ouvre une limite de débit par défaut dans les paliers d'usage Start, Build et Scale ; une organisation au palier Evaluation doit d'abord en changer. Le premier piège change donc pour Opus 5.5 : le mode existe sur l'API d'Anthropic, sur les agents gérés et sur **Claude in Microsoft Foundry** (déploiements hébergés sur Azure), toujours pas sur Bedrock, Google Cloud, Claude Platform on AWS ni l'API de traitement par lots. Les deux autres pièges tiennent : une limite de débit propre, et un changement de vitesse qui invalide le cache. Sur Opus 5 et Opus 4.8, rien ne bouge : aperçu de recherche, accès sur demande, en-tête obligatoire.
+:::
+
 :::cle Le mode rapide ne se justifie que si l'attente se voit
 Un humain devant l'écran : la vitesse vaut de l'argent. Un traitement de nuit, un lot, une file d'attente : elle n'en vaut aucun. Avant de doubler ton tarif, demande-toi **qui regarde la réponse arriver**. Si personne, reste en standard et mets l'économie dans l'effort.
 :::

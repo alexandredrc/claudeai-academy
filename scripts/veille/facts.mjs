@@ -41,6 +41,17 @@ const prixJsonLd = (nom) => new RegExp(String.raw`name: "${nom}",\s*price: "(\d+
 const MOTIF_KLARNA = new RegExp(String.raw`3${ESP}*(?:×|versements de)${ESP}*(\d+(?:,\d+)?)${ESP}*€`);
 /** « 1 497 », « 1&nbsp;497 » et « 1497 » sont le même prix : on compare sans espaces. */
 const canonMontant = (v) => v.replace(/&nbsp;|\s/g, "");
+/** Un nombre écrit en lettres (« six », « neuf ») ou en chiffres, ramené aux chiffres.
+ *  Les emails écrivent les compteurs en toutes lettres : sans ça, aucun motif ne les lit. */
+const NOMBRES_FR = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze"];
+const canonNombre = (v) => {
+  const i = NOMBRES_FR.indexOf(String(v).toLowerCase());
+  return i >= 0 ? String(i) : String(v);
+};
+/** « Pass Starter · 47 € », « Pass Starter (47 €) », « Pass Starter : 47 € », et l'ancienne
+ *  forme « Pass Starter — 47 € ». Le tiret cadratin a été retiré du copy à l'automne 2026 :
+ *  les motifs qui ne lisaient que lui sont devenus muets dans sept fichiers, sans alerte. */
+const passPrix = (nom) => prixApres(`Pass ${nom}${ESP}*(?:—|·|:|\\()${ESP}*`);
 /** « 4 octobre 2026 » → 20261004, pour comparer deux dates affichées. 0 si illisible. */
 const MOIS_FR = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 const dateCle = (v) => {
@@ -62,9 +73,15 @@ export const FAITS = [
     libelle: "Nombre de prompts de la bibliothèque",
     gravite: "critique",
     pourquoi: "Chiffre commercial affiché 11 fois. S'il dépasse la réalité, c'est une promesse non tenue.",
+    // Seules les copies ÉCRITES À LA MAIN sont suivies : la vitrine affiche
+    // PROMPT_COUNT, calculé. Un motif générique « N prompts » a crié FAUX le
+    // 16/10/2026 sur « réponds avec 3 prompts que tu utilises » (bonus de
+    // l'email de bienvenue) : on ancre sur la bibliothèque, pas sur le mot.
     ou: [
-      { fichier: "src/components/landing/prompt-teaser.tsx", motif: /(\d+)\s+prompts/ },
-      { fichier: "src/lib/email/welcome.ts", motif: /(\d+)\s+prompts/ },
+      { fichier: "src/lib/email/welcome.ts", motif: /bibliothèque de (\d+) prompts/ },
+      { fichier: "src/lib/email/nurture.ts", motif: /bibliothèque (?:complète )?de (\d+) prompts/ },
+      { fichier: "src/lib/email/lead-magnet.ts", motif: /leçons, (\d+) prompts/ },
+      { fichier: "src/lib/email/lead-magnet-en.ts", motif: /lessons, (\d+) prompts/ },
     ],
     verif: { kind: "local", fn: "compterPrompts" },
   },
@@ -84,7 +101,7 @@ export const FAITS = [
       { fichier: "src/app/tarifs/page.tsx", motif: /[0-9]+ parcours, (\d+) leçons/ },
       { fichier: "src/app/formation-claude-ai/page.tsx", motif: /[0-9]+ parcours, (\d+) leçons/ },
       { fichier: "src/app/account/page.tsx", motif: /[0-9]+ parcours, soit (\d+) leçons/ },
-      { fichier: "src/components/landing/faq.tsx", motif: /[0-9]+ parcours, (\d+) leçons\)/ },
+      { fichier: "src/components/landing/faq.tsx", motif: /les (\d+) leçons des [0-9]+ parcours/ },
       { fichier: "src/components/landing/founder.tsx", motif: /les (\d+) leçons/ },
       { fichier: "src/lib/email/welcome.ts", motif: /parcours complets \((\d+) leçons\)/ },
       { fichier: "src/lib/email/nurture.ts", motif: /\d+ € pour (\d+) leçons/ },
@@ -111,8 +128,37 @@ export const FAITS = [
     libelle: "Nombre de parcours",
     gravite: "critique",
     pourquoi: "Chiffre commercial, et il détermine ce que débloque chaque pass.",
-    ou: [{ fichier: "src/components/landing/programme.tsx", motif: /(\d+)\s+parcours/ }],
+    // programme.tsx affiche stats.courseCount, calculé depuis la base : son
+    // motif n'accrochait plus rien. Les copies tapées à la main, elles,
+    // écrivent le nombre en chiffres ou en lettres (« pour les neuf »).
+    ou: [
+      { fichier: "src/components/landing/faq.tsx", motif: /leçons des ([0-9]+) parcours/ },
+      { fichier: "src/lib/email/activation.ts", motif: /€ pour les (\p{L}+)\. Garantie/u },
+      { fichier: "src/lib/email/lead-magnet.ts", motif: /couvre les (\d+) parcours/ },
+      { fichier: "src/lib/email/lead-magnet.ts", motif: /les (\d+) parcours, \d+ leçons, \d+ prompts/ },
+      { fichier: "src/lib/email/lead-magnet-en.ts", motif: /\((\d+) tracks/ },
+    ],
+    canon: canonNombre,
     verif: { kind: "local", fn: "compterParcours" },
+  },
+  {
+    id: "parcours-hors-starter",
+    libelle: "Nombre de parcours réservés au Pass Mastery",
+    gravite: "critique",
+    pourquoi:
+      "Ce que l'upgrade Starter → Mastery promet d'ouvrir. Écrit en lettres dans les emails " +
+      "(« les cinq autres »), il a échappé à tous les motifs en chiffres : jusqu'au 16/10/2026, " +
+      "la séquence nurture annonçait cinq parcours de plus pour six réels, et la liste oubliait " +
+      "« Construire ton agent IA ».",
+    ou: [
+      { fichier: "src/lib/email/nurture.ts", motif: /[Ll]es (\p{L}+) autres/u },
+      { fichier: "src/app/checkout/success/page.tsx", motif: /Il te reste (\d+) parcours/ },
+      { fichier: "src/app/checkout/success/page.tsx", motif: /Les (\d+) autres \(/ },
+      { fichier: "src/app/account/page.tsx", motif: /aux (\d+) parcours supplémentaires/ },
+      { fichier: "src/app/formation-claude-code/page.tsx", motif: /ajoute les (\p{L}+) autres parcours/u },
+    ],
+    canon: canonNombre,
+    verif: { kind: "local", fn: "compterParcoursMastery" },
   },
 
   // ── Prix : ce que le contrat promet doit être ce que Stripe encaisse ─────
@@ -163,7 +209,7 @@ export const FAITS = [
       { fichier: "src/app/layout.tsx", motif: prixApres("[Dd]ès ") },
       { fichier: "src/components/landing/hero.tsx", motif: prixApres("à partir de ") },
       { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixCarte("Starter") },
-      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Commencer — |Vos ") },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Commencer (?:—|·) |Vos ") },
       { fichier: "src/components/landing/final-cta.tsx", motif: prixApres("Starter, ") },
       { fichier: "src/components/site/price-bar.tsx", motif: prixApres("[Dd]ès ") },
       { fichier: "src/components/site/footer.tsx", motif: prixApres("Pass Starter, ") },
@@ -172,14 +218,14 @@ export const FAITS = [
       { fichier: "src/app/certification-claude-ai/page.tsx", motif: prixApres("à partir de |[Dd]ès ") },
       { fichier: "src/app/certification/examen/page.tsx", motif: prixApres("à partir de ") },
       { fichier: "src/app/faq/page.tsx", motif: prixApres(String.raw`[Dd]ès |Pass Starter \(|c'est `) },
-      { fichier: "src/app/checkout/success/page.tsx", motif: prixApres("payer ") },
-      { fichier: "src/app/checkout/cancel/page.tsx", motif: prixApres("Pass Starter — ") },
-      { fichier: "src/app/signup/page.tsx", motif: prixApres("Pass Starter — ") },
+      { fichier: "src/app/checkout/success/page.tsx", motif: /Les (\d+) € que tu viens de/ },
+      { fichier: "src/app/checkout/cancel/page.tsx", motif: passPrix("Starter") },
+      { fichier: "src/app/signup/page.tsx", motif: passPrix("Starter") },
       { fichier: "src/app/account/page.tsx", motif: prixApres("Pass Starter (?:—|·) ") },
-      { fichier: "src/app/courses/[slug]/page.tsx", motif: prixApres("Pass Starter — ") },
+      { fichier: "src/app/courses/[slug]/page.tsx", motif: passPrix("Starter") },
       { fichier: "src/app/courses/[slug]/page.tsx", motif: /"mastery" \? "\d+" : "(\d+)"/ },
-      { fichier: "src/app/courses/[slug]/[lesson]/page.tsx", motif: prixApres("Pass Starter — ") },
-      { fichier: "src/app/llms.txt/route.ts", motif: prixApres("Pass Starter — ") },
+      { fichier: "src/app/courses/[slug]/[lesson]/page.tsx", motif: passPrix("Starter") },
+      { fichier: "src/app/llms.txt/route.ts", motif: passPrix("Starter") },
       { fichier: "src/lib/email/activation.ts", motif: /(\d+) € pour les trois parcours/ },
       // Séquence réécrite le 04/10/2026 : le prix suit toujours « Pass Starter, ».
       { fichier: "src/lib/email/lead-magnet.ts", motif: /Pass Starter, (\d+) €/ },
@@ -200,25 +246,25 @@ export const FAITS = [
       { fichier: "src/app/tarifs/page.tsx", motif: prixApres(String.raw`Claude AI : \d+ €(?:,| ou) |Mastery à `) },
       { fichier: "src/app/tarifs/page.tsx", motif: prixJsonLd("Pass Mastery") },
       { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixCarte("Mastery") },
-      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Rejoindre Mastery — ") },
-      { fichier: "src/components/landing/value-stack.tsx", motif: /Votre prix[\s\S]{0,200}?(\d+)\s€/ },
-      { fichier: "src/components/landing/value-stack.tsx", motif: prixApres("Rejoindre Mastery, ") },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Rejoindre Mastery (?:—|·) ") },
+      // value-stack.tsx affiche PRIX_MASTERY : on suit la constante, pas son rendu.
+      { fichier: "src/lib/offre/mesures.ts", motif: /PRIX_MASTERY = (\d+);/ },
       { fichier: "src/components/landing/final-cta.tsx", motif: prixApres("Rejoindre Mastery, ") },
       { fichier: "src/components/site/price-bar.tsx", motif: prixApres("Pass complet ") },
       { fichier: "src/components/site/footer.tsx", motif: prixApres("Pass Mastery, ") },
       { fichier: "src/app/formation-claude-ai/page.tsx", motif: prixApres(String.raw`Mastery · |parcours · |\d+ € ou |coûte `) },
       { fichier: "src/app/faq/page.tsx", motif: prixApres(String.raw`Pass Mastery \(|\(ou `) },
       { fichier: "src/app/checkout/success/page.tsx", motif: prixApres("Mastery · ") },
-      { fichier: "src/app/checkout/cancel/page.tsx", motif: prixApres("Pass Mastery — ") },
-      { fichier: "src/app/signup/page.tsx", motif: prixApres("Pass Mastery — ") },
+      { fichier: "src/app/checkout/cancel/page.tsx", motif: passPrix("Mastery") },
+      { fichier: "src/app/signup/page.tsx", motif: passPrix("Mastery") },
       { fichier: "src/app/account/page.tsx", motif: prixApres("Mastery (?:—|·) ") },
       { fichier: "src/app/mentor/page.tsx", motif: prixApres("Pass Mastery · ") },
       { fichier: "src/app/courses/page.tsx", motif: prixApres("Pass Mastery à ") },
-      { fichier: "src/app/courses/[slug]/page.tsx", motif: prixApres("Pass Mastery — ") },
+      { fichier: "src/app/courses/[slug]/page.tsx", motif: passPrix("Mastery") },
       { fichier: "src/app/courses/[slug]/page.tsx", motif: /"mastery" \? "(\d+)"/ },
-      { fichier: "src/app/courses/[slug]/[lesson]/page.tsx", motif: prixApres("Pass Mastery — ") },
-      { fichier: "src/app/llms.txt/route.ts", motif: prixApres("Pass Mastery — ") },
-      { fichier: "src/lib/email/activation.ts", motif: /(\d+) € pour les huit/ },
+      { fichier: "src/app/courses/[slug]/[lesson]/page.tsx", motif: passPrix("Mastery") },
+      { fichier: "src/app/llms.txt/route.ts", motif: passPrix("Mastery") },
+      { fichier: "src/lib/email/activation.ts", motif: /(\d+) € pour les \p{L}+\. Garantie/u },
       { fichier: "src/lib/email/nurture.ts", motif: prixApres(String.raw`« |au lieu de |"`) },
     ],
     canon: canonMontant,
@@ -236,8 +282,8 @@ export const FAITS = [
       { fichier: "src/app/tarifs/page.tsx", motif: prixApres(String.raw`\d+ €, \d+ € ou |Accompagnement à `) },
       { fichier: "src/app/tarifs/page.tsx", motif: prixJsonLd("Pass Accompagnement") },
       { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixCarte("Accompagnement") },
-      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Réserver ma place — ") },
-      { fichier: "src/app/checkout/cancel/page.tsx", motif: prixApres("Pass Accompagnement — ") },
+      { fichier: "src/components/landing/pricing-teaser.tsx", motif: prixApres("Réserver ma place (?:—|·) ") },
+      { fichier: "src/app/checkout/cancel/page.tsx", motif: passPrix("Accompagnement") },
     ],
     canon: canonMontant,
     verif: { kind: "local", fn: "prixPassAccompagnement" },
@@ -288,8 +334,16 @@ export const FAITS = [
     libelle: "Version courante de Claude Code",
     gravite: "date",
     pourquoi: "La phrase est horodatée : elle vieillit sans devenir fausse. À rafraîchir lors d'une passe, jamais en urgence.",
+    // Les pages de vente du parcours répètent la version « vérifiée » : jusqu'au
+    // 16/10/2026 seule la leçon était suivie, et la description de
+    // /formation-claude-code annonçait encore 2.1.288 quand la page disait 2.1.295.
     ou: [
       { fichier: "scripts/content/claude-code.mjs", motif: /la version courante est \*\*([\d.]+)\*\*/ },
+      // La description du parcours (table courses, affichée sur sa page) : réécrite
+      // par la passe SEO du 16/10/2026, écrasée par un seed parti d'une branche plus ancienne.
+      { fichier: "scripts/content/claude-code.mjs", motif: /À jour de Claude Code (\d+\.\d+\.\d+)/ },
+      { fichier: "src/app/formation-claude-code/page.tsx", motif: /[Vv]érifiée?s? sur Claude Code (\d+\.\d+\.\d+)/ },
+      { fichier: "src/app/claude-code-skills/page.tsx", motif: /vérifié sur Claude Code (\d+\.\d+\.\d+)/ },
     ],
     verif: {
       kind: "http-regex",
@@ -312,7 +366,7 @@ export const FAITS = [
       { fichier: "scripts/content/bien-demarrer.mjs", motif: null },
       { fichier: "scripts/content/data-sql.mjs", motif: null },
     ],
-    verif: { kind: "revue", sources: ["anthropic-release-notes", "claude-blog"] },
+    verif: { kind: "revue", sources: ["anthropic-release-notes", "claude-blog", "platform-pricing"] },
   },
   {
     id: "abonnement-anthropic",
@@ -320,7 +374,7 @@ export const FAITS = [
     gravite: "critique",
     pourquoi: "Cité dans le calcul de coût du parcours Stratégie.",
     ou: [{ fichier: "scripts/content/strategie-ia.mjs", motif: /\*\*(\d+) \$ par mois en engagement annuel\*\*/ }],
-    verif: { kind: "revue", sources: ["anthropic-release-notes", "claude-blog"] },
+    verif: { kind: "revue", sources: ["anthropic-release-notes", "claude-blog", "claude-pricing"] },
   },
   {
     id: "ai-act-calendrier",
@@ -329,7 +383,7 @@ export const FAITS = [
     pourquoi:
       "Enseigner une échéance réglementaire fausse expose le lecteur. Le Digital Omnibus a déjà décalé le haut risque une fois.",
     ou: [{ fichier: "scripts/content/strategie-ia.mjs", motif: null }],
-    verif: { kind: "revue", sources: ["eu-ai-act", "eu-ai-act-implementation"] },
+    verif: { kind: "revue", sources: ["eu-ai-act-framework", "eu-ai-act-implementation"] },
   },
   // ── Pages piliers SEO : des chiffres sourcés, donc des chiffres qui périment ──
   {
@@ -355,7 +409,7 @@ export const FAITS = [
     ou: [
       { fichier: "src/app/formation-intelligence-artificielle/page.tsx", motif: null },
     ],
-    verif: { kind: "revue", sources: ["eu-ai-act", "eu-ai-act-implementation"] },
+    verif: { kind: "revue", sources: ["eu-ai-act-framework", "eu-ai-act-implementation"] },
   },
   {
     id: "comparatif-claude-chatgpt",
@@ -373,5 +427,39 @@ export const FAITS = [
     pourquoi: "Même raison : c'est du droit applicable, enseigné à des professionnels.",
     ou: [{ fichier: "scripts/content/strategie-ia.mjs", motif: null }],
     verif: { kind: "revue", sources: ["cnil-ia"] },
+  },
+
+  // ── Ajoutés le 16/10/2026, après deux erreurs que rien ne surveillait ────
+  {
+    id: "contenu-des-plans",
+    libelle: "Fonctions incluses dans chaque plan Claude (Free, Pro, Max)",
+    gravite: "critique",
+    pourquoi:
+      "Le 16/10/2026, Bien démarrer et un QCM affirmaient que Claude Code est inclus dans le plan " +
+      "Free, alors que le comparatif de claude.com/pricing le réserve à Pro et au-dessus (et que " +
+      "/formation-claude-code disait déjà le contraire). Aucune source ne surveillait cette page : " +
+      "le fait des abonnements n'était relu que sur un mouvement des notes de version de l'API.",
+    ou: [
+      { fichier: "scripts/content/bien-demarrer.mjs", motif: null },
+      { fichier: "src/lib/quizzes/data.json", motif: null },
+      { fichier: "src/app/claude-ai-gratuit/page.tsx", motif: null },
+      { fichier: "src/app/formation-claude-code/page.tsx", motif: null },
+    ],
+    verif: { kind: "revue", sources: ["claude-pricing"] },
+  },
+  {
+    id: "statuts-apercu-et-beta",
+    libelle: "Statuts « aperçu de recherche » et « bêta » (mode rapide, agents gérés, routines)",
+    gravite: "critique",
+    pourquoi:
+      "Un statut se périme sans qu'aucun chiffre ne bouge. Le 15/10/2026, le mode rapide d'Opus 5.5 " +
+      "est sorti de l'aperçu de recherche et arrivé sur Foundry : deux leçons disaient encore « aperçu " +
+      "de recherche » et « ni Foundry ».",
+    ou: [
+      { fichier: "scripts/content/prompt-engineering.mjs", motif: null },
+      { fichier: "scripts/content/claude-code.mjs", motif: null },
+      { fichier: "scripts/content/agent-ia.mjs", motif: null },
+    ],
+    verif: { kind: "revue", sources: ["anthropic-release-notes"] },
   },
 ];

@@ -339,7 +339,7 @@ Si tu génères du SQL depuis un script, un notebook ou un agent, le choix du mo
 Deux leviers de coût qui comptent beaucoup sur des traitements data répétitifs :
 
 - Le **traitement par lots** (batch) coûte **50 % moins cher** : idéal pour requalifier 10 000 lignes ou générer 200 contrôles en une passe, quand la réponse n'est pas attendue dans la seconde.
-- Le **cache de prompt** : lire un préfixe déjà mis en cache coûte **un dixième** du prix d'entrée (un vingtième sur Opus 5.5, un quarantième sur Fable 5.1). Comme ton schéma est identique d'une requête à l'autre, mets-le en tête de prompt et laisse-le en cache. L'écriture en cache coûte ×1,25 pour une durée de vie de 5 minutes, ×2 pour une heure.
+- Le **cache de prompt** : lire un préfixe déjà mis en cache coûte **un dixième** du prix d'entrée (un vingtième sur Opus 5.5 et, depuis le 7 octobre 2026, sur Sonnet 5.5 ; un quarantième sur Fable 5.1). Comme ton schéma est identique d'une requête à l'autre, mets-le en tête de prompt et laisse-le en cache. L'écriture en cache coûte ×1,25 pour une durée de vie de 5 minutes, ×2 pour une heure.
 - Le paramètre **inference_geo: "us"** applique un supplément de 10 % sur le tarif.
 
 :::maj 11 août 2026

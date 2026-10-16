@@ -16,7 +16,7 @@ export const claudeCodeIaAgentic = {
   slug: "claude-code-ia-agentic",
   title: "Claude Code et l'IA agentique",
   description:
-    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents, plugins et mods, coûts maîtrisés, puis comment le sortir du terminal avec l'Agent SDK ou les agents gérés. À jour de Claude Code 2.1.295 et d'Opus 5.5 (9 octobre 2026).",
+    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents, plugins et mods, coûts maîtrisés, puis comment le sortir du terminal avec l'Agent SDK ou les agents gérés. À jour de Claude Code 2.1.301 et d'Opus 5.5 (16 octobre 2026).",
   tier_required: "starter",
   display_order: 3,
   estimated_duration_min: 188,
@@ -37,7 +37,7 @@ export const claudeCodeIaAgentic = {
 :::
 
 :::flash
-Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 9 octobre 2026, la version courante est **2.1.295**, et **Opus 5.5** est le modèle Opus par défaut depuis le 22 septembre.
+Claude Code n'est pas une fenêtre de chat : c'est un agent qui vit dans ton terminal, lit ton dépôt, écrit du code, lance des commandes et boucle sur les résultats. Tu passes de « copier-coller des extraits » à « déléguer des tâches et relire ». Au 16 octobre 2026, la version courante est **2.1.301**, et **Opus 5.5** est le modèle Opus par défaut depuis le 22 septembre.
 :::
 
 ## Le saut : du chatbot à l'agent
@@ -100,6 +100,15 @@ Un mot sur le modèle, puisqu'il pilote la facture. **Claude Opus 5.5 est le mod
 
 :::maj 6 août 2026
 Entre le 18 juillet et le 6 août 2026 (version **2.1.223**), le changelog documente **au moins cinq corrections de contournement du système de permissions Bash** : contournement en PowerShell 5.1, conditionnels regex zsh, mauvaise gestion des guillemets PowerShell, hooks pré-outil qui court-circuitaient les restrictions d'outils, et commande masquant une partie d'elle-même via des tabulations ou de l'Unicode invisible.
+:::
+
+:::maj 16 octobre 2026
+Claude Code est passé de **2.1.295 à 2.1.301** en une semaine (l'Agent SDK suit, en 0.3.301). Rien ne change dans ce que ce parcours enseigne ; quatre points touchent tes réglages :
+
+- **Une règle d'autorisation MCP ne couvre plus que le serveur qu'elle nomme** (2.1.299). \`mcp__a\` n'autorise plus un serveur appelé \`a__b\` : écris \`mcp__<nom complet du serveur>__*\`. Même règle pour la liste \`tools:\` d'un sous-agent. Si un serveur MCP s'est mis à redemander la permission, relis tes règles.
+- **Les hooks \`UserPromptSubmit\` passent avant l'expansion d'une skill ou d'une commande** (2.1.299) : un hook qui bloque le prompt arrête aussi les commandes shell que la skill aurait lancées. Et l'\`updatedInput\` renvoyé par un hook PreToolUse est désormais validé comme une saisie de Claude (2.1.300) : une clé inconnue est ignorée, une entrée que l'outil refuse bloque l'appel. Détail des hooks en leçon 4.
+- **\`/cost\`, la ligne d'état et \`--max-budget-usd\` comptent la lecture de cache de Sonnet 5.5 à 0,10 $** par million de tokens (2.1.296), le tarif en vigueur depuis le 7 octobre. Avant cette version, l'estimation de coût surévaluait le cache.
+- **L'alias \`fable\` (et \`best\`) se rabat une fois sur le Fable précédent** quand ton organisation n'a pas accès au plus récent (2.1.301, API Anthropic), au lieu de renvoyer une erreur.
 :::
 
 :::maj 9 octobre 2026
@@ -198,8 +207,8 @@ R: Rassembler le contexte, agir, observer, corriger.
 Q: Quel critère pratique dit si une tâche est déléguable à l'agent ?
 R: S'il existe une commande qui vérifie le résultat automatiquement, elle est déléguable.
 ===
-Q: Quelle est la version de Claude Code au 9 octobre 2026, et sur quel modèle Opus tourne-t-elle par défaut ?
-R: 2.1.295, sur Opus 5.5 (par défaut depuis le 22 septembre 2026).
+Q: Quelle est la version de Claude Code au 16 octobre 2026, et sur quel modèle Opus tourne-t-elle par défaut ?
+R: 2.1.301, sur Opus 5.5 (par défaut depuis le 22 septembre 2026).
 ===
 Q: Une liste d'autorisations Bash est-elle une frontière de sécurité fiable ?
 R: Non. Au moins cinq contournements ont été corrigés entre le 18 juillet et le 6 août 2026. C'est de la défense en profondeur.
@@ -1067,7 +1076,7 @@ Avant de choisir un hébergement, vérifie que ta tâche marche. Fais-la tourner
 :::
 
 :::maj 21 septembre 2026
-**Où en est chaque brique.** Le Claude Agent SDK suit Claude Code en parité de version (0.3.278 pour 2.1.278). Les agents gérés restent en **bêta** — en-tête \`managed-agents-2026-04-01\`, API susceptible d'évoluer, indisponibles sur Bedrock, Vertex et Foundry. Le **mode rapide** (voir parcours « Bien démarrer ») fonctionne sur les agents gérés comme sur l'API Messages, toujours en aperçu de recherche. Ce sont des surfaces jeunes : garde les versions et les en-têtes datés dans ton code, comme on date les affirmations dans cette formation.
+**Où en est chaque brique.** Le Claude Agent SDK suit Claude Code en parité de version (0.3.278 pour 2.1.278). Les agents gérés restent en **bêta** : en-tête \`managed-agents-2026-04-01\`, API susceptible d'évoluer, indisponibles sur Bedrock, Vertex et Foundry, mais proposés sur Claude Platform on AWS avec quelques différences de fonctions (au 16 octobre 2026). Le **mode rapide** (voir le parcours « Prompt Engineering pro », leçon 7) fonctionne sur les agents gérés comme sur l'API Messages ; sur Opus 5.5, il est sorti de l'aperçu de recherche le 15 octobre 2026, il y reste sur Opus 5 et Opus 4.8. Ce sont des surfaces jeunes : garde les versions et les en-têtes datés dans ton code, comme on date les affirmations dans cette formation.
 :::
 
 :::defi 45 min — Faire tourner ta première tâche sans toi

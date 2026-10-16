@@ -36,6 +36,39 @@ export const SOURCES = [
     url: "https://platform.claude.com/docs/en/release-notes/overview",
     impacts: ["prompt-engineering-pro", "claude-code-ia-agentic", "strategie-conduite-ia"],
   },
+  // Les trois sources suivantes, ajoutées le 16/10/2026, couvrent ce que les
+  // faits des tarifs et des abonnements citaient sans que rien ne le lise :
+  // le contenu exact des plans (Claude Code n'est pas dans le Free) et les
+  // grilles de prix. Empreinte AVEC les chiffres : une baisse de prix seule
+  // doit déclencher la relecture.
+  {
+    id: "claude-pricing",
+    label: "Claude — Tarifs et contenu des plans (claude.com/pricing)",
+    tier: 1,
+    kind: "html-hash",
+    url: "https://claude.com/pricing",
+    garderChiffres: true,
+    limite: 60000,
+    impacts: ["bien-demarrer-avec-claude", "strategie-conduite-ia"],
+  },
+  {
+    id: "platform-pricing",
+    label: "Anthropic — Grille tarifaire de l'API",
+    tier: 1,
+    kind: "html-hash",
+    url: "https://platform.claude.com/docs/en/about-claude/pricing",
+    garderChiffres: true,
+    limite: 60000,
+    impacts: ["bien-demarrer-avec-claude", "claude-data-sql", "prompt-engineering-pro"],
+  },
+  {
+    id: "claude-blog",
+    label: "Claude — Articles et annonces produit",
+    tier: 1,
+    kind: "html-hash",
+    url: "https://claude.com/resources/articles",
+    impacts: ["bien-demarrer-avec-claude", "contenu-et-marketing"],
+  },
   {
     id: "anthropic-prompting-best-practices",
     label: "Anthropic — Prompting best practices (doc vivante)",

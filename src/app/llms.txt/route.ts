@@ -103,6 +103,8 @@ ${MESURES.map(
   (m) => `- ${m.tache} : ${duree(m.sans)} à la main, ${duree(m.avec)} avec Claude.`,
 ).join("\n")}
 
+Sur les ${MESURES.length} tâches : ${duree(MESURES.reduce((s, m) => s + m.sans, 0))} à la main, ${duree(MESURES.reduce((s, m) => s + m.avec, 0))} avec Claude.
+
 ## Parcours
 
 ${list

@@ -433,7 +433,10 @@ export default function CertificationPage() {
             <Button href="/tarifs" variant="primary" size="lg">
               Commencer le programme, dès 47 €
             </Button>
-            <Button href="/certification/examen" variant="ghost" size="lg">
+            {/* L'examen exige une session : on lie la page de connexion
+                (200) plutôt que /certification/examen, qui renvoyait une 307
+                aux robots (vérification SEO du 16/10/2026). */}
+            <Button href="/login?next=/certification/examen" variant="ghost" size="lg">
               J’ai fini mon parcours, passer l’examen
             </Button>
           </div>

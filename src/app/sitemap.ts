@@ -13,11 +13,16 @@ type Freq = "weekly" | "monthly" | "yearly";
  * change à chaque génération (audit du 15/10/2026 : la même heure sur les
  * 24 URL statiques) le pousse à ignorer le champ pour tout le fichier.
  *
- * Comment la mettre à jour, à chaque modification visible d'une page :
+ * Comment la mettre à jour, à chaque modification du CONTENU visible d'une
+ * page (texte, chiffres, sections) ; un commit qui ne touche que les
+ * métadonnées (title, description, Open Graph, JSON-LD) ou le fil d'Ariane ne
+ * la fait pas bouger, Google attend la date du dernier changement significatif :
  *   git log -1 --format=%cs -- src/app/<chemin>/page.tsx
  *   (accueil = src/app/page.tsx ; une page composée de blocs partagés, comme
  *   l'accueil ou /tarifs, prend la date du dernier commit qui a changé son
- *   rendu, blocs compris).
+ *   rendu, blocs compris). Les dates ci-dessous datent du 15/10/2026 : les
+ *   commits de ce jour-là n'ont changé que des métadonnées sur 17 pages, qui
+ *   gardent donc la date de leur dernier changement de contenu.
  *
  * `suitFraicheur` : la page affiche des valeurs lues dans
  * src/lib/content/fraicheur.ts (date de la dernière passe de veille) : au

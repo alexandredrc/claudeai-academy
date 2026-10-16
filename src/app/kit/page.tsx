@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { cookies } from "next/headers";
 import { Container } from "@/components/site/container";
 import { PROVENANCE_COOKIE, decoderProvenance } from "@/lib/attribution";
@@ -62,6 +63,18 @@ export default async function KitPage({
         <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-16 items-center relative">
           <div>
             <Eyebrow>Kit gratuit · 15 prompts</Eyebrow>
+            {/* Seul lien interne vers la version anglaise : sans lui, /en/kit
+                n'est atteignable que par le sitemap (vérification SEO du
+                16/10/2026). */}
+            <p className="mt-2 text-[13px] text-muted">
+              <Link
+                href="/en/kit"
+                hrefLang="en"
+                className="underline underline-offset-4 decoration-line hover:text-coral transition-colors"
+              >
+                English version
+              </Link>
+            </p>
             <h1 className="mt-5 font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-medium leading-[1.05] tracking-[-0.025em] text-ink">
               Les <span className="accent-serif">80 %</span> de Claude AI
               <br />

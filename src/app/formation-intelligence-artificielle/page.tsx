@@ -606,6 +606,20 @@ export default async function FormationIAPage() {
               className="font-semibold text-coral hover:text-coral-dark"
             >
               Claude ou ChatGPT
+            </Link>{" "}
+            ·{" "}
+            <Link
+              href="/formation-ia-independants-tpe"
+              className="font-semibold text-coral hover:text-coral-dark"
+            >
+              la formation IA pour indépendants et TPE
+            </Link>{" "}
+            ·{" "}
+            <Link
+              href="/certification-claude-ai"
+              className="font-semibold text-coral hover:text-coral-dark"
+            >
+              la certification Claude AI
             </Link>
             .
           </p>

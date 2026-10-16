@@ -389,11 +389,11 @@ export default async function FormationIAIndependantsTPEPage() {
               Le fondateur dirige un restaurant : les quatre dernières lignes du tableau viennent
               de là. La fiche technique chiffrée d’un plat et les prix de la carte après une hausse
               fournisseur se font dans Excel, avec Claude qui lit le classeur et recalcule sans
-              casser les formules : c’est l’objet de la leçon en accès libre{" "}
-              <Link href={LECON_EXCEL} className="font-semibold text-coral hover:text-coral-dark">
-                Claude là où tu travailles déjà
-              </Link>
-              . La réponse à un avis Google et les descriptions de plats s’écrivent dans le ton de
+              casser les formules : c’est l’objet du guide{" "}
+              <Link href="/claude-excel-powerpoint" className="font-semibold text-coral hover:text-coral-dark">
+                Claude dans Excel, PowerPoint, Word et Chrome
+              </Link>{" "}
+              et de sa leçon en accès libre. La réponse à un avis Google et les descriptions de plats s’écrivent dans le ton de
               la maison une fois que Claude le connaît : c’est ce qu’apprend la leçon{" "}
               <span className="font-semibold text-ink">Personnaliser Claude</span>, dès le Pass
               Starter.

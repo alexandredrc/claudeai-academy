@@ -361,7 +361,7 @@ R: Tout ce qui n'est pas dans la liste est interdit ; à défaut, écrire [À CO
 :::
 
 :::flash
-Industrialiser, c'est découper : angle, plan, rédaction par blocs, passe anti-générique. Depuis le 2 août 2026, une cinquième contrainte s'ajoute au workflow : l'article 50 de l'AI Act impose d'étiqueter certains contenus produits par IA — les visuels où figure une personne réelle, et les textes d'intérêt public non relus par un humain. La bonne nouvelle : la relecture éditoriale documentée, que tu devrais faire de toute façon, est précisément l'exemption prévue.
+Industrialiser, c'est découper : angle, plan, rédaction par blocs, passe anti-générique. Depuis le 2 août 2026, une cinquième contrainte s'ajoute au workflow : l'article 50 de l'AI Act impose d'étiqueter certains contenus produits par IA, à savoir les visuels réalistes de personnes, lieux, objets ou événements réels, et les textes d'intérêt public non relus par un humain. La bonne nouvelle : la relecture éditoriale documentée, que tu devrais faire de toute façon, est précisément l'exemption prévue.
 :::
 
 ## Le piège du volume
@@ -419,15 +419,19 @@ Le fournisseur du modèle, c'est Anthropic — c'est lui qui porte les obligatio
 
 | Ce que tu publies | Mention obligatoire ? | Ce que tu fais |
 | --- | --- | --- |
-| Visuel, audio ou vidéo généré ou retouché par IA où figure une personne réelle | **Oui** | Divulgation claire, dès la première exposition |
+| Visuel, audio ou vidéo généré ou retouché par IA qui imite de façon réaliste une personne, un lieu, un objet ou un événement réels | **Oui** | Divulgation claire, dès la première exposition |
 | Texte qui informe le public sur un sujet d'intérêt public (politique, santé publique, environnement, sécurité des consommateurs, débat public) | **Oui, sauf revue humaine** | Soit une mention, soit une relecture éditoriale de fond, documentée |
 | Post LinkedIn commercial, page produit, email client, newsletter promotionnelle | **Non** | Rien à étiqueter au titre de l'article 50 |
 | Note interne, brouillon, script, code | **Non** | Rien |
 | Chatbot exposé à tes clients | **Oui**, autre mécanisme | Dire dès le premier message qu'on parle à une IA |
 
-### Les visuels où figure une personne réelle
+### Les visuels réalistes : les hypertrucages
 
-C'est le cas le plus net. Une image, un son ou une vidéo généré ou manipulé par IA, qui ressemble à une personne réelle au point de pouvoir passer pour authentique, doit être divulgué comme tel — **de manière claire et distinguable, au plus tard lors de la première exposition**. Une mention en pied de page, sous trois clics, ne remplit pas ce critère.
+C'est le cas le plus net. Une image, un son ou une vidéo généré ou manipulé par IA, qui ressemble à une personne, un lieu, un objet ou un événement réels au point de pouvoir passer pour authentique, doit être divulgué comme tel, **de manière claire et distinguable, au plus tard lors de la première exposition**. Une mention en pied de page, sous trois clics, ne remplit pas ce critère.
+
+:::maj 16 octobre 2026
+**Pas seulement les personnes.** Cette section et son tableau parlaient de visuels « où figure une personne réelle ». La définition légale est plus large : l'article 3, point 60, du règlement (UE) 2024/1689, relu sur EUR-Lex, appelle **hypertrucage** une image, un son ou une vidéo généré ou manipulé par l'IA « présentant une ressemblance avec des personnes, des objets, des lieux, des entités ou événements existants » et pouvant passer pour authentique. Une photo IA réaliste de ta vitrine, de ton produit ou d'un salon qui n'a pas eu lieu entre donc dans le champ, même sans visage. Le reste ne change pas : divulgation claire dès la première exposition, atténuation pour les œuvres manifestement artistiques ou fictives.
+:::
 
 Deux nuances utiles. Pour une œuvre manifestement artistique, satirique ou de fiction, le règlement prévoit une **atténuation** : la divulgation reste due, mais d'une façon qui n'entrave pas la présentation de l'œuvre. Et le contenu **physiquement impossible** — un dragon au-dessus de ton entrepôt, un humain qui vole — n'entre pas dans la définition du deepfake : personne ne risque de le prendre pour authentique.
 
@@ -533,7 +537,7 @@ Fais passer un contenu réel dans le workflow complet, jusqu'à la décision de 
 - Tu as classé le contenu : intérêt public, commercial, ou interne
 - Tu as tranché entre mention « généré par IA » visible et relecture éditoriale assumée
 - Ta fiche de relecture est remplie : qui a relu, quand, quelles affirmations vérifiées
-- Tu as listé les visuels du contenu et vérifié si l'un d'eux montre une personne réelle
+- Tu as listé les visuels du contenu et vérifié si l'un d'eux imite de façon réaliste une personne, un lieu, un objet ou un événement réels
 - Tu as écrit, une bonne fois, la formule d'étiquetage que tu utiliseras — et tu l'as ajoutée à ton brief de voix
 :::
 
@@ -542,7 +546,7 @@ Q: Au sens de l'AI Act, qu'est-ce qu'un « déployeur » ?
 R: Toute personne physique ou morale qui utilise un système d'IA sous sa propre autorité, hors usage strictement personnel. Un indépendant qui rédige avec Claude en est un.
 ===
 Q: Quels contenus doivent porter une mention « généré par IA » ?
-R: Les visuels, audios et vidéos où figure une personne réelle, et les textes d'intérêt public sans revue humaine. Le commercial et l'interne sont hors champ.
+R: Les visuels, audios et vidéos réalistes de personnes, lieux, objets ou événements réels (hypertrucages), et les textes d'intérêt public sans revue humaine. Le commercial et l'interne sont hors champ.
 ===
 Q: Comment se dispense-t-on d'étiqueter un texte d'intérêt public ?
 R: Par une relecture éditoriale de fond, documentée — qui a relu, quand, quoi — avec un responsable éditorial identifié.
@@ -1040,7 +1044,7 @@ Q: Ton texte généré par Claude est-il protégé par le droit d'auteur ?
 R: Pas automatiquement. Anthropic te cède contractuellement ses droits, mais la protection suppose un apport créatif humain caractérisé.
 ===
 Q: Que vérifie la check-list de publication, au-delà des faits ?
-R: Les visuels de personnes réelles générés par IA, et la nature du contenu : intérêt public, donc mention ou relecture documentée.
+R: Les visuels IA réalistes de personnes, lieux, objets ou événements réels (hypertrucages), et la nature du contenu : intérêt public, donc mention ou relecture documentée.
 :::` + FOOTER,
     },
   ],

@@ -1464,7 +1464,7 @@
     "Une note interne de synthèse destinée à l'équipe"
    ],
    "correct": 2,
-   "explanation": "Les contenus image, audio ou vidéo générés ou manipulés par IA qui ressemblent à des personnes réelles doivent être divulgués de manière claire et distinguable, au plus tard lors de la première exposition. Le post commercial, l'email client et la note interne sont hors du champ de l'obligation d'étiquetage : sur-appliquer dilue le signal là où il compte."
+   "explanation": "Les contenus image, audio ou vidéo générés ou manipulés par IA qui ressemblent à des personnes, lieux, objets ou événements réels (hypertrucages, article 3, point 60) doivent être divulgués de manière claire et distinguable, au plus tard lors de la première exposition. Le post commercial, l'email client et la note interne sont hors du champ de l'obligation d'étiquetage : sur-appliquer dilue le signal là où il compte."
   }
  ],
  "marketing-seo-geo-resumes-ia": [
@@ -1748,7 +1748,7 @@
    "q": "Où en est le « Digital Omnibus sur l'IA » au 6 août 2026, et qu'a-t-il changé au calendrier de l'AI Act ?",
    "options": [
     "C'est encore une proposition de la Commission : rien n'a changé au calendrier de l'AI Act.",
-    "C'est du droit positif — Règlement (UE) 2026/1744, en vigueur depuis le 27 juillet 2026 — qui reporte le haut risque (annexe III au 2 décembre 2027, annexe I au 2 août 2028) et assouplit la rédaction de l'article 4, sans toucher à l'article 50.",
+    "C'est du droit positif (règlement (UE) 2026/1744, en vigueur depuis le 27 juillet 2026), qui reporte le haut risque (annexe III au 2 décembre 2027, annexe I au 2 août 2028) et assouplit la rédaction de l'article 4, sans reporter l'article 50 (seul le marquage machine des systèmes déjà sur le marché a jusqu'au 2 décembre 2026).",
     "Il a tout reporté : plus aucune obligation de l'AI Act ne s'applique avant décembre 2027.",
     "Il a été adopté et a, au passage, simplifié le RGPD."
    ],

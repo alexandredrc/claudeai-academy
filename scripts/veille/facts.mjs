@@ -382,7 +382,10 @@ export const FAITS = [
     gravite: "critique",
     pourquoi:
       "Enseigner une échéance réglementaire fausse expose le lecteur. Le Digital Omnibus a déjà décalé le haut risque une fois.",
-    ou: [{ fichier: "scripts/content/strategie-ia.mjs", motif: null }],
+    ou: [
+      { fichier: "scripts/content/strategie-ia.mjs", motif: null },
+      { fichier: "scripts/content/marketing-contenu.mjs", motif: null },
+    ],
     verif: { kind: "revue", sources: ["eu-ai-act-framework", "eu-ai-act-implementation"] },
   },
   // ── Pages piliers SEO : des chiffres sourcés, donc des chiffres qui périment ──
@@ -408,6 +411,8 @@ export const FAITS = [
       "Argument commercial ET affirmation juridique, répété sur la page pilier et dans son FAQPage structuré. Le Digital Omnibus a déjà décalé d'autres échéances de l'AI Act : si celle-ci bouge, la page induit le lecteur en erreur.",
     ou: [
       { fichier: "src/app/formation-intelligence-artificielle/page.tsx", motif: null },
+      { fichier: "src/app/formation-ia-obligatoire-ai-act/page.tsx", motif: null },
+      { fichier: "scripts/content/strategie-ia.mjs", motif: null },
     ],
     verif: { kind: "revue", sources: ["eu-ai-act-framework", "eu-ai-act-implementation"] },
   },

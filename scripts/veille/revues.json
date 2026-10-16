@@ -10,12 +10,14 @@
     "valeurSource": null
   },
   "ai-act-calendrier": {
-    "revuLe": "2026-09-21",
-    "note": "confirmé exact à la source"
+    "revuLe": "2026-10-16",
+    "note": "dates exactes (EUR-Lex 2026/1744 art. 111 et 113, pages Commission maj 3 et 7 août 2026) ; corrigé : l'Omnibus modifie l'art. 50 (§7, report §2 par l'art. 111 §4), hypertrucage = personnes, lieux, objets, événements (art. 3 pt 60)",
+    "valeurSource": null
   },
   "ai-act-article-4": {
-    "revuLe": "2026-09-21",
-    "note": "confirmé exact à la source"
+    "revuLe": "2026-10-16",
+    "note": "date exacte (2 février 2025) ; corrigé : nouvelle rédaction « favoriser le développement », plus de « niveau suffisant » (2026/1744 pt 5), sanctions possibles en droit national (FAQ Commission maîtrise de l'IA, maj 27 juillet 2026)",
+    "valeurSource": null
   },
   "comparatif-claude-chatgpt": {
     "revuLe": "2026-10-16",

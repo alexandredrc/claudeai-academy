@@ -11,7 +11,7 @@ const FOOTER = `
 
 ---
 
-**Sources & méthode** · Cadre réglementaire vérifié au **19 août 2026**, calendrier de l'AI Act revérifié le **21 septembre 2026** ; faits Claude (modèles, tarifs, abonnements) au **29 septembre 2026**. Sources primaires : \`digital-strategy.ec.europa.eu\` (calendrier de l'AI Act, littératie IA, lignes directrices article 50), \`cnil.fr\` (RGPD, IA agentique, priorités de contrôle), \`anthropic.com/legal\` (conditions, DPA, confidentialité et rétention). Contenu **ÉDUCATIF** : il donne le vocabulaire et les repères pour dialoguer avec un professionnel du droit — il ne remplace ni un avocat, ni un DPO, ni un service juridique. Fais valider tes cas à enjeu. Original pour ClaudeAI Academy.`;
+**Sources & méthode** · Cadre réglementaire vérifié au **19 août 2026**, calendrier de l'AI Act et article 4 revérifiés le **16 octobre 2026** sur EUR-Lex ; faits Claude (modèles, tarifs, abonnements) au **29 septembre 2026**. Sources primaires : \`digital-strategy.ec.europa.eu\` (calendrier de l'AI Act, littératie IA, lignes directrices article 50), \`cnil.fr\` (RGPD, IA agentique, priorités de contrôle), \`anthropic.com/legal\` (conditions, DPA, confidentialité et rétention). Contenu **ÉDUCATIF** : il donne le vocabulaire et les repères pour dialoguer avec un professionnel du droit ; il ne remplace ni un avocat, ni un DPO, ni un service juridique. Fais valider tes cas à enjeu. Original pour ClaudeAI Academy.`;
 
 export const strategieConduiteIa = {
   slug: "strategie-conduite-ia",
@@ -510,7 +510,7 @@ R: Son run annuel approche son gain annuel mesuré.
 :::
 
 :::flash
-Le Digital Omnibus IA est devenu du droit positif le 27 juillet 2026. Il assouplit la littératie IA, reporte le haut risque à décembre 2027 et août 2028, mais ne touche **ni** l'article 50 (transparence, applicable depuis le 2 août 2026) **ni** le RGPD, qui n'a pas bougé d'une ligne en 2026. Ce qu'un pro doit faire aujourd'hui : former, tracer, étiqueter — et cartographier ses usages sans payer de mise en conformité haut risque prématurée.
+Le Digital Omnibus IA est devenu du droit positif le 27 juillet 2026. Il assouplit la littératie IA, reporte le haut risque à décembre 2027 et août 2028, mais ne reporte **pas** l'article 50 (transparence, applicable depuis le 2 août 2026 ; seul le marquage machine des systèmes déjà sur le marché a jusqu'au 2 décembre 2026) et ne touche **pas** le RGPD, qui n'a pas bougé d'une ligne en 2026. Ce qu'un pro doit faire aujourd'hui : former, tracer, étiqueter, et cartographier ses usages sans payer de mise en conformité haut risque prématurée.
 :::
 
 ## Avertissement, parce qu'il compte
@@ -635,18 +635,26 @@ Sanctions : jusqu'à **35 millions d'euros ou 7 %** du chiffre d'affaires mondia
 
 C'est l'obligation qui concerne le plus directement une PME ou un indépendant, et celle qui est le plus souvent déformée.
 
-**Ce que dit le règlement, depuis le 27 juillet 2026** : tout fournisseur et tout déployeur doit **prendre des mesures pour soutenir le développement** d'un niveau de littératie IA suffisant chez son personnel et chez les personnes qui utilisent des systèmes d'IA pour son compte. Le texte précise qu'aucun niveau spécifique n'est exigé d'un individu donné.
+**Ce que dit le règlement, depuis le 27 juillet 2026** : tout fournisseur et tout déployeur doit **prendre des mesures pour favoriser le développement** de la maîtrise de l'IA (on dit couramment « littératie IA ») chez son personnel et chez les personnes qui utilisent des systèmes d'IA pour son compte. Le texte précise qu'aucun niveau spécifique n'est exigé d'un individu donné.
 
 :::avant-apres Ce qu'on disait avant | Ce qu'il faut dire depuis le 27/07/2026
 « Vous devez **garantir** un niveau suffisant de littératie IA chez votre personnel. » Formulation d'obligation de résultat, reprise dans presque tous les supports de 2025 — et toujours en ligne sur beaucoup de sites.
 ===
-« Vous devez **prendre des mesures pour soutenir le développement** de la littératie IA des personnes qui utilisent l'IA pour votre compte. » Le texte précise qu'aucun niveau spécifique n'est exigé d'un individu donné : c'est une obligation de moyens, qui se prouve par ce que tu as mis en place.
+« Vous devez **prendre des mesures pour favoriser le développement** de la maîtrise de l'IA des personnes qui utilisent l'IA pour votre compte. » Le texte précise qu'aucun niveau spécifique n'est exigé d'un individu donné : c'est une obligation de moyens, qui se prouve par ce que tu as mis en place.
+:::
+
+:::maj 16 octobre 2026
+**Relu mot à mot sur EUR-Lex** (règlement (UE) 2026/1744, point 5). Le nouvel article 4 dit que fournisseurs et déployeurs « prennent des mesures pour favoriser le développement de la maîtrise de l'IA par leur personnel » et que « cette obligation ne contraint pas les fournisseurs ou les déployeurs à garantir un niveau spécifique de maîtrise de l'IA par un individu ». L'expression **« niveau suffisant » a disparu du texte** : elle appartenait à la rédaction de 2024 (« garantir, dans toute la mesure du possible, un niveau suffisant »). La FAQ de la Commission sur la maîtrise de l'IA, mise à jour le 27 juillet 2026, le confirme : aucun niveau « spécifique ou suffisant » n'est imposé. Deux ajouts du nouvel article : la Commission et les États membres doivent **aider les fournisseurs et déployeurs, en particulier les PME**, à remplir cette obligation, et la Commission publiera des exemples pratiques sur la plateforme d'information unique de l'AI Act.
 :::
 
 La date d'application, elle, n'a **pas** bougé : l'obligation existe **depuis le 2 février 2025**. Ce qui a changé le **2 août 2026**, c'est que les **autorités nationales supervisent et font appliquer** cette obligation. Avant cette date, personne n'était en mesure de la contrôler ; depuis, oui.
 
 :::piege « L'article 4 est puni d'une amende de X € »
-**À ne jamais dire.** L'article 4 n'a **pas de sanction financière propre** dans le régime de sanctions de l'AI Act. Tout support de vente qui agite une amende chiffrée pour la littératie IA raconte n'importe quoi — et te décrédibilise le jour où ton interlocuteur vérifie. Se former parce qu'on a peur d'une amende inexistante est une mauvaise raison ; se former parce que ça rend l'équipe compétente et que ça se prouve, c'en est une bonne.
+**À ne jamais dire.** L'AI Act ne fixe **aucun plafond d'amende** pour l'article 4 : son article 99 chiffre les amendes pour les pratiques interdites, pour une liste d'obligations des opérateurs (dont l'article 50) et pour les informations inexactes, pas pour la littératie IA. Tout support de vente qui agite un montant européen chiffré pour la littératie IA se trompe, et te décrédibilise le jour où ton interlocuteur vérifie. Se former par peur d'une amende chiffrée est une mauvaise raison ; se former parce que ça rend l'équipe compétente et que ça se prouve, c'en est une bonne.
+:::
+
+:::maj 16 octobre 2026
+**Pas de montant européen, mais pas d'immunité non plus.** Une version précédente de ce passage parlait d'« amende inexistante » : c'était trop fort. La FAQ de la Commission sur la maîtrise de l'IA (mise à jour le 27 juillet 2026) précise que les autorités nationales de surveillance du marché **peuvent sanctionner un manquement à l'article 4**, sur la base des lois nationales de sanction que chaque État devait adopter, avec une sanction proportionnée (gravité, caractère intentionnel ou négligent, incident lié à un défaut de formation). Le montant, s'il existe, se lit donc dans le droit de ton pays, pas dans l'AI Act. Pour la France ou la Belgique, fais vérifier par un avocat l'état du texte national de sanctions avant d'en parler à un client.
 :::
 
 Reste la question pratique : à quoi ressemble, concrètement, le fait d'avoir « pris des mesures » ? La réponse est beaucoup plus modeste que ce que vendent la plupart des offres de mise en conformité.
@@ -675,7 +683,7 @@ Bonne nouvelle sur le stock : les contenus générés **avant le 2 août 2026** 
 
 | Ce que tu publies | Faut-il étiqueter ? |
 | --- | --- |
-| Visuel ou vidéo IA où apparaît une personne réelle | **Oui**, visiblement, dès la première exposition |
+| Visuel, son ou vidéo IA réaliste d'une personne, d'un lieu, d'un objet ou d'un événement réels | **Oui**, visiblement, dès la première exposition |
 | Texte IA informant le public sur un sujet d'intérêt public | **Oui**, sauf revue humaine de fond, à documenter (qui, quand, quoi validé) |
 | Post commercial, e-mail client, note interne, code | **Non** — hors du champ de l'obligation « intérêt public » |
 | Chatbot exposé à tes clients | **Oui** : dis dès le premier message qu'on parle à une IA |
@@ -744,7 +752,7 @@ Q: Quel est le statut du Digital Omnibus sur l'IA au 6 août 2026 ?
 R: Du droit positif : Règlement (UE) 2026/1744, publié au JOUE le 24 juillet 2026, en vigueur depuis le 27 juillet 2026.
 ===
 Q: Que demande exactement l'article 4 depuis sa réécriture ?
-R: Prendre des mesures pour soutenir le développement de la littératie IA. Il n'impose pas de garantir un niveau donné chez une personne donnée, et n'a pas d'amende propre.
+R: Prendre des mesures pour favoriser le développement de la maîtrise de l'IA. Il n'impose pas de garantir un niveau donné chez une personne donnée. L'AI Act ne lui fixe pas de plafond d'amende, mais les autorités nationales peuvent le sanctionner selon leur droit national.
 ===
 Q: Depuis quand l'article 50 sur la transparence s'applique-t-il ?
 R: Depuis le 2 août 2026. Seul le marquage lisible par machine de l'article 50(2) est reporté au 2 décembre 2026, pour les systèmes antérieurs.

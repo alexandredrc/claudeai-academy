@@ -20,10 +20,10 @@ export const CONTENU_A_JOUR_AU = "16 octobre 2026";
 
 /** Ce que cette passe a intégré, dit en une ligne pour un visiteur. */
 export const DERNIERE_PASSE =
-  "Mode rapide d'Opus 5.5 sorti de l'aperçu de recherche (15 octobre 2026), contenu exact du plan gratuit relu sur la page tarifs (Claude Code réservé aux plans payants), Claude Code 2.1.301";
+  "AI Act relu sur EUR-Lex (nouvel article 4, sanctions nationales, hypertrucages au sens large), mode rapide d'Opus 5.5 sorti de l'aperçu de recherche (15 octobre 2026), Claude Code réservé aux plans payants, Claude Code 2.1.301";
 
 /** Notes de mise à jour datées (blocs `:::maj`) présentes dans les leçons. */
-export const NOTES_DE_MISE_A_JOUR = 99;
+export const NOTES_DE_MISE_A_JOUR = 102;
 
 /** Sources de référence surveillées par la veille (`scripts/veille/sources.mjs`). */
 export const SOURCES_SURVEILLEES = 14;

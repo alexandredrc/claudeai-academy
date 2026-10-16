@@ -42,7 +42,7 @@ export const metadata: Metadata = pageMetadata({
 const faq = [
   {
     q: "La formation à l'IA est-elle vraiment obligatoire en entreprise ?",
-    a: "Oui, dans les faits. L'article 4 du règlement européen sur l'intelligence artificielle (règlement (UE) 2024/1689, dit « AI Act ») est applicable depuis le 2 février 2025. Il impose à tout fournisseur et à tout déployeur d'un système d'IA de prendre des mesures pour soutenir le développement d'« un niveau suffisant de maîtrise de l'IA » chez les personnes qui l'utilisent pour leur compte. C'est une obligation de moyens : depuis le règlement (UE) 2026/1744, en vigueur le 27 juillet 2026, le texte ne dit plus « garantir », et il précise qu'aucun niveau spécifique n'est exigé d'un individu donné. Le texte n'emploie pas le mot « formation », mais la formation est le moyen le plus direct et le plus documentable de satisfaire cette obligation.",
+    a: "Oui, dans les faits. L'article 4 du règlement européen sur l'intelligence artificielle (règlement (UE) 2024/1689, dit « AI Act ») est applicable depuis le 2 février 2025. Il impose à tout fournisseur et à tout déployeur d'un système d'IA de « prendre des mesures pour favoriser le développement de la maîtrise de l'IA » des personnes qui l'utilisent pour leur compte. C'est une obligation de moyens : depuis le règlement (UE) 2026/1744, en vigueur le 27 juillet 2026, le texte ne dit plus « garantir un niveau suffisant », et il précise qu'aucun niveau spécifique n'est exigé d'un individu donné. Le texte n'emploie pas le mot « formation », mais la formation est le moyen le plus direct et le plus documentable de satisfaire cette obligation.",
   },
   {
     q: "Quelles entreprises sont concernées ?",
@@ -54,10 +54,10 @@ const faq = [
   },
   {
     q: "Que risque-t-on si on ne fait rien ?",
-    a: "L'article 4 n'est pas assorti d'une amende administrative qui lui soit propre. Le risque est ailleurs, et il est réel : le régime de surveillance et de sanctions de l'AI Act est entré en application le 2 août 2025, et l'absence de formation devient un élément défavorable en cas de dommage causé par un usage mal maîtrisé de l'IA : fuite de données, décision erronée, contenu diffamatoire ou contrefaisant. En pratique, le registre de formation sert autant à se défendre qu'à se conformer.",
+    a: "L'AI Act ne fixe pas de plafond d'amende propre à l'article 4. Mais les autorités nationales de surveillance du marché contrôlent cette obligation depuis le 2 août 2026 et, selon la Commission européenne, peuvent sanctionner un manquement sur la base de leur droit national, de façon proportionnée à la gravité et au caractère intentionnel ou négligent de l'infraction. Le risque se concrétise surtout en cas de dommage causé par un usage mal maîtrisé de l'IA : fuite de données, décision erronée, contenu diffamatoire ou contrefaisant. En pratique, le registre de formation sert autant à se défendre qu'à se conformer. Pour connaître le régime de sanctions applicable dans votre pays, consultez un avocat.",
   },
   {
-    q: "Que doit couvrir la formation pour être « suffisante » ?",
+    q: "Que doit couvrir la formation ?",
     a: "Le règlement définit la maîtrise de l'IA comme les compétences et connaissances permettant un déploiement éclairé, en ayant conscience des opportunités, des risques et des préjudices possibles. Concrètement, cela suppose au minimum : savoir ce que l'outil peut et ne peut pas faire, savoir qu'un modèle peut se tromper avec assurance et comment le vérifier, savoir quelles données ne doivent jamais y être saisies, et connaître les règles internes de l'entreprise sur le sujet. Le niveau attendu est proportionné au rôle de chacun et à la criticité de l'usage.",
   },
   {
@@ -79,7 +79,7 @@ const etapes = [
   {
     titre: "Distinguez les niveaux de criticité",
     texte:
-      "Un salarié qui reformule des e-mails et un salarié qui prépare des analyses servant à décider n'ont pas le même besoin. Le règlement demande un niveau « suffisant », donc proportionné : une sensibilisation courte pour les usages simples, une formation complète pour les usages engageants.",
+      "Un salarié qui reformule des e-mails et un salarié qui prépare des analyses servant à décider n'ont pas le même besoin. Le règlement demande de tenir compte des connaissances, de l'expérience et du contexte d'usage de chacun, donc d'être proportionné : une sensibilisation courte pour les usages simples, une formation complète pour les usages engageants.",
   },
   {
     titre: "Formez sur la vérification autant que sur la production",
@@ -120,7 +120,7 @@ export default async function AiActPage() {
     image: OG_IMAGE_URL,
     // Dates du dépôt (git log) : création de la page, dernier commit de contenu.
     datePublished: "2026-08-24",
-    dateModified: "2026-10-11",
+    dateModified: "2026-10-16",
     about: [
       { "@type": "Thing", name: "Règlement européen sur l'intelligence artificielle" },
       { "@type": "Thing", name: "Maîtrise de l'IA" },
@@ -131,6 +131,11 @@ export default async function AiActPage() {
         "@type": "Legislation",
         name: "Règlement (UE) 2024/1689 du Parlement européen et du Conseil, article 4 : Maîtrise de l'IA",
         url: "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=OJ:L_202401689",
+      },
+      {
+        "@type": "Legislation",
+        name: "Règlement (UE) 2026/1744 (omnibus numérique sur l'IA), point 5 : nouvelle rédaction de l'article 4",
+        url: "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32026R1744",
       },
     ],
   };
@@ -210,8 +215,8 @@ export default async function AiActPage() {
               <strong>En une phrase :</strong> l’article 4 de l’AI Act,
               applicable depuis le <strong>2 février 2025</strong>, impose à tout
               employeur dont les équipes utilisent un système d’IA de{" "}
-              <strong>prendre des mesures</strong> pour soutenir chez elles un{" "}
-              « niveau suffisant de maîtrise de l’IA ». C’est une obligation de
+              <strong>prendre des mesures</strong> pour favoriser le
+              développement de leur « maîtrise de l’IA ». C’est une obligation de
               moyens, pas de résultat, et elle est supervisée par les autorités
               nationales depuis le <strong>2 août 2026</strong>. Il n’y a{" "}
               <strong>ni seuil d’effectif, ni seuil de chiffre d’affaires</strong>{" "}
@@ -242,14 +247,17 @@ export default async function AiActPage() {
           <div className="prose-lesson mt-8">
             <p>
               L’article 4 demande aux fournisseurs et aux déployeurs de systèmes
-              d’IA de prendre des mesures pour « soutenir le développement » d’un
-              niveau suffisant de maîtrise de l’IA chez leur personnel et chez les
-              personnes qui utilisent ces systèmes pour leur compte, en
-              précisant qu’aucun niveau spécifique n’est exigé d’un individu
-              donné. C’est la rédaction issue du règlement (UE) 2026/1744, en
-              vigueur depuis le 27 juillet 2026 : elle a remplacé le « dans la
-              mesure du possible » de 2024, et la plupart des supports en ligne
-              citent encore l’ancienne version. Le règlement définit cette maîtrise comme les
+              d’IA de « prendre des mesures pour favoriser le développement de
+              la maîtrise de l’IA » par leur personnel et par les personnes qui
+              utilisent ces systèmes pour leur compte, en précisant que cette
+              obligation ne les contraint pas à garantir un niveau spécifique
+              de maîtrise chez un individu. C’est la rédaction issue du
+              règlement (UE) 2026/1744, en vigueur depuis le 27 juillet 2026 :
+              elle a remplacé le « garantir, dans toute la mesure du possible,
+              un niveau suffisant de maîtrise de l’IA » de 2024, et la plupart
+              des supports en ligne citent encore l’ancienne version. Le même
+              article charge la Commission et les États membres d’aider les
+              entreprises, en particulier les PME, à s’y conformer. Le règlement définit cette maîtrise comme les
               compétences et connaissances permettant un déploiement éclairé, en
               ayant conscience des opportunités, des risques et des préjudices
               possibles.
@@ -258,13 +266,17 @@ export default async function AiActPage() {
               Deux mots méritent l’attention. <strong>« Déployeur »</strong> :
               vous n’avez pas besoin de développer une IA pour être concerné, il
               suffit d’en utiliser une dans un cadre professionnel.{" "}
-              <strong>« Suffisant »</strong> : le niveau attendu est proportionné
-              au rôle et à la criticité de l’usage, pas uniforme.
+              <strong>« Contexte »</strong> : le texte demande de tenir compte
+              des connaissances, de l’expérience et de la formation de chacun,
+              et du contexte d’usage. Le niveau attendu est proportionné au rôle
+              et à la criticité de l’usage, pas uniforme.
             </p>
             <p>
-              L’article 4 n’est pas assorti d’une amende propre. Le régime de
-              surveillance et de sanctions de l’AI Act est entré en application
-              le 2 août 2025, et l’enjeu pratique se joue surtout en cas de
+              L’AI Act ne fixe pas de plafond d’amende propre à l’article 4.
+              Les autorités nationales de surveillance du marché contrôlent
+              cette obligation depuis le 2 août 2026 et peuvent, selon la
+              Commission, sanctionner un manquement sur la base de leur droit
+              national. L’enjeu pratique se joue surtout en cas de
               dommage : fuite de données confidentielles saisies dans un outil
               grand public, décision prise sur une réponse fausse, contenu
               diffusé sans vérification. Le registre de formation sert alors
@@ -287,8 +299,17 @@ export default async function AiActPage() {
               >
                 Règlement (UE) 2026/1744 (Digital Omnibus IA), qui a réécrit
                 l’article 4 le 27/07/2026
+              </a>{" "}
+              ·{" "}
+              <a
+                href="https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Commission européenne, questions-réponses sur la maîtrise de
+                l’IA (contrôle et sanctions)
               </a>
-              . Cette page présente le texte applicable et son interprétation
+              . Texte relu sur EUR-Lex le 16/10/2026. Cette page présente le texte applicable et son interprétation
               courante ; elle ne constitue pas un conseil juridique. Pour une
               analyse de votre situation, consultez un avocat.
             </p>

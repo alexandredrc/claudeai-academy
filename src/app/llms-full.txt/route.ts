@@ -84,7 +84,7 @@ function faqPrincipale(): { q: string; a: string }[] {
     },
     {
       q: "En quoi c'est différent des cours gratuits sur YouTube ?",
-      a: "Trois différences. La structure d'abord : les leçons sont conçues comme un programme cohérent, pas une succession de tutos isolés. La densité ensuite : on vous épargne l'exposition et on va à l'essentiel. Et l'écosystème : bibliothèque de prompts, templates, mentor IA, mises à jour. Le tout dans un cadre francophone qui n'existe pas ailleurs.",
+      a: "Trois différences. La structure d'abord : les leçons sont conçues comme un programme cohérent, pas une succession de tutos isolés. La densité ensuite : on vous épargne l'exposition et on va à l'essentiel. Et l'écosystème : bibliothèque de prompts, QCM d'auto-évaluation, mentor IA (Pass Mastery), mises à jour. Le tout dans un cadre francophone qui n'existe pas ailleurs.",
     },
     {
       q: "Et si je ne suis pas convaincu après l'achat ?",

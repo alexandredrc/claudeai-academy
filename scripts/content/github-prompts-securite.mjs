@@ -156,7 +156,7 @@ R: allowed-tools. Il dit quels outils le skill s'autorise, donc l'ampleur réell
       slug: "chercher-et-evaluer-prompts-github",
       title: "Chercher et évaluer : trouver le bon, repérer le douteux",
       description:
-        "Où chercher, comment chercher efficacement sur GitHub, et quels signaux distinguent un projet sérieux d'un piège — avec un rappel : la popularité n'est pas la sécurité, et l'origine officielle non plus.",
+        "Où chercher, comment chercher efficacement sur GitHub, et quels signaux distinguent un projet sérieux d'un piège. Avec un rappel : la popularité n'est pas la sécurité, et l'origine officielle non plus.",
       duration_min: 22,
       is_free_preview: false,
       content_md:
@@ -292,7 +292,7 @@ R: Un artefact malveillant peut être conçu pour tromper le relecteur, y compri
       slug: "installer-ce-que-ca-accorde-vraiment",
       title: "Installer sans se faire avoir : ce qu'une installation accorde",
       description:
-        "Comment s'installe chaque type d'artefact, comment écrire ton propre skill de vérification, comment brancher un serveur MCP en moindre privilège — et la vraie question : quelles capacités est-ce que je donne sur ma machine ?",
+        "Comment s'installe chaque type d'artefact, comment écrire ton propre skill de vérification, comment brancher un serveur MCP en moindre privilège. Et la vraie question : quelles capacités est-ce que je donne sur ma machine ?",
       duration_min: 24,
       is_free_preview: false,
       content_md:
@@ -623,7 +623,7 @@ R: Dans des handles émis par le serveur et passés en arguments d'outil. Ils vo
       slug: "checklist-vetting-et-sandbox",
       title: "La checklist de vetting + le sandbox",
       description:
-        "La méthode opérationnelle pour adopter un prompt, un skill ou un MCP sans se faire piller : lire, sandboxer, restreindre, surveiller — avec les réglages Claude Code qui font vraiment le travail au 6 août 2026.",
+        "La méthode opérationnelle pour adopter un prompt, un skill ou un MCP sans se faire piller : lire, sandboxer, restreindre, surveiller. Avec les réglages Claude Code qui font vraiment le travail au 6 août 2026.",
       duration_min: 26,
       is_free_preview: false,
       content_md:

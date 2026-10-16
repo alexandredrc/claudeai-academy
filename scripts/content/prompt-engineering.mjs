@@ -24,7 +24,7 @@ export const promptEngineeringPro = {
       slug: "intro-pourquoi-le-prompt-est-de-l-ingenierie",
       title: "Pourquoi le prompt est de l'ingénierie, pas de l'art",
       description:
-        "Le cadrage qui change tout : critères de succès, évaluation, la règle d'or d'Anthropic — et les conseils qui se sont inversés en juillet 2026.",
+        "Le cadrage qui change tout : critères de succès, évaluation, la règle d'or d'Anthropic, et les conseils qui se sont inversés en juillet 2026.",
       duration_min: 18,
       is_free_preview: true,
       content_md: `:::objectifs
@@ -172,7 +172,7 @@ R: Le Workbench legacy et les API expérimentales de prompt sont coupés. Il fau
       slug: "etre-clair-et-direct",
       title: "Être clair et direct",
       description:
-        "La technique n°1 de la doc officielle. Spécificité, niveau d'ambition, étapes séquencées — plus les deux consignes que Claude Opus 5 réclame en 2026 : concision et périmètre.",
+        "La technique n°1 de la doc officielle. Spécificité, niveau d'ambition, étapes séquencées, plus les deux consignes que Claude Opus 5 réclame en 2026 : concision et périmètre.",
       duration_min: 18,
       is_free_preview: false,
       content_md: `:::objectifs
@@ -282,7 +282,7 @@ R: Les modèles récents suivent les instructions littéralement. Une consigne m
       slug: "le-contexte-et-le-pourquoi",
       title: "Donner le contexte et le pourquoi",
       description:
-        "Pourquoi expliquer la raison d'une consigne la rend plus fiable — et pourquoi, depuis 2026, il vaut mieux donner le pourquoi que dix règles.",
+        "Pourquoi expliquer la raison d'une consigne la rend plus fiable, et pourquoi, depuis 2026, il vaut mieux donner le pourquoi que dix règles.",
       duration_min: 15,
       is_free_preview: false,
       content_md: `:::objectifs
@@ -390,7 +390,7 @@ R: Donner l'information au moment où elle sert, au lieu de tout charger d'avanc
       slug: "piloter-par-l-exemple-few-shot",
       title: "Piloter par l'exemple (few-shot)",
       description:
-        "Le levier le plus fiable pour le format et le ton. Combien d'exemples, lesquels, comment les baliser — et le cas où, depuis 2026, il ne faut plus en donner.",
+        "Le levier le plus fiable pour le format et le ton. Combien d'exemples, lesquels, comment les baliser, et le cas où, depuis 2026, il ne faut plus en donner.",
       duration_min: 19,
       is_free_preview: false,
       content_md: `:::objectifs
@@ -522,7 +522,7 @@ R: Améliorer et épurer la description de l'outil. Beaucoup d'exemples est un s
       slug: "structurer-avec-xml-et-contexte-long",
       title: "Structurer avec des balises XML (et le contexte long)",
       description:
-        "Pourquoi le XML désambiguïse, les 3 règles officielles du contexte long (+30 % de qualité) — et pourquoi un million de tokens ne veut pas dire qu'il faut les remplir.",
+        "Pourquoi le XML désambiguïse, les 3 règles officielles du contexte long (+30 % de qualité), et pourquoi un million de tokens ne veut pas dire qu'il faut les remplir.",
       duration_min: 20,
       is_free_preview: false,
       content_md: `:::objectifs

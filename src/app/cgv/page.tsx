@@ -32,7 +32,7 @@ export default function CgvPage() {
           <p>
             Les présentes CGV définissent les droits et obligations des parties
             dans le cadre de la vente de formations numériques (parcours, leçons,
-            prompts, templates et accès au Mentor IA) accessibles en ligne
+            prompts, QCM et accès au Mentor IA) accessibles en ligne
             {ELITE_ENABLED && (
               <>
                 , ainsi que des prestations d&apos;accompagnement individuel

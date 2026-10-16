@@ -348,7 +348,7 @@ R: Tout ce qui n'est pas dans la liste est interdit ; à défaut, écrire [À CO
       slug: "marketing-industrialiser-sans-perdre-la-voix",
       title: "Industrialiser la production sans perdre la voix (ni la conformité)",
       description:
-        "Passer à l'échelle sans diluer la marque : workflow en étapes, garde-fous anti-générique, relecture humaine au bon endroit — et le régime de transparence de l'article 50 de l'AI Act, applicable depuis le 2 août 2026.",
+        "Passer à l'échelle sans diluer la marque : workflow en étapes, garde-fous anti-générique, relecture humaine au bon endroit. Et le régime de transparence de l'article 50 de l'AI Act, applicable depuis le 2 août 2026.",
       duration_min: 34,
       is_free_preview: false,
       content_md:

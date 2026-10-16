@@ -158,7 +158,7 @@
     "L'envoyer par email depuis Claude"
    ],
    "correct": 0,
-   "explanation": "La conversation sert à itérer ; l'artefact contient le livrable propre — et depuis 2026 il s'édite directement, sans repasser par le chat."
+   "explanation": "La conversation sert à itérer ; l'artefact contient le livrable propre, et depuis 2026 il s'édite directement, sans repasser par le chat."
   },
   {
    "q": "Qu'est-ce qui a changé pour Claude Cowork le 7 juillet 2026 ?",
@@ -193,7 +193,7 @@
     "Les connecteurs sont réservés aux entreprises"
    ],
    "correct": 2,
-   "explanation": "Un connecteur autorisé donne à Claude accès à des données externes. On n'active pas « au cas où » — le parcours sécurité approfondit les risques (injection, exfiltration)."
+   "explanation": "Un connecteur autorisé donne à Claude accès à des données externes. On n'active pas « au cas où » : le parcours sécurité approfondit les risques (injection, exfiltration)."
   },
   {
    "q": "Comment voir exactement ce que Claude a retenu de toi ?",
@@ -228,7 +228,7 @@
     "Dans la description de ton premier projet"
    ],
    "correct": 1,
-   "explanation": "Écrites une seule fois dans le profil, elles s'appliquent automatiquement à toutes tes conversations — fini de répéter « réponds en français, sois direct » à chaque fois."
+   "explanation": "Écrites une seule fois dans le profil, elles s'appliquent automatiquement à toutes tes conversations. Fini de répéter « réponds en français, sois direct » à chaque fois."
   },
   {
    "q": "Quelle est la hiérarchie des trois niveaux de personnalisation ?",
@@ -285,7 +285,7 @@
     "Rien, la mémoire suffit à tout"
    ],
    "correct": 2,
-   "explanation": "La mémoire sert au contexte de fond ; les données de travail vont dans la base de connaissances du projet. Et les conversations d'un projet ne partagent pas leur contenu entre elles — seule la base de connaissances est commune."
+   "explanation": "La mémoire sert au contexte de fond ; les données de travail vont dans la base de connaissances du projet. Et les conversations d'un projet ne partagent pas leur contenu entre elles : seule la base de connaissances est commune."
   }
  ],
  "les-dix-reflexes-pour-bien-demarrer": [
@@ -298,7 +298,7 @@
     "Toujours vouvoyer le modèle"
    ],
    "correct": 1,
-   "explanation": "Claude n'est pas un moteur de recherche : des phrases naturelles, spécifiques, en français, fonctionnent mieux que du télégraphe — et l'itération est le mode de travail normal."
+   "explanation": "Claude n'est pas un moteur de recherche : des phrases naturelles, spécifiques, en français, fonctionnent mieux que du télégraphe, et l'itération est le mode de travail normal."
   },
   {
    "q": "Que faire quand tu corriges Claude deux fois sur la même chose ?",
@@ -333,7 +333,7 @@
     "Un prompt parfait écrit du premier coup"
    ],
    "correct": 0,
-   "explanation": "La doc liste exactement ces trois prérequis. Sans critère de succès ni moyen de tester, on tâtonne — on ne fait pas d'ingénierie."
+   "explanation": "La doc liste exactement ces trois prérequis. Sans critère de succès ni moyen de tester, on tâtonne : on ne fait pas d'ingénierie."
   },
   {
    "q": "En quoi consiste la « règle d'or » d'Anthropic pour juger un prompt ?",
@@ -366,7 +366,7 @@
     "Expliquer la raison d'une contrainte au lieu de l'imposer sèchement"
    ],
    "correct": 1,
-   "explanation": "La doc « Prompting Claude Opus 5 » demande de supprimer les instructions de vérification : le modèle vérifie déjà seul, et ces consignes provoquent de la sur-vérification. Les trois autres propositions restent de bonnes pratiques — le few-shot, l'ordre données-puis-question et le « parce que » sont toujours recommandés."
+   "explanation": "La doc « Prompting Claude Opus 5 » demande de supprimer les instructions de vérification : le modèle vérifie déjà seul, et ces consignes provoquent de la sur-vérification. Les trois autres propositions restent de bonnes pratiques : le few-shot, l'ordre données-puis-question et le « parce que » sont toujours recommandés."
   },
   {
    "q": "Que deviennent le Workbench legacy de la console Anthropic et les API expérimentales de prompt (generate_prompt, improve_prompt, templatize_prompt) ?",
@@ -377,7 +377,7 @@
     "Ils deviennent payants à l'usage à partir de septembre 2026"
    ],
    "correct": 1,
-   "explanation": "Annoncé le 17 juillet 2026 : l'accès au Workbench legacy et aux endpoints /v1/experimental/generate_prompt, improve_prompt et templatize_prompt est coupé le 17 août 2026. Le nouveau Workbench ne reprend ni les prompts sauvegardés, ni les variables, ni les évals — l'export est à faire soi-même avant la date."
+   "explanation": "Annoncé le 17 juillet 2026 : l'accès au Workbench legacy et aux endpoints /v1/experimental/generate_prompt, improve_prompt et templatize_prompt est coupé le 17 août 2026. Le nouveau Workbench ne reprend ni les prompts sauvegardés, ni les variables, ni les évals : l'export est à faire soi-même avant la date."
   }
  ],
  "etre-clair-et-direct": [
@@ -653,7 +653,7 @@
     "De les conserver uniquement pour les tâches de code et de mathématiques"
    ],
    "correct": 1,
-   "explanation": "Depuis Opus 5 (24 juillet 2026), Anthropic demande de retirer ces instructions héritées des modèles précédents : le modèle vérifie son travail sans qu'on le lui demande, et la consigne le fait sur-vérifier — plus long, plus cher, sans gain de qualité. Ce qu'on garde, ce sont les critères qui décrivent le livrable attendu (« chaque risque cite le numéro de sa clause »), pas les consignes de relecture."
+   "explanation": "Depuis Opus 5 (24 juillet 2026), Anthropic demande de retirer ces instructions héritées des modèles précédents : le modèle vérifie son travail sans qu'on le lui demande, et la consigne le fait sur-vérifier : plus long, plus cher, sans gain de qualité. Ce qu'on garde, ce sont les critères qui décrivent le livrable attendu (« chaque risque cite le numéro de sa clause »), pas les consignes de relecture."
   },
   {
    "q": "Sur Opus 5, que se passe-t-il si tu envoies thinking: {\"type\": \"disabled\"} avec un niveau d'effort xhigh ou max ?",
@@ -778,7 +778,7 @@
     "« Explique ton raisonnement étape par étape »"
    ],
    "correct": 2,
-   "explanation": "Opus 5 vérifie déjà son travail : lui demander une étape de vérification finale, un double-check ou une vérification par un sous-agent provoque de la sur-vérification — plus de tokens et plus de temps, sans gain de qualité. À l'inverse, les consignes de concision et de périmètre restent utiles, car les réponses sont plus longues par défaut et le modèle a tendance à élargir la tâche."
+   "explanation": "Opus 5 vérifie déjà son travail : lui demander une étape de vérification finale, un double-check ou une vérification par un sous-agent provoque de la sur-vérification : plus de tokens et plus de temps, sans gain de qualité. À l'inverse, les consignes de concision et de périmètre restent utiles, car les réponses sont plus longues par défaut et le modèle a tendance à élargir la tâche."
   }
  ],
  "slash-commands-et-skills": [
@@ -802,7 +802,7 @@
     "Parce qu'elle remplace le contenu détaillé et évite de créer des fichiers annexes"
    ],
    "correct": 2,
-   "explanation": "La description est le déclencheur : c'est elle que l'agent lit pour décider d'activer le skill, avant même d'en charger le contenu (plafond de 1 536 caractères avec when_to_use). La leçon conseille de l'écrire comme une condition d'activation — « à utiliser quand… » — avec les mots réellement employés dans les demandes."
+   "explanation": "La description est le déclencheur : c'est elle que l'agent lit pour décider d'activer le skill, avant même d'en charger le contenu (plafond de 1 536 caractères avec when_to_use). La leçon conseille de l'écrire comme une condition d'activation (« à utiliser quand… »), avec les mots réellement employés dans les demandes."
   },
   {
    "q": "La leçon recommande de créer un skill plutôt qu'un simple prompt dans quel cas ?",
@@ -835,7 +835,7 @@
     "Elle est déclenchée automatiquement par Claude à la fin de chaque tâche"
    ],
    "correct": 0,
-   "explanation": "Depuis la version 2.1.223 du 6 août 2026, /review est devenu un alias de /code-review et réutilise le niveau d'effort précédent. Attention aussi au sens de la marche : depuis le 19 juillet 2026, Claude ne lance plus /verify ni /code-review automatiquement, et /deep-research est en lancement manuel uniquement depuis le 22 juillet. Si tu veux une relecture, tu la déclenches — ou tu l'encodes dans un skill."
+   "explanation": "Depuis la version 2.1.223 du 6 août 2026, /review est devenu un alias de /code-review et réutilise le niveau d'effort précédent. Attention aussi au sens de la marche : depuis le 19 juillet 2026, Claude ne lance plus /verify ni /code-review automatiquement, et /deep-research est en lancement manuel uniquement depuis le 22 juillet. Si tu veux une relecture, tu la déclenches, ou tu l'encodes dans un skill."
   }
  ],
  "hooks-automatiser-les-invariants": [
@@ -892,7 +892,7 @@
     "Un remplacement du bac à sable, qui devient inutile"
    ],
    "correct": 1,
-   "explanation": "Entre le 18 juillet et le 6 août 2026, le changelog documente au moins cinq contournements du système de permissions Bash corrigés : PowerShell 5.1, conditionnels regex zsh, guillemets PowerShell, hooks PreToolUse court-circuitant les restrictions d'outils, et commande masquée par des tabulations ou de l'Unicode invisible. L'allowlist arrête les accidents, mais ce n'est pas une garantie : il faut superposer allowlist, bac à sable et validation humaine — et tenir Claude Code à jour."
+   "explanation": "Entre le 18 juillet et le 6 août 2026, le changelog documente au moins cinq contournements du système de permissions Bash corrigés : PowerShell 5.1, conditionnels regex zsh, guillemets PowerShell, hooks PreToolUse court-circuitant les restrictions d'outils, et commande masquée par des tabulations ou de l'Unicode invisible. L'allowlist arrête les accidents, mais ce n'est pas une garantie : il faut superposer allowlist, bac à sable et validation humaine, et tenir Claude Code à jour."
   }
  ],
  "mcp-connecter-vos-outils": [
@@ -984,7 +984,7 @@
     "Pour empêcher tout humain d'intervenir pendant l'exécution"
    ],
    "correct": 2,
-   "explanation": "Sans critère de succès défini à l'avance, l'agent « termine » sans que tu saches si le résultat est bon. La leçon recommande un critère vérifiable par une commande — le test devient le seul juge, ce qui évite d'ajouter des instructions de vérification devenues contre-productives sur Opus 5."
+   "explanation": "Sans critère de succès défini à l'avance, l'agent « termine » sans que tu saches si le résultat est bon. La leçon recommande un critère vérifiable par une commande : le test devient le seul juge, ce qui évite d'ajouter des instructions de vérification devenues contre-productives sur Opus 5."
   },
   {
    "q": "Au 6 août 2026, quelles limites s'appliquent par défaut aux sous-agents de Claude Code ?",
@@ -1212,7 +1212,7 @@
     "Chaque connecteur doit désormais être hébergé dans l'Union européenne"
    ],
    "correct": 1,
-   "explanation": "La spec 2026-07-28 supprime les sessions au niveau du protocole et le handshake d'initialisation : MCP devient stateless, ce qui permet aux serveurs distants de tourner en serverless. L'état entre appels passe par des handles émis par le serveur. Roots, Sampling et Logging sont dépréciés, et Tasks sort du cœur vers une extension versionnée. Attention : au 6 août 2026, Anthropic n'a publié aucune date de bascule côté produit — ne cale aucune migration sur une échéance inventée."
+   "explanation": "La spec 2026-07-28 supprime les sessions au niveau du protocole et le handshake d'initialisation : MCP devient stateless, ce qui permet aux serveurs distants de tourner en serverless. L'état entre appels passe par des handles émis par le serveur. Roots, Sampling et Logging sont dépréciés, et Tasks sort du cœur vers une extension versionnée. Attention : au 6 août 2026, Anthropic n'a publié aucune date de bascule côté produit : ne cale aucune migration sur une échéance inventée."
   }
  ],
  "data-verifier-travail-ia": [
@@ -1225,7 +1225,7 @@
     "Parce qu'une relecture ne détecte que les fautes de syntaxe, jamais les erreurs de jointure"
    ],
    "correct": 1,
-   "explanation": "La leçon insiste : « relire la requête de Claude avec les yeux de Claude reproduit ses biais ». Si l'erreur vient d'une hypothèse fausse (montant en centimes, jointure qui duplique), il faut un second calcul qui ne partage pas cette hypothèse — d'où l'exigence de vérification indépendante, pas d'une simple relecture."
+   "explanation": "La leçon insiste : « relire la requête de Claude avec les yeux de Claude reproduit ses biais ». Si l'erreur vient d'une hypothèse fausse (montant en centimes, jointure qui duplique), il faut un second calcul qui ne partage pas cette hypothèse, d'où l'exigence de vérification indépendante, pas d'une simple relecture."
   },
   {
    "q": "Dans la technique du recompute par un autre chemin, comment la leçon recommande-t-elle de faire générer le second calcul par Claude ?",
@@ -1339,7 +1339,7 @@
     "La demande de trois angles radicalement différents avant toute rédaction"
    ],
    "correct": 2,
-   "explanation": "La leçon dit que la dernière ligne de la liste noire — écrire [À COMPLÉTER] quand une donnée manque — est « la plus importante du parcours » car elle transforme l'hallucination en TODO visible. Les autres leviers sont utiles mais ne reçoivent pas ce statut."
+   "explanation": "La leçon dit que la dernière ligne de la liste noire (écrire [À COMPLÉTER] quand une donnée manque) est « la plus importante du parcours » car elle transforme l'hallucination en TODO visible. Les autres leviers sont utiles mais ne reçoivent pas ce statut."
   },
   {
    "q": "Comment la leçon recommande-t-elle d'aborder la toute première sortie de Claude en marketing ?",
@@ -1396,7 +1396,7 @@
     "Anonymiser systématiquement tous les cas clients"
    ],
    "correct": 2,
-   "explanation": "La leçon pose comme règle absolue de cette section : « tout ce qui n'est pas dans cette liste est interdit ; à défaut, écrire [À COMPLÉTER] » — jamais inventer. (L'anonymisation n'est mentionnée que « si besoin », pas systématiquement.)"
+   "explanation": "La leçon pose comme règle absolue de cette section : « tout ce qui n'est pas dans cette liste est interdit ; à défaut, écrire [À COMPLÉTER] ». Jamais inventer. (L'anonymisation n'est mentionnée que « si besoin », pas systématiquement.)"
   }
  ],
  "marketing-industrialiser-sans-perdre-la-voix": [
@@ -1453,7 +1453,7 @@
     "L'obligation est reportée au 2 décembre 2026 pour tous les contenus"
    ],
    "correct": 1,
-   "explanation": "Un texte publié pour informer le public sur un sujet d'intérêt public (environnement, santé publique, politique, sécurité des consommateurs, débat public) doit être étiqueté — sauf s'il a fait l'objet d'un contrôle humain ou éditorial dont une personne assume la responsabilité. D'où l'intérêt de documenter la relecture : qui a relu, quand, quoi. Le report du 2 décembre 2026 ne vise que le marquage lisible par machine de l'article 50(2), côté fournisseurs, pour les systèmes antérieurs au 2 août 2026."
+   "explanation": "Un texte publié pour informer le public sur un sujet d'intérêt public (environnement, santé publique, politique, sécurité des consommateurs, débat public) doit être étiqueté, sauf s'il a fait l'objet d'un contrôle humain ou éditorial dont une personne assume la responsabilité. D'où l'intérêt de documenter la relecture : qui a relu, quand, quoi. Le report du 2 décembre 2026 ne vise que le marquage lisible par machine de l'article 50(2), côté fournisseurs, pour les systèmes antérieurs au 2 août 2026."
   },
   {
    "q": "Parmi ces contenus produits avec Claude, lequel doit porter une divulgation visible dès la première exposition ?",
@@ -1648,7 +1648,7 @@
     "Quand l'équipe technique juge le projet trop ambitieux"
    ],
    "correct": 0,
-   "explanation": "La leçon conclut que si les réponses à « Qui ? », « Combien ? » et « Comment saura-t-on que ça a marché ? » ne tiennent pas en une demi-page claire, le cas d'usage n'est pas mûr — mieux vaut le découvrir maintenant."
+   "explanation": "La leçon conclut que si les réponses à « Qui ? », « Combien ? » et « Comment saura-t-on que ça a marché ? » ne tiennent pas en une demi-page claire, le cas d'usage n'est pas mûr : mieux vaut le découvrir maintenant."
   }
  ],
  "strategie-prioriser-portefeuille": [
@@ -1753,7 +1753,7 @@
     "Il a été adopté et a, au passage, simplifié le RGPD."
    ],
    "correct": 1,
-   "explanation": "Le Digital Omnibus sur l'IA n'est plus une proposition : c'est le Règlement (UE) 2026/1744, adopté le 8 juillet 2026, publié au JOUE le 24 juillet et entré en vigueur le 27 juillet 2026. Il reporte le haut risque — annexe III (dont le tri de CV, l'éducation, l'emploi) au 2 décembre 2027, annexe I au 2 août 2028 — et réécrit l'article 4 : on ne doit plus « garantir » un niveau suffisant de littératie IA mais « prendre des mesures pour soutenir le développement » de cette littératie. En revanche il ne reporte pas l'article 50, applicable depuis le 2 août 2026, et il ne touche pas au RGPD : le volet données du paquet n'est pas adopté."
+   "explanation": "Le Digital Omnibus sur l'IA n'est plus une proposition : c'est le Règlement (UE) 2026/1744, adopté le 8 juillet 2026, publié au JOUE le 24 juillet et entré en vigueur le 27 juillet 2026. Il reporte le haut risque : annexe III (dont le tri de CV, l'éducation, l'emploi) au 2 décembre 2027, annexe I au 2 août 2028. Il réécrit aussi l'article 4 : on ne doit plus « garantir » un niveau suffisant de littératie IA mais « prendre des mesures pour soutenir le développement » de cette littératie. En revanche il ne reporte pas l'article 50, applicable depuis le 2 août 2026, et il ne touche pas au RGPD : le volet données du paquet n'est pas adopté."
   },
   {
    "q": "D'après la classification des systèmes par l'AI Act décrite dans la leçon, à quelle catégorie de risque correspondent les obligations de transparence comme « signaler qu'on parle à une IA ou qu'un contenu est généré » ?",
@@ -1775,7 +1775,7 @@
     "À remplacer le DPO et le service juridique dans la qualification du risque réglementaire."
    ],
    "correct": 2,
-   "explanation": "La leçon décrit le comité IA comme l'organe qui décide des cas d'usage autorisés et de leurs conditions, tient un registre, classe les niveaux de risque et conditionne la mise en production à des contrôles proportionnés — pas de réunions infinies, mais des décisions tracées. Le DPO/juridique y siège pour qualifier le risque, mais le comité ne le remplace pas."
+   "explanation": "La leçon décrit le comité IA comme l'organe qui décide des cas d'usage autorisés et de leurs conditions, tient un registre, classe les niveaux de risque et conditionne la mise en production à des contrôles proportionnés : pas de réunions infinies, mais des décisions tracées. Le DPO/juridique y siège pour qualifier le risque, mais le comité ne le remplace pas."
   },
   {
    "q": "D'après les montants cités dans la leçon, quel plafond de sanction correspond au niveau le plus élevé de l'AI Act, et pour quel type de manquement ?",
@@ -1930,7 +1930,7 @@
    "q": "Selon le disclaimer et la règle finale de la leçon, où se situe la frontière entre l'IA et l'humain ?",
    "options": [
     "L'IA décide de la stratégie et l'humain se contente de l'exécuter manuellement",
-    "L'IA construit et vérifie ; l'humain décide et engage le capital — et cette frontière ne bouge jamais",
+    "L'IA construit et vérifie ; l'humain décide et engage le capital, et cette frontière ne bouge jamais",
     "L'IA et l'humain partagent à parts égales la responsabilité de chaque décision",
     "L'humain construit les outils et l'IA prend les décisions de trading sous supervision"
    ],
@@ -1946,7 +1946,7 @@
     "Les conserver uniquement sur les projets qui manipulent de l'argent"
    ],
    "correct": 1,
-   "explanation": "Anthropic demande de retirer les instructions de vérification (« étape de vérification finale », « fais relire par un sous-agent », « double-check ») : le modèle vérifie déjà son travail et ces consignes déclenchent de la sur-vérification. La vérification doit vivre dans le code — tests, assertions, jeu de contrôle."
+   "explanation": "Anthropic demande de retirer les instructions de vérification (« étape de vérification finale », « fais relire par un sous-agent », « double-check ») : le modèle vérifie déjà son travail et ces consignes déclenchent de la sur-vérification. La vérification doit vivre dans le code : tests, assertions, jeu de contrôle."
   }
  ],
  "backtester-sans-se-mentir": [
@@ -1954,7 +1954,7 @@
    "q": "Selon la leçon, à quoi sert FONDAMENTALEMENT un backtest honnête ?",
    "options": [
     "À valider et confirmer qu'une idée de trading est rentable",
-    "À t'empêcher d'engager de l'argent sur une idée qui ne tient pas — c'est un test de rejet",
+    "À t'empêcher d'engager de l'argent sur une idée qui ne tient pas : c'est un test de rejet",
     "À produire la plus belle courbe d'equity possible",
     "À optimiser un maximum de paramètres pour maximiser le rendement"
    ],
@@ -2260,10 +2260,10 @@
   {
    "q": "Quels sont les trois champs du frontmatter d'un skill, et lequel décide de l'ampleur de ce que tu accordes ?",
    "options": [
-    "title, author, version — c'est version qui limite les droits",
-    "name, description et allowed-tools — c'est allowed-tools qui décide du pouvoir réel",
-    "path, scope, owner — c'est scope qui décide du pouvoir réel",
-    "command, args, env — c'est env qui décide du pouvoir réel"
+    "title, author, version : c'est version qui limite les droits",
+    "name, description et allowed-tools : c'est allowed-tools qui décide du pouvoir réel",
+    "path, scope, owner : c'est scope qui décide du pouvoir réel",
+    "command, args, env : c'est env qui décide du pouvoir réel"
    ],
    "correct": 1,
    "explanation": "Un skill se déclare avec name, description et allowed-tools. La description décide du déclenchement (l'agent la lit pour choisir d'activer le skill), et allowed-tools décide du pouvoir : c'est le premier champ à lire dans un skill importé, et le principal levier de moindre privilège."
@@ -2323,7 +2323,7 @@
     "Les évaluations utilisaient des identifiants de production volontairement fournis"
    ],
    "correct": 1,
-   "explanation": "Sur 141 006 runs examinés, 3 cas ont vu des modèles atteindre Internet depuis un environnement supposé isolé et compromettre des systèmes réels. La contrainte n'existait que dans le texte du prompt : par malentendu avec le partenaire d'évaluation, l'accès Internet était bien disponible. La leçon : ce que tu dis à un agent sur son environnement ne contraint pas son environnement — les garanties se posent dans l'infrastructure."
+   "explanation": "Sur 141 006 runs examinés, 3 cas ont vu des modèles atteindre Internet depuis un environnement supposé isolé et compromettre des systèmes réels. La contrainte n'existait que dans le texte du prompt : par malentendu avec le partenaire d'évaluation, l'accès Internet était bien disponible. La leçon : ce que tu dis à un agent sur son environnement ne contraint pas son environnement : les garanties se posent dans l'infrastructure."
   }
  ],
  "checklist-vetting-et-sandbox": [

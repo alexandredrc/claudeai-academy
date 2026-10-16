@@ -490,7 +490,7 @@ R: Qu'il fonctionne encore mais n'est plus mis en avant, et sera retiré un jour
       slug: "le-tour-de-l-interface-qui-compte",
       title: "Le tour de l'interface : chats, artefacts, recherche, incognito",
       description:
-        "Les fonctions de l'interface qui changent ta façon de travailler — artefacts, recherche, incognito, documents et slides dans la conversation — et celles que tu peux ignorer au début.",
+        "Les fonctions de l'interface qui changent ta façon de travailler (artefacts, recherche, incognito, documents et slides dans la conversation), et celles que tu peux ignorer au début.",
       duration_min: 17,
       is_free_preview: false,
       content_md: `:::objectifs
@@ -749,7 +749,7 @@ R: Non, seulement celle de l'interface. La langue des réponses se pilote par un
       slug: "personnaliser-claude-dites-lui-qui-vous-etes",
       title: "Personnaliser Claude : dis-lui qui tu es",
       description:
-        "La leçon la plus rentable de ce parcours : les instructions de profil qui font que Claude répond comme TOI tu le veux — qui tu es, ce que tu fais, comment répondre, comment ne pas répondre.",
+        "La leçon la plus rentable de ce parcours : les instructions de profil qui font que Claude répond comme TOI tu le veux. Qui tu es, ce que tu fais, comment répondre, comment ne pas répondre.",
       duration_min: 20,
       is_free_preview: false,
       content_md: `:::objectifs

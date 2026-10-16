@@ -35,7 +35,7 @@ export const claudeDataSql = {
       slug: "data-bras-droit-pas-remplacant",
       title: "Claude, bras droit data, pas remplaçant",
       description:
-        "Cadrer l'usage de Claude sur la data, installer la règle d'or — ses sorties se vérifient toujours — et savoir quelles données tu as le droit de lui coller.",
+        "Cadrer l'usage de Claude sur la data, installer la règle d'or (ses sorties se vérifient toujours) et savoir quelles données tu as le droit de lui coller.",
       duration_min: 16,
       is_free_preview: true,
       content_md:
@@ -185,7 +185,7 @@ R: Un analyste junior surdoué et infatigable, dont on relit systématiquement l
       slug: "data-generer-sql-fiable",
       title: "Générer du SQL fiable : du schéma à la requête",
       description:
-        "Donner à Claude le contexte qui élimine les hypothèses inventées : schéma, dialecte, contraintes métier, pièges classiques — et le coût réel quand tu passes par l'API.",
+        "Donner à Claude le contexte qui élimine les hypothèses inventées : schéma, dialecte, contraintes métier, pièges classiques. Et le coût réel quand tu passes par l'API.",
       duration_min: 28,
       is_free_preview: false,
       content_md:
@@ -394,7 +394,7 @@ R: 512 tokens. La lecture depuis le cache coûte un vingtième du prix d'entrée
       slug: "data-debugger-optimiser",
       title: "Debugger et optimiser une requête avec Claude",
       description:
-        "Lire un plan d'exécution, poser les bons index, et désamorcer les pièges de jointure, de NULL et de fenêtrage — sans jamais optimiser à l'aveugle.",
+        "Lire un plan d'exécution, poser les bons index, et désamorcer les pièges de jointure, de NULL et de fenêtrage, sans jamais optimiser à l'aveugle.",
       duration_min: 28,
       is_free_preview: false,
       content_md:
@@ -558,7 +558,7 @@ R: Deux EXCEPT croisés entre l'ancienne et la nouvelle requête. Les deux doive
       slug: "data-exploration-anomalies",
       title: "Analyse exploratoire et détection d'anomalies",
       description:
-        "Profiler une table, choisir des statistiques robustes, repérer les outliers avec la MAD — et brancher Claude sur une vraie source de données.",
+        "Profiler une table, choisir des statistiques robustes, repérer les outliers avec la MAD, et brancher Claude sur une vraie source de données.",
       duration_min: 28,
       is_free_preview: false,
       content_md:

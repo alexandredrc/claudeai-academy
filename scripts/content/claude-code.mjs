@@ -374,7 +374,7 @@ R: À revenir en arrière dans la session, y compris retrouver la conversation d
       slug: "slash-commands-et-skills",
       title: "Slash commands & skills : industrialiser tes workflows",
       description:
-        "Transformer tes prompts récurrents en commandes et skills réutilisables — et savoir quand en créer un.",
+        "Transformer tes prompts récurrents en commandes et skills réutilisables, et savoir quand en créer un.",
       duration_min: 26,
       is_free_preview: false,
       content_md:
@@ -519,7 +519,7 @@ R: Non. Le lancement automatique de /verify et /code-review a été retiré le 1
       slug: "hooks-automatiser-les-invariants",
       title: "Hooks : automatiser les invariants",
       description:
-        "Faire exécuter des commandes déterministes par le harnais à chaque événement — pour garantir ce que le modèle ne doit pas oublier.",
+        "Faire exécuter des commandes déterministes par le harnais à chaque événement, pour garantir ce que le modèle ne doit pas oublier.",
       duration_min: 22,
       is_free_preview: false,
       content_md:
@@ -657,7 +657,7 @@ R: sandbox.network.strictAllowlist, ajouté le 24 juillet 2026.
       slug: "mcp-connecter-vos-outils",
       title: "MCP : connecter tes outils et tes données",
       description:
-        "Le Model Context Protocol pour donner à l'agent l'accès à tes bases, API et outils — sans ouvrir une faille de sécurité.",
+        "Le Model Context Protocol pour donner à l'agent l'accès à tes bases, API et outils, sans ouvrir une faille de sécurité.",
       duration_min: 22,
       is_free_preview: false,
       content_md:

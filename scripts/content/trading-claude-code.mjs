@@ -205,7 +205,7 @@ R: L'IA construit et vérifie. Toi seul décides et engages le capital.
       slug: "backtester-sans-se-mentir",
       title: "Backtester sans se mentir",
       description:
-        "Les 4 biais qui rendent la plupart des backtests faux, comment faire construire un backtest honnête par Claude Code, puis comment le torturer — sans exploser ta facture de tokens.",
+        "Les 4 biais qui rendent la plupart des backtests faux, comment faire construire un backtest honnête par Claude Code, puis comment le torturer, sans exploser ta facture de tokens.",
       duration_min: 26,
       is_free_preview: false,
       content_md:
@@ -391,7 +391,7 @@ R: Résumer les données par script au lieu de les mettre dans le contexte, et r
       slug: "coder-le-risque-sizing-et-stops",
       title: "Coder le risque : sizing et stops",
       description:
-        "La seule variable que tu contrôles vraiment, c'est le risque. On la code proprement avec Claude Code : fixed-fractional, stop ATR, pièges de Kelly — et la revue de code obligatoire dès qu'un agent touche à ce fichier.",
+        "La seule variable que tu contrôles vraiment, c'est le risque. On la code proprement avec Claude Code : fixed-fractional, stop ATR, pièges de Kelly. Et la revue de code obligatoire dès qu'un agent touche à ce fichier.",
       duration_min: 22,
       is_free_preview: false,
       content_md:
@@ -540,7 +540,7 @@ R: Toi. Claude Code ne lance plus /code-review tout seul ; /review en est devenu
       slug: "automatiser-la-recherche-et-garde-fous",
       title: "Automatiser la recherche : data, dashboards & garde-fous",
       description:
-        "Faire construire par Claude Code un pipeline de données daté, un tableau de bord utile, déléguer la recherche à des sous-agents sans exploser la facture — et poser la ligne rouge : l'IA n'exécute jamais seule.",
+        "Faire construire par Claude Code un pipeline de données daté, un tableau de bord utile, déléguer la recherche à des sous-agents sans exploser la facture. Puis poser la ligne rouge : l'IA n'exécute jamais seule.",
       duration_min: 26,
       is_free_preview: false,
       content_md:

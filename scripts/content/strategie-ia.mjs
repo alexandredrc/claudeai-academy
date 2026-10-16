@@ -161,7 +161,7 @@ R: Les réponses à « qui souffre », « combien ça vaut » et « quel chiffre
       slug: "strategie-prioriser-portefeuille",
       title: "Prioriser un portefeuille de cas d'usage",
       description:
-        "Une grille de scoring honnête sur trois axes — valeur, faisabilité, risque — pour transformer une liste d'idées en feuille de route défendable.",
+        "Une grille de scoring honnête sur trois axes (valeur, faisabilité, risque) pour transformer une liste d'idées en feuille de route défendable.",
       duration_min: 20,
       is_free_preview: false,
       content_md:
@@ -322,7 +322,7 @@ R: L'arrêter et rendre son budget au portefeuille. Un POC arrêté à temps est
       slug: "strategie-vrai-cout-projet-ia",
       title: "Le vrai coût d'un projet IA",
       description:
-        "L'API n'est qu'une fraction de la facture : build, run, évaluation, monitoring, sécurité et formation — le coût total de possession, sans angle mort.",
+        "L'API n'est qu'une fraction de la facture : build, run, évaluation, monitoring, sécurité et formation. Le coût total de possession, sans angle mort.",
       duration_min: 22,
       is_free_preview: false,
       content_md:
@@ -497,7 +497,7 @@ R: Son run annuel approche son gain annuel mesuré.
       slug: "strategie-gouvernance-conformite",
       title: "Gouvernance et conformité (RGPD + AI Act)",
       description:
-        "Comité IA, registre des usages, calendrier réel de l'AI Act au 19 août 2026 et état exact du RGPD — éducatif, pour dialoguer avec tes juristes, pas pour les remplacer.",
+        "Comité IA, registre des usages, calendrier réel de l'AI Act au 19 août 2026 et état exact du RGPD. Éducatif : pour dialoguer avec tes juristes, pas pour les remplacer.",
       duration_min: 30,
       is_free_preview: false,
       content_md:

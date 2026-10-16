@@ -65,7 +65,7 @@ export default function MentionsLegalesPage() {
 
           <h2>Propriété intellectuelle</h2>
           <p>
-            L’ensemble des contenus du site (textes, leçons, prompts, templates,
+            L’ensemble des contenus du site (textes, leçons, prompts, QCM,
             visuels, code) est protégé par le droit de la propriété
             intellectuelle et reste la propriété exclusive de l’éditeur, sauf
             mention contraire. Toute reproduction, diffusion ou revente sans

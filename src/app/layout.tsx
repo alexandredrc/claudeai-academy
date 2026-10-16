@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
@@ -14,18 +14,25 @@ import { EnHeader, EnFooter } from "@/components/site/en-chrome";
 import { INSTAGRAM_URL } from "@/components/site/instagram";
 import { annonceHausseMastery, maintenant, prixMastery } from "@/lib/offre/prix";
 
-const inter = Inter({
+// Polices embarquées dans le dépôt (src/app/fonts) : avec next/font/google, le
+// build téléchargeait les fichiers chez Google et échouait quand Google ne
+// répondait pas (préversion du 16/10/2026, « Module not found » sur Inter).
+// Ce sont, à l'octet près, les fichiers variables du sous-ensemble latin que
+// la prod servait (Inter v20, Fraunces v38) : rendu identique, aucun réseau au
+// build. Le code du site n'emploie aucun caractère hors de ce sous-ensemble
+// (scan du 16/10).
+const inter = localFont({
   variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  src: [{ path: "./fonts/inter-latin.woff2", weight: "400 700", style: "normal" }],
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const fraunces = localFont({
   variable: "--font-serif",
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  style: ["normal", "italic"],
+  src: [
+    { path: "./fonts/fraunces-latin.woff2", weight: "500 600", style: "normal" },
+    { path: "./fonts/fraunces-italic-latin.woff2", weight: "500 600", style: "italic" },
+  ],
   display: "swap",
 });
 

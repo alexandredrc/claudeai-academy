@@ -1,5 +1,6 @@
 import "server-only";
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { parseLessonContent } from "@/lib/lessons/blocks";
 
@@ -107,14 +108,27 @@ export type JournalMaj = {
   illisibles: number;
   /** Nombre total de leçons du catalogue, pour « X leçons sur Y ». */
   totalLecons: number;
+  /** Nombre de leçons par parcours (clé = slug), pour la vue filtrée. */
+  leconsParParcours: Record<string, number>;
 };
 
+/** « 2026-10-01 » → « 1er octobre 2026 ». */
+export function dateFr(iso: string): string {
+  const [a, m, j] = iso.split("-").map(Number);
+  return `${j === 1 ? "1er" : j} ${MOIS[m - 1]} ${a}`;
+}
+
+/** « 2026-10-01 » → « Octobre 2026 ». */
+export function moisFr(iso: string): string {
+  const [a, m] = iso.split("-").map(Number);
+  return `${majuscule(MOIS[m - 1])} ${a}`;
+}
+
 /**
- * Toutes les notes `:::maj` des leçons, de la plus récente à la plus ancienne.
- * À date égale : ordre du catalogue (parcours, puis leçon).
- * `cache()` déduplique l'appel sur un même rendu.
+ * Lecture brute : tout `content_md` (≈ 1 Mo) pour n'en garder que les
+ * en-têtes. Ne pas appeler directement, passer par `getJournalMaj`.
  */
-export const getJournalMaj = cache(async (): Promise<JournalMaj> => {
+async function lireJournal(): Promise<JournalMaj> {
   const [{ data: courses, error: cErr }, { data: lessons, error: lErr }] = await Promise.all([
     supabaseAdmin.from("courses").select("id, slug, title, display_order"),
     supabaseAdmin
@@ -129,11 +143,14 @@ export const getJournalMaj = cache(async (): Promise<JournalMaj> => {
 
   const parcoursParId = new Map((courses as CourseRow[]).map((c) => [c.id, c]));
   const notes: NoteMaj[] = [];
+  const leconsParParcours: Record<string, number> = {};
   let illisibles = 0;
 
   for (const l of lessons as LessonRow[]) {
     const c = parcoursParId.get(l.course_id);
-    if (!c || !l.content_md) continue;
+    if (!c) continue;
+    leconsParParcours[c.slug] = (leconsParParcours[c.slug] ?? 0) + 1;
+    if (!l.content_md) continue;
     for (const segment of parseLessonContent(l.content_md)) {
       if (segment.kind !== "block" || segment.type !== "maj") continue;
       const enTete = segment.title ? lireEnTeteMaj(segment.title) : null;
@@ -156,5 +173,39 @@ export const getJournalMaj = cache(async (): Promise<JournalMaj> => {
       a.lecon.ordre - b.lecon.ordre,
   );
 
-  return { notes, illisibles, totalLecons: lessons.length };
-});
+  return { notes, illisibles, totalLecons: lessons.length, leconsParParcours };
+}
+
+/**
+ * Le relevé ne change qu'au seed d'une leçon : on le garde une heure dans le
+ * cache de données de Next. L'accueil, rendu à chaque visite, l'utilise pour
+ * ses cartes de parcours ; sans ce cache, chaque visite relirait tout le
+ * contenu des leçons. Seul le résultat (les en-têtes, quelques dizaines de Ko) est stocké,
+ * jamais `content_md`. Une erreur n'est pas mise en cache.
+ */
+const journalEnCache = unstable_cache(lireJournal, ["journal-maj-v1"], { revalidate: 3600 });
+
+/**
+ * Toutes les notes `:::maj` des leçons, de la plus récente à la plus ancienne.
+ * À date égale : ordre du catalogue (parcours, puis leçon).
+ * Lève une erreur si la base est injoignable.
+ */
+export const getJournalMaj = cache(() => journalEnCache());
+
+/**
+ * Date (AAAA-MM-JJ) de la note la plus récente de chaque parcours, clé = slug.
+ * Un parcours sans note n'a pas d'entrée : on n'affiche jamais de date
+ * inventée. Base injoignable : objet vide, la page qui l'appelle s'affiche
+ * sans les dates plutôt que de tomber.
+ */
+export async function getDerniereMajParParcours(): Promise<Record<string, string>> {
+  try {
+    const { notes } = await getJournalMaj();
+    const derniere: Record<string, string> = {};
+    // Notes triées de la plus récente à la plus ancienne : la première vue gagne.
+    for (const n of notes) derniere[n.parcours.slug] ??= n.iso;
+    return derniere;
+  } catch {
+    return {};
+  }
+}

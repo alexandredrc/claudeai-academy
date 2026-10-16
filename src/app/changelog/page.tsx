@@ -3,13 +3,13 @@ import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
-import { getJournalMaj, type NoteMaj } from "@/lib/content/changelog";
+import { dateFr, getJournalMaj, moisFr, type NoteMaj } from "@/lib/content/changelog";
 import { CONTENU_A_JOUR_AU, SOURCES_SURVEILLEES } from "@/lib/content/fraicheur";
 import { breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
 import { pageMetadata } from "@/lib/seo/page-metadata";
 
-// Lu en base à chaque visite, comme les autres pages qui lisent les leçons :
-// le journal suit un seed sans redéploiement.
+// Rendu à chaque visite pour lire `?parcours=` ; le relevé des notes, lui, est
+// en cache une heure (voir getJournalMaj) : un seed apparaît sans redéploiement.
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = pageMetadata({
@@ -18,34 +18,6 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Chaque note de mise à jour datée des leçons de ClaudeAI Academy, de la plus récente à la plus ancienne : quelle leçon a changé, quand, dans quel parcours.",
 });
-
-const MOIS = [
-  "janvier",
-  "février",
-  "mars",
-  "avril",
-  "mai",
-  "juin",
-  "juillet",
-  "août",
-  "septembre",
-  "octobre",
-  "novembre",
-  "décembre",
-];
-
-/** « 2026-10-01 » → « 1er octobre 2026 ». */
-function dateFr(iso: string): string {
-  const [a, m, j] = iso.split("-").map(Number);
-  return `${j === 1 ? "1er" : j} ${MOIS[m - 1]} ${a}`;
-}
-
-/** « 2026-10-01 » → « Octobre 2026 ». */
-function moisFr(iso: string): string {
-  const [a, m] = iso.split("-").map(Number);
-  const nom = MOIS[m - 1];
-  return `${nom.charAt(0).toUpperCase()}${nom.slice(1)} ${a}`;
-}
 
 function pluriel(n: number, mot: string): string {
   return `${n} ${mot}${n > 1 ? "s" : ""}`;
@@ -95,8 +67,23 @@ function regrouper(notes: NoteMaj[]): Mois[] {
   return mois;
 }
 
-export default async function ChangelogPage() {
-  const { notes, totalLecons } = await getJournalMaj();
+type SearchParams = Promise<{ parcours?: string | string[] }>;
+
+export default async function ChangelogPage({ searchParams }: { searchParams: SearchParams }) {
+  const journal = await getJournalMaj();
+  const { parcours: demande } = await searchParams;
+
+  // Vue filtrée (`?parcours=<slug>`), ouverte depuis la pastille « Mis à jour
+  // le … » des cartes de parcours de l'accueil. Un slug inconnu, ou un
+  // parcours sans note, affiche le journal entier. La canonique reste
+  // /changelog : la vue filtrée n'est pas une page à indexer à part.
+  const filtre =
+    typeof demande === "string"
+      ? (journal.notes.find((n) => n.parcours.slug === demande)?.parcours ?? null)
+      : null;
+  const notes = filtre ? journal.notes.filter((n) => n.parcours.slug === filtre.slug) : journal.notes;
+  const totalLecons = filtre ? (journal.leconsParParcours[filtre.slug] ?? 0) : journal.totalLecons;
+
   const mois = regrouper(notes);
   const leconsTouchees = new Set(notes.map((n) => `${n.parcours.slug}/${n.lecon.slug}`)).size;
   const plusAncienne = notes.length > 0 ? dateFr(notes[notes.length - 1].iso) : null;
@@ -160,6 +147,21 @@ export default async function ChangelogPage() {
 
       <section className="bg-white py-14 md:py-20">
         <Container size="narrow">
+          {filtre && (
+            <div className="mb-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 rounded-[18px] border border-line bg-cream-soft px-5 py-4">
+              <p className="text-[15px] leading-relaxed text-ink-soft">
+                Parcours « <strong className="font-semibold text-ink">{filtre.titre}</strong> »
+                {" "}· {pluriel(notes.length, "note")}
+              </p>
+              <Link
+                href="/changelog"
+                className="text-[14px] font-semibold text-coral hover:text-coral-dark transition-colors"
+              >
+                Voir tout le journal
+              </Link>
+            </div>
+          )}
+
           {mois.map((m) => (
             <div key={m.cle} className="mb-14 last:mb-0">
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">

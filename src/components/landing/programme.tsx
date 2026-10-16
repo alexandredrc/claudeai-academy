@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getCatalogStats } from "@/lib/courses/stats";
+import { dateFr, getDerniereMajParParcours } from "@/lib/content/changelog";
 
 // Présentation marketing par parcours (emoji, public cible, compétences).
 // Clé = slug RÉEL en base. Le reste (titre, description, nb de leçons, durée)
@@ -138,6 +139,8 @@ type Parcours = Presentation & {
   title: string;
   description: string;
   meta: string;
+  /** Date (AAAA-MM-JJ) de la note `:::maj` la plus récente du parcours, s'il en a une. */
+  majIso: string | null;
 };
 
 function formatDuration(min: number | null): string | null {
@@ -155,7 +158,10 @@ export async function Programme() {
     .from("courses")
     .select("slug, title, description, total_lessons, estimated_duration_min")
     .order("display_order");
-  const stats = await getCatalogStats();
+  const [stats, derniereMaj] = await Promise.all([
+    getCatalogStats(),
+    getDerniereMajParParcours(),
+  ]);
 
   const rows = (data ?? []) as CourseRow[];
   const parcours: Parcours[] = rows.map((c) => {
@@ -167,6 +173,7 @@ export async function Programme() {
       title: c.title,
       description: c.description ?? "",
       meta: duration ? `${c.total_lessons} leçons · ${duration}` : `${c.total_lessons} leçons`,
+      majIso: derniereMaj[c.slug] ?? null,
     };
   });
 
@@ -244,8 +251,14 @@ function FeaturedParcoursCard({ p }: { p: Parcours }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16">
         <div>
-          <div className="inline-flex items-center gap-2 bg-coral/20 text-coral-soft px-3 py-1.5 rounded-full text-[12px] font-semibold tracking-wider">
-            {p.meta}
+          {/* Empilées sous lg : le badge « Commencez ici », en position
+              absolue à droite, recouvrirait une seconde pastille posée sur la
+              même ligne entre ~450 et ~580 px de large. */}
+          <div className="flex flex-col items-start gap-2 lg:flex-row lg:items-center">
+            <div className="inline-flex items-center gap-2 bg-coral/20 text-coral-soft px-3 py-1.5 rounded-full text-[12px] font-semibold tracking-wider">
+              {p.meta}
+            </div>
+            <PastilleMaj p={p} sombre />
           </div>
           <h3 className="mt-5 font-serif text-3xl md:text-4xl font-semibold leading-tight">
             <span aria-hidden="true" className="mr-2 align-middle">{p.emoji}</span>
@@ -282,8 +295,11 @@ function FeaturedParcoursCard({ p }: { p: Parcours }) {
 function ParcoursCard({ p }: { p: Parcours }) {
   return (
     <article className="bg-white border border-line rounded-[22px] p-9 flex flex-col transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_4px_8px_rgba(31,31,30,0.05),0_24px_48px_rgba(31,31,30,0.10)] hover:border-coral">
-      <div className="inline-flex self-start items-center gap-1.5 bg-cream-dark text-ink-soft px-3 py-1.5 rounded-full text-[12px] font-semibold tracking-wider">
-        {p.meta}
+      <div className="flex flex-wrap items-center gap-2">
+        <div className="inline-flex items-center gap-1.5 bg-cream-dark text-ink-soft px-3 py-1.5 rounded-full text-[12px] font-semibold tracking-wider">
+          {p.meta}
+        </div>
+        <PastilleMaj p={p} />
       </div>
       <h3 className="mt-5 font-serif text-2xl font-semibold text-ink leading-tight">
         <span aria-hidden="true" className="mr-2 align-middle">{p.emoji}</span>
@@ -309,6 +325,30 @@ function ParcoursCard({ p }: { p: Parcours }) {
         <span aria-hidden="true">→</span>
       </Link>
     </article>
+  );
+}
+
+/**
+ * « Mis à jour le … » : date de la dernière note datée du parcours, lue dans
+ * les leçons (jamais la date du jour). Mène au journal filtré sur ce parcours.
+ * Sans note, rien ne s'affiche.
+ */
+function PastilleMaj({ p, sombre = false }: { p: Parcours; sombre?: boolean }) {
+  if (!p.majIso) return null;
+  const date = dateFr(p.majIso);
+  return (
+    <Link
+      href={`/changelog?parcours=${p.slug}`}
+      aria-label={`Mis à jour le ${date} : voir les notes du parcours ${p.title}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-semibold transition-colors ${
+        sombre
+          ? "border-cream/20 text-cream/80 hover:border-cream/50 hover:text-cream"
+          : "border-line text-ink-soft hover:border-coral hover:text-coral"
+      }`}
+    >
+      <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-green" />
+      Mis à jour le {date}
+    </Link>
   );
 }
 

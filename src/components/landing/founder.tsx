@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { InstagramIcon, INSTAGRAM_URL, INSTAGRAM_HANDLE } from "@/components/site/instagram";
+import { FounderProofs } from "@/components/landing/founder-proofs";
 
 export function Founder() {
   return (
@@ -63,6 +64,8 @@ export function Founder() {
             <p className="mt-6 font-serif text-xl italic text-ink">
               Alexandre, fondateur
             </p>
+
+            <FounderProofs className="mt-7" />
 
             {/*
               On remplace « Lire l'histoire complète » par le compte personnel.

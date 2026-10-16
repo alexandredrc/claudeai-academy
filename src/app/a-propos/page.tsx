@@ -6,6 +6,7 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
 import { INSTAGRAM_URL } from "@/components/site/instagram";
+import { FounderProofs } from "@/components/landing/founder-proofs";
 
 export const metadata: Metadata = pageMetadata({
   path: "/a-propos",
@@ -31,7 +32,7 @@ const profilePageJsonLd = {
   url: "https://www.claudeai-academy.com/a-propos",
   name: "À propos de ClaudeAI Academy",
   inLanguage: "fr-FR",
-  dateModified: "2026-10-15",
+  dateModified: "2026-10-16",
   isPartOf: { "@id": "https://www.claudeai-academy.com/#website" },
   about: { "@id": "https://www.claudeai-academy.com/#organization" },
   mainEntity: {
@@ -154,6 +155,9 @@ export default function AProposPage() {
               rigoureuse, opérationnelle, et honnête sur ce que l’IA permet (et
               ne permet pas).
             </p>
+            <div className="not-prose my-8">
+              <FounderProofs />
+            </div>
             <p>
               ClaudeAI Academy est un organisme de formation indépendant, non
               affilié à Anthropic, l’entreprise qui édite Claude.

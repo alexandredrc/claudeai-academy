@@ -581,6 +581,31 @@ Et retirer J3 (ils ont déjà accès aux trois leçons) et J6 (ils ont déjà ch
 
 ---
 
+## Brief « version 3 » recollé le 16/10/2026 au soir (livrables A à F)
+
+Même brief que ci-dessus, avec E et F en plus. Confronté au HTML de prod le 16/10/2026 :
+
+| Affirmation | Réalité | Preuve |
+|---|---|---|
+| « Les autres retours » vide | Faux | « Carrossier » et « Mathilde » présents 3 fois chacun dans le HTML |
+| FAQ vide | Faux | 15 questions en prod depuis PR #25, dans l'ordre exact du brief (niveau … fondateur), repliées sauf la 1re |
+| Pas de photo du fondateur | Faux | `alexandre.jpg` 17 fois dans le HTML |
+| Pas de page /a-propos | Faux | `src/app/a-propos/page.tsx`, photo et JSON-LD ProfilePage |
+| Dates non expliquées | Vrai | 36 « Mis à jour le », aucune phrase d'explication sous le programme |
+| Ancrage « moins de 10 heures » | Vrai | `value-stack.tsx` |
+| « Impact conversion -25 % », « -20 % »… | Aucune source | Chiffres du brief, non mesurés |
+
+**Refusé :** les 6 témoignages nommés (A1) et les 4 études de cas Jean, Sophie, Karim, Élodie (C2 à C5). Personne de ce nom n'a acheté ni répondu. Publier un avis ou un résultat attribué à un client qui n'existe pas est une pratique commerciale trompeuse (Code de la consommation, art. L121-4 ; directive Omnibus 2019/2161). Remplacés par A3 (format) et par la collecte en cours : 6 emails acheteurs envoyés le 16/10, `lead_collecte` aux leads les 17 et 18/10.
+
+**Codé (branche `claude/ancrage-annuel-dates-fondateur-2026-10-16`) :**
+- E1 : phrase sous l'intro du programme, lien vers /changelog.
+- E2 : « moins de 10 heures » remplacé par le gain annuel. Calcul : (35 + 39 + 23) min = 97 min par semaine × 48 semaines = 4 656 min = 77 h 36 ; × 50 €/h = 3 880 €. Contre-calcul : 6 h 28 par 4 semaines × 12 = 77 h 36. Mention « estimation, pas une promesse » sous le chiffre.
+- F : trois preuves sur l'accueil et /a-propos (20 ans de métier, fiche technique 3 h 10 → 2 min mesurée le 15/10/2026, 99 notes datées publiques). Rien sur des « années d'usage de Claude » ni un nombre de clients : aucune source.
+
+**Non refait :** B (en prod), D (attend tes prompts de rédaction, décision du 16/10), page /resultats (règle : rien sans mesure).
+
+---
+
 ## Ce qui reste de ton côté
 
 1. **Décider** : bloc A2 (statut des avis) oui ou non.

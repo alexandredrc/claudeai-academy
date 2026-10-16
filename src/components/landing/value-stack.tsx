@@ -8,7 +8,12 @@ import {
   BONUS_AUDIT_PLACES,
   placesBonusRestantes,
 } from "@/lib/offre/bonus-audit";
-import { TAUX_HORAIRE_EXEMPLE } from "@/lib/offre/mesures";
+import {
+  MESURES_SEMAINE,
+  TAUX_HORAIRE_EXEMPLE,
+  duree,
+  mesure,
+} from "@/lib/offre/mesures";
 import {
   annonceHausseMastery,
   maintenant,
@@ -26,16 +31,30 @@ import {
 // section des temps mesurés (lib/offre/mesures.ts), le prix est celui du
 // jour (lib/offre/prix.ts : 497 € puis 697 € dès le 01/11/2026).
 
-/**
- * Le prix ramené à des heures au taux d'exemple : 497 / 50 = 9,94 donne
- * « moins de 10 heures », 697 / 50 = 13,94 « moins de 14 heures ». Si la
- * division tombe juste, « moins de » serait faux : on écrit le nombre exact.
- */
-function heuresDeTravail(prix: number): string {
-  const h = prix / TAUX_HORAIRE_EXEMPLE;
-  if (Number.isInteger(h)) return `${h} heure${h > 1 ? "s" : ""}`;
-  return `moins de ${Math.ceil(h)} heures`;
+// Jusqu'au 16/10/2026, le prix était ramené à des heures (« moins de 10
+// heures de votre temps ») : 10 h × 50 € ≈ 497 €, l'équivalence banalisait
+// le prix au lieu de le justifier. À la place, le temps rendu sur un an par
+// les trois tâches du calcul hebdomadaire (mêmes mesures que la section
+// « Mesuré, pas promis »), comparé au prix payé une fois.
+
+/** Semaines travaillées retenues : 12 mois de 4 semaines, congés exclus. */
+const SEMAINES_PAR_AN = 48;
+
+/** 97 min gagnées par semaine × 48 = 4 656 min, soit 77 h 36 et 3 880 €. */
+function gainAnnuel(): { minutes: number; euros: number } {
+  const parSemaine = MESURES_SEMAINE.reduce((total, id) => {
+    const m = mesure(id);
+    return m ? total + (m.sans - m.avec) : total;
+  }, 0);
+  const minutes = parSemaine * SEMAINES_PAR_AN;
+  return {
+    minutes,
+    euros: Math.round((minutes / 60) * TAUX_HORAIRE_EXEMPLE),
+  };
 }
+
+/** 3880 → « 3 880 » avec espace insécable (jamais coupé en fin de ligne). */
+const euros = (n: number) => n.toLocaleString("fr-FR").replace(/\s/g, " ");
 
 type Row = { item: string; obstacle: string };
 
@@ -50,6 +69,7 @@ export async function ValueStack() {
   const at = maintenant();
   const prix = prixMastery(at);
   const annonce = annonceHausseMastery(at);
+  const gain = gainAnnuel();
 
   // Bonus réel à places comptées : la ligne n'existe que tant qu'il reste
   // des places et que la date n'est pas passée (lib/offre/bonus-audit).
@@ -116,7 +136,10 @@ export async function ValueStack() {
 
           <div className="mt-6 border-t-2 border-ink pt-6">
             <p className="text-[15px] leading-relaxed text-ink-soft">
-              {`Si votre heure de travail vaut ${TAUX_HORAIRE_EXEMPLE} €, le Pass Mastery représente ${heuresDeTravail(prix)} de votre temps. Payé une fois, gardé à vie.`}
+              {`Trois tâches de chaque semaine : relancer un impayé, rédiger un compte rendu, répondre à une contestation. Avec Claude, elles vous rendent ${duree(gain.minutes)} de travail sur un an. À ${TAUX_HORAIRE_EXEMPLE} € de l'heure, ${euros(gain.euros)} € de temps, pour ${prix} € payés une fois.`}
+            </p>
+            <p className="mt-2 text-[13px] leading-relaxed text-muted">
+              {`Calcul sur ${SEMAINES_PAR_AN} semaines, à partir des temps mesurés par Alexandre. Une estimation, pas une promesse.`}
             </p>
             <div className="mt-5 flex items-baseline justify-between gap-4">
               <span className="font-bold font-serif text-xl text-ink">Votre prix</span>

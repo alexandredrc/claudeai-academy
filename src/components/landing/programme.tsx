@@ -204,6 +204,22 @@ export async function Programme() {
             décisions. Les {avances.length} autres sont optionnels, pour ceux
             qui veulent aller vers le code, la data ou les agents.
           </p>
+          {/* Les cartes portent des dates différentes (« Mis à jour le … ») :
+              sans explication, un visiteur y lit du désordre. C'est voulu,
+              chaque parcours suit son propre sujet. */}
+          <p className="mt-4 text-[15px] leading-relaxed text-muted max-w-[640px] mx-auto">
+            Chaque parcours porte sa propre date de mise à jour. Un parcours
+            change quand son sujet change. Une nouvelle version de Claude Code
+            ne touche pas la leçon sur les prompts. Cliquez sur une date pour
+            voir ce qui a changé, ou lisez le{" "}
+            <Link
+              href="/changelog"
+              className="text-coral font-medium underline-offset-2 hover:underline"
+            >
+              journal des mises à jour
+            </Link>
+            .
+          </p>
         </div>
 
         <FeaturedParcoursCard p={featured} />

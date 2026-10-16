@@ -31,13 +31,14 @@ const profilePageJsonLd = {
   url: "https://www.claudeai-academy.com/a-propos",
   name: "À propos de ClaudeAI Academy",
   inLanguage: "fr-FR",
+  dateModified: "2026-10-15",
   isPartOf: { "@id": "https://www.claudeai-academy.com/#website" },
   about: { "@id": "https://www.claudeai-academy.com/#organization" },
   mainEntity: {
     "@type": "Person",
     "@id": "https://www.claudeai-academy.com/a-propos#alexandre-dos-reis-caetano",
     name: "Alexandre Dos Reis Caetano",
-    jobTitle: "Restaurant Manager en Suisse",
+    jobTitle: ["Restaurant Manager en Suisse", "Fondateur de ClaudeAI Academy"],
     description:
       "Restaurant Manager en Suisse, fondateur d'ADRC Group et de ClaudeAI Academy. Utilise Claude au quotidien dans un métier de terrain.",
     url: "https://www.claudeai-academy.com/a-propos",

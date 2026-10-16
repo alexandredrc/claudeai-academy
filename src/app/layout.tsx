@@ -120,7 +120,9 @@ const organizationJsonLd = {
     "@type": "Person",
     "@id": "https://www.claudeai-academy.com/a-propos#alexandre-dos-reis-caetano",
     name: "Alexandre Dos Reis Caetano",
-    jobTitle: "Fondateur, ClaudeAI Academy",
+    // Même valeur que le ProfilePage de /a-propos : un seul @id, une seule
+    // fonction déclarée.
+    jobTitle: ["Restaurant Manager en Suisse", "Fondateur de ClaudeAI Academy"],
     url: "https://www.claudeai-academy.com/a-propos",
   },
   parentOrganization: { "@type": "Organization", name: "ADRC Group" },

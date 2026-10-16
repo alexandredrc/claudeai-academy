@@ -241,9 +241,11 @@ export default async function FormationIAIndependantsTPEPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(
           breadcrumbJsonLd([
+            // Mêmes libellés que le fil d'Ariane visible : Google attend le
+            // texte affiché dans `name`.
             { name: "Accueil", path: "/" },
-            { name: "Formation intelligence artificielle", path: "/formation-intelligence-artificielle" },
-            { name: "Formation IA pour indépendants et TPE", path: PATH },
+            { name: "Formation IA", path: "/formation-intelligence-artificielle" },
+            { name: "Indépendants et TPE", path: PATH },
           ]),
         )}
       />

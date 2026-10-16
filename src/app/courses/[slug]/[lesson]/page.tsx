@@ -14,7 +14,7 @@ import { CertificationProgress } from "@/components/site/certification-progress"
 import { markLessonCompleteAction } from "./actions";
 import { startCheckoutAction } from "@/app/checkout/actions";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
-import { pageMetadata } from "@/lib/seo/page-metadata";
+import { OG_IMAGE_URL, pageMetadata } from "@/lib/seo/page-metadata";
 
 export const dynamic = "force-dynamic";
 
@@ -51,6 +51,8 @@ type LessonMeta = {
   display_order: number;
   duration_min: number | null;
   is_free_preview: boolean;
+  created_at?: string | null;
+  updated_at?: string | null;
 };
 
 type LessonContent = LessonMeta & { content_md: string };
@@ -148,7 +150,7 @@ export default async function LessonPage({ params }: { params: Params }) {
   const { data: lessonMeta } = await supabase
     .from("lessons")
     .select(
-      "id, slug, title, description, display_order, duration_min, is_free_preview",
+      "id, slug, title, description, display_order, duration_min, is_free_preview, created_at, updated_at",
     )
     .eq("course_id", course.id)
     .eq("slug", lessonSlug)
@@ -252,6 +254,11 @@ export default async function LessonPage({ params }: { params: Params }) {
         headline: lessonMeta.title,
         name: lessonMeta.title,
         description: lessonMeta.description ?? undefined,
+        // Dates réelles de la base (comme le lastmod du sitemap) et image :
+        // les trois champs recommandés pour Article (audit SEO, point 20).
+        image: OG_IMAGE_URL,
+        datePublished: lessonMeta.created_at?.slice(0, 10),
+        dateModified: lessonMeta.updated_at?.slice(0, 10),
         url: `${SITE_URL}/courses/${course.slug}/${lessonMeta.slug}`,
         inLanguage: "fr-FR",
         learningResourceType: "Leçon",

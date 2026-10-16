@@ -30,18 +30,27 @@ export function InstagramGlyphGradient({ className }: { className?: string }) {
  * saturé de formations vendues par des comptes anonymes, voir la vraie vie de
  * quelqu'un — son prénom, son métier, son quotidien — vaut plus que n'importe
  * quel argument. Sur mobile, seul le glyphe est affiché.
+ *
+ * `compactLg` : glyphe seul aussi entre 1024 et 1279 px, où la navigation
+ * complète partage la ligne (le pseudo seul fait ~180 px).
  */
-export function InstagramBadge() {
+export function InstagramBadge({ compactLg = false }: { compactLg?: boolean }) {
   return (
     <a
       href={INSTAGRAM_URL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Instagram personnel d'Alexandre Dos Reis Caetano"
-      className="inline-flex items-center gap-2.5 rounded-full bg-ink pl-2.5 pr-2.5 sm:pr-4 py-2 shadow-[0_4px_18px_rgba(31,31,30,0.28)] hover:-translate-y-px hover:shadow-[0_6px_22px_rgba(31,31,30,0.38)] transition-all duration-200"
+      className={`inline-flex items-center gap-2.5 rounded-full bg-ink pl-2.5 pr-2.5 sm:pr-4 py-2 shadow-[0_4px_18px_rgba(31,31,30,0.28)] hover:-translate-y-px hover:shadow-[0_6px_22px_rgba(31,31,30,0.38)] transition-all duration-200 ${
+        compactLg ? "lg:pr-2.5 xl:pr-4" : ""
+      }`}
     >
       <InstagramGlyphGradient className="w-[22px] h-[22px] shrink-0" />
-      <span className="hidden sm:flex flex-col leading-tight text-left">
+      <span
+        className={`hidden sm:flex flex-col leading-tight text-left ${
+          compactLg ? "lg:hidden xl:flex" : ""
+        }`}
+      >
         <span className="text-[13px] font-bold text-cream">{INSTAGRAM_HANDLE}</span>
         <span className="text-[11px] text-cream/75">Mon Instagram perso</span>
       </span>

@@ -66,13 +66,18 @@ export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
           : "bg-cream/70 border-b border-transparent"
       }`}
     >
+      {/* Badge + logo, nav et actions font ~1 070 px à taille naturelle. Mesure
+          du 16/10/2026 : affichés dès md, ils sortaient de 216 px de l'écran à
+          768 px, et à 1024 px le logo, « Kit gratuit » et « Se connecter »
+          passaient sur deux lignes. Navigation complète dès lg, menu replié
+          en dessous, badge Instagram réduit au glyphe entre lg et xl. */}
       <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-[72px]">
         <div className="flex items-center gap-4">
-          <InstagramBadge />
+          <InstagramBadge compactLg />
           <Logo />
         </div>
 
-        <nav className="hidden md:block" aria-label="Navigation principale">
+        <nav className="hidden lg:block" aria-label="Navigation principale">
           <ul className="flex items-center gap-1">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -87,7 +92,7 @@ export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
           </ul>
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           {isLoggedIn ? (
             <Button href="/account" variant="ghost" size="md" className="!px-5 !py-2.5 !text-[14px]">
               Mon espace
@@ -112,7 +117,7 @@ export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden flex flex-col justify-center gap-[5px] w-8 h-8"
+          className="lg:hidden flex flex-col justify-center gap-[5px] w-8 h-8"
         >
           <span
             className={`block w-6 h-[2px] bg-ink rounded-sm transition-transform duration-200 ${
@@ -133,7 +138,7 @@ export function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-line bg-cream">
+        <div className="lg:hidden border-t border-line bg-cream">
           <ul className="flex flex-col p-4 gap-1">
             {navItems.map((item) => (
               <li key={item.href}>

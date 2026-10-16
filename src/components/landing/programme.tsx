@@ -242,21 +242,27 @@ export async function Programme() {
 function FeaturedParcoursCard({ p }: { p: Parcours }) {
   return (
     <article className="relative bg-gradient-to-br from-ink to-[#2D2A26] text-cream rounded-[22px] p-9 md:p-12 border border-ink overflow-hidden">
-      <span className="absolute top-7 right-7 inline-flex items-center gap-1.5 bg-coral text-cream text-[12px] font-semibold px-3 py-1.5 rounded-full">
-        <span>
-          <span aria-hidden="true">★</span>{" "}
-          Commencez ici
-        </span>
-      </span>
-
       <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16">
         <div>
           {/* Empilées sous lg : le badge « Commencez ici », en position
               absolue à droite, recouvrirait une seconde pastille posée sur la
               même ligne entre ~450 et ~580 px de large. */}
           <div className="flex flex-col items-start gap-2 lg:flex-row lg:items-center">
-            <div className="inline-flex items-center gap-2 bg-coral/20 text-coral-soft px-3 py-1.5 rounded-full text-[12px] font-semibold tracking-wider">
-              {p.meta}
+            {/* Sous lg, le badge suit le flux sur la ligne de la durée, décalé
+                dans le coin par des marges négatives (même place qu'en
+                absolu). Quand la ligne manque de place, il passe au-dessus au
+                lieu de chevaucher la durée (7 px à 360 px, mesure du
+                16/10/2026). Absolu dès lg, où la colonne de droite le loge. */}
+            <div className="flex flex-row-reverse flex-wrap items-start gap-x-1.5 gap-y-2 self-stretch lg:self-auto">
+              <span className="-mt-2 -mr-2 md:-mt-5 md:-mr-5 inline-flex items-center gap-1.5 bg-coral text-cream text-[12px] font-semibold px-3 py-1.5 rounded-full lg:absolute lg:top-7 lg:right-7 lg:m-0">
+                <span>
+                  <span aria-hidden="true">★</span>{" "}
+                  Commencez ici
+                </span>
+              </span>
+              <div className="mr-auto inline-flex items-center gap-2 bg-coral/20 text-coral-soft px-3 py-1.5 rounded-full text-[12px] font-semibold tracking-wider">
+                {p.meta}
+              </div>
             </div>
             <PastilleMaj p={p} sombre />
           </div>

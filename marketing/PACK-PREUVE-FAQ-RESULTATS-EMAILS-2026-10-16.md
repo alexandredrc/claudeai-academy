@@ -76,6 +76,101 @@ Le vrai trou n'est pas l'affichage des avis. C'est l'absence de **résultat mesu
 >
 > Alexandre
 
+### A1 bis. VERSION FINALE (16/10/2026, bâtie sur le modèle d'Alexandre, remplace A1)
+
+**Destinataires (base du 16/10/2026) :** 12 acheteurs payants, en deux versions. Exclus : l'acheteur du 16/10 (trop tôt, à J+14) et les 4 accès offerts (leurs avis porteraient une contrepartie).
+
+| Version | Pour qui | Nombre |
+|---|---|---|
+| A | Acheteurs ayant terminé au moins une leçon | 7 |
+| B | Acheteurs n'ayant terminé aucune leçon | 5 |
+
+**Ce qui change par rapport au modèle d'Alexandre :**
+
+| Modèle | Version finale | Raison |
+|---|---|---|
+| « En échange, je vous offre… » | Retiré | Un avis obtenu contre un avantage doit porter la mention de la contrepartie (D111-10). Les incitations promises en échange d'une réponse marchent moins bien que les cadeaux donnés d'avance (Church, *Public Opinion Quarterly*, 1993, méta-analyse de 38 études) |
+| « mois de mentorat », « parcours bonus » | Retiré | Ces offres n'existent pas |
+| « aider d'autres [métier] » | « d'autres indépendants » | On ne connaît pas encore le métier : c'est la question posée |
+| « J'espère que la formation vous aide » | Version B séparée | 5 acheteurs sur 12 n'ont terminé aucune leçon : ils ne peuvent pas répondre aux questions |
+| Anonymat par défaut implicite | Accord écrit en 3 choix | Le RGPD exige un consentement explicite pour publier un prénom |
+| « Pas besoin de script » | Trois phrases guides | Sans cadre, la vidéo dure 3 minutes et ne dit pas le chiffre |
+
+#### Version A : acheteurs actifs (7)
+
+**Objet :** Une faveur qui prend 3 minutes
+
+> Bonjour [Prénom],
+>
+> Vous avez rejoint ClaudeAI Academy en [mois]. Merci de votre confiance.
+>
+> Je rassemble les premiers retours de membres. Ils aideront d'autres indépendants à décider en connaissance de cause.
+>
+> Si vous avez 3 minutes, vous pouvez m'aider de deux façons.
+>
+> **1. Répondre à 3 questions, directement à cet email :**
+> - Quelle tâche vous prenait le plus de temps avant ?
+> - Combien de temps prenait-elle avant, et combien maintenant ?
+> - Qu'est-ce qui a changé concrètement dans votre semaine ?
+>
+> **2. Ou enregistrer une vidéo de 60 secondes avec votre téléphone :**
+> - Tenez-le à la verticale, en lumière naturelle, dans un endroit calme.
+> - Regardez l'objectif et parlez comme à un collègue.
+> - Trois phrases suffisent : qui vous êtes, la tâche avant et après, ce qui vous a le plus servi.
+> - Envoyez-la par WeTransfer à contact@claudeai-academy.com.
+>
+> Je ne publie rien sans votre accord écrit. Répondez simplement par l'une de ces phrases :
+> - « Oui, avec mon prénom, mon métier et ma ville. »
+> - « Oui, seulement avec mon métier. »
+> - « Non, c'est pour vous seulement. »
+>
+> Si la formation ne vous a rien apporté, dites-le aussi. C'est ce qui m'aide le plus à l'améliorer.
+>
+> Aucune obligation, bien sûr.
+>
+> Merci,
+>
+> Alexandre
+> Fondateur, ClaudeAI Academy
+
+#### Version B : acheteurs qui n'ont pas commencé (5)
+
+**Objet :** Une question rapide sur votre accès
+
+> Bonjour [Prénom],
+>
+> Vous avez rejoint ClaudeAI Academy en [mois]. D'après votre espace membre, vous n'avez pas encore terminé de leçon.
+>
+> Ce n'est pas un reproche. Je veux comprendre ce qui bloque, pour le corriger.
+>
+> Une ligne suffit, répondez directement à cet email :
+> - Pas eu le temps ?
+> - Un souci pour vous connecter ?
+> - Un contenu qui ne colle pas à votre métier ?
+> - Autre chose ?
+>
+> Si c'est la connexion, ce lien vous ouvre l'accès directement : [lien /acces].
+>
+> Si c'est le temps, trois leçons suffisent pour démarrer, une heure en tout :
+> 1. Personnaliser Claude : [lien]
+> 2. Être clair et direct : [lien]
+> 3. Claude dans Word, Excel et Outlook : [lien]
+>
+> Merci,
+>
+> Alexandre
+> Fondateur, ClaudeAI Academy
+
+**Relance unique à J+4, les deux versions :**
+
+> Bonjour [Prénom],
+>
+> Je relance une seule fois. Une ligne suffit, même « rien à signaler ».
+>
+> Alexandre
+
+**Avant l'envoi :** remplacer [mois] et les [lien] par les vraies valeurs, envoyer un par un depuis contact@, garder chaque accord écrit dans la boîte.
+
 ### A2. Bloc « Comment ces avis sont recueillis » (à coller seulement si tu reviens sur ta décision du 16/10)
 
 > **Comment ces avis sont recueillis.** Les retours de cette page viennent des premiers utilisateurs de la formation. Certains ont acheté leur accès, d'autres l'ont reçu gratuitement pour tester le programme avant son ouverture. Aucun avis n'a été rémunéré. Nous publions tous les retours reçus, positifs ou non, après accord écrit de leur auteur. Chaque avis porte le mois où il a été donné.

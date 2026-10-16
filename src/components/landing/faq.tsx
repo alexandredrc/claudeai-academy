@@ -14,6 +14,8 @@ import {
 type Item = {
   q: string;
   a: string;
+  /** Lien affiché à la fin de la réponse. */
+  lien?: { href: string; label: string };
 };
 
 const items: Item[] = [
@@ -39,6 +41,8 @@ const items: Item[] = [
     // L'objection nº1 d'une formation IA mérite une preuve, pas une promesse :
     // la date de la dernière passe et ce qu'elle a intégré.
     a: `C'est le risque numéro un d'une formation sur l'IA, et nous le traitons comme tel. Une veille surveille ${SOURCES_SURVEILLEES} sources de référence et signale chaque phrase de leçon qu'un changement peut rendre fausse. Dernière passe appliquée : ${CONTENU_A_JOUR_AU}, pour intégrer ${DERNIERE_PASSE}. Les leçons portent ${NOTES_DE_MISE_A_JOUR} notes de mise à jour datées depuis juillet 2026. Les mises à jour sont incluses, sans supplément.`,
+    // Journal public des notes (16/10/2026) : la preuve, pas seulement le chiffre.
+    lien: { href: "/changelog", label: "Voir ce qui a changé" },
   },
   {
     q: "En quoi c'est différent des cours gratuits sur YouTube ?",
@@ -129,7 +133,23 @@ function FAQItem({ item }: { item: Item }) {
         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
       >
         <div className="overflow-hidden">
-          <p className="px-6 pb-5 text-[15px] leading-[1.7] text-muted">{item.a}</p>
+          <p className="px-6 pb-5 text-[15px] leading-[1.7] text-muted">
+            {item.a}
+            {item.lien && (
+              <>
+                {" "}
+                {/* Hors tabulation tant que la réponse est repliée : un lien
+                    focalisable dans un panneau caché piège le clavier. */}
+                <Link
+                  href={item.lien.href}
+                  tabIndex={open ? undefined : -1}
+                  className="font-semibold text-coral underline underline-offset-4 hover:text-coral-dark transition-colors"
+                >
+                  {item.lien.label}
+                </Link>
+              </>
+            )}
+          </p>
         </div>
       </div>
     </li>

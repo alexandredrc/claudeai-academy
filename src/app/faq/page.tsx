@@ -90,6 +90,7 @@ const groups: Group[] = [
       {
         q: "Le contenu sera-t-il dépassé dans 6 mois ?",
         a: `C’est le risque numéro un d’une formation sur l’IA, et nous le traitons comme tel. Une veille surveille ${SOURCES_SURVEILLEES} sources de référence (documentation et notes de version d’Anthropic, journal des versions de Claude Code, Commission européenne, CNIL) et signale chaque phrase de leçon qu’un changement peut rendre fausse. Dernière passe appliquée : ${CONTENU_A_JOUR_AU}, pour intégrer ${DERNIERE_PASSE}. Les leçons portent ${NOTES_DE_MISE_A_JOUR} notes de mise à jour datées depuis juillet 2026, et chaque chiffre qui bouge (prix, version, limite) est écrit avec sa date. Les mises à jour sont incluses, sans supplément.`,
+        lien: { href: "/changelog", label: "Voir ce qui a changé" },
       },
       {
         q: "En quoi c’est différent des cours gratuits sur YouTube ?",

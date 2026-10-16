@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import { Button } from "@/components/site/button";
@@ -71,7 +72,13 @@ export async function Hero() {
                 de veille, jamais de la date du jour. */}
             <p className="order-5 lg:order-none mt-2 text-[13px] text-muted">
               Contenu relu le {CONTENU_A_JOUR_AU} ·{" "}
-              {NOTES_DE_MISE_A_JOUR} notes de mise à jour datées dans les leçons
+              {NOTES_DE_MISE_A_JOUR} notes de mise à jour datées dans les leçons ·{" "}
+              <Link
+                href="/changelog"
+                className="whitespace-nowrap underline underline-offset-4 decoration-line hover:text-coral transition-colors"
+              >
+                voir ce qui a changé
+              </Link>
             </p>
 
             <dl className="order-6 lg:order-none mt-10 md:mt-14 pt-8 border-t border-line flex flex-wrap gap-x-12 gap-y-5">

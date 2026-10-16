@@ -84,6 +84,9 @@ const staticRoutes: {
   // Test anglophone d'octobre 2026 : la version anglaise du kit.
   { path: "/en/kit", priority: 0.5, changeFrequency: "monthly", lastmod: "2026-10-09" },
   { path: "/faq", priority: 0.6, changeFrequency: "monthly", lastmod: "2026-10-15", suitFraicheur: true },
+  // Journal public des notes :::maj (16/10/2026) : il change à chaque passe de
+  // veille qui ajoute une note, donc il suit la date de fraîcheur.
+  { path: "/changelog", priority: 0.5, changeFrequency: "weekly", lastmod: "2026-10-16", suitFraicheur: true },
   { path: "/a-propos", priority: 0.5, changeFrequency: "yearly", lastmod: "2026-10-15" },
   { path: "/contact", priority: 0.4, changeFrequency: "yearly", lastmod: "2026-10-11" },
   { path: "/mentions-legales", priority: 0.2, changeFrequency: "yearly", lastmod: "2026-10-11" },

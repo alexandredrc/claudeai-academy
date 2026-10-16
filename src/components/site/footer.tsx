@@ -45,6 +45,7 @@ const academieLinks = [
   { href: "/tarifs#starter", label: "Pass Starter, 47 €" },
   { href: "/tarifs#mastery", label: "Pass Mastery, 497 €" },
   { href: "/faq", label: "FAQ et objections" },
+  { href: "/changelog", label: "Journal des mises à jour" },
   { href: "/a-propos", label: "À propos" },
   { href: "/contact", label: "Contact" },
   { href: "/login", label: "Mon espace" },

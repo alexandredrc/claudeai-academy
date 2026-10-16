@@ -16,7 +16,7 @@ export const claudeCodeIaAgentic = {
   slug: "claude-code-ia-agentic",
   title: "Claude Code et l'IA agentique",
   description:
-    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents, plugins et mods, coûts maîtrisés, puis comment le sortir du terminal avec l'Agent SDK ou les agents gérés. À jour de Claude Code 2.1.288 et d'Opus 5.5 (3 octobre 2026).",
+    "L'agent de code qui vit dans ton terminal : CLAUDE.md léger, skills et boucles de vérification, hooks, MCP, sous-agents, plugins et mods, coûts maîtrisés, puis comment le sortir du terminal avec l'Agent SDK ou les agents gérés. À jour de Claude Code 2.1.295 et d'Opus 5.5 (9 octobre 2026).",
   tier_required: "starter",
   display_order: 3,
   estimated_duration_min: 188,

@@ -16,18 +16,22 @@ import { getCatalogStats } from "@/lib/courses/stats";
 import { createClient } from "@/lib/supabase/server";
 import { PROMPT_COUNT } from "@/lib/prompts/library";
 import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
 // Landing dédiée au trafic Google Ads (requêtes « formation claude ai » et
 // proches). Volontairement hors nav, hors sitemap et noindex : elle ne doit
 // ni concurrencer la home en SEO ni recevoir de trafic organique — c'est le
 // laboratoire de mesure de la pub. AdsBot ignore le noindex (il suit
 // robots.txt), donc le Quality Score n'est pas affecté.
-export const metadata: Metadata = {
+// pageMetadata pour un og:url et une canonique propres (un partage de ce lien
+// s'affichait comme l'accueil) ; le noindex est conservé tel quel.
+export const metadata: Metadata = pageMetadata({
+  path: "/formation-claude-ai",
   title: "Formation Claude AI en français : 9 parcours, dès 47 €",
   description:
     "La formation Claude AI en français : 9 parcours, 58 leçons, 170 prompts prêts à l'emploi. À votre rythme, accès à vie, garantie 14 jours. Dès 47 €.",
   robots: { index: false, follow: true },
-};
+});
 
 export default function FormationClaudeAI() {
   return (

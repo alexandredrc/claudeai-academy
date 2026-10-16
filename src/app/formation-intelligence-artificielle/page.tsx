@@ -620,6 +620,20 @@ export default async function FormationIAPage() {
               className="font-semibold text-coral hover:text-coral-dark"
             >
               la certification Claude AI
+            </Link>{" "}
+            ·{" "}
+            <Link
+              href="/claude-ai-gratuit"
+              className="font-semibold text-coral hover:text-coral-dark"
+            >
+              Claude AI gratuit ou Pro
+            </Link>{" "}
+            ·{" "}
+            <Link
+              href="/claude-cowork"
+              className="font-semibold text-coral hover:text-coral-dark"
+            >
+              Claude Cowork
             </Link>
             .
           </p>

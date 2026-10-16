@@ -96,7 +96,7 @@ const faq = [
   },
   {
     q: "Combien coûte un agent IA ?",
-    a: "Trois lignes : les tokens, le temps de machine, les outils facturés à l'usage. Au 9 octobre 2026, Sonnet 5.5 coûte 2 $ par million de tokens en entrée et 10 $ en sortie, Haiku 5.5 0,10 $ et 0,50 $ (jusqu&apos;à 100 000 tokens par requête), Opus 5.5 4 $ et 20 $. Un agent géré ajoute 0,08 $ par heure de session en cours. La documentation d'Anthropic précise que les tokens dominent le coût de l'infrastructure d'un ordre de grandeur. La cadence est un paramètre de coût : un agent à 0,30 $ par exécution toutes les heures coûte 216 $ par mois, une fois par nuit 9 $.",
+    a: "Trois lignes : les tokens, le temps de machine, les outils facturés à l'usage. Au 9 octobre 2026, Sonnet 5.5 coûte 2 $ par million de tokens en entrée et 10 $ en sortie, Haiku 5.5 0,10 $ et 0,50 $ (jusqu'à 100 000 tokens par requête), Opus 5.5 4 $ et 20 $. Un agent géré ajoute 0,08 $ par heure de session en cours. La documentation d'Anthropic précise que les tokens dominent le coût de l'infrastructure d'un ordre de grandeur. La cadence est un paramètre de coût : un agent à 0,30 $ par exécution toutes les heures coûte 216 $ par mois, une fois par nuit 9 $.",
   },
   {
     q: "Quelle est la différence entre OpenClaw et Hermes Agent ?",

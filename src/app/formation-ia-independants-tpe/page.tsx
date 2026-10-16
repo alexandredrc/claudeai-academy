@@ -12,6 +12,7 @@ import { ELITE_ENABLED } from "@/lib/stripe/plans";
 import { CONTENU_A_JOUR_AU } from "@/lib/content/fraicheur";
 import { MESURES, MESURES_DATE, duree, mesure, type Mesure } from "@/lib/offre/mesures";
 import { SITE_URL, ORG_ID, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
 // Page métier du pilier /formation-intelligence-artificielle, pour le public
 // fixé le 15/10/2026 : indépendants et TPE non techniques. Requêtes visées :
@@ -38,11 +39,16 @@ const PARCOURS_STRATEGIE = "/courses/strategie-conduite-ia";
 // components/landing/pricing-teaser.tsx : 9 + 7 + 8 leçons en base).
 const STARTER_LESSON_COUNT = 24;
 
-export const metadata: Metadata = {
+// Via pageMetadata : carte Twitter, og:locale et og:site_name propres à la
+// page (un objet nu héritait la carte Twitter de l'accueil).
+export const metadata: Metadata = pageMetadata({
+  path: PATH,
   title: "Formation IA pour indépendants et TPE : Claude, sans technique",
   description:
     "Formation IA en français pour indépendants, artisans et TPE : emails, relances, comptes rendus avec Claude, sans coder. Dès 47 €, garantie 14 jours.",
-  alternates: { canonical: PATH },
+  ogDescription:
+    "Répondre à un client mécontent, relancer une facture, rédiger un compte rendu ou une fiche de poste avec Claude, sans coder. Temps mesurés, dès 47 €.",
+  type: "article",
   keywords: [
     "formation IA pour indépendants",
     "formation IA artisans",
@@ -54,15 +60,7 @@ export const metadata: Metadata = {
     "formation IA restaurateurs",
     "formation Claude sans technique",
   ],
-  openGraph: {
-    title: "Formation IA pour indépendants et TPE : Claude, sans technique",
-    description:
-      "Répondre à un client mécontent, relancer une facture, rédiger un compte rendu ou une fiche de poste avec Claude, sans coder. Temps mesurés, dès 47 €.",
-    url: PATH,
-    type: "article",
-    images: ["/og.png"],
-  },
-};
+});
 
 // Ce qui enseigne chaque tâche mesurée : une leçon (titre réel en base) ou un
 // prompt de la bibliothèque (titre et `tier` réels dans categories/*.json).
@@ -268,11 +266,11 @@ export default async function FormationIAIndependantsTPEPage() {
             <Link href="/" className="transition-colors hover:text-coral">
               Accueil
             </Link>
-            <span className="mx-2 text-line">/</span>
+            <span className="mx-2 text-line" aria-hidden="true">/</span>
             <Link href="/formation-intelligence-artificielle" className="transition-colors hover:text-coral">
               Formation IA
             </Link>
-            <span className="mx-2 text-line">/</span>
+            <span className="mx-2 text-line" aria-hidden="true">/</span>
             <span>Indépendants et TPE</span>
           </nav>
 

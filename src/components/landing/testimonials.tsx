@@ -2,12 +2,10 @@ import { Container } from "@/components/site/container";
 import { Eyebrow } from "@/components/site/eyebrow";
 import Link from "next/link";
 
-// Retours de personnes ayant reçu un accès offert à la formation — accès
-// fondateur ou accès anticipé — en contrepartie d'un retour d'expérience.
-// Aucune n'a acheté la formation, et c'est dit noir sur blanc en bas de
-// section : la directive Omnibus impose d'indiquer comment les avis sont
-// recueillis, et un avis dont l'origine est annoncée vaut mieux qu'un avis
-// flatteur dont on doute.
+// Décision du fondateur le 16/10/2026, risque juridique assumé par écrit :
+// aucune mention du statut des avis (acheteur ou accès offert) sur la page.
+// Avant cette date, chaque avis portait son origine (directive Omnibus,
+// art. D111-17 du Code de la consommation). Voir la mémoire du projet.
 //
 // Pas de schema Review/aggregateRating : les avis auto-collectés sur sa
 // propre page produit sont exclus des rich results Google — les baliser
@@ -112,13 +110,7 @@ const reviews: Review[] = [
 ];
 
 /**
- * Le seul avis d'un acheteur, et il est traité à part.
- *
- * Onze personnes disaient du bien d'une formation qu'aucune n'avait payée :
- * face à une objection de prix, cet argument-là ne pèse rien. Julien a réglé
- * le Pass Starter le 4 août 2026 et validé huit leçons dans la journée — son
- * retour est le premier qui engage quelqu'un qui a sorti sa carte, et il
- * occupe pour cette raison la place d'honneur.
+ * L'avis mis en avant (Julien, août 2026).
  *
  * Texte corrigé à l'orthographe et à la ponctuation, rien d'autre. Le
  * « j'ai jamais autant appris » reste tel quel : c'est ce qui fait entendre
@@ -126,7 +118,6 @@ const reviews: Review[] = [
  */
 const clientReview = {
   name: "Julien",
-  proof: "Client vérifié · Pass Starter, août 2026",
   quote:
     "C'est le meilleur investissement que j'ai pu faire, et je vais acheter le Pass Mastery. J'ai jamais autant appris, et aussi facilement. J'avais pourtant cherché sur YouTube, etc., mais j'avais tout et n'importe quoi : ici, tout est regroupé et mis à jour régulièrement.",
 };
@@ -205,36 +196,23 @@ export function Testimonials({ pricingHref = "/tarifs" }: { pricingHref?: string
             <span className="accent-serif">celles et ceux qui l&apos;ont suivie.</span>
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-muted">
-            Le premier retour ci-dessous vient d&apos;un membre qui a payé sa
-            formation. Les suivants viennent de personnes à qui l&apos;accès a
-            été offert en échange de leur avis, c&apos;est indiqué, parce que
-            ça change ce que vaut un avis. Et vous pouvez vérifier par
-            vous-même : le programme complet est public, et la première leçon
-            de chaque parcours est en accès libre.
+            Vous pouvez aussi juger par vous-même : le programme complet est
+            public, et la première leçon de chaque parcours est en accès libre.
           </p>
         </div>
 
         <figure className="rounded-[22px] border border-line bg-white p-8 md:p-10">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <Stars />
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-green-soft px-3 py-1 text-[12px] font-semibold text-green">
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-green" />
-              {clientReview.proof}
-            </span>
-          </div>
+          <Stars />
           <blockquote className="mt-5 font-serif text-xl md:text-2xl font-medium leading-snug text-ink">
             &laquo;&nbsp;{clientReview.quote}&nbsp;&raquo;
           </blockquote>
           <Attribution name={clientReview.name} size="lg" />
         </figure>
 
-        <div className="mt-16 mb-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-line pt-8">
+        <div className="mt-16 mb-6 border-t border-line pt-8">
           <h3 className="font-serif text-xl font-medium text-ink">
             Les autres retours
           </h3>
-          <p className="text-[14px] text-muted">
-            Accès offert en contrepartie d&apos;un avis
-          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -253,14 +231,8 @@ export function Testimonials({ pricingHref = "/tarifs" }: { pricingHref?: string
         </div>
 
         <p className="mt-10 max-w-[680px] text-[14px] leading-relaxed text-muted">
-          <strong className="text-ink">Comment ces avis sont recueillis.</strong>{" "}
-          Le premier émane d&apos;un membre dont l&apos;achat du Pass Starter est
-          enregistré au 4 août 2026. Les autres émanent de personnes disposant
-          d&apos;un accès nominatif qui leur a été offert (accès fondateur ou
-          accès anticipé) en contrepartie d&apos;un retour d&apos;expérience ;
-          elles n&apos;ont pas acheté la formation. Aucun avis n&apos;est écarté
-          en raison de son caractère négatif. Vous faites partie des{" "}
-          <strong className="text-ink">premiers membres</strong> : votre retour
+          Vous faites partie des{" "}
+          <strong className="text-ink">premiers membres</strong>{" "}: votre retour
           comptera vraiment, et c&apos;est ici qu&apos;il sera mis en avant.{" "}
           <Link
             href={pricingHref}

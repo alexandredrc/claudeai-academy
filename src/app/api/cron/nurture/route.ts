@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { isValidTier, type PlanTier } from "@/lib/stripe/plans";
 import { sendNurtureEmail, type NurtureKind } from "@/lib/email/nurture";
+import { refuserSansSecret } from "@/lib/securite/secret-appelant";
 
 export const dynamic = "force-dynamic";
 // Sécurité : on ne veut pas qu'une exécution traîne ; petit budget suffisant.
@@ -35,15 +36,8 @@ type Candidate = {
 
 export async function GET(req: NextRequest) {
   // --- Auth : Vercel Cron envoie `Authorization: Bearer $CRON_SECRET`. ---
-  const secret = process.env.CRON_SECRET;
-  if (!secret) {
-    console.error("[cron-nurture] CRON_SECRET non défini — refus (fail closed).");
-    return new NextResponse("Cron secret not configured", { status: 500 });
-  }
-  const auth = req.headers.get("authorization");
-  if (auth !== `Bearer ${secret}`) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
+  const refus = refuserSansSecret(req, "CRON_SECRET", "cron-nurture");
+  if (refus) return refus;
 
   const now = Date.now();
   const report: Record<string, { eligible: number; sent: number; skipped: number; failed: number }> = {};

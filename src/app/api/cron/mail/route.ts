@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { ImapFlow } from "imapflow";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { notifierMail } from "@/lib/notify/telegram";
+import { refuserSansSecret } from "@/lib/securite/secret-appelant";
 
 export const dynamic = "force-dynamic";
 // Une connexion IMAP + quelques en-têtes : large, mais on ne veut pas qu'une
@@ -33,7 +34,9 @@ export const maxDuration = 60;
  *   - ou une tâche Windows locale (voir pipeline/), PC allumé,
  *   - ou une planification réintroduite le jour d'un passage à une offre
  *     supérieure.
- * Dans tous les cas, l'appelant doit envoyer `Authorization: Bearer $CRON_SECRET`.
+ * Dans tous les cas, l'appelant doit envoyer
+ * `Authorization: Bearer $MAIL_RELEVE_SECRET` : un secret propre à cette route,
+ * car l'appelant est extérieur et ne doit jamais détenir `CRON_SECRET`.
  */
 
 const CLE_ETAT = "mail_support_dernier_uid";
@@ -77,14 +80,8 @@ function expediteurLisible(
 }
 
 export async function GET(req: NextRequest) {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) {
-    console.error("[cron-mail] CRON_SECRET non défini — refus (fail closed).");
-    return new NextResponse("Cron secret not configured", { status: 500 });
-  }
-  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
+  const refus = refuserSansSecret(req, "MAIL_RELEVE_SECRET", "cron-mail");
+  if (refus) return refus;
 
   const motDePasse = process.env.MAIL_IMAP_PASSWORD;
   if (!motDePasse) {

@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { refuserSansSecret } from "@/lib/securite/secret-appelant";
 
 /**
  * Compteur Google Ads → `app_state`.
@@ -11,7 +12,9 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
  * vivaient dans un message Telegram de 7 h et les ventes dans celui de 8 h :
  * deux messages pour une seule décision, et personne ne faisait l'addition.
  *
- * Auth : `Authorization: Bearer $CRON_SECRET`, comme les crons. Fail closed.
+ * Auth : `Authorization: Bearer $ADS_COMPTEUR_SECRET`, un secret propre à
+ * cette route. Le script vit chez Google : s'il fuit, seule cette route
+ * s'ouvre, pas les crons ni les liens de désinscription. Fail closed.
  * Le corps est stocké tel quel (JSON), plafonné à 8 Ko : c'est le rapport qui
  * interprète, pas la route.
  */
@@ -23,14 +26,8 @@ const CLE = "ads_compteur";
 const TAILLE_MAX = 8 * 1024;
 
 export async function POST(req: NextRequest) {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) {
-    console.error("[ads-compteur] CRON_SECRET non défini — refus (fail closed).");
-    return NextResponse.json({ ok: false }, { status: 503 });
-  }
-  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
-    return NextResponse.json({ ok: false }, { status: 401 });
-  }
+  const refus = refuserSansSecret(req, "ADS_COMPTEUR_SECRET", "ads-compteur");
+  if (refus) return refus;
 
   const brut = await req.text();
   if (!brut || brut.length > TAILLE_MAX) {

@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { sendActivationEmail, type ActivationKind } from "@/lib/email/activation";
+import { refuserSansSecret } from "@/lib/securite/secret-appelant";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -49,14 +50,8 @@ type Candidate = {
 
 export async function GET(req: NextRequest) {
   // --- Auth : Vercel Cron envoie `Authorization: Bearer $CRON_SECRET`. ---
-  const secret = process.env.CRON_SECRET;
-  if (!secret) {
-    console.error("[cron-activation] CRON_SECRET non défini — refus (fail closed).");
-    return new NextResponse("Cron secret not configured", { status: 500 });
-  }
-  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
+  const refus = refuserSansSecret(req, "CRON_SECRET", "cron-activation");
+  if (refus) return refus;
 
   const now = Date.now();
   const youngest = STEPS[0].minAgeDays;

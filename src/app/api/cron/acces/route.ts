@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { buildAccessLink } from "@/lib/auth/access-link";
 import { sendAccesRelanceEmail, type RelanceKind } from "@/lib/email/acces-relance";
+import { refuserSansSecret } from "@/lib/securite/secret-appelant";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -47,14 +48,8 @@ type Acheteur = {
 };
 
 export async function GET(req: NextRequest) {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) {
-    console.error("[cron-acces] CRON_SECRET non défini — refus (fail closed).");
-    return new NextResponse("Cron secret not configured", { status: 500 });
-  }
-  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
+  const refus = refuserSansSecret(req, "CRON_SECRET", "cron-acces");
+  if (refus) return refus;
 
   // 48 h de grâce : en deçà, l'email de bienvenue vient de partir et la
   // personne est simplement en train de vivre sa vie.

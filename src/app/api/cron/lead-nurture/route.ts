@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { sendLeadEmail, type LeadEmailKind } from "@/lib/email/lead-magnet";
+import { refuserSansSecret } from "@/lib/securite/secret-appelant";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -114,14 +115,8 @@ async function convertedEmails(emails: string[]): Promise<Set<string>> {
 }
 
 export async function GET(req: NextRequest) {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) {
-    console.error("[cron-lead-nurture] CRON_SECRET non défini — refus (fail closed).");
-    return new NextResponse("Cron secret not configured", { status: 500 });
-  }
-  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
+  const refus = refuserSansSecret(req, "CRON_SECRET", "cron-lead-nurture");
+  if (refus) return refus;
 
   const now = Date.now();
   const report: Record<string, number> = { eligibles: 0, envoyes: 0, attente: 0, convertis: 0, termines: 0, echecs: 0 };
